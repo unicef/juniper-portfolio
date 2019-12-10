@@ -1,0 +1,24 @@
+{
+  "name": "gilgamesh-tracking-server",
+  "version": "0.1.0",
+  "dependencies": {
+    "apollo-server-express": "^2.9.13",
+    "express": "^4.17.1",
+    "graphql": "^14.5.8"
+  },
+  "devDependencies": {
+    "@types/express": "^4.17.2",
+    "@types/node": "^12.12.15",
+    "nodemon": "^2.0.1",
+    "ts-node": "^8.5.4",
+    "typescript": "^3.7.3"
+  },
+  "scripts": {
+    "start": "nodemon src/index.ts",
+    "build": "tsc -p ./"
+  },
+  "main": "index.js",
+  "author": "",
+  "license": "ISC",
+  "description": ""
+}
