@@ -68,7 +68,7 @@ There are four major branches for this repository:
 
 To contribute to this application, create a branch from the Development branch. The format of the branch name should be: 
 
-> <NUMBER OF THE CARD YOU ARE WORKING ON>-<SHORT DESCRIPTION> (e.g. 12-adding-graphql)
+> 'NUMBER OF THE CARD YOU ARE WORKING ON'-'SHORT DESCRIPTION' (e.g. 12-adding-graphql)
 
 Once your update is complete, submit a pull request to the Development branch. 
 
