@@ -1,10 +1,11 @@
+import dotenv from 'dotenv'
+dotenv.config()
 import express, { Application } from 'express'
 import { ApolloServer } from 'apollo-server-express'
 import { connectDatabase } from './database'
 import { typeDefs, resolvers } from './graphql'
 
-
-const port: number = 9000
+const port = process.env.SERVER_PORT
 
 const mount = async (app: Application) => {
     const db = await connectDatabase()
