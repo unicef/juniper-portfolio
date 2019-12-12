@@ -5,7 +5,7 @@ import { ApolloServer } from 'apollo-server-express'
 import { connectDatabase } from './database'
 import { typeDefs, resolvers } from './graphql'
 
-const port = process.env.SERVER_PORT
+const port = process.env.SERVER_PORT 
 
 const mount = async (app: Application) => {
     const db = await connectDatabase()
@@ -19,6 +19,8 @@ const mount = async (app: Application) => {
     const dailyPrices = await db.dailyPrices.find({}).toArray()
     const users = await db.users.find({}).toArray()
     const transactions = await db.transactions.find({}).toArray()
+    const blockchainTransactions = await db.blockchainTransactions.find({}).toArray()
+    const donors = await db.donors.find({}).toArray()
 
     server.applyMiddleware({ app, path: '/api' })
     app.listen(port)

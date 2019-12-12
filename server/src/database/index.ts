@@ -1,9 +1,10 @@
 import { MongoClient } from 'mongodb'
+import { Database } from '../lib/types'
 
-const dbName = `${process.env.MONGO_DB_NAME}`
-const url = `${process.env.MONGO_URL}`
+const dbName = `${process.env.DB_NAME}`
+const url = `${process.env.DB_URL}`
 
-export const connectDatabase = async () => {
+export const connectDatabase = async (): Promise<Database> => {
     const client = await MongoClient.connect(url, {
         useNewUrlParser: true,
         useUnifiedTopology: true
@@ -13,6 +14,8 @@ export const connectDatabase = async () => {
         projects: db.collection('projects'),
         dailyPrices: db.collection('dailyPrices'),
         users: db.collection('dailyPrice'),
-        transactions: db.collection('transactions')
+        transactions: db.collection('transactions'),
+        blockchainTransactions: db.collection('blockchainTransactions'),
+        donors: db.collection('donors')
     }
 }

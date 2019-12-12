@@ -1,7 +1,7 @@
 import { gql } from 'apollo-server-express'
 
 export const typeDefs = gql`
-    type Transaction {
+    type BlockchainTransaction {
         id: ID!
         transactionHash: String!
         timestamp: String!
@@ -9,18 +9,18 @@ export const typeDefs = gql`
         to: String!
         currency: String!
         additionalNodes: String!
-        block: Int!
+        block: Int!  
         amountTransferred: Float!
         value: Float!
         fee: Float!
     }
 
     type Query {
-        transactions: [Transaction!]!
+        blockchainTransactions: [BlockchainTransaction!]!
     }
 
     type Mutation {
-        addTransaction(
+        addBlockchainTransaction(
             id: ID!
             transactionHash: String!
             timestamp: String!
@@ -32,15 +32,15 @@ export const typeDefs = gql`
             amountTransferred: Float!
             value: Float!
             fee: Float!
-        ): Transaction!
+        ): BlockchainTransaction!
         
-        editTransaction(
+        editBlockchainTransaction(
             id: ID!
-        ): Transaction!
+        ): BlockchainTransaction!
         
-        deleteTransaction(
+        deleteBlockchainTransaction(
             id: ID!
-        ): Transaction!
+        ): BlockchainTransaction!
     }
 
 `
