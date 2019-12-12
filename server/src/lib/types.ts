@@ -1,5 +1,29 @@
 import { Collection, ObjectId } from 'mongodb'
 
+interface TransactionParticipant {
+    _id: ObjectId;
+    name: String;
+    bitcoinPublicAddress: String;
+    ethereumPublicAddress: String;
+}
+export interface User {
+    _id: ObjectId;
+    name: String;
+    organization: String;
+    role: String; // can be donor, admin, project
+    email: String;
+    hash: String;
+    salt: String;
+}
+export interface DailyPrice {
+    _id: ObjectId;
+    currency: String;
+    priceBinance: Number;
+    priceCoinbasePro: Number;
+    priceBitstamp: Number;
+    averagePrice: Number;
+    date: String;
+}
 export interface BlockchainTransaction {
     _id: ObjectId;
     transactionHash: string;        
@@ -11,59 +35,43 @@ export interface BlockchainTransaction {
     block: number;        
     amountTransferred: number;        
     value: number;        
-    fee: number;       
+    fee: number;
+    
+    toHq: boolean;
+    toProject: boolean;
+    toNatCom: boolean;
 }
-
 export interface Transaction {
     _id: ObjectId;
-    donor: String;
-    recipient: String;
+    donor: Donor;
+    recipient: Project; 
+    fundraisingArm: FundraisingArm;
+    hq: Hq;
     amount: Number;
     record: [String];
     blockchainTransactions: [BlockchainTransaction];
+    transactionType: String; // can be in or out
 }
-
-export interface User {
-    _id: ObjectId;
-    name: String;
-    organization: String;
-    role: String; // can be donor, admin, project
-    email: String;
-    hash: String;
-    salt: String;
-}
-
-export interface DailyPrice {
-    _id: ObjectId;
-    currency: String;
-    priceBinance: Number;
-    priceCoinbasePro: Number;
-    priceBitstamp: Number;
-    averagePrice: Number;
-    date: String;
-}
-
-export interface Project {
-    _id: ObjectId;
-    name: String;
+export interface Project extends TransactionParticipant {
     objective: String;
-    amountFunded: Number;
-    currency: Number;
     image: String;
 }
-
-export interface Donor { 
-    _id: ObjectId;
-    name: String;
-    publicAddress: String;
+export interface Donor extends TransactionParticipant { 
     amountDonated: Number;
 }
-
+export interface FundraisingArm extends TransactionParticipant {
+    amountRaised: Number;
+}
+export interface Hq extends TransactionParticipant {
+    amountRecieved: Number;
+}
 export interface Database {
-    transactions: Collection<Transaction>;
     users: Collection<User>;
     dailyPrices: Collection<DailyPrice>;
     blockchainTransactions: Collection<BlockchainTransaction>;
+    transactions: Collection<Transaction>;
     projects: Collection<Project>;
     donors: Collection<Donor>;
+    fundraisingArms: Collection<FundraisingArm>;
+    hqs: Collection<Hq>;
 }

@@ -15,12 +15,6 @@ const mount = async (app: Application) => {
         context: () => ({ db })
     })
 
-    const projects = await db.projects.find({}).toArray()
-    const dailyPrices = await db.dailyPrices.find({}).toArray()
-    const users = await db.users.find({}).toArray()
-    const transactions = await db.transactions.find({}).toArray()
-    const blockchainTransactions = await db.blockchainTransactions.find({}).toArray()
-    const donors = await db.donors.find({}).toArray()
 
     server.applyMiddleware({ app, path: '/api' })
     app.listen(port)

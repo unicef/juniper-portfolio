@@ -11,11 +11,13 @@ export const connectDatabase = async (): Promise<Database> => {
     })
     const db = client.db(dbName)
     return {
-        projects: db.collection('projects'),
-        dailyPrices: db.collection('dailyPrices'),
         users: db.collection('dailyPrice'),
-        transactions: db.collection('transactions'),
+        dailyPrices: db.collection('dailyPrices'),
         blockchainTransactions: db.collection('blockchainTransactions'),
-        donors: db.collection('donors')
+        transactions: db.collection('transactions'),
+        projects: db.collection('projects'),
+        donors: db.collection('donors'),
+        fundraisingArms: db.collection('fundraisingArms'),
+        hqs: db.collection('hqs'),
     }
 }
