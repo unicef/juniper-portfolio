@@ -11,7 +11,7 @@ export const connectDatabase = async (): Promise<Database> => {
     })
     const db = client.db(dbName)
     return {
-        users: db.collection('dailyPrice'),
+        users: db.collection('users'),
         dailyPrices: db.collection('dailyPrices'),
         blockchainTransactions: db.collection('blockchainTransactions'),
         transactions: db.collection('transactions'),
