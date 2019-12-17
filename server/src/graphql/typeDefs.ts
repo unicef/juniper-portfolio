@@ -15,8 +15,30 @@ export const typeDefs = gql`
         fee: Float!
     }
 
+    type User {
+        id: ID!
+        name: String!
+        organization: String!
+        role: String!
+        email: String!
+        hash: String!
+        salt: String!
+    }
+
+    type DailyPrice {
+        id: ID!
+        currency: String!
+        priceBinance: String!
+        priceCoinbasePro: String!
+        priceBitstamp: String!
+        averagePrice: String!
+        date: String!
+    }
+
     type Query {
         blockchainTransactions: [BlockchainTransaction!]!
+        users: [User!]!
+        dailyPrices: [DailyPrice!]!
     }
 
     type Mutation {
@@ -41,6 +63,30 @@ export const typeDefs = gql`
         deleteBlockchainTransaction(
             id: ID!
         ): BlockchainTransaction!
+
+        addUser(
+            id: ID!
+            name: String!
+            organization: String!
+            role: String!
+            email: String!
+            hash: String!
+            salt: String!
+        ): User!
+        editUser(id: ID!): User!
+        deleteUser(id: ID!): User!
+
+        addDailyPrice(
+            id: ID!
+            currency: String!
+            priceBinance: String!
+            priceCoinbasePro: String!
+            priceBitstamp: String!
+            averagePrice: String!
+            date: String!
+        ): DailyPrice!
+        editDailyPrice(id: ID!): DailyPrice!
+        deleteDailyPrice(id: ID!): DailyPrice!
     }
 
 `
