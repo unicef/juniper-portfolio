@@ -1,5 +1,4 @@
-import React, { FunctionComponent } from 'react'
-import PropTypes from 'prop-types'
+import React from 'react'
 
 interface Props {
     title: string
