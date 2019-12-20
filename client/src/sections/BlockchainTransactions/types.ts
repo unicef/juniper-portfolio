@@ -1,4 +1,4 @@
-interface BlockchainTransaction {
+export interface BlockchainTransaction {
     id: string
     transactionHash: string
     timestamp: string

@@ -1,4 +1,4 @@
-interface DailyPrice {
+export interface DailyPrice {
     id: string
     currency: string
     priceBinance: number

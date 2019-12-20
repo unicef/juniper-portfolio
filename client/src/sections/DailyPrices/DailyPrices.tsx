@@ -1,6 +1,10 @@
 import React from 'react'
-import { server } from '../../lib/api'
-import { DailyPricesData, DeleteDailyPriceData, DeleteDailyPriceVariables } from './types'
+import { server, useQuery } from '../../lib/api'
+import { 
+        DailyPricesData, 
+        DeleteDailyPriceData, 
+        DeleteDailyPriceVariables,
+} from './types'
 
 const DAILYPRICES=`
     query DailyPrices {
@@ -30,27 +34,45 @@ interface Props {
 }
 
 export const DailyPrices = ({ title } : Props) => {
-    const fetchDailyPrices = async () => {
-        const { data } = await server.fetch<DailyPricesData>({ query: DAILYPRICES })
-        console.log(data.dailyPrices)
-    }
-    const deleteDailyPrice = async () => {
-        const { data } = await server.fetch<
+    const { data, loading, refetch } = useQuery<DailyPricesData>(DAILYPRICES)
+    
+    const deleteDailyPrice = async (id: string) => {
+        await server.fetch<
             DeleteDailyPriceData,
             DeleteDailyPriceVariables
         >({
             query: DELETE_DAILYPRICE,
             variables: {
-                id: '5df2b8ae067a43b693c9099d'
+                id
             }
         })
-        console.log(data)
+        refetch()
     }
+    const dailyPrices = data ? data.dailyPrices : null 
+    const dailyPricesList = dailyPrices ? (
+        <ul>
+            {dailyPrices.map(dailyPrice => {
+                return (
+                    <li key={dailyPrice.id}>
+                        {dailyPrice.id}{" "}
+                        <button onClick={() => {deleteDailyPrice(dailyPrice.id)}}>Delete</button>
+                    </li>
+                )
+            })}
+        </ul>
+    ) : null
+
+    
     return (
         <div>
             <h2>{title}</h2>
-            <button onClick={fetchDailyPrices}>Query daily prices!</button>
-            <button onClick={deleteDailyPrice}>Delete a daily price!</button>
+            {
+                loading ? 
+                    <h2>Loading...</h2>
+                :
+                    dailyPricesList
+            }
+            
         </div>
     )
 }
