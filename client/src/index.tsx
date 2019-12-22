@@ -3,8 +3,15 @@ import { render } from "react-dom";
 import { BlockchainTransactions, DailyPrices, Donors, FundraisingArms, Hqs, Projects, Transactions } from "./sections";
 import * as serviceWorker from "./serviceWorker";
 
+import ApolloClient from 'apollo-boost'
+import { ApolloProvider } from 'react-apollo'
+
+const client = new ApolloClient({
+    uri: '/api'
+})
+
 render(
-    <div>
+    <ApolloProvider client={client}>
         <BlockchainTransactions title='Blockchain Transactions' />
         <DailyPrices title='Daily Prices' />
         <Donors title='Donors' />
@@ -12,7 +19,7 @@ render(
         <Hqs title='Hqs' />
         <Projects title='Projects' />
         <Transactions title='Transactions' />
-    </div>,
+    </ApolloProvider>,
     document.getElementById("root")
 );
 

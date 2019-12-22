@@ -1,12 +1,13 @@
 import React from 'react'
-import { server, useQuery, useMutation } from '../../lib/api'
+import { gql } from 'apollo-boost'
+import { useQuery, useMutation } from 'react-apollo'
 import { 
         DailyPricesData, 
         DeleteDailyPriceData, 
         DeleteDailyPriceVariables,
 } from './types'
 
-const DAILY_PRICES=`
+const DAILY_PRICES= gql`
     query DailyPrices {
         dailyPrices {
             id
@@ -21,7 +22,7 @@ const DAILY_PRICES=`
     }
 `
 
-const DELETE_DAILY_PRICE = `
+const DELETE_DAILY_PRICE = gql`
     mutation DeleteDailyPrice($id: ID!) {
         deleteDailyPrice(id: $id) {
             id
@@ -42,7 +43,7 @@ export const DailyPrices = ({ title } : Props) => {
     const { data, loading, error, refetch } = useQuery<DailyPricesData>(DAILY_PRICES)
     
     const handleDeleteDailyPrice = async (id: string) => {
-        deleteDailyPrice({ id })
+        deleteDailyPrice({ variables: {id} })
         refetch()
     }
     const dailyPrices = data ? data.dailyPrices : null 
