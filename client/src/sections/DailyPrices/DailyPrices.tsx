@@ -1,12 +1,12 @@
 import React from 'react'
-import { server, useQuery } from '../../lib/api'
+import { server, useQuery, useMutation } from '../../lib/api'
 import { 
         DailyPricesData, 
         DeleteDailyPriceData, 
         DeleteDailyPriceVariables,
 } from './types'
 
-const DAILYPRICES=`
+const DAILY_PRICES=`
     query DailyPrices {
         dailyPrices {
             id
@@ -21,7 +21,7 @@ const DAILYPRICES=`
     }
 `
 
-const DELETE_DAILYPRICE = `
+const DELETE_DAILY_PRICE = `
     mutation DeleteDailyPrice($id: ID!) {
         deleteDailyPrice(id: $id) {
             id
@@ -34,18 +34,15 @@ interface Props {
 }
 
 export const DailyPrices = ({ title } : Props) => {
-    const { data, loading, refetch } = useQuery<DailyPricesData>(DAILYPRICES)
+    const [deleteDailyPrice, { loading: deleteDailyPriceLoading, error: deleteDailyPriceError }] = useMutation<
+        DeleteDailyPriceData, 
+        DeleteDailyPriceVariables
+    >(DELETE_DAILY_PRICE)
+
+    const { data, loading, error, refetch } = useQuery<DailyPricesData>(DAILY_PRICES)
     
-    const deleteDailyPrice = async (id: string) => {
-        await server.fetch<
-            DeleteDailyPriceData,
-            DeleteDailyPriceVariables
-        >({
-            query: DELETE_DAILYPRICE,
-            variables: {
-                id
-            }
-        })
+    const handleDeleteDailyPrice = async (id: string) => {
+        deleteDailyPrice({ id })
         refetch()
     }
     const dailyPrices = data ? data.dailyPrices : null 
@@ -55,7 +52,7 @@ export const DailyPrices = ({ title } : Props) => {
                 return (
                     <li key={dailyPrice.id}>
                         {dailyPrice.id}{" "}
-                        <button onClick={() => {deleteDailyPrice(dailyPrice.id)}}>Delete</button>
+                        <button onClick={() => {handleDeleteDailyPrice(dailyPrice.id)}}>Delete</button>
                     </li>
                 )
             })}
@@ -63,14 +60,32 @@ export const DailyPrices = ({ title } : Props) => {
     ) : null
 
     
+    const deleteDailyPriceLoadingMessage = deleteDailyPriceLoading ? (
+        <h4>Deletion in progress...</h4>
+    ) : null;
+
+    const deleteDailyPriceErrorMessage = deleteDailyPriceError ? (
+        <h4>
+          Uh oh! Something went wrong with deleting :(. Please try again soon.
+        </h4>
+      ) : null;
     return (
         <div>
             <h2>{title}</h2>
             {
                 loading ? 
                     <h2>Loading...</h2>
+                : error ?
+                    <h2>Uh oh! Something went wrong - please try again later</h2>
                 :
-                    dailyPricesList
+                    ( 
+                        <div>
+                        {dailyPricesList}
+                        {deleteDailyPriceLoadingMessage}
+                        {deleteDailyPriceErrorMessage}
+                        </div>
+                        
+                    )
             }
             
         </div>
