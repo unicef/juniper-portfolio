@@ -1,11 +1,8 @@
 import React from 'react'
 import { gql } from 'apollo-boost'
 import { useQuery, useMutation } from 'react-apollo'
-import { 
-        DailyPricesData, 
-        DeleteDailyPriceData, 
-        DeleteDailyPriceVariables,
-} from './types'
+import { DailyPrices as DailyPricesData } from './__generated__/DailyPrices'
+import { DeleteDailyPrice as DeleteDailyPriceData, DeleteDailyPriceVariables} from './__generated__/DeleteDailyPrice'
 
 const DAILY_PRICES= gql`
     query DailyPrices {
