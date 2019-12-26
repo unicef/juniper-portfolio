@@ -14,7 +14,6 @@ const DAILY_PRICES= gql`
             priceBitstamp
             averagePrice
             date
-
         }
     }
 `

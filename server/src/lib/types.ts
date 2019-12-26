@@ -18,10 +18,10 @@ export interface User {
 export interface DailyPrice {
     _id: ObjectId;
     currency: String;
-    priceBinance: Number;
-    priceCoinbasePro: Number;
-    priceBitstamp: Number;
-    averagePrice: Number;
+    priceBinance: String;
+    priceCoinbasePro: String;
+    priceBitstamp: String;
+    averagePrice: String;
     date: String;
 }
 export interface BlockchainTransaction {

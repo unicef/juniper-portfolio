@@ -77,7 +77,7 @@ export const typeDefs = gql`
         deleteUser(id: ID!): User!
 
         addDailyPrice(
-            id: ID!
+            # id: ID!
             currency: String!
             priceBinance: String!
             priceCoinbasePro: String!

@@ -16,8 +16,39 @@ export const dailyPriceResolvers: IResolvers = {
         }
     },
     Mutation: {
-        addDailyPrice: () => {
-            return 'Adding daily price'
+        addDailyPrice: async (
+            _root: undefined,
+            {
+                currency,
+                priceBinance,
+                priceCoinbasePro,
+                priceBitstamp,
+                averagePrice,
+            }: {
+                currency: string,
+                priceBinance: string,
+                priceCoinbasePro: string,
+                priceBitstamp: string,
+                averagePrice: string,
+                date: string
+            },
+            { db }: { db: Database }
+        ): Promise<DailyPrice> => {
+        // ) => {
+            const createRes = await db.dailyPrices.insertOne({
+                _id: new ObjectId(),
+                currency,
+                priceBinance,
+                priceCoinbasePro,
+                priceBitstamp,
+                averagePrice,
+                date: new Date().toString()
+            })
+            console.log(createRes.ops[0])
+            // if(!createRes.value) {
+            //     throw new Error('failed to create result')
+            // }
+            return createRes.ops[0]
         },
         editDailyPrice: () => {
             return 'Editing daily price'
