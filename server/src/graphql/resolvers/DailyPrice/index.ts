@@ -34,7 +34,6 @@ export const dailyPriceResolvers: IResolvers = {
             },
             { db }: { db: Database }
         ): Promise<DailyPrice> => {
-        // ) => {
             const createRes = await db.dailyPrices.insertOne({
                 _id: new ObjectId(),
                 currency,
@@ -44,10 +43,9 @@ export const dailyPriceResolvers: IResolvers = {
                 averagePrice,
                 date: new Date().toString()
             })
-            console.log(createRes.ops[0])
-            // if(!createRes.value) {
-            //     throw new Error('failed to create result')
-            // }
+            if(!createRes.ops[0]) {
+                throw new Error('failed to create result')
+            }
             return createRes.ops[0]
         },
         editDailyPrice: () => {
