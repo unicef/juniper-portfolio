@@ -64,22 +64,12 @@ export const DailyPrices = ({ title } : Props) => {
         deleteDailyPrice({ variables: {id} })
         refetch()
     }
-
     const handleAddDailyPrice = async () => {
         addDailyPrice({ variables: {currency, priceBinance, priceBitstamp, priceCoinbasePro, averagePrice, date: Date.now().toString()}})
         refetch()
     }
     const handleAveragePrice = () => {
         setAveragePrice(((parseFloat(priceBinance) + parseFloat(priceBitstamp) + parseFloat(priceCoinbasePro))/3).toString())
-    }
-    const handlePriceBinance = (e: any) => {
-        setPriceBinance(e.target.value)
-    }
-    const handlePriceBitstamp = (e: any) => {
-        setPriceBitstamp(e.target.value)
-    }
-    const handlePriceCoinbasePro = (e: any) => {
-        setPriceCoinbasePro(e.target.value)
     }
     const dailyPrices = data ? data.dailyPrices : null 
     const dailyPricesList = dailyPrices ? (
@@ -94,12 +84,9 @@ export const DailyPrices = ({ title } : Props) => {
             })}
         </ul>
     ) : null
-
-    
     const deleteDailyPriceLoadingMessage = deleteDailyPriceLoading ? (
         <h4>Deletion in progress...</h4>
     ) : null;
-
     const deleteDailyPriceErrorMessage = deleteDailyPriceError ? (
         <h4>
           Uh oh! Something went wrong with deleting :(. Please try again soon.
@@ -116,11 +103,11 @@ export const DailyPrices = ({ title } : Props) => {
                     <option value="BTC">Bitcoin</option>
                 </select>
                 <label htmlFor="Price from Binance">Price from Binance</label>   
-                <input onChange={handlePriceBinance} value={priceBinance} type="number" name="priceBinance" id="priceBinance" /> 
+                <input onChange={e => setPriceBinance(e.target.value)} value={priceBinance} type="number" name="priceBinance" id="priceBinance" /> 
                 <label htmlFor="Price from Bitstamp">Price from Bitstamp</label>   
-                <input onChange={handlePriceBitstamp} value={priceBitstamp} type="number" name="priceBitstamp" id="priceBitstamp" />
+                <input onChange={e => setPriceBitstamp(e.target.value)} value={priceBitstamp} type="number" name="priceBitstamp" id="priceBitstamp" />
                 <label htmlFor="Price from Coinbase Pro">Price from Coinbase Pro</label>
-                <input onChange={handlePriceCoinbasePro} value={priceCoinbasePro} type="number" name="priceCoinbasePro" id="priceCoinbasePro" />
+                <input onChange={e => setPriceCoinbasePro(e.target.value)} value={priceCoinbasePro} type="number" name="priceCoinbasePro" id="priceCoinbasePro" />
                 <label htmlFor="Average Price">Average Price</label>
                 <span>{'$'+averagePrice}</span>
                 <input type="submit" value="Add new price" />    
@@ -133,6 +120,7 @@ export const DailyPrices = ({ title } : Props) => {
                 :
                     ( 
                         <div>
+                        <h3>List of Daily Prices</h3>
                         {dailyPricesList}
                         {deleteDailyPriceLoadingMessage}
                         {deleteDailyPriceErrorMessage}
@@ -140,7 +128,6 @@ export const DailyPrices = ({ title } : Props) => {
                         
                     )
             }
-            
         </div>
     )
 }
