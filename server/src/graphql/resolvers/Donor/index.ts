@@ -12,7 +12,6 @@ export const donorResolvers: IResolvers = {
             _args: {}, 
             { db }: { db: Database })
         : Promise<Donor[]> => {
-            console.log('Getting donors')
             return await db.donors.find({}).toArray()
         }
     },
@@ -30,7 +29,6 @@ export const donorResolvers: IResolvers = {
             },
             { db }: {db: Database }
         ): Promise<Donor> => {
-            console.log(name, bitcoinPublicAddress, ethereumPublicAddress)
             const createRes = await db.donors.insertOne({
                 _id: new ObjectId(),
                 name,
@@ -39,7 +37,6 @@ export const donorResolvers: IResolvers = {
                 amountDonated: 0
             })
             if(!createRes.ops[0]) {
-                console.log('Fail!')
                 throw new Error('failed to create result')
             }
             return createRes.ops[0]
