@@ -24,7 +24,7 @@ export const dailyPriceResolvers: IResolvers = {
                 priceCoinbasePro,
                 priceBitstamp,
                 averagePrice,
-            }: {
+            } : {
                 currency: string,
                 priceBinance: string,
                 priceCoinbasePro: string,

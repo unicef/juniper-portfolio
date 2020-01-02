@@ -34,11 +34,20 @@ export const typeDefs = gql`
         averagePrice: String!
         date: String!
     }
+    
+    type Donor {
+        id: ID!
+        name: String!
+        bitcoinPublicAddress: String!
+        ethereumPublicAddress: String!
+        amountDonated: Float!
+    }
 
     type Query {
         blockchainTransactions: [BlockchainTransaction!]!
         users: [User!]!
         dailyPrices: [DailyPrice!]!
+        donors: [Donor!]!
     }
 
     type Mutation {
@@ -87,6 +96,17 @@ export const typeDefs = gql`
         ): DailyPrice!
         editDailyPrice(id: ID!): DailyPrice!
         deleteDailyPrice(id: ID!): DailyPrice!
+        
+        addDonor(
+            name: String!,
+            bitcoinPublicAddress: String!,
+            ethereumPublicAddress: String!
+        ): Donor!
+        increaseDonationAmount(
+            id: ID!, 
+            donation: Float!): Donor!
+        deleteDonor(id: ID!): Donor!
+
     }
 
 `

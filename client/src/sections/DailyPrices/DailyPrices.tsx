@@ -47,13 +47,18 @@ export const DailyPrices = ({ title } : Props) => {
 
     useEffect(() => {
         handleAveragePrice()
-    }, [priceBinance, priceBitstamp, priceCoinbasePro])
+    })
     const [deleteDailyPrice, { loading: deleteDailyPriceLoading, error: deleteDailyPriceError }] = useMutation<
         DeleteDailyPriceData, 
         DeleteDailyPriceVariables
     >(DELETE_DAILY_PRICE)
 
-    const [addDailyPrice, { loading: addDailyPriceLoading, error: addDailyPriceError }] = useMutation<
+    const [addDailyPrice
+        // , { 
+        // loading: addDailyPriceLoading, 
+        // error: addDailyPriceError 
+        // }
+] = useMutation<
         AddDailyPriceData, 
         AddDailyPriceVariables
     >(ADD_DAILY_PRICE)

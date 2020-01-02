@@ -26,20 +26,20 @@ export interface DailyPrice {
 }
 export interface BlockchainTransaction {
     _id: ObjectId;
-    transactionHash: string;        
-    timestamp: string;        
-    from: string;        
-    to: string;        
-    currency: string;        
-    additionalNotes: string;        
-    block: number;        
-    amountTransferred: number;        
-    value: number;        
-    fee: number;
+    transactionHash: String;        
+    timestamp: String;        
+    from: String;        
+    to: String;        
+    currency: String;        
+    additionalNotes: String;        
+    block: Number;        
+    amountTransferred: Number;        
+    value: Number;        
+    fee: Number;
     
-    toHq: boolean;
-    toProject: boolean;
-    toNatCom: boolean;
+    toHq: Boolean;
+    toProject: Boolean;
+    toNatCom: Boolean;
 }
 export interface Transaction {
     _id: ObjectId;
