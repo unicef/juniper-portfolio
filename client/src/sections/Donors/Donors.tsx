@@ -4,7 +4,6 @@ import { useQuery, useMutation } from 'react-apollo'
 import { Donors as DonorsData } from './__generated__/Donors'
 import { DeleteDonor as DeleteDonorData, DeleteDonorVariables} from './__generated__/DeleteDonor'
 import { AddDonor as AddDonorData, AddDonorVariables} from './__generated__/AddDonor'
-import { IncreaseDonationAmount as IncreaseDonationAmountData, IncreaseDonationAmountVariables} from './__generated__/IncreaseDonationAmount'
 import { DonorListItem } from './DonorListItem'
 
 const DONORS = gql`
@@ -27,15 +26,6 @@ const ADD_DONOR = gql`
     }
 `
 
-const INCREASE_DONATION_AMOUNT = gql`
-    mutation IncreaseDonationAmount($id: ID!, $donation: Float!) {
-        increaseDonationAmount(id: $id, donation: $donation) {
-            id
-            name
-            amountDonated
-        }
-    }
-`
 const DELETE_DONOR = gql`
     mutation DeleteDonor($id: ID!) {
         deleteDonor(id: $id) {
@@ -66,10 +56,7 @@ export const Donors = ({ title } : Props) => {
         AddDonorVariables
     >(ADD_DONOR)
 
-    const [increaseDonationAmount] = useMutation<
-        IncreaseDonationAmountData,
-        IncreaseDonationAmountVariables
-    >(INCREASE_DONATION_AMOUNT)
+    
 
     const { data, loading, error, refetch } = useQuery<DonorsData>(DONORS)
 
@@ -83,11 +70,7 @@ export const Donors = ({ title } : Props) => {
         refetch()
     }
 
-    const handleIncreaseDonationAmount = async(id: string, donation: number) => {
-        console.log(id, donation)
-        increaseDonationAmount({variables: {id, donation}})
-        refetch()
-    }
+    
 
     const donors = data ? data.donors : null
 
