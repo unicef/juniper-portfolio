@@ -16,12 +16,55 @@ export const fundraisingArmResolvers: IResolvers = {
         }
     },
     Mutation: {
-        addFundraisingArm: () => {
-            return 'Adding fundraising arm'
+        addFundraisingArm: async (
+            _root: undefined,
+            {
+                name,
+                bitcoinPublicAddress,
+                ethereumPublicAddress
+            } : {
+                name: string,
+                bitcoinPublicAddress: string,
+                ethereumPublicAddress: string,
+            },
+            { db }: { db: Database }
+        ): Promise<FundraisingArm> => {
+            const createRes = await db.fundraisingArms.insertOne({
+                _id: new ObjectId(),
+                name,
+                bitcoinPublicAddress,
+                ethereumPublicAddress,
+                amountRaised: 0
+            })
+            if(!createRes.ops[0]) {
+                throw new Error('failed to create result')
+            }
+            return createRes.ops[0]
         },
-        editFundraisingArm: () => {
-            return 'Editing fundraising arm'
+        increaseDonationAmount: async (
+            _root: undefined,
+            {
+                id,
+                donation
+            } : {
+                id: string,
+                donation: any
+            },
+            { db }: {db: Database}
+        ): Promise<FundraisingArm> => {
+            const increaseRes = await db.fundraisingArms.findOneAndUpdate(
+                {_id: new ObjectId(id)}, // query
+                {$inc: { amountRaised: donation }},
+                {returnOriginal: false}
+            )
+            if(!increaseRes.value) {
+                throw new Error('failed to update result')
+            }
+            return increaseRes.value!
         },
+        // editFundraisingArm: () => {
+        //     return 'Editing fundraising arm'
+        // },
         deleteFundraisingArm: async (
             _root: undefined, 
             { id }: { id: string }, 

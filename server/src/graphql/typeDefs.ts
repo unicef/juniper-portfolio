@@ -43,11 +43,20 @@ export const typeDefs = gql`
         amountDonated: Float!
     }
 
+    type FundraisingArm {
+        id: ID!
+        name: String!
+        bitcoinPublicAddress: String!
+        ethereumPublicAddress: String!
+        amountRaised: Float!
+    }
+
     type Query {
         blockchainTransactions: [BlockchainTransaction!]!
         users: [User!]!
         dailyPrices: [DailyPrice!]!
         donors: [Donor!]!
+        fundraisingArms: [FundraisingArm!]!
     }
 
     type Mutation {
@@ -106,6 +115,16 @@ export const typeDefs = gql`
             id: ID!, 
             donation: Float!): Donor!
         deleteDonor(id: ID!): Donor!
+        
+        addFundraisingArm(
+            name: String!,
+            bitcoinPublicAddress: String!,
+            ethereumPublicAddress: String!
+        ): Donor!
+        increaseRaisedAmount(
+            id: ID!, 
+            donation: Float!): Donor!
+        deleteFundraisingArm(id: ID!): Donor!
 
     }
 
