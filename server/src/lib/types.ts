@@ -63,7 +63,7 @@ export interface FundraisingArm extends TransactionParticipant {
     amountRaised: Number;
 }
 export interface Hq extends TransactionParticipant {
-    amountRecieved: Number;
+    amountReceived: Number;
 }
 export interface Database {
     users: Collection<User>;

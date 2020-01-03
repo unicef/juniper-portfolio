@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
 import { gql } from 'apollo-boost'
 import { useQuery, useMutation } from 'react-apollo'
 import { Donors as DonorsData } from './__generated__/Donors'
@@ -42,11 +42,8 @@ export const Donors = ({ title } : Props) => {
     const [ethereumAddress, setEthereumAddress] = useState('')
     const [bitcoinAddress, setBitcoinAddress] = useState('')
 
-    useEffect(() => {
-        // Nothing at this time
-    })
     
-    const [deleteDonor, {loading: deleteDonorLoading, error: deleteDonorError}] = useMutation<
+    const [deleteDonor] = useMutation<
         DeleteDonorData,
         DeleteDonorVariables
     >(DELETE_DONOR)

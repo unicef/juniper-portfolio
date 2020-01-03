@@ -1,9 +1,9 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
 import { gql } from 'apollo-boost'
 import { useQuery, useMutation } from 'react-apollo'
 import { AddFundraisingArm as AddFundraisingArmData, AddFundraisingArmVariables } from './__generated__/AddFundraisingArm'
 import { DeleteFundraisingArmVariables, DeleteFundraisingArm as DeleteFundraisingArmData } from './__generated__/DeleteFundraisingArm'
-import {FundraisingArms as FundraisingArmsData } from './__generated__/FundraisingArms'
+import { FundraisingArms as FundraisingArmsData } from './__generated__/FundraisingArms'
 import { FundraisingArmListItem } from './FundraisingArmListItem'
 
 const FUNDRAISING_ARMS = gql`
@@ -48,7 +48,7 @@ export const FundraisingArms = ({ title } : Props) => {
         AddFundraisingArmData,
         AddFundraisingArmVariables
     >(ADD_FUNDRAISING_ARM)
-    const [deleteFundraisingArm, {loading: deleteFundraisingArmLoading, error: deleteFundraisingArmError}] = useMutation<
+    const [deleteFundraisingArm] = useMutation<
         DeleteFundraisingArmData,
         DeleteFundraisingArmVariables
     >(DELETE_FUNDRAISING_ARM)
