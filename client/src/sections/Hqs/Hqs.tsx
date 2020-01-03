@@ -57,6 +57,7 @@ export const Hqs = ({ title } : Props) => {
 
     const handleAddHq = () => {
         addHq({variables:{name, bitcoinPublicAddress:bitcoinAddress, ethereumPublicAddress: ethereumAddress}})
+        refetch()
     }
     const handleDeleteHq = (id: string) => {
         deleteHq({variables: {id}})

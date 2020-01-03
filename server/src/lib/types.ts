@@ -10,10 +10,13 @@ export interface User {
     _id: ObjectId;
     name: String;
     organization: String;
-    role: String; // can be donor, admin, project
+    role: Role; // can be donor, admin, project
     email: String;
     hash: String;
     salt: String;
+}
+export interface Role {
+    type: String; // can be donor, admin, project
 }
 export interface DailyPrice {
     _id: ObjectId;
@@ -55,6 +58,7 @@ export interface Transaction {
 export interface Project extends TransactionParticipant {
     objective: String;
     image: String;
+    amountGranted: Number;
 }
 export interface Donor extends TransactionParticipant { 
     amountDonated: Number;
