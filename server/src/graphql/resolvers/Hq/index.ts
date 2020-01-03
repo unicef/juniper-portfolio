@@ -29,7 +29,7 @@ export const hqResolvers: IResolvers = {
             },
             { db }: { db: Database }
         ): Promise<Hq> => {
-            const createRes = await db.hqs.insert({
+            const createRes = await db.hqs.insertOne({
                 _id: new ObjectId(),
                 name,
                 bitcoinPublicAddress,
