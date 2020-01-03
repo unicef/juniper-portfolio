@@ -41,20 +41,20 @@ export const fundraisingArmResolvers: IResolvers = {
             }
             return createRes.ops[0]
         },
-        increaseDonationAmount: async (
+        increaseRaisedAmount: async (
             _root: undefined,
             {
                 id,
-                donation
+                raised
             } : {
                 id: string,
-                donation: any
+                raised: any
             },
             { db }: {db: Database}
         ): Promise<FundraisingArm> => {
             const increaseRes = await db.fundraisingArms.findOneAndUpdate(
                 {_id: new ObjectId(id)}, // query
-                {$inc: { amountRaised: donation }},
+                {$inc: { amountRaised: raised }},
                 {returnOriginal: false}
             )
             if(!increaseRes.value) {

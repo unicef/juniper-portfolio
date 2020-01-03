@@ -115,16 +115,16 @@ export const typeDefs = gql`
             id: ID!, 
             donation: Float!): Donor!
         deleteDonor(id: ID!): Donor!
-        
+
         addFundraisingArm(
             name: String!,
             bitcoinPublicAddress: String!,
             ethereumPublicAddress: String!
-        ): Donor!
+        ): FundraisingArm!
         increaseRaisedAmount(
             id: ID!, 
-            donation: Float!): Donor!
-        deleteFundraisingArm(id: ID!): Donor!
+            raised: Float!): FundraisingArm!
+        deleteFundraisingArm(id: ID!): FundraisingArm!
 
     }
 

@@ -70,8 +70,6 @@ export const Donors = ({ title } : Props) => {
         refetch()
     }
 
-    
-
     const donors = data ? data.donors : null
 
     const donorList = donors ? (
@@ -93,7 +91,6 @@ export const Donors = ({ title } : Props) => {
         </ul>
     ) : null
     // Don't forget to add error and loading messages for each mutation / query
-
 
     return (
         <div>
