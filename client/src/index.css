@@ -1,8 +1,15 @@
+@font-face {
+  font-family: 'Cabin-Regular';
+  src: local('Cabin-Regular'), url(./fonts/Cabin-Regular.ttf) format('truetype')
+}
+@font-face {
+  font-family: 'IBMPlexSans-Regular';
+  src: local('IBMPlexSans-Regular'), url(./fonts/IBMPlexSans-Regular.ttf) format('truetype')
+}
+
 body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
+  margin-left: 50px;
+  font-family: IBMPlexSans-Regular;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
@@ -10,4 +17,8 @@ body {
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: Cabin-Regular;
 }

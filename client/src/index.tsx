@@ -1,4 +1,5 @@
 import React from "react";
+import './index.css';
 import { render } from "react-dom";
 import { BlockchainTransactions, DailyPrices, Donors, FundraisingArms, Hqs, Projects, Transactions } from "./sections";
 import * as serviceWorker from "./serviceWorker";
