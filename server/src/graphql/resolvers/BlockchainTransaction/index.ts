@@ -16,11 +16,81 @@ export const blockchainTransactionResolvers: IResolvers = {
         }
     },
     Mutation: {
-        addBlockchainTransaction: () => {
-            return 'Adding blockchain transaction'
+        addBlockchainTransaction: async (
+            _root: undefined,
+            {   
+                transactionHash,
+                from,
+                to,
+                currency,
+                additionalNotes,
+                block,
+                amountTransferred,
+                value, 
+                fee,
+                toFundraisingArm,
+                toHq,
+                toProject
+            } : {
+                transactionHash: string,
+                from: string,
+                to: string,
+                currency: string,
+                additionalNotes: string,
+                block: number,
+                amountTransferred: number,
+                value: number, 
+                fee: number,
+                toFundraisingArm: boolean,
+                toHq: boolean,
+                toProject: boolean
+            },
+            { db } : { db: Database }
+        ): Promise<BlockchainTransaction> => {
+            const createRes = await db.blockchainTransactions.insertOne({
+                _id: new ObjectId(),
+                transactionHash,
+                from,
+                to,
+                currency,
+                additionalNotes,
+                block,
+                amountTransferred,
+                value, 
+                fee,
+                toFundraisingArm,
+                toHq,
+                toProject,
+                timestamp: Date.now().toString()
+            })
+            if(!createRes.ops[0]) {
+                throw new Error('failed to create result')
+            }
+            return createRes.ops[0]
         },
-        editBlockchainTransaction: () => {
-            return 'Editing blockchain transaction'
+        editAdditionalNotesOfBlockchainTransaction: async(
+            _root: undefined,
+            {
+                id,
+                additionalNotes
+            } : {
+                id: string,
+                additionalNotes: string
+            },
+            { db } : { db: Database }
+        ): Promise<BlockchainTransaction> => {
+            console.log(id, additionalNotes)
+            const updateRes = await db.blockchainTransactions.findOneAndUpdate(
+                {_id: new ObjectId(id)},
+                { $set: { additionalNotes : additionalNotes } },
+                { upsert:true }
+                // { returnNewDocument : true }
+            )
+            if(!updateRes.value) {
+                console.log(updateRes)
+                throw new Error('failed to update result')
+            }
+            return updateRes.value!
         },
         deleteBlockchainTransaction: async (
             _root: undefined, 

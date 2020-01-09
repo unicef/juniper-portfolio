@@ -40,9 +40,9 @@ export interface BlockchainTransaction {
     value: Number;        
     fee: Number;
     
+    toFundraisingArm: Boolean;
     toHq: Boolean;
     toProject: Boolean;
-    toNatCom: Boolean;
 }
 export interface Transaction {
     _id: ObjectId;

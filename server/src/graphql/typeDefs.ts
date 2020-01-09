@@ -8,11 +8,15 @@ export const typeDefs = gql`
         from: String!
         to: String!
         currency: String!
-        additionalNodes: String!
+        additionalNotes: String!
         block: Int!  
         amountTransferred: Float!
         value: Float!
         fee: Float!
+
+        toFundraisingArm: Boolean!
+        toHq: Boolean!
+        toProject: Boolean!
     }
 
     type User {
@@ -81,21 +85,23 @@ export const typeDefs = gql`
 
     type Mutation {
         addBlockchainTransaction(
-            id: ID!
             transactionHash: String!
-            timestamp: String!
             from: String!
             to: String!
             currency: String!
-            additionalNodes: String!
+            additionalNotes: String!
             block: Int!
             amountTransferred: Float!
             value: Float!
             fee: Float!
+            toFundraisingArm: Boolean!
+            toHq: Boolean!
+            toProject: Boolean!
         ): BlockchainTransaction!
         
-        editBlockchainTransaction(
+        editAdditionalNotesOfBlockchainTransaction(
             id: ID!
+            additionalNotes: String!
         ): BlockchainTransaction!
         
         deleteBlockchainTransaction(
@@ -167,6 +173,7 @@ export const typeDefs = gql`
             granted: Float!
         ): Project!
         deleteProject(id: ID!): Project!
+
     }
 
 `
