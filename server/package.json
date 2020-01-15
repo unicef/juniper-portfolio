@@ -2,6 +2,7 @@
   "name": "gilgamesh-tracking-server",
   "version": "0.1.0",
   "dependencies": {
+    "@types/node-fetch": "^2.5.4",
     "apollo-server-express": "^2.9.13",
     "bcryptjs": "^2.4.3",
     "cookie-parser": "^1.4.4",
@@ -15,6 +16,7 @@
   "devDependencies": {
     "@types/bcryptjs": "^2.4.2",
     "@types/cookie-parser": "^1.4.2",
+    "@types/dotenv": "^8.2.0",
     "@types/express": "^4.17.2",
     "@types/jsonwebtoken": "^8.3.6",
     "@types/lodash.merge": "^4.6.6",
