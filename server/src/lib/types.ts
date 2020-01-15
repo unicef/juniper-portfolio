@@ -10,13 +10,11 @@ export interface User {
     _id: ObjectId;
     name: String;
     organization: String;
-    role: Role; // can be donor, admin, project
+    role: String; // can be donor, admin, project
     email: String;
     hash: String;
-    salt: String;
-}
-export interface Role {
-    type: String; // can be donor, admin, project
+    tokenVersion: Number;
+    
 }
 export interface DailyPrice {
     _id: ObjectId;
@@ -78,4 +76,9 @@ export interface Database {
     donors: Collection<Donor>;
     fundraisingArms: Collection<FundraisingArm>;
     hqs: Collection<Hq>;
+}
+
+export interface Authenticated {
+    payload?: String;
+    auth: Boolean;
 }

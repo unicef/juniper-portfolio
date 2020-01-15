@@ -1,6 +1,9 @@
 import { gql } from 'apollo-server-express'
 
 export const typeDefs = gql`
+    type LoginResponse {
+        accessToken: String!
+    }
     type BlockchainTransaction {
         id: ID!
         transactionHash: String!
@@ -26,7 +29,7 @@ export const typeDefs = gql`
         role: String!
         email: String!
         hash: String!
-        salt: String!
+        tokenVersion: Int!
     }
 
     type DailyPrice {
@@ -108,16 +111,33 @@ export const typeDefs = gql`
             id: ID!
         ): BlockchainTransaction!
 
-        addUser(
-            id: ID!
+        register(
             name: String!
             organization: String!
             role: String!
             email: String!
-            hash: String!
-            salt: String!
+            password: String!
         ): User!
-        editUser(id: ID!): User!
+        login(
+            email: String!
+            password: String!
+        ): LoginResponse!
+        createUser( 
+            name: String!
+            email: String!
+            organization: String!
+            role: String!
+        ): User!
+        
+        revokeRefreshTokensForUser(
+            id: ID!
+        ): User!
+        
+        editUserPassword(
+            id: ID!
+            password: String!
+            newPassword: String!
+        ): User!
         deleteUser(id: ID!): User!
 
         addDailyPrice(
