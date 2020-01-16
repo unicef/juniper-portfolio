@@ -19,7 +19,6 @@ export const userResolvers: IResolvers = {
             _args: {}, 
             { req, db }: { req: any, db: Database })
         : Promise<User[]> => {
-            console.log(req.payload)
             return await db.users.find({}).toArray()
         }
     },
@@ -73,6 +72,7 @@ export const userResolvers: IResolvers = {
             },
             { db } : { db: Database }
         ): Promise<User> => {
+            console.log('Hi i am ')
             const createRes = await db.users.insertOne({
                 _id: new ObjectId(),
                 name,
@@ -85,6 +85,7 @@ export const userResolvers: IResolvers = {
             if (!createRes.ops[0]) {
                 throw new Error('failed to create result')
             }
+            console.log('Creating user now...')
             return createRes.ops[0]
         },
         revokeRefreshTokensForUser: async(

@@ -60,7 +60,6 @@ export const Projects = ({ title } : Props) => {
     >(DELETE_PROJECT)
 
     const handleAddProject = () => {
-        console.log('I am adding a project')
         addProject({variables: {name, bitcoinPublicAddress: bitcoinAddress, ethereumPublicAddress: ethereumAddress}})
         refetch()
     }

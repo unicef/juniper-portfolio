@@ -1,7 +1,7 @@
 import React from "react";
 import './index.css';
 import { render } from "react-dom";
-import { BlockchainTransactions, DailyPrices, Donors, FundraisingArms, Hqs, Projects, Transactions } from "./sections";
+import { BlockchainTransactions, DailyPrices, Donors, FundraisingArms, Hqs, Projects, Transactions, Users } from "./sections";
 import * as serviceWorker from "./serviceWorker";
 
 import ApolloClient from 'apollo-boost'
@@ -20,6 +20,8 @@ render(
         <Hqs title='Hqs' />
         <Projects title='Projects' />
         <Transactions title='Transactions' />
+        <Users title='Users' />
+
     </ApolloProvider>,
     document.getElementById("root")
 );

@@ -33,7 +33,6 @@ const mount = async (app: Application) => {
             payload = verify(token, process.env.REFRESH_TOKEN_SECRET!)
             
         } catch(err) {
-            console.log(err)
             return res.send({ok: false, accessToken: ''})
         }
         const user:any= await db.users.find({id: payload.userId})

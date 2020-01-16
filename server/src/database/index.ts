@@ -4,8 +4,6 @@ import { Database } from '../lib/types'
 const dbName = `${process.env.DB_NAME}`
 const url = `${process.env.DB_URL}`
 
-console.log(process.env)
-
 export const connectDatabase = async (): Promise<Database> => {
     const client = await MongoClient.connect(url, {
         useNewUrlParser: true,
