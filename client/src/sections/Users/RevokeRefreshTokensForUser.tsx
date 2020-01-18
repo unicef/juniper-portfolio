@@ -1,4 +1,4 @@
-import React , { useState }  from 'react'
+import React from 'react'
 import { gql } from 'apollo-boost'
 import { useMutation } from 'react-apollo'
 import { RevokeRefreshTokensForUser as RevokeRefreshTokensForUserData, RevokeRefreshTokensForUserVariables } from './__generated__/RevokeRefreshTokensForUser'
