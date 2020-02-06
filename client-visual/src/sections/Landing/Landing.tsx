@@ -7,5 +7,7 @@ interface Props {
 }
 
 export const Landing = () => {
-    
+    /*
+        This section will have the visuals and text required on the landing page
+    */
 }

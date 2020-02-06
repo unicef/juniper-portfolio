@@ -7,5 +7,12 @@ interface Props {
 }
 
 export const Layout = () => {
-    
+    /*
+        This section will have the menu
+        This section will combine all of the other parts together as well:
+            1. Landing
+            2. Fund
+            3. Transfer
+            4. Investment
+    */
 }

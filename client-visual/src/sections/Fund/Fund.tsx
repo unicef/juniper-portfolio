@@ -7,5 +7,7 @@ interface Props {
 }
 
 export const Fund = () => {
-    
+    /*
+        This section will have the visuals and text required to explain the fund
+    */
 }
