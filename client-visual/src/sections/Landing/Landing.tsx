@@ -1,13 +1,22 @@
 import React, { useState } from 'react'
-import { gql } from 'apollo-boost'
-import { useQuery, useMutation } from 'react-apollo'
+import { MainText } from './MainText'
+import { SubText } from './SubText'
+import { DonorSection } from './DonorSection'
+import { ProjectsSection } from './ProjectsSection'
+import { TransferSection } from './TransferSection'
 
 interface Props {
     title: string
 }
 
 export const Landing = () => {
-    /*
-        This section will have the visuals and text required on the landing page
-    */
+    return (
+        <div>
+            <DonorSection/>
+            <TransferSection/>
+            <ProjectsSection/>
+            <MainText/>
+            <SubText/>
+        </div>
+    )
 }

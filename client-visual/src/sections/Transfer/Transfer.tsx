@@ -6,7 +6,11 @@ interface Props {
     title: string
 }
 
-export const BlockchainTransactions = () => {
+export const Transfer = () => {
+
+    return (
+        <h1>Transfer</h1>
+    )
     /*
         This section will have the text and visuals required to explain the transfer process
         In addition to the aforementioned, there will also be a table that will display

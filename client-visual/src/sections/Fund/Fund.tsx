@@ -1,13 +1,20 @@
 import React, { useState } from 'react'
-import { gql } from 'apollo-boost'
-import { useQuery, useMutation } from 'react-apollo'
+import { DonorDetails } from './DonorDetails'
+import { BackgroundText } from './BackgroundText'
+import { DonorText } from './DonorText'
+import { ThankYouDonors } from './ThankYouDonors'
 
 interface Props {
     title: string
 }
 
 export const Fund = () => {
-    /*
-        This section will have the visuals and text required to explain the fund
-    */
+    return(
+        <div>
+            <DonorDetails/>
+            <DonorText/>
+            <BackgroundText/>
+            <ThankYouDonors/>
+        </div>
+    )
 }

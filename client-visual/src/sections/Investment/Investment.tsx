@@ -7,6 +7,10 @@ interface Props {
 }
 
 export const Investment = () => {
+
+    return(
+        <h1>Investment</h1>
+    )
     /*
         This section will have the text and visuals required
 
