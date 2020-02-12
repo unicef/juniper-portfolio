@@ -1,6 +1,10 @@
 import React, { useState } from 'react'
 import { gql } from 'apollo-boost'
 import { useQuery, useMutation } from 'react-apollo'
+import { DonationFlowDiagram } from './DonationFlowDiagram'
+import { DonationFlowExplainer } from './DonationFlowExplainer'
+import { TransferText } from './TransferText'
+import { DonationTable } from './DonationTable'
 
 interface Props {
     title: string
@@ -9,7 +13,13 @@ interface Props {
 export const Transfer = () => {
 
     return (
-        <h1>Transfer</h1>
+        <div>
+            <h1>Transfer</h1>
+            <DonationFlowDiagram />
+            <DonationFlowExplainer />
+            <TransferText />
+            <DonationTable />
+        </div>
     )
     /*
         This section will have the text and visuals required to explain the transfer process
