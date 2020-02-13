@@ -1,11 +1,12 @@
 import React from 'react';
-import { createMuiTheme, makeStyles, Theme } from '@material-ui/core/styles';
+import { makeStyles, Theme } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
 import Typography from '@material-ui/core/Typography';
 import Box from '@material-ui/core/Box';
-
+import {Transaction} from './Transaction'
+import {DonationTableLeftMenu} from './DonationTableLeftMenu'
 interface TabPanelProps {
   children?: React.ReactNode;
   index: any;
@@ -43,7 +44,7 @@ interface LinkTabProps {
 const useStyles = makeStyles((theme: Theme) => ({
   root: {
     flexGrow: 1,
-    backgroundColor: theme.palette.background.paper,
+    backgroundColor: '#f3f3f3',
     marginLeft: '244px'
   },
   activeTab: {
@@ -97,6 +98,7 @@ export const DonationTableStepper = () => {
 
   return (
     <div className={classes.root}>
+      {/* <DonationTableLeftMenu/> */}
       <AppBar position="static">
         <Tabs
           variant="fullWidth"
@@ -115,13 +117,13 @@ export const DonationTableStepper = () => {
         </Tabs>
       </AppBar>
       <TabPanel value={value} index={0}>
-        Page One
+        <Transaction/>
       </TabPanel>
       <TabPanel value={value} index={1}>
-        Page Two
+        <Transaction/>
       </TabPanel>
       <TabPanel value={value} index={2}>
-        Page Three
+        <Transaction/>
       </TabPanel>
     </div>
   );

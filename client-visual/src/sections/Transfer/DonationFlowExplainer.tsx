@@ -118,15 +118,15 @@ export const DonationFlowExplainer = () => {
     const [cryptoTrackerBoldText] = useState('public blockchain')
     const [cryptoTracker2Text] = useState('. To check the validity, click on transaction details>public key of the relevant transaction.')
 
-    const createBlock = (title: string, text: string, color: string) => {
+    const createBlock = (title: string, text: string, color: string, padding: string) => {
         return(
-            <div style={{display: 'inline-block', height:'200px', verticalAlign: 'top'}}>
+            <div style={{display: 'inline-block', height:'200px', verticalAlign: 'top', paddingLeft: padding+'px'}}>
                 <div>
                     <span style={{backgroundColor:color}} className={classes.circleStyle}></span>
                     <span className={classes.titleStyle}>{title}</span><br/>
                 </div>
-                <div className={classes.widthOfBox}>
-                    <span className={classes.textStyle}>{text}</span>
+                <div className={classes.widthOfBox} style={{width:'342px', marginTop:'7px'}}>
+                    <div className={classes.textStyle}>{text}</div>
                 </div>
             </div>
         )
@@ -170,16 +170,22 @@ export const DonationFlowExplainer = () => {
     return (
         <div className={classes.root}>
             <div>
-                {createBlock(donorTitle, donorText, '#0068ea')}
-                {createBlock(unicefTitle, unicefText, '#29c3ff')}
-                {createBlock(startUpTitle, startUpText, '#ffd113')}
+                {createBlock(donorTitle, donorText, '#0068ea', '0')}
+                {createBlock(unicefTitle, unicefText, '#29c3ff', '37')}
+                {createBlock(startUpTitle, startUpText, '#ffd113', '37')}
             </div>
-            {fundingFlowButton()}
-            {sampleTransactionsButton()}<br/>
-            <span className={classes.title}>{cryptoTrackerTitle}</span><br/>
-            <span className={classes.text}>{cryptoTracker1Text}</span>
-            <span className={classes.boldedText}>{cryptoTrackerBoldText}</span>
-            <span className={classes.text}>{cryptoTracker2Text}</span>
+            <div style={{paddingLeft:'280px', paddingBottom:'174px' }}>
+                {fundingFlowButton()}
+                {sampleTransactionsButton()}<br/>
+            </div>
+            <div style={{paddingLeft:'114px', paddingBottom:'146px'}}>
+                <span className={classes.title}>{cryptoTrackerTitle}</span><br/>
+                <div style={{width:'723px'}}>
+                    <span className={classes.text}>{cryptoTracker1Text}</span>
+                    <span className={classes.boldedText}>{cryptoTrackerBoldText}</span>
+                    <span className={classes.text}>{cryptoTracker2Text}</span>
+                </div>
+            </div>
         </div>
     )
 }

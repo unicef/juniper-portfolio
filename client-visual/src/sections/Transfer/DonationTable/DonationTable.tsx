@@ -1,25 +1,14 @@
 import React, { useState } from 'react'
-import { gql } from 'apollo-boost'
-import { useQuery, useMutation } from 'react-apollo'
 
 import { DonationTableStepper } from './DonationTableStepper'
 import { DonationTableLeftMenu } from './DonationTableLeftMenu'
-import { Transaction } from './Transaction'
-import { TransactionDetails } from './TransactionDetails'
-
-interface Props {
-    title: string
-}
 
 export const DonationTable = () => {
 
     return (
         <div>
-            <h1>DonationTable</h1>
+            {/* <DonationTableLeftMenu /> */}
             <DonationTableStepper />
-            <DonationTableLeftMenu />
-            <Transaction />
-            <TransactionDetails />
         </div>
     )
     /*

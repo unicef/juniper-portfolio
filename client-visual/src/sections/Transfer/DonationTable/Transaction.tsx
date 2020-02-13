@@ -1,11 +1,11 @@
 import React from 'react'
 import { makeStyles, Theme } from '@material-ui/core/styles'
+import { TransactionDetails } from './TransactionDetails'
 
 const useStyles = makeStyles((theme: Theme) => ({
     root: {
       flexGrow: 1,
-      backgroundColor: theme.palette.background.paper,
-      marginLeft: '244px'
+      backgroundColor: '#f3f3f3',
     }
 }))
 
@@ -13,7 +13,7 @@ export const Transaction = () => {
     const classes = useStyles()
     return (
         <div className={classes.root}>
-            <h1>Transactions</h1>
+            <TransactionDetails/>
         </div>
     )
 }
