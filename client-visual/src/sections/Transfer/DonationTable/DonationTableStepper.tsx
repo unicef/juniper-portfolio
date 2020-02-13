@@ -97,8 +97,10 @@ export const DonationTableStepper = () => {
   }
 
   return (
+    <div>
+    <DonationTableLeftMenu/>
     <div className={classes.root}>
-      {/* <DonationTableLeftMenu/> */}
+      
       <AppBar position="static">
         <Tabs
           variant="fullWidth"
@@ -125,6 +127,7 @@ export const DonationTableStepper = () => {
       <TabPanel value={value} index={2}>
         <Transaction/>
       </TabPanel>
+    </div>
     </div>
   );
 }
