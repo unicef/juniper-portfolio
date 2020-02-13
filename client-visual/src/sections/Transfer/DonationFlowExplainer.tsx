@@ -1,7 +1,6 @@
 import React, { useState } from 'react'
 import { makeStyles } from '@material-ui/core/styles'
 import { Button } from '@material-ui/core'
-import { NotificationAirlineSeatFlatAngled } from 'material-ui/svg-icons'
 
 const useStyles = makeStyles((theme: any) => ({
     titleStyle: {
@@ -66,6 +65,36 @@ const useStyles = makeStyles((theme: any) => ({
         letterSpacing: '1px',
         textAlign:'center',
         color:'#777777'
+    },
+    title: {
+        fontFamily: 'Cabin',
+        fontSize: '28px',
+        fontWeight:'bold',
+        fontStretch:'normal',
+        fontStyle:'normal',
+        lineHeight:'1.64',
+        letterSpacing:'normal',
+        color:'#000000'
+    },
+    text: {
+        fontFamily: 'IBM Plex Sans',
+        fontSize: '22px',
+        fontWeight:'normal',
+        fontStretch:'normal',
+        fontStyle:'normal',
+        lineHeight:'1.41',
+        letterSpacing:'normal',
+        color:'#000000'
+    },
+    boldedText: {
+        fontFamily: 'IBM Plex Sans',
+        fontSize: '22px',
+        fontWeight:'bold',
+        fontStretch:'normal',
+        fontStyle:'normal',
+        lineHeight:'1.41',
+        letterSpacing:'normal',
+        color:'#0068ea'
     }
 }))
 
@@ -79,6 +108,10 @@ export const DonationFlowExplainer = () => {
     const [startUpText, setStartUpText] = useState('The money is moved to the starup at 17:00 hours on the same day. The movement of cryptocurrency takes 10x less time than traditional currencies.')
     const [fundFlowButtonClass, setFundFlowButtonClass] = useState(classes.buttonInactive)
     const [sampleTransactionsButtonClass, setSampleTransactionsButtonClass] = useState(classes.buttonActive)
+    const [cryptoTrackerTitle] = useState('Crypto tracker')
+    const [cryptoTracker1Text] = useState('Below is a simple tool that provides a snapshot of all transfers, from donor to startup. Each transaction progress is tracked and displayed realtime, providing absolute transparency. The validity of each transaction can be proved by from the ')
+    const [cryptoTrackerBoldText] = useState('public blockchain')
+    const [cryptoTracker2Text] = useState('. To check the validity, click on transaction details>public key of the relevant transaction.')
 
     const createBlock = (title: string, text: string, color: string) => {
         return(
@@ -135,7 +168,11 @@ export const DonationFlowExplainer = () => {
             {createBlock(unicefTitle, unicefText, '#29c3ff')}
             {createBlock(startUpTitle, startUpText, '#ffd113')}
             {fundingFlowButton()}
-            {sampleTransactionsButton()}
+            {sampleTransactionsButton()}<br/>
+            <span className={classes.title}>{cryptoTrackerTitle}</span><br/>
+            <span className={classes.text}>{cryptoTracker1Text}</span>
+            <span className={classes.boldedText}>{cryptoTrackerBoldText}</span>
+            <span className={classes.text}>{cryptoTracker2Text}</span>
         </div>
     )
 }
