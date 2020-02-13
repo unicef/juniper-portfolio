@@ -1,8 +1,13 @@
 import React, { useState } from 'react'
-import { makeStyles } from '@material-ui/core/styles'
+import { makeStyles, Theme} from '@material-ui/core/styles'
 import { Button } from '@material-ui/core'
 
-const useStyles = makeStyles((theme: any) => ({
+const useStyles = makeStyles((theme: Theme ) => ({
+    root: {
+        marginLeft: '244px',
+        flexGrow: 1,
+        backgroundColor: theme.palette.background.paper
+    },
     titleStyle: {
         width:'55px',
         height:'18px',
@@ -115,7 +120,7 @@ export const DonationFlowExplainer = () => {
 
     const createBlock = (title: string, text: string, color: string) => {
         return(
-            <div>
+            <div style={{display: 'inline-block', height:'200px', verticalAlign: 'top'}}>
                 <div>
                     <span style={{backgroundColor:color}} className={classes.circleStyle}></span>
                     <span className={classes.titleStyle}>{title}</span><br/>
@@ -163,10 +168,12 @@ export const DonationFlowExplainer = () => {
     }
 
     return (
-        <div>
-            {createBlock(donorTitle, donorText, '#0068ea')}
-            {createBlock(unicefTitle, unicefText, '#29c3ff')}
-            {createBlock(startUpTitle, startUpText, '#ffd113')}
+        <div className={classes.root}>
+            <div>
+                {createBlock(donorTitle, donorText, '#0068ea')}
+                {createBlock(unicefTitle, unicefText, '#29c3ff')}
+                {createBlock(startUpTitle, startUpText, '#ffd113')}
+            </div>
             {fundingFlowButton()}
             {sampleTransactionsButton()}<br/>
             <span className={classes.title}>{cryptoTrackerTitle}</span><br/>

@@ -1,20 +1,19 @@
-import React, { useState } from 'react'
-import { gql } from 'apollo-boost'
-import { useQuery, useMutation } from 'react-apollo'
+import React from 'react'
+import { makeStyles, Theme } from '@material-ui/core/styles'
 
-interface Props {
-    title: string
-}
+const useStyles = makeStyles((theme: Theme) => ({
+    root: {
+      flexGrow: 1,
+      backgroundColor: theme.palette.background.paper,
+      marginLeft: '244px'
+    }
+}))
 
 export const Transaction = () => {
-
+    const classes = useStyles()
     return (
-        <h1>Transaction</h1>
+        <div className={classes.root}>
+            <h1>Transactions</h1>
+        </div>
     )
-    /*
-        This section will have the text and visuals required to explain the transfer process
-        In addition to the aforementioned, there will also be a table that will display
-        the funds coming in and out of UNICEF; this will pull information from the graphql API
-        
-    */
 }

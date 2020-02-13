@@ -1,14 +1,6 @@
 import React, { useState } from 'react'
 import { makeStyles } from '@material-ui/core/styles';
 import Drawer from '@material-ui/core/Drawer';
-import Button from '@material-ui/core/Button';
-import List from '@material-ui/core/List';
-import Divider from '@material-ui/core/Divider';
-import ListItem from '@material-ui/core/ListItem';
-import ListItemIcon from '@material-ui/core/ListItemIcon';
-import ListItemText from '@material-ui/core/ListItemText';
-import InboxIcon from '@material-ui/icons/MoveToInbox';
-import MailIcon from '@material-ui/icons/Mail';
 
 const useStyles = makeStyles({
     list: {
@@ -55,7 +47,6 @@ const useStyles = makeStyles({
     textWrapper: {
       marginLeft:'38px',
       marginTop: '67px'
-
     }
   });
 
@@ -91,19 +82,10 @@ export const DonationTableLeftMenu = () => {
           </div>
         </div>
       );
-      // const toggleDrawer = (side: any, open: any) => (event: any) => {
-      //   if (event.type === 'keydown' && (event.key === 'Tab' || event.key === 'Shift')) {
-      //     return;
-      //   }
-    
-      //   setState({ ...state, [side]: open });
-      // };
     
     return (
         <div>
-            {/* <Button onClick={toggleDrawer('left', true)}>Open Left</Button> */}
-            {/* <Drawer open={state.left} onClose={toggleDrawer('left', false)}> */}
-            <Drawer open={state.left}>
+            <Drawer variant="permanent" open={state.left}>
                 {sideList('left')}
             </Drawer>
         </div>
