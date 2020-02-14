@@ -10,7 +10,8 @@ const useStyles = makeStyles((theme: Theme) => ({
       backgroundColor: theme.palette.background.paper,
       width:'837px',
       height:'245px',
-      marginLeft:'114px'
+      marginLeft:'114px',
+      marginBottom:'50px'
     },
     transactionType: {
         fontFamily: 'Cabin',
@@ -145,26 +146,27 @@ const useStyles = makeStyles((theme: Theme) => ({
     },
 }))
 
-export const TransactionDetails = () => {
+export const TransactionDetails = (props: any) => {
     const classes = useStyles()
     return (
         <div className={classes.root}>
-            <div className={classes.transactionType}>Received</div>
+            {/* <div className={classes.transactionType}>Received</div> */}
+            <div className={classes.transactionType}>{props.transactionType}</div>
             <div style={{display:'inline-block', verticalAlign:'top'}}>
-                <div className={classes.startingParty}>Ethereum Foundation</div>
-                <div className={classes.partyType1}>Donor</div>
+                <div className={classes.startingParty}>{props.startingParty}</div>
+                <div className={classes.partyType1}>{props.partyType1}</div>
             </div>
             <div style={{display:'inline-block', verticalAlign:'top'}}>
-                <div className={classes.middleParty}>UNICEF France</div>
-                <div className={classes.partyType2}>National Committee</div>
+                <div className={classes.middleParty}>{props.middleParty}</div>
+                <div className={classes.partyType2}>{props.partyType2}</div>
             </div>
             <div style={{display:'inline-block', verticalAlign:'top'}}>
-                <div className={classes.endParty}>UNICEF HQ</div>
-                <div className={classes.partyType3}>Recipient</div>
+                <div className={classes.endParty}>{props.endParty}</div>
+                <div className={classes.partyType3}>{props.partyType3}</div>
             </div>
             <div style={{display:'inline-block', verticalAlign:'top'}}>
-                <div className={classes.valueMoving}>20,000 ETH</div>
-                <div className={classes.valueType}>Crypto Received</div>
+                <div className={classes.valueMoving}>{props.valueMoving}</div>
+                <div className={classes.valueType}>{props.valueType}</div>
             </div>
             <div style={{color:'#0068ea', display:'inline-block', verticalAlign:'top' }} className={classes.txDetails}><ExpandMoreIcon />Show Transaction Details</div>
         </div>

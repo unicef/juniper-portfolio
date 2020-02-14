@@ -11,7 +11,8 @@ const useStyles = makeStyles((theme: any) => ({
     root: {
         flexGrow: 1,
         backgroundColor: theme.palette.background.paper,
-        marginLeft: '359px'
+        marginLeft: '359px',
+        marginTop:'216px'
       },
     transferText: {
         width: '723px',

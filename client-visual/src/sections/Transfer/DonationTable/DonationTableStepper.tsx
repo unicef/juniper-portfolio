@@ -6,7 +6,6 @@ import Tab from '@material-ui/core/Tab';
 import Typography from '@material-ui/core/Typography';
 import Box from '@material-ui/core/Box';
 import {Transaction} from './Transaction'
-import {DonationTableLeftMenu} from './DonationTableLeftMenu'
 interface TabPanelProps {
   children?: React.ReactNode;
   index: any;
@@ -45,7 +44,9 @@ const useStyles = makeStyles((theme: Theme) => ({
   root: {
     flexGrow: 1,
     backgroundColor: '#f3f3f3',
-    marginLeft: '244px'
+    marginLeft: '244px',
+    display:'inline-block',
+    // position:'absolute'
   },
   activeTab: {
     fontFamily: 'Cabin',
@@ -97,37 +98,35 @@ export const DonationTableStepper = () => {
   }
 
   return (
-    <div>
-    {/* <DonationTableLeftMenu/> */}
-    <div className={classes.root}>
-      
-      <AppBar position="static">
-        <Tabs
-          variant="fullWidth"
-          value={value}
-          onChange={handleChange}
-          aria-label="nav tabs example"
-          textColor="primary"
-          classes={{
-            root: classes.inactiveTab
-          }}
-          indicatorColor="white"
-        >
-          <LinkTab label="All Transactions"  {...a11yProps(0)}/>
-          <LinkTab label="Crypto Received"  {...a11yProps(1)} />
-          <LinkTab label="Crypto Invested"  {...a11yProps(2)} />
-        </Tabs>
-      </AppBar>
-      <TabPanel value={value} index={0}>
-        <Transaction/>
-      </TabPanel>
-      <TabPanel value={value} index={1}>
-        <Transaction/>
-      </TabPanel>
-      <TabPanel value={value} index={2}>
-        <Transaction/>
-      </TabPanel>
-    </div>
+    <div style={{display:'inline-block'}}>
+      <div className={classes.root}>
+        <AppBar position="static">
+          <Tabs
+            variant="fullWidth"
+            value={value}
+            onChange={handleChange}
+            aria-label="nav tabs example"
+            textColor="primary"
+            classes={{
+              root: classes.inactiveTab
+            }}
+            indicatorColor="white"
+          >
+            <LinkTab label="All Transactions"  {...a11yProps(0)}/>
+            <LinkTab label="Crypto Received"  {...a11yProps(1)} />
+            <LinkTab label="Crypto Invested"  {...a11yProps(2)} />
+          </Tabs>
+        </AppBar>
+        <TabPanel value={value} index={0}>
+          <Transaction/>
+        </TabPanel>
+        <TabPanel value={value} index={1}>
+          <Transaction/>
+        </TabPanel>
+        <TabPanel value={value} index={2}>
+          <Transaction/>
+        </TabPanel>
+      </div>
     </div>
   );
 }

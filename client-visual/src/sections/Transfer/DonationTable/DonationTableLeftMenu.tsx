@@ -1,15 +1,17 @@
-import React, { useState } from 'react'
+import React from 'react'
 import { makeStyles } from '@material-ui/core/styles';
-import Drawer from '@material-ui/core/Drawer';
-
+import Slide from '@material-ui/core/Slide';
+import { DonationTableStepper } from './DonationTableStepper'
 const useStyles = makeStyles({
+    root: {
+      flexGrow:1,
+    },
     list: {
       width: '244px',
       height:'100%',
       backgroundColor: '#0068ce',
-    },
-    fullList: {
-      width: 'auto',
+      display:'inline-block',
+      position:'absolute'
     },
     mainText: {
       fontFamily: 'Cabin',
@@ -47,17 +49,18 @@ const useStyles = makeStyles({
     textWrapper: {
       marginLeft:'38px',
       marginTop: '67px'
-    }
+    },
   });
 
   
 export const DonationTableLeftMenu = () => {
     const classes = useStyles();
-    const [state, setState] = React.useState({
+    const [state] = React.useState({
         left: true,
     });
     
     const sideList = (side:any) => (
+      <Slide style={{display:'inline-block'}} direction="right" in={state.left} >
         <div
           className={classes.list}
           role="presentation"
@@ -81,13 +84,13 @@ export const DonationTableLeftMenu = () => {
             <span className={classes.labelText}>Ether Invested</span><br/>
           </div>
         </div>
+        </Slide>
       );
     
     return (
-        <div>
-            <Drawer variant="permanent" open={state.left}>
-                {sideList('left')}
-            </Drawer>
+        <div className={classes.root}>
+            {sideList('left')}
+            <DonationTableStepper />
         </div>
     )
 }
