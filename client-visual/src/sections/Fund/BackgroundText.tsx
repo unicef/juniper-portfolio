@@ -7,8 +7,6 @@ interface Props {
 
 const useStyles = makeStyles((theme: any) => ({
    header: {
-        width: '143px',
-        height: '46px',
         fontFamily: 'Cabin',
         fontSize: '28px',
         fontStretch: 'normal',
@@ -19,8 +17,6 @@ const useStyles = makeStyles((theme: any) => ({
 
    } ,
     details: {
-        width: '723px',
-        height: '238px',
         fontFamily: 'IBM Plex Sans',
         fontSize: '22px',
         fontWeight: 'normal',
@@ -31,8 +27,6 @@ const useStyles = makeStyles((theme: any) => ({
         color: '#000000'
     },
     detailsBolded: {
-        width: '723px',
-        height: '238px',
         fontFamily: 'IBM Plex Sans',
         fontSize: '22px',
         fontWeight: 'bold',
@@ -40,7 +34,13 @@ const useStyles = makeStyles((theme: any) => ({
         fontStyle: 'normal',
         lineHeight: '1.55',
         letterSpacing: 'normal',
-        color: '#0068ea'
+        color: '#0068ea',
+    },
+    spacing: {
+        width: '723px',
+        height: '238px',
+        paddingTop:'140px',
+        paddingLeft:'358px'
     }
 }));
 
@@ -57,7 +57,7 @@ export const BackgroundText = () => {
         ' allows UNICEF to quickly assess, fund and grow open-source solutions that can improve children’s lives. Financial and technological support is available for companies that are using technology in innovative ways to improve the world. The Fund has made 85  investments in 55 countries with an eye to invest in 20 more start-ups each year. Until 2019, all investments were made in USD.'
     )
     return (
-        <div>
+        <div className={classes.spacing}>
             <span className={classes.header}>{backgroundHeader}</span><br/>
             <span className={classes.details}>{backgroundText}</span><span className={classes.detailsBolded}>{backgroundTextBolded}</span><span className={classes.details}>{secondHalfBackgroundText}</span>
         </div>

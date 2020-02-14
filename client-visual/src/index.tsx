@@ -1,7 +1,6 @@
 import React from 'react';
 import { render } from 'react-dom';
 import './index.css';
-import App from './App';
 import * as serviceWorker from './serviceWorker';
 
 import ApolloClient from 'apollo-boost';
@@ -14,6 +13,8 @@ import { ThemeProvider } from '@material-ui/styles';
 import { theme } from './ui';
 import NavBar from './sections/NavBar/NavBar';
 
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
+
 const client = new ApolloClient({
     uri: '/api'
 });
@@ -21,14 +22,15 @@ const client = new ApolloClient({
 
 render(
     <ThemeProvider theme={theme}>
-        <ApolloProvider client ={client}>
-            <NavBar/>
-            <Landing />
-            <Fund/>
-            <Investment/>
-            <Transfer/>
-
-        </ApolloProvider>
+        <Router>
+            <ApolloProvider client ={client}>
+                <NavBar/>
+                <Route exact path ='/' component={Landing} />
+                <Route exact path ='/fund' component={Fund} />
+                <Route exact path ='/transfer' component={Transfer} />
+                <Route exact path ='/investments' component={Investment} />
+            </ApolloProvider>
+        </Router>
     </ThemeProvider>
     , document.getElementById('root')
 );

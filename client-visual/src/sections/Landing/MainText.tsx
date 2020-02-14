@@ -12,7 +12,8 @@ const useStyles = makeStyles((theme: any) => ({
         fontStyle: 'normal',
         lineHeight: 'normal',
         letterSpacing: 'normal',
-        color: '#000000'
+        color: '#000000',
+        paddingLeft: '358px'
     }
 }));
 
@@ -22,6 +23,6 @@ export const MainText = () => {
         "UNICEF'S CryptoFund is a new financial vehicle allowing UNICEF to receive, hold, and disburse cryptocurrency—a first for the UN"
     )
     return (
-        <span className={classes.mainText}>{mainText}</span>
+        <div className={classes.mainText}>{mainText}</div>
     )
 }

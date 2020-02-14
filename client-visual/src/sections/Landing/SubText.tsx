@@ -12,7 +12,9 @@ const useStyles = makeStyles((theme: any) => ({
         fontStyle: 'normal',
         lineHeight: '1.35',
         letterSpacing: 'normal',
-        color: '#000000'
+        color: '#000000',
+        paddingLeft:'358px',
+        marginTop:'-100px'
     }
 }));
 
@@ -22,6 +24,6 @@ export const SubText = () => {
         "Building upon the existing UNICEF Innovation Fund, startups in UNICEF Innovation's portfolio will now be able to receive the funding in a quick and transparent way via cryptocurrency."
     )
     return (
-        <span className={classes.subText}>{subText}</span>
+        <div className={classes.subText}>{subText}</div>
     )
 }

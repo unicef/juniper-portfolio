@@ -98,7 +98,7 @@ export const DonationTableStepper = () => {
 
   return (
     <div>
-    <DonationTableLeftMenu/>
+    {/* <DonationTableLeftMenu/> */}
     <div className={classes.root}>
       
       <AppBar position="static">

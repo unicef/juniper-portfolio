@@ -7,8 +7,7 @@ interface Props {
 
 const useStyles = makeStyles((theme: any) => ({
     thankYouText: {
-        width: '449px',
-        height: '25px',
+        
         fontFamily: 'IBM Plex Sans',
         fontSize: '16px',
         fontWeight: 'normal',
@@ -21,6 +20,12 @@ const useStyles = makeStyles((theme: any) => ({
     logoPlacement: {
         width: '157px',
         height: '65px'
+    },
+    spacing: {
+        paddingTop:'75px',
+        paddingLeft:'358px',
+        width: '449px',
+        height: '100px',
     }
 }));
 
@@ -33,7 +38,7 @@ export const ThankYouDonors = () => {
         'https://user-images.githubusercontent.com/8097623/70676240-56ebcc80-1c40-11ea-9aa8-51b7f75af8ba.png'
     )
     return (
-        <div>
+        <div className={classes.spacing}>
             <span className={classes.thankYouText}>{thankYouText}</span><br/>
             <img className={classes.logoPlacement} src={efLogo}/>
         </div>

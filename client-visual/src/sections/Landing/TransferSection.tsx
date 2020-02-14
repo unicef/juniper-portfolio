@@ -11,6 +11,6 @@ const useStyles = makeStyles((theme: any) => ({
 export const TransferSection = () => {
     const classes = useStyles();
     return (
-        <h3>ARROW</h3>
+        <img style={{zIndex:-1, paddingLeft:'351px', display:'inline-block', width:'704px', position:'absolute'}} src={'./big-arrow.png'} />
     )
 }

@@ -16,7 +16,10 @@ const useStyles = makeStyles((theme: any) => ({
         fontStyle: 'normal',
         lineHeight: '1.44',
         letterSpacing: 'normal',
-        color: '#000000'
+        color: '#000000',
+        position:'absolute',
+        marginTop:'216px',
+        paddingLeft:'53px'
     }
 }));
 
@@ -26,6 +29,6 @@ export const DonorText = () => {
         'In October 2019, UNICEF announced it would be the first UN entity to make investments denominated in cryptocurrency, following the same principles as the existing UNICEF Innovation Fund. Using cryptocurrency in investments allows donors, UNICEF and investees to transparently and nearly instantaneously track where funds are, bringing a new level of funding visibility to the international development sector.'
     )
     return (
-        <span className={classes.text}>{donorText}</span>
+        <div style={{display:'inline-block'}} className={classes.text}>{donorText}</div>
     )
 }

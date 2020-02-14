@@ -11,13 +11,17 @@ const useStyles = makeStyles((theme: any) => ({
         width: '797px',
         backgroundColor: '#ffd113',
         borderRadius: '50%',
-        display: 'inline-block'
+        display: 'inline-block',
+        position: 'relative',
+        marginLeft: '800px',
+        zIndex:-5,
+        marginTop:'-200px'
     }
 }));
 
 export const ProjectsSection = () => {
     const classes = useStyles();
     return (
-        <span className={classes.projectsDot}></span>
+        <span style={{display:'inline-block'}} className={classes.projectsDot}></span>
     )
 }

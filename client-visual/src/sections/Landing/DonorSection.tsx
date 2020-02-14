@@ -11,13 +11,17 @@ const useStyles = makeStyles((theme: any) => ({
         width: '482px',
         backgroundColor: '#0068ea',
         borderRadius: '50%',
-        display: 'inline-block'
-    }
+        display: 'inline-block',
+        position: 'absolute'
+    },
+    
 }));
 
 export const DonorSection = () => {
     const classes = useStyles();
     return (
-        <span className={classes.donorDot}></span>
+        <div>
+            <span style={{display:'inline-block'}} className={classes.donorDot}></span>
+        </div>
     )
 }

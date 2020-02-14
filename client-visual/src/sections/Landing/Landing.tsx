@@ -12,10 +12,10 @@ interface Props {
 export const Landing = () => {
     return (
         <div>
-            <DonorSection/>
+            <MainText/>
+            <DonorSection />
             <TransferSection/>
             <ProjectsSection/>
-            <MainText/>
             <SubText/>
         </div>
     )
