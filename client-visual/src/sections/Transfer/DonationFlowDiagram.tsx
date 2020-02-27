@@ -13,7 +13,7 @@ export const DonationFlowDiagram = () => {
     const classes = useStyles()
     return (
         <div className={classes.root}>
-            <img style={{width:'1109px'}} src={'./sample-transaction.png'} />
+            <img style={{width:'1109px'}} src={'./sample-transaction.png'} alt='sample transaction'/>
         </div>
     )
 }

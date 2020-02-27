@@ -13,7 +13,7 @@ import { ThemeProvider } from '@material-ui/styles';
 import { theme } from './ui';
 import NavBar from './sections/NavBar/NavBar';
 
-import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
+import { BrowserRouter as Router, Route } from 'react-router-dom'
 
 const client = new ApolloClient({
     uri: '/api'
@@ -21,14 +21,14 @@ const client = new ApolloClient({
 
 
 render(
-    <ThemeProvider theme={theme}>
+    <ThemeProvider  theme={theme}>
         <Router>
-            <ApolloProvider client ={client}>
+            <ApolloProvider  client ={client}>
                 <NavBar/>
                 <Route exact path ='/' component={Landing} />
-                <Route exact path ='/fund' component={Fund} />
-                <Route exact path ='/transfer' component={Transfer} />
-                <Route exact path ='/investments' component={Investment} />
+                <Route exact path ='/receive' component={Fund} />
+                <Route exact path ='/invest' component={Transfer} />
+                <Route exact path ='/track' component={Investment} />
             </ApolloProvider>
         </Router>
     </ThemeProvider>

@@ -1,24 +1,24 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import { AppBar, Toolbar, Typography } from '@material-ui/core';
+import { AppBar, Toolbar, Typography, Button } from '@material-ui/core';
 
 const useStyles = makeStyles((theme: any) => ({
     root: {
       flexGrow: 1,
       justifyContent: 'center',
       height: 50,
-      maxWidth: '100vw',
+      // maxWidth: '100vw',
       left: 0,
       background: 'white', 
       boxShadow: 'none',
-      fontFamily: ['Red Hat Display', 'sans-serif'].join(','),
+      fontFamily: 'Cabin',
       zIndex: 100,
     },
     toolBar: {
       minHeight: 50,
       '& > *:first-child, & > *:last-child': {
         width: '100%',
-        maxWidth: 220,
+        // maxWidth: 220,
       },
     },
     menuButtonWrapper: {
@@ -27,7 +27,15 @@ const useStyles = makeStyles((theme: any) => ({
       justifyContent: 'flex-end',
     },
     menuButton: {
-      marginRight: -15,
+      fontFamily: 'Cabin', 
+      fontWeight:'bold', 
+      letterSpacing: '1.17px'
+    },
+    menuButtonLeft: {
+      // marginRight: -15,
+      fontFamily: 'Cabin', 
+      fontWeight:'bold', 
+      letterSpacing: '1.17px'
     },
     title: {
       width: '133px',
@@ -53,6 +61,12 @@ export default function NavBar() {
           <Typography variant="h5" className={classes.title}>
             CryptoFund
           </Typography>
+          <div>
+            <Button className={classes.menuButtonLeft} href='/receive'>Receive</Button>
+            <Button className={classes.menuButton} href='/invest'>Invest</Button>
+            <Button className={classes.menuButton} href='/track'>Track</Button>
+            <Button className={classes.menuButton} href='/about'>About</Button>
+          </div>
         </Toolbar>
       </AppBar>
     </div>

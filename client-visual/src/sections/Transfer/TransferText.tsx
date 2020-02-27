@@ -1,6 +1,4 @@
 import React, { useState } from 'react'
-import { gql } from 'apollo-boost'
-import { useQuery, useMutation } from 'react-apollo'
 import { makeStyles } from '@material-ui/core/styles'
 
 interface Props {
