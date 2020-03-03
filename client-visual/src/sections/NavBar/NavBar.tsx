@@ -24,7 +24,7 @@ const useStyles = makeStyles((theme: any) => ({
     menuButtonWrapper: {
       width: '100%',
       display: 'flex',
-      justifyContent: 'flex-end',
+      // justifyContent: 'flex-end',
     },
     menuButton: {
       fontFamily: 'Cabin', 

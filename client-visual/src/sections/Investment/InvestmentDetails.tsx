@@ -1,66 +1,153 @@
 import React from 'react'
-import { makeStyles } from '@material-ui/core/styles';
+import { Grid, Button } from '@material-ui/core'
+import { makeStyles } from '@material-ui/styles'
 
-interface Props {
-    title: string
-}
-
-const useStyles = makeStyles((theme: any) => ({
-    investmentDetailsDot: {
-        height: '428px',
-        width: '428px',
-        backgroundColor: '#ffd113',
-        borderRadius: '50%',
-        display: 'inline-block',
-        marginTop:'177px',
-        marginLeft:'1081px'
+const useStyles = makeStyles((theme:any) => ({
+    root: {
+        width: '903px',
+        height: '496px',
+        opacity: '0.84',
+        marginTop:'-300px'
     },
-    numberText:{
-        textTransform: 'uppercase',
-        fontFamily:'IBM Plex Sans',
-        fontSize:'31px',
-        fontWeight:'bold',
-        fontStretch:'noraml',
-        fontStyle:'normal',
-        lineHeight:'1.19',
-        letterSpacing:'normal',
-        color:'#000'
+    title: {
+        paddingLeft:'170px',
+        paddingTop:"65px",
+        width: '643px',
+        height: '132px',
+        fontFamily: 'Cabin',
+        fontSize: '36px',
+        fontWeight: 'bold',
+        fontStretch: 'normal',
+        fontStyle: 'normal',
+        lineHeight: 'normal',
+        letterSpacing: 'normal',
     },
-    plainText:{
-        textTransform: 'uppercase',
+    label1: {
+        fontFamily: 'Cabin',
+        fontSize: '14px',
+        fontWeight: 'bold',
+        fontStretch: 'normal',
+        fontStyle: 'normal',
+        lineHeight: 'normal',
+        letterSpacing: '1.17px',
+        textTransform:'uppercase'
+    },
+    label2: {
+        fontFamily: 'Cabin',
+        fontSize: '14px',
+        fontWeight: 'bold',
+        fontStretch: 'normal',
+        fontStyle: 'normal',
+        lineHeight: 'normal',
+        letterSpacing: '1.17px',
+        textTransform:'uppercase'
+    },
+    label3: {
+        fontFamily: 'Cabin',
+        fontSize: '14px',
+        fontWeight: 'bold',
+        fontStretch: 'normal',
+        fontStyle: 'normal',
+        lineHeight: 'normal',
+        letterSpacing: '1.17px',
+        textTransform:'uppercase'
+    },
+    detail1: {
+        fontFamily: 'IBM Plex Sans',
+        fontSize: '31px',
+        fontWeight: 'bold',
+        fontStretch: 'normal',
+        fontStyle: 'normal',
+        lineHeight: '1.19',
+        letterSpacing: 'normal',
+    },
+    detail2: {
+        fontFamily: 'IBM Plex Sans',
+        fontSize: '31px',
+        fontWeight: 'bold',
+        fontStretch: 'normal',
+        fontStyle: 'normal',
+        lineHeight: '1.19',
+        letterSpacing: 'normal',
+    },
+    detail3: {
+        fontFamily: 'IBM Plex Sans',
+        fontSize: '31px',
+        fontWeight: 'bold',
+        fontStretch: 'normal',
+        fontStyle: 'normal',
+        lineHeight: '1.19',
+        letterSpacing: 'normal',
+    },
+    button: {
+        textTransform:'uppercase',
+        backgroundColor:'black',
+        color:'#fff',
+        width: '165px',
+        height: '50px',
+        borderRadius: '5px',
         fontFamily:'Cabin',
-        fontSize:'14px',
-        fontWeight:'bold',
-        fontStretch:'normal',
-        fontStyle:'normal',
-        lineHeight:'normal',
-        letterSpacing:'1.17px',
-        color:'#000'
+        fontSize: '14px',
+        fontWeight: 'bold',
+        fontStretch: 'normal',
+        fontStyle: 'normal',
+        lineHeight: 'normal',
+        letterSpacing: '1.17px',
     },
-    center: {
-        margin: 'auto',
-        width: '50%',
+    link: {
+        fontFamily: 'Cabin',
+        fontSize: '14px',
+        fontWeight: 'bold',
+        fontStretch: 'normal',
+        fontStyle: 'normal',
+        lineHeight: 'normal',
+        letterSpacing: '1.17px',
+        textTransform:'uppercase'
     }
-}));
+}))
 
-export const InvestmentDetails = () => {
+
+export const InvestmentDetails = (props: any) => {
     const classes = useStyles()
     return(
-        <div style={{display:'inline-block'}}  className={classes.investmentDetailsDot}>
-        <div className={classes.center}>
-            <div style={{paddingTop:'112px'}}>
-                <div className={classes.numberText}>08</div>
-                <div className={classes.plainText}>our investments</div>
-            </div>
-            <div style={{paddingTop:'18px'}}>
-                <div className={classes.numberText}>50 btc</div>
-                <div className={classes.plainText}>bitcoin invested</div>
-            </div>
-            <div style={{paddingTop:'18px'}}>
-                <div className={classes.numberText}>20000 eth</div>
-                <div className={classes.plainText}>ether invested </div>
-            </div>
+        <div style={{backgroundColor: props.color, color: props.fontColor}}className={classes.root}>
+            <Grid container>
+                <Grid item>
+                    <div className={classes.title}>{props.title}</div>
+                </Grid>
+            </Grid>
+            <Grid container style={{paddingLeft:'170px', paddingTop:'25px'}}>
+                <Grid item>
+                    <div className={classes.label1}>{props.label1}</div>
+                </Grid>
+                <Grid item>
+                    <div style={{paddingLeft:'117px'}} className={classes.label2}>{props.label2}</div>
+                </Grid>
+                <Grid item>
+                    <div style={{paddingLeft:'71px'}} className={classes.label3}>{props.label3}</div>
+                </Grid>
+            </Grid>
+            <Grid container style={{paddingLeft:'170px', paddingTop:'5px'}}>
+                <Grid item>
+                    <div className={classes.detail1}>{props.detail1}</div>
+                </Grid>
+                <Grid item>
+                    <div style={{paddingLeft:'60px'}} className={classes.detail2}>{props.detail2}</div>
+                </Grid>
+                <Grid item>
+                    <div style={{paddingLeft:'60px'}} className={classes.detail3}>{props.detail3}</div>
+                </Grid>
+            </Grid>
+            <Grid container style={{paddingLeft:'170px', paddingTop:'50px'}}>
+                <Grid item>
+                    <Button className={classes.button}>{props.button}</Button>
+                </Grid>
+            </Grid>
+            <Grid container style={{paddingLeft:'170px', paddingTop:'15px'}}>
+                <Grid item>
+                    <div className={classes.link}>Transaction Proof</div>
+                </Grid>
+            </Grid>
         </div>
-    </div>
     )
 }

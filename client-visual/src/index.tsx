@@ -27,8 +27,8 @@ render(
                 <NavBar/>
                 <Route exact path ='/' component={Landing} />
                 <Route exact path ='/receive' component={Fund} />
-                <Route exact path ='/invest' component={Transfer} />
-                <Route exact path ='/track' component={Investment} />
+                <Route exact path ='/invest' component={Investment} />
+                {/* <Route exact path ='/track' component={Investment} /> */}
             </ApolloProvider>
         </Router>
     </ThemeProvider>
