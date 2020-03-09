@@ -23,7 +23,7 @@ const useStyles = makeStyles((theme: any) => ({
     },
     menuButtonWrapper: {
       width: '100%',
-      display: 'flex',
+      // display: 'flex',
       // justifyContent: 'flex-end',
     },
     menuButton: {
@@ -32,7 +32,6 @@ const useStyles = makeStyles((theme: any) => ({
       letterSpacing: '1.17px'
     },
     menuButtonLeft: {
-      // marginRight: -15,
       fontFamily: 'Cabin', 
       fontWeight:'bold', 
       letterSpacing: '1.17px'

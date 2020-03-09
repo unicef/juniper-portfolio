@@ -10,11 +10,11 @@ const useStyles = makeStyles({
       fontFamily: 'Cabin',
       fontSize: '75px',
       fontWeight:'bold',
-      fontStretch:'normal',
+      // fontStretch:'normal',
       lineHeight:'0.46',
-      letterSpacing:'normal',
+      // letterSpacing:'normal',
       color:'#fff',
-      width: '347px',
+      // width: '347px',
       // height: '47px'
     }
   });
@@ -23,8 +23,8 @@ export const ReceiveText = () => {
     const classes = useStyles()
     const [receiveText] = useState('Receive')
     return (
-          <Grid item xs={12} sm={4}>
-            <span className={classes.receiveText}>{receiveText}</span>
-          </Grid>
+        <Grid item xs={12} sm={12} md={4}>
+          <span className={classes.receiveText}>{receiveText}</span>
+        </Grid>
     )
 }

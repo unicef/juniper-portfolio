@@ -47,7 +47,7 @@ export const Landing = () => {
               <Receive/>
             </Grid>
           </Grid>
-          {/* <Grid container>
+          <Grid container>
             <Grid item xs={12} sm={2}>
 
             </Grid>
@@ -62,7 +62,7 @@ export const Landing = () => {
             <Grid item xs={12} sm={8}>
               <Track/>
             </Grid>
-          </Grid> */}
+          </Grid>
             
             
             

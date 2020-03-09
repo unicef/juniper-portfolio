@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import { makeStyles } from '@material-ui/core/styles'
+import { Grid } from '@material-ui/core'
 
 const useStyles = makeStyles({
     root: {
@@ -22,8 +23,8 @@ export const InvestText = () => {
     const classes = useStyles()
     const [investText] = useState('Invest')
     return (
-        <div className={classes.root}>
+      <Grid item xs={12} sm={12} md={4}>
             <span className={classes.investText}>{investText}</span>
-        </div>
+      </Grid>
     )
 }

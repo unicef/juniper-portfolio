@@ -21,9 +21,9 @@ const client = new ApolloClient({
 
 
 render(
-    <ThemeProvider  theme={theme}>
+    <ThemeProvider theme={theme}>
         <Router>
-            <ApolloProvider  client ={client}>
+            <ApolloProvider client ={client}>
                 <NavBar/>
                 <Route exact path ='/' component={Landing} />
                 <Route exact path ='/receive' component={Fund} />

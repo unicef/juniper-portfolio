@@ -2,6 +2,7 @@ import React from 'react'
 import { Grid } from '@material-ui/core/'
 import { makeStyles } from '@material-ui/core/styles'
 import { InvestObject } from './InvestObject'
+import { InvestImage } from './InvestImage'
 import { InvestText } from './InvestText'
 import { ArrowButton } from '../Atoms/ArrowButton'
 import { HorizontalBar } from '../Atoms/HorizontalBar'
@@ -18,15 +19,11 @@ export const Invest = () => {
     return (
         <div className={classes.root}>
           <Grid container>
-            <Grid item xs={5}>
               <InvestText/>
-            </Grid>
-            <Grid item xs ={6}>
+              <Grid item xs={'auto'} sm={'auto'}></Grid>
               <InvestObject/>
-            </Grid>
-            <Grid item xs={1}>
-              <ArrowButton />
-            </Grid>
+              <InvestImage/>
+              {/* <ArrowButton /> */}
             <Grid item xs = {12}>
               <HorizontalBar />
             </Grid>

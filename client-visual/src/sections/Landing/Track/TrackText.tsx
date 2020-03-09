@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import { makeStyles } from '@material-ui/core/styles'
+import { Grid } from '@material-ui/core'
 
 const useStyles = makeStyles({
     root: {
@@ -22,8 +23,8 @@ export const TrackText = () => {
     const classes = useStyles()
     const [trackText] = useState('Track')
     return (
-        <div className={classes.root}>
-            <span className={classes.trackText}>{trackText}</span>
-        </div>
+      <Grid item xs={12} sm={12} md={4}>
+        <span className={classes.trackText}>{trackText}</span>
+      </Grid>
     )
 }
