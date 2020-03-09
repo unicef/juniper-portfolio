@@ -65,7 +65,7 @@ export default function NavBar() {
             <Button className={classes.menuButtonLeft} href='/receive'>Receive</Button>
             <Button className={classes.menuButton} href='/invest'>Invest</Button>
             <Button className={classes.menuButton} href='/track'>Track</Button>
-            <Button className={classes.menuButton} href='/about'>About</Button>
+            {/* <Button className={classes.menuButton} href='/about'>About</Button> */}
           </div>
         </Toolbar>
       </AppBar>

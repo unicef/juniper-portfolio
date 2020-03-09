@@ -3,6 +3,7 @@ import { Grid } from '@material-ui/core/'
 import { makeStyles } from '@material-ui/core/styles'
 import { ReceiveObject } from './ReceiveObject'
 import { ReceiveText } from './ReceiveText'
+import { ReceiveImage } from './ReceiveImage'
 import { ArrowButton } from '../Atoms/ArrowButton'
 import { HorizontalBar } from '../Atoms/HorizontalBar'
 
@@ -19,18 +20,14 @@ export const Receive = () => {
     return (
         <div className={classes.root}>
           <Grid container>
-            <Grid item xs={5}>
-              <ReceiveText/>
-            </Grid>
-            <Grid item xs ={6}>
-              <ReceiveObject/>
-            </Grid>
-            <Grid item xs={1}>
-              <ArrowButton />
-            </Grid>
-            <Grid item xs = {12}>
+              <ReceiveText/> {/** has 3 col and 1 col */}
+              <Grid item xs={1} sm={1}></Grid>
+              <ReceiveObject/>  {/** has col 2 and 2 */}
+              <ReceiveImage/>
+              <ArrowButton /> {/** 1 col */}
+            {/* <Grid item xs = {12} sm = {12}>
               <HorizontalBar />
-            </Grid>
+            </Grid> */}
           </Grid>
         </div>
     )

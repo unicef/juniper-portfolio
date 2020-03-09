@@ -38,18 +38,11 @@ const useStyles = makeStyles({
     }
   });
 
-export const ReceiveObject = () => {
+export const ReceiveImage = () => {
     const classes = useStyles()
-    const [title] = useState('Recieved')
-    const [numberOfDonors] = useState(1)
-    const [amountOfBitcoin] = useState(1)
-    const [amountOfEther] = useState(100)
     return (
-            <Grid item xs={2} sm={2} className={classes.text}>
-              <span className={classes.title}>{title}</span>
-              <div className={classes.numberOfDonors}>{numberOfDonors} donor(s)</div>
-              <div className={classes.amountOfBitcoin}>{amountOfBitcoin} bitcoin</div>
-              <div className={classes.amountOfEther}>{amountOfEther} ether</div>
+            <Grid item xs={12} sm={2}>
+              <img className={classes.imageSpecs} src='./Infographic:receive:mobile.png' alt='ratio of crypto pie chart' />
             </Grid>
     )
 }

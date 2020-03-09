@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import { makeStyles } from '@material-ui/core/styles'
+import { Grid } from '@material-ui/core'
 
 const useStyles = makeStyles({
     root: {
@@ -14,7 +15,7 @@ const useStyles = makeStyles({
       letterSpacing:'normal',
       color:'#fff',
       width: '347px',
-      height: '47px'
+      // height: '47px'
     }
   });
 
@@ -22,8 +23,8 @@ export const ReceiveText = () => {
     const classes = useStyles()
     const [receiveText] = useState('Receive')
     return (
-        <div className={classes.root}>
+          <Grid item xs={12} sm={4}>
             <span className={classes.receiveText}>{receiveText}</span>
-        </div>
+          </Grid>
     )
 }
