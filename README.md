@@ -25,7 +25,7 @@ Clone the repository with the following command:
 Once the repository is cloned, there are two folders. One is for the client app and the other is for the server app.
 
 ### Mongo 
-Add some instructions to get Mongo up an drunning locally
+Add some instructions to get Mongo up and running locally
 
 ### Client
 
