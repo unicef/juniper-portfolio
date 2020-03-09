@@ -53,7 +53,7 @@ export const InvestObject = () => {
               <div className={classes.amountOfEther}>{amountOfEther} ether</div>
             </Grid>
             <Grid item xs={3}>
-              <img className={classes.imageSpecs} src='./Infographic:invest:mobile.png' alt='ratio of crypto pie chart' />
+              <img className={classes.imageSpecs} src='./Infographic_invest_mobile.png' alt='ratio of crypto pie chart' />
             </Grid>
         </Grid>
     )

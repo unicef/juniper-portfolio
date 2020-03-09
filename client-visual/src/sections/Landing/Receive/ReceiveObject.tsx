@@ -54,7 +54,7 @@ export const ReceiveObject = () => {
               <div className={classes.amountOfEther}>{amountOfEther} ether</div>
             </Grid>
             <Grid item xs={3}>
-              <img className={classes.imageSpecs} src='./Infographic:receive:mobile.png' alt='ratio of crypto pie chart' />
+              <img className={classes.imageSpecs} src='./Infographic_receive_mobile.png' alt='ratio of crypto pie chart' />
             </Grid>
         {/* </div> */}
         </Grid>

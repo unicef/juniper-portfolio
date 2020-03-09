@@ -42,7 +42,7 @@ export const TrackObject = () => {
               <div className={classes.trackText}>{trackText} donor(s)</div>
             </Grid>
             <Grid item xs={3}>
-              <img className={classes.imageSpecs} src='./Infographic:track:mobile.png' alt='ratio of crypto pie chart' />
+              <img className={classes.imageSpecs} src='./Infographic_track_mobile.png' alt='ratio of crypto pie chart' />
             </Grid>
         {/* </div> */}
         </Grid>
