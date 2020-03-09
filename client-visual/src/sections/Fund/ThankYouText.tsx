@@ -3,7 +3,9 @@ import { makeStyles } from '@material-ui/styles'
 
 const useStyles = makeStyles((theme: any) => ({
     root: {
-        paddingTop:'25px'
+        paddingTop:'25px',
+        maxWidth:'100%',
+        padding:'14px'
     },
     thankYouText: {
         width:'728px',
