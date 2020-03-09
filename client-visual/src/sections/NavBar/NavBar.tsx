@@ -16,15 +16,17 @@ const useStyles = makeStyles((theme: any) => ({
     },
     toolBar: {
       minHeight: 50,
-      '& > *:first-child, & > *:last-child': {
-        width: '100%',
-        // maxWidth: 220,
-      },
+      // '& > *:first-child, & > *:last-child': {
+      //   width: '100%',
+      //   maxWidth: 220,
+      // },
     },
     menuButtonWrapper: {
       width: '100%',
-      // display: 'flex',
+      display: 'flex',
       // justifyContent: 'flex-end',
+      justifyContent: 'center',
+      alignItems: 'center',
     },
     menuButton: {
       fontFamily: 'Cabin', 
@@ -47,7 +49,7 @@ const useStyles = makeStyles((theme: any) => ({
       lineHeight: 'normal',
       letterSpacing: 'normal',
       color: '#000000'
-    },
+    }
   }));
 
 export default function NavBar() {
@@ -55,15 +57,30 @@ export default function NavBar() {
 
   return (
     <div className={classes.root}>
-      <AppBar className={classes.root} square={true} elevation={0} color='default' position="fixed">
+      <AppBar square={true} elevation={0} color='default' position="fixed">
         <Toolbar className={classes.toolBar}>
           <Typography variant="h5" className={classes.title}>
             CryptoFund
           </Typography>
-          <div>
-            <Button className={classes.menuButtonLeft} href='/receive'>Receive</Button>
-            <Button className={classes.menuButton} href='/invest'>Invest</Button>
-            <Button className={classes.menuButton} href='/track'>Track</Button>
+          <div className={classes.menuButtonWrapper}>
+            <Button 
+              // className={classes.menuButtonLeft} 
+              href='/receive'
+            >
+              Receive
+            </Button>
+            <Button 
+              // className={classes.menuButton} 
+              href='/invest'
+            >
+              Invest
+            </Button>
+            <Button 
+              // className={classes.menuButton} 
+              href='/track'
+            >
+              Track
+            </Button>
             {/* <Button className={classes.menuButton} href='/about'>About</Button> */}
           </div>
         </Toolbar>

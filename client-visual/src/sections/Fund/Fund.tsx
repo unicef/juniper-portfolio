@@ -33,7 +33,7 @@ export const Fund = () => {
         <div>
             <div className={classes.top}>
                 <Grid container>
-                    <Grid item xs={12} sm={2}>
+                    <Grid item xs={12} sm={3}>
                         <SideDetails />
                     </Grid>
                     <Grid item xs={12} sm={6}>

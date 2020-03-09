@@ -19,7 +19,7 @@ export const Track = () => {
     return (
         <div className={classes.root}>
           <Grid container>
-              <TrackText/>
+              <TrackText />
               <Grid item xs={'auto'} sm={'auto'}></Grid>
               <TrackObject />
               <TrackImage />

@@ -14,8 +14,6 @@ const useStyles = makeStyles({
       lineHeight:'0.46',
       letterSpacing:'normal',
       color:'#fff',
-      width: '347px',
-      height: '47px'
     }
   });
 
@@ -24,7 +22,7 @@ export const InvestText = () => {
     const [investText] = useState('Invest')
     return (
       <Grid item xs={12} sm={12} md={4}>
-            <span className={classes.investText}>{investText}</span>
+            <div style={{paddingLeft:'-5px', paddingBottom:'30px'}} className={classes.investText}>{investText}</div>
       </Grid>
     )
 }

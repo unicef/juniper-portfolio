@@ -3,8 +3,8 @@ import { makeStyles } from '@material-ui/styles'
 
 const useStyles = makeStyles((theme: any) => ({
     mainText: {
-        width: '723px',
-        height: '414px',
+        // width: '723px',
+        // height: '414px',
         fontFamily: 'Cabin',
         fontSize: '32px',
         fontWeight: 'normal',
