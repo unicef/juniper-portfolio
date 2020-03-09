@@ -3,13 +3,18 @@ This application can be used to track cryptocurrency wallets (bitcoin and ether)
 
 ## Getting Started
 
-
 ### Prerequisites 
 The following software should be installed in your development environment before using this repository:
 
 1. Node JS (^12.13.0)
 2. Node Package Manager (npm) (^6.12.0)
 3. Docker (^19.03.2)
+4. Mongo (version tbd)
+
+```
+PLEASE ADD A SECTION FOR MONGO DB AND HAVING IT UP AND RUNNING
+
+```
 
 ### Installing 
 
@@ -18,6 +23,9 @@ Clone the repository with the following command:
 `git clone https://github.com/unicef/gilgamesh-track`
 
 Once the repository is cloned, there are two folders. One is for the client app and the other is for the server app.
+
+### Mongo 
+Add some instructions to get Mongo up an drunning locally
 
 ### Client
 
@@ -39,8 +47,19 @@ For local development, the following steps must take place:
 
 1. Change into the directory of the server app `cd server`
 2. Install the packages that are associated with the client app `npm install`
-3. Start the application `npm start`
-4. The files that are relevant to the application are stored in the `/src` folder. Update these files to update the application
+3. Create a .env file and update it with the following parameters:
+```
+    DB_USER=''
+    DB_USER_PASSWORD=''
+    DB_NAME='tracking-test'
+    DB_URL='mongodb://localhost:27017'
+    SERVER_PORT=9000
+    ACCESS_TOKEN_SECRET=ansjdnf0293madsss
+    REFRESH_TOKEN_SECRET=29032mlkmsadf09sd
+```
+4. Ensure that mongo is running locally (or if you have another instance running on thce cloud, update your DB_URL in the .env file accordingly)
+5. Start the application `npm start`
+6. The files that are relevant to the application are stored in the `/src` folder. Update these files to update the application
 
 
 Other notes: 
