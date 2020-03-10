@@ -12,7 +12,7 @@ export const ReceiveImage = () => {
     const classes = useStyles()
     return (
             <Grid item xs={6} sm={6} md={3}>
-              <img className={classes.imgSpecs} src='./Infographic:receive:mobile.png' alt='ratio of crypto pie chart' />
+              <img className={classes.imgSpecs} src='./Infographic_receive_mobile.png' alt='ratio of crypto pie chart' />
             </Grid>
     )
 }
