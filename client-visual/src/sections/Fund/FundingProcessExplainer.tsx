@@ -1,13 +1,13 @@
 import React, { useState } from 'react'
 import { makeStyles, Theme} from '@material-ui/core/styles'
-import { Button } from '@material-ui/core'
+import { Button, Grid } from '@material-ui/core'
 import { FundingProcessImage } from './FundingProcessImage'
 
 const useStyles = makeStyles((theme: Theme ) => ({
     root: {
         flexGrow: 1,
         backgroundColor: theme.palette.background.paper,
-        paddingTop:'30px'
+        padding:'14px'
     },
     titleStyle: {
         width:'55px',
@@ -22,11 +22,8 @@ const useStyles = makeStyles((theme: Theme ) => ({
         color:'#000000',
         marginLeft:'10px'
     }, 
-    boldedTextStyle: {
-
-    },
     textStyle: {
-        width:'342px',
+        // width:'342px',
         height:'81px',
         fontFamily:'IBM Plex Sans',
         fontSize:'16px',
@@ -91,16 +88,6 @@ const useStyles = makeStyles((theme: Theme ) => ({
         lineHeight:'1.41',
         letterSpacing:'normal',
         color:'#000000'
-    },
-    boldedText: {
-        fontFamily: 'IBM Plex Sans',
-        fontSize: '22px',
-        fontWeight:'bold',
-        fontStretch:'normal',
-        fontStyle:'normal',
-        lineHeight:'1.41',
-        letterSpacing:'normal',
-        color:'#0068ea'
     }
 }))
 
@@ -118,13 +105,14 @@ export const FundingProcessExplainer = () => {
 
     const createBlock = (title: string, text: string, color: string, padding: string) => {
         return(
-            <div style={{display: 'inline-block', height:'200px', verticalAlign: 'top', paddingLeft: padding+'px'}}>
+            <div style={{display: 'inline-block', verticalAlign: 'top', paddingLeft: padding+'px'}}>
                 <div>
                     <span style={{backgroundColor:color}} className={classes.circleStyle}></span>
                     <span className={classes.titleStyle}>{title}</span><br/>
                 </div>
-                <div className={classes.widthOfBox} style={{width:'342px', marginTop:'7px'}}>
-                    <div className={classes.textStyle}>{text}</div>
+                {/* <div className={classes.widthOfBox} style={{width:'342px', marginTop:'7px'}}> */}
+                <div style={{ marginTop:'7px'}}>
+                    <div style={{maxWidth:'100%' }} className={classes.textStyle}>{text}</div>
                 </div>
             </div>
         )
@@ -169,19 +157,32 @@ export const FundingProcessExplainer = () => {
 
     return (
         <div className={classes.root}>
-            <FundingProcessImage 
-                flag={flagForImage}
-            />
-            <div>
-                {createBlock(donorTitle, donorText, '#0068ea', '0')}
-                {createBlock(unicefTitle, unicefText, '#29c3ff', '37')}
-                {createBlock(startUpTitle, startUpText, '#ffd113', '37')}
+            <Grid container>
+                <Grid item xs={12} sm={3} md={3}></Grid>
+                <FundingProcessImage 
+                    flag={flagForImage}
+                />
+            </Grid>
+            <div style={{paddingBottom:'30px'}}>
+                <Grid container alignContent='center' justify='center' alignItems='center'>
+                    {/* <Grid item xs={12} sm={12} md={3}></Grid> */}
+                    <Grid item xs={12} sm={12} md={3}>
+                        {createBlock(donorTitle, donorText, '#0068ea', '0')}
+                    </Grid>
+                    <Grid item xs={12} sm={12} md={3}>
+                        {createBlock(unicefTitle, unicefText, '#29c3ff', '0')}
+                    </Grid>                
+                    <Grid item xs={12} sm={12} md={3}>
+                        {createBlock(startUpTitle, startUpText, '#ffd113', '0')}
+                    </Grid>
+                </Grid>
             </div>
-            <div style={{paddingLeft:'280px', paddingBottom:'174px' }}>
-                {fundingFlowButton()}
-                {sampleTransactionsButton()}<br/>
-            </div>
-
+            <Grid container alignContent='center' justify='center' alignItems='center'>
+                <Grid item xs={12} sm={12} md ={4}>
+                    {fundingFlowButton()}
+                    {sampleTransactionsButton()}<br/>
+                </Grid>
+            </Grid>
         </div>
     )
 }

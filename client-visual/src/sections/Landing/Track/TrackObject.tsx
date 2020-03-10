@@ -36,15 +36,9 @@ export const TrackObject = () => {
     const classes = useStyles()
     const [trackText] = useState('Track the movement of investments')
     return (
-        // <div className={classes.root}>
-        <Grid container>
-            <Grid item xs={3} className={classes.text}>
-              <div className={classes.trackText}>{trackText} donor(s)</div>
-            </Grid>
-            <Grid item xs={3}>
-              <img className={classes.imageSpecs} src='./Infographic_track_mobile.png' alt='ratio of crypto pie chart' />
-            </Grid>
-        {/* </div> */}
+
+        <Grid item xs={6} sm={6} md={3} className={classes.text}>
+          <div className={classes.trackText}>{trackText} donor(s)</div>
         </Grid>
     )
 }

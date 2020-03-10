@@ -6,9 +6,7 @@ const useStyles = makeStyles({
     root: {
       flexGrow:1,
     },
-    imageSpecs: {
-      width:'259px'
-    },
+
     text: {
       width:'107px',
       height:'69px',
@@ -45,16 +43,11 @@ export const InvestObject = () => {
     const [amountOfBitcoin] = useState(1)
     const [amountOfEther] = useState(100)
     return (
-        <Grid container>
-            <Grid item xs={3} className={classes.text}>
+      <Grid item xs={6} sm={6} md={3} className={classes.text}>
               <span className={classes.title}>{title}</span>
               <div className={classes.numberOfInvestments}>{numberOfInvestments} investments</div>
               <div className={classes.amountOfBitcoin}>{amountOfBitcoin} bitcoin</div>
               <div className={classes.amountOfEther}>{amountOfEther} ether</div>
-            </Grid>
-            <Grid item xs={3}>
-              <img className={classes.imageSpecs} src='./Infographic_invest_mobile.png' alt='ratio of crypto pie chart' />
-            </Grid>
         </Grid>
     )
 }

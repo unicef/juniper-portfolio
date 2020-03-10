@@ -3,14 +3,16 @@ import { makeStyles } from '@material-ui/core/styles'
 import { Receive } from './Receive/Receive'
 import { Invest } from './Invest/Invest'
 import { Track } from './Track/Track'
+import { Grid } from '@material-ui/core'
 
 const useStyles = makeStyles({
     root: {
       flexGrow:1,
-      paddingLeft:'286px',
-      paddingRight: '286px',
+      // paddingLeft:'286px',
+      // paddingRight: '286px',
       paddingTop: '20px',
-      backgroundColor: '#0068ea' 
+      backgroundColor: '#0068ea' ,
+      padding:'14px'
     },
     landingText: {
       fontFamily: 'Cabin',
@@ -30,10 +32,36 @@ export const Landing = () => {
     const [landingText] = useState('A new financial vehicle allowing UNICEF to receive, hold and disburse cryptocurrency—a first for the UN.')
     return (
         <div className={classes.root}>
-            <span className={classes.landingText}>{landingText}</span>
-            <Receive/>
-            <Invest/>
-            <Track/>
+          <Grid container >
+            <Grid item xs={12} sm={3}></Grid>
+            <Grid item xs={12} sm={8}>
+              <span className={classes.landingText}>{landingText}</span>
+            </Grid>
+          </Grid>
+          <div style={{paddingBottom: '30px'}}>
+            <Grid container>
+              <Grid item xs={12} sm={3}></Grid>
+              <Grid item xs={12} sm={8}>
+                <Receive/>
+              </Grid>
+            </Grid>
+          </div>
+          <div style={{paddingBottom: '30px'}}>
+            <Grid container>
+              <Grid item xs={12} sm={3}></Grid>
+              <Grid item xs={12} sm={8}>
+                <Invest/>
+              </Grid>
+            </Grid>
+          </div>
+          <div style={{paddingBottom: '30px'}}>
+            <Grid container>
+              <Grid item xs={12} sm={3}></Grid>
+              <Grid item xs={12} sm={8}>
+                <Track/>
+              </Grid>
+            </Grid>
+          </div>
         </div>
     )
 }

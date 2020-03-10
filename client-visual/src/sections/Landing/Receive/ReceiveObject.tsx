@@ -7,11 +7,11 @@ const useStyles = makeStyles({
       flexGrow:1,
     },
     imageSpecs: {
-      width:'259px'
+      // width:'259px'
     },
     text: {
-      width:'107px',
-      height:'69px',
+      // width:'107px',
+      // height:'69px',
       fontFamily:'IBM Plex Sans',
       fontSize: '16px',
       fontWeight:'bold',
@@ -45,18 +45,11 @@ export const ReceiveObject = () => {
     const [amountOfBitcoin] = useState(1)
     const [amountOfEther] = useState(100)
     return (
-        // <div className={classes.root}>
-        <Grid container>
-            <Grid item xs={3} className={classes.text}>
-              <span className={classes.title}>{title}</span>
-              <div className={classes.numberOfDonors}>{numberOfDonors} donor(s)</div>
-              <div className={classes.amountOfBitcoin}>{amountOfBitcoin} bitcoin</div>
-              <div className={classes.amountOfEther}>{amountOfEther} ether</div>
-            </Grid>
-            <Grid item xs={3}>
-              <img className={classes.imageSpecs} src='./Infographic_receive_mobile.png' alt='ratio of crypto pie chart' />
-            </Grid>
-        {/* </div> */}
-        </Grid>
+      <Grid item xs={6} sm={6} md={3} className={classes.text}>
+        <span className={classes.title}>{title}</span>
+        <div className={classes.numberOfDonors}>{numberOfDonors} donor(s)</div>
+        <div className={classes.amountOfBitcoin}>{amountOfBitcoin} bitcoin</div>
+        <div className={classes.amountOfEther}>{amountOfEther} ether</div>
+      </Grid>
     )
 }

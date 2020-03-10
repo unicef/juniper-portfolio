@@ -3,6 +3,7 @@ import { Grid } from '@material-ui/core/'
 import { makeStyles } from '@material-ui/core/styles'
 import { TrackObject } from './TrackObject'
 import { TrackText } from './TrackText'
+import { TrackImage } from './TrackImage'
 import { ArrowButton } from '../Atoms/ArrowButton'
 import { HorizontalBar } from '../Atoms/HorizontalBar'
 
@@ -18,15 +19,11 @@ export const Track = () => {
     return (
         <div className={classes.root}>
           <Grid container>
-            <Grid item xs={5}>
-              <TrackText/>
-            </Grid>
-            <Grid item xs ={6}>
+              <TrackText />
+              <Grid item xs={'auto'} sm={'auto'}></Grid>
               <TrackObject />
-            </Grid>
-            <Grid item xs={1}>
-              <ArrowButton />
-            </Grid>
+              <TrackImage />
+              {/* <ArrowButton /> */}
             <Grid item xs = {12}>
               <HorizontalBar />
             </Grid>
