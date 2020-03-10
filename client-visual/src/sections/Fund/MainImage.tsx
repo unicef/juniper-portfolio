@@ -10,6 +10,6 @@ export const MainImage = () => {
     const classes = useStyles()
     
     return(
-        <img className={classes.root} src='./Infographic:receive:mobile.png' alt='receive info' />
+        <img className={classes.root} src='./Infographic_receive_mobile.png' alt='receive info' />
     )
 }

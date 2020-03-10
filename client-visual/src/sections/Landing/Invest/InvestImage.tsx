@@ -13,7 +13,7 @@ export const InvestImage = () => {
   const classes = useStyles()  
   return (
     <Grid item xs={6} sm={6} md={3}>
-        <img className={classes.imgSpecs} src='./Infographic:invest:mobile.png' alt='ratio of crypto pie chart' />
+        <img className={classes.imgSpecs} src='./Infographic_invest_mobile.png' alt='ratio of crypto pie chart' />
     </Grid>
     )
 }

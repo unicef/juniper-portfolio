@@ -46,10 +46,10 @@ export const ReceiveObject = () => {
     const [amountOfEther] = useState(100)
     return (
       <Grid item xs={6} sm={6} md={3} className={classes.text}>
-              <span className={classes.title}>{title}</span>
-              <div className={classes.numberOfDonors}>{numberOfDonors} donor(s)</div>
-              <div className={classes.amountOfBitcoin}>{amountOfBitcoin} bitcoin</div>
-              <div className={classes.amountOfEther}>{amountOfEther} ether</div>
-            </Grid>
+        <span className={classes.title}>{title}</span>
+        <div className={classes.numberOfDonors}>{numberOfDonors} donor(s)</div>
+        <div className={classes.amountOfBitcoin}>{amountOfBitcoin} bitcoin</div>
+        <div className={classes.amountOfEther}>{amountOfEther} ether</div>
+      </Grid>
     )
 }

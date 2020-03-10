@@ -11,6 +11,6 @@ export const InvestmentMainImage = () => {
     const classes = useStyles()
     
     return(
-        <img className={classes.root} src='./Infographic:invest:mobile.png' alt='receive info' />
+        <img className={classes.root} src='./Infographic_invest_mobile.png' alt='receive info' />
     )
 }

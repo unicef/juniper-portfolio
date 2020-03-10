@@ -36,6 +36,7 @@ export const TrackObject = () => {
     const classes = useStyles()
     const [trackText] = useState('Track the movement of investments')
     return (
+
         <Grid item xs={6} sm={6} md={3} className={classes.text}>
           <div className={classes.trackText}>{trackText} donor(s)</div>
         </Grid>
