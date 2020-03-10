@@ -58,7 +58,7 @@ export const SideDetails = () => {
     const classes = useStyles()
 
     return(
-        <div>
+        <div style={{paddingBottom:'20px'}}>
             <div className={classes.donorNumber}>01</div>
             <div className={classes.donorLabel}>donors</div>
             <div style={{marginTop:'15px'}} className={classes.etherNumber}>100 eth</div>

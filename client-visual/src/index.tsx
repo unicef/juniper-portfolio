@@ -21,14 +21,14 @@ const client = new ApolloClient({
 
 
 render(
-    <ThemeProvider  theme={theme}>
+    <ThemeProvider theme={theme}>
         <Router>
-            <ApolloProvider  client ={client}>
+            <ApolloProvider client ={client}>
                 <NavBar/>
                 <Route exact path ='/' component={Landing} />
                 <Route exact path ='/receive' component={Fund} />
                 <Route exact path ='/invest' component={Investment} />
-                {/* <Route exact path ='/track' component={Investment} /> */}
+                <Route exact path ='/track' component={Transfer} />
             </ApolloProvider>
         </Router>
     </ThemeProvider>

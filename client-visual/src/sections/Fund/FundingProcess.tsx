@@ -3,10 +3,11 @@ import { makeStyles } from '@material-ui/styles'
 
 const useStyles = makeStyles((theme: any) => ({
     root: {
+        maxWidth: '100%',
         paddingTop:'120px',
+        padding:'14px'
     },
     fundingProcessTitle: {
-        width:'728px',
         fontFamily:'Cabin',
         fontSize:'28px',
         fontWeight:'bold',
@@ -17,7 +18,6 @@ const useStyles = makeStyles((theme: any) => ({
         color:'#000'
     },
     fundingProcessText: {
-        width:'728px',
         fontFamily:'IBM Plex Sans',
         fontSize:'22px',
         fontWeight:'normal',
