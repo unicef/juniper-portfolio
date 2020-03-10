@@ -45,7 +45,7 @@ export const ReceiveObject = () => {
     const [amountOfBitcoin] = useState(1)
     const [amountOfEther] = useState(100)
     return (
-            <Grid item xs={2} sm={2} className={classes.text}>
+      <Grid item xs={6} sm={6} md={3} className={classes.text}>
               <span className={classes.title}>{title}</span>
               <div className={classes.numberOfDonors}>{numberOfDonors} donor(s)</div>
               <div className={classes.amountOfBitcoin}>{amountOfBitcoin} bitcoin</div>

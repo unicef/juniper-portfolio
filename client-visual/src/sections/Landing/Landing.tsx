@@ -11,7 +11,8 @@ const useStyles = makeStyles({
       // paddingLeft:'286px',
       // paddingRight: '286px',
       paddingTop: '20px',
-      backgroundColor: '#0068ea' 
+      backgroundColor: '#0068ea' ,
+      padding:'14px'
     },
     landingText: {
       fontFamily: 'Cabin',
@@ -31,42 +32,36 @@ export const Landing = () => {
     const [landingText] = useState('A new financial vehicle allowing UNICEF to receive, hold and disburse cryptocurrency—a first for the UN.')
     return (
         <div className={classes.root}>
-          <Grid container>
-            <Grid item xs={12} sm={2}>
-
-            </Grid>
+          <Grid container >
+            <Grid item xs={12} sm={3}></Grid>
             <Grid item xs={12} sm={8}>
               <span className={classes.landingText}>{landingText}</span>
             </Grid>
           </Grid>
-          <Grid container>
-            <Grid item xs={12} sm={2}>
-
+          <div style={{paddingBottom: '30px'}}>
+            <Grid container>
+              <Grid item xs={12} sm={3}></Grid>
+              <Grid item xs={12} sm={8}>
+                <Receive/>
+              </Grid>
             </Grid>
-            <Grid item xs={12} sm={8}>
-              <Receive/>
+          </div>
+          <div style={{paddingBottom: '30px'}}>
+            <Grid container>
+              <Grid item xs={12} sm={3}></Grid>
+              <Grid item xs={12} sm={8}>
+                <Invest/>
+              </Grid>
             </Grid>
-          </Grid>
-          {/* <Grid container>
-            <Grid item xs={12} sm={2}>
-
+          </div>
+          <div style={{paddingBottom: '30px'}}>
+            <Grid container>
+              <Grid item xs={12} sm={3}></Grid>
+              <Grid item xs={12} sm={8}>
+                <Track/>
+              </Grid>
             </Grid>
-            <Grid item xs={12} sm={8}>
-              <Invest/>
-            </Grid>
-          </Grid>
-          <Grid container>
-            <Grid item xs={12} sm={2}>
-
-            </Grid>
-            <Grid item xs={12} sm={8}>
-              <Track/>
-            </Grid>
-          </Grid> */}
-            
-            
-            
-            
+          </div>
         </div>
     )
 }
