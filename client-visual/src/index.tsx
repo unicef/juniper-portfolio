@@ -7,6 +7,7 @@ import ApolloClient from 'apollo-boost';
 import { ApolloProvider } from 'react-apollo';
 import { Landing } from './sections/Landing';
 import { Investment } from './sections/Investment';
+import {Tracking} from './sections/Tracking'
 import { Fund } from './sections/Fund';
 import { Transfer } from './sections/Transfer';
 import { ThemeProvider } from '@material-ui/styles';

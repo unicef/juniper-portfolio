@@ -2,14 +2,14 @@ import React from 'react'
 import { makeStyles } from '@material-ui/styles'
 
 const useStyles = makeStyles((theme: any) => ({
-    donorNumber: {
+    firstNumber: {
         fontFamily: 'IBM Plex Sans',
         fontSize: '28px',
         fontWeight: 'bold',
         lineHeight: '1.32',
         color: '#fff'
     },
-    donorLabel: {
+    firstLabel: {
         fontFamily: 'Cabin',
         fontSize: '14px',
         fontWeight: 'bold',
@@ -18,7 +18,7 @@ const useStyles = makeStyles((theme: any) => ({
         color: '#fff',
         textTransform:'uppercase'
     },
-    etherNumber: {
+    middleNumber: {
         fontFamily: 'IBM Plex Sans',
         fontSize: '28px',
         fontWeight: 'bold',
@@ -26,7 +26,7 @@ const useStyles = makeStyles((theme: any) => ({
         color: '#13e7ff',
         textTransform:'uppercase'
     },
-    etherLabel: {
+    middleLabel: {
         fontFamily: 'Cabin',
         fontSize: '14px',
         fontWeight: 'bold',
@@ -35,7 +35,7 @@ const useStyles = makeStyles((theme: any) => ({
         color: '#13e7ff',
         textTransform:'uppercase'
     },
-    bitcoinNumber: {
+    lastNumber: {
         fontFamily: 'IBM Plex Sans',
         fontSize: '28px',
         fontWeight: 'bold',
@@ -43,7 +43,7 @@ const useStyles = makeStyles((theme: any) => ({
         color: '#ffd113',
         textTransform:'uppercase'
     },
-    bitcoinLabel: {
+    lastLabel: {
         fontFamily: 'Cabin',
         fontSize: '14px',
         fontWeight: 'bold',
@@ -54,17 +54,17 @@ const useStyles = makeStyles((theme: any) => ({
     }
 }))
 
-export const InvestmentSideDetails = () => {
+export const SideDetails = (props: any) => {
     const classes = useStyles()
 
     return(
         <div>
-            <div className={classes.donorNumber}>03</div>
-            <div className={classes.donorLabel}>investments</div>
-            <div style={{marginTop:'15px'}} className={classes.etherNumber}>100 eth</div>
-            <div className={classes.etherLabel}>ether invested</div>
-            <div style={{marginTop:'15px'}} className={classes.bitcoinNumber}>01 btc</div>
-            <div className={classes.bitcoinLabel}>bitcoin invested</div>
+            <div className={classes.firstNumber}>{props.firstNumber}</div>
+            <div className={classes.firstLabel}>{props.firstLabel}</div>
+            <div style={{ marginTop: '15px' }} className={classes.middleNumber}>{props.middleNumber}</div>
+            <div className={classes.middleLabel}>{props.middleLabel}</div>
+            <div style={{ marginTop: '15px' }} className={classes.lastNumber}>{props.lastNumber}</div>
+            <div className={classes.lastLabel}>{props.lastLabel}</div>
         </div>
     )
 }

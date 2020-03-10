@@ -2,7 +2,8 @@ import React from 'react'
 import { Grid } from '@material-ui/core'
 import { makeStyles } from '@material-ui/styles'
 
-import { SideDetails } from './SideDetails'
+//import { SideDetails } from './SideDetails'
+import { SideDetails } from '../../common/SideDetails'
 import { MainText } from './MainText'
 import { MainImage } from './MainImage'
 import { BackgroundText } from './BackgroundText'
@@ -36,8 +37,10 @@ export const Fund = () => {
         <div> 
             <div className={classes.top} style={{paddingLeft: '14px', paddingRight:'14px', paddingBottom:'14px'}}>
                 <Grid container>
-                    <Grid item xs={12} sm={3}>
-                        <SideDetails />
+                    <Grid item xs={12} sm={2}>
+                        <SideDetails firstNumber='01' firstLabel='donors'
+                                     middleNumber='100 eth' middleLabel='ether received'
+                                     lastNumber='01 btc' lastLabel='bitcoin received'/>
                     </Grid>
                     <Grid item xs={12} sm={9}>
                         <MainText />

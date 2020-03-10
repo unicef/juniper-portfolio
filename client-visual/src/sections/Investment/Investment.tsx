@@ -2,7 +2,7 @@ import React from 'react'
 import { Grid } from '@material-ui/core'
 import { makeStyles } from '@material-ui/styles'
 
-import { InvestmentSideDetails } from './InvestmentSideDetails'
+import { SideDetails } from '../../common/SideDetails'
 import { InvestmentMainText } from './InvestmentMainText'
 import { InvestmentMainImage } from './InvestmentMainImage'
 import { InvestmentObject } from './InvestmentObject'
@@ -21,7 +21,9 @@ export const Investment = () => {
             <div className={classes.top}>
                 <Grid container>
                     <Grid item xs={12} sm={2}>
-                        <InvestmentSideDetails />
+                        <SideDetails firstNumber='03' firstLabel='investments'
+                                     middleNumber='100 eth' middleLabel='ether invested'
+                                     lastNumber='01 btc' lastLabel='bitcoin invested'/>
                     </Grid>
                     <Grid item xs={12} sm={6}>
                         <InvestmentMainText />
