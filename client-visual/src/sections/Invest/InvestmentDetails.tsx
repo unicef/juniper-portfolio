@@ -1,19 +1,15 @@
 import React from 'react'
-import { Grid, Button } from '@material-ui/core'
+import { Grid, Button, useMediaQuery } from '@material-ui/core'
 import { makeStyles } from '@material-ui/styles'
+import json2mq from 'json2mq'
 
 const useStyles = makeStyles((theme:any) => ({
     root: {
-        width: '903px',
-        height: '496px',
         opacity: '0.84',
-        marginTop:'-300px'
+        padding:'14px',
+        height:'496px'
     },
     title: {
-        paddingLeft:'170px',
-        paddingTop:"65px",
-        width: '643px',
-        height: '132px',
         fontFamily: 'Cabin',
         fontSize: '36px',
         fontWeight: 'bold',
@@ -93,6 +89,7 @@ const useStyles = makeStyles((theme:any) => ({
         fontStyle: 'normal',
         lineHeight: 'normal',
         letterSpacing: '1.17px',
+
     },
     link: {
         fontFamily: 'Cabin',
@@ -109,44 +106,75 @@ const useStyles = makeStyles((theme:any) => ({
 
 export const InvestmentDetails = (props: any) => {
     const classes = useStyles()
+    const matches = useMediaQuery(
+        json2mq({
+            minWidth: 700
+        })
+    )
     return(
-        <div style={{backgroundColor: props.color, color: props.fontColor}}className={classes.root}>
+        <div style={{marginTop: matches ? '-300px' : '0'}}>
             <Grid container>
-                <Grid item>
-                    <div className={classes.title}>{props.title}</div>
+                <Grid item xs={12} sm={12} md={9}>
+                    <Grid container>
+                        <div className={classes.root} style={{ backgroundColor:props.color, color: props.fontColor}}>
+                            <Grid>
+                                <div style={{height:'65px'}}></div>
+                            </Grid>
+                            <Grid container>
+                                <Grid item xs={12} sm={2} md={2}></Grid>
+                                <Grid item xs={12} sm={9} md={9}><span className={classes.title}>{props.title}</span></Grid> 
+                            </Grid>
+                            <Grid>
+                                <div style={{height:'25px'}}></div>
+                            </Grid>
+                            <Grid item>
+                                <Grid container>
+                                    <Grid item xs={12} sm={2} md={2}></Grid>
+                                    <Grid item xs={12} sm={3} md={3}>
+                                        <div className={classes.label1}>{props.label1}</div>
+                                        <div className={classes.detail1}>{props.detail1}</div>
+                                    </Grid>
+                                    <Grid>
+                                        <div style={{height:'15px'}}></div>
+                                    </Grid>
+                                    <Grid item xs={12} sm={3} md={3}>
+                                        <div className={classes.label2}>{props.label2}</div>
+                                        <div className={classes.detail2}>{props.detail2}</div>
+                                    </Grid>
+                                    <Grid>
+                                        <div style={{height:'15px'}}></div>
+                                    </Grid>
+                                    <Grid item xs={12} sm={3} md={4}>
+                                        <div className={classes.label3}>{props.label3}</div>
+                                        <div className={classes.detail3}>{props.detail3}</div>
+                                    </Grid>
+                                </Grid>
+                            </Grid>
+                            <Grid>
+                                <div style={{height:'15px'}}></div>
+                            </Grid>
+                            <Grid container>
+                                <Grid item xs={12} sm={2} md={2}></Grid>
+                                <Grid item>
+                                    <Button
+                                        className={classes.button}
+                                    >
+                                        {props.button}
+                                    </Button>
+                                </Grid>
+                            </Grid>
+                            <Grid>
+                                <div style={{height:'15px'}}></div>
+                            </Grid>
+                            <Grid container>
+                                <Grid item xs={12} sm={2} md={2}></Grid>
+                                <Grid item><span style={{marginBottom:'10px'}} className={classes.link}>{props.link} > </span></Grid>
+                            </Grid>
+                            
+                        </div>
+                    </Grid>
                 </Grid>
-            </Grid>
-            <Grid container style={{paddingLeft:'170px', paddingTop:'25px'}}>
-                <Grid item>
-                    <div className={classes.label1}>{props.label1}</div>
-                </Grid>
-                <Grid item>
-                    <div style={{paddingLeft:'117px'}} className={classes.label2}>{props.label2}</div>
-                </Grid>
-                <Grid item>
-                    <div style={{paddingLeft:'71px'}} className={classes.label3}>{props.label3}</div>
-                </Grid>
-            </Grid>
-            <Grid container style={{paddingLeft:'170px', paddingTop:'5px'}}>
-                <Grid item>
-                    <div className={classes.detail1}>{props.detail1}</div>
-                </Grid>
-                <Grid item>
-                    <div style={{paddingLeft:'60px'}} className={classes.detail2}>{props.detail2}</div>
-                </Grid>
-                <Grid item>
-                    <div style={{paddingLeft:'60px'}} className={classes.detail3}>{props.detail3}</div>
-                </Grid>
-            </Grid>
-            <Grid container style={{paddingLeft:'170px', paddingTop:'50px'}}>
-                <Grid item>
-                    <Button className={classes.button}>{props.button}</Button>
-                </Grid>
-            </Grid>
-            <Grid container style={{paddingLeft:'170px', paddingTop:'15px'}}>
-                <Grid item>
-                    <div className={classes.link}>Transaction Proof</div>
-                </Grid>
+                <Grid item xs={12} sm={12} md={3}></Grid>
             </Grid>
         </div>
     )

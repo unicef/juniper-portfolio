@@ -8,9 +8,9 @@ import { InvestmentMainImage } from './InvestmentMainImage'
 import { InvestmentObject } from './InvestmentObject'
 
 const useStyles = makeStyles((theme: any) => ({
+    
     top: {
         backgroundColor:'#0068ea',
-        paddingLeft:'57px',
         paddingTop:'100px'
     }
 }))
@@ -18,14 +18,14 @@ export const Invest = () => {
     const classes = useStyles()
     return(
         <div>
-            <div className={classes.top}>
+            <div className={classes.top} style={{paddingLeft: '14px', paddingRight:'14px', paddingBottom:'14px'}}>
                 <Grid container>
-                    <Grid item xs={12} sm={2}>
+                    <Grid item xs={12} sm={3}>
                         <SideDetails firstNumber='03' firstLabel='investments'
                                      middleNumber='100 eth' middleLabel='ether invested'
                                      lastNumber='01 btc' lastLabel='bitcoin invested'/>
                     </Grid>
-                    <Grid item xs={12} sm={6}>
+                    <Grid item xs={12} sm={9}>
                         <InvestmentMainText />
                     </Grid>
                 </Grid>
@@ -45,7 +45,7 @@ export const Invest = () => {
                     detail2={'5,000 ETH'}
                     detail3={'Tunisia'}
                     button={'View Project'}
-                    link={'lol'}
+                    link={'Transaction Proof'}
                     linkToImage={'./1.JPG'}
                     altDescription={''}
                     color={'#ffd113'}
@@ -60,7 +60,7 @@ export const Invest = () => {
                     detail2={'5,000 ETH'}
                     detail3={'Tunisia'}
                     button={'View Project'}
-                    link={'lol'}
+                    link={'Transaction Proof'}
                     linkToImage={'2.jpg'}
                     altDescription={''}
                     color={'#0068ea'}

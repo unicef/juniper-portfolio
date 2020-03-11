@@ -14,19 +14,9 @@ import { FundingProcessExplainer } from './FundingProcessExplainer'
 
 
 const useStyles = makeStyles((theme: any) => ({
-    root: {
-        padding: '14px'
-    },
     top: {
         backgroundColor:'#0068ea',
-        // paddingLeft:'57px',
         paddingTop:'100px'
-    },
-    bottom: {
-        // paddingLeft:'57px',
-    },
-    fundingProcessImage: {
-        // paddingLeft:'166px'
     }
 }));
 
@@ -37,7 +27,7 @@ export const Receive = () => {
         <div> 
             <div className={classes.top} style={{paddingLeft: '14px', paddingRight:'14px', paddingBottom:'14px'}}>
                 <Grid container>
-                    <Grid item xs={12} sm={2}>
+                    <Grid item xs={12} sm={3}>
                         <SideDetails firstNumber='01' firstLabel='donors'
                                      middleNumber='100 eth' middleLabel='ether received'
                                      lastNumber='01 btc' lastLabel='bitcoin received'/>
@@ -52,7 +42,7 @@ export const Receive = () => {
                     </Grid>
                 </Grid>
             </div>
-            <div className={classes.bottom}>
+            <div>
                 <Grid container>
                     <Grid item xs={12} sm={3}>
 
@@ -71,7 +61,7 @@ export const Receive = () => {
                     </Grid>
                 </Grid>
             </div>
-            <div className={classes.fundingProcessImage}>
+            <div>
                 <Grid container>
                     <Grid item xs={12} sm={12}>
                         <FundingProcessExplainer />
