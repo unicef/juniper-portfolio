@@ -7,10 +7,10 @@ const useStyles = makeStyles((theme: any) => ({
     }
 }));
 
-export const TransferMainImage = () => {
+export const TrackMainImage = () => {
     const classes = useStyles()
     
     return(
-        <img className={classes.root} src='./Infographic:track:mobile.png' alt='receive info' />
+        <img className={classes.root} src='./Infographic_track_mobile.png' alt='receive info' />
     )
 }

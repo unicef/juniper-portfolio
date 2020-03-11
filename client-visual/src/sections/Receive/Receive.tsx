@@ -30,7 +30,7 @@ const useStyles = makeStyles((theme: any) => ({
     }
 }));
 
-export const Fund = () => {
+export const Receive = () => {
     const classes = useStyles();
 
     return(

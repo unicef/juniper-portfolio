@@ -14,7 +14,7 @@ const useStyles = makeStyles((theme: any) => ({
         paddingTop:'100px'
     }
 }))
-export const Investment = () => {
+export const Invest = () => {
     const classes = useStyles()
     return(
         <div>
@@ -43,7 +43,7 @@ export const Investment = () => {
                     label3={'Country'}
                     detail1={'Utopixar'}
                     detail2={'5,000 ETH'}
-                    detail3={'Tunasia'}
+                    detail3={'Tunisia'}
                     button={'View Project'}
                     link={'lol'}
                     linkToImage={'./1.JPG'}
@@ -58,7 +58,7 @@ export const Investment = () => {
                     label3={'Country'}
                     detail1={'Utopixar'}
                     detail2={'5,000 ETH'}
-                    detail3={'Tunasia'}
+                    detail3={'Tunisia'}
                     button={'View Project'}
                     link={'lol'}
                     linkToImage={'2.jpg'}

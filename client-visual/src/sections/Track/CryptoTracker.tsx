@@ -17,7 +17,7 @@ const useStyles = makeStyles((theme: any) => ({
         textTransform:'uppercase'
     }
 }));
-export const TransferCryptoTracker = () => {
+export const CryptoTracker = () => {
     const classes = useStyles()
 
     const [cryptoTrackerText] = useState(

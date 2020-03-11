@@ -1,7 +1,7 @@
 import React from 'react'
-import { TransferMainText } from './TransferMainText'
-import { TransferMainImage } from './TransferMainImage'
-import { TransferCryptoTracker } from './TransferCryptoTracker'
+import { TrackMainText } from './TrackMainText'
+import { TrackMainImage } from './TrackMainImage'
+import { CryptoTracker } from './CryptoTracker'
 import { DonationTable } from './DonationTable'
 import { makeStyles } from '@material-ui/core'
 import { Grid } from '@material-ui/core'
@@ -13,7 +13,7 @@ const useStyles = makeStyles((theme: any) => ({
     }
 }))
 
-export const Transfer = () => {
+export const Track = () => {
     const classes = useStyles()
 
     return (
@@ -24,7 +24,7 @@ export const Transfer = () => {
 
                     </Grid>
                     <Grid item xs={12} sm={10}>
-                        <TransferMainText />
+                        <TrackMainText />
                     </Grid>
                 </Grid>
                 <Grid container alignContent='center' alignItems='center' justify='center' >
@@ -32,7 +32,7 @@ export const Transfer = () => {
 
                     </Grid>
                     <Grid item xs={12} sm={10}>
-                        <TransferMainImage />
+                        <TrackMainImage />
                     </Grid>
                 </Grid>
                 <Grid container alignContent='center' alignItems='center' justify='center'>
@@ -40,7 +40,7 @@ export const Transfer = () => {
 
                     </Grid>
                     <Grid item xs={12} sm={10}> 
-                        <TransferCryptoTracker />
+                        <CryptoTracker />
                     </Grid>
                 </Grid>
             </div>
