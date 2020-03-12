@@ -67,20 +67,20 @@ export const DonationTableLeftMenu = () => {
         >
           <div className={classes.textWrapper}>
             <span className={classes.mainText}>Crypto Received</span><br/>
-            <span className={classes.numberText}>03</span><br/>
-            <span className={classes.labelText}>Donors</span><br/>
-            <span className={classes.numberText}>90 BTC</span><br/>
+            <span className={classes.numberText}>1</span><br/>
+            <span className={classes.labelText}>Donor</span><br/>
+            <span className={classes.numberText}>1 BTC</span><br/>
             <span className={classes.labelText}>Bitcoin Received</span><br/>
-            <span className={classes.numberText}>25000 ETH</span><br/>
+            <span className={classes.numberText}>100 ETH</span><br/>
             <span className={classes.labelText}>Ether Received</span><br/>
           </div>
           <div className={classes.textWrapper}>
             <span className={classes.mainText}>Crypto Invested</span><br/>
-            <span className={classes.numberText}>08</span><br/>
+            <span className={classes.numberText}>03</span><br/>
             <span className={classes.labelText}>Investments</span><br/>
-            <span className={classes.numberText}>90 BTC</span><br/>
+            <span className={classes.numberText}>1 BTC</span><br/>
             <span className={classes.labelText}>Bitcoin Invested</span><br/>
-            <span className={classes.numberText}>25000 ETH</span><br/>
+            <span className={classes.numberText}>99 ETH</span><br/>
             <span className={classes.labelText}>Ether Invested</span><br/>
           </div>
         </div>

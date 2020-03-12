@@ -1,6 +1,7 @@
 import React from 'react'
 import { makeStyles, Theme } from '@material-ui/core/styles'
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
+import {ProgressBar} from './ProgressBar'
 
 
 
@@ -11,7 +12,9 @@ const useStyles = makeStyles((theme: Theme) => ({
       width:'837px',
       height:'245px',
       marginLeft:'114px',
-      marginBottom:'50px'
+      marginBottom: '50px',
+      paddingBottom: '40px'
+      
     },
     transactionType: {
         fontFamily: 'Cabin',
@@ -142,7 +145,7 @@ const useStyles = makeStyles((theme: Theme) => ({
         color:'#0068ea',
         textTransform: 'uppercase',
         paddingLeft: '43px',
-        paddingTop: '30px'
+        paddingTop: '0px'
     },
 }))
 
@@ -167,6 +170,9 @@ export const TransactionDetails = (props: any) => {
             <div style={{display:'inline-block', verticalAlign:'top'}}>
                 <div className={classes.valueMoving}>{props.valueMoving}</div>
                 <div className={classes.valueType}>{props.valueType}</div>
+            </div>
+            <div>
+              <ProgressBar type={props.transactionType}/>
             </div>
             <div style={{color:'#0068ea', display:'inline-block', verticalAlign:'top' }} className={classes.txDetails}><ExpandMoreIcon />Show Transaction Details</div>
         </div>
