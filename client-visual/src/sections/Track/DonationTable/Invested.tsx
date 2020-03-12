@@ -9,34 +9,12 @@ const useStyles = makeStyles((theme: Theme) => ({
     }
 }))
 
-export const Transaction = () => {
+export const Invested = () => {
     const classes = useStyles()
     return (
         <div className={classes.root}>
-            <TransactionDetails
-                transactionType='Received'
-                startingParty='Ethereum Foundation'
-                partyType1='Donor'
-                middleParty='UNICEF France'
-                partyType2='National Committee'
-                endParty='UNICEF HQ'
-                partyType3='Recipient'
-                valueMoving='100 ETH'
-                valueType='Crypto Received'
-            />
-            <TransactionDetails
-                transactionType='Received'
-                startingParty='Ethereum Foundation'
-                partyType1='Donor'
-                middleParty='UNICEF France'
-                partyType2='National Committee'
-                endParty='UNICEF HQ'
-                partyType3='Recipient'
-                valueMoving= '1 BTC'
-                valueType='Crypto Received'
-            />
 
-           <TransactionDetails
+            <TransactionDetails
             transactionType='Invested'
             startingParty='UNICEF HQ'
             partyType1='Donor'
@@ -64,7 +42,8 @@ export const Transaction = () => {
             partyType3='Recipient'
             valueMoving='49.5 ETH'
             valueType='Crypto Received'
-            />
+            />   
+        
         </div>
     )
 }

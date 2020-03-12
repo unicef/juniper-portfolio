@@ -5,7 +5,9 @@ import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
 import Typography from '@material-ui/core/Typography';
 import Box from '@material-ui/core/Box';
-import {Transaction} from './Transaction'
+import { Transaction } from './Transaction'
+import { Received } from './Received';
+import { Invested } from './Invested';
 
 interface TabPanelProps {
   children?: React.ReactNode;
@@ -122,10 +124,10 @@ export const DonationTableStepper = () => {
           <Transaction/>
         </TabPanel>
         <TabPanel value={value} index={1}>
-          <Transaction/>
+          <Received/>
         </TabPanel>
         <TabPanel value={value} index={2}>
-          <Transaction/>
+          <Invested/>
         </TabPanel>
       </div>
     </div>
