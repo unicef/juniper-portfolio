@@ -46,7 +46,7 @@ export const Invest = () => {
                     detail3={'Tunisia'}
                     button={'View Project'}
                     link={'Transaction Proof'}
-                    linkToImage={'./1.JPG'}
+                    linkToImage={'./SampleImageForInvestPage.png'}
                     altDescription={''}
                     color={'#ffd113'}
                     fontColor={'#000'}
@@ -61,7 +61,7 @@ export const Invest = () => {
                     detail3={'Tunisia'}
                     button={'View Project'}
                     link={'Transaction Proof'}
-                    linkToImage={'2.jpg'}
+                    linkToImage={'SampleImageForInvestPage2.png'}
                     altDescription={''}
                     color={'#0068ea'}
                     fontColor={'#fff'}
