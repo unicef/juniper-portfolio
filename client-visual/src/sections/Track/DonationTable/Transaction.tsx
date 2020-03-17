@@ -11,6 +11,12 @@ const useStyles = makeStyles((theme: Theme) => ({
 
 export const Transaction = () => {
     const classes = useStyles()
+
+    const TXTableRows = [
+        TXDetailRowCreate('UNICEF France', 'UNICEF HQ', '10,000 ETH', 'Today at 17:09' , 'jk67445klc788rejaqdfgh...'),
+        TXDetailRowCreate('Coinscene', 'UNICEF France', '10,000 ETH', 'Today at 15:49', '0x36c874d0218cdc790...'),
+    ];
+
     return (
         <div className={classes.root}>
             <TransactionDetails
@@ -23,6 +29,7 @@ export const Transaction = () => {
                 partyType3='Recipient'
                 valueMoving='100 ETH'
                 valueType='Crypto Received'
+                TXTableRows = {TXTableRows}
             />
             <TransactionDetails
                 transactionType='Received'
@@ -34,6 +41,7 @@ export const Transaction = () => {
                 partyType3='Recipient'
                 valueMoving= '1 BTC'
                 valueType='Crypto Received'
+                TXTableRows = {TXTableRows}
             />
 
            <TransactionDetails
@@ -44,6 +52,7 @@ export const Transaction = () => {
             partyType3='Recipient'
             valueMoving='1 BTC'
             valueType='Crypto Received'
+            TXTableRows = {TXTableRows}
             />   
 
            < TransactionDetails
@@ -54,6 +63,7 @@ export const Transaction = () => {
             partyType3='Recipient'
             valueMoving='49.5 ETH'
             valueType='Crypto Received'
+            TXTableRows = {TXTableRows}
             />   
 
            < TransactionDetails
@@ -64,7 +74,14 @@ export const Transaction = () => {
             partyType3='Recipient'
             valueMoving='49.5 ETH'
             valueType='Crypto Received'
+            TXTableRows = {TXTableRows}
             />
         </div>
     )
 }
+
+
+function TXDetailRowCreate(from: string, recipient:string, amount:string, time:string, txhash:string) {
+    return { from, recipient, amount, time, txhash };
+  }
+  

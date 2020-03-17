@@ -184,7 +184,7 @@ way is to actually fetch these details from etherscan or somewhere given the tx
 wallet address or somesuch, hence, it could be put in a component state. Alternatively,
 as Mehran suggested, we can hard-code into each of the transactions in the file Transaction.tsx'*/
 
-function createData(from: string, recipient:string, amount:string, time:string, txhash:string) {
+/*function createData(from: string, recipient:string, amount:string, time:string, txhash:string) {
     return { from, recipient, amount, time, txhash };
   }
   
@@ -192,7 +192,7 @@ function createData(from: string, recipient:string, amount:string, time:string, 
     createData('UNICEF France', 'UNICEF HQ', '10,000 ETH', 'Today at 17:09' , 'jk67445klc788rejaqdfgh...'),
     createData('Coinscene', 'UNICEF France', '10,000 ETH', 'Today at 15:49', '0x36c874d0218cdc790...'),
 ];
-  
+  */
 /*End temporary / fake data*/
   
 
@@ -222,7 +222,7 @@ export const TransactionDetails = (props: any) => {
             <div>
                 <ProgressBar type={props.transactionType} />
             </div>
-            <TXDetails rows={rows}/>
+            <TXDetails rows={props.TXTableRows}/>
             
         </div>
     )
