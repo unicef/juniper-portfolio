@@ -1,153 +1,183 @@
-import React from 'react'
+import React, {useState} from 'react'
 import { makeStyles, Theme } from '@material-ui/core/styles'
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
-import {ProgressBar} from './ProgressBar'
+import ExpandLessIcon from '@material-ui/icons/ExpandLess';
+import { ProgressBar } from './ProgressBar'
+import { TXTable } from './TXDetailsTable'
+
+
+
 
 
 
 const useStyles = makeStyles((theme: Theme) => ({
     root: {
-      flexGrow: 1,
-      backgroundColor: theme.palette.background.paper,
-      width:'837px',
-      height:'245px',
-      marginLeft:'114px',
-      marginBottom: '50px',
-      paddingBottom: '40px'
+        flexGrow: 1,
+        backgroundColor: theme.palette.background.paper,
+        width: '837px',
+        //height: '245px',
+        height: 'auto',
+        marginLeft: '114px',
+        marginBottom: '50px',
+        paddingBottom: '30px'
       
     },
     transactionType: {
         fontFamily: 'Cabin',
-        fontSize:'10px',
-        fontWeight:'bold',
-        fontStretch:'normal',
-        fontStyle:'normal',
-        lineHeight:'normal',
-        letterSpacing:'0.83px',
-        color:'#000',
+        fontSize: '10px',
+        fontWeight: 'bold',
+        fontStretch: 'normal',
+        fontStyle: 'normal',
+        lineHeight: 'normal',
+        letterSpacing: '0.83px',
+        color: '#000',
         textTransform: 'uppercase',
-        paddingTop:'30px',
-        paddingLeft:'75px',
+        paddingTop: '30px',
+        paddingLeft: '75px',
     },
     startingParty: {
-        width:'132px',
+        width: '132px',
         fontFamily: 'IBM Plex Sans',
-        fontSize:'26px',
-        fontWeight:'bold',
-        fontStretch:'normal',
-        fontStyle:'normal',
-        lineHeight:'1.15',
-        letterSpacing:'normal',
-        color:'#000',
+        fontSize: '26px',
+        fontWeight: 'bold',
+        fontStretch: 'normal',
+        fontStyle: 'normal',
+        lineHeight: '1.15',
+        letterSpacing: 'normal',
+        color: '#000',
         marginLeft: '43px',
         marginTop: '28px'
     },
     middleParty: {
-        width:'71px',
+        width: '71px',
         fontFamily: 'IBM Plex Sans',
-        fontSize:'16px',
-        fontWeight:'normal',
-        fontStretch:'normal',
-        fontStyle:'normal',
-        lineHeight:'1.38',
-        letterSpacing:'normal',
-        color:'#000',
-        paddingLeft:'83px',
-        paddingTop:'30px'
+        fontSize: '16px',
+        fontWeight: 'normal',
+        fontStretch: 'normal',
+        fontStyle: 'normal',
+        lineHeight: '1.38',
+        letterSpacing: 'normal',
+        color: '#000',
+        paddingLeft: '83px',
+        paddingTop: '30px'
     },
     endParty: {
-        width:'71px',
+        width: '71px',
         fontFamily: 'IBM Plex Sans',
-        fontSize:'16px',
-        fontWeight:'normal',
-        fontStretch:'normal',
-        fontStyle:'normal',
-        lineHeight:'1.38',
-        letterSpacing:'normal',
-        color:'#000',
-        paddingLeft:'83px',
-        paddingTop:'30px'
+        fontSize: '16px',
+        fontWeight: 'normal',
+        fontStretch: 'normal',
+        fontStyle: 'normal',
+        lineHeight: '1.38',
+        letterSpacing: 'normal',
+        color: '#000',
+        paddingLeft: '83px',
+        paddingTop: '30px'
 
     },
     partyType1: {
-        width:'169px',
+        width: '169px',
         fontFamily: 'Cabin',
-        fontSize:'10px',
-        fontWeight:'normal',
-        fontStretch:'normal',
-        fontStyle:'normal',
-        lineHeight:'normal',
-        letterSpacing:'0.83px',
-        color:'#000',
+        fontSize: '10px',
+        fontWeight: 'normal',
+        fontStretch: 'normal',
+        fontStyle: 'normal',
+        lineHeight: 'normal',
+        letterSpacing: '0.83px',
+        color: '#000',
         textTransform: 'uppercase',
-        paddingLeft:'43px'
+        paddingLeft: '43px'
     },
     partyType2: {
         fontFamily: 'Cabin',
-        fontSize:'10px',
-        fontWeight:'normal',
-        fontStretch:'normal',
-        fontStyle:'normal',
-        lineHeight:'normal',
-        letterSpacing:'0.83px',
-        color:'#000',
+        fontSize: '10px',
+        fontWeight: 'normal',
+        fontStretch: 'normal',
+        fontStyle: 'normal',
+        lineHeight: 'normal',
+        letterSpacing: '0.83px',
+        color: '#000',
         textTransform: 'uppercase',
-        paddingLeft:'83px',
-        paddingTop:'6px'
+        paddingLeft: '83px',
+        paddingTop: '6px'
     },
     partyType3: {
         fontFamily: 'Cabin',
-        fontSize:'10px',
-        fontWeight:'normal',
-        fontStretch:'normal',
-        fontStyle:'normal',
-        lineHeight:'normal',
-        letterSpacing:'0.83px',
-        color:'#000',
+        fontSize: '10px',
+        fontWeight: 'normal',
+        fontStretch: 'normal',
+        fontStyle: 'normal',
+        lineHeight: 'normal',
+        letterSpacing: '0.83px',
+        color: '#000',
         textTransform: 'uppercase',
-        paddingLeft:'83px',
-        paddingTop:'6px'
+        paddingLeft: '83px',
+        paddingTop: '6px'
     },
     valueMoving: {
         fontFamily: 'IBM Plex Sans',
-        fontSize:'31px',
-        fontWeight:'bold',
-        fontStretch:'normal',
-        fontStyle:'normal',
-        lineHeight:'1.19',
-        letterSpacing:'normal',
-        color:'#000',
+        fontSize: '31px',
+        fontWeight: 'bold',
+        fontStretch: 'normal',
+        fontStyle: 'normal',
+        lineHeight: '1.19',
+        letterSpacing: 'normal',
+        color: '#000',
         textTransform: 'uppercase',
-        paddingLeft:'66px',
-        paddingTop:'40px'
+        paddingLeft: '66px',
+        paddingTop: '40px'
     },
     valueType: {
         fontFamily: 'Cabin',
-        fontSize:'10px',
-        fontWeight:'bold',
-        fontStretch:'normal',
-        fontStyle:'normal',
-        lineHeight:'normal',
-        letterSpacing:'0.83px',
-        color:'#000',
+        fontSize: '10px',
+        fontWeight: 'bold',
+        fontStretch: 'normal',
+        fontStyle: 'normal',
+        lineHeight: 'normal',
+        letterSpacing: '0.83px',
+        color: '#000',
         textTransform: 'uppercase',
-        paddingLeft:'66px',
-        paddingTop:'6px'
+        paddingLeft: '66px',
+        paddingTop: '6px'
     },
     txDetails: {
         fontFamily: 'Cabin',
-        fontSize:'10px',
-        fontWeight:'bold',
-        fontStretch:'normal',
-        fontStyle:'normal',
-        lineHeight:'normal',
-        letterSpacing:'0.83px',
-        color:'#0068ea',
+        fontSize: '10px',
+        fontWeight: 'bold',
+        fontStretch: 'normal',
+        fontStyle: 'normal',
+        lineHeight: 'normal',
+        letterSpacing: '0.83px',
+        color: '#0068ea',
         textTransform: 'uppercase',
-        paddingLeft: '43px',
+        paddingLeft: '38px',
         paddingTop: '0px'
     },
-}))
+    txDetailsHeader: {
+        fontFamily: 'Cabin',
+        fontSize: '10px',
+        fontWeight: 'bold',
+        fontStretch: 'normal',
+        fontStyle: 'normal',
+        lineHeight: 'normal',
+        letterSpacing: '0.83px',
+        color: '#000',
+        textTransform: 'uppercase',
+        paddingLeft: '43px',
+        paddingTop: '6px',
+    },
+
+    txSeparrator:
+    {
+        color: '#ffffff',
+        paddingLeft: '66px',
+        paddingTop: '6px',
+        width: '837px',
+    },
+
+
+}));
+
 
 export const TransactionDetails = (props: any) => {
     const classes = useStyles()
@@ -172,9 +202,41 @@ export const TransactionDetails = (props: any) => {
                 <div className={classes.valueType}>{props.valueType}</div>
             </div>
             <div>
-              <ProgressBar type={props.transactionType}/>
+                <ProgressBar type={props.transactionType} />
             </div>
-            <div style={{color:'#0068ea', display:'inline-block', verticalAlign:'top' }} className={classes.txDetails}><ExpandMoreIcon />Show Transaction Details</div>
+            <TXDetails rows={props.TXTableRows}/>
+            
         </div>
     )
+}
+
+
+
+
+export const TXDetails = (props:any) =>
+{
+    const [expand, setExpand] = React.useState(false);
+
+    const classes = useStyles();
+  
+    
+    if (expand == false)
+    {
+     return(<div style={{ color: '#0068ea', display: 'inline-block', verticalAlign: 'top' }} className={classes.txDetails}><ExpandMoreIcon onClick={() => setExpand(!expand)}/>Show Transaction Details</div>)     
+    }
+    else
+    {
+        return (
+            <div >
+
+                <div className={classes.txDetailsHeader}>TRANSACTION DETAILS
+                <hr></hr>
+                </div> 
+                <TXTable rows={props.rows}/>
+                <div style={{ color: '#0068ea', display: 'inline-block', verticalAlign: 'top' }} className={classes.txDetails}><ExpandLessIcon onClick={() => setExpand(!expand)} />Hide Transaction Details</div>
+            </div>    
+         )
+    }
+
+    
 }

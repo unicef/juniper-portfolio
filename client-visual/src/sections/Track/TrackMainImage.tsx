@@ -2,8 +2,7 @@ import React from 'react'
 import { makeStyles } from '@material-ui/styles'
 const useStyles = makeStyles((theme: any) => ({
     root: {
-        paddingTop:'59px',
-        paddingleft:'358px'
+        paddingTop: '59px',
     }
 }));
 

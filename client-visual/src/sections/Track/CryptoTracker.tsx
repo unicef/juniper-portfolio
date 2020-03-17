@@ -4,8 +4,6 @@ import { ArrowDownButton } from './ArrowDownButton';
 
 const useStyles = makeStyles((theme: any) => ({
     mainText: {
-        width: '723px',
-        // height: '414px',
         fontFamily: 'Cabin',
         fontSize: '14px',
         fontWeight: 'bold',
@@ -14,7 +12,12 @@ const useStyles = makeStyles((theme: any) => ({
         lineHeight: 'normal',
         letterSpacing: '1.17px',
         color: '#ffffff',
-        textTransform:'uppercase'
+        textTransform: 'uppercase',
+        //marginLeft: 'auto',
+        //marginRight: 'auto',
+        margin: 'auto',
+        paddingTop: '40px',
+        paddingBottom: '20px',
     }
 }));
 export const CryptoTracker = () => {
@@ -25,8 +28,9 @@ export const CryptoTracker = () => {
     )
     return(
         <div className={classes.mainText}>
-            { cryptoTrackerText }<br/>
-            <span style={{alignContent:'center'}}><ArrowDownButton /></span>
+            {cryptoTrackerText}<br />
+            <ArrowDownButton />
+            {/*<span style={{alignContent:'center'}}><ArrowDownButton /></span>*/}
         </div>
     )
 }
