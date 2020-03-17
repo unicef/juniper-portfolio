@@ -3,13 +3,9 @@ import { makeStyles, Theme } from '@material-ui/core/styles'
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import ExpandLessIcon from '@material-ui/icons/ExpandLess';
 import { ProgressBar } from './ProgressBar'
+import { TXTable } from './TXDetailsTable'
 
-import Table from '@material-ui/core/Table';
-import TableBody from '@material-ui/core/TableBody';
-import TableCell from '@material-ui/core/TableCell';
-import TableContainer from '@material-ui/core/TableContainer';
-import TableHead from '@material-ui/core/TableHead';
-import TableRow from '@material-ui/core/TableRow';
+
 
 
 
@@ -179,31 +175,27 @@ const useStyles = makeStyles((theme: Theme) => ({
         width: '837px',
     },
 
-    txtable: {
-        marginLeft: '16px'
-    },
-
-    tableheader: {
-        fontFamily: 'Cabin',
-        fontSize: '10px',
-        fontWeight: 'bold',
-        fontStretch: 'normal',
-        fontStyle: 'normal',
-        lineHeight: 'normal',
-        letterSpacing: '0.83px',
-        color: '#000',
-        textTransform: 'uppercase',
-        paddingTop: '5px',
-        borderBottom: 'none',
-    },
-
-    txtablecell:
-    {
-        borderBottom: 'none',
-    },
-
 
 }));
+
+
+/*EPG: Note at the moment we are creating "fake"/hard-coded txn details. A better
+way is to actually fetch these details from etherscan or somewhere given the tx
+wallet address or somesuch, hence, it could be put in a component state. Alternatively,
+as Mehran suggested, we can hard-code into each of the transactions in the file Transaction.tsx'*/
+
+function createData(from: string, recipient:string, amount:string, time:string, txhash:string) {
+    return { from, recipient, amount, time, txhash };
+  }
+  
+  const rows = [
+    createData('UNICEF France', 'UNICEF HQ', '10,000 ETH', 'Today at 17:09' , 'jk67445klc788rejaqdfgh...'),
+    createData('Coinscene', 'UNICEF France', '10,000 ETH', 'Today at 15:49', '0x36c874d0218cdc790...'),
+];
+  
+/*End temporary / fake data*/
+  
+
 
 export const TransactionDetails = (props: any) => {
     const classes = useStyles()
@@ -230,64 +222,20 @@ export const TransactionDetails = (props: any) => {
             <div>
                 <ProgressBar type={props.transactionType} />
             </div>
-            <TXDetails />
+            <TXDetails rows={rows}/>
             
         </div>
     )
 }
 
 
-/* TX Details table*/
-
-function createData(from: string, recipient:string, amount:string, time:string, txhash:string) {
-    return { from, recipient, amount, time, txhash };
-  }
-  
-  const rows = [
-    createData('UNICEF France', 'UNICEF HQ', '10,000 ETH', 'Today at 17:09' , 'jk67445klc788rejaqdfgh...'),
-    createData('Coinscene', 'UNICEF France', '10,000 ETH', 'Today at 15:49', '0x36c874d0218cdc790...'),
-  ];
-  
-export const TXTable = () =>
-{
-    const classes = useStyles();
-    return (
-        <TableContainer className={classes.txtable}>
-          <Table className={classes.txtable} size="small" aria-label="a dense table">
-                <TableHead>
-              <TableRow>
-                <TableCell className={classes.tableheader} align= "left">From</TableCell>
-                <TableCell className={classes.tableheader} align="left">Recipient</TableCell>
-                <TableCell className={classes.tableheader} align="left">Amount</TableCell>
-                <TableCell className={classes.tableheader} align="left">Time</TableCell>
-                <TableCell  className={classes.tableheader}align="left">Transaction Hash</TableCell>
-              </TableRow>
-            </TableHead>
-            <TableBody>
-              {rows.map(row => (
-                <TableRow key={row.from}>
-                  <TableCell className={classes.txtablecell} component="th" scope="row">
-                    {row.from}
-                  </TableCell>
-                  <TableCell className={classes.txtablecell} align="left">{row.recipient}</TableCell>
-                  <TableCell className={classes.txtablecell} align="left">{row.amount}</TableCell>
-                  <TableCell className={classes.txtablecell} align="left">{row.time}</TableCell>
-                  <TableCell className={classes.txtablecell} align="left">{row.txhash}</TableCell>
-                </TableRow>
-              ))}
-            </TableBody>
-          </Table>
-        </TableContainer>
-      );
-    
-}
 
 
-export const TXDetails = () =>
+export const TXDetails = (props:any) =>
 {
     const [expand, setExpand] = React.useState(false);
 
-    const classes = useStyles()
+    const classes = useStyles();
   
     
     if (expand == false)
@@ -302,7 +250,7 @@ export const TXDetails = () =>
                 <div className={classes.txDetailsHeader}>TRANSACTION DETAILS
                 <hr></hr>
                 </div> 
-                <TXTable />
+                <TXTable rows={props.rows}/>
                 <div style={{ color: '#0068ea', display: 'inline-block', verticalAlign: 'top' }} className={classes.txDetails}><ExpandLessIcon onClick={() => setExpand(!expand)} />Hide Transaction Details</div>
             </div>    
          )
