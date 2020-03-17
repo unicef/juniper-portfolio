@@ -5,10 +5,11 @@ import { CryptoTracker } from './CryptoTracker'
 import { DonationTable } from './DonationTable'
 import { makeStyles } from '@material-ui/core'
 import { Grid } from '@material-ui/core'
+import { SideDetails } from '../../common/SideDetails'
+
 const useStyles = makeStyles((theme: any) => ({
     top: {
         backgroundColor:'#0068ea',
-        paddingLeft: '57px',
         paddingTop:'100px'
     }
 }))
@@ -18,30 +19,23 @@ export const Track = () => {
 
     return (
         <div>
-            <div className={classes.top}>
+            <div className={classes.top} style={{ paddingLeft: '14px', paddingRight: '14px', paddingBottom: '14px' }}>
                 <Grid container>
-                    <Grid item xs={12} sm={2}>
+                    <Grid item xs={12} sm={3}>
+                    <SideDetails />
 
                     </Grid>
-                    <Grid item xs={12} sm={10}>
+                    <Grid item xs={12} sm={9}>
                         <TrackMainText />
                     </Grid>
                 </Grid>
-                <Grid container alignContent='center' alignItems='center' justify='center' >
-                    <Grid item xs={12} sm={2}>
 
-                    </Grid>
-                    <Grid item xs={12} sm={10}>
-                        <TrackMainImage />
-                    </Grid>
+                
+                <Grid container alignContent='center' alignItems='center' justify='center' >
+                    <TrackMainImage />
                 </Grid>
                 <Grid container alignContent='center' alignItems='center' justify='center'>
-                    <Grid item xs={12} sm={2}>
-
-                    </Grid>
-                    <Grid item xs={12} sm={10}> 
-                        <CryptoTracker />
-                    </Grid>
+                    <CryptoTracker />
                 </Grid>
             </div>
             <div>
