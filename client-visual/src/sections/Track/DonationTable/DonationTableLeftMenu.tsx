@@ -4,7 +4,9 @@ import Slide from '@material-ui/core/Slide';
 import { DonationTableStepper } from './DonationTableStepper'
 const useStyles = makeStyles({
     root: {
-      flexGrow:1,
+    flexGrow: 1,
+    minHeight: '100%',
+    position: 'relative',
     },
     list: {
       width: '244px',
@@ -61,6 +63,7 @@ export const DonationTableLeftMenu = () => {
     
     const sideList = (side:any) => (
       <Slide style={{display:'inline-block'}} direction="right" in={state.left} >
+        
         <div
           className={classes.list}
           role="presentation"
@@ -83,7 +86,7 @@ export const DonationTableLeftMenu = () => {
             <span className={classes.numberText}>99 ETH</span><br/>
             <span className={classes.labelText}>Ether Invested</span><br/>
           </div>
-        </div>
+          </div>
         </Slide>
       );
     

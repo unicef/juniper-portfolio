@@ -14,7 +14,7 @@ const useStyles = makeStyles((theme: any) => ({
     },
 
     ctracker: {
-        marginBottom: '10px',
+        paddingBottom: '10px',
     },
 }))
 
