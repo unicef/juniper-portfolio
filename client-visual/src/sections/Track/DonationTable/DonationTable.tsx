@@ -5,7 +5,7 @@ import { DonationTableLeftMenu } from './DonationTableLeftMenu'
 export const DonationTable = () => {
 
     return (
-        <div style={{ width: '100%'}}>
+        <div>
             <DonationTableLeftMenu />
         </div>
     )

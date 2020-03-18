@@ -48,9 +48,6 @@ const useStyles = makeStyles((theme: Theme) => ({
     flexGrow: 1,
     backgroundColor: '#f3f3f3',
     marginLeft: '244px',
-    //display:'inline-block',
-    // position:'absolute'
-    width: '100%',
   },
   activeTab: {
     fontFamily: 'Cabin',
@@ -102,7 +99,6 @@ export const DonationTableStepper = () => {
   }
 
   return (
-    <div style={{display:'flex'}}>
       <div className={classes.root}>
         <AppBar position="static">
           <Tabs
@@ -131,6 +127,5 @@ export const DonationTableStepper = () => {
           <Invested/>
         </TabPanel>
       </div>
-    </div>
   );
 }

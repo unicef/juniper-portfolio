@@ -11,11 +11,10 @@ const useStyles = makeStyles((theme: any) => ({
     top: {
         backgroundColor:'#0068ea',
         paddingTop: '100px',
-        width: '100%',
     },
 
     ctracker: {
-        marginBottom: '10px',
+        paddingBottom: '10px',
     },
 }))
 
