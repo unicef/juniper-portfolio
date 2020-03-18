@@ -48,7 +48,7 @@ const useStyles = makeStyles((theme: Theme) => ({
     flexGrow: 1,
     backgroundColor: '#f3f3f3',
     marginLeft: '244px',
-    display:'inline-block',
+    //display:'inline-block',
     // position:'absolute'
     width: '100%',
   },
@@ -74,7 +74,7 @@ const useStyles = makeStyles((theme: Theme) => ({
       letterSpacing: '1px',
       textAlign:'center',
       color:'#777777',
-      backgroundColor:'#f3f3f3'
+      backgroundColor: '#f3f3f3',
   },
   
 }));
@@ -102,7 +102,7 @@ export const DonationTableStepper = () => {
   }
 
   return (
-    <div style={{display:'inline-block'}}>
+    <div style={{display:'flex'}}>
       <div className={classes.root}>
         <AppBar position="static">
           <Tabs
