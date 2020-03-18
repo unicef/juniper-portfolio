@@ -4,11 +4,11 @@ import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import { makeStyles } from '@material-ui/core/styles'
 
 const useStyles = makeStyles({
-    iconButton: {
-        width:'18px', 
-        height:'34px', 
-        color:'white', 
-        // paddingBottom:'75px', 
+    iconPic:
+    {
+        fontSize: '5em',
+        marginBottom: '-30px',
+        marginTop: '-10px',
     },
   });
 
@@ -17,8 +17,9 @@ export const ArrowDownButton = () => {
     const classes = useStyles()
 
     return (
-        <IconButton className={classes.iconButton}>
-            <ExpandMoreIcon/>
-        </IconButton>
+
+        <div>
+            <ExpandMoreIcon className={classes.iconPic} />
+        </div>
     )
 }

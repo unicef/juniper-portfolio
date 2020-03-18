@@ -13,12 +13,12 @@ const useStyles = makeStyles((theme: any) => ({
         letterSpacing: '1.17px',
         color: '#ffffff',
         textTransform: 'uppercase',
-        //marginLeft: 'auto',
-        //marginRight: 'auto',
         margin: 'auto',
-        paddingTop: '40px',
-        paddingBottom: '20px',
-    }
+        textAlign: 'center',
+        paddingTop: '45px',
+        marginTop: '20px',
+    }, 
+
 }));
 export const CryptoTracker = () => {
     const classes = useStyles()
@@ -30,7 +30,6 @@ export const CryptoTracker = () => {
         <div className={classes.mainText}>
             {cryptoTrackerText}<br />
             <ArrowDownButton />
-            {/*<span style={{alignContent:'center'}}><ArrowDownButton /></span>*/}
         </div>
     )
 }
