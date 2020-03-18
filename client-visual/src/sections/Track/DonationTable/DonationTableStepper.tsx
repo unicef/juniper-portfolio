@@ -50,6 +50,7 @@ const useStyles = makeStyles((theme: Theme) => ({
     marginLeft: '244px',
     display:'inline-block',
     // position:'absolute'
+    width: '100%',
   },
   activeTab: {
     fontFamily: 'Cabin',
