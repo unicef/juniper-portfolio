@@ -10,8 +10,12 @@ import { SideDetails } from '../../common/SideDetails'
 const useStyles = makeStyles((theme: any) => ({
     top: {
         backgroundColor:'#0068ea',
-        paddingTop:'100px'
-    }
+        paddingTop: '100px',
+    },
+
+    ctracker: {
+        marginBottom: '10px',
+    },
 }))
 
 export const Track = () => {
@@ -34,7 +38,7 @@ export const Track = () => {
                 <Grid container alignContent='center' alignItems='center' justify='center' >
                     <TrackMainImage />
                 </Grid>
-                <Grid container alignContent='center' alignItems='center' justify='center'>
+                <Grid container className={classes.ctracker} alignContent='center' alignItems='center' justify='center'>
                     <CryptoTracker />
                 </Grid>
             </div>

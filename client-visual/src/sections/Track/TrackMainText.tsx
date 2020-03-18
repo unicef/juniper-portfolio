@@ -11,7 +11,7 @@ const useStyles = makeStyles((theme: any) => ({
         fontStyle: 'normal',
         lineHeight: '1.44',
         letterSpacing: 'normal',
-        color: '#ffffff'
+        color: '#ffffff',
     }
 }));
 export const TrackMainText = () => {
