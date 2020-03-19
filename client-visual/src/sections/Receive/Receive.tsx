@@ -16,7 +16,8 @@ import { FundingProcessExplainer } from './FundingProcessExplainer'
 const useStyles = makeStyles((theme: any) => ({
     top: {
         backgroundColor:'#0068ea',
-        paddingTop:'100px'
+        paddingTop:'100px',
+
     }
 }));
 
@@ -61,7 +62,7 @@ export const Receive = () => {
                     </Grid>
                 </Grid>
             </div>
-            <div>
+            <div style={{paddingBottom:'100px'}}>
                 <Grid container>
                     <Grid item xs={12} sm={12}>
                         <FundingProcessExplainer />
