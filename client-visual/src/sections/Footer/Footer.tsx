@@ -36,10 +36,10 @@ export default function Footer() {
       <AppBar  style={{marginTop:'500px'}} position="fixed" color="primary" className={classes.appBar}>
         <Toolbar variant="dense">
           <div className={classes.grow} />
-          <IconButton color="inherit">
+          <IconButton href='https://twitter.com/unicefinnovate' color="inherit">
             <TwitterIcon />
           </IconButton>
-          <IconButton edge="end" color="inherit">
+          <IconButton href='mailto:blockchain@unicef.org' edge="end" color="inherit">
             <MailIcon />
           </IconButton>
         </Toolbar>
