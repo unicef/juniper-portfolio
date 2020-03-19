@@ -8,7 +8,7 @@ const useStyles = makeStyles((theme: any) => ({
         padding:'14px'
     },
     thankYouText: {
-        width:'728px',
+        maxWidth:'100%',
         fontFamily:'IBM Plex Sans',
         fontSize:'16px',
         fontWeight:'normal',
