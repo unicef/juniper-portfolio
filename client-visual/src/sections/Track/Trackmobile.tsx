@@ -1,11 +1,11 @@
 import React from 'react'
 import { TrackMainText } from './TrackMainText'
 import { TrackMainImage } from './TrackMainImage'
+import {TrackMobileSummary} from './TrackMobileSummary'
 import { CryptoTracker } from './CryptoTracker'
 import { DonationTable } from './DonationTable'
 import { makeStyles } from '@material-ui/core'
 import { Grid } from '@material-ui/core'
-import { SideDetails } from '../../common/SideDetails'
 
 const useStyles = makeStyles((theme: any) => ({
     top: {
@@ -37,6 +37,7 @@ export const Trackmobile = () => {
                 </Grid>
             </div>
             <div>
+                <TrackMobileSummary />
             </div>
         </div>
     )

@@ -27,8 +27,8 @@ export const Trackdesktop = () => {
                 <Grid container>
                     <Grid item xs={12} sm={3}>
                     <SideDetails />
-
                     </Grid>
+                    
                     <Grid item xs={12} sm={9}>
                         <TrackMainText />
                     </Grid>
