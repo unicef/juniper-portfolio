@@ -114,7 +114,7 @@ export default function NavBar() {
               </div>
               <Button 
                 className={classes.button}
-                href='/'
+                href='/about'
               >
                 About
               </Button>
