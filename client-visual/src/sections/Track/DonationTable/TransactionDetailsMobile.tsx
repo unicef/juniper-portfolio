@@ -132,3 +132,5 @@ export const TransactionDetailsMobile = (props: any) => {
 
 
 
+
+
