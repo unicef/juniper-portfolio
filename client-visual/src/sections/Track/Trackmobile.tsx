@@ -42,9 +42,9 @@ export const Trackmobile = () => {
             <div>
                 <TXSelect />
             </div>
-            <div>
-                <Transaction/>
-            </div>
+            {/*<div>
+                <Transaction />
+            </div>*/}
         </div>
     )
 }
