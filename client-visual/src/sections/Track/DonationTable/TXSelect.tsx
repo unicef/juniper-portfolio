@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import { createStyles, makeStyles, withStyles, Theme } from '@material-ui/core/styles';
-import InputLabel from '@material-ui/core/InputLabel';
+
+
 import MenuItem from '@material-ui/core/MenuItem';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
@@ -20,7 +21,6 @@ const BootstrapInput = withStyles((theme: Theme) =>
       borderBottom: '2px solid #0068ea',
       padding: '10px 26px 10px 12px',
       transition: theme.transitions.create(['border-color', 'box-shadow']),
-      // Use the system font instead of the default Roboto font.
       fontFamily: 'Cabin',
       fontSize: '10px',
       fontWeight: 'bold',
@@ -37,8 +37,14 @@ const BootstrapInput = withStyles((theme: Theme) =>
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
+    root: {
+      padding: '20px',
+      
+    },
     margin: {
-      margin: theme.spacing(1),
+      //margin: theme.spacing(1),
+      width: '100%',
+      //padding: '0px 20px 0px 10px',
     },
   }),
 );
@@ -54,7 +60,7 @@ export const TXSelect = () =>
   };
 
   return (
-    <div>
+    <div className={classes.root}>
       <FormControl className={classes.margin}>
         <Select
           labelId="demo-customized-select-label"
@@ -62,7 +68,6 @@ export const TXSelect = () =>
           value={filtertype}
           onChange={handleChange}
           input={<BootstrapInput />}
-          fullWidth={true}
         >
           <MenuItem value={10}>All Transfers</MenuItem>
           <MenuItem value={20}>Received</MenuItem>
