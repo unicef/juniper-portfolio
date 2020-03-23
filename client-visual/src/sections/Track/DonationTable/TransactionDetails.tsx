@@ -21,7 +21,7 @@ const useStyles = makeStyles((theme: Theme) => ({
         height: 'auto',
         marginLeft: '114px',
         marginBottom: '50px',
-        paddingBottom: '30px'
+        paddingBottom: '30px',
       
     },
     transactionType: {
@@ -35,7 +35,7 @@ const useStyles = makeStyles((theme: Theme) => ({
         color: '#000',
         textTransform: 'uppercase',
         paddingTop: '30px',
-        paddingLeft: '75px',
+       // paddingLeft: '75px',
     },
     startingParty: {
         width: '132px',
@@ -180,6 +180,19 @@ const useStyles = makeStyles((theme: Theme) => ({
     icon:
     {
         marginBottom: '-8px',
+    },
+
+    spacer:
+    {
+        paddingTop: '20px',
+        paddingBottom: '10px'
+    },
+    
+  arrowicon: 
+  {
+    paddingRight: '10px',
+    marginBottom: '-8px',
+    marginLeft: '43px'
     }
 
 
@@ -214,7 +227,10 @@ export const TransactionDetailsdesktop = (props: any) => {
     return (
         <div className={classes.root}>
             {/* <div className={classes.transactionType}>Received</div> */}
-            <div className={classes.transactionType}>{props.transactionType}</div>
+            <div className={classes.spacer}>
+              <img src="sidearrow.svg" alt="" className={classes.arrowicon} />
+                <span className={classes.transactionType}>{props.transactionType}</span>
+            </div>
             <div style={{display:'inline-block', verticalAlign:'top'}}>
                 <div className={classes.startingParty}>{props.startingParty}</div>
                 <div className={classes.partyType1}>{props.partyType1}</div>
