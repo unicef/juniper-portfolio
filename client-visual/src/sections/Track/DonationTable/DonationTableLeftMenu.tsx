@@ -11,7 +11,7 @@ const useStyles = makeStyles({
     list: {
       width: '244px',
       height:'100%',
-      backgroundColor: '#0068ce',
+      backgroundColor: '#ffffff',
       display:'inline-block',
       position:'absolute'
     },
@@ -23,8 +23,9 @@ const useStyles = makeStyles({
       fontStyle: 'normal',
       lineHeight: 'normal',
       letterSpacing: '1px',
-      color: '#ffffff',
-      textTransform:'uppercase'
+      color: '#000000',
+      textTransform: 'uppercase',
+      paddingBottom: '15px'
     },
     numberText: {
       fontFamily: 'IBM Plex Sans',
@@ -34,8 +35,9 @@ const useStyles = makeStyles({
       fontStyle: 'normal',
       lineHeight: '1.76',
       letterSpacing: 'normal',
-      color: '#ffffff',
-      textTransform:'uppercase'
+      color: '#000000',
+      textTransform: 'uppercase',
+
     },
     labelText: {
       fontFamily: 'Cabin',
@@ -45,8 +47,10 @@ const useStyles = makeStyles({
       fontStyle: 'normal',
       lineHeight: 'normal',
       letterSpacing: '0.83px',
-      color: '#ffffff',
-      textTransform:'uppercase'
+      color: '#000000',
+      textTransform: 'uppercase',
+      paddingBottom: '20px',
+
     },
     textWrapper: {
       marginLeft:'38px',
@@ -69,22 +73,22 @@ export const DonationTableLeftMenu = () => {
           role="presentation"
         >
           <div className={classes.textWrapper}>
-            <span className={classes.mainText}>Crypto Received</span><br/>
-            <span className={classes.numberText}>1</span><br/>
-            <span className={classes.labelText}>Donor</span><br/>
-            <span className={classes.numberText}>1 BTC</span><br/>
-            <span className={classes.labelText}>Bitcoin Received</span><br/>
-            <span className={classes.numberText}>100 ETH</span><br/>
-            <span className={classes.labelText}>Ether Received</span><br/>
+            <div className={classes.mainText}>Crypto Received</div>
+            <div className={classes.numberText}>1</div>
+            <div className={classes.labelText}>Donor</div>
+            <div className={classes.numberText}>1 BTC</div>
+            <div className={classes.labelText}>Bitcoin Received</div>
+            <div className={classes.numberText}>100 ETH</div>
+            <div className={classes.labelText}>Ether Received</div>
           </div>
           <div className={classes.textWrapper}>
-            <span className={classes.mainText}>Crypto Invested</span><br/>
-            <span className={classes.numberText}>03</span><br/>
-            <span className={classes.labelText}>Investments</span><br/>
-            <span className={classes.numberText}>1 BTC</span><br/>
-            <span className={classes.labelText}>Bitcoin Invested</span><br/>
-            <span className={classes.numberText}>99 ETH</span><br/>
-            <span className={classes.labelText}>Ether Invested</span><br/>
+            <div className={classes.mainText}>Crypto Invested</div>
+            <div className={classes.numberText}>03</div>
+            <div className={classes.labelText}>Investments</div>
+            <div className={classes.numberText}>1 BTC</div>
+            <div className={classes.labelText}>Bitcoin Invested</div>
+            <div className={classes.numberText}>99 ETH</div>
+            <div className={classes.labelText}>Ether Invested</div>
           </div>
           </div>
         </Slide>
