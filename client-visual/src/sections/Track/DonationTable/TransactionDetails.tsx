@@ -48,7 +48,9 @@ const useStyles = makeStyles((theme: Theme) => ({
         letterSpacing: 'normal',
         color: '#000',
         marginLeft: '43px',
-        marginTop: '28px'
+        marginTop: '18px'
+
+        
     },
     middleParty: {
         width: '71px',
@@ -88,7 +90,8 @@ const useStyles = makeStyles((theme: Theme) => ({
         letterSpacing: '0.83px',
         color: '#000',
         textTransform: 'uppercase',
-        paddingLeft: '43px'
+        paddingLeft: '43px',
+        paddingTop: '6px',
     },
     partyType2: {
         fontFamily: 'Cabin',
