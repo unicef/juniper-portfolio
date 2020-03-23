@@ -105,7 +105,7 @@ export const FundingProcessExplainer = () => {
 
     const createBlock = (title: string, text: string, color: string, padding: string) => {
         return(
-            <div style={{display: 'inline-block', verticalAlign: 'top', paddingLeft: padding+'px'}}>
+            <div style={{paddingBottom:'50px', display: 'inline-block', verticalAlign: 'top', paddingLeft: padding+'px'}}>
                 <div>
                     <span style={{backgroundColor:color}} className={classes.circleStyle}></span>
                     <span className={classes.titleStyle}>{title}</span><br/>
@@ -178,9 +178,9 @@ export const FundingProcessExplainer = () => {
                 </Grid>
             </div>
             <Grid container alignContent='center' justify='center' alignItems='center'>
-                <Grid item xs={12} sm={12} md ={4}>
+                <Grid item xs={12} sm={12} md={4} lg={4}>
                     {fundingFlowButton()}
-                    {sampleTransactionsButton()}<br/>
+                    {sampleTransactionsButton()}
                 </Grid>
             </Grid>
         </div>
