@@ -1,9 +1,9 @@
 import React from 'react'
 import { TrackMainText } from './TrackMainText'
 import { TrackMainImage } from './TrackMainImage'
-import {TrackMobileSummary} from './TrackMobileSummary'
-import { CryptoTracker } from './CryptoTracker'
-import { DonationTable } from './DonationTable'
+import { TrackMobileSummary } from './TrackMobileSummary'
+import {TXSelect} from './DonationTable/TXSelect'
+import { Transaction } from './DonationTable/Transaction'
 import { makeStyles } from '@material-ui/core'
 import { Grid } from '@material-ui/core'
 
@@ -39,6 +39,12 @@ export const Trackmobile = () => {
             <div>
                 <TrackMobileSummary />
             </div>
+            <div>
+                <TXSelect />
+            </div>
+            {/*<div>
+                <Transaction />
+            </div>*/}
         </div>
     )
 }

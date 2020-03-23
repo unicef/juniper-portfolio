@@ -1,9 +1,11 @@
-import React, {useState} from 'react'
+import React, { useState } from 'react'
+import useMediaQuery from '@material-ui/core/useMediaQuery';
 import { makeStyles, Theme } from '@material-ui/core/styles'
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import ExpandLessIcon from '@material-ui/icons/ExpandLess';
 import { ProgressBar } from './ProgressBar'
 import { TXTable } from './TXDetailsTable'
+import { TransactionDetailsMobile} from './TransactionDetailsMobile'
 
 
 
@@ -179,7 +181,30 @@ const useStyles = makeStyles((theme: Theme) => ({
 
 
 export const TransactionDetails = (props: any) => {
+    const mobiledevice = useMediaQuery('(max-width: 800px)');
+    
+    if (mobiledevice) {
+        return (
+            <div>
+               <TransactionDetailsMobile {...props}/>
+            </div>
+        )
+    }
+    
+    else
+    {
+        return (
+            <div>
+                <TransactionDetailsdesktop {...props}/>
+            </div>
+        )
+    }
+}
+
+
+export const TransactionDetailsdesktop = (props: any) => {
     const classes = useStyles()
+
     return (
         <div className={classes.root}>
             {/* <div className={classes.transactionType}>Received</div> */}
@@ -221,7 +246,7 @@ export const TXDetails = (props:any) =>
     
     if (expand == false)
     {
-     return(<div style={{ color: '#0068ea', display: 'inline-block', verticalAlign: 'top' }} className={classes.txDetails}><ExpandMoreIcon onClick={() => setExpand(!expand)}/>Show Transaction Details</div>)     
+     return(<div style={{ color: '#0068ea', display: 'inline-block', verticalAlign: 'top' }} className={classes.txDetails} onClick={() => setExpand(!expand)}><ExpandMoreIcon />Show Transaction Details</div>)     
     }
     else
     {
@@ -232,7 +257,7 @@ export const TXDetails = (props:any) =>
                 <hr></hr>
                 </div> 
                 <TXTable rows={props.rows}/>
-                <div style={{ color: '#0068ea', display: 'inline-block', verticalAlign: 'top' }} className={classes.txDetails}><ExpandLessIcon onClick={() => setExpand(!expand)} />Hide Transaction Details</div>
+                <div style={{ color: '#0068ea', display: 'inline-block', verticalAlign: 'top' }} className={classes.txDetails} onClick={() => setExpand(!expand)}><ExpandLessIcon />Hide Transaction Details</div>
             </div>    
          )
     }
