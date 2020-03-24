@@ -7,7 +7,7 @@ const useStyles = makeStyles({
     iconPic:
     {
         fontSize: '5em',
-        marginBottom: '-30px',
+        marginBottom: '-17px',
         marginTop: '-10px',
     },
   });
@@ -19,7 +19,7 @@ export const ArrowDownButton = () => {
     return (
 
         <div>
-            <ExpandMoreIcon className={classes.iconPic} />
+            <img src='downarrow.svg' alt=' ' className={classes.iconPic}/>
         </div>
     )
 }

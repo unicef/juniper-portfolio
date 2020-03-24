@@ -16,7 +16,13 @@ export const TrackMainImage = () => {
     const classes = useStyles()
     const mobiledevice = useMediaQuery('(max-width: 800px)');
 
-    return(
-        <img className={mobiledevice ? classes.mobile :  classes.desktop} src='./Infographic_track_mobile.png' alt='receive info' />
-    )
+    if (mobiledevice)
+    {
+       return (<img className={classes.mobile} src='Infographic_track_mobile.png' alt='receive info' /> )
+    }
+    else
+    {
+      return(<img className={classes.desktop} src='Track_illustration.svg' alt='receive info' />)  
+    }
+    
 }
