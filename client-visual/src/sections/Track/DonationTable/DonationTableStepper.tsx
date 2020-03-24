@@ -65,7 +65,6 @@ const useStyles = makeStyles((theme: Theme) => ({
   inactiveTab: {
       fontFamily: 'Cabin',
       fontSize: '12px',
-      fontWeight:'normal',
       fontStretch:'normal',
       fontStyle:'normal',
       lineHeight: 'normal',
@@ -78,6 +77,8 @@ const useStyles = makeStyles((theme: Theme) => ({
   tabpanel: 
   {
     paddingTop: '25px',
+    overflowY: 'scroll',
+    maxHeight: '700px'
   }
   
 }));
@@ -98,7 +99,7 @@ export const DonationTableStepper = () => {
         {...props}
         classes={{
           selected: classes.activeTab,
-          root: classes.inactiveTab, 
+          root: classes.inactiveTab
         }}
       />
     );
