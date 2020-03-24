@@ -48,8 +48,6 @@ const useStyles = makeStyles((theme: Theme) => ({
     flexGrow: 1,
     backgroundColor: '#f3f3f3',
     marginLeft: '244px',
-    overflowY: 'scroll',
-    maxHeight: '700px'
   },
   activeTab: {
     fontFamily: 'Cabin',
@@ -79,6 +77,8 @@ const useStyles = makeStyles((theme: Theme) => ({
   tabpanel: 
   {
     paddingTop: '25px',
+    overflowY: 'scroll',
+    maxHeight: '700px'
   }
   
 }));
