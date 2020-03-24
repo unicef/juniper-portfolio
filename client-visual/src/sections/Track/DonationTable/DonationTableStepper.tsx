@@ -59,7 +59,6 @@ const useStyles = makeStyles((theme: Theme) => ({
     letterSpacing: '1px',
     textAlign:'center',
     color:'#0068ea',
-    //backgroundColor: '#cbcbcb!'
     backgroundColor: '#f3f3f3 !important',
     boxShadow: 'none',
   },

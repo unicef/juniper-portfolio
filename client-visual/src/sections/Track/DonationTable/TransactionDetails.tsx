@@ -16,7 +16,6 @@ const useStyles = makeStyles((theme: Theme) => ({
     root: {
         flexGrow: 1,
         backgroundColor: theme.palette.background.paper,
-        //width: '837 px',
         width: '80%',
         height: 'auto',
         marginLeft: '114px',
@@ -62,7 +61,7 @@ const useStyles = makeStyles((theme: Theme) => ({
         lineHeight: '1.38',
         letterSpacing: 'normal',
         color: '#000',
-        paddingLeft: '83px',
+        paddingLeft: '96px',
         paddingTop: '30px'
     },
     endParty: {
@@ -103,7 +102,7 @@ const useStyles = makeStyles((theme: Theme) => ({
         letterSpacing: '0.83px',
         color: '#000',
         textTransform: 'uppercase',
-        paddingLeft: '83px',
+        paddingLeft: '96px',
         paddingTop: '6px'
     },
     partyType3: {
