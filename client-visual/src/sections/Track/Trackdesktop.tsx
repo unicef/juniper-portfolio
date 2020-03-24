@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {useEffect} from 'react'
 import { TrackMainText } from './TrackMainText'
 import { TrackMainImage } from './TrackMainImage'
 import { CryptoTracker } from './CryptoTracker'
@@ -8,6 +8,7 @@ import { Grid } from '@material-ui/core'
 import { SideDetails } from '../../common/SideDetails'
 
 const useStyles = makeStyles((theme: any) => ({
+    
     top: {
         backgroundColor:'#0068ea',
         paddingTop: '100px',
@@ -20,6 +21,15 @@ const useStyles = makeStyles((theme: any) => ({
 
 export const Trackdesktop = () => {
     const classes = useStyles()
+
+    useEffect(() => {
+        //document.body.style.overflowY = 'hidden'
+        document.body.style.maxHeight = '100%'
+        return () => {
+            document.body.style.overflowY='visible'
+        }
+        
+    })
 
     return (
         <div>
