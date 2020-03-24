@@ -16,11 +16,11 @@ const useStyles = makeStyles((theme: Theme) => ({
     root: {
         flexGrow: 1,
         backgroundColor: theme.palette.background.paper,
-        width: '837 px',
+        width: '80%',
         height: 'auto',
         marginLeft: '114px',
         marginBottom: '50px',
-        paddingBottom: '30px'
+        paddingBottom: '30px',
       
     },
     transactionType: {
@@ -34,7 +34,7 @@ const useStyles = makeStyles((theme: Theme) => ({
         color: '#000',
         textTransform: 'uppercase',
         paddingTop: '30px',
-        paddingLeft: '75px',
+       // paddingLeft: '75px',
     },
     startingParty: {
         width: '132px',
@@ -47,7 +47,9 @@ const useStyles = makeStyles((theme: Theme) => ({
         letterSpacing: 'normal',
         color: '#000',
         marginLeft: '43px',
-        marginTop: '28px'
+        marginTop: '18px'
+
+        
     },
     middleParty: {
         width: '71px',
@@ -59,7 +61,7 @@ const useStyles = makeStyles((theme: Theme) => ({
         lineHeight: '1.38',
         letterSpacing: 'normal',
         color: '#000',
-        paddingLeft: '83px',
+        paddingLeft: '96px',
         paddingTop: '30px'
     },
     endParty: {
@@ -87,7 +89,8 @@ const useStyles = makeStyles((theme: Theme) => ({
         letterSpacing: '0.83px',
         color: '#000',
         textTransform: 'uppercase',
-        paddingLeft: '43px'
+        paddingLeft: '43px',
+        paddingTop: '6px',
     },
     partyType2: {
         fontFamily: 'Cabin',
@@ -99,7 +102,7 @@ const useStyles = makeStyles((theme: Theme) => ({
         letterSpacing: '0.83px',
         color: '#000',
         textTransform: 'uppercase',
-        paddingLeft: '83px',
+        paddingLeft: '96px',
         paddingTop: '6px'
     },
     partyType3: {
@@ -176,6 +179,24 @@ const useStyles = makeStyles((theme: Theme) => ({
         width: '837px',
     },
 
+    icon:
+    {
+        marginBottom: '-8px',
+    },
+
+    spacer:
+    {
+        paddingTop: '20px',
+        paddingBottom: '10px'
+    },
+    
+  arrowicon: 
+  {
+    paddingRight: '10px',
+    marginBottom: '-8px',
+    marginLeft: '43px'
+    }
+
 
 }));
 
@@ -208,7 +229,10 @@ export const TransactionDetailsdesktop = (props: any) => {
     return (
         <div className={classes.root}>
             {/* <div className={classes.transactionType}>Received</div> */}
-            <div className={classes.transactionType}>{props.transactionType}</div>
+            <div className={classes.spacer}>
+              <img src="sidearrow.svg" alt="" className={classes.arrowicon} />
+                <span className={classes.transactionType}>{props.transactionType}</span>
+            </div>
             <div style={{display:'inline-block', verticalAlign:'top'}}>
                 <div className={classes.startingParty}>{props.startingParty}</div>
                 <div className={classes.partyType1}>{props.partyType1}</div>
@@ -246,7 +270,7 @@ export const TXDetails = (props:any) =>
     
     if (expand == false)
     {
-     return(<div style={{ color: '#0068ea', display: 'inline-block', verticalAlign: 'top' }} className={classes.txDetails} onClick={() => setExpand(!expand)}><ExpandMoreIcon />Show Transaction Details</div>)     
+     return(<div style={{ color: '#0068ea', display: 'inline-block', verticalAlign: 'top' }} className={classes.txDetails} onClick={() => setExpand(!expand)}><ExpandMoreIcon className={classes.icon} />Show Transaction Details</div>)     
     }
     else
     {
@@ -257,7 +281,7 @@ export const TXDetails = (props:any) =>
                 <hr></hr>
                 </div> 
                 <TXTable rows={props.rows}/>
-                <div style={{ color: '#0068ea', display: 'inline-block', verticalAlign: 'top' }} className={classes.txDetails} onClick={() => setExpand(!expand)}><ExpandLessIcon />Hide Transaction Details</div>
+                <div style={{ color: '#0068ea', display: 'inline-block', verticalAlign: 'top' }} className={classes.txDetails} onClick={() => setExpand(!expand)}><ExpandLessIcon className={classes.icon}/>Hide Transaction Details</div>
             </div>    
          )
     }

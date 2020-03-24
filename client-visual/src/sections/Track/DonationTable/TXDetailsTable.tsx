@@ -11,7 +11,7 @@ import TableRow from '@material-ui/core/TableRow';
 const useStyles = makeStyles((theme: Theme) => ({
 
     txtable: {
-        marginLeft: '16px'
+    marginLeft: '16px',
     },
  
     tableheader: {

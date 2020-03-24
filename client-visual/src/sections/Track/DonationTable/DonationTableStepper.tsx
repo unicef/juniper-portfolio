@@ -59,7 +59,8 @@ const useStyles = makeStyles((theme: Theme) => ({
     letterSpacing: '1px',
     textAlign:'center',
     color:'#0068ea',
-    backgroundColor: '#cbcbcb!'
+    backgroundColor: '#f3f3f3 !important',
+    boxShadow: 'none',
   },
   inactiveTab: {
       fontFamily: 'Cabin',
@@ -71,8 +72,13 @@ const useStyles = makeStyles((theme: Theme) => ({
       letterSpacing: '1px',
       textAlign:'center',
       color:'#777777',
-      backgroundColor: '#f3f3f3',
+      backgroundColor: '#cbcbcb',
   },
+
+  tabpanel: 
+  {
+    paddingTop: '25px',
+  }
   
 }));
 
@@ -91,8 +97,8 @@ export const DonationTableStepper = () => {
         }}
         {...props}
         classes={{
-            root: classes.inactiveTab,
-            selected: classes.activeTab
+          selected: classes.activeTab,
+          root: classes.inactiveTab, 
         }}
       />
     );
@@ -100,7 +106,7 @@ export const DonationTableStepper = () => {
 
   return (
       <div className={classes.root}>
-        <AppBar position="static">
+        <AppBar position="static" style={{boxShadow: 'none'}}>
           <Tabs
             variant="fullWidth"
             value={value}
@@ -108,7 +114,7 @@ export const DonationTableStepper = () => {
             aria-label="nav tabs example"
             textColor="primary"
             classes={{
-              root: classes.inactiveTab
+              root: classes.inactiveTab,
             }}
             indicatorColor="white"
           >
@@ -116,16 +122,18 @@ export const DonationTableStepper = () => {
             <LinkTab label="Crypto Received"  {...a11yProps(1)} />
             <LinkTab label="Crypto Invested"  {...a11yProps(2)} />
           </Tabs>
-        </AppBar>
-        <TabPanel value={value} index={0}>
+      </AppBar>
+      <div className={classes.tabpanel}>
+      <TabPanel value={value} index={0}>
           <Transaction/>
         </TabPanel>
-        <TabPanel value={value} index={1}>
+      <TabPanel value={value} index={1} >
           <Received/>
         </TabPanel>
-        <TabPanel value={value} index={2}>
+      <TabPanel value={value} index={2}>
           <Invested/>
         </TabPanel>
+        </div>
       </div>
   );
 }
