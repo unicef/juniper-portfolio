@@ -49,7 +49,7 @@ const useStyles = makeStyles((theme: Theme) => ({
     backgroundColor: '#f3f3f3',
     marginLeft: '244px',
     overflowY: 'scroll',
-    maxHeight: '500px'
+    maxHeight: '700px'
   },
   activeTab: {
     fontFamily: 'Cabin',
