@@ -5,7 +5,6 @@ import { CryptoTracker } from './CryptoTracker'
 import { DonationTable } from './DonationTable'
 import { makeStyles } from '@material-ui/core'
 import { Grid } from '@material-ui/core'
-import { SideDetails } from '../../common/SideDetails'
 
 const useStyles = makeStyles((theme: any) => ({
     
@@ -22,11 +21,11 @@ const useStyles = makeStyles((theme: any) => ({
 export const Trackdesktop = () => {
     const classes = useStyles()
 
-   /* useEffect(() => {
-        document.body.style.overflowY = 'hidden'
-        document.body.style.maxHeight = '100px'
+    /*useEffect(() => {
+        document.body.style.overflowY = 'visible'
+        document.body.style.maxHeight = '50%'
         return () => {
-            document.body.style.overflowY='hidden'
+            document.body.style.overflowY='scroll'
             document.body.style.maxHeight = '100%'
         }
 

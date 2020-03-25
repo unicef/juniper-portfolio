@@ -1,8 +1,6 @@
 import React from 'react'
-<<<<<<< HEAD
-import { makeStyles } from '@material-ui/core'
 import { Grid } from '@material-ui/core'
-import { SideDetails } from '../../common/SideDetails'
+import { makeStyles} from '@material-ui/styles'
 import { AboutMainText } from './AboutMainText'
 
 const useStyles = makeStyles((theme: any) => ({
@@ -52,6 +50,7 @@ const useStyles = makeStyles((theme: any) => ({
         fontSize: '22px',
         lineHeight: '34px',
         letterSpacing: 'normal',
+        paddingBottom: '60px'
     },
 
     underline: {
@@ -77,7 +76,10 @@ export const About = () => {
                     </Grid>
                     
                     <Grid item sm={6} className={classes.rcolumn}>
-                      <AboutBlurb1 />
+                        <AboutBlurb1 />
+                        <AboutBlurb2 />
+                        <AboutBlurb3 />
+                        <AboutBlurb4 />
                     </Grid>
                 </Grid>
 
@@ -92,25 +94,70 @@ export const AboutBlurb1 = () => {
 
     return (
         <div>
-          <div className={classes.header}>Eligible applicants</div>
-          <div className={classes.blurb}>
-            <p>Projects selected by the <span className={classes.underline}>Innovation Fund</span> can 
-            then apply to the CryptoFund, and the fund team reviews applications
+            <div className={classes.header}>Eligible applicants</div>
+            <div className={classes.blurb}>
+                <p>Projects selected by the <span className={classes.underline}>Innovation Fund</span> can
+                then apply to the CryptoFund, and the fund team reviews applications
             to make investments into projects. The selected projects receive 12 months of mentorship.</p>
 
-            <p>UNICEF's Innovation Fund is a non-thematic, pooled fund which has been specifically
-             designed to finance early stage, open-source technology that can benefit children. The core
-             motivation of the Innovation Fund is to identify "clusters" or portfolios of
-             initiatives around emerging technology - so that UNICEF can both shape markets
-             and learn about and guide these technologies to benefit children. We invest in
-             solutions that can impact the lives of the most vulnerable children.</p>   
-        </div> 
+                <p>UNICEF's Innovation Fund is a non-thematic, pooled fund which has been specifically
+                 designed to finance early stage, open-source technology that can benefit children. The core
+                 motivation of the Innovation Fund is to identify "clusters" or portfolios of
+                 initiatives around emerging technology - so that UNICEF can both shape markets
+                 and learn about and guide these technologies to benefit children. We invest in
+             solutions that can impact the lives of the most vulnerable children.</p>
+            </div>
         </div>
-=======
+    )
+}
 
-export const About = () => {
+
+export const AboutBlurb2 = () => {
+    const classes = useStyles();
+    
     return (
-        <h1>About</h1>
->>>>>>> origin/master
+        <div>
+            <div className={classes.header}>Funding in bitcoin or ether</div>
+            <div className={classes.blurb}>
+                <p>The CryptoFund can help with investments up to $100,000 USD
+                    (BTC or ETH equivalent) to support the acceleration of your company's work.</p>
+            </div>
+        </div>
+    )
+}
+
+
+export const AboutBlurb3 = () => {
+    const classes = useStyles();
+    
+    return (
+        <div>
+            <div className={classes.header}>Funding open source projects</div>
+            <div className={classes.blurb}>
+                <p>We are seeking open-source projects that have already been started -
+                    you've been running it for a while - it shows some positive indicators - 
+                    but you need funding to take it to a level where it can really attract additional
+                    investment and funding by generating real data.
+                </p>
+            </div>
+        </div>
+    )
+}
+
+export const AboutBlurb4 = () => {
+    const classes = useStyles();
+    
+    return (
+        <div>
+            <div className={classes.header}>Scaling up your projects</div>
+            <div className={classes.blurb}>
+                <p>You might need a small amount of money to get your prototype to the stage
+                    where the company has proof that the solution works for other people. Maybe 
+                    another developer or two are needed, design help to communicate what the project
+                    can do, or some server space. Refactoring something into a new language because 
+                    the original one won't scale. Testing it in a new area. Getting some data points.
+                </p>
+            </div>
+        </div>
     )
 }
