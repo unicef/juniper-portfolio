@@ -12,7 +12,8 @@ const useStyles = makeStyles((theme: any) => ({
         lineHeight: '1.44',
         letterSpacing: 'normal',
         color: '#000000',
-        width: '80%'
+        width: '60%',
+        margin: 'auto',
     },
 
     mobile: {

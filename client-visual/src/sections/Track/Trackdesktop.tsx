@@ -22,18 +22,22 @@ const useStyles = makeStyles((theme: any) => ({
 export const Trackdesktop = () => {
     const classes = useStyles()
 
+   /* useEffect(() => {
+        document.body.style.overflowY = 'hidden'
+        document.body.style.maxHeight = '100px'
+        return () => {
+            document.body.style.overflowY='hidden'
+            document.body.style.maxHeight = '100%'
+        }
+
+    })*/
+
     return (
         <div>
             <div className={classes.top} style={{ paddingLeft: '14px', paddingRight: '14px', paddingBottom: '14px' }}>
-                <Grid container>
-                    <Grid item xs={12} sm={3}>
-                    <SideDetails />
-                    </Grid>
-                    
-                    <Grid item xs={12} sm={9}>
-                        <TrackMainText />
-                    </Grid>
-                </Grid>
+            
+                <TrackMainText />
+                 
 
                 
                 <Grid container alignContent='center' alignItems='center' justify='center' >
