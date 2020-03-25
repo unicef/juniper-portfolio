@@ -155,7 +155,8 @@ const useStyles = makeStyles((theme: Theme) => ({
         color: '#0068ea',
         textTransform: 'uppercase',
         paddingLeft: '38px',
-        paddingTop: '0px'
+        paddingTop: '0px',
+        cursor: 'pointer',
     },
     txDetailsHeader: {
         fontFamily: 'Cabin',
@@ -281,7 +282,7 @@ export const TXDetails = (props:any) =>
                 <hr></hr>
                 </div> 
                 <TXTable rows={props.rows}/>
-                <div style={{ color: '#0068ea', display: 'inline-block', verticalAlign: 'top' }} className={classes.txDetails} onClick={() => setExpand(!expand)}><ExpandLessIcon className={classes.icon}/>Hide Transaction Details</div>
+                <div style={{ color: '#0068ea', display: 'inline-block', verticalAlign: 'top' }} className={classes.txDetails} onClick={() => setExpand(!expand)} ><ExpandLessIcon className={classes.icon} />Hide Transaction Details</div>
             </div>    
          )
     }
