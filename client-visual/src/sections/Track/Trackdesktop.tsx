@@ -22,15 +22,6 @@ const useStyles = makeStyles((theme: any) => ({
 export const Trackdesktop = () => {
     const classes = useStyles()
 
-    useEffect(() => {
-        //document.body.style.overflowY = 'hidden'
-        document.body.style.maxHeight = '100%'
-        return () => {
-            document.body.style.overflowY='visible'
-        }
-        
-    })
-
     return (
         <div>
             <div className={classes.top} style={{ paddingLeft: '14px', paddingRight: '14px', paddingBottom: '14px' }}>
