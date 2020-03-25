@@ -15,6 +15,7 @@ import { theme } from './ui';
 import NavBar from './sections/NavBar/NavBar';
 
 import { BrowserRouter as Router, Route } from 'react-router-dom'
+import Footer from './sections/Footer/Footer';
 
 const client = new ApolloClient({
     uri: '/api'
@@ -29,8 +30,9 @@ render(
                 <Route exact path ='/' component={Landing} />
                 <Route exact path ='/receive' component={Receive} />
                 <Route exact path='/invest' component={Invest} />
-                <Route exact path='/track' component={Track} />
-                <Route exact path= '/about' component = {About} />
+                <Route exact path ='/track' component={Track} />
+                <Route exact path ='/about' component={About} />
+                <Footer />
             </ApolloProvider>
         </Router>
     </ThemeProvider>

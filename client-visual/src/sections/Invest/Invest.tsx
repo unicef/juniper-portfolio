@@ -6,6 +6,7 @@ import { SideDetails } from '../../common/SideDetails'
 import { InvestmentMainText } from './InvestmentMainText'
 import { InvestmentMainImage } from './InvestmentMainImage'
 import { InvestmentObject } from './InvestmentObject'
+import Footer from '../Footer/Footer'
 
 const useStyles = makeStyles((theme: any) => ({
     
@@ -67,6 +68,7 @@ export const Invest = () => {
                     fontColor={'#fff'}
                 />
             </div>
+
         </div>
     )
 }

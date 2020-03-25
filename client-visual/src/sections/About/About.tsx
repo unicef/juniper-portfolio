@@ -1,4 +1,5 @@
 import React from 'react'
+<<<<<<< HEAD
 import { makeStyles } from '@material-ui/core'
 import { Grid } from '@material-ui/core'
 import { SideDetails } from '../../common/SideDetails'
@@ -105,5 +106,11 @@ export const AboutBlurb1 = () => {
              solutions that can impact the lives of the most vulnerable children.</p>   
         </div> 
         </div>
+=======
+
+export const About = () => {
+    return (
+        <h1>About</h1>
+>>>>>>> origin/master
     )
 }

@@ -4,6 +4,7 @@ import { Receive } from './Receive/Receive'
 import { Invest } from './Invest/Invest'
 import { Track } from './Track/Track'
 import { Grid } from '@material-ui/core'
+import Footer from '../Footer/Footer';
 
 const useStyles = makeStyles({
     root: {
@@ -62,6 +63,7 @@ export const Landing = () => {
               </Grid>
             </Grid>
           </div>
+          <Footer />
         </div>
     )
 }
