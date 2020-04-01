@@ -13,7 +13,9 @@ const useStyles = makeStyles({
       fontStretch:'normal',
       lineHeight:'0.46',
       letterSpacing:'normal',
-      color:'#fff',
+      color: '#fff',
+      top: '50%',
+      paddingTop: '20px',
     }
   });
 

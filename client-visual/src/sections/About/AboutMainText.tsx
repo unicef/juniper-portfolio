@@ -24,7 +24,9 @@ const useStyles = makeStyles((theme: any) => ({
         fontStyle: 'normal',
         lineHeight: '1.44',
         letterSpacing: 'normal',
-        color: '#000000', 
+        color: '#000000',
+        width: '80%', 
+        margin: 'auto',
     }
 }));
 export const AboutMainText = () => {

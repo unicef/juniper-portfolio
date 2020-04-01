@@ -29,16 +29,32 @@ const useStyles = makeStyles({
     },
     trackText: {
       color:'#fff'
-    },
+  },
+    
+  allinvestments: {
+    color:'#fff'
+  },
+  faster: {
+    color: '#ffd113'
+  },
+  transparent: {
+    color: '#13e7ff'
+  }
   });
 
 export const TrackObject = () => {
     const classes = useStyles()
-    const [trackText] = useState('Track the movement of investments')
+    const [title] = useState('Tracked')
+    const [fastertimes] = useState(10)
+    const [percenttransparent] = useState(100)
     return (
 
-        <Grid item xs={6} sm={6} md={3} className={classes.text}>
-          <div className={classes.trackText}>{trackText} donor(s)</div>
+      <Grid item xs={6} sm={6} md={3} className={classes.text}>
+        
+        <span className={classes.title}>{title}</span>
+        <div className = {classes.allinvestments}>On blockchain</div>
+        <div className={classes.faster}>{fastertimes}x faster</div>
+        <div className={classes.transparent}>{percenttransparent}% transparent</div>
         </Grid>
     )
 }
