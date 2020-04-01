@@ -16,9 +16,10 @@ const useStyles = makeStyles({
   
   container:
   {
-     width: '65%',
+    width: '65%',
     margin: 'auto', 
   },
+
   
     landingText: {
       fontFamily: 'Cabin',
@@ -46,7 +47,7 @@ export const Landing = () => {
         <div style={{ paddingBottom: '30px' }}>
             <Receive/>
           </div>
-          <div style={{paddingBottom: '30px'}}>
+          <div style={{ paddingBottom: '30px' }}>
             <Invest/>
           </div>
           <div style={{paddingBottom: '30px'}}>

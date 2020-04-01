@@ -9,7 +9,7 @@ const useStyles = makeStyles({
 
     text: {
       width:'107px',
-      height:'69px',
+      //height:'69px',
       fontFamily:'IBM Plex Sans',
       fontSize: '16px',
       fontWeight:'bold',
@@ -17,7 +17,8 @@ const useStyles = makeStyles({
       fontStyle: 'normal',
       lineHeight:'1.44',
       letterSpacing:'normal',
-      color:'#fff'
+      color: '#fff',
+      paddingTop: '20px',
     },
     title: {
       textTransform:"uppercase",
