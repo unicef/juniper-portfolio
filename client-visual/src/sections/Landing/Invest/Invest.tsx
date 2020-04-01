@@ -10,7 +10,7 @@ import { HorizontalBar } from '../Atoms/HorizontalBar'
 const useStyles = makeStyles({
     root: {
       flexGrow:1,
-      height:'183px'
+      //height:'183px'
   },
   arrow: 
   {

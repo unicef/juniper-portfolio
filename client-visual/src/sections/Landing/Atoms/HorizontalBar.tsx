@@ -1,16 +1,17 @@
 import React from 'react'
-import { Divider } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles'
 
 const useStyles = makeStyles({
     root: {
-      flexGrow:1,
+        flexGrow: 1,
+        border: '2px solid #0050b4',
+        
     },
   });
 
 export const HorizontalBar = () => {
     const classes = useStyles()
     return (
-        <Divider className={classes.root} light={true} />
+        <hr className={classes.root} />
     )
 }

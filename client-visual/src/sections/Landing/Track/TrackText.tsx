@@ -14,7 +14,9 @@ const useStyles = makeStyles({
       lineHeight:'0.46',
       letterSpacing:'normal',
       color:'#fff',
-      paddingLeft:'-5px'
+      paddingLeft: '-5px',
+      paddingTop: '20px',
+   
     }
   });
 

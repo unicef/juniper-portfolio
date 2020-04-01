@@ -13,7 +13,8 @@ const useStyles = makeStyles({
       fontStretch:'normal',
       lineHeight:'0.46',
       letterSpacing:'normal',
-      color:'#fff',
+      color: '#fff',
+      paddingTop: '20px',
     }
   });
 
