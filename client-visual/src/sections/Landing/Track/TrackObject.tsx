@@ -4,7 +4,8 @@ import { Grid } from '@material-ui/core'
 
 const useStyles = makeStyles({
     root: {
-      flexGrow:1,
+    flexGrow: 1,
+      padding: '30px 0px',
     },
     imageSpecs: {
       width:'259px'

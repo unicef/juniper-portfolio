@@ -5,7 +5,6 @@ const useStyles = makeStyles({
     root: {
         flexGrow: 1,
         border: '2px solid #0050b4',
-        
     },
   });
 

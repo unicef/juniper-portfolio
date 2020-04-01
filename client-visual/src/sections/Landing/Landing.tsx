@@ -9,12 +9,17 @@ import Footer from '../Footer/Footer';
 const useStyles = makeStyles({
     root: {
       flexGrow:1,
-      // paddingLeft:'286px',
-      // paddingRight: '286px',
       paddingTop: '20px',
       backgroundColor: '#0068ea' ,
-      padding:'14px'
-    },
+    padding: '14px',
+  },
+  
+  container:
+  {
+     width: '65%',
+    margin: 'auto', 
+  },
+  
     landingText: {
       fontFamily: 'Cabin',
       fontSize: '39px',
@@ -23,7 +28,6 @@ const useStyles = makeStyles({
       lineHeight:'normal',
       letterSpacing:'normal',
       color:'#fff',
-      width: '869px',
       height: '96px'
     }
   });
@@ -32,38 +36,26 @@ export const Landing = () => {
     const classes = useStyles()
     const [landingText] = useState('A new financial vehicle allowing UNICEF to receive, hold and disburse cryptocurrency—a first for the UN.')
     return (
-        <div className={classes.root}>
-          <Grid container >
-            <Grid item xs={12} sm={3}></Grid>
-            <Grid item xs={12} sm={8}>
+      <div className={classes.root}>
+        <div className = {classes.container}>
+          <Grid container>   
+            <Grid item>
               <span className={classes.landingText}>{landingText}</span>
             </Grid>
           </Grid>
-          <div style={{paddingBottom: '30px'}}>
-            <Grid container>
-              <Grid item xs={12} sm={3}></Grid>
-              <Grid item xs={12} sm={8}>
-                <Receive/>
-              </Grid>
-            </Grid>
+        <div style={{ paddingBottom: '30px' }}>
+            <Receive/>
           </div>
           <div style={{paddingBottom: '30px'}}>
-            <Grid container>
-              <Grid item xs={12} sm={3}></Grid>
-              <Grid item xs={12} sm={8}>
-                <Invest/>
-              </Grid>
-            </Grid>
+            <Invest/>
           </div>
           <div style={{paddingBottom: '30px'}}>
-            <Grid container>
-              <Grid item xs={12} sm={3}></Grid>
-              <Grid item xs={12} sm={8}>
-                <Track/>
-              </Grid>
-            </Grid>
+            <Track/>
+          </div>
+
           </div>
           <Footer />
+          
         </div>
     )
 }

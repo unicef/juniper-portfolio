@@ -11,8 +11,8 @@ const useStyles = makeStyles({
 export const ReceiveImage = () => {
     const classes = useStyles()
     return (
-            <Grid item xs={6} sm={6} md={3}>
-              <img className={classes.imgSpecs} src='./Receive_illustration.svg' alt='ratio of crypto pie chart' />
-            </Grid>
+      <Grid item xs={6} sm={6} md={3}>
+      <img  className={classes.imgSpecs} src='./Receive_illustration.svg' alt='ratio of crypto pie chart' />
+    </Grid>
     )
 }

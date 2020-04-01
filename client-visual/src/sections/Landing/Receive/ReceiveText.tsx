@@ -14,17 +14,17 @@ const useStyles = makeStyles({
       lineHeight:'0.46',
       letterSpacing:'normal',
       color: '#fff',
-      paddingTop: '20px',
+      padding: '20px 20px 0px 0px',
     }
   });
 
 export const ReceiveText = () => {
     const classes = useStyles()
     const [receiveText] = useState('Receive')
-    return (
-        <Grid item xs={12} sm={12} md={4}>
-          <div style={{paddingLeft:'-5px', paddingBottom:'30px'}} className={classes.receiveText}>{receiveText}</div>
-
-        </Grid>
+  return (
+      
+    <Grid item xs={12} sm={12} md={4}>
+        <div style={{paddingLeft:'-5px', paddingBottom:'30px'}} className={classes.receiveText}>{receiveText}</div>
+      </Grid>
     )
 }

@@ -4,7 +4,7 @@ import { Grid } from '@material-ui/core'
 
 const useStyles = makeStyles({
     root: {
-      flexGrow:1,
+    flexGrow: 1,
     },
     imageSpecs: {
       // width:'259px'
@@ -19,7 +19,8 @@ const useStyles = makeStyles({
       fontStyle: 'normal',
       lineHeight:'1.44',
       letterSpacing:'normal',
-      color:'#fff'
+      color: '#fff',
+      //padding: '0px 30px',
     },
     title: {
       textTransform:"uppercase",
@@ -44,12 +45,15 @@ export const ReceiveObject = () => {
     const [numberOfDonors] = useState(1)
     const [amountOfBitcoin] = useState(1)
     const [amountOfEther] = useState(100)
-    return (
-      <Grid item xs={6} sm={6} md={3} className={classes.text}>
-        <span className={classes.title}>{title}</span>
-        <div className={classes.numberOfDonors}>{numberOfDonors} donor(s)</div>
-        <div className={classes.amountOfBitcoin}>{amountOfBitcoin} bitcoin</div>
-        <div className={classes.amountOfEther}>{amountOfEther} ether</div>
-      </Grid>
+  return (
+      
+    <Grid item xs={6} sm={6} md={3} className={classes.text}>
+        
+    <span className={classes.title}>{title}</span>
+    <div className={classes.numberOfDonors}>{numberOfDonors} donor</div>
+      <div className={classes.amountOfBitcoin}> { amountOfBitcoin } bitcoin</div>
+    <div className={classes.amountOfEther}> { amountOfEther }ether</div>
+    </Grid>
+
     )
 }

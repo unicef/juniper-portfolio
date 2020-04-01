@@ -9,10 +9,15 @@ import { HorizontalBar } from '../Atoms/HorizontalBar'
 
 const useStyles = makeStyles({
     root: {
-      // flexGrow:1,
+       //flexGrow:1,
       paddingTop: '64px',
       height:'183px'
   },
+
+  container: 
+  {
+      width: '100%',
+    },
   
   arrow: 
   {
@@ -23,18 +28,17 @@ const useStyles = makeStyles({
 export const Receive = () => {
     const classes = useStyles()
     return (
-        <div className={classes.root}>
+      <div className={classes.root}>
           <Grid container>
-              <ReceiveText/> {/** has 3 col and 1 col */}
+              <ReceiveText />
               <Grid item xs={'auto'} sm={'auto'}></Grid>
-              <ReceiveObject/>  {/** has col 2 and 2 */}
+              <ReceiveObject />
           <ReceiveImage />
-
           <Grid item className = {classes.arrow} xs={'auto'} />
-                <a href="/receive">  <ArrowImg /></a>
-               <Grid />
-      
-            <Grid item xs = {12} sm = {12}>
+           <a href="/track"><ArrowImg /></a>
+          <Grid />
+
+            <Grid item xs = {12}>
               <HorizontalBar />
             </Grid>
           </Grid>
