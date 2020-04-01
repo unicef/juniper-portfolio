@@ -4,14 +4,18 @@ import { makeStyles } from '@material-ui/core/styles'
 import { InvestObject } from './InvestObject'
 import { InvestImage } from './InvestImage'
 import { InvestText } from './InvestText'
-import { ArrowButton } from '../Atoms/ArrowButton'
+import { ArrowImg } from '../Atoms/ArrowImg'
 import { HorizontalBar } from '../Atoms/HorizontalBar'
 
 const useStyles = makeStyles({
     root: {
       flexGrow:1,
       height:'183px'
-    },
+  },
+  arrow: 
+  {
+    paddingLeft: '40px',
+  },
   });
 
 export const Invest = () => {
@@ -23,7 +27,9 @@ export const Invest = () => {
               <Grid item xs={'auto'} sm={'auto'}></Grid>
               <InvestObject/>
               <InvestImage/>
-              {/* <ArrowButton /> */}
+              <Grid item className = {classes.arrow} xs={'auto'} />
+                <a href="/invest">  <ArrowImg /></a>
+               <Grid />
             <Grid item xs = {12}>
               <HorizontalBar />
             </Grid>
