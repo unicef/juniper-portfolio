@@ -2,6 +2,11 @@ import React from 'react'
 import { makeStyles } from '@material-ui/styles'
 
 const useStyles = makeStyles((theme: any) => ({
+    root: 
+    {
+        paddingLeft: '40px',
+    },
+    
     firstNumber: {
         fontFamily: 'IBM Plex Sans',
         fontSize: '28px',
@@ -58,7 +63,7 @@ export const SideDetails = (props: any) => {
     const classes = useStyles()
 
     return(
-        <div>
+        <div className = {classes.root}>
             <div className={classes.firstNumber}>{props.firstNumber}</div>
             <div className={classes.firstLabel}>{props.firstLabel}</div>
             <div style={{ marginTop: '15px' }} className={classes.middleNumber}>{props.middleNumber}</div>

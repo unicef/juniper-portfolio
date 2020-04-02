@@ -4,7 +4,8 @@ import { Grid } from '@material-ui/core'
 
 const useStyles = makeStyles((theme: any) => ({
     root: {
-       maxWidth:'100%'
+        maxWidth: '100%',
+
     }
 }))
 

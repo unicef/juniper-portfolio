@@ -12,14 +12,14 @@ const useStyles = makeStyles((theme: any) => ({
     
     top: {
         backgroundColor:'#0068ea',
-        paddingTop:'100px'
+        paddingTop: '100px'
     }
 }))
 export const Invest = () => {
     const classes = useStyles()
     return(
         <div>
-            <div className={classes.top} style={{paddingLeft: '14px', paddingRight:'14px', paddingBottom:'14px'}}>
+            <div className={classes.top} style={{paddingLeft: '14px', paddingRight:'14px'}}>
                 <Grid container>
                     <Grid item xs={12} sm={3}>
                         <SideDetails firstNumber='03' firstLabel='investments'
