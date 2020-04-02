@@ -20,10 +20,12 @@ const useStyles = makeStyles((theme: Theme ) => ({
         lineHeight:'normal',
         letterSpacing:'1.17px',
         color:'#000000',
-        marginLeft:'10px'
+        marginLeft: '10px',
+        marginTop: '-20px',
+        
     }, 
     textStyle: {
-        // width:'342px',
+         width:'342px',
         height:'81px',
         fontFamily:'IBM Plex Sans',
         fontSize:'16px',
@@ -32,7 +34,9 @@ const useStyles = makeStyles((theme: Theme ) => ({
         fontStyle:'normal',
         lineHeight:'normal',
         letterSpacing:'1.69',
-        color:'#000000'
+        color: '#000000',
+        padding: '10px 15px 0px 0px',
+        
     },
     circleStyle: {
         width:'20px',
@@ -40,7 +44,7 @@ const useStyles = makeStyles((theme: Theme ) => ({
         transform:
             'rotate(-360deg)',
         borderRadius: '50%',
-        display:'inline-block'
+        display: 'inline-block', 
     },
     widthOfBox: {
         width:'342px'
@@ -106,10 +110,9 @@ export const FundingProcessExplainer = () => {
     const createBlock = (title: string, text: string, color: string, padding: string) => {
         return(
             <div style={{paddingBottom:'50px', display: 'inline-block', verticalAlign: 'top', paddingLeft: padding+'px'}}>
-                <div>
                     <span style={{backgroundColor:color}} className={classes.circleStyle}></span>
                     <span className={classes.titleStyle}>{title}</span><br/>
-                </div>
+    
                 {/* <div className={classes.widthOfBox} style={{width:'342px', marginTop:'7px'}}> */}
                 <div style={{ marginTop:'7px'}}>
                     <div style={{maxWidth:'100%' }} className={classes.textStyle}>{text}</div>
