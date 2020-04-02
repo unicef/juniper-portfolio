@@ -18,6 +18,11 @@ const useStyles = makeStyles((theme: any) => ({
         backgroundColor:'#0068ea',
         paddingTop: '100px',
 
+    },
+    
+    body: 
+    {
+        backgroundColor: 'white',
     }
 }));
 
@@ -44,7 +49,7 @@ export const Receive = () => {
                 </Grid>
             </div>
             <div>
-                <Grid container>
+                <Grid container className={classes.body}>
                     <Grid item xs={12} sm={3}>
 
                     </Grid>
@@ -53,7 +58,7 @@ export const Receive = () => {
                         <ThankYouText />
                     </Grid>
                 </Grid>
-                <Grid container>
+                <Grid container className={classes.body}>
                     <Grid item xs={12} sm={3}>
 
                     </Grid>

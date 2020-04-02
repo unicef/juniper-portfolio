@@ -15,7 +15,8 @@ const useStyles = makeStyles((theme: any) => ({
         fontStyle:'normal',
         lineHeight:'1.64',
         letterSpacing:'normal',
-        color:'#000'
+        color: '#000', 
+        paddingBottom: '15px',
     },
     fundingProcessText: {
         fontFamily:'IBM Plex Sans',

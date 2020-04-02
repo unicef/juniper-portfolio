@@ -5,11 +5,13 @@ import { Grid } from '@material-ui/core'
 const useStyles = makeStyles((theme: any) => ({
     root: {
         // paddingTop:'100px'
-        padding:'14px'
+        padding: '14px', 
     },
     imgFormat: {
-        maxWidth:'100%',
-        objectFit: "contain",
+        width: '87%',
+        margin: 'auto',
+        paddingLeft: '150px',
+        //objectFit: "contain",
         
     }
 }))

@@ -17,6 +17,7 @@ const useStyles = makeStyles((theme: any) => ({
     },
     toolBar: {
       minHeight: 50,
+      padding: '0px 50px',
     },
     menuButtonWrapper: {
       width: '100%',
@@ -28,8 +29,8 @@ const useStyles = makeStyles((theme: any) => ({
       width: '133px',
       height: '32px',
       fontFamily: 'Cabin',
-      fontSize: '26px',
-      fontWeight: 'bold',
+      fontSize: '24px',
+      fontWeight: 'normal',
       fontStretch: 'normal',
       fontStyle: 'normal',
       lineHeight: 'normal',
@@ -43,7 +44,15 @@ const useStyles = makeStyles((theme: any) => ({
       fontStyle: 'normal',
       lineHeight: 'normal',
       letterSpacing: '1.17px'
-    }
+  },
+    
+    menulink: 
+    {
+      textDecoration: 'none',
+      color: 'black',
+  }
+    
+     
   }));
 
 export default function NavBar() {
@@ -68,9 +77,11 @@ export default function NavBar() {
     <div className={classes.root}>
       <AppBar square={true} elevation={0} color='default' position="fixed">
         <Toolbar className={classes.toolBar}>
+          <a className = {classes.menulink} href = '/'>
           <Typography variant="h5" className={classes.title}>
             CryptoFund
           </Typography>
+          </a>
           {
             !matches ? (
               <>

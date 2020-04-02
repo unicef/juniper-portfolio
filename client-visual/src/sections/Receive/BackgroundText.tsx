@@ -5,7 +5,8 @@ const useStyles = makeStyles((theme: any) => ({
     root: {
         paddingTop:'100px',
         maxWidth:'100%',
-        padding:'14px'
+        padding: '14px', 
+        width: '80%',
     },
     backgroundTitle:{
         fontFamily:'Cabin',
@@ -15,7 +16,8 @@ const useStyles = makeStyles((theme: any) => ({
         fontStyle:'normal',
         lineHeight:'1.64',
         letterSpacing:'normal',
-        color:'#000'
+        color:'#000', 
+        paddingBottom: '15px',
     },
     backgroundText: {
         fontFamily:'IBM Plex Sans',
