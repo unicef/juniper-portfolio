@@ -13,7 +13,7 @@ const useStyles = makeStyles((theme: any) => ({
       left: 0,
       boxShadow: 'none',
       fontFamily: 'Cabin',
-      zIndex: 100,
+    zIndex: 100,
     },
     toolBar: {
       minHeight: 50,
@@ -75,7 +75,7 @@ export default function NavBar() {
 
   return (
     <div className={classes.root}>
-      <AppBar square={true} elevation={0} color='default' position="fixed">
+      <AppBar square={true} elevation={0} color='secondary' position="fixed">
         <Toolbar className={classes.toolBar}>
           <a className = {classes.menulink} href = '/'>
           <Typography variant="h5" className={classes.title}>

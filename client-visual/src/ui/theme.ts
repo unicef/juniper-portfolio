@@ -15,8 +15,11 @@ export const theme = createMuiTheme({
       contrastText: "rgb(255, 255, 255) !important",
     },
     secondary: {
-      main: "#ffd113",
-    },    
+     // main: "#ffd113",
+      main: '#ffffff'
+    },   
+    
+  
   },
   typography: { 
     fontFamily: ['Red Hat Display', 'Roboto', 'sans-serif'].join(','),
