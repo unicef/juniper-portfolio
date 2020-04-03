@@ -9,7 +9,7 @@ import Footer from '../Footer/Footer';
 const useStyles = makeStyles({
     root: {
       flexGrow:1,
-      paddingTop: '20px',
+      paddingTop: '50px',
       backgroundColor: '#0068ea' ,
     padding: '14px',
   },
@@ -29,7 +29,8 @@ const useStyles = makeStyles({
       lineHeight:'normal',
       letterSpacing:'normal',
       color:'#fff',
-      height: '96px'
+      height: '96px',
+      paddingBottom: '30px',
     }
   });
 

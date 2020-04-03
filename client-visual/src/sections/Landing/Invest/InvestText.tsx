@@ -8,7 +8,7 @@ const useStyles = makeStyles({
     },
     investText: {
       fontFamily: 'Cabin',
-      fontSize: '75px',
+      fontSize: '86px',
       fontWeight:'bold',
       fontStretch:'normal',
       lineHeight:'0.46',
