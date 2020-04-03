@@ -77,7 +77,7 @@ const useStyles = makeStyles((theme:any) => ({
     },
     button: {
         textTransform:'uppercase',
-        backgroundColor:'black',
+        backgroundColor:'#000000',
         color:'#fff',
         width: '165px',
         height: '50px',
