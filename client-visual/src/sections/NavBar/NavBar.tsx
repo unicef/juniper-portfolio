@@ -1,4 +1,5 @@
 import React from 'react'
+import {useLocation} from 'react-router-dom'
 import { makeStyles } from '@material-ui/core/styles'
 import { AppBar, Toolbar, Typography, Button, useMediaQuery, Menu, MenuItem} from '@material-ui/core'
 import IconButton from '@material-ui/core/IconButton';
@@ -46,11 +47,33 @@ const useStyles = makeStyles((theme: any) => ({
       letterSpacing: '1.17px'
   },
     
+  buttonhome: {
+    fontFamily: 'Cabin',
+    fontSize: '14px',
+    fontWeight: 'bold',
+    fontStretch: 'normal',
+    fontStyle: 'normal',
+    lineHeight: 'normal',
+    letterSpacing: '1.17px',
+    position: 'absolute',
+    right: '50px',
+    color: 'white',
+    },
+    
+  displaynone: {
+    display: 'none',
+    },
+    
     menulink: 
     {
       textDecoration: 'none',
       color: 'black',
-  }
+  },
+
+    menulinkhome: {
+      textDecoration: 'none',
+      color: 'white',
+    },
     
      
   }));
@@ -73,11 +96,14 @@ export default function NavBar() {
     setAnchorEl(null);
   };
 
+  const location = useLocation();
+  const home = (location.pathname == "/")
+
   return (
     <div className={classes.root}>
-      <AppBar square={true} elevation={0} color='secondary' position="fixed">
+      <AppBar square={true} elevation={0} color={home ? 'primary' : 'secondary'} position="fixed">
         <Toolbar className={classes.toolBar}>
-          <a className = {classes.menulink} href = '/'>
+          <a className = {home ? classes.menulinkhome : classes.menulink} href = '/'>
           <Typography variant="h5" className={classes.title}>
             CryptoFund
           </Typography>
@@ -88,12 +114,14 @@ export default function NavBar() {
                 <IconButton onClick={handleClick} style ={{marginLeft: 'auto'}} edge="end" color="inherit" aria-label="open drawer">
                   <MenuIcon />
                 </IconButton>
+                
                 <Menu
                   anchorEl={anchorEl}
                   keepMounted
                   open={open}
                   onClose={handleClose}
                 >
+                
                   <MenuItem onClick={handleClose}> <a style={{textDecoration:'none', color:'black'}} href='/' >Home</a></MenuItem>
                   <MenuItem onClick={handleClose}> <a style={{textDecoration:'none', color:'black'}} href='/receive' >Receive</a></MenuItem>
                   <MenuItem onClick={handleClose}> <a style={{textDecoration:'none', color:'black'}} href='/invest' >Invest</a></MenuItem>
@@ -102,33 +130,17 @@ export default function NavBar() {
                 </Menu>
               </>
           ) : (
-            <>
-              <div className={classes.menuButtonWrapper}>
-                <Button 
-                  href='/receive'
-                  className={classes.button}
-                >
-                  Receive
-                </Button>
-                <Button 
-                  href='/invest'
-                  className={classes.button}
-                >
-                  Invest
-                </Button>
-                <Button 
-                  href='/track'
-                  className={classes.button}
-                >
-                  Track
-                </Button>
-              </div>
-              <Button 
-                className={classes.button}
-                href='/about'
-              >
-                About
-              </Button>
+                <>
+  
+
+                  
+                    <div className={home ? classes.displaynone : classes.menuButtonWrapper }>
+                      <Button href='/receive' className={classes.button}>Receive</Button>
+                      <Button href='/invest' className={classes.button}>Invest</Button>
+                      <Button href='/track' className={classes.button}>Track</Button>
+                    </div>
+
+              <Button className={home ? classes.buttonhome : classes.button} href='/about'>About</Button>
             </>
           )
         }

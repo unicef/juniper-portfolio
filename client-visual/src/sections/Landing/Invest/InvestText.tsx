@@ -15,7 +15,6 @@ const useStyles = makeStyles({
       letterSpacing:'normal',
       color: '#fff',
       paddingTop: '30px',
-      marginRight: '100px',
     }
   });
 
