@@ -4,7 +4,6 @@ import { Grid } from '@material-ui/core'
 
 const useStyles = makeStyles({
   imgSpecs: {
-    //maxWidth: '255px',
     width: '255px',
   }
 });

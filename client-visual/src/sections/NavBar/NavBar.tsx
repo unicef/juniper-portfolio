@@ -44,7 +44,7 @@ const useStyles = makeStyles((theme: any) => ({
       fontStretch: 'normal',
       fontStyle: 'normal',
       lineHeight: 'normal',
-      letterSpacing: '1.17px'
+      letterSpacing: '1.17px',
   },
     
   buttonhome: {
@@ -96,8 +96,13 @@ export default function NavBar() {
     setAnchorEl(null);
   };
 
+  
   const location = useLocation();
-  const home = (location.pathname == "/")
+  const home = (location.pathname == "/");
+  const about = (location.pathname == "/about");
+  const receive = (location.pathname == '/receive');
+  const invest = (location.pathname == '/invest');
+  const track = (location.pathname == "/track");
 
   return (
     <div className={classes.root}>
@@ -135,12 +140,12 @@ export default function NavBar() {
 
                   
                     <div className={home ? classes.displaynone : classes.menuButtonWrapper }>
-                      <Button href='/receive' className={classes.button}>Receive</Button>
-                      <Button href='/invest' className={classes.button}>Invest</Button>
-                      <Button href='/track' className={classes.button}>Track</Button>
+                      <Button href='/receive' className={classes.button} style={{color: receive ?  'blue' : 'black'}}>Receive</Button>
+                      <Button href='/invest' className={classes.button} style={{color: invest ?  'blue' : 'black'}} >Invest</Button>
+                      <Button href='/track' className={classes.button} style={{color: track ?  'blue' : 'black'}} >Track</Button>
                     </div>
 
-              <Button className={home ? classes.buttonhome : classes.button} href='/about'>About</Button>
+              <Button className={home ? classes.buttonhome : classes.button}style={{color: about ?  'blue' : 'black'}}  href='/about'>About</Button>
             </>
           )
         }
