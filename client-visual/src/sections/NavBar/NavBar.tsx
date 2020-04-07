@@ -15,7 +15,14 @@ const useStyles = makeStyles((theme: any) => ({
       boxShadow: 'none',
       fontFamily: 'Cabin',
     zIndex: 100,
-    },
+  },
+  
+  appbar:
+  {
+    boxShadow: '0 2px 4px 0 rgba(0, 0, 0, 0.12)',
+    backgroundColor: '#ffffff',
+  },
+
     toolBar: {
       minHeight: 50,
       padding: '0px 50px',
@@ -106,7 +113,7 @@ export default function NavBar() {
 
   return (
     <div className={classes.root}>
-      <AppBar square={true} elevation={0} color={home ? 'primary' : 'secondary'} position="fixed">
+      <AppBar square={true} elevation={0} className={classes.appbar} color={home ? 'primary' : 'secondary'} position="fixed">
         <Toolbar className={classes.toolBar}>
           <a className = {home ? classes.menulinkhome : classes.menulink} href = '/'>
           <Typography variant="h5" className={classes.title}>

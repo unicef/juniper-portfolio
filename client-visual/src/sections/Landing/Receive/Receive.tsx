@@ -47,7 +47,7 @@ export const Receive = () => {
             <Grid item md={2} ><ReceiveObject/></Grid>
             <Grid item md={3} className = {classes.img}><ReceiveImage /> </Grid>
             <Grid item md={1} className = {classes.arrow}/>
-              <a href="/invest">  <ArrowImg /></a>
+              <a href="/receive">  <ArrowImg /></a>
             <Grid />
       </Grid>
       <div className = {classes.hb}> <HorizontalBar /></div>

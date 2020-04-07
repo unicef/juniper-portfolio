@@ -170,6 +170,7 @@ const useStyles = makeStyles((theme: Theme) => ({
         textTransform: 'uppercase',
         paddingLeft: '43px',
         paddingTop: '6px',
+
     },
 
     txSeparrator:
@@ -279,7 +280,7 @@ export const TXDetails = (props:any) =>
             <div >
 
                 <div className={classes.txDetailsHeader}>TRANSACTION DETAILS
-                <hr></hr>
+                <hr style={{ margin: '20px 0px' }}></hr>
                 </div> 
                 <TXTable rows={props.rows}/>
                 <div style={{ color: '#0068ea', display: 'inline-block', verticalAlign: 'top' }} className={classes.txDetails} onClick={() => setExpand(!expand)} ><ExpandLessIcon className={classes.icon} />Hide Transaction Details</div>

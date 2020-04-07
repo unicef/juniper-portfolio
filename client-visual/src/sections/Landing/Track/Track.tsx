@@ -37,7 +37,7 @@ export const Track = () => {
             <Grid item md={2} ><TrackObject/></Grid>
             <Grid item md={3} className = {classes.img}><TrackImage /> </Grid>
             <Grid item md={1} className = {classes.arrow}/>
-              <a href="/invest"> <ArrowImg /></a>
+              <a href="/track"> <ArrowImg /></a>
             <Grid />
           </Grid>
       <HorizontalBar />
