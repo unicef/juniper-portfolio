@@ -7,8 +7,16 @@ const useStyles = makeStyles((theme:any) => ({
     root: {
         opacity: '0.84',
         padding:'14px',
-        height:'496px'
+        paddingBottom: '65px',
+
     },
+
+    container: {
+        width: '67%',
+        margin: 'auto',
+        padding: '50px 0px',
+    },
+
     title: {
         fontFamily: 'Cabin',
         fontSize: '36px',
@@ -17,6 +25,8 @@ const useStyles = makeStyles((theme:any) => ({
         fontStyle: 'normal',
         lineHeight: 'normal',
         letterSpacing: 'normal',
+        
+    
     },
     label1: {
         fontFamily: 'Cabin',
@@ -116,17 +126,10 @@ export const InvestmentDetails = (props: any) => {
             <Grid container>
                 <Grid item xs={12} sm={12} md={9}>
                     <Grid container>
-                        <div className={classes.root} style={{ backgroundColor:props.color, color: props.fontColor}}>
-                            <Grid>
-                                <div style={{height:'65px'}}></div>
-                            </Grid>
-                            <Grid container>
-                                <Grid item xs={12} sm={2} md={2}></Grid>
-                                <Grid item xs={12} sm={9} md={9}><span className={classes.title}>{props.title}</span></Grid> 
-                            </Grid>
-                            <Grid>
-                                <div style={{height:'25px'}}></div>
-                            </Grid>
+                        <div className={classes.root} style={{ backgroundColor: props.color, color: props.fontColor }}>
+                            <div className = {classes.container}>
+                              <div className= {classes.title}>{props.title}</div>
+                            </div>
                             <Grid item>
                                 <Grid container>
                                     <Grid item xs={12} sm={2} md={2}></Grid>
@@ -155,7 +158,7 @@ export const InvestmentDetails = (props: any) => {
                             </Grid>
                             <Grid container>
                                 <Grid item xs={12} sm={2} md={2}></Grid>
-                                <Grid item>
+                                <Grid item style={{paddingTop: '40px'}}>
                                     <Button
                                         className={classes.button}
                                     >
