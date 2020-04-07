@@ -4,7 +4,8 @@ import { Grid } from '@material-ui/core'
 
 const useStyles = makeStyles({
   imgSpecs: {
-    maxWidth:'255px'
+    //maxWidth: '255px',
+    width: '255px',
   }
 });
 
@@ -12,8 +13,8 @@ const useStyles = makeStyles({
 export const InvestImage = () => {
   const classes = useStyles()  
   return (
-    <Grid item xs={6} sm={6} md={3}>
+    <div>
         <img className={classes.imgSpecs} src='./Invest_illustration.svg' alt='ratio of crypto pie chart' />
-    </Grid>
+    </div>
     )
 }

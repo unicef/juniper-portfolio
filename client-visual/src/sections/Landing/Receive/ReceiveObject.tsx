@@ -6,12 +6,8 @@ const useStyles = makeStyles({
     root: {
     flexGrow: 1,
     },
-    imageSpecs: {
-      // width:'259px'
-    },
+    
     text: {
-      // width:'107px',
-      // height:'69px',
       fontFamily:'IBM Plex Sans',
       fontSize: '16px',
       fontWeight:'bold',
@@ -20,7 +16,6 @@ const useStyles = makeStyles({
       lineHeight:'1.44',
       letterSpacing:'normal',
       color: '#fff',
-      //padding: '0px 30px',
     },
     title: {
       textTransform:"uppercase",
@@ -47,13 +42,13 @@ export const ReceiveObject = () => {
     const [amountOfEther] = useState(100)
   return (
       
-    <Grid item xs={6} sm={6} md={3} className={classes.text}>
+    <div className={classes.text}>
         
     <span className={classes.title}>{title}</span>
     <div className={classes.numberOfDonors}>{numberOfDonors} donor</div>
       <div className={classes.amountOfBitcoin}> { amountOfBitcoin } bitcoin</div>
     <div className={classes.amountOfEther}> { amountOfEther }ether</div>
-    </Grid>
+    </div>
 
     )
 }

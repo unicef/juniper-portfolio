@@ -8,13 +8,14 @@ const useStyles = makeStyles({
     },
     receiveText: {
       fontFamily: 'Cabin',
-      fontSize: '86px',
+      fontSize: '92px',
       fontWeight:'bold',
       fontStretch:'normal',
       lineHeight:'0.46',
       letterSpacing:'normal',
       color: '#fff',
-      padding: '20px 30px 0px 0px',
+      paddingTop: '20px',
+      //padding: '20px 30px 0px 0px',
     }
   });
 

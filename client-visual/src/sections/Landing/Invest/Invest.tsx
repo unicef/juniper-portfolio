@@ -1,5 +1,5 @@
 import React from 'react'
-import { Grid } from '@material-ui/core/'
+import { Grid} from '@material-ui/core/'
 import { makeStyles } from '@material-ui/core/styles'
 import { InvestObject } from './InvestObject'
 import { InvestImage } from './InvestImage'
@@ -13,30 +13,37 @@ const useStyles = makeStyles({
       //height:'183px'
   },
 
-
-
+  img: 
+  {
+    paddingLeft: '30px',
+  },
+  
   arrow: 
   {
-    paddingLeft: '40px',
+    marginLeft: '50px',
   },
+
+  hb:
+  {
+    marginTop: '-12px',
+  }
+
+  
   });
 
 export const Invest = () => {
     const classes = useStyles()
     return (
-        <div className={classes.root}>
-          <Grid container>
-              <InvestText/>
-              <Grid item xs={'auto'} sm={'auto'}></Grid>
-              <InvestObject/>
-              <InvestImage/>
-              <Grid item className = {classes.arrow} xs={'auto'} />
-                <a href="/invest">  <ArrowImg /></a>
-               <Grid />
-            <Grid item xs = {12}>
-              <HorizontalBar />
-            </Grid>
-          </Grid>
+      <div className={classes.root}>
+        <Grid container>
+           <Grid item md={5}><InvestText/></Grid>
+            <Grid item md={2} ><InvestObject/></Grid>
+            <Grid item md={3} className = {classes.img}><InvestImage /> </Grid>
+            <Grid item md={1} className = {classes.arrow}/>
+              <a href="/invest">  <ArrowImg /></a>
+            <Grid />
+        </Grid>
+        <div className={classes.hb} > <HorizontalBar /></div>
         </div>
     )
 }

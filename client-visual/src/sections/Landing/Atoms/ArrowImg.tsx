@@ -4,8 +4,8 @@ import { makeStyles } from '@material-ui/core/styles'
 const useStyles = makeStyles({
     root: {
         paddingTop: '35px', 
-        paddingLeft: '80px',
     },
+
   });
 
 export const ArrowImg = () => {

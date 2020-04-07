@@ -12,31 +12,36 @@ const useStyles = makeStyles({
       flexGrow:1,
       height:'183px'
   },
+
+  img: 
+  {
+    paddingLeft: '40px',
+
+  },
   
   arrow: 
   {
-    paddingLeft: '40px',
+    marginLeft: '50px',
   },
 
   });
 
 export const Track = () => {
     const classes = useStyles()
-    return (
-        <div className={classes.root}>
-          <Grid container>
-              <TrackText />
-              <Grid item xs={'auto'} sm={'auto'}></Grid>
-              <TrackObject />
-          <TrackImage />
-          <Grid item className = {classes.arrow} xs={'auto'} />
-           <a href="/track"><ArrowImg /></a>
-          <Grid />
+  return (
+      
 
-            <Grid item xs = {12}>
-              <HorizontalBar />
-            </Grid>
+    <div className={classes.root}>
+        <Grid container>
+            <Grid item md={5}><TrackText/></Grid>
+            <Grid item md={2} ><TrackObject/></Grid>
+            <Grid item md={3} className = {classes.img}><TrackImage /> </Grid>
+            <Grid item md={1} className = {classes.arrow}/>
+              <a href="/invest"> <ArrowImg /></a>
+            <Grid />
           </Grid>
-        </div>
+      <HorizontalBar />
+    </div>
+        
     )
 }

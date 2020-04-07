@@ -4,15 +4,14 @@ import { Grid } from '@material-ui/core'
 
 const useStyles = makeStyles({
     imgSpecs: {
-      maxWidth:'100%'
+    width: '236px', 
+      
     }
   });
 
 export const TrackImage = () => {
     const classes = useStyles()
     return (
-            <Grid item xs={6} sm={6} md={3}>
               <img  className={classes.imgSpecs} src='./Track_illustration.svg' alt='ratio of crypto pie chart' />
-            </Grid>
     )
 }

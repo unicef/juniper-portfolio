@@ -18,7 +18,6 @@ const useStyles = makeStyles({
       lineHeight:'1.44',
       letterSpacing:'normal',
       color: '#fff',
-      paddingTop: '20px',
     },
     title: {
       textTransform:"uppercase",
@@ -44,11 +43,11 @@ export const InvestObject = () => {
     const [amountOfBitcoin] = useState(1)
     const [amountOfEther] = useState(100)
     return (
-      <Grid item xs={6} sm={6} md={3} className={classes.text}>
+      <div className={classes.text}>
               <span className={classes.title}>{title}</span>
               <div className={classes.numberOfInvestments}>{numberOfInvestments} investments</div>
               <div className={classes.amountOfBitcoin}>{amountOfBitcoin} bitcoin</div>
               <div className={classes.amountOfEther}>{amountOfEther} ether</div>
-        </Grid>
+        </div>
     )
 }

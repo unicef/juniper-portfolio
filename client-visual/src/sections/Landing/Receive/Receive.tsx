@@ -19,29 +19,41 @@ const useStyles = makeStyles({
       width: '100%',
     },
   
+  img: 
+  {
+    paddingLeft: '30px',
+  },
+  
   arrow: 
   {
-    paddingLeft: '40px',
+    marginLeft: '50px',
   },
+
+  hb:
+  {
+    marginTop: '-14px',
+  },
+
   });
 
 export const Receive = () => {
     const classes = useStyles()
-    return (
-      <div className={classes.root}>
-          <Grid container>
-              <ReceiveText />
-              <Grid item xs={'auto'} sm={'auto'}></Grid>
-              <ReceiveObject />
-          <ReceiveImage />
-          <Grid item className = {classes.arrow} xs={'auto'} />
-           <a href="/track"><ArrowImg /></a>
-          <Grid />
+  return (
+      
 
-            <Grid item xs = {12}>
-              <HorizontalBar />
-            </Grid>
-          </Grid>
-        </div>
+    <div className={classes.root}>
+        <Grid container>
+           <Grid item md={5}><ReceiveText/></Grid>
+            <Grid item md={2} ><ReceiveObject/></Grid>
+            <Grid item md={3} className = {classes.img}><ReceiveImage /> </Grid>
+            <Grid item md={1} className = {classes.arrow}/>
+              <a href="/invest">  <ArrowImg /></a>
+            <Grid />
+      </Grid>
+      <div className = {classes.hb}> <HorizontalBar /></div>
+    </div>
+    
+
+
     )
 }

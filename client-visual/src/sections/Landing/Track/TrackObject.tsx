@@ -5,14 +5,11 @@ import { Grid } from '@material-ui/core'
 const useStyles = makeStyles({
     root: {
     flexGrow: 1,
-      padding: '30px 0px',
     },
-    imageSpecs: {
-      width:'259px'
-    },
+    
     text: {
-      width:'107px',
-      height:'69px',
+      //width:'107px',
+      //height:'69px',
       fontFamily:'IBM Plex Sans',
       fontSize: '16px',
       fontWeight:'bold',
@@ -20,7 +17,8 @@ const useStyles = makeStyles({
       fontStyle: 'normal',
       lineHeight:'1.44',
       letterSpacing:'normal',
-      color:'#fff'
+      color: '#fff', 
+    
     },
     title: {
       textTransform:"uppercase",
@@ -50,12 +48,12 @@ export const TrackObject = () => {
     const [percenttransparent] = useState(100)
     return (
 
-      <Grid item xs={6} sm={6} md={3} className={classes.text}>
+      <div className={classes.text}>
         
         <span className={classes.title}>{title}</span>
         <div className = {classes.allinvestments}>On blockchain</div>
         <div className={classes.faster}>{fastertimes}x faster</div>
         <div className={classes.transparent}>{percenttransparent}% transparent</div>
-        </Grid>
+        </div>
     )
 }

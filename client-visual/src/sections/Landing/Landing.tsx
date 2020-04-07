@@ -16,7 +16,7 @@ const useStyles = makeStyles({
   
   container:
   {
-    width: '65%',
+    width: '60%',
     margin: 'auto', 
   },
 
@@ -45,7 +45,7 @@ export const Landing = () => {
               <span className={classes.landingText}>{landingText}</span>
             </Grid>
           </Grid>
-        <div style={{ paddingBottom: '30px' }}>
+        <div style={{ paddingBottom: '30px', paddingTop: '30px'}}>
             <Receive/>
           </div>
           <div style={{ paddingBottom: '30px' }}>

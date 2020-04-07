@@ -8,7 +8,7 @@ const useStyles = makeStyles({
     },
     trackText: {
       fontFamily: 'Cabin',
-      fontSize: '86px',
+      fontSize: '92px',
       fontWeight:'bold',
       fontStretch:'normal',
       lineHeight:'0.46',
