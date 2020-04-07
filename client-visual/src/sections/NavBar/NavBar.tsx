@@ -147,7 +147,7 @@ export default function NavBar() {
                       <Button href='/track' className={classes.button} style={{color: track ?  'blue' : 'black'}} >Track</Button>
                     </div>
 
-              <Button className={home ? classes.buttonhome : classes.button}style={{color: about ?  'blue' : 'black'}}  href='/about'>About</Button>
+                  <Button  className={home ? classes.buttonhome : classes.button} style={{ color: about ?  'blue' : 'inherit'}}href='/about'>About</Button>
             </>
           )
         }
