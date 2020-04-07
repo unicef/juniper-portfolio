@@ -22,6 +22,7 @@ const useStyles = makeStyles({
   arrow: 
   {
     marginLeft: '50px',
+    paddingTop: '20px'
   },
 
   });

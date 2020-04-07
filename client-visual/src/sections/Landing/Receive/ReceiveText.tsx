@@ -8,24 +8,38 @@ const useStyles = makeStyles({
     },
     receiveText: {
       fontFamily: 'Cabin',
-      fontSize: '92px',
+      fontSize: '82px',
       fontWeight:'bold',
       fontStretch:'normal',
       lineHeight:'0.46',
       letterSpacing:'normal',
       color: '#fff',
-      paddingTop: '20px',
-      //padding: '20px 30px 0px 0px',
-    }
+      paddingLeft: '-5px'
+  }, 
+  subtitle:
+  {
+    fontFamily: 'IBM Plex Sans',
+    fontSize: '16px',
+    fontWeight: 'normal',
+    fontStretch: 'normal',
+    fontStyle: 'normal',
+    lineHeight: '1.44',
+    letterSpacing: 'normal',
+    color: '#fff',
+    padding: '0px 30px 40px 5px',
+
+  },
+
   });
 
 export const ReceiveText = () => {
     const classes = useStyles()
     const [receiveText] = useState('Receive')
+    const [subtitle] = useState('View the cryptocurrency received by UNICEF')
   return (
-      
-    <Grid item xs={12} sm={12} md={4}>
-        <div style={{paddingLeft:'-5px', paddingBottom:'30px'}} className={classes.receiveText}>{receiveText}</div>
-      </Grid>
+    <div>
+      <div style={{ paddingBottom: '30px' }} className={classes.receiveText}>{receiveText}</div>
+      <div className={classes.subtitle}>{subtitle}</div>
+    </div>
     )
 }

@@ -18,6 +18,7 @@ const useStyles = makeStyles({
       lineHeight:'1.44',
       letterSpacing:'normal',
       color: '#fff', 
+      paddingTop: '20px',
     
     },
     title: {
