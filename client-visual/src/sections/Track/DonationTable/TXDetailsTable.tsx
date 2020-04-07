@@ -12,8 +12,6 @@ const useStyles = makeStyles((theme: Theme) => ({
 
     txtable: {
     marginLeft: '16px',
-   // borderCollapse: 'separate',
-   // borderSpacing: '0px 5px 0px 0px',
     },
  
     tableheader: {
