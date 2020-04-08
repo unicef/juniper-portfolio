@@ -57,3 +57,29 @@ export const Receive = () => {
 
     )
 }
+
+
+export const ReceiveMobile = () => {
+  const classes = useStyles()
+return (
+    
+
+  <div className={classes.root}>
+      <Grid container>
+      <Grid item md={6}><ReceiveText /></Grid>
+      <Grid item md={1} className = {classes.arrow}/>
+            <a href="/receive">  <ArrowImg /></a>
+      <Grid />
+    </Grid>
+    <Grid container>
+          <Grid item md={6} ><ReceiveObject/></Grid>
+          <Grid item md={6} className = {classes.img}><ReceiveImage /> </Grid>
+          
+    </Grid>
+    <div className = {classes.hb}> <HorizontalBar /></div>
+  </div>
+  
+
+
+  )
+}

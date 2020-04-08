@@ -25,6 +25,12 @@ const useStyles = makeStyles({
     paddingTop: '20px'
   },
 
+
+  hb:
+  {
+    marginTop: '-16px',
+  },
+
   });
 
 export const Track = () => {
@@ -45,4 +51,29 @@ export const Track = () => {
     </div>
         
     )
+}
+
+export const TrackMobile = () => {
+  const classes = useStyles()
+  return (
+    
+
+  <div className={classes.root}>
+      <Grid container>
+      <Grid item md={6}><TrackText /></Grid>
+      <Grid item md={1} className = {classes.arrow}/>
+            <a href="/receive">  <ArrowImg /></a>
+      <Grid />
+    </Grid>
+    <Grid container>
+          <Grid item md={6} ><TrackObject/></Grid>
+          <Grid item md={6} className = {classes.img}><TrackImage /> </Grid>
+          
+    </Grid>
+    <div className = {classes.hb}> <HorizontalBar /></div>
+  </div>
+  
+
+
+  )
 }
