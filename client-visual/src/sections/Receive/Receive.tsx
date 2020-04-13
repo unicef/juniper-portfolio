@@ -16,7 +16,7 @@ import { FundingProcessExplainer } from './FundingProcessExplainer'
 const useStyles = makeStyles((theme: any) => ({
     top: {
         backgroundColor:'#0068ea',
-        paddingTop: '100px',
+        paddingTop: '102px',
 
     },
     
