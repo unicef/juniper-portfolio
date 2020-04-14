@@ -14,11 +14,11 @@ const useStyles = makeStyles((theme: any) => ({
 
 export const TrackMainImage = () => {
     const classes = useStyles()
-    const mobiledevice = useMediaQuery('(max-width: 800px)');
+    const mobiledevice = useMediaQuery('(max-width: 700px)');
 
     if (mobiledevice)
     {
-       return (<img className={classes.mobile} src='Infographic_track_mobile.png' alt='receive info' /> )
+       return (<img className={classes.mobile} src='Track_illustration.svg' alt='receive info' /> )
     }
     else
     {

@@ -2,7 +2,6 @@ import React from 'react'
 import { Grid } from '@material-ui/core'
 import { makeStyles } from '@material-ui/styles'
 
-//import { SideDetails } from './SideDetails'
 import { SideDetails } from '../../common/SideDetails'
 import { MainText } from './MainText'
 import { MainImage } from './MainImage'
@@ -11,12 +10,10 @@ import { FundingProcess } from './FundingProcess'
 import { ThankYouText } from './ThankYouText'
 import { FundingProcessExplainer } from './FundingProcessExplainer'
 
-
-
 const useStyles = makeStyles((theme: any) => ({
     top: {
         backgroundColor:'#0068ea',
-        paddingTop: '102px',
+        paddingTop: '100px',
 
     },
     
