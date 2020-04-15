@@ -19,7 +19,7 @@ const useStyles = makeStyles((theme: any) => ({
     },
 }))
 
-export const Trackmobile = () => {
+export const TrackMobile = () => {
     const classes = useStyles()
 
     return (

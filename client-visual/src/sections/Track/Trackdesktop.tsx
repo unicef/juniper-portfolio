@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react'
+import React from 'react'
 import { TrackMainText } from './TrackMainText'
 import { TrackMainImage } from './TrackMainImage'
 import { CryptoTracker } from './CryptoTracker'
@@ -18,18 +18,8 @@ const useStyles = makeStyles((theme: any) => ({
     },
 }))
 
-export const Trackdesktop = () => {
+export const TrackDesktop = () => {
     const classes = useStyles()
-
-    /*useEffect(() => {
-        document.body.style.overflowY = 'visible'
-        document.body.style.maxHeight = '50%'
-        return () => {
-            document.body.style.overflowY='scroll'
-            document.body.style.maxHeight = '100%'
-        }
-
-    })*/
 
     return (
         <div>
