@@ -1,10 +1,8 @@
 import React, { useState } from 'react'
 import { makeStyles } from '@material-ui/core/styles'
-import { ReceiveMobile } from './Receive/Receive'
-import { InvestMobile } from './Invest/Invest'
-import { TrackMobile } from './Track/Track'
 import { Grid } from '@material-ui/core'
 import Footer from '../Footer/Footer';
+import { LandingMobileCard } from '../../common/LandingMobileCard'
 
 const useStyles = makeStyles({
     root: {
@@ -45,16 +43,45 @@ export const Landingmobile = () => {
                         <span className={classes.landingText}>{landingText}</span>
                     </Grid>
                 </Grid>
-                <div style={{ paddingBottom: '200px', paddingTop: '30px' }}>
-                    <ReceiveMobile />
+                <div style={{paddingTop:'90px'}}>
+                  <LandingMobileCard
+                    title="Receive"
+                    link="/receive"
+                    lineOne="1 donor"
+                    lineTwo="100 ether"
+                    lineThree="1 bitcoin"
+                    colorOne="#fff"
+                    colorTwo="#ffd113"
+                    colorThree="#13e7ff"
+                    imageLink="./Receive_illustration.svg"
+                  />
                 </div>
-                <div style={{ paddingBottom: '200px' }}>
-                    <InvestMobile />
+                <div style={{paddingTop:'60px'}}>
+                  <LandingMobileCard
+                    title="Invest"
+                    link="/invest"
+                    lineOne="3 investments"
+                    lineTwo="100 ether"
+                    lineThree="1 bitcoin"
+                    colorOne="#fff"
+                    colorTwo="#ffd113"
+                    colorThree="#13e7ff"
+                    imageLink="./Invest_illustration.svg"
+                  />
                 </div>
-                <div style={{ paddingBottom: '200px' }}>
-                    <TrackMobile />
+                <div style={{paddingTop:'60px', paddingBottom:'60px'}}>
+                  <LandingMobileCard
+                    title="Track"
+                    link="/track"
+                    lineOne="Track the"
+                    lineTwo="movement of"
+                    lineThree="investments"
+                    colorOne="#fff"
+                    colorTwo="#fff"
+                    colorThree="#fff"
+                    imageLink="./Track_illustration.svg"
+                  />
                 </div>
-
             </div>
             <Footer />
           
