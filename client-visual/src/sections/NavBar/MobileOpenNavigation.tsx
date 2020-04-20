@@ -87,8 +87,8 @@ export const MobileOpenNavigation = () => {
                         </Grid>
                         <Grid item xs={12}>
                             <Grid container className={classes.iconStyles}>    
-                                    <Grid item xs={1}><span className={classes.mailIcon}><MailIcon /></span></Grid>
-                                    <Grid item xs={1}><span className={classes.twitterIcon}><TwitterIcon /></span></Grid>
+                                    <Grid item xs={1}><span className={classes.mailIcon}><a style={{color: 'inherit', textDecoration:'inherit'}} href='mailto:blockchain@unicef.org'><MailIcon /></a></span></Grid>
+                                    <Grid item xs={1}><span className={classes.twitterIcon}><a style={{color: 'inherit', textDecoration:'inherit'}} href='https://twitter.com/UNICEFinnovate'><TwitterIcon /></a></span></Grid>
                             </Grid>
                         </Grid>
                     </Grid>
