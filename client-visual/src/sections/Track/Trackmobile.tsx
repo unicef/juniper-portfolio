@@ -2,10 +2,10 @@ import React from 'react'
 import { TrackMainText } from './TrackMainText'
 import { TrackMainImage } from './TrackMainImage'
 import { TrackMobileSummary } from './TrackMobileSummary'
-import {TXSelect} from './DonationTable/TXSelect'
-import { Transaction } from './DonationTable/Transaction'
+import { TXSelect } from './DonationTable/TXSelect'
 import { makeStyles } from '@material-ui/core'
 import { Grid } from '@material-ui/core'
+// import { Transaction } from './DonationTable/Transaction'
 
 const useStyles = makeStyles((theme: any) => ({
     top: {
@@ -13,7 +13,6 @@ const useStyles = makeStyles((theme: any) => ({
         padding: '50px 25px',
         paddingBottom: '70px',
     },
-
     ctracker: {
         paddingBottom: '10px',
     },
@@ -42,9 +41,6 @@ export const TrackMobile = () => {
             <div>
                 <TXSelect />
             </div>
-            {/*<div>
-                <Transaction />
-            </div>*/}
         </div>
     )
 }

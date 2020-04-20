@@ -1,9 +1,8 @@
+/* eslint eqeqeq: 0 */
 import React from 'react'
 import {useLocation} from 'react-router-dom'
 import { makeStyles } from '@material-ui/core/styles'
-import { AppBar, Toolbar, Typography, Button, useMediaQuery, Menu, MenuItem} from '@material-ui/core'
-import IconButton from '@material-ui/core/IconButton';
-import MenuIcon from '@material-ui/icons/Menu';
+import { AppBar, Toolbar, Typography, Button, useMediaQuery } from '@material-ui/core'
 import json2mq from 'json2mq'
 import { MobileNavBar } from './MobileNavBar'
 
@@ -88,18 +87,7 @@ export default function NavBar() {
       minWidth: 700
     })
   )
-  const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
-  const open = Boolean(anchorEl);
 
-  const handleClick = (event: React.MouseEvent<HTMLElement>) => {
-    setAnchorEl(event.currentTarget);
-  };
-
-  const handleClose = () => {
-    setAnchorEl(null);
-  };
-
-  
   const location = useLocation();
   const home = (location.pathname == "/");
   const about = (location.pathname == "/about");

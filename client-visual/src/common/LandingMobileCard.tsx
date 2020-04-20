@@ -45,7 +45,7 @@ export const LandingMobileCard = (props: any) => {
                         <span className={classes.title}><a href={props.link} style={{color: 'inherit', textDecoration:'inherit'}}>{props.title}</a></span>
                     </Grid>
                     <Grid item xs={1}>
-                        <a href={props.link}><img src='Arrow_white.svg' /></a>
+                        <a href={props.link}><img alt='arrow' src='Arrow_white.svg' /></a>
                     </Grid>
                 </Grid>
                 <Grid container>

@@ -1,3 +1,4 @@
+/* eslint eqeqeq: 0 */
 import React from 'react'
 import { useLocation } from 'react-router-dom'
 import { AppBar, Toolbar, Typography } from '@material-ui/core'

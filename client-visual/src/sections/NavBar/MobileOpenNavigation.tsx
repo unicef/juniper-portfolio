@@ -1,3 +1,4 @@
+/* eslint eqeqeq: 0 */
 import React from 'react'
 import { Theme, createStyles, makeStyles } from '@material-ui/core/styles';
 import { Paper, Grid, Box } from '@material-ui/core'

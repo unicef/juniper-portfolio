@@ -14,7 +14,7 @@ export const ArrowImg = () => {
 
     return (
         <div className = {classes.root}>
-            <img src="Arrow_white.svg" />
+            <img src="Arrow_white.svg" alt='arrow' />
         </div>
     )
 }
