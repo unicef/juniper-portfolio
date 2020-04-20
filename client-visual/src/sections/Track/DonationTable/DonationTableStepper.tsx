@@ -117,7 +117,7 @@ export const DonationTableStepper = () => {
             classes={{
               root: classes.inactiveTab,
             }}
-            indicatorColor="undefined"
+            indicatorColor={undefined}
           >
             <LinkTab label="All Transactions"  {...a11yProps(0)}/>
             <LinkTab label="Crypto Received"  {...a11yProps(1)} />
