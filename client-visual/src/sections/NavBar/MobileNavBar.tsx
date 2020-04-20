@@ -59,7 +59,7 @@ export const MobileNavBar = () => {
                     </a>
                     { !open ?
                         ( home ? 
-                            <img onClick={handleClick} style={{position: 'absolute', right: '50px', }} src='Hamburger_white.svg' alt='hamburger icon' /> :
+                            null :
                             <img onClick={handleClick} style={{position: 'absolute', right: '50px', }} src='Hamburger_black.svg' alt='hamburger icon' /> 
                         )
                         : 
