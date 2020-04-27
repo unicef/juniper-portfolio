@@ -1,5 +1,7 @@
 import React, { useState } from 'react'
 import { makeStyles } from '@material-ui/styles'
+import { useMediaQuery } from '@material-ui/core';
+
 
 const useStyles = makeStyles((theme: any) => ({
     mainText: {
@@ -12,16 +14,27 @@ const useStyles = makeStyles((theme: any) => ({
         letterSpacing: 'normal',
         color: '#ffffff', 
         width: '80%',
+    },
+    mobile: {
+        fontFamily: 'Cabin',
+        fontSize: '24px',
+        fontWeight: 'normal',
+        fontStretch: 'normal',
+        fontStyle: 'normal',
+        lineHeight: '1.44',
+        letterSpacing: 'normal',
+        color: '#ffffff', 
     }
 }));
 export const InvestmentMainText = () => {
     const classes = useStyles()
+    const mobileDevice = useMediaQuery('(max-width: 800px)');
 
     const [mainText] = useState(
-        'For our first pilot of the CryptoFund, three blockchain startups currently in our UNICEF Innovation Fund portfolio received funding from UNICEF in the form of cryptocurrency. The three companies receiving these initial donations are Prescrypto, Atix Labs and Utopixar which work in the areas of prescription tracking; impact investing; and community tokens and engagement.'
+        'The CryptoFund aspires to create visibility for the donor and the public, adding a layer of transparent accounting to the donations ecosystem by deploying cryptocurrency. Below is a simple tool that provides a snapshot of all transfers, from donor to startups.'
     )
     return(
-        <div className={classes.mainText}>
+        <div className={mobileDevice ? classes.mobile : classes.mainText}>
             { mainText }
         </div>
     )

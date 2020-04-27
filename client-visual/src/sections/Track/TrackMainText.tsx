@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { makeStyles } from '@material-ui/styles'
-import useMediaQuery from '@material-ui/core/useMediaQuery';
+import { useMediaQuery } from '@material-ui/core';
 
 const useStyles = makeStyles((theme: any) => ({
     desktop: {

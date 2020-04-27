@@ -140,14 +140,14 @@ export const InvestmentDetails = (props: any) => {
                             <Grid item>
                                 <Grid container>
                                     <Grid item xs={12} sm={2} md={2}></Grid>
-                                    <Grid item xs={12} sm={3} md={3}>
+                                    <Grid style={{marginBottom: '20px'}} item xs={12} sm={3} md={3}>
                                         <div className={classes.label1}>{props.label1}</div>
                                         <div className={classes.detail1}>{props.detail1}</div>
                                     </Grid>
                                     <Grid>
                                         <div style={{height:'15px'}}></div>
                                     </Grid>
-                                    <Grid item xs={12} sm={3} md={3}>
+                                    <Grid style={{marginBottom: '20px'}} item xs={12} sm={3} md={3}>
                                         <div className={classes.label2}>{props.label2}</div>
                                         <div className={classes.detail2}>{props.detail2}</div>
                                     </Grid>
