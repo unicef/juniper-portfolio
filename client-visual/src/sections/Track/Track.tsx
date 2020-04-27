@@ -1,7 +1,7 @@
 import React from 'react'
 import useMediaQuery from '@material-ui/core/useMediaQuery';
-import { Trackdesktop } from './Trackdesktop';
-import { Trackmobile } from './Trackmobile';
+import { TrackDesktop } from './TrackDesktop';
+import { TrackMobile } from './TrackMobile';
 
 
 export const Track = () => { 
@@ -11,7 +11,7 @@ export const Track = () => {
     if (mobiledevice) {
         return (
             <div>
-               <Trackmobile />
+               <TrackMobile />
             </div>
         )
     }
@@ -20,7 +20,7 @@ export const Track = () => {
     {
         return (
             <div>
-                <Trackdesktop />
+                <TrackDesktop />
             </div>
         )
     }

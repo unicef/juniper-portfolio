@@ -1,12 +1,10 @@
 import React from 'react'
 import { makeStyles } from '@material-ui/styles'
+import json2mq from 'json2mq'
+import { useMediaQuery } from '@material-ui/core'
 
 const useStyles = makeStyles((theme: any) => ({
-    root: 
-    {
-        paddingLeft: '40px',
-    },
-    
+
     firstNumber: {
         fontFamily: 'IBM Plex Sans',
         fontSize: '28px',
@@ -61,9 +59,14 @@ const useStyles = makeStyles((theme: any) => ({
 
 export const SideDetails = (props: any) => {
     const classes = useStyles()
+    const matches = useMediaQuery(
+        json2mq({
+            minWidth:700
+        })
+    )
 
     return(
-        <div className = {classes.root}>
+        <div style={{paddingLeft: matches ? '40px' : '0px'}}>
             <div className={classes.firstNumber}>{props.firstNumber}</div>
             <div className={classes.firstLabel}>{props.firstLabel}</div>
             <div style={{ marginTop: '15px' }} className={classes.middleNumber}>{props.middleNumber}</div>

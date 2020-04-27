@@ -3,18 +3,14 @@ import { makeStyles } from '@material-ui/core/styles'
 
 const useStyles = makeStyles({
     root: {
-        paddingTop: '55px', 
+        flexGrow: 1,
+        border: '2px solid #0050b4',
     },
-
   });
 
-export const ArrowImg = () => {
-
+export const HorizontalBar = () => {
     const classes = useStyles()
-
     return (
-        <div className = {classes.root}>
-            <img src="Arrow_white.svg" alt='arrow' />
-        </div>
+        <hr className={classes.root} />
     )
 }

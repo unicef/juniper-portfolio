@@ -1,16 +1,17 @@
 import React from 'react'
 import { TrackMainText } from './TrackMainText'
 import { TrackMainImage } from './TrackMainImage'
-import { CryptoTracker } from './CryptoTracker'
-import { DonationTable } from './DonationTable'
+import { TrackMobileSummary } from './TrackMobileSummary'
+import {TXSelect} from './DonationTable/TXSelect'
+import { Transaction } from './DonationTable/Transaction'
 import { makeStyles } from '@material-ui/core'
 import { Grid } from '@material-ui/core'
 
 const useStyles = makeStyles((theme: any) => ({
-    
     top: {
         backgroundColor:'#0068ea',
-        paddingTop: '100px',
+        padding: '50px 25px',
+        paddingBottom: '70px',
     },
 
     ctracker: {
@@ -18,27 +19,32 @@ const useStyles = makeStyles((theme: any) => ({
     },
 }))
 
-export const TrackDesktop = () => {
+export const TrackMobile = () => {
     const classes = useStyles()
 
     return (
         <div>
-            <div className={classes.top} style={{ paddingLeft: '14px', paddingRight: '14px', paddingBottom: '14px' }}>
-            
-                <TrackMainText />
-                 
+            <div className={classes.top}>
+                <Grid container>
+                    <Grid item xs={12} sm={9}>
+                        <TrackMainText />
+                    </Grid>
+                </Grid>
 
                 
                 <Grid container alignContent='center' alignItems='center' justify='center' >
                     <TrackMainImage />
                 </Grid>
-                <Grid container className={classes.ctracker} alignContent='center' alignItems='center' justify='center'>
-                    <CryptoTracker />
-                </Grid>
             </div>
             <div>
-                <DonationTable/>
+                <TrackMobileSummary />
             </div>
+            <div>
+                <TXSelect />
+            </div>
+            {/*<div>
+                <Transaction />
+            </div>*/}
         </div>
     )
 }

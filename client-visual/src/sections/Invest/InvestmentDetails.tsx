@@ -12,7 +12,7 @@ const useStyles = makeStyles((theme:any) => ({
     },
 
     container: {
-        width: '67%',
+        width: '100%',
         margin: 'auto',
         padding: '50px 0px',
     },
@@ -118,7 +118,7 @@ export const InvestmentDetails = (props: any) => {
     const classes = useStyles()
     const matches = useMediaQuery(
         json2mq({
-            minWidth: 700
+            minWidth: 800
         })
     )
     return(
@@ -127,9 +127,16 @@ export const InvestmentDetails = (props: any) => {
                 <Grid item xs={12} sm={12} md={9}>
                     <Grid container>
                         <div className={classes.root} style={{ backgroundColor: props.color, color: props.fontColor }}>
-                            <div className = {classes.container}>
-                              <div className= {classes.title}>{props.title}</div>
-                            </div>
+                            <Grid item>
+                                <Grid container>
+                                    <Grid item xs={12} sm={2} md={2}></Grid>
+                                    <Grid item xs={12} sm={10} md={10}>
+                                        <div  className = {classes.container}>
+                                            <div className= {classes.title}>{props.title}</div>
+                                        </div>
+                                    </Grid>
+                                </Grid>
+                            </Grid>
                             <Grid item>
                                 <Grid container>
                                     <Grid item xs={12} sm={2} md={2}></Grid>

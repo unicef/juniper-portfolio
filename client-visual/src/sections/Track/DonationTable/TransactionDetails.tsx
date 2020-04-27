@@ -1,4 +1,5 @@
-import React, { useState } from 'react'
+/* eslint eqeqeq: 0 */
+import React from 'react'
 import useMediaQuery from '@material-ui/core/useMediaQuery';
 import { makeStyles, Theme } from '@material-ui/core/styles'
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
@@ -6,11 +7,6 @@ import ExpandLessIcon from '@material-ui/icons/ExpandLess';
 import { ProgressBar } from './ProgressBar'
 import { TXTable } from './TXDetailsTable'
 import { TransactionDetailsMobile} from './TransactionDetailsMobile'
-
-
-
-
-
 
 const useStyles = makeStyles((theme: Theme) => ({
     root: {

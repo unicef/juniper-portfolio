@@ -1,6 +1,5 @@
 import React, { useState } from 'react'
 import { makeStyles } from '@material-ui/core/styles'
-import { Grid } from '@material-ui/core'
 
 const useStyles = makeStyles({
     root: {
@@ -45,9 +44,9 @@ export const ReceiveObject = () => {
     <div className={classes.text}>
         
     <span className={classes.title}>{title}</span>
-    <div className={classes.numberOfDonors}>{numberOfDonors} donor</div>
+    <div className={classes.numberOfDonors}>{ numberOfDonors } donor</div>
       <div className={classes.amountOfBitcoin}> { amountOfBitcoin } bitcoin</div>
-    <div className={classes.amountOfEther}> { amountOfEther }ether</div>
+    <div className={classes.amountOfEther}> { amountOfEther } ether</div>
     </div>
 
     )

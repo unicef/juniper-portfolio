@@ -1,10 +1,10 @@
+/* eslint eqeqeq: 0 */
 import React from 'react'
 import {useLocation} from 'react-router-dom'
 import { makeStyles } from '@material-ui/core/styles'
-import { AppBar, Toolbar, Typography, Button, useMediaQuery, Menu, MenuItem} from '@material-ui/core'
-import IconButton from '@material-ui/core/IconButton';
-import MenuIcon from '@material-ui/icons/Menu';
+import { AppBar, Toolbar, Typography, Button, useMediaQuery } from '@material-ui/core'
 import json2mq from 'json2mq'
+import { MobileNavBar } from './MobileNavBar'
 
 const useStyles = makeStyles((theme: any) => ({
     root: {
@@ -87,18 +87,7 @@ export default function NavBar() {
       minWidth: 700
     })
   )
-  const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
-  const open = Boolean(anchorEl);
 
-  const handleClick = (event: React.MouseEvent<HTMLElement>) => {
-    setAnchorEl(event.currentTarget);
-  };
-
-  const handleClose = () => {
-    setAnchorEl(null);
-  };
-
-  
   const location = useLocation();
   const home = (location.pathname == "/");
   const about = (location.pathname == "/about");
@@ -108,51 +97,29 @@ export default function NavBar() {
 
   return (
     <div className={classes.root}>
-      <AppBar square={true} elevation={0} style={{boxShadow: home ? 'none' : '0 2px 4px 0 rgba(0, 0, 0, 0.12)' }} color={home ? 'primary' : 'secondary'} position="fixed">
-        <Toolbar className={classes.toolBar}>
-          <a className = {home ? classes.menulinkhome : classes.menulink} href = '/'>
-          <Typography variant="h5" className={classes.title}>
-            CryptoFund
-          </Typography>
-          </a>
-          {
-            !matches ? (
-              <>
-                <IconButton onClick={handleClick} style ={{marginLeft: 'auto'}} edge="end" color="inherit" aria-label="open drawer">
-                  <MenuIcon />
-                </IconButton>
-                
-                <Menu
-                  anchorEl={anchorEl}
-                  keepMounted
-                  open={open}
-                  onClose={handleClose}
-                >
-                
-                  <MenuItem onClick={handleClose}> <a style={{textDecoration:'none', color:'black'}} href='/' >Home</a></MenuItem>
-                  <MenuItem onClick={handleClose}> <a style={{textDecoration:'none', color:'black'}} href='/receive' >Receive</a></MenuItem>
-                  <MenuItem onClick={handleClose}> <a style={{textDecoration:'none', color:'black'}} href='/invest' >Invest</a></MenuItem>
-                  <MenuItem onClick={handleClose}> <a style={{textDecoration:'none', color:'black'}} href='/track'>Track</a></MenuItem>
-                  <MenuItem onClick={handleClose}> <a style={{textDecoration:'none', color:'black'}} href='/about' >About</a></MenuItem>
-                </Menu>
-              </>
-          ) : (
-                <>
-  
-
-                  
-                    <div className={home ? classes.displaynone : classes.menuButtonWrapper }>
-                      <Button href='/receive' className={classes.button} style={{color: receive ?  'blue' : 'black'}}>Receive</Button>
-                      <Button href='/invest' className={classes.button} style={{color: invest ?  'blue' : 'black'}} >Invest</Button>
-                      <Button href='/track' className={classes.button} style={{color: track ?  'blue' : 'black'}} >Track</Button>
-                    </div>
-
-                  <Button  className={home ? classes.buttonhome : classes.button} style={{ color: about ?  'blue' : 'inherit'}}href='/about'>About</Button>
-            </>
-          )
-        }
-        </Toolbar>
-      </AppBar>
+      {
+        !matches ? (
+          <MobileNavBar />
+        ) : (
+          <AppBar square={true} elevation={0} style={{boxShadow: home ? 'none' : '0 2px 4px 0 rgba(0, 0, 0, 0.12)' }} color={home ? 'primary' : 'secondary'} position="fixed">
+            <Toolbar className={classes.toolBar}>
+              <a className = {home ? classes.menulinkhome : classes.menulink} href = '/'>
+              <Typography variant="h5" className={classes.title}>
+                CryptoFund
+              </Typography>
+              </a>
+                    <>
+                        <div className={home ? classes.displaynone : classes.menuButtonWrapper }>
+                          <Button href='/receive' className={classes.button} style={{color: receive ?  'blue' : 'black'}}>Receive</Button>
+                          <Button href='/invest' className={classes.button} style={{color: invest ?  'blue' : 'black'}} >Invest</Button>
+                          <Button href='/track' className={classes.button} style={{color: track ?  'blue' : 'black'}} >Track</Button>
+                        </div>
+                      <Button  className={home ? classes.buttonhome : classes.button} style={{ color: about ?  'blue' : 'inherit'}}href='/about'>About</Button>
+                </>
+            </Toolbar>
+          </AppBar>
+        )
+      }
     </div>
   );
 }

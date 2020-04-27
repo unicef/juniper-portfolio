@@ -1,7 +1,8 @@
 import React, { useState } from 'react'
 import { makeStyles, Theme} from '@material-ui/core/styles'
-import { Button, Grid } from '@material-ui/core'
+import { Button, Grid, useMediaQuery } from '@material-ui/core'
 import { FundingProcessImage } from './FundingProcessImage'
+import json2mq from 'json2mq'
 
 const useStyles = makeStyles((theme: Theme ) => ({
     root: {
@@ -22,11 +23,6 @@ const useStyles = makeStyles((theme: Theme ) => ({
         color:'#000000',
         paddingLeft: '30px',
         marginTop: '-23px'
-
-
-        
-
-        
     }, 
     textStyle: {
          width:'342px',
@@ -110,7 +106,11 @@ export const FundingProcessExplainer = () => {
     const [startUpText, setStartUpText] = useState('The money is moved to the starup at 17:00 hours on the same day. The movement of cryptocurrency takes 10x less time than traditional currencies.')
     const [fundFlowButtonClass, setFundFlowButtonClass] = useState(classes.buttonInactive)
     const [sampleTransactionsButtonClass, setSampleTransactionsButtonClass] = useState(classes.buttonActive)
-
+    const matches = useMediaQuery(
+        json2mq({
+            minWidth: 700
+        })
+    )
     const createBlock = (title: string, text: string, color: string, padding: string) => {
         return(
             <div style={{paddingBottom:'50px', display: 'inline-block', verticalAlign: 'top', paddingLeft: padding+'px'}}>
@@ -168,24 +168,28 @@ export const FundingProcessExplainer = () => {
             </Grid>
             <div style={{paddingBottom:'30px'}}>
                 <Grid container alignContent='center' justify='center' alignItems='center'>
-                    {/* <Grid item xs={12} sm={12} md={3}></Grid> */}
-                    <Grid item xs={12} sm={12} md={3}>
+                    <Grid item xs={12} sm={3} md={3}>
                         {createBlock(donorTitle, donorText, '#0068ea', '0')}
                     </Grid>
-                    <Grid item xs={12} sm={12} md={3}>
+                    <Grid item xs={12} sm={3} md={3}>
                         {createBlock(unicefTitle, unicefText, '#29c3ff', '0')}
                     </Grid>                
-                    <Grid item xs={12} sm={12} md={3}>
+                    <Grid item xs={12} sm={3} md={3}>
                         {createBlock(startUpTitle, startUpText, '#ffd113', '0')}
                     </Grid>
                 </Grid>
             </div>
-            <Grid container alignContent='center' justify='center' alignItems='center'>
-                <Grid item xs={12} sm={12} md={4} lg={4}>
-                    {fundingFlowButton()}
-                    {sampleTransactionsButton()}
-                </Grid>
-            </Grid>
+            {
+                matches ?
+                (
+                    <Grid container alignContent='center' justify='center' alignItems='center'>
+                        <Grid item xs={12} sm={4} md={4} lg={4}>
+                            {fundingFlowButton()}
+                            {sampleTransactionsButton()}
+                        </Grid>
+                    </Grid>
+                ) : null
+            }
         </div>
     )
 }
