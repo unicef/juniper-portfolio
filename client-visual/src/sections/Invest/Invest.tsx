@@ -29,7 +29,7 @@ export const Invest = () => {
                     {
                         matches ?
                         <Grid item xs={12} sm={3}>
-                            <SideDetails firstNumber='03' firstLabel='investments'
+                            <SideDetails style={{paddingBottom:'50px'}} firstNumber='03' firstLabel='investments'
                                         middleNumber='100 eth' middleLabel='ether invested'
                                         lastNumber='01 btc' lastLabel='bitcoin invested'/>
                         </Grid> : null
@@ -40,7 +40,7 @@ export const Invest = () => {
                     {
                         matches ? 
                         null : 
-                        <Grid item xs={12} sm={3}>
+                        <Grid style={{paddingTop:'50px'}} item xs={12} sm={3}>
                             <SideDetails firstNumber='03' firstLabel='investments'
                                         middleNumber='100 eth' middleLabel='ether invested'
                                         lastNumber='01 btc' lastLabel='bitcoin invested'/>
