@@ -175,15 +175,15 @@ export const InvestmentDetails = (props: any) => {
                             </Grid>
                             <Grid container>
                                 <Grid item xs={12} sm={2} md={2}></Grid>
-                                <Grid item><Button href={props.linkToProof} style={{marginBottom:'10px'}} className={classes.link}>{props.link} > </Button></Grid>
                                 <TransactionProof 
                                     transactionType={''}
                                     sender={'UNICEF HQ'}
                                     senderDescription={'SENDER'}
-                                    recipient={'Prescrypto'}
+                                    recipient={props.detail1}
                                     recipientDescription={'RECIPIENT'}
-                                    amount={'49.5 ETH'}
+                                    amount={props.detail2}
                                     amountDescription={'AMOUNT INVESTED'}
+                                    linkToProof={props.linkToProof}
                                 />
                             </Grid>
                             

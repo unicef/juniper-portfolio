@@ -96,17 +96,10 @@ export default function TransactionProof(props: any) {
     const handleClose = () => {
         setOpen(false);
     };
-    const handleHelpClick = () => {
-        setHelp(true)
-    }
-    const handleHelpClose = () => {
-        setOpen(false);
-    };
-    console.log(props)
 
     return (
         <div>
-        <Button onClick={handleClickOpen} href={props.linkToProof} style={{marginBottom:'10px'}} className={classes.link}>Transaction Proof ></Button>
+        <Button onClick={handleClickOpen} style={{marginBottom:'10px'}} className={classes.link}>Transaction Proof ></Button>
         
         <Dialog
             open={open}
@@ -150,10 +143,10 @@ export default function TransactionProof(props: any) {
                     </Grid>
                     <Grid container style={{paddingTop:'10px'}}>
                         <Grid item xs={2} className={classes.sender} >UNICEF HQ</Grid>
-                        <Grid item xs={2} className={classes.sender} >Prescrypto</Grid>
-                        <Grid item xs={2} className={classes.sender} >49.5 ETH</Grid>
+                        <Grid item xs={2} className={classes.sender} >{props.recipient}</Grid>
+                        <Grid item xs={2} className={classes.sender} >{props.amount}</Grid>
                         <Grid item xs={3} className={classes.sender} >Today at 17:09</Grid>
-                        <Grid item xs={3} className={classes.sender} ></Grid>
+                        <Grid item xs={3} className={classes.sender} ><a href={props.linkToProof}>Link</a></Grid>
                     </Grid>
                 </Grid>{/* table with details */}
             </DialogContent>
