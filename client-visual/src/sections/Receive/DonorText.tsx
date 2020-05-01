@@ -65,7 +65,7 @@ export const DonorText = () => {
             <div className={classes.backgroundTitle}>{backgroundTitle}</div>
             <div className={classes.backgroundText}>{donorText1}</div><br/>
             <div className={classes.backgroundText}>{donorText2}</div>
-            <Button className={classes.donationQueryButton}>
+            <Button href='mailto:blockchain@unicef.org' className={classes.donationQueryButton}>
                 <span className={classes.donationQueryButtonText}>Donation Query</span>
             </Button>
         </div>

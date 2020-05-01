@@ -7,6 +7,7 @@ import { InvestmentMainText } from './InvestmentMainText'
 import { InvestmentMainImage } from './InvestmentMainImage'
 import { InvestmentObject } from './InvestmentObject'
 import json2mq from 'json2mq'
+import { SelectionCriteria } from './SelectionCriteria'
 
 const useStyles = makeStyles((theme: any) => ({
     
@@ -72,6 +73,7 @@ export const Invest = () => {
                     color={'#ffd113'}
                     fontColor={'#000'}
                 />
+                <SelectionCriteria />
                 <InvestmentObject 
                     title={'Using Blockchain technology to inspire young people to become local changemakers'}
                     label1={'Startup'}
