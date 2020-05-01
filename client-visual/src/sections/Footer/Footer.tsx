@@ -1,8 +1,9 @@
 import React, {useEffect, useState } from 'react';
 import { createStyles, Theme, makeStyles } from '@material-ui/core/styles';
-import { IconButton, Toolbar, CssBaseline, AppBar } from '@material-ui/core'
+import { IconButton, Toolbar, CssBaseline, AppBar, useMediaQuery } from '@material-ui/core'
 import {Twitter as TwitterIcon, Mail as MailIcon} from '@material-ui/icons';
 import http from 'http';
+import json2mq from 'json2mq'
 
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -51,6 +52,11 @@ const useStyles = makeStyles((theme: Theme) =>
 
 export default function Footer() {
   const classes = useStyles();
+  const matches = useMediaQuery(
+    json2mq({
+        minWidth: 800
+    })
+)
   const [bitcoinPrice, setBitcoinPrice] = useState(0)
   const [etherPrice, setEtherPrice] = useState (0)
 
@@ -133,10 +139,15 @@ export default function Footer() {
       <CssBaseline />
       <AppBar  style={{marginTop:'500px'}} position="fixed" color="primary" className={classes.appBar}>
         <Toolbar variant="dense">
-          <div>
-            <span className={classes.cryptoText}>1 Ether </span> <span className={classes.priceText}>${etherPrice.toFixed(2)} (USD)</span>
-            <span style = {{marginLeft: '25px'}} className={classes.cryptoText}> 1 Bitcoin </span> <span className={classes.priceText}>${bitcoinPrice.toFixed(2)} (USD)</span>
-          </div>
+          {
+            matches ? 
+            <div>
+              <span className={classes.cryptoText}>1 Ether </span> <span className={classes.priceText}>${etherPrice.toFixed(2)} (USD)</span>
+              <span style = {{marginLeft: '25px'}} className={classes.cryptoText}> 1 Bitcoin </span> <span className={classes.priceText}>${bitcoinPrice.toFixed(2)} (USD)</span>
+            </div> 
+            
+            : null
+          }
           <div className={classes.grow} />
           <IconButton href='https://twitter.com/unicefinnovate' color="inherit">
             <TwitterIcon />
