@@ -7,19 +7,17 @@ import { MainText } from './MainText'
 import { MainImage } from './MainImage'
 import { BackgroundText } from './BackgroundText'
 import { FundingProcess } from './FundingProcess'
-import { ThankYouText } from './ThankYouText'
+import { DonorText } from './DonorText'
 import { FundingProcessExplainer } from './FundingProcessExplainer'
+// import { ThankYouText } from './ThankYouText'
 import json2mq from 'json2mq'
 
-const useStyles = makeStyles((theme: any) => ({
+const useStyles = makeStyles(({
     top: {
         backgroundColor:'#0068ea',
         paddingTop: '100px',
-
     },
-    
-    body: 
-    {
+    body: {
         backgroundColor: 'white',
     }
 }));
@@ -31,7 +29,6 @@ export const Receive = () => {
             minWidth: 800
         })
     )
-
     return(
         <div>    
         <div className={classes.top} style={{ paddingLeft: '14px', paddingRight: '14px' }}>
@@ -66,16 +63,20 @@ export const Receive = () => {
             <div>
                 <Grid container className={classes.body}>
                     <Grid item xs={12} sm={3}>
-
                     </Grid>
                     <Grid item xs={12} sm={9}>
                         <BackgroundText />
-                        <ThankYouText />
                     </Grid>
                 </Grid>
                 <Grid container className={classes.body}>
                     <Grid item xs={12} sm={3}>
-
+                    </Grid>
+                    <Grid item xs={12} sm={9}>
+                        <DonorText />
+                    </Grid>
+                </Grid>
+                <Grid container className={classes.body}>
+                    <Grid item xs={12} sm={3}>
                     </Grid>
                     <Grid item xs={12} sm={6}>
                         <FundingProcess />
