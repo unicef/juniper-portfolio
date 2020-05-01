@@ -8,36 +8,25 @@ import { ArrowImg } from '../Atoms/ArrowImg'
 import { HorizontalBar } from '../Atoms/HorizontalBar'
 
 const useStyles = makeStyles({
-    root: {
+  root: {
       flexGrow:1,
       height:'183px'
   },
-
-  img: 
-  {
+  img: {
     paddingLeft: '40px',
-
   },
-  
-  arrow: 
-  {
+  arrow: {
     marginLeft: '50px',
     paddingTop: '20px'
   },
-
-
-  hb:
-  {
+  hb:{
     marginTop: '-16px',
   },
-
-  });
+});
 
 export const Track = () => {
     const classes = useStyles()
-  return (
-      
-
+    return (
     <div className={classes.root}>
         <Grid container>
             <Grid item md={5}><TrackText/></Grid>
@@ -47,33 +36,30 @@ export const Track = () => {
               <a href="/track"> <ArrowImg /></a>
             <Grid />
           </Grid>
-      <HorizontalBar />
     </div>
-        
     )
 }
 
 export const TrackMobile = () => {
   const classes = useStyles()
   return (
-    
-
-  <div className={classes.root}>
-      <Grid container>
-      <Grid item md={6}><TrackText /></Grid>
-      <Grid item md={1} className = {classes.arrow}/>
-            <a href="/receive">  <ArrowImg /></a>
-      <Grid />
-    </Grid>
-    <Grid container>
-          <Grid item md={6} ><TrackObject/></Grid>
-          <Grid item md={6} className = {classes.img}><TrackImage /> </Grid>
-          
-    </Grid>
-    <div className = {classes.hb}> <HorizontalBar /></div>
-  </div>
-  
-
-
+    <div className={classes.root}>
+        <Grid container>
+            <Grid item md={6}>
+                <TrackText />
+            </Grid>
+            <Grid item md={1} className = {classes.arrow}/>
+                <a href="/receive"><ArrowImg /></a>
+            <Grid />
+        </Grid>
+        <Grid container>
+            <Grid item md={6} >
+                <TrackObject/>
+            </Grid>
+            <Grid item md={6} className = {classes.img}>
+                <TrackImage />
+            </Grid>
+        </Grid>
+    </div>
   )
 }

@@ -61,7 +61,7 @@ export const Landingmobile = () => {
                     title="Invest"
                     link="/invest"
                     lineOne="3 investments"
-                    lineTwo="100 ether"
+                    lineTwo="99 ether"
                     lineThree="1 bitcoin"
                     colorOne="#fff"
                     colorTwo="#ffd113"
