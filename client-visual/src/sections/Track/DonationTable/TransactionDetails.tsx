@@ -17,7 +17,6 @@ const useStyles = makeStyles((theme: Theme) => ({
         marginLeft: '114px',
         marginBottom: '50px',
         paddingBottom: '30px',
-      
     },
     transactionType: {
         fontFamily: 'Cabin',
@@ -30,7 +29,6 @@ const useStyles = makeStyles((theme: Theme) => ({
         color: '#000',
         textTransform: 'uppercase',
         paddingTop: '30px',
-       // paddingLeft: '75px',
     },
     startingParty: {
         width: '132px',
@@ -44,8 +42,6 @@ const useStyles = makeStyles((theme: Theme) => ({
         color: '#000',
         marginLeft: '43px',
         marginTop: '18px'
-
-        
     },
     middleParty: {
         width: '71px',
@@ -72,7 +68,6 @@ const useStyles = makeStyles((theme: Theme) => ({
         color: '#000',
         paddingLeft: '83px',
         paddingTop: '30px'
-
     },
     partyType1: {
         width: '169px',
@@ -168,34 +163,24 @@ const useStyles = makeStyles((theme: Theme) => ({
         paddingTop: '6px',
 
     },
-
-    txSeparrator:
-    {
+    txSeparrator: {
         color: '#ffffff',
         paddingLeft: '66px',
         paddingTop: '6px',
         width: '837px',
     },
-
-    icon:
-    {
+    icon: {
         marginBottom: '-8px',
     },
-
-    spacer:
-    {
+    spacer: {
         paddingTop: '20px',
         paddingBottom: '10px'
     },
-    
-  arrowicon: 
-  {
-    paddingRight: '10px',
-    marginBottom: '-8px',
-    marginLeft: '43px'
+    arrowicon: {
+        paddingRight: '10px',
+        marginBottom: '-8px',
+        marginLeft: '43px'
     }
-
-
 }));
 
 

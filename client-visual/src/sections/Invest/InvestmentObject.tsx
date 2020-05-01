@@ -32,6 +32,7 @@ export const InvestmentObject = (props: any) => {
                 fontColor={props.fontColor}
                 color={props.color}
                 linkToProof={props.linkToProof}
+                linkToProject={props.linkToProject}
             />
 
         </div>

@@ -73,6 +73,7 @@ export const Invest = () => {
                     altDescription={''}
                     color={'#ffd113'}
                     fontColor={'#000'}
+                    linkToProject={'https://www.unicef.org/innovation/FundGraduate/Atixlabs'}
                 />
                 <SelectionCriteria />
                 <InvestmentObject 
@@ -90,6 +91,7 @@ export const Invest = () => {
                     altDescription={''}
                     color={'#0068ea'}
                     fontColor={'#fff'}
+                    linkToProject={'https://www.unicef.org/innovation/fundgraduate/Prescrypto'}
                 />
                 <InvestmentObject 
                     title={'Using Blockchain technology to inspire young people to become local changemakers'}
@@ -106,6 +108,7 @@ export const Invest = () => {
                     altDescription={''}
                     color={'#ffd113'}
                     fontColor={'#000'}
+                    linkToProject={'https://www.unicef.org/innovation/fundgraduate/Coinsence'}
                 />
             </div>
 

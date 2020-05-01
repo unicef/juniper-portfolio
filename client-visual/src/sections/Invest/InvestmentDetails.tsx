@@ -2,6 +2,7 @@ import React from 'react'
 import { Grid, Button, useMediaQuery } from '@material-ui/core'
 import { makeStyles } from '@material-ui/styles'
 import json2mq from 'json2mq'
+import TransactionProof from './TransactionProof'
 
 const useStyles = makeStyles((theme:any) => ({
     root: {
@@ -162,6 +163,7 @@ export const InvestmentDetails = (props: any) => {
                                 <Grid item xs={12} sm={2} md={2}></Grid>
                                 <Grid item style={{paddingTop: '40px'}}>
                                     <Button
+                                        href={props.linkToProject}
                                         className={classes.button}
                                     >
                                         {props.button}
@@ -174,6 +176,15 @@ export const InvestmentDetails = (props: any) => {
                             <Grid container>
                                 <Grid item xs={12} sm={2} md={2}></Grid>
                                 <Grid item><Button href={props.linkToProof} style={{marginBottom:'10px'}} className={classes.link}>{props.link} > </Button></Grid>
+                                <TransactionProof 
+                                    transactionType={''}
+                                    sender={'UNICEF HQ'}
+                                    senderDescription={'SENDER'}
+                                    recipient={'Prescrypto'}
+                                    recipientDescription={'RECIPIENT'}
+                                    amount={'49.5 ETH'}
+                                    amountDescription={'AMOUNT INVESTED'}
+                                />
                             </Grid>
                             
                         </div>
