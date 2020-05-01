@@ -142,7 +142,7 @@ export default function TransactionProof(props: any) {
                         <Grid item xs={2} className={classes.senderDescription} >AMOUNT</Grid>
                         <Grid item xs={3} className={classes.senderDescription} >TIME</Grid>
                         <Grid item xs={3} className={classes.senderDescription} >
-                            TRANSACTION HASH
+                            TRANSACTION
                             <Tooltip placement='top' title='A unique identifier given to each blockchain transaction to make it traceable.' arrow>
                                 <HelpOutlineIcon style={{paddingLeft:'7px', fontSize:"20px"}}  />
                             </Tooltip>
