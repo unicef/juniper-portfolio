@@ -27,7 +27,7 @@ const useStyles = makeStyles((theme: Theme) =>
       flexGrow: 1,
     },
     cryptoText: {
-      fontFamily: 'IBMPlexSans',
+      fontFamily: 'IBM Plex Sans',
       fontSize: '16px',
       fontWeight: 'bold',
       fontStretch: 'normal',
@@ -37,7 +37,7 @@ const useStyles = makeStyles((theme: Theme) =>
       color: '#ffffff'
     }, 
     priceText: {
-      fontFamily: 'IBMPlexSans',
+      fontFamily: 'IBM Plex Sans',
       fontSize: '16px',
       fontWeight: 'normal',
       fontStretch: 'normal',
