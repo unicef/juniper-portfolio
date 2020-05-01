@@ -8,7 +8,6 @@ const drawerWidth = 245;
 
 const useStyles = makeStyles((theme) => ({
     drawer: {
-
         width: drawerWidth,
         flexShrink: 0,
     },
@@ -22,7 +21,6 @@ export default function Sidebar() {
     const classes = useStyles();
 
     return (
-
         < Drawer
             className={classes.drawer}
             variant="permanent"
@@ -34,7 +32,5 @@ export default function Sidebar() {
             <SidebarHeader />
             <SidebarNavigation />
         </Drawer >
-
-
     );
 }

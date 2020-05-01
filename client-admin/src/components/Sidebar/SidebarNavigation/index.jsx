@@ -6,10 +6,19 @@ import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import Typography from '@material-ui/core/Typography';
 import InboxIcon from '@material-ui/icons/Inbox';
+import AccountBalanceWalletIcon from '@material-ui/icons/AccountBalanceWallet';
+import AccountBoxIcon from '@material-ui/icons/AccountBox';
+import EqualizerIcon from '@material-ui/icons/Equalizer';
+import SettingsIcon from '@material-ui/icons/Settings';
+import SyncAltIcon from '@material-ui/icons/SyncAlt';
+import {
+    Link
+} from "react-router-dom";
 
 const useStyles = makeStyles((theme) => ({
     navIcon: {
         color: "#ffffff",
+        fontSize: '4em'
     },
     navText: {
         fontSize: 12,
@@ -26,6 +35,9 @@ const useStyles = makeStyles((theme) => ({
         height: 55,
         paddingLeft: 20
     },
+    link: {
+        textDecoration: 'none'
+    }
 }));
 
 const JuniperListItem = withStyles({
@@ -54,26 +66,81 @@ export default function SelectedListItem() {
 
     return (
         <List component="nav" aria-label="Sidebar Navigation">
-            {
-                [0, 1, 2, 3].map((navLink, index) => {
-                    return (
-                        <JuniperListItem
-                            button
-                            selected={selectedIndex === index}
-                            onClick={(event) => handleListItemClick(event, index)}
-                            className={classes.navLink}
-                        >
-                            <ListItemIcon>
-                                <InboxIcon className={classes.navIcon} fontSize="large" />
-                            </ListItemIcon>
-                            <ListItemText
-                                primary={<Typography className={classes.navText}>Link Text</Typography>}
-                            />
-                        </JuniperListItem>
-                    )
-                })
-            }
-
+            <Link to={'/transactions'} className={classes.link}>
+                <JuniperListItem
+                    button
+                    selected={selectedIndex === 0}
+                    onClick={(event) => handleListItemClick(event, 0)}
+                    className={classes.navLink}
+                >
+                    <ListItemIcon>
+                        <SyncAltIcon className={classes.navIcon} fontSize="large" />
+                    </ListItemIcon>
+                    <ListItemText
+                        primary={<Typography className={classes.navText}>Transactions</Typography>}
+                    />
+                </JuniperListItem>
+            </Link>
+            <Link to={'/wallets'} className={classes.link}>
+                <JuniperListItem
+                    button
+                    selected={selectedIndex === 1}
+                    onClick={(event) => handleListItemClick(event, 1)}
+                    className={classes.navLink}
+                >
+                    <ListItemIcon>
+                        <AccountBalanceWalletIcon className={classes.navIcon} fontSize="large" />
+                    </ListItemIcon>
+                    <ListItemText
+                        primary={<Typography className={classes.navText}>My Wallets</Typography>}
+                    />
+                </JuniperListItem>
+            </Link>
+            <Link to={'/profiles'} className={classes.link}>
+                <JuniperListItem
+                    button
+                    selected={selectedIndex === 2}
+                    onClick={(event) => handleListItemClick(event, 2)}
+                    className={classes.navLink}
+                >
+                    <ListItemIcon>
+                        <AccountBoxIcon className={classes.navIcon} fontSize="large" />
+                    </ListItemIcon>
+                    <ListItemText
+                        primary={<Typography className={classes.navText}>Profiles</Typography>}
+                    />
+                </JuniperListItem>
+            </Link>
+            <Link to={'/tracker'} className={classes.link}>
+                <JuniperListItem
+                    button
+                    selected={selectedIndex === 3}
+                    onClick={(event) => handleListItemClick(event, 3)}
+                    className={classes.navLink}
+                >
+                    <ListItemIcon>
+                        <EqualizerIcon className={classes.navIcon} fontSize="large" />
+                    </ListItemIcon>
+                    <ListItemText
+                        primary={<Typography className={classes.navText}>Price Tracker</Typography>}
+                    />
+                </JuniperListItem>
+            </Link>
+            <Link to={'/settings'} className={classes.link}>
+                <JuniperListItem
+                    button
+                    selected={selectedIndex === 4}
+                    onClick={(event) => handleListItemClick(event, 4)}
+                    className={classes.navLink}
+                >
+                    <ListItemIcon>
+                        <SettingsIcon className={classes.navIcon} fontSize="large" />
+                    </ListItemIcon>
+                    <ListItemText
+                        primary={<Typography className={classes.navText}>Settings</Typography>}
+                    />
+                </JuniperListItem>
+            </Link>
         </List >
     );
 }

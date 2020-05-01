@@ -1,8 +1,18 @@
 import React, { createContext } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { createMuiTheme, ThemeProvider } from "@material-ui/core/styles";
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route
+} from "react-router-dom";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import Sidebar from './components/Sidebar';
+import PriceTracker from "./components/PriceTracker"
+import Profiles from "./components/Profiles"
+import Settings from "./components/Settings"
+import Transactions from "./components/Transactions"
+import Wallets from "./components/Wallets"
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -10,8 +20,7 @@ const useStyles = makeStyles((theme) => ({
   },
   content: {
     flexGrow: 1,
-    backgroundColor: theme.palette.background.default,
-    padding: theme.spacing(3),
+    backgroundColor: "#ffffff",
   },
 }));
 
@@ -20,6 +29,9 @@ const theme = createMuiTheme({
     primary: {
       main: "#0068ea",
     },
+    background: {
+      default: '#ffffff'
+    }
   },
   typography: {
     "fontFamily": "\"Cabin\",  sans-serif",
@@ -38,14 +50,35 @@ export default function () {
       theme={theme}
     >
       <CssBaseline>
-        <div className={classes.root}>
-          <Sidebar />
-          <main className={classes.content}>
-            Content
-          </main>
-        </div>
-      </CssBaseline>
-    </ThemeProvider>
+        <Router>
+          <div className={classes.root}>
+            <Sidebar />
+            <main className={classes.content}>
+              <Switch>
+                <Route path="/transactions">
+                  <Transactions />
+                </Route>
+                <Route path="/wallets">
+                  <Wallets />
+                </Route>
+                <Route path="/profiles">
+                  <Profiles />
+                </Route>
+                <Route path="/tracker">
+                  <PriceTracker />
+                </Route>
+                <Route path="/settings">
+                  <Settings />
+                </Route>
+                <Route path="/">
+                  <Transactions />
+                </Route>
+              </Switch>
+            </main>
+          </div>
+        </Router>
+      </CssBaseline >
+    </ThemeProvider >
   );
 
 }
