@@ -88,7 +88,11 @@ const useStyles = makeStyles((theme:any) => ({
 export default function TransactionProof(props: any) {
     const classes = useStyles();
     const [open, setOpen] = React.useState(false);
-    const [help, setHelp] = React.useState(false);
+    const matches = useMediaQuery(
+        json2mq({
+            minWidth: 800
+        })
+    )
     const handleClickOpen = () => {
         setOpen(true);
     };
@@ -99,8 +103,11 @@ export default function TransactionProof(props: any) {
 
     return (
         <div>
-        <Button onClick={handleClickOpen} style={{marginBottom:'10px'}} className={classes.link}>Transaction Proof ></Button>
-        
+            {
+                matches ?   
+                    <Button onClick={handleClickOpen} style={{marginBottom:'10px'}} className={classes.link}>Transaction Proof ></Button>
+                    : null
+            }            
         <Dialog
             open={open}
             maxWidth={'md'}
