@@ -8,15 +8,12 @@ const useStyles = makeStyles((theme:any) => ({
         opacity: '0.84',
         padding:'14px',
         paddingBottom: '65px',
-
     },
-
     container: {
         width: '100%',
         margin: 'auto',
         padding: '50px 0px',
     },
-
     title: {
         fontFamily: 'Cabin',
         fontSize: '36px',
@@ -25,8 +22,6 @@ const useStyles = makeStyles((theme:any) => ({
         fontStyle: 'normal',
         lineHeight: 'normal',
         letterSpacing: 'normal',
-        
-    
     },
     label1: {
         fontFamily: 'Cabin',
@@ -178,7 +173,7 @@ export const InvestmentDetails = (props: any) => {
                             </Grid>
                             <Grid container>
                                 <Grid item xs={12} sm={2} md={2}></Grid>
-                                <Grid item><span style={{marginBottom:'10px'}} className={classes.link}>{props.link} > </span></Grid>
+                                <Grid item><Button href={props.linkToProof} style={{marginBottom:'10px'}} className={classes.link}>{props.link} > </Button></Grid>
                             </Grid>
                             
                         </div>
