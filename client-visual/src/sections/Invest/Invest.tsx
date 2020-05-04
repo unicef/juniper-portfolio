@@ -7,6 +7,7 @@ import { InvestmentMainText } from './InvestmentMainText'
 import { InvestmentMainImage } from './InvestmentMainImage'
 import { InvestmentObject } from './InvestmentObject'
 import json2mq from 'json2mq'
+import { SelectionCriteria } from './SelectionCriteria'
 
 const useStyles = makeStyles((theme: any) => ({
     
@@ -63,29 +64,34 @@ export const Invest = () => {
                     label2={'Funding Amount'}
                     label3={'Country'}
                     detail1={'Atix Labs'}
-                    detail2={'50 ETH'}
+                    detail2={'1 BTC'}
                     detail3={'Argentina'}
                     button={'View Project'}
                     link={'Transaction Proof'}
+                    linkToProof={'https://btc4.trezor.io/tx/001ef6f14df3b63f872c4cbdf7d3f36a15330eb9b9db4983f6c3b6d9093a8924'}
                     linkToImage={'./Atix.png'}
                     altDescription={''}
                     color={'#ffd113'}
                     fontColor={'#000'}
+                    linkToProject={'https://www.unicef.org/innovation/FundGraduate/Atixlabs'}
                 />
+                <SelectionCriteria />
                 <InvestmentObject 
                     title={'Using Blockchain technology to inspire young people to become local changemakers'}
                     label1={'Startup'}
                     label2={'Funding Amount'}
                     label3={'Country'}
                     detail1={'Prescrypto'}
-                    detail2={'1 BTC'}
+                    detail2={'49.5 ETH'}
                     detail3={'Mexico'}
                     button={'View Project'}
                     link={'Transaction Proof'}
+                    linkToProof={'https://etherscan.io/tx/0x63b15553266e673f73315b93f9914a92d8208dfe8fa1d01dc119d156dc33d622'}
                     linkToImage={'Prescrypto.png'}
                     altDescription={''}
                     color={'#0068ea'}
                     fontColor={'#fff'}
+                    linkToProject={'https://www.unicef.org/innovation/fundgraduate/Prescrypto'}
                 />
                 <InvestmentObject 
                     title={'Using Blockchain technology to inspire young people to become local changemakers'}
@@ -93,14 +99,16 @@ export const Invest = () => {
                     label2={'Funding Amount'}
                     label3={'Country'}
                     detail1={'Utopixar'}
-                    detail2={'50 ETH'}
+                    detail2={'49.5 ETH'}
                     detail3={'Tunisia'}
                     button={'View Project'}
                     link={'Transaction Proof'}
+                    linkToProof={'https://etherscan.io/tx/0x5735e0524e936818369f2eac2ef7c917b74f00993d187ffdb738e287032e70a0'}
                     linkToImage={'./Utopixar.png'}
                     altDescription={''}
                     color={'#ffd113'}
                     fontColor={'#000'}
+                    linkToProject={'https://www.unicef.org/innovation/fundgraduate/Coinsence'}
                 />
             </div>
 

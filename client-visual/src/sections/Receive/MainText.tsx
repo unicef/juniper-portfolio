@@ -29,7 +29,7 @@ export const MainText = () => {
     const classes = useStyles()
     const mobileDevice = useMediaQuery('(max-width: 800px)');
     const [mainText] = useState(
-        'In October 2019, UNICEF announced it would be the first UN entity to make investments denominated in cryptocurrency, following the same principles as the existing UNICEF Innovation Fund. Using cryptocurrency in investments allows donors, UNICEF and investees to transparently and nearly instantaneously track where funds are, bringing a new level of funding visibility to the international development sector.'
+        'To understand and be ready for a digitally financed future, UNICEF with the support of donors is the first UN organization to receive and hold crypto-denominated assets through its CryptoFund. By contributing either bitcoin or ether to the CryptoFund, donors support the growth of open-source technology projects. Currently, UNICEF France, New Zealand, Australia and USA accept cryptocurrency donations. UNICEF’s work will benefit from tapping into these new funding streams and have far-reaching impact for the entire organization and most importantly children.'
     )
     return(
         <div className={mobileDevice ? classes.mobile : classes.mainText}>

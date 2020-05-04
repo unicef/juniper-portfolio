@@ -8,7 +8,6 @@ const useStyles = makeStyles({
 
     text: {
       width:'107px',
-      //height:'69px',
       fontFamily:'IBM Plex Sans',
       fontSize: '16px',
       fontWeight:'bold',

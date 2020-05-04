@@ -51,7 +51,7 @@ export const TXTable = (props: {rows: any[]}) =>
                 <TableCell className={classes.tableheader} align="left">Recipient</TableCell>
                 <TableCell className={classes.tableheader} align="left">Amount</TableCell>
                 <TableCell className={classes.tableheader} align="left">Time</TableCell>
-                <TableCell  className={classes.tableheader}align="left">Transaction Hash</TableCell>
+                <TableCell  className={classes.tableheader}align="left">Transaction</TableCell>
               </TableRow>
             </TableHead>
             <TableBody>
@@ -63,7 +63,7 @@ export const TXTable = (props: {rows: any[]}) =>
                   <TableCell className={classes.txtablecell} align="left">{row.recipient}</TableCell>
                   <TableCell className={classes.txtablecell} align="left">{row.amount}</TableCell>
                   <TableCell className={classes.txtablecell} align="left">{row.time}</TableCell>
-                  <TableCell className={classes.txtablecell} align="left">{row.txhash}</TableCell>
+                  <TableCell className={classes.txtablecell} align="left"><a href={row.txhash}>Link</a></TableCell>
                 </TableRow>
               ))}
             </TableBody>
