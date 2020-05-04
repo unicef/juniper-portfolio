@@ -8,11 +8,17 @@ import {
 } from "react-router-dom";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import Sidebar from './components/Sidebar';
-import PriceTracker from "./components/PriceTracker"
 import Profiles from "./components/Profiles"
+import PriceTracker from "./components/PriceTracker"
 import Settings from "./components/Settings"
 import Transactions from "./components/Transactions"
 import Wallets from "./components/Wallets"
+import ApolloClient from 'apollo-boost';
+import { ApolloProvider } from 'react-apollo'
+
+const client = new ApolloClient({
+  uri: '/api'
+})
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -49,35 +55,37 @@ export default function () {
     <ThemeProvider
       theme={theme}
     >
-      <CssBaseline>
-        <Router>
-          <div className={classes.root}>
-            <Sidebar />
-            <main className={classes.content}>
-              <Switch>
-                <Route path="/transactions">
-                  <Transactions />
-                </Route>
-                <Route path="/wallets">
-                  <Wallets />
-                </Route>
-                <Route path="/profiles">
-                  <Profiles />
-                </Route>
-                <Route path="/tracker">
-                  <PriceTracker />
-                </Route>
-                <Route path="/settings">
-                  <Settings />
-                </Route>
-                <Route path="/">
-                  <Transactions />
-                </Route>
-              </Switch>
-            </main>
-          </div>
-        </Router>
-      </CssBaseline >
+      <ApolloProvider client={client}>
+        <CssBaseline>
+          <Router>
+            <div className={classes.root}>
+              <Sidebar />
+              <main className={classes.content}>
+                <Switch>
+                  <Route path="/transactions">
+                    <Transactions />
+                  </Route>
+                  <Route path="/wallets">
+                    <Wallets />
+                  </Route>
+                  <Route path="/profiles">
+                    <Profiles />
+                  </Route>
+                  <Route path="/tracker">
+                    <PriceTracker />
+                  </Route>
+                  <Route path="/settings">
+                    <Settings />
+                  </Route>
+                  <Route path="/">
+                    <Transactions />
+                  </Route>
+                </Switch>
+              </main>
+            </div>
+          </Router>
+        </CssBaseline >
+      </ApolloProvider>
     </ThemeProvider >
   );
 
