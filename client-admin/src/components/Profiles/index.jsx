@@ -13,6 +13,7 @@ import Natcoms from "./Natcoms"
 import { gql } from 'apollo-boost'
 import { useQuery } from 'react-apollo'
 
+
 function TabPanel(props) {
     const { children, value, index, ...other } = props;
 

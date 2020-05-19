@@ -1,8 +1,10 @@
 import React from 'react'
 import MainContentContainer from '../../ui/MainContentContainer'
 
-export default function () {
-    return (
-        <MainContentContainer>Transactions</MainContentContainer>
-    )
+export default class extends React.Component {
+    render() {
+        return (
+            <MainContentContainer>Transactions</MainContentContainer>
+        )
+    }
 }

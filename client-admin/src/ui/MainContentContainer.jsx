@@ -4,7 +4,8 @@ import { makeStyles } from '@material-ui/core/styles';
 const useStyles = makeStyles((theme) => ({
     root: {
         paddingLeft: 155,
-        paddingTop: 40
+        paddingTop: 40,
+        paddingRight: 50
     }
 }));
 

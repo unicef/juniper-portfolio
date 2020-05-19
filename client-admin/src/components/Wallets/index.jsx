@@ -2,10 +2,12 @@ import React from 'react'
 import MainContentContainer from '../../ui/MainContentContainer'
 
 
-export default function () {
-    return (
-        <MainContentContainer>
-            Wallets
-        </MainContentContainer>
-    )
+export default class extends React.Component {
+    render() {
+        return (
+            <MainContentContainer>
+                Wallets
+            </MainContentContainer>
+        )
+    }
 }

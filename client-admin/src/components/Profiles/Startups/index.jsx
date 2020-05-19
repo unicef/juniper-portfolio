@@ -1,8 +1,10 @@
 import React from 'react'
 import MainContentContainer from '../../../ui/MainContentContainer'
 
-export default function () {
-    return (
-        <MainContentContainer>Startups</MainContentContainer>
-    )
+export default class extends React.Component {
+    render() {
+        return (
+            <MainContentContainer>Startups</MainContentContainer>
+        )
+    }
 }
