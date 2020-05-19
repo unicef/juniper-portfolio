@@ -2,7 +2,6 @@ import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid';
-import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 
 const useStyles = makeStyles((theme) => ({
     juniper: {
@@ -18,8 +17,8 @@ const useStyles = makeStyles((theme) => ({
     },
     container: {
         paddingLeft: 26,
-        paddingTop: 14,
-        height: 115
+        marginTop: '6.5em',
+        height: 60
     }
 }));
 
@@ -32,7 +31,6 @@ export default function SidebarHeader() {
                 <Typography variant="h1" component="h1" className={classes.juniper}>
                     Juniper
                 </Typography>
-
             </Grid>
         </Grid>
     );

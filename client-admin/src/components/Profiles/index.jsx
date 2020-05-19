@@ -53,6 +53,7 @@ const useStyles = makeStyles((theme) => ({
         backgroundColor: theme.palette.background.paper,
     },
     appBar: {
+        marginTop: '5em',
         boxShadow: 'none'
     },
     navigation: {
