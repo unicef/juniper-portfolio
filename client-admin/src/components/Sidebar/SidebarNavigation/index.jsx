@@ -16,12 +16,18 @@ import {
 } from "react-router-dom";
 
 const useStyles = makeStyles((theme) => ({
+    list: {
+        height: '100%',
+        display: 'flex',
+        flexDirection: 'column'
+    },
+    listItem: {
+        minWidth: 40
+    },
     navIcon: {
-        fontSize: '4em',
         color: "#4d4d4d",
     },
     navIconSelected: {
-        fontSize: '4em',
         color: "#00aeef",
     },
     navText: {
@@ -46,6 +52,7 @@ const useStyles = makeStyles((theme) => ({
 
 const JuniperListItem = withStyles({
     root: {
+
         "&$selected": {
             color: "#00aeef",
             backgroundColor: "#ffffff",
@@ -67,22 +74,8 @@ export default function SelectedListItem() {
     };
 
     return (
-        <List component="nav" aria-label="Sidebar Navigation">
-            <Link to={'/transactions'} className={classes.link}>
-                <JuniperListItem
-                    button
-                    selected={selectedIndex === 0}
-                    onClick={(event) => handleListItemClick(event, 0)}
-                    className={classes.navLink}
-                >
-                    <ListItemIcon>
-                        <SyncAltIcon className={selectedIndex === 0 ? classes.navIconSelected : classes.navIcon} fontSize="large" />
-                    </ListItemIcon>
-                    <ListItemText
-                        primary={<Typography className={classes.navText}>Transactions</Typography>}
-                    />
-                </JuniperListItem>
-            </Link>
+        <List component="nav" aria-label="Sidebar Navigation" className={classes.list}>
+          
             <Link to={'/wallets'} className={classes.link}>
                 <JuniperListItem
                     button
@@ -90,11 +83,11 @@ export default function SelectedListItem() {
                     onClick={(event) => handleListItemClick(event, 1)}
                     className={classes.navLink}
                 >
-                    <ListItemIcon>
+                    <ListItemIcon className={classes.listItem}>
                         <AccountBalanceWalletIcon className={selectedIndex === 1 ? classes.navIconSelected : classes.navIcon} fontSize="large" />
                     </ListItemIcon>
                     <ListItemText
-                        primary={<Typography className={classes.navText}>My Wallets</Typography>}
+                        primary={<Typography className={classes.navText}>Wallets</Typography>}
                     />
                 </JuniperListItem>
             </Link>
@@ -105,11 +98,11 @@ export default function SelectedListItem() {
                     onClick={(event) => handleListItemClick(event, 2)}
                     className={classes.navLink}
                 >
-                    <ListItemIcon>
+                    <ListItemIcon className={classes.listItem}>
                         <AccountBoxIcon className={selectedIndex === 2 ? classes.navIconSelected : classes.navIcon} fontSize="large" />
                     </ListItemIcon>
                     <ListItemText
-                        primary={<Typography className={classes.navText}>Profiles</Typography>}
+                        primary={<Typography className={classes.navText}>Accounts</Typography>}
                     />
                 </JuniperListItem>
             </Link>
@@ -120,11 +113,26 @@ export default function SelectedListItem() {
                     onClick={(event) => handleListItemClick(event, 3)}
                     className={classes.navLink}
                 >
-                    <ListItemIcon>
+                    <ListItemIcon className={classes.listItem}>
                         <EqualizerIcon className={selectedIndex === 3 ? classes.navIconSelected : classes.navIcon} fontSize="large" />
                     </ListItemIcon>
                     <ListItemText
                         primary={<Typography className={classes.navText}>Price Tracker</Typography>}
+                    />
+                </JuniperListItem>
+            </Link>
+            <Link to={'/transactions'} className={classes.link} style={{flex: 2}}>
+                <JuniperListItem
+                    button
+                    selected={selectedIndex === 0}
+                    onClick={(event) => handleListItemClick(event, 0)}
+                    className={classes.navLink}
+                >
+                    <ListItemIcon className={classes.listItem}>
+                        <SyncAltIcon className={selectedIndex === 0 ? classes.navIconSelected : classes.navIcon} fontSize="large" />
+                    </ListItemIcon>
+                    <ListItemText
+                        primary={<Typography className={classes.navText}>Transactions</Typography>}
                     />
                 </JuniperListItem>
             </Link>
@@ -135,7 +143,7 @@ export default function SelectedListItem() {
                     onClick={(event) => handleListItemClick(event, 4)}
                     className={classes.navLink}
                 >
-                    <ListItemIcon>
+                    <ListItemIcon className={classes.listItem}>
                         <SettingsIcon className={selectedIndex === 4 ? classes.navIconSelected : classes.navIcon} fontSize="large" />
                     </ListItemIcon>
                     <ListItemText
