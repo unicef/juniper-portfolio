@@ -8,9 +8,7 @@ class PriceTracker extends React.Component {
         if (this.props.error) return `Error: ${this.props.error}`;
 
         return (
-            <Fragment>
-                <MainContentContainer>Price Tracker</MainContentContainer>
-            </Fragment>
+            <MainContentContainer>Price Tracker</MainContentContainer>
         )
     }
 }
