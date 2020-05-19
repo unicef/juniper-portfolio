@@ -17,8 +17,12 @@ import {
 
 const useStyles = makeStyles((theme) => ({
     navIcon: {
-        color: "#ffffff",
-        fontSize: '4em'
+        fontSize: '4em',
+        color: "#4d4d4d",
+    },
+    navIconSelected: {
+        fontSize: '4em',
+        color: "#00aeef",
     },
     navText: {
         fontSize: 12,
@@ -28,12 +32,12 @@ const useStyles = makeStyles((theme) => ({
         lineHeight: 'normal',
         letterSpacing: 1,
         textAlign: 'left',
-        color: '#ffffff',
         textTransform: 'uppercase',
     },
     navLink: {
         height: 55,
-        paddingLeft: 20
+        paddingLeft: 20,
+        color: '#4d4d4d',
     },
     link: {
         textDecoration: 'none'
@@ -43,15 +47,13 @@ const useStyles = makeStyles((theme) => ({
 const JuniperListItem = withStyles({
     root: {
         "&$selected": {
-            backgroundColor: "#002452",
+            color: "#00aeef",
+            backgroundColor: "#ffffff",
             "&:hover": {
-                backgroundColor: "#002452"
+
             }
         },
-        "&:hover": {
-            backgroundColor: "rgba(0,0,0,.14)"
-        }
-
+        "&:hover": {}
     },
     selected: {}
 })(ListItem);
@@ -74,7 +76,7 @@ export default function SelectedListItem() {
                     className={classes.navLink}
                 >
                     <ListItemIcon>
-                        <SyncAltIcon className={classes.navIcon} fontSize="large" />
+                        <SyncAltIcon className={selectedIndex === 0 ? classes.navIconSelected : classes.navIcon} fontSize="large" />
                     </ListItemIcon>
                     <ListItemText
                         primary={<Typography className={classes.navText}>Transactions</Typography>}
@@ -89,7 +91,7 @@ export default function SelectedListItem() {
                     className={classes.navLink}
                 >
                     <ListItemIcon>
-                        <AccountBalanceWalletIcon className={classes.navIcon} fontSize="large" />
+                        <AccountBalanceWalletIcon className={selectedIndex === 1 ? classes.navIconSelected : classes.navIcon} fontSize="large" />
                     </ListItemIcon>
                     <ListItemText
                         primary={<Typography className={classes.navText}>My Wallets</Typography>}
@@ -104,7 +106,7 @@ export default function SelectedListItem() {
                     className={classes.navLink}
                 >
                     <ListItemIcon>
-                        <AccountBoxIcon className={classes.navIcon} fontSize="large" />
+                        <AccountBoxIcon className={selectedIndex === 2 ? classes.navIconSelected : classes.navIcon} fontSize="large" />
                     </ListItemIcon>
                     <ListItemText
                         primary={<Typography className={classes.navText}>Profiles</Typography>}
@@ -119,7 +121,7 @@ export default function SelectedListItem() {
                     className={classes.navLink}
                 >
                     <ListItemIcon>
-                        <EqualizerIcon className={classes.navIcon} fontSize="large" />
+                        <EqualizerIcon className={selectedIndex === 3 ? classes.navIconSelected : classes.navIcon} fontSize="large" />
                     </ListItemIcon>
                     <ListItemText
                         primary={<Typography className={classes.navText}>Price Tracker</Typography>}
@@ -134,7 +136,7 @@ export default function SelectedListItem() {
                     className={classes.navLink}
                 >
                     <ListItemIcon>
-                        <SettingsIcon className={classes.navIcon} fontSize="large" />
+                        <SettingsIcon className={selectedIndex === 4 ? classes.navIconSelected : classes.navIcon} fontSize="large" />
                     </ListItemIcon>
                     <ListItemText
                         primary={<Typography className={classes.navText}>Settings</Typography>}

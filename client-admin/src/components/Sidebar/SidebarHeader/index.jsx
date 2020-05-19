@@ -14,21 +14,7 @@ const useStyles = makeStyles((theme) => ({
         fontStyle: 'normal',
         lineHeight: 'normal',
         letterSpacing: 'normal',
-        color: '#002452',
-    },
-    username: {
-        display: 'flex',
-        alignItems: 'center',
-        height: 22,
-        fontFamily: 'IBM Plex Sans, sans-serif',
-        fontSize: 13,
-        fontWeight: 500,
-        fontStretch: 'normal',
-        fontStyle: 'normal',
-        lineHeight: 1.69,
-        letterSpacing: 'normal',
-        color: '#002452',
-        paddingTop: 5
+        color: '#00aeef',
     },
     container: {
         paddingLeft: 26,
@@ -46,9 +32,7 @@ export default function SidebarHeader() {
                 <Typography variant="h1" component="h1" className={classes.juniper}>
                     Juniper
                 </Typography>
-                <Typography variant="subtitle1" component="p" className={classes.username}>
-                    Firstname Lastname <ExpandMoreIcon />
-                </Typography>
+
             </Grid>
         </Grid>
     );
