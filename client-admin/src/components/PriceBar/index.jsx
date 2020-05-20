@@ -7,42 +7,41 @@ import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 
 const useStyles = makeStyles({
-  root: {
+  root:
+  {
     width: '903px',
     height: '77px',
     borderRadius: '5px',
     borderColor: '#daf5ff',
     backgroundColor: '#daf5ff',
-
-    color: '#000000',
     padding: '5px',
+  },
     
-    
-    },
-    
-  
   cardcontent:
   {
-      paddingRight: '10px',
-      paddingLeft: '10px',
-   },
+    paddingRight: '10px',
+    paddingLeft: '10px',
+  },
   
 
   text:
   {
     fontSize: '19px',
+    color: '#000000',
     lineHeight: '27px',
     letterSpacing: 0,      
   },
   
   textbold: 
   {
-      fontWeight: 700,
+    fontWeight: 700,
   },
   
-  button: {
-    paddingLeft: '90px',
+  button:
+  {
+    marginLeft: '90px',
   },
+  
 });
 
 export default function PriceBar() {
