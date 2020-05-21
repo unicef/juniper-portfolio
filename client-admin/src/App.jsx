@@ -104,10 +104,7 @@ export default function ClippedDrawer() {
         <TopBar />
           <Router>               
             <Sidebar />            
-              <Switch>
-                <Route path="/transactions">
-                  <Transactions />
-                </Route>
+              <Switch>                
                 <Route path="/wallets">
                   <Wallets />
                 </Route>
@@ -117,11 +114,14 @@ export default function ClippedDrawer() {
                 <Route path="/tracker">
                   <PriceTracker />
                 </Route>
+                <Route path="/transactions">
+                  <Transactions />
+                </Route>
                 <Route path="/settings">
                   <Settings />
                 </Route>
                 <Route path="/">
-                  <Transactions />
+                  <Wallets />
                 </Route>
               </Switch>                                     
           </Router>
