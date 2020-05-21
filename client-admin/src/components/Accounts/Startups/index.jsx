@@ -1,8 +1,8 @@
 import React from 'react'
 import MainContentContainer from '../../../ui/MainContentContainer'
 
-export default function () {
+export default function Startups() {
     return (
-        <MainContentContainer>Natcoms</MainContentContainer>
+        <MainContentContainer>Startups</MainContentContainer>
     )
 }

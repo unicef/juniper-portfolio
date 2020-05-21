@@ -99,7 +99,7 @@ const NavigationTab = withStyles((theme) => ({
     },
 }))((props) => <Tab disableRipple {...props} />);
 
-export default function SimpleTabs() {
+export default function Accounts() {
     const classes = useStyles();
     const [value, setValue] = React.useState(0);
 

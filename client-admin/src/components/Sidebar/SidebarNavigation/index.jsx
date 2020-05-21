@@ -64,7 +64,7 @@ const JuniperListItem = withStyles({
     selected: {}
 })(ListItem);
 
-export default function SelectedListItem() {
+export default function SidebarNavigation() {
     const classes = useStyles();
     const [selectedIndex, setSelectedIndex] = React.useState(0);
 
@@ -78,27 +78,27 @@ export default function SelectedListItem() {
             <Link to={'/wallets'} className={classes.link}>
                 <JuniperListItem
                     button
-                    selected={selectedIndex === 1}
-                    onClick={(event) => handleListItemClick(event, 1)}
+                    selected={selectedIndex === 0}
+                    onClick={(event) => handleListItemClick(event, 0)}
                     className={classes.navLink}
                 >
                     <ListItemIcon className={classes.listItem}>
-                        <AccountBalanceWalletIcon className={selectedIndex === 1 ? classes.navIconSelected : classes.navIcon} fontSize="large" />
+                        <AccountBalanceWalletIcon className={selectedIndex === 0 ? classes.navIconSelected : classes.navIcon} fontSize="large" />
                     </ListItemIcon>
                     <ListItemText
                         primary={<Typography className={classes.navText}>Wallets</Typography>}
                     />
                 </JuniperListItem>
             </Link>
-            <Link to={'/profiles'} className={classes.link}>
+            <Link to={'/accounts'} className={classes.link}>
                 <JuniperListItem
                     button
-                    selected={selectedIndex === 2}
-                    onClick={(event) => handleListItemClick(event, 2)}
+                    selected={selectedIndex === 1}
+                    onClick={(event) => handleListItemClick(event, 1)}
                     className={classes.navLink}
                 >
                     <ListItemIcon className={classes.listItem}>
-                        <AccountBoxIcon className={selectedIndex === 2 ? classes.navIconSelected : classes.navIcon} fontSize="large" />
+                        <AccountBoxIcon className={selectedIndex === 1 ? classes.navIconSelected : classes.navIcon} fontSize="large" />
                     </ListItemIcon>
                     <ListItemText
                         primary={<Typography className={classes.navText}>Accounts</Typography>}
@@ -108,12 +108,12 @@ export default function SelectedListItem() {
             <Link to={'/tracker'} className={classes.link}>
                 <JuniperListItem
                     button
-                    selected={selectedIndex === 3}
-                    onClick={(event) => handleListItemClick(event, 3)}
+                    selected={selectedIndex === 2}
+                    onClick={(event) => handleListItemClick(event, 2)}
                     className={classes.navLink}
                 >
                     <ListItemIcon className={classes.listItem}>
-                        <EqualizerIcon className={selectedIndex === 3 ? classes.navIconSelected : classes.navIcon} fontSize="large" />
+                        <EqualizerIcon className={selectedIndex === 2 ? classes.navIconSelected : classes.navIcon} fontSize="large" />
                     </ListItemIcon>
                     <ListItemText
                         primary={<Typography className={classes.navText}>Price Tracker</Typography>}
@@ -123,12 +123,12 @@ export default function SelectedListItem() {
             <Link to={'/transactions'} className={classes.link} style={{flex: 2}}>
                 <JuniperListItem
                     button
-                    selected={selectedIndex === 0}
-                    onClick={(event) => handleListItemClick(event, 0)}
+                    selected={selectedIndex === 3}
+                    onClick={(event) => handleListItemClick(event, 3)}
                     className={classes.navLink}
                 >
                     <ListItemIcon className={classes.listItem}>
-                        <SyncAltIcon className={selectedIndex === 0 ? classes.navIconSelected : classes.navIcon} fontSize="large" />
+                        <SyncAltIcon className={selectedIndex === 3 ? classes.navIconSelected : classes.navIcon} fontSize="large" />
                     </ListItemIcon>
                     <ListItemText
                         primary={<Typography className={classes.navText}>Transactions</Typography>}

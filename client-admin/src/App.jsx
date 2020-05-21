@@ -10,7 +10,7 @@ import {
 
 import TopBar from './components/TopBar';
 import Sidebar from './components/Sidebar';
-import Profiles from "./components/Profiles"
+import Accounts from "./components/Accounts"
 import PriceTracker from "./components/PriceTracker"
 import Settings from "./components/Settings"
 import Transactions from "./components/Transactions"
@@ -68,7 +68,7 @@ const theme = createMuiTheme({
   }
 })
 
-export default function ClippedDrawer() {
+export default function JuniperAdmin() {
   const classes = useStyles();
 
   return (
@@ -88,8 +88,8 @@ export default function ClippedDrawer() {
                 <Route path="/wallets">
                   <Wallets />
                 </Route>
-                <Route path="/profiles">
-                  <Profiles />
+                <Route path="/accounts">
+                  <Accounts />
                 </Route>
                 <Route path="/tracker">
                   <PriceTracker />
