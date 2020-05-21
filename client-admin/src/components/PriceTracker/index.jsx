@@ -1,4 +1,4 @@
-import React, { Fragment, useState, useEffect } from 'react'
+import React from 'react'
 import MainContentContainer from '../../ui/MainContentContainer'
 import { fetchPrices } from './fetchPrices';
 
