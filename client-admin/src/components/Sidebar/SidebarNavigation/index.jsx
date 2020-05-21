@@ -5,7 +5,6 @@ import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import Typography from '@material-ui/core/Typography';
-import InboxIcon from '@material-ui/icons/Inbox';
 import AccountBalanceWalletIcon from '@material-ui/icons/AccountBalanceWallet';
 import AccountBoxIcon from '@material-ui/icons/AccountBox';
 import EqualizerIcon from '@material-ui/icons/Equalizer';
