@@ -50,7 +50,9 @@ function a11yProps(index) {
 const useStyles = makeStyles((theme) => ({
     root: {
         flexGrow: 1,
-        backgroundColor: theme.palette.background.paper,
+        //backgroundColor: theme.palette.background.paper,
+        backgroundColor: '#f8f8f8',
+        height: '100%'
     },
     appBar: {
         marginTop: '5em',

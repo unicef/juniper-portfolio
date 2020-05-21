@@ -91,7 +91,7 @@ export default function SelectedListItem() {
                     />
                 </JuniperListItem>
             </Link>
-            <Link to={'/profiles'} className={classes.link}>
+            <Link to={'/accounts'} className={classes.link}>
                 <JuniperListItem
                     button
                     selected={selectedIndex === 2}
