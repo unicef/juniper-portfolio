@@ -4,14 +4,11 @@ import { makeStyles, withStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
-import Typography from '@material-ui/core/Typography';
 import Box from '@material-ui/core/Box';
 import Donors from "./Donors";
 import Startups from "./Startups"
 import AdminUsers from "./AdminUsers"
 import Natcoms from "./Natcoms"
-import { gql } from 'apollo-boost'
-import { useQuery } from 'react-apollo'
 
 
 function TabPanel(props) {
@@ -102,7 +99,7 @@ const NavigationTab = withStyles((theme) => ({
     },
 }))((props) => <Tab disableRipple {...props} />);
 
-export default function SimpleTabs() {
+export default function Accounts() {
     const classes = useStyles();
     const [value, setValue] = React.useState(0);
 
