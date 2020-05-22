@@ -115,7 +115,7 @@ export function StartupCard({name, country, amount, currency, shortcurrency, ima
 
   return (
     <Card className={classes.card} variant="outlined">
-      <img src={image} className={classes.image} align='left'/>
+      <img src={image} alt="" className={classes.image} align='left'/>
       <div className={classes.startupinfo}>
         <div className={classes.startupname}>
           {name}

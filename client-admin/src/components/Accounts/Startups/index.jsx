@@ -4,7 +4,7 @@ import PriceBar from '../../PriceBar'
 import StartupSummary from './StartupSummary'
 import StartupCards from './StartupCards'
 
-export function Startups() {
+export default function Startups() {
   return (
     <MainContentContainer>
       <PriceBar />

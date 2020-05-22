@@ -38,7 +38,12 @@ const useStyles = makeStyles({
   
   button:
   {
-    marginLeft: '90px',
+    fontFamily: 'Cabin',
+    fontWeight: 'Bold',
+    fontSize: '12px',
+    letterSpacing: '1px',
+    color: '#00aeef',
+    marginLeft: '20px'
   },
   
 });
