@@ -12,6 +12,11 @@ const useStyles = makeStyles({
         letterSpacing: 0,
     },
 
+    gridcontainer: 
+    {
+        maxWidth: '903px'
+    },
+
     regularweight: 
     {
         fontWeight: 400,
@@ -35,23 +40,21 @@ export default function StartupSummary()
                      source technology solutions that benefit children and the world."
     return (
       <Typography className={classes.root}>
-            <Typography variant="h1" style={{ marginBottom: '30px', marginTop: '50px' }}>3 investments</Typography>
-        <Grid container className={classes.cardsection} spacing={4}>
-          <Grid item xs={3}>
-            <Typography variant="h2">50 ETH</Typography> 
-            <Typography variant="h2" className={classes.regularweight}>18976.50 USD</Typography>
-            <div className={classes.smalltext}>TOTAL ETHER INVESTED</div>        
-          </Grid>
-          <Grid item xs={3}>
-            <Typography variant="h2">1 BTC</Typography> 
-            <Typography variant="h2" className={classes.regularweight}>964432 USD</Typography>
-            <div className={classes.smalltext}>TOTAL BITCOIN INVESTED</div>   
-          </Grid>
-          <Grid item xs={6}>
-           {blurb}
-          </Grid>
-                
-        
+        <Typography variant="h1" style={{ marginBottom: '30px', marginTop: '50px' }}>3 investments</Typography>
+          <Grid container className={classes.gridcontainer} spacing={4}>
+            <Grid item xs={3}>
+              <Typography variant="h2">50 ETH</Typography> 
+              <Typography variant="h2" className={classes.regularweight}>18976.50 USD</Typography>
+              <div className={classes.smalltext}>TOTAL ETHER INVESTED</div>        
+            </Grid>
+            <Grid item xs={3}>
+              <Typography variant="h2">1 BTC</Typography> 
+              <Typography variant="h2" className={classes.regularweight}>964432 USD</Typography>
+              <div className={classes.smalltext}>TOTAL BITCOIN INVESTED</div>   
+            </Grid>
+            <Grid item xs={6}>
+                <div style={{ paddingLeft: '16px' }}>{blurb}</div>
+            </Grid>
         </Grid>
     </Typography>
   )   
