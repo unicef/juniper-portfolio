@@ -4,14 +4,12 @@ import PriceBar from '../../PriceBar'
 import StartupSummary from './StartupSummary'
 import StartupCards from './StartupCards'
 
-export default class extends React.Component {
-    render() {
-        return (
-            <MainContentContainer>
-                <PriceBar />
-                <StartupSummary />
-                <StartupCards />
-            </MainContentContainer>
+export function Startups() {
+  return (
+    <MainContentContainer>
+      <PriceBar />
+      <StartupSummary />
+      <StartupCards />
+    </MainContentContainer>
         )
-    }
 }
