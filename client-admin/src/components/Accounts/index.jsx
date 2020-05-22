@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { makeStyles, withStyles } from '@material-ui/core/styles';
+import { createMuiTheme, ThemeProvider } from "@material-ui/core/styles";
 import AppBar from '@material-ui/core/AppBar';
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
@@ -47,7 +48,8 @@ function a11yProps(index) {
 const useStyles = makeStyles((theme) => ({
     root: {
         flexGrow: 1,
-        backgroundColor: theme.palette.background.paper,
+        //backgroundColor: theme.palette.background.paper,
+        backgroundColor: '#f8f8f8',
     },
     appBar: {
         marginTop: '5em',
@@ -68,6 +70,36 @@ const useStyles = makeStyles((theme) => ({
         textTransform: 'uppercase'
     }
 }));
+
+const theme = createMuiTheme({
+    typography:
+    {
+      "fontFamily": "\"Roboto\",  sans-serif",
+      "fontSize": "19px",
+      "lineSize": "27px",
+      "fontWeightLight": 300,
+      "fontWeightRegular": 400,
+      "fontWeightMedium": 500,
+      "fontWeightBold": 700,
+      "color": '#00000',
+
+      h1:
+      {
+        fontWeight: 700,
+        fontSize: '28px',
+        lineHeight: '28px',
+      },
+      
+      h2:
+      {
+        fontWeight: 700,
+        fontSize: '24px',
+        lineHeight: '28px',
+        letterSpacing: 0
+        
+      },
+    }
+  })
 
 const NavigationTabs = withStyles({
     indicator: {
@@ -117,6 +149,7 @@ export default function Accounts() {
                     <NavigationTab label="Admin Users" {...a11yProps(3)} />
                 </NavigationTabs>
             </AppBar>
+            <ThemeProvider theme={theme}>
             <TabPanel value={value} index={0}>
                 <Startups />
             </TabPanel>
@@ -129,6 +162,7 @@ export default function Accounts() {
             <TabPanel value={value} index={3}>
                 <AdminUsers />
             </TabPanel>
+            </ThemeProvider>
         </div>
     );
 }
