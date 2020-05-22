@@ -45,6 +45,9 @@ const useStyles = makeStyles((theme) => ({
     marginTop: '5em',
     flexGrow: 1,    
   },
+  tabPanel: {
+        backgroundColor: "#ffffff",
+  }
 }));
 
 export default function Wallets() {
@@ -57,8 +60,8 @@ export default function Wallets() {
 
   return (
     <div className={classes.root}>
-      <AppBar position="static">
-        <Tabs value={value} onChange={handleChange} aria-label="simple tabs example">
+      <AppBar position="static" elevation={0}>
+        <Tabs value={value} onChange={handleChange} aria-label="simple tabs example" className={classes.tabPanel} centered>
           <Tab label="Item One" {...a11yProps(0)} />
           <Tab label="Item Two" {...a11yProps(1)} />
           <Tab label="Item Three" {...a11yProps(2)} />
