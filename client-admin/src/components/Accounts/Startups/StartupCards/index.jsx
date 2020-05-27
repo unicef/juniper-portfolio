@@ -77,13 +77,28 @@ const useStyles = makeStyles({
     marginLeft: '-5px',
   },
 
+  numcards:
+  {
+    fontFamily: 'Cabin',
+    fontSize: '14px',
+    fontWeight: 'bold',
+    fontStretch: 'normal',
+    fontStyle: 'normal',
+    lineHeight: 2,
+    letterSpacing: '0.78px',
+    color: '#898989',
+  }
+
 });
 
 export default function StartupCards()
 {
   const classes = useStyles();
+  const numcards = 3;
 
   return (
+    <div>
+    <div className={classes.numcards}>{numcards} STARTUP ACCOUNTS</div>
     <Grid container className={classes.cardsection} spacing={4}>
       <Grid item>
         <StartupCard name= "Prescrypto" country="Mexico" amount="50" currency="ETHER" shortcurrency="ETH" image="https://cdn.pixabay.com/photo/2020/05/09/09/13/house-5148865__340.jpg"/>
@@ -91,7 +106,8 @@ export default function StartupCards()
       <Grid item>
         <StartupCard />
       </Grid>
-    </Grid>
+      </Grid>
+      </div>
   )
 }
 
