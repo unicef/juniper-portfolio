@@ -3,6 +3,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid';
 import Button from '@material-ui/core/Button';
+import { ChevronRight } from '@material-ui/icons';
 
 const useStyles = makeStyles({
   
@@ -65,7 +66,7 @@ export default function StartupSummary()
           </Grid>
           <Grid item xs={6}>
             <div style={{ paddingLeft: '16px' }}>{blurb}</div>
-            <Button className={classes.button} size="small" color="primary">LEARN MORE ABOUT CRYPTOFUND ></Button>
+            <Button className={classes.button} size="small" color="primary">LEARN MORE ABOUT CRYPTOFUND <ChevronRight/></Button>
           </Grid>
         </Grid>
       </Typography>
