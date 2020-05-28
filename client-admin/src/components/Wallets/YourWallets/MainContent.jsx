@@ -87,9 +87,31 @@ export default function () {
   const [fees, setFees] = useState({});
   const [totals, setTotals] = useState({});
   const [ethereumWallets, setEthereumWallets] = useState([]);
-  const [ethereumWalletIndex] = useState(0);
+  const [ethereumWalletIndex, setEthereumWalletIndex] = useState(0);
   const [bitcoinWallets, setBitcoinWallets] = useState([]);
-  const [bitcoinWalletIndex] = useState(0);
+  const [bitcoinWalletIndex, setBitcoinWalletIndex] = useState(0);
+
+  const incrementEthWalletIndex = () => {
+    if (ethereumWalletIndex + 1 <= ethereumWallets.length) {
+      setEthereumWalletIndex(ethereumWalletIndex + 1);
+    }
+  };
+  const incrementBtcWalletIndex = () => {
+    if (bitcoinWalletIndex + 1 <= bitcoinWallets.length) {
+      setBitcoinWalletIndex(bitcoinWalletIndex + 1);
+    }
+  };
+
+  const decrementEthWalletIndex = () => {
+    if (ethereumWalletIndex - 1 >= 0) {
+      setEthereumWalletIndex(ethereumWalletIndex - 1);
+    }
+  };
+  const decrementBtcWalletIndex = () => {
+    if (bitcoinWalletIndex - 1 >= 0) {
+      setBitcoinWalletIndex(bitcoinWalletIndex - 1);
+    }
+  };
 
   useEffect(() => {
     /* 
@@ -191,13 +213,13 @@ export default function () {
         </Grid>
         <Grid container spacing={2} style={{ position: "relative" }}>
           {ethereumWalletIndex > 0 && (
-            <Fab className={classes.fabLeft}>
+            <Fab className={classes.fabLeft} onClick={decrementEthWalletIndex}>
               <ChevronLeftIcon fontSize="large" />
             </Fab>
           )}
 
           {ethereumWalletIndex + 2 < ethereumWallets.length && (
-            <Fab className={classes.fabRight}>
+            <Fab className={classes.fabRight} onClick={incrementEthWalletIndex}>
               <ChevronRightIcon fontSize="large" />
             </Fab>
           )}
@@ -227,13 +249,13 @@ export default function () {
 
         <Grid container spacing={2} style={{ position: "relative" }}>
           {bitcoinWalletIndex > 0 && (
-            <Fab className={classes.fabLeft}>
+            <Fab className={classes.fabLeft} onClick={decrementBtcWalletIndex}>
               <ChevronLeftIcon fontSize="large" />
             </Fab>
           )}
 
           {bitcoinWalletIndex + 2 < bitcoinWallets.length && (
-            <Fab className={classes.fabRight}>
+            <Fab className={classes.fabRight} onClick={incrementBtcWalletIndex}>
               <ChevronRightIcon fontSize="large" />
             </Fab>
           )}
