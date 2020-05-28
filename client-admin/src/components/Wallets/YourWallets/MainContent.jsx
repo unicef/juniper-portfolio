@@ -4,6 +4,9 @@ import Grid from "@material-ui/core/Grid";
 import Button from "@material-ui/core/Button";
 import priceIcon from "./priceIcon.svg";
 import { BalanceCard, TxFeeCard, TotalCard, WalletCard } from "./Cards";
+import Fab from "@material-ui/core/Fab";
+import ChevronRightIcon from "@material-ui/icons/ChevronRight";
+import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
 
 const mainStyles = makeStyles((theme) => ({
   root: {
@@ -58,6 +61,24 @@ const mainStyles = makeStyles((theme) => ({
     color: "#898989",
     textTransform: "uppercase",
     marginBottom: "2em",
+  },
+  fabLeft: {
+    color: "#cbcbcb",
+    backgroundColor: "rgba(0,0,0,0)",
+    boxShadow: "none",
+    float: "right",
+    position: "absolute",
+    top: "40%",
+    left: -60,
+  },
+  fabRight: {
+    color: "#cbcbcb",
+    backgroundColor: "rgba(0,0,0,0)",
+    boxShadow: "none",
+    float: "right",
+    position: "absolute",
+    top: "40%",
+    right: -60,
   },
 }));
 
@@ -119,16 +140,69 @@ export default function () {
         <Grid item xs={12} style={{ marginTop: "4em" }}>
           <h3 className={classes.walletSubtitle}>3 Ethereum Wallets</h3>
         </Grid>
-        <Grid item xs={6}>
-          <WalletCard
-            name={"Ethereum wallet test"}
-            currency={"Ethereum"}
-            tags={["Unicef HQ"]}
-            symbol={"ETH"}
-            amount={25}
-            amountUSD={"4692.75"}
-            address={"0x89205A3A3b2A69De6Dbf7f01ED13B2108B2c43e7"}
-          />
+        <Grid container spacing={2}>
+          <Grid item xs={6} style={{ position: "relative" }}>
+            <Fab className={classes.fabLeft}>
+              <ChevronLeftIcon fontSize="large" />
+            </Fab>
+            <WalletCard
+              name={"Ethereum wallet test"}
+              currency={"Ethereum"}
+              tags={["Unicef HQ"]}
+              symbol={"ETH"}
+              amount={25}
+              amountUSD={"4692.75"}
+              address={"0x89205A3A3b2A69De6Dbf7f01ED13B2108B2c43e7"}
+            />
+          </Grid>
+          <Grid item xs={6} style={{ position: "relative" }}>
+            <Fab className={classes.fabRight}>
+              <ChevronRightIcon fontSize="large" />
+            </Fab>
+            <WalletCard
+              name={"Ethereum wallet test"}
+              currency={"Ethereum"}
+              tags={["Unicef HQ", "Multisig"]}
+              symbol={"ETH"}
+              amount={25}
+              amountUSD={"4692.75"}
+              address={"0x89205A3A3b2A69De6Dbf7f01ED13B2108B2c43e7"}
+            />
+          </Grid>
+        </Grid>
+        <Grid item xs={12} style={{ marginTop: "4em" }}>
+          <h3 className={classes.walletSubtitle}>2 Bitcoin Wallets</h3>
+        </Grid>
+
+        <Grid container spacing={2}>
+          <Grid item xs={6} style={{ position: "relative" }}>
+            <Fab className={classes.fabLeft}>
+              <ChevronLeftIcon fontSize="large" />
+            </Fab>
+            <WalletCard
+              name={"Blockchain wallet test"}
+              currency={"Bitcoin"}
+              tags={["Unicef HQ"]}
+              symbol={"BTC"}
+              amount={1}
+              amountUSD={"9692.75"}
+              address={"Dbf7f01ED1389205A3A3b2A69De6B2c43e7"}
+            />
+          </Grid>
+          <Grid item xs={6} style={{ position: "relative" }}>
+            <Fab className={classes.fabRight}>
+              <ChevronRightIcon fontSize="large" />
+            </Fab>
+            <WalletCard
+              name={"Bitcoin wallet test"}
+              currency={"Ethereum"}
+              tags={["Unicef HQ"]}
+              symbol={"BTC"}
+              amount={0}
+              amountUSD={"0"}
+              address={"Dbf7f01ED1389205A3A3b2A69De6B2c43e7"}
+            />
+          </Grid>
         </Grid>
       </Grid>
     </div>
