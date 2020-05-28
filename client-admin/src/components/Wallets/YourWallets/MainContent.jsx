@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import Grid from "@material-ui/core/Grid";
 import Button from "@material-ui/core/Button";
@@ -83,6 +83,58 @@ const mainStyles = makeStyles((theme) => ({
 }));
 
 export default function () {
+  const [balances, setBalances] = useState([]);
+  const [fees, setFees] = useState({});
+  const [totals, setTotals] = useState({});
+  const [ethereumWallets, setEthereumWallets] = useState([]);
+  const [ethereumWalletIndex] = useState(0);
+  const [bitcoinWallets, setBitcoinWallets] = useState([]);
+  const [bitcoinWalletIndex] = useState(0);
+
+  useEffect(() => {
+    /* 
+      State will passed through props here
+      Maths will take place in the parent class
+    */
+
+    setBalances([
+      {
+        symbol: "ETH",
+        balanceUSD: "10,000",
+        currency: "Ether",
+        received: 100,
+        invested: 50,
+      },
+      {
+        symbol: "BTC",
+        balanceUSD: "0",
+        currency: "Bitcoin",
+        received: 1,
+        invested: 1,
+      },
+    ]);
+
+    setFees({
+      amountUSD: 3.23,
+      amountBTC: 0.012,
+      amountETH: 0.0000321,
+    });
+
+    setTotals({
+      received: "28,531.96",
+      invested: "19,287.47",
+    });
+
+    setEthereumWallets(
+      walletData.filter((wallet) => {
+        return wallet.currency === "Ethereum";
+      })
+    );
+    setBitcoinWallets(
+      walletData.filter((wallet) => wallet.currency === "Bitcoin")
+    );
+  }, []);
+
   const classes = mainStyles();
   return (
     <div className={classes.root}>
@@ -99,34 +151,28 @@ export default function () {
         <Grid item xs={12} style={{ marginTop: "2em" }}>
           <h1 className={classes.title}>UNICEF HQ wallet overview</h1>
         </Grid>
-
-        <Grid item xs={12} sm={3}>
-          <BalanceCard
-            symbol={"ETH"}
-            balanceUSD={"10,000"}
-            currency={"Ether"}
-            received={100}
-            invested={50}
-          />
-        </Grid>
-        <Grid item xs={12} sm={3}>
-          <BalanceCard
-            symbol={"BTC"}
-            balanceUSD={"0"}
-            currency={"Bitcoin"}
-            received={1}
-            invested={1}
-          />
-        </Grid>
+        {balances.map((balance) => {
+          return (
+            <Grid item xs={12} sm={3} key={balance.received}>
+              <BalanceCard
+                symbol={balance.symbol}
+                balanceUSD={balance.balanceUSD}
+                currency={balance.currency}
+                received={balance.received}
+                invested={balance.invested}
+              />
+            </Grid>
+          );
+        })}
         <Grid item xs={12} sm={3}>
           <TxFeeCard
-            amountUSD={"3.23"}
-            amountBTC={"0.012"}
-            amountETH={"0.0000321"}
+            amountUSD={fees.amountUSD}
+            amountBTC={fees.amountBTC}
+            amountETH={fees.amountETH}
           />
         </Grid>
         <Grid item xs={12} sm={3}>
-          <TotalCard received={"28,531.96"} invested={"19,287.46"} />
+          <TotalCard received={totals.received} invested={totals.invested} />
         </Grid>
         <Grid item xs={12} style={{ marginTop: "2em" }}>
           <Button
@@ -137,74 +183,118 @@ export default function () {
             Add New Wallet
           </Button>
         </Grid>
+
         <Grid item xs={12} style={{ marginTop: "4em" }}>
-          <h3 className={classes.walletSubtitle}>3 Ethereum Wallets</h3>
+          <h3 className={classes.walletSubtitle}>
+            {ethereumWallets.length} Ethereum Wallets
+          </h3>
         </Grid>
-        <Grid container spacing={2}>
-          <Grid item xs={6} style={{ position: "relative" }}>
-            <Fab className={classes.fabLeft}>
-              <ChevronLeftIcon fontSize="large" />
-            </Fab>
-            <WalletCard
-              name={"Ethereum wallet test"}
-              currency={"Ethereum"}
-              tags={["Unicef HQ"]}
-              symbol={"ETH"}
-              amount={25}
-              amountUSD={"4692.75"}
-              address={"0x89205A3A3b2A69De6Dbf7f01ED13B2108B2c43e7"}
-            />
-          </Grid>
-          <Grid item xs={6} style={{ position: "relative" }}>
-            <Fab className={classes.fabRight}>
-              <ChevronRightIcon fontSize="large" />
-            </Fab>
-            <WalletCard
-              name={"Ethereum wallet test"}
-              currency={"Ethereum"}
-              tags={["Unicef HQ", "Multisig"]}
-              symbol={"ETH"}
-              amount={25}
-              amountUSD={"4692.75"}
-              address={"0x89205A3A3b2A69De6Dbf7f01ED13B2108B2c43e7"}
-            />
-          </Grid>
+        <Grid container spacing={2} style={{ position: "relative" }}>
+          <Fab className={classes.fabLeft}>
+            <ChevronLeftIcon fontSize="large" />
+          </Fab>
+          <Fab className={classes.fabRight}>
+            <ChevronRightIcon fontSize="large" />
+          </Fab>
+          {ethereumWallets
+            .slice(ethereumWalletIndex, ethereumWalletIndex + 2)
+            .map((wallet) => {
+              return (
+                <Grid item xs={6}>
+                  <WalletCard
+                    name={wallet.name}
+                    currency={wallet.currency}
+                    tags={wallet.tags}
+                    symbol={wallet.symbol}
+                    amount={wallet.amount}
+                    amountUSD={wallet.amountUSD}
+                    address={wallet.address}
+                  />
+                </Grid>
+              );
+            })}
         </Grid>
+
         <Grid item xs={12} style={{ marginTop: "4em" }}>
           <h3 className={classes.walletSubtitle}>2 Bitcoin Wallets</h3>
         </Grid>
 
-        <Grid container spacing={2}>
-          <Grid item xs={6} style={{ position: "relative" }}>
-            <Fab className={classes.fabLeft}>
-              <ChevronLeftIcon fontSize="large" />
-            </Fab>
-            <WalletCard
-              name={"Blockchain wallet test"}
-              currency={"Bitcoin"}
-              tags={["Unicef HQ"]}
-              symbol={"BTC"}
-              amount={1}
-              amountUSD={"9692.75"}
-              address={"Dbf7f01ED1389205A3A3b2A69De6B2c43e7"}
-            />
-          </Grid>
-          <Grid item xs={6} style={{ position: "relative" }}>
-            <Fab className={classes.fabRight}>
-              <ChevronRightIcon fontSize="large" />
-            </Fab>
-            <WalletCard
-              name={"Bitcoin wallet test"}
-              currency={"Ethereum"}
-              tags={["Unicef HQ"]}
-              symbol={"BTC"}
-              amount={0}
-              amountUSD={"0"}
-              address={"Dbf7f01ED1389205A3A3b2A69De6B2c43e7"}
-            />
-          </Grid>
+        <Grid container spacing={2} style={{ position: "relative" }}>
+          <Fab className={classes.fabLeft}>
+            <ChevronLeftIcon fontSize="large" />
+          </Fab>
+          <Fab className={classes.fabRight}>
+            <ChevronRightIcon fontSize="large" />
+          </Fab>
+
+          {bitcoinWallets
+            .slice(bitcoinWalletIndex, bitcoinWalletIndex + 2)
+            .map((wallet) => {
+              return (
+                <Grid item xs={6}>
+                  <WalletCard
+                    name={wallet.name}
+                    currency={wallet.currency}
+                    tags={wallet.tags}
+                    symbol={wallet.symbol}
+                    amount={wallet.amount}
+                    amountUSD={wallet.amountUSD}
+                    address={wallet.address}
+                  />
+                </Grid>
+              );
+            })}
         </Grid>
       </Grid>
     </div>
   );
 }
+
+// Mock Wallet Data. Will come from API and be passed from parent class
+const walletData = [
+  {
+    name: "Ethereum wallet test 1",
+    currency: "Ethereum",
+    tags: ["Unicef HQ"],
+    symbol: "ETH",
+    amount: 25,
+    amountUSD: "4692.75",
+    address: "0x89205A3A3b2A69De6Dbf7f01ED13B2108B2c43e7",
+  },
+  {
+    name: "Ethereum wallet test 2",
+    currency: "Ethereum",
+    tags: ["Unicef HQ", "Multisig"],
+    symbol: "ETH",
+    amount: 25,
+    amountUSD: "4692.75",
+    address: "0x89205A3A3b2A69De6Dbf7f01ED13B2108B2c43e7",
+  },
+  {
+    name: "Ethereum wallet test 3",
+    currency: "Ethereum",
+    tags: ["Unicef HQ", "Multisig"],
+    symbol: "ETH",
+    amount: 25,
+    amountUSD: "4692.75",
+    address: "0x89205A3A3b2A69De6Dbf7f01ED13B2108B2c43e7",
+  },
+  {
+    name: "Blockchain wallet test 1",
+    currency: "Bitcoin",
+    tags: [],
+    symbol: "BTC",
+    amount: 1,
+    amountUSD: "9692.75",
+    address: "Dbf7f01ED1389205A3A3b2A69De6B2c43e7",
+  },
+  {
+    name: "Bitcoin wallet 2",
+    currency: "Bitcoin",
+    tags: ["Unicef HQ"],
+    symbol: "BTC",
+    amount: 25,
+    amountUSD: "232,102.21",
+    address: "Dbf7f01ED1389205A3A3b2A69De6B2c43e7",
+  },
+];

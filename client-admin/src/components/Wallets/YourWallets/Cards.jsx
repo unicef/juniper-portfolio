@@ -256,6 +256,7 @@ function WalletCard({
       {tags.map((tag) => {
         return (
           <Chip
+            key={tag}
             variant="outlined"
             size="small"
             label={tag}
