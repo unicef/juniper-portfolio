@@ -230,6 +230,9 @@ const walletStyles = makeStyles((theme) => ({
     fontWeight: 700,
     fontFamily: "Cabin",
     color: "#00aeef",
+    "&:hover": {
+      backgroundColor: "#ecfaff",
+    },
   },
   rightButton: {
     float: "right",
@@ -237,6 +240,9 @@ const walletStyles = makeStyles((theme) => ({
     fontWeight: 700,
     fontFamily: "Cabin",
     color: "#00aeef",
+    "&:hover": {
+      backgroundColor: "#ecfaff",
+    },
   },
 }));
 

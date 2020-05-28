@@ -70,6 +70,9 @@ const mainStyles = makeStyles((theme) => ({
     position: "absolute",
     top: "40%",
     left: -60,
+    "&:hover": {
+      backgroundColor: "#ecfaff",
+    },
   },
   fabRight: {
     color: "#cbcbcb",
@@ -79,6 +82,9 @@ const mainStyles = makeStyles((theme) => ({
     position: "absolute",
     top: "40%",
     right: -60,
+    "&:hover": {
+      backgroundColor: "#ecfaff",
+    },
   },
 }));
 
