@@ -6,9 +6,23 @@ import Typography from "@material-ui/core/Typography";
 import Container from "@material-ui/core/Container";
 import YourWallets from "./YourWallets";
 
+const useStyles = makeStyles((theme) => ({
+  root: {
+    marginTop: "5.5em",
+    flexGrow: 1,
+    height: "100%",
+    backgroundColor: "#f8f8f8",
+  },
+  padding: {
+    padding: theme.spacing(3),
+  },
+  tabs: {
+    backgroundColor: "#2e1534",
+  },
+}));
+
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
-
   return (
     <div
       role="tabpanel"
@@ -16,6 +30,7 @@ function TabPanel(props) {
       id={`simple-tabpanel-${index}`}
       aria-labelledby={`simple-tab-${index}`}
       {...other}
+      style={{ backgroundColor: "#f8f8f8", paddingBottom: "2em" }}
     >
       {value === index && <Container maxWidth="md">{children}</Container>}
     </div>
@@ -44,19 +59,6 @@ const StyledTab = withStyles((theme) => ({
     opacity: 1,
   },
 }))((props) => <Tab disableRipple {...props} />);
-
-const useStyles = makeStyles((theme) => ({
-  root: {
-    marginTop: "5.5em",
-    flexGrow: 1,
-  },
-  padding: {
-    padding: theme.spacing(3),
-  },
-  tabs: {
-    backgroundColor: "#2e1534",
-  },
-}));
 
 export default function CustomizedTabs() {
   const classes = useStyles();
