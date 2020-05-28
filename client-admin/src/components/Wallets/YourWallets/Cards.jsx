@@ -250,6 +250,16 @@ function WalletCard({
   address,
 }) {
   const classes = walletStyles();
+
+  const copyToClipboard = (text) => {
+    const el = document.createElement("textarea");
+    el.value = text;
+    document.body.appendChild(el);
+    el.select();
+    document.execCommand("copy");
+    document.body.removeChild(el);
+  };
+
   return (
     <div className={classes.wallet}>
       <h2 className={classes.name}>{name}</h2>
@@ -274,7 +284,13 @@ function WalletCard({
       <div className={classes.address}>{address}</div>
       <div className={classes.walletSubtitle}>Wallet Address</div>
       <div className={classes.buttons}>
-        <Button className={classes.leftButton} startIcon={<CopyIcon />}>
+        <Button
+          className={classes.leftButton}
+          startIcon={<CopyIcon />}
+          onClick={() => {
+            copyToClipboard(address);
+          }}
+        >
           Copy Address
         </Button>
         <Button className={classes.rightButton} endIcon={<ChevronRightIcon />}>
