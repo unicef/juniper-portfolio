@@ -190,12 +190,18 @@ export default function () {
           </h3>
         </Grid>
         <Grid container spacing={2} style={{ position: "relative" }}>
-          <Fab className={classes.fabLeft}>
-            <ChevronLeftIcon fontSize="large" />
-          </Fab>
-          <Fab className={classes.fabRight}>
-            <ChevronRightIcon fontSize="large" />
-          </Fab>
+          {ethereumWalletIndex > 0 && (
+            <Fab className={classes.fabLeft}>
+              <ChevronLeftIcon fontSize="large" />
+            </Fab>
+          )}
+
+          {ethereumWalletIndex + 2 < ethereumWallets.length && (
+            <Fab className={classes.fabRight}>
+              <ChevronRightIcon fontSize="large" />
+            </Fab>
+          )}
+
           {ethereumWallets
             .slice(ethereumWalletIndex, ethereumWalletIndex + 2)
             .map((wallet) => {
@@ -220,12 +226,17 @@ export default function () {
         </Grid>
 
         <Grid container spacing={2} style={{ position: "relative" }}>
-          <Fab className={classes.fabLeft}>
-            <ChevronLeftIcon fontSize="large" />
-          </Fab>
-          <Fab className={classes.fabRight}>
-            <ChevronRightIcon fontSize="large" />
-          </Fab>
+          {bitcoinWalletIndex > 0 && (
+            <Fab className={classes.fabLeft}>
+              <ChevronLeftIcon fontSize="large" />
+            </Fab>
+          )}
+
+          {bitcoinWalletIndex + 2 < bitcoinWallets.length && (
+            <Fab className={classes.fabRight}>
+              <ChevronRightIcon fontSize="large" />
+            </Fab>
+          )}
 
           {bitcoinWallets
             .slice(bitcoinWalletIndex, bitcoinWalletIndex + 2)
