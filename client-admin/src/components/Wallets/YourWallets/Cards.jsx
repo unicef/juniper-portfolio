@@ -9,13 +9,13 @@ import CopyIcon from "./CopyIcon";
 // TODO, consider breaking up per card but a lot of styling is shared
 const cardStyles = makeStyles((theme) => ({
   balances: {
-    fontFamily: "Roboto",
+    fontFamily: '"Roboto", sans-serif',
   },
   fees: {
-    fontFamily: "Roboto",
+    fontFamily: '"Roboto", sans-serif',
   },
   totals: {
-    fontFamily: "Roboto",
+    fontFamily: '"Roboto", sans-serif',
   },
   feeSummary: {
     opacity: 0.5,
@@ -167,7 +167,7 @@ function TotalCard({ received, invested }) {
 const walletStyles = makeStyles((theme) => ({
   wallet: {
     backgroundColor: "#ffffff",
-    fontFamily: "Roboto",
+    fontFamily: '"Roboto", sans-serif',
     paddingTop: 10,
     paddingLeft: 30,
     paddingRight: 30,
@@ -188,7 +188,7 @@ const walletStyles = makeStyles((theme) => ({
   },
   chip: {
     borderRadius: 5,
-    fontFamily: "Cabin",
+    fontFamily: '"Cabin", sans-serif',
     fontSize: 10,
     fontWeight: 500,
     letterSpacing: 0.83,
@@ -205,7 +205,7 @@ const walletStyles = makeStyles((theme) => ({
     fontWeight: 700,
   },
   walletSubtitle: {
-    fontFamily: "Cabin",
+    fontFamily: '"Cabin", sans-serif',
     color: "#000000",
     marginTop: 6,
     letterSpacing: 0.83,
@@ -215,7 +215,7 @@ const walletStyles = makeStyles((theme) => ({
   },
   address: {
     marginTop: 20,
-    fontFamily: "Roboto",
+    fontFamily: '"Roboto", sans-serif',
     fontSize: 14,
     fontWeight: 700,
     lineHeight: 1.57,
@@ -228,7 +228,7 @@ const walletStyles = makeStyles((theme) => ({
   leftButton: {
     fontSize: 12,
     fontWeight: 700,
-    fontFamily: "Cabin",
+    fontFamily: '"Cabin", sans-serif',
     color: "#00aeef",
     "&:hover": {
       backgroundColor: "#ecfaff",
@@ -238,7 +238,7 @@ const walletStyles = makeStyles((theme) => ({
     float: "right",
     fontSize: 12,
     fontWeight: 700,
-    fontFamily: "Cabin",
+    fontFamily: '"Cabin", sans-serif',
     color: "#00aeef",
     "&:hover": {
       backgroundColor: "#ecfaff",

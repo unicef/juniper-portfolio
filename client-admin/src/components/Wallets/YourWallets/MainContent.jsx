@@ -13,12 +13,13 @@ const mainStyles = makeStyles((theme) => ({
     minHeight: "100%",
   },
   priceRectangle: {
-    fontFamily: "Roboto",
+    fontFamily: '"Roboto", sans-serif',
     minHeight: 77,
     borderRadius: 5,
     fontSize: 19,
     backgroundColor: "#daf5ff",
     display: "flex",
+    flexDirection: "rows",
     alignItems: "center",
     justifyContent: "center",
   },
@@ -39,7 +40,7 @@ const mainStyles = makeStyles((theme) => ({
     marginLeft: "1em",
   },
   title: {
-    fontFamily: "Roboto",
+    fontFamily: '"Roboto", sans-serif',
     fontSize: 28,
     fontWeight: 700,
     color: "#000000",
@@ -47,7 +48,7 @@ const mainStyles = makeStyles((theme) => ({
   addWalletButton: {
     width: 148,
     height: 35,
-    fontFamily: "Cabin",
+    fontFamily: '"Cabin", sans-serif',
     fontSize: 12,
     fontWeight: 700,
     textAlign: "center",
@@ -168,12 +169,14 @@ export default function () {
     <div className={classes.root}>
       <Grid container>
         <Grid item xs={12} className={classes.priceRectangle}>
-          <img src={priceIcon} className={classes.priceIcon} />{" "}
-          <b className={classes.priceTitle}>USD Price</b> = Average across three
-          cryptocurrency exchanges, calculated at 12:01 pm (EST)
-          <a href="#" className={classes.moreInfo}>
-            More Info
-          </a>
+          <div>
+            <img src={priceIcon} className={classes.priceIcon} />{" "}
+            <b className={classes.priceTitle}>USD Price</b> = Average across
+            three cryptocurrency exchanges, calculated at 12:01 pm (EST)
+            <a href="#" className={classes.moreInfo}>
+              More Info
+            </a>
+          </div>
         </Grid>
 
         <Grid item xs={12} style={{ marginTop: "2em" }}>
