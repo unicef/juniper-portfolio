@@ -98,7 +98,7 @@ export default function () {
   const [ethereumWalletIndex, setEthereumWalletIndex] = useState(0);
   const [bitcoinWallets, setBitcoinWallets] = useState([]);
   const [bitcoinWalletIndex, setBitcoinWalletIndex] = useState(0);
-  const [showAddWalletModal, setShowAddWalletModal] = useState(true);
+  const [showAddWalletModal, setShowAddWalletModal] = useState(false);
 
   const incrementEthWalletIndex = () => {
     if (ethereumWalletIndex + 1 <= ethereumWallets.length) {

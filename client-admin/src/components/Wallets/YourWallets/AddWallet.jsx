@@ -136,7 +136,7 @@ function MultisigOwner(props) {
 
 export default function AddWallet(props) {
   const classes = useStyles();
-  const [open, setOpen] = useState(true);
+  const [open, setOpen] = useState(false);
   const [isMultisig, setIsMultisig] = useState(false);
   const [multisigOwners, setMultisigOwners] = useState([
     {
