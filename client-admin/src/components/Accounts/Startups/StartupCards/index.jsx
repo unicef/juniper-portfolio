@@ -7,6 +7,11 @@ import { ChevronRight } from '@material-ui/icons';
 
 const useStyles = makeStyles({
   
+  root:
+  {
+    backgroundColor: "#f8f8f8",
+  },
+  
   cardsection:
   {
     marginTop: '20px',  
@@ -98,15 +103,15 @@ export default function StartupCards()
   const numcards = 3;
 
   return (
-    <div>
-    <div className={classes.numcards}>{numcards} STARTUP ACCOUNTS</div>
-    <Grid container className={classes.cardsection} spacing={4}>
-      <Grid item>
-        <StartupCard name= "Prescrypto" country="Mexico" amount="50" currency="ETHER" shortcurrency="ETH" image="https://cdn.pixabay.com/photo/2020/05/09/09/13/house-5148865__340.jpg"/>
-      </Grid>
-      <Grid item>
-        <StartupCard />
-      </Grid>
+     <div className={classes.root}>
+      <div className={classes.numcards}>{numcards} STARTUP ACCOUNTS</div>
+      <Grid container className={classes.cardsection} spacing={4}>
+        <Grid item>
+          <StartupCard name= "Prescrypto" country="Mexico" amount="50" currency="ETHER" shortcurrency="ETH" image="https://cdn.pixabay.com/photo/2020/05/09/09/13/house-5148865__340.jpg"/>
+        </Grid>
+        <Grid item>
+          <StartupCard />
+        </Grid>
       </Grid>
       </div>
   )

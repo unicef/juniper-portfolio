@@ -4,11 +4,13 @@ import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
+import priceIcon from "./priceIcon.svg";
 
 const useStyles = makeStyles({
   root:
   {
-    width: '903px',
+    maxWidth: '903px',
+    width: "100%",
     height: '77px',
     borderRadius: '5px',
     borderColor: '#daf5ff',
@@ -43,8 +45,13 @@ const useStyles = makeStyles({
     fontSize: '12px',
     letterSpacing: '1px',
     color: '#00aeef',
-    marginLeft: '20px'
+    marginLeft: '10px'
   },
+
+  priceIcon:
+  {
+    paddingRight: '5px',
+  }
   
 });
 
@@ -54,6 +61,7 @@ export default function PriceBar() {
   return (
     <Card className={classes.root} variant="outlined">
       <CardContent className={classes.cardcontent}>
+        <img src={priceIcon} className={classes.priceIcon} />
         <Typography className={classes.text} variant="body1" component="span">
           <span className={classes.textbold}>USD price </span>
           = Average price accross three cryptoexchanges, calculated at 12:01 p.m. (EST)

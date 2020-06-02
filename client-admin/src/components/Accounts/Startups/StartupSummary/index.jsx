@@ -54,17 +54,17 @@ export default function StartupSummary()
       <Typography className={classes.root}>
         <Typography variant="h1" style={{ marginBottom: '30px', marginTop: '50px' }}>3 investments</Typography>
         <Grid container className={classes.gridcontainer} spacing={4}>
-          <Grid item xs={3}>
+          <Grid item lg={3}>
             <Typography variant="h2">50 ETH</Typography> 
             <Typography variant="h2" className={classes.regularweight}>18976.50 USD</Typography>
             <div className={classes.smalltext}>TOTAL ETHER INVESTED</div>        
           </Grid>
-          <Grid item xs={3}>
+          <Grid item lg={3}>
             <Typography variant="h2">1 BTC</Typography> 
             <Typography variant="h2" className={classes.regularweight}>9644.32 USD</Typography>
             <div className={classes.smalltext}>TOTAL BITCOIN INVESTED</div>   
           </Grid>
-          <Grid item xs={6}>
+          <Grid item lg={6}>
             <div style={{ paddingLeft: '16px' }}>{blurb}</div>
             <Button className={classes.button} size="small" color="primary">LEARN MORE ABOUT CRYPTOFUND <ChevronRight/></Button>
           </Grid>
