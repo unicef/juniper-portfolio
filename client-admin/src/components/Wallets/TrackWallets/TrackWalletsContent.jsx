@@ -49,6 +49,10 @@ const mainStyles = makeStyles((theme) => ({
     color: "#000000",
   },
   followWalletButton: {
+    fontFamily: '"Cabin", sans-serif',
+    fontSize: 12,
+    fontWeight: 700,
+    textAlign: "center",
     color: "#ffffff",
     boxShadow: "none",
   },
@@ -111,7 +115,7 @@ export default function () {
           <Button
             color="primary"
             variant="contained"
-            classname={classes.followWalletButton}
+            className={classes.followWalletButton}
             InputProps={{
               className: classes.followWalletButton,
             }}
