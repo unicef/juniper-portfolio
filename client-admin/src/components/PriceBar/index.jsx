@@ -64,7 +64,7 @@ export default function PriceBar() {
         <img src={priceIcon} className={classes.priceIcon} />
         <Typography className={classes.text} variant="body1" component="span">
           <span className={classes.textbold}>USD price </span>
-          = Average price accross three cryptoexchanges, calculated at 12:01 p.m. (EST)
+          = Average price across three cryptoexchanges, calculated at 12:01 p.m. (EST)
         </Typography>
               
         <Button className={classes.button} size="small" color="primary">MORE INFO</Button>
