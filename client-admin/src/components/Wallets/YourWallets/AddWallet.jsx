@@ -117,7 +117,7 @@ function MultisigOwner(props) {
         InputProps={{
           className: classes.formControl,
         }}
-        label={`Owner ${props.index || 0 + 1} wallet address`}
+        label={`Owner ${props.index + 1} wallet address`}
       />
       <TextField
         className={classes.formControl}
@@ -127,7 +127,7 @@ function MultisigOwner(props) {
         InputProps={{
           className: classes.formControl,
         }}
-        label={`Owner ${props.index || 0 + 1} name (optional)`}
+        label={`Owner ${props.index + 1} name (optional)`}
         style={{ marginBottom: 0 }}
       />
     </Fragment>
