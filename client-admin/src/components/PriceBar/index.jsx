@@ -61,7 +61,7 @@ export default function PriceBar() {
   return (
     <Card className={classes.root} variant="outlined">
       <CardContent className={classes.cardcontent}>
-        <img src={priceIcon} className={classes.priceIcon} />
+        <img src={priceIcon} className={classes.priceIcon} alt=''/>
         <Typography className={classes.text} variant="body1" component="span">
           <span className={classes.textbold}>USD price </span>
           = Average price across three cryptoexchanges, calculated at 12:01 p.m. (EST)
