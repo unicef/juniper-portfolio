@@ -5,6 +5,7 @@ import Tab from "@material-ui/core/Tab";
 import Typography from "@material-ui/core/Typography";
 import Container from "@material-ui/core/Container";
 import YourWallets from "./YourWallets";
+import TrackWallets from "./TrackWallets";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -86,7 +87,7 @@ export default function CustomizedTabs() {
         <YourWallets />
       </TabPanel>
       <TabPanel value={value} index={1}>
-        Item Two
+        <TrackWallets />
       </TabPanel>
     </div>
   );
