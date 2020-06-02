@@ -166,6 +166,7 @@ function TotalCard({ received, invested }) {
 
 const walletStyles = makeStyles((theme) => ({
   wallet: {
+    minHeight: 301,
     backgroundColor: "#ffffff",
     fontFamily: '"Roboto", sans-serif',
     paddingTop: 10,
