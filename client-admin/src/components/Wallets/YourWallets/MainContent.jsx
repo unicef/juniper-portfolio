@@ -244,9 +244,9 @@ export default function () {
 
           {ethereumWallets
             .slice(ethereumWalletIndex, ethereumWalletIndex + 2)
-            .map((wallet) => {
+            .map((wallet, index) => {
               return (
-                <Grid item xs={6}>
+                <Grid item xs={6} key={index}>
                   <WalletCard
                     name={wallet.name}
                     currency={wallet.currency}
@@ -280,9 +280,9 @@ export default function () {
 
           {bitcoinWallets
             .slice(bitcoinWalletIndex, bitcoinWalletIndex + 2)
-            .map((wallet) => {
+            .map((wallet, index) => {
               return (
-                <Grid item xs={6}>
+                <Grid item xs={6} key={index}>
                   <WalletCard
                     name={wallet.name}
                     currency={wallet.currency}

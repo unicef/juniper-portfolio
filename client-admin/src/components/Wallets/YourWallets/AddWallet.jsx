@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, Fragment } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import Dialog from "@material-ui/core/Dialog";
 import Container from "@material-ui/core/Container";
@@ -12,6 +12,7 @@ import Toolbar from "@material-ui/core/Toolbar";
 import IconButton from "@material-ui/core/IconButton";
 import CloseIcon from "@material-ui/icons/Close";
 import HelpOutlineIcon from "@material-ui/icons/HelpOutline";
+import AddIcon from "@material-ui/icons/Add";
 
 const useStyles = makeStyles((theme) => ({
   closeIcon: {
@@ -49,6 +50,13 @@ const useStyles = makeStyles((theme) => ({
     fontFamily: '"Roboto", sans-serif',
     fontSize: 19,
     lineHeight: 1.42,
+    "&.MuiInputLabel-shrink": {
+      textTransform: "uppercase",
+      fontSize: 12,
+      letterSpacing: 0.83,
+      fontWeight: 500,
+      color: "#000000",
+    },
   },
   formControl: {
     fontFamily: '"Roboto", sans-serif',
@@ -78,21 +86,64 @@ const useStyles = makeStyles((theme) => ({
     display: "block",
     fontFamily: '"Cabin",  sans-serif',
     fontSize: 12,
+    color: "#ffffff",
     fontWeight: 700,
     letterSpacing: 1.2,
     width: "100%",
     marginTop: "3em",
-    color: "#929292",
-    backgroundColor: "#cecece",
     borderRadius: 5,
     textTransform: "uppercase",
   },
+  multisigOwners: {
+    marginTop: "2em",
+  },
+  addMultisigOwnerButton: {
+    fontFamily: '"Cabin",  sans-serif',
+    padding: 0,
+    textTransform: "uppercase",
+    fontSize: 12,
+    fontWeight: 700,
+  },
 }));
+
+function MultisigOwner(props) {
+  const classes = useStyles();
+  return (
+    <Fragment>
+      <TextField
+        required
+        className={classes.formControl}
+        InputLabelProps={{ className: classes.label }}
+        InputProps={{
+          className: classes.formControl,
+        }}
+        label={`Owner ${props.index || 0 + 1} wallet address`}
+      />
+      <TextField
+        className={classes.formControl}
+        InputLabelProps={{
+          className: classes.label,
+        }}
+        InputProps={{
+          className: classes.formControl,
+        }}
+        label={`Owner ${props.index || 0 + 1} name (optional)`}
+        style={{ marginBottom: 0 }}
+      />
+    </Fragment>
+  );
+}
 
 export default function AddWallet(props) {
   const classes = useStyles();
   const [open, setOpen] = useState(true);
   const [isMultisig, setIsMultisig] = useState(false);
+  const [multisigOwners, setMultisigOwners] = useState([
+    {
+      walletAddress: null,
+      ownerName: null,
+    },
+  ]);
   const handleClose = () => {
     if (props.setShowAddWalletModal) {
       props.setShowAddWalletModal(false);
@@ -100,9 +151,19 @@ export default function AddWallet(props) {
     setOpen(false);
   };
 
+  const addMultisigOwner = () => {
+    const newOwners = multisigOwners.slice();
+    newOwners.push({
+      walletAddress: null,
+      ownerName: null,
+    });
+    setMultisigOwners(newOwners);
+    console.log(multisigOwners);
+  };
+
   useEffect(() => {
     setOpen(props.open);
-  }, [props.open]);
+  }, [props.open, multisigOwners]);
 
   return (
     <div>
@@ -141,16 +202,12 @@ export default function AddWallet(props) {
             />
 
             <FormControl className={classes.formControl}>
-              <InputLabel
-                id="demo-simple-select-label"
-                className={classes.formControl}
-              >
+              <InputLabel className={classes.formControl}>
                 Wallet currency
               </InputLabel>
               <Select onChange={() => {}} className={classes.formControl}>
-                <MenuItem value={10}>Ten</MenuItem>
-                <MenuItem value={20}>Twenty</MenuItem>
-                <MenuItem value={30}>Thirty</MenuItem>
+                <MenuItem value={"BTC"}>Bitcoin</MenuItem>
+                <MenuItem value={"ETH"}>Ether</MenuItem>
               </Select>
             </FormControl>
             <h2 className={classes.subtitle}>
@@ -186,7 +243,35 @@ export default function AddWallet(props) {
             >
               No
             </Button>
-            <Button className={classes.addNewWalletButton}>
+
+            {isMultisig && (
+              <div className={classes.multisigOwners}>
+                {multisigOwners.map((owner, index) => {
+                  return (
+                    <MultisigOwner
+                      owner={owner}
+                      index={index}
+                      addMultisigOwner={addMultisigOwner}
+                    />
+                  );
+                })}
+                <Button
+                  color="primary"
+                  className={classes.addMultisigOwnerButton}
+                  startIcon={<AddIcon />}
+                  onClick={addMultisigOwner}
+                >
+                  Add Another Wallet Owner
+                </Button>
+              </div>
+            )}
+
+            <Button
+              color="primary"
+              variant="contained"
+              disabled={false}
+              className={classes.addNewWalletButton}
+            >
               Add New Wallet
             </Button>
           </form>
