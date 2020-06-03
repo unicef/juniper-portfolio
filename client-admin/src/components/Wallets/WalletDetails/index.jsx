@@ -1,10 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { makeStyles } from "@material-ui/core/styles";
-import Grid from "@material-ui/core/Grid";
-import Button from "@material-ui/core/Button";
 import { useParams } from "react-router-dom";
 import BreadCrumb from "./BreadCrumb";
-import { WalletDetailsCard } from "./WalletDetailsCards";
+import { WalletDetailsCard } from "../WalletCards";
 import TransactionDetails from "./TransactionDetails";
 
 const mainStyles = makeStyles((theme) => ({
@@ -22,7 +20,7 @@ export default function () {
     console.log(address);
     // TODO Fetch from API
     setWallet(walletData);
-  }, [address, walletData]);
+  }, [address]);
 
   const classes = mainStyles();
   return (

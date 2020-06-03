@@ -3,8 +3,8 @@ import { withRouter } from "react-router-dom";
 import { makeStyles } from "@material-ui/core/styles";
 import Grid from "@material-ui/core/Grid";
 import Button from "@material-ui/core/Button";
-import priceIcon from "../YourWallets/priceIcon.svg";
-import { WalletCard } from "../YourWallets/YourWalletCards";
+import PriceIcon from "../icons/PriceIcon";
+import { WalletCard } from "../WalletCards";
 
 const mainStyles = makeStyles((theme) => ({
   root: {
@@ -101,11 +101,7 @@ export default withRouter(function ({ history }) {
       <Grid container>
         <Grid item xs={12} className={classes.priceRectangle}>
           <div>
-            <img
-              src={priceIcon}
-              className={classes.priceIcon}
-              alt="Price Icon"
-            />{" "}
+            <PriceIcon className={classes.priceIcon} />
             <b className={classes.priceTitle}>USD Price</b> = Average across
             three cryptocurrency exchanges, calculated at 12:01 pm (EST)
             <a href="/#" className={classes.moreInfo}>
