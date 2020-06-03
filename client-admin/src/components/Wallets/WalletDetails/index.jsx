@@ -12,12 +12,11 @@ const mainStyles = makeStyles((theme) => ({
 }));
 
 export default function () {
-  let { id } = useParams();
-  const [address] = useState(id);
+  let { walletAddress } = useParams();
+  const [address] = useState(walletAddress);
   const [wallet, setWallet] = useState({});
 
   useEffect(() => {
-    console.log(address);
     // TODO Fetch from API
     setWallet(walletData);
   }, [address]);

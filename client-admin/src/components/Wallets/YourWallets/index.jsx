@@ -13,7 +13,7 @@ export default class YourWallets extends React.Component {
         <Route path="/wallets" exact>
           <YourWalletsContent />
         </Route>
-        <Route path="/wallets/:id">
+        <Route path="/wallets/:walletAddress">
           <WalletDetails />
         </Route>
       </Fragment>

@@ -46,10 +46,10 @@ export default function TransactionDetails({ address }) {
   return (
     <Fragment>
       <Grid container className={classes.root}>
-        <Grid xs={6}>
+        <Grid item xs={6}>
           <h3 className={classes.subtitle}> Wallet Transactions</h3>
         </Grid>
-        <Grid xs={6}>
+        <Grid item xs={6}>
           <Button
             className={classes.allTransactionsButton}
             endIcon={<KeyboardArrowDownIcon />}
@@ -63,11 +63,12 @@ export default function TransactionDetails({ address }) {
       </Grid>
       <Divider />
       <Grid container className={classes.transactionDetails}>
-        <Grid xs={12}>
+        <Grid item xs={12}>
           {txDetails &&
-            txDetails.map((txDetails) => {
+            txDetails.map((txDetails, index) => {
               return (
                 <TransactionDetailsCard
+                  key={`${index}-${address}`}
                   address={address}
                   currency={txDetails.currency}
                   amount={txDetails.amount}

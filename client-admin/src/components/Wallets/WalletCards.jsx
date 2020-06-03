@@ -249,6 +249,20 @@ const walletStyles = makeStyles((theme) => ({
       backgroundColor: "#ecfaff",
     },
   },
+  unfollowWalletButton: {
+    float: "right",
+    height: 35,
+    fontSize: 12,
+    fontWeight: 700,
+    letterSpacing: 1,
+    fontFamily: '"Cabin", sans-serif',
+    color: "#00aeef",
+    borderColor: "#00aeef",
+    borderRadius: 5,
+    "&:hover": {
+      backgroundColor: "#ecfaff",
+    },
+  },
 }));
 
 function WalletCard({
@@ -316,6 +330,76 @@ function WalletCard({
           }}
         >
           View Transactions
+        </Button>
+      </div>
+    </div>
+  );
+}
+function TrackWalletCard({
+  name,
+  currency,
+  tags,
+  symbol,
+  amount,
+  amountUSD,
+  address,
+  viewTransactionOnClick,
+}) {
+  const classes = walletStyles();
+
+  const copyToClipboard = (text) => {
+    const el = document.createElement("textarea");
+    el.value = text;
+    document.body.appendChild(el);
+    el.select();
+    document.execCommand("copy");
+    document.body.removeChild(el);
+  };
+
+  return (
+    <div className={classes.wallet}>
+      <h2 className={classes.name}>{name}</h2>
+      {tags &&
+        tags.map((tag) => {
+          return (
+            <Chip
+              key={tag}
+              variant="outlined"
+              size="small"
+              label={tag}
+              className={classes.chip}
+            />
+          );
+        })}
+      <div className={classes.walletBalance}>
+        <span className={classes.currencyBalance}>
+          {amount} {symbol}
+        </span>{" "}
+        / {amountUSD} USD
+      </div>
+      <div className={classes.walletSubtitle}>Wallet Balance</div>
+      <div className={classes.address}>{address}</div>
+      <div className={classes.walletSubtitle}>Wallet Address</div>
+      <div className={classes.buttons}>
+        <Button
+          className={classes.leftButton}
+          startIcon={<CopyIcon fontSize="large" />}
+          onClick={() => {
+            copyToClipboard(address);
+          }}
+        >
+          Copy Address
+        </Button>
+        <Button
+          className={classes.unfollowWalletButton}
+          variant="outlined"
+          onClick={() => {
+            if (viewTransactionOnClick) {
+              viewTransactionOnClick(address);
+            }
+          }}
+        >
+          Unfollow
         </Button>
       </div>
     </div>
@@ -580,9 +664,6 @@ function TransactionDetailsCard({
             color="primary"
             variant="contained"
             className={classes.tagDestinationButton}
-            InputProps={{
-              className: classes.tagDestinationButton,
-            }}
           >
             Tag Destination Wallet
           </Button>
@@ -634,6 +715,7 @@ export {
   TxFeeCard,
   TotalCard,
   WalletCard,
+  TrackWalletCard,
   WalletDetailsCard,
   TransactionDetailsCard,
 };

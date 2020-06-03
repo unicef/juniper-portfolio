@@ -4,7 +4,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import Grid from "@material-ui/core/Grid";
 import Button from "@material-ui/core/Button";
 import PriceIcon from "../icons/PriceIcon";
-import { WalletCard } from "../WalletCards";
+import { TrackWalletCard } from "../WalletCards";
 
 const mainStyles = makeStyles((theme) => ({
   root: {
@@ -121,9 +121,6 @@ export default withRouter(function ({ history }) {
             color="primary"
             variant="contained"
             className={classes.followWalletButton}
-            InputProps={{
-              className: classes.followWalletButton,
-            }}
           >
             Follow a Blockchain Wallet
           </Button>
@@ -135,22 +132,23 @@ export default withRouter(function ({ history }) {
           </h3>
         </Grid>
         <Grid container spacing={2} style={{ position: "relative" }}>
-          {trackedWallets.map((wallet) => {
-            return (
-              <Grid item xs={6}>
-                <WalletCard
-                  name={wallet.name}
-                  currency={wallet.currency}
-                  tags={wallet.tags}
-                  symbol={wallet.symbol}
-                  amount={wallet.amount}
-                  amountUSD={wallet.amountUSD}
-                  address={wallet.address}
-                  viewTransactionOnClick={viewWalletDetails}
-                />
-              </Grid>
-            );
-          })}
+          {trackedWallets &&
+            trackedWallets.map((wallet, index) => {
+              return (
+                <Grid item xs={6} key={`${index}-${wallet.address}`}>
+                  <TrackWalletCard
+                    name={wallet.name}
+                    currency={wallet.currency}
+                    tags={wallet.tags}
+                    symbol={wallet.symbol}
+                    amount={wallet.amount}
+                    amountUSD={wallet.amountUSD}
+                    address={wallet.address}
+                    viewTransactionOnClick={viewWalletDetails}
+                  />
+                </Grid>
+              );
+            })}
         </Grid>
 
         <Grid item xs={12} style={{ marginTop: "4em" }}>
@@ -160,21 +158,22 @@ export default withRouter(function ({ history }) {
         </Grid>
 
         <Grid container spacing={2} style={{ position: "relative" }}>
-          {otherWallets.map((wallet) => {
-            return (
-              <Grid item xs={6}>
-                <WalletCard
-                  name={wallet.name}
-                  currency={wallet.currency}
-                  tags={wallet.tags}
-                  symbol={wallet.symbol}
-                  amount={wallet.amount}
-                  amountUSD={wallet.amountUSD}
-                  address={wallet.address}
-                />
-              </Grid>
-            );
-          })}
+          {otherWallets &&
+            otherWallets.map((wallet, index) => {
+              return (
+                <Grid item xs={6} key={`${index}-${wallet.address}`}>
+                  <TrackWalletCard
+                    name={wallet.name}
+                    currency={wallet.currency}
+                    tags={wallet.tags}
+                    symbol={wallet.symbol}
+                    amount={wallet.amount}
+                    amountUSD={wallet.amountUSD}
+                    address={wallet.address}
+                  />
+                </Grid>
+              );
+            })}
         </Grid>
       </Grid>
     </div>
