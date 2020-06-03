@@ -5,6 +5,7 @@ import Button from "@material-ui/core/Button";
 import { useParams } from "react-router-dom";
 import BreadCrumb from "./BreadCrumb";
 import { WalletDetailsCard } from "./WalletDetailsCards";
+import TransactionDetails from "./TransactionDetails";
 
 const mainStyles = makeStyles((theme) => ({
   root: {
@@ -19,13 +20,14 @@ export default function () {
 
   useEffect(() => {
     console.log(address);
+    // TODO Fetch from API
     setWallet(walletData);
   }, [address, walletData]);
 
   const classes = mainStyles();
   return (
     <div className={classes.root}>
-      <BreadCrumb />
+      <BreadCrumb walletName={wallet.name} />
       <WalletDetailsCard
         name={wallet.name}
         currency={wallet.currency}
@@ -36,6 +38,7 @@ export default function () {
         feesUSD={wallet.feesUSD}
         address={wallet.address}
       />
+      <TransactionDetails />
     </div>
   );
 }

@@ -30,7 +30,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function CustomSeparator() {
+export default function Breadcrumb({ walletName }) {
   const classes = useStyles();
 
   return (
@@ -43,7 +43,7 @@ export default function CustomSeparator() {
         <Link className={classes.breadcrumbLink} to="/wallets">
           Your Wallets
         </Link>
-        <Typography className={classes.breadcrumbText}>Wallet Name</Typography>
+        <Typography className={classes.breadcrumbText}>{walletName}</Typography>
       </Breadcrumbs>
     </div>
   );

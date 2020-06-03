@@ -127,7 +127,7 @@ function WalletDetailsCard({
         className={classes.editWalletButton}
         startIcon={<EditIcon />}
         onClick={() => {
-          viewTransactionOnClick(address);
+          console.log("edit wallet click");
         }}
       >
         Edit Wallet
@@ -190,12 +190,7 @@ const TransactionDetailsCardStyles = makeStyles((theme) => ({
 function TransactionDetailsCard({}) {
   const classes = TransactionDetailsCardStyles();
 
-  return (
-    <div className={classes.transaction}>
-      <div>Header</div>
-      <div>repeat</div>
-    </div>
-  );
+  return <div className={classes.transaction}>tx details</div>;
 }
 
 export { WalletDetailsCard, TransactionDetailsCard };
