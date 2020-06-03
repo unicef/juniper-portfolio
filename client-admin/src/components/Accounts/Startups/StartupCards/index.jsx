@@ -50,6 +50,7 @@ const useStyles = makeStyles({
 
   country: 
   {
+    fontFamily: "Roboto",
     fontSize: '18px',
     lineHeight: '24px',
     letterSpacing: 0,
@@ -57,6 +58,7 @@ const useStyles = makeStyles({
 
   amount:
   {
+    fontFamily: "Roboto",
     fontSize: '18px',
     lineHeight: '24px',
     letterSpacing: 0,
