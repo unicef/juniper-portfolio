@@ -36,16 +36,27 @@ const useStyles = makeStyles({
 
   donorname:
   {
+    fontFamily: "Roboto",
     fontSize: '24px',
-    lineHeight: '28px',
-    letterSpacing: 0,
+    lineHeight: 1.17,
+    letterSpacing:'normal',
     color: '#000000',
     fontWeight: 700,
+  },
+
+  usvalue: 
+  {
+    fontFamily: "Roboto",
+    fontSize: '18px',
+    lineHeight: 1.33,
+    letterSpacing: "normal",
+    fontStretch: "normal"
   },
 
 
   amount:
   {
+    fontFamily: "Roboto",
     fontSize: '18px',
     lineHeight: '24px',
     letterSpacing: 0,
@@ -99,7 +110,7 @@ export default function DonorCards()
           <DonorCard name= "Ethereum Foundation" amtETH="50" amtBTC="300"/>
         </Grid>
         <Grid item>
-          <DonorCard />
+          <DonorCard name="Coinsense" amtBTC="10"/>
         </Grid>
       </Grid>
       </div>
@@ -116,10 +127,67 @@ type DonorCardProps =
   }
   
 
+function ETHData({amtETH}: number)
+{
+  const classes = useStyles();
+
+  if (amtETH)
+  {
+    return (
+      <Grid item>
+        <div className={classes.amount}>
+          {amtETH} ETH
+        </div>
+        <div className={classes.smalltext}>
+          ETHER DONATED
+        </div>
+        <div className={classes.usvalue}>
+          198987124. USD
+        </div>
+        <div className={classes.smalltext}>
+          CURRENT VALUE
+        </div>
+      </Grid>
+    ) 
+  }
+  else
+  return (null)
+}
+
+
+function BTCData({amtBTC}: number)
+{
+  const classes = useStyles();
+
+  if (amtBTC)
+  {
+    return (
+      <Grid item>
+        <div className={classes.amount}>
+          {amtBTC} BTC
+        </div>
+        <div className={classes.smalltext}>
+          BITCOIN DONATED
+        </div>
+        <div className={classes.usvalue}>
+          198987124. USD
+        </div>
+        <div className={classes.smalltext}>
+          CURRENT VALUE
+        </div>
+      </Grid>
+    ) 
+  }
+  else
+  return (null)
+}
+
 
 export function DonorCard({name, amtETH, amtBTC}: DonorCardProps)
 {
   const classes = useStyles();
+
+
 
   return (
     <Card className={classes.card} variant="outlined">
@@ -128,18 +196,10 @@ export function DonorCard({name, amtETH, amtBTC}: DonorCardProps)
           {name}
         </div>
       </div>
-      <div className={classes.amount}>
-        {amtETH} ETH
-      </div>
-      <div className={classes.smalltext}>
-        ETHER DONATED
-      </div>
-      <div className={classes.country}>
-        198987124. USD
-      </div>
-      <div className={classes.smalltext}>
-        CURRENT VALUE
-      </div>
+      <Grid container spacing={10}>
+          <ETHData amtETH={amtETH}/>
+          <BTCData amtBTC={amtBTC} />
+      </Grid>
       <Button className={classes.button} size="small" color="primary">VIEW ACCOUNT DETAILS <ChevronRight/></Button>
     </Card>
   );

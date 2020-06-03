@@ -71,6 +71,7 @@ const useStyles = makeStyles((theme) => ({
     }
 }));
 
+
 const theme = createMuiTheme({
     typography:
     {
@@ -122,18 +123,18 @@ export default function Accounts() {
                 </Tabs>
             </AppBar>
             <ThemeProvider theme={theme}>
-            <TabPanel value={value} index={0}>
+              <TabPanel value={value} index={0}>
                 <Startups />
-            </TabPanel>
-            <TabPanel value={value} index={1}>
+              </TabPanel>
+              <TabPanel value={value} index={1}>
                 <Donors />
-            </TabPanel>
-            <TabPanel value={value} index={2}>
+              </TabPanel>
+              <TabPanel value={value} index={2}>
                 <Natcoms />
-            </TabPanel>
-            <TabPanel value={value} index={3}>
+              </TabPanel>
+              <TabPanel value={value} index={3}>
                 <AdminUsers />
-            </TabPanel>
+              </TabPanel>
             </ThemeProvider>
         </div>
     );
