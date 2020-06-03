@@ -7,6 +7,7 @@ import { BalanceCard, TxFeeCard, TotalCard, WalletCard } from "./Cards";
 import Fab from "@material-ui/core/Fab";
 import ChevronRightIcon from "@material-ui/icons/ChevronRight";
 import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
+import WalletModal from "./AddWallet";
 
 const mainStyles = makeStyles((theme) => ({
   root: {
@@ -89,7 +90,7 @@ const mainStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function YourWallets() {
+export default function () {
   const [balances, setBalances] = useState([]);
   const [fees, setFees] = useState({});
   const [totals, setTotals] = useState({});
@@ -97,6 +98,7 @@ export default function YourWallets() {
   const [ethereumWalletIndex, setEthereumWalletIndex] = useState(0);
   const [bitcoinWallets, setBitcoinWallets] = useState([]);
   const [bitcoinWalletIndex, setBitcoinWalletIndex] = useState(0);
+  const [showAddWalletModal, setShowAddWalletModal] = useState(false);
 
   const incrementEthWalletIndex = () => {
     if (ethereumWalletIndex + 1 <= ethereumWallets.length) {
@@ -167,6 +169,10 @@ export default function YourWallets() {
   const classes = mainStyles();
   return (
     <div className={classes.root}>
+      <WalletModal
+        open={showAddWalletModal}
+        setShowAddWalletModal={setShowAddWalletModal}
+      />
       <Grid container>
         <Grid item xs={12} className={classes.priceRectangle}>
           <div>
@@ -210,6 +216,9 @@ export default function YourWallets() {
             variant="contained"
             color="primary"
             className={classes.addWalletButton}
+            onClick={() => {
+              setShowAddWalletModal(true);
+            }}
           >
             Add New Wallet
           </Button>
@@ -235,9 +244,9 @@ export default function YourWallets() {
 
           {ethereumWallets
             .slice(ethereumWalletIndex, ethereumWalletIndex + 2)
-            .map((wallet) => {
+            .map((wallet, index) => {
               return (
-                <Grid item xs={6}>
+                <Grid item xs={6} key={index}>
                   <WalletCard
                     name={wallet.name}
                     currency={wallet.currency}
@@ -271,9 +280,9 @@ export default function YourWallets() {
 
           {bitcoinWallets
             .slice(bitcoinWalletIndex, bitcoinWalletIndex + 2)
-            .map((wallet) => {
+            .map((wallet, index) => {
               return (
-                <Grid item xs={6}>
+                <Grid item xs={6} key={index}>
                   <WalletCard
                     name={wallet.name}
                     currency={wallet.currency}

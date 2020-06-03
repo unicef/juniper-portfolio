@@ -158,7 +158,6 @@ export default function AddWallet(props) {
       ownerName: null,
     });
     setMultisigOwners(newOwners);
-    console.log(multisigOwners);
   };
 
   useEffect(() => {
