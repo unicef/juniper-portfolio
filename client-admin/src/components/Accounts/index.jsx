@@ -76,6 +76,7 @@ const useStyles = makeStyles((theme) => ({
     }
 }));
 
+
 const theme = createMuiTheme({
     typography:
     {
@@ -138,7 +139,7 @@ export default function Accounts() {
             </TabPanel>
             <TabPanel className={classes.tabpanel} value={value} index={3}>
                 <AdminUsers />
-            </TabPanel>
+              </TabPanel>
             </ThemeProvider>
         </div>
     );
