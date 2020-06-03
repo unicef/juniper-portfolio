@@ -27,19 +27,14 @@ const useStyles = makeStyles({
     padding: '25px 30px',
   },
 
-  image: 
-  {
-    width: '125px',
-    height: '71px',
-    marginRight: '20px',
-  },
 
-  startupinfo:
+
+  donorinfo:
   {
     height: '71px',  
   },
 
-  startupname:
+  donorname:
   {
     fontSize: '24px',
     lineHeight: '28px',
@@ -48,12 +43,6 @@ const useStyles = makeStyles({
     fontWeight: 700,
   },
 
-  country: 
-  {
-    fontSize: '18px',
-    lineHeight: '24px',
-    letterSpacing: 0,
-  },
 
   amount:
   {
@@ -97,20 +86,20 @@ const useStyles = makeStyles({
 
 });
 
-export default function StartupCards()
+export default function DonorCards()
 {
   const classes = useStyles();
-  const numcards = 3;
+  const numcards = 2;
 
   return (
      <div className={classes.root}>
-      <div className={classes.numcards}>{numcards} STARTUP ACCOUNTS</div>
+      <div className={classes.numcards}>{numcards} DONOR ACCOUNTS</div>
       <Grid container className={classes.cardsection} spacing={4}>
         <Grid item>
-          <StartupCard name= "Prescrypto" country="Mexico" amount="50" currency="ETHER" shortcurrency="ETH" image="https://cdn.pixabay.com/photo/2020/05/09/09/13/house-5148865__340.jpg"/>
+          <DonorCard name= "Ethereum Foundation" amtETH="50" amtBTC="300"/>
         </Grid>
         <Grid item>
-          <StartupCard />
+          <DonorCard />
         </Grid>
       </Grid>
       </div>
@@ -119,38 +108,31 @@ export default function StartupCards()
 
 
 
-type StartupCardProps = 
+type DonorCardProps = 
   {
     name: string,
-    country: string,
-    amount: number,
-    currency: string,
-    shortcurrency: string,
-    image: string,
+    amtETH: number,
+    amtBTC: number,
   }
   
 
 
-export function StartupCard({name, country, amount, currency, shortcurrency, image}: StartupCardProps)
+export function DonorCard({name, amtETH, amtBTC}: DonorCardProps)
 {
   const classes = useStyles();
 
   return (
     <Card className={classes.card} variant="outlined">
-      <img src={image} alt="" className={classes.image} align='left'/>
-      <div className={classes.startupinfo}>
-        <div className={classes.startupname}>
+      <div className={classes.donorinfo}>
+        <div className={classes.donorname}>
           {name}
-        </div>
-        <div className={classes.country}>
-          {country}
         </div>
       </div>
       <div className={classes.amount}>
-        {amount} {shortcurrency}
+        {amtETH} ETH
       </div>
       <div className={classes.smalltext}>
-        {currency} INVESTED
+        ETHER DONATED
       </div>
       <div className={classes.country}>
         198987124. USD
