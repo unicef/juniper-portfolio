@@ -113,8 +113,8 @@ export default function Accounts() {
     return (
         <div className={classes.root} >
             <AppBar position="static" className={classes.appBar}>
-                <Tabs value={value} variant="fullWidth" className={classes.navigation} onChange={handleChange} aria-label="simple tabs example"  indicatorColor="primary"
-                 textColor="primary">
+                <Tabs value={value} className={classes.navigation} onChange={handleChange} aria-label="simple tabs example"  indicatorColor="primary"
+                 textColor="primary" centered>
                     <Tab className={classes.navTab} label="Startups" {...a11yProps(0)} />
                     <Tab className={classes.navTab} label="Donors" {...a11yProps(1)} />
                     <Tab className={classes.navTab} label="Natcoms" {...a11yProps(2)} />
