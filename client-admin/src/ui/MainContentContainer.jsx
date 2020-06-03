@@ -6,7 +6,8 @@ const useStyles = makeStyles((theme) => ({
         marginTop: '5em',
         paddingLeft: 155,
         paddingTop: 40,
-        paddingRight: 50
+        paddingRight: 50, 
+        backgroundColor: '#f8f8f8',
     }
 }));
 
