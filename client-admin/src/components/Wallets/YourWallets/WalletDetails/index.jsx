@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import { useParams } from "react-router-dom";
 import BreadCrumb from "./BreadCrumb";
-import { WalletDetailsCard } from "../WalletCards";
+import { WalletDetailsCard } from "../../WalletCards";
 import TransactionDetails from "./TransactionDetails";
 
 const mainStyles = makeStyles((theme) => ({
@@ -11,7 +11,7 @@ const mainStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function () {
+export default function ({ viewWalletDetails }) {
   let { walletAddress } = useParams();
   const [address] = useState(walletAddress);
   const [wallet, setWallet] = useState({});
@@ -24,7 +24,10 @@ export default function () {
   const classes = mainStyles();
   return (
     <div className={classes.root}>
-      <BreadCrumb walletName={wallet.name} />
+      <BreadCrumb
+        walletName={wallet.name}
+        viewWalletDetails={viewWalletDetails}
+      />
       <WalletDetailsCard
         name={wallet.name}
         currency={wallet.currency}

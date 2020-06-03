@@ -91,7 +91,7 @@ const mainStyles = makeStyles((theme) => ({
   },
 }));
 
-export default withRouter(function ({ history }) {
+export default withRouter(function ({ history, viewWalletDetails }) {
   const [balances, setBalances] = useState([]);
   const [fees, setFees] = useState({});
   const [totals, setTotals] = useState({});
@@ -121,10 +121,6 @@ export default withRouter(function ({ history }) {
     if (bitcoinWalletIndex - 1 >= 0) {
       setBitcoinWalletIndex(bitcoinWalletIndex - 1);
     }
-  };
-
-  const viewWalletDetails = (address) => {
-    history.push(`/wallets/${address}`);
   };
 
   useEffect(() => {

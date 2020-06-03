@@ -13,6 +13,7 @@ const useStyles = makeStyles((theme) => ({
     },
   },
   breadcrumbLink: {
+    cursor: "pointer",
     textTransform: "uppercase",
     textDecoration: "none",
     fontWeight: 700,
@@ -30,7 +31,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function Breadcrumb({ walletName }) {
+export default function Breadcrumb({ viewWalletDetails, walletName }) {
   const classes = useStyles();
 
   return (
@@ -40,9 +41,14 @@ export default function Breadcrumb({ walletName }) {
         aria-label="breadcrumb"
         className={classes.breadcrumb}
       >
-        <Link className={classes.breadcrumbLink} to="/wallets">
+        <Typography
+          className={classes.breadcrumbLink}
+          onClick={() => {
+            viewWalletDetails(null);
+          }}
+        >
           Your Wallets
-        </Link>
+        </Typography>
         <Typography className={classes.breadcrumbText}>{walletName}</Typography>
       </Breadcrumbs>
     </div>
