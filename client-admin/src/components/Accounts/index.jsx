@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { makeStyles, withStyles } from '@material-ui/core/styles';
+import { makeStyles} from '@material-ui/core/styles';
 import { createMuiTheme, ThemeProvider } from "@material-ui/core/styles";
 import AppBar from '@material-ui/core/AppBar';
 import Tabs from '@material-ui/core/Tabs';
@@ -68,6 +68,11 @@ const useStyles = makeStyles((theme) => ({
         textAlign: 'center',
         color: '#929292',
         textTransform: 'uppercase'
+    },
+
+    tabpanel:
+    {
+        backgroundColor: "#f8f8f8", 
     }
 }));
 
@@ -122,16 +127,16 @@ export default function Accounts() {
                 </Tabs>
             </AppBar>
             <ThemeProvider theme={theme}>
-            <TabPanel value={value} index={0}>
+            <TabPanel className={classes.tabpanel} value={value} index={0}>
                 <Startups />
             </TabPanel>
-            <TabPanel value={value} index={1}>
+            <TabPanel className={classes.tabpanel} value={value} index={1}>
                 <Donors />
             </TabPanel>
-            <TabPanel value={value} index={2}>
+            <TabPanel className={classes.tabpanel} value={value} index={2}>
                 <Natcoms />
             </TabPanel>
-            <TabPanel value={value} index={3}>
+            <TabPanel className={classes.tabpanel} value={value} index={3}>
                 <AdminUsers />
             </TabPanel>
             </ThemeProvider>

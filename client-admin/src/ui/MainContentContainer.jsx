@@ -3,10 +3,7 @@ import { makeStyles } from '@material-ui/core/styles';
 
 const useStyles = makeStyles((theme) => ({
     root: {
-        marginTop: '5em',
-        paddingLeft: 155,
-        paddingTop: 40,
-        paddingRight: 50, 
+        padding: "46px 50px 70px 155px",
         backgroundColor: '#f8f8f8',
     }
 }));
