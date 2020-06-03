@@ -38,7 +38,7 @@ export default function () {
         feesUSD={wallet.feesUSD}
         address={wallet.address}
       />
-      <TransactionDetails />
+      <TransactionDetails address={address} />
     </div>
   );
 }

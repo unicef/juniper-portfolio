@@ -1,4 +1,4 @@
-import React, { Fragment } from "react";
+import React, { Fragment, useEffect, useState } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import { TransactionDetailsCard } from "./WalletDetailsCards";
 import Grid from "@material-ui/core/Grid";
@@ -32,10 +32,17 @@ const transactionDetailsStyles = makeStyles((theme) => ({
       margin: 0,
     },
   },
+  transactionDetails: {
+    marginTop: "2em",
+  },
 }));
 
-export default function TransactionDetails() {
+export default function TransactionDetails({ address }) {
   const classes = transactionDetailsStyles();
+  const [txDetails, setTxDetails] = useState([]);
+  useEffect(() => {
+    setTxDetails(transactionDetailsData);
+  }, [txDetails]);
   return (
     <Fragment>
       <Grid container className={classes.root}>
@@ -55,11 +62,40 @@ export default function TransactionDetails() {
         </Grid>
       </Grid>
       <Divider />
-      <Grid container>
+      <Grid container className={classes.transactionDetails}>
         <Grid xs={12}>
-          <TransactionDetailsCard />
+          {txDetails &&
+            txDetails.map((txDetails) => {
+              return (
+                <TransactionDetailsCard
+                  address={address}
+                  currency={txDetails.currency}
+                  amount={txDetails.amount}
+                  symbol={txDetails.symbol}
+                  valueSent={txDetails.valueSent}
+                  currentValue={txDetails.currentValue}
+                />
+              );
+            })}
         </Grid>
       </Grid>
     </Fragment>
   );
 }
+
+const transactionDetailsData = [
+  {
+    currency: "Ether",
+    amount: 50,
+    symbol: "ETH",
+    valueSent: 5000,
+    currentValue: 9001,
+  },
+  {
+    currency: "Ether",
+    amount: 25,
+    symbol: "ETH",
+    valueSent: 2500,
+    currentValue: 4500,
+  },
+];

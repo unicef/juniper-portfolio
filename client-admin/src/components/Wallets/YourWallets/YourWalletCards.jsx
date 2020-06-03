@@ -295,7 +295,7 @@ function WalletCard({
       <div className={classes.buttons}>
         <Button
           className={classes.leftButton}
-          startIcon={<CopyIcon />}
+          startIcon={<CopyIcon fontSize="large" />}
           onClick={() => {
             copyToClipboard(address);
           }}
@@ -309,7 +309,7 @@ function WalletCard({
             viewTransactionOnClick(address);
           }}
         >
-          View Transaction
+          View Transactions
         </Button>
       </div>
     </div>

@@ -1,10 +1,14 @@
-import React from "react";
+import React, { Fragment } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import Grid from "@material-ui/core/Grid";
+import Divider from "@material-ui/core/Divider";
 import Chip from "@material-ui/core/Chip";
 import Button from "@material-ui/core/Button";
 import EditIcon from "@material-ui/icons/Edit";
 import CopyIcon from "../CopyIcon";
+import TxArrowIcon from "./TxArrowIcon";
+import ChevnronRightIcon from "@material-ui/icons/ChevronRight";
+import FormatListBulletedIcon from "@material-ui/icons/FormatListBulleted";
 
 const WalletDetailsCardStyles = makeStyles((theme) => ({
   wallet: {
@@ -41,6 +45,7 @@ const WalletDetailsCardStyles = makeStyles((theme) => ({
     marginRight: "1em",
   },
   walletBalance: {
+    fontFamily: '"Roboto", sans-serif',
     fontSize: 18,
     marginTop: 18,
     lineHeight: 1.33,
@@ -96,6 +101,60 @@ const WalletDetailsCardStyles = makeStyles((theme) => ({
     fontSize: 18,
     lineHeight: 1.33,
     marginTop: "2.5em",
+  },
+  transaction: {
+    marginTop: "2em",
+    marginBottom: "3em",
+  },
+  arrowIcon: {
+    width: "1.25em",
+    marginRight: ".5em",
+  },
+  txHeader: {
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "left",
+  },
+  headerText: {
+    fontFamily: '"Roboto", sans-serif',
+    fontSize: 14,
+    lineHeight: 1.57,
+    color: "#000000",
+  },
+  txDetailsAddress: {
+    marginTop: 20,
+    fontFamily: '"Roboto", sans-serif',
+    fontSize: 18,
+    fontWeight: 700,
+    lineHeight: 1.33,
+    color: "#000000",
+    overflowX: "hidden",
+    textOverflow: "ellipsis",
+    maxWidth: 162,
+  },
+  tagDestinationButton: {
+    fontFamily: '"Cabin", sans-serif',
+    fontSize: 12,
+    fontWeight: 700,
+    textAlign: "center",
+    color: "#ffffff",
+    boxShadow: "none",
+    marginTop: "2em",
+  },
+  txDetailsButton: {
+    marginTop: "1em",
+    float: "right",
+    fontSize: 12,
+    fontWeight: 700,
+    letterSpacing: 1,
+    fontFamily: '"Cabin", sans-serif',
+    color: "#00aeef",
+    "&:hover": {
+      backgroundColor: "#ecfaff",
+    },
+    "& .MuiButton-endIcon": {
+      margin: 0,
+    },
   },
 }));
 
@@ -168,7 +227,7 @@ function WalletDetailsCard({
         {address}{" "}
         <Button
           className={classes.leftButton}
-          startIcon={<CopyIcon />}
+          startIcon={<CopyIcon fontSize="large" />}
           onClick={() => {
             copyToClipboard(address);
           }}
@@ -183,14 +242,79 @@ function WalletDetailsCard({
   );
 }
 
-const TransactionDetailsCardStyles = makeStyles((theme) => ({
-  transaction: {},
-}));
+function TransactionDetailsCard({
+  address,
+  currency,
+  amount,
+  symbol,
+  valueSent,
+  currentValue,
+}) {
+  const classes = WalletDetailsCardStyles();
 
-function TransactionDetailsCard({}) {
-  const classes = TransactionDetailsCardStyles();
-
-  return <div className={classes.transaction}>tx details</div>;
+  return (
+    <Fragment>
+      <Grid container className={classes.transaction}>
+        <Grid item xs={12} className={classes.txHeader}>
+          <TxArrowIcon className={classes.arrowIcon} />{" "}
+          <span className={classes.headerText}>
+            Crypto sent at <b>13:12, Mar 24 2020</b>
+          </span>
+        </Grid>
+        <Grid item xs={3}>
+          <div className={classes.txDetailsAddress}>{address}</div>
+          <div className={classes.walletSubtitle}>Destination Wallet</div>
+          <Button
+            color="primary"
+            variant="contained"
+            className={classes.tagDestinationButton}
+            InputProps={{
+              className: classes.tagDestinationButton,
+            }}
+          >
+            Tag Destination Wallet
+          </Button>
+        </Grid>
+        <Grid item xs={2}>
+          <div className={classes.walletBalance}>
+            <span className={classes.currencyBalance}>
+              {amount} {symbol}
+            </span>
+          </div>
+          <div className={classes.walletSubtitle}>{currency} Sent</div>
+        </Grid>
+        <Grid item xs={2}>
+          <div className={classes.walletBalance}>{valueSent} USD</div>
+          <div className={classes.walletSubtitle}>Value at Disbursal</div>
+        </Grid>
+        <Grid item xs={2}>
+          <div className={classes.walletBalance}>{currentValue} USD</div>
+          <div className={classes.walletSubtitle}>Current Value</div>
+        </Grid>
+        <Grid item xs={3}>
+          <Button
+            className={classes.txDetailsButton}
+            endIcon={<ChevnronRightIcon />}
+            onClick={() => {
+              console.log("all transaction clicked");
+            }}
+          >
+            Transaction Details
+          </Button>
+          <Button
+            className={classes.txDetailsButton}
+            startIcon={<FormatListBulletedIcon />}
+            onClick={() => {
+              console.log("authorization record clicked");
+            }}
+          >
+            Authorization Record
+          </Button>
+        </Grid>
+      </Grid>
+      <Divider />
+    </Fragment>
+  );
 }
 
 export { WalletDetailsCard, TransactionDetailsCard };
