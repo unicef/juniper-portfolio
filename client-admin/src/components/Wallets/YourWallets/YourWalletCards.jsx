@@ -306,7 +306,9 @@ function WalletCard({
           className={classes.rightButton}
           endIcon={<ChevronRightIcon />}
           onClick={() => {
-            viewTransactionOnClick(address);
+            if (viewTransactionOnClick) {
+              viewTransactionOnClick(address);
+            }
           }}
         >
           View Transactions

@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { withRouter } from "react-router-dom";
 import { makeStyles } from "@material-ui/core/styles";
 import Grid from "@material-ui/core/Grid";
 import Button from "@material-ui/core/Button";
@@ -76,7 +77,7 @@ const mainStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function () {
+export default withRouter(function ({ history }) {
   const [trackedWallets, setTrackedWallets] = useState([]);
   const [otherWallets, setOtherWallets] = useState([]);
 
@@ -89,6 +90,10 @@ export default function () {
     setTrackedWallets(trackedWalletsData);
     setOtherWallets(otherWalletsData);
   }, []);
+
+  const viewWalletDetails = (address) => {
+    history.push(`/wallets/${address}`);
+  };
 
   const classes = mainStyles();
   return (
@@ -145,6 +150,7 @@ export default function () {
                   amount={wallet.amount}
                   amountUSD={wallet.amountUSD}
                   address={wallet.address}
+                  viewTransactionOnClick={viewWalletDetails}
                 />
               </Grid>
             );
@@ -177,7 +183,7 @@ export default function () {
       </Grid>
     </div>
   );
-}
+});
 
 // Mock Wallet Data. Will come from API and be passed from parent class
 const trackedWalletsData = [

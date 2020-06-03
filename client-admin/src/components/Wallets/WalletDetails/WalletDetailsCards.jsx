@@ -5,7 +5,7 @@ import Divider from "@material-ui/core/Divider";
 import Chip from "@material-ui/core/Chip";
 import Button from "@material-ui/core/Button";
 import EditIcon from "@material-ui/icons/Edit";
-import CopyIcon from "../CopyIcon";
+import CopyIcon from "../YourWallets/CopyIcon";
 import TxArrowIcon from "./TxArrowIcon";
 import ChevnronRightIcon from "@material-ui/icons/ChevronRight";
 import FormatListBulletedIcon from "@material-ui/icons/FormatListBulleted";
