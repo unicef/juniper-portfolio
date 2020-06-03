@@ -3,7 +3,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import Grid from "@material-ui/core/Grid";
 import Button from "@material-ui/core/Button";
 import priceIcon from "../YourWallets/priceIcon.svg";
-import { WalletCard } from "../YourWallets/Cards";
+import { WalletCard } from "../YourWallets/YourWalletCards";
 
 const mainStyles = makeStyles((theme) => ({
   root: {
@@ -96,10 +96,14 @@ export default function () {
       <Grid container>
         <Grid item xs={12} className={classes.priceRectangle}>
           <div>
-            <img src={priceIcon} className={classes.priceIcon} />{" "}
+            <img
+              src={priceIcon}
+              className={classes.priceIcon}
+              alt="Price Icon"
+            />{" "}
             <b className={classes.priceTitle}>USD Price</b> = Average across
             three cryptocurrency exchanges, calculated at 12:01 pm (EST)
-            <a href="#" className={classes.moreInfo}>
+            <a href="/#" className={classes.moreInfo}>
               More Info
             </a>
           </div>

@@ -1,9 +1,15 @@
 import React, { useState, useEffect } from "react";
+import { withRouter } from "react-router-dom";
 import { makeStyles } from "@material-ui/core/styles";
 import Grid from "@material-ui/core/Grid";
 import Button from "@material-ui/core/Button";
 import priceIcon from "./priceIcon.svg";
-import { BalanceCard, TxFeeCard, TotalCard, WalletCard } from "./Cards";
+import {
+  BalanceCard,
+  TxFeeCard,
+  TotalCard,
+  WalletCard,
+} from "./YourWalletCards";
 import Fab from "@material-ui/core/Fab";
 import ChevronRightIcon from "@material-ui/icons/ChevronRight";
 import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
@@ -90,7 +96,7 @@ const mainStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function () {
+export default withRouter(function ({ history }) {
   const [balances, setBalances] = useState([]);
   const [fees, setFees] = useState({});
   const [totals, setTotals] = useState({});
@@ -120,6 +126,10 @@ export default function () {
     if (bitcoinWalletIndex - 1 >= 0) {
       setBitcoinWalletIndex(bitcoinWalletIndex - 1);
     }
+  };
+
+  const viewWalletDetails = (address) => {
+    history.push(`/wallets/${address}`);
   };
 
   useEffect(() => {
@@ -176,10 +186,14 @@ export default function () {
       <Grid container>
         <Grid item xs={12} className={classes.priceRectangle}>
           <div>
-            <img src={priceIcon} className={classes.priceIcon} />{" "}
+            <img
+              src={priceIcon}
+              className={classes.priceIcon}
+              alt="Price Icon"
+            />{" "}
             <b className={classes.priceTitle}>USD Price</b> = Average across
             three cryptocurrency exchanges, calculated at 12:01 pm (EST)
-            <a href="#" className={classes.moreInfo}>
+            <a href="/#" className={classes.moreInfo}>
               More Info
             </a>
           </div>
@@ -188,19 +202,20 @@ export default function () {
         <Grid item xs={12} style={{ marginTop: "2em" }}>
           <h1 className={classes.title}>UNICEF HQ wallet overview</h1>
         </Grid>
-        {balances.map((balance) => {
-          return (
-            <Grid item xs={12} sm={3} key={balance.received}>
-              <BalanceCard
-                symbol={balance.symbol}
-                balanceUSD={balance.balanceUSD}
-                currency={balance.currency}
-                received={balance.received}
-                invested={balance.invested}
-              />
-            </Grid>
-          );
-        })}
+        {balances &&
+          balances.map((balance) => {
+            return (
+              <Grid item xs={12} sm={3} key={balance.received}>
+                <BalanceCard
+                  symbol={balance.symbol}
+                  balanceUSD={balance.balanceUSD}
+                  currency={balance.currency}
+                  received={balance.received}
+                  invested={balance.invested}
+                />
+              </Grid>
+            );
+          })}
         <Grid item xs={12} sm={3}>
           <TxFeeCard
             amountUSD={fees.amountUSD}
@@ -242,23 +257,25 @@ export default function () {
             </Fab>
           )}
 
-          {ethereumWallets
-            .slice(ethereumWalletIndex, ethereumWalletIndex + 2)
-            .map((wallet, index) => {
-              return (
-                <Grid item xs={6} key={index}>
-                  <WalletCard
-                    name={wallet.name}
-                    currency={wallet.currency}
-                    tags={wallet.tags}
-                    symbol={wallet.symbol}
-                    amount={wallet.amount}
-                    amountUSD={wallet.amountUSD}
-                    address={wallet.address}
-                  />
-                </Grid>
-              );
-            })}
+          {ethereumWallets &&
+            ethereumWallets
+              .slice(ethereumWalletIndex, ethereumWalletIndex + 2)
+              .map((wallet, index) => {
+                return (
+                  <Grid item xs={6} key={index}>
+                    <WalletCard
+                      name={wallet.name}
+                      currency={wallet.currency}
+                      tags={wallet.tags}
+                      symbol={wallet.symbol}
+                      amount={wallet.amount}
+                      amountUSD={wallet.amountUSD}
+                      address={wallet.address}
+                      viewTransactionOnClick={viewWalletDetails}
+                    />
+                  </Grid>
+                );
+              })}
         </Grid>
 
         <Grid item xs={12} style={{ marginTop: "4em" }}>
@@ -278,28 +295,29 @@ export default function () {
             </Fab>
           )}
 
-          {bitcoinWallets
-            .slice(bitcoinWalletIndex, bitcoinWalletIndex + 2)
-            .map((wallet, index) => {
-              return (
-                <Grid item xs={6} key={index}>
-                  <WalletCard
-                    name={wallet.name}
-                    currency={wallet.currency}
-                    tags={wallet.tags}
-                    symbol={wallet.symbol}
-                    amount={wallet.amount}
-                    amountUSD={wallet.amountUSD}
-                    address={wallet.address}
-                  />
-                </Grid>
-              );
-            })}
+          {bitcoinWallets &&
+            bitcoinWallets
+              .slice(bitcoinWalletIndex, bitcoinWalletIndex + 2)
+              .map((wallet, index) => {
+                return (
+                  <Grid item xs={6} key={index}>
+                    <WalletCard
+                      name={wallet.name}
+                      currency={wallet.currency}
+                      tags={wallet.tags}
+                      symbol={wallet.symbol}
+                      amount={wallet.amount}
+                      amountUSD={wallet.amountUSD}
+                      address={wallet.address}
+                    />
+                  </Grid>
+                );
+              })}
         </Grid>
       </Grid>
     </div>
   );
-}
+});
 
 // Mock Wallet Data. Will come from API and be passed from parent class
 const walletData = [
