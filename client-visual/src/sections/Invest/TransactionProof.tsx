@@ -116,7 +116,7 @@ export default function TransactionProof(props: any) {
           style={{ marginBottom: "10px" }}
           className={classes.link}
         >
-          Transaction Proof >
+          Transaction Proof &gt;
         </Button>
       ) : null}
       <Dialog
