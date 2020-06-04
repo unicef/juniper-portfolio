@@ -51,7 +51,7 @@ export default function NatcomSummary()
     const classes = useStyles();
     const blurb =  "Cryptofund donations are received by HQ through four National Committees - Australia France, New Zealand and the United States."
     return (
-      <Typography className={classes.root}>
+      <div className={classes.root}>
         <Typography variant="h1" style={{ marginBottom: '30px', marginTop: '50px' }}>4 NatComs</Typography>
         <Grid container className={classes.gridcontainer} spacing={4}>
           <Grid item lg={3}>
@@ -69,6 +69,6 @@ export default function NatcomSummary()
             <Button className={classes.button} size="small" color="primary">LEARN MORE ABOUT CRYPTOFUND <ChevronRight/></Button>
           </Grid>
         </Grid>
-      </Typography>
+      </div>
   )   
 }

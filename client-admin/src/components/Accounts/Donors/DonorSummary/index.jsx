@@ -51,7 +51,7 @@ export default function DonorSummary()
     const classes = useStyles();
     const blurb =  "In line with current UNICEF practice, each crypto transaction is initiated after UNICEF has completed due diligence on a donor, ensuring a credible source of the donation."
     return (
-      <Typography className={classes.root}>
+      <div className={classes.root}>
         <Typography variant="h1" style={{ marginBottom: '30px', marginTop: '50px' }}>2 donors</Typography>
         <Grid container className={classes.gridcontainer} spacing={4}>
           <Grid item lg={3}>
@@ -69,6 +69,6 @@ export default function DonorSummary()
             <Button className={classes.button} size="small" color="primary">LEARN MORE ABOUT CRYPTOFUND <ChevronRight/></Button>
           </Grid>
         </Grid>
-      </Typography>
+      </div>
   )   
 }

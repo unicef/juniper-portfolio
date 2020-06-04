@@ -51,7 +51,7 @@ export default function StartupSummary()
     const classes = useStyles();
     const blurb =  "The investments are made through UNICEF's Cryptofund, in open source technology solutions that benefit children and the world."
     return (
-      <Typography className={classes.root}>
+      <div className={classes.root}>
         <Typography variant="h1" style={{ marginBottom: '30px', marginTop: '50px' }}>3 investments</Typography>
         <Grid container className={classes.gridcontainer} spacing={4}>
           <Grid item lg={3}>
@@ -69,6 +69,6 @@ export default function StartupSummary()
             <Button className={classes.button} size="small" color="primary">LEARN MORE ABOUT CRYPTOFUND <ChevronRight/></Button>
           </Grid>
         </Grid>
-      </Typography>
+      </div>
   )   
 }
