@@ -133,6 +133,8 @@ export const FundingProcessExplainer = () => {
           display: "inline-block",
           verticalAlign: "top",
           paddingLeft: padding + "px",
+          width: "330px",
+          overflow: "false",
         }}
       >
         <div
@@ -216,13 +218,13 @@ export const FundingProcessExplainer = () => {
           justify="center"
           alignItems="center"
         >
-          <Grid item xs={12} sm={3} md={3}>
+          <Grid item xs={12} sm={12} md={6} lg={3}>
             {createBlock(donorTitle, donorText, "#0068ea", "0")}
           </Grid>
-          <Grid item xs={12} sm={3} md={3}>
+          <Grid item xs={12} sm={12} md={6} lg={3}>
             {createBlock(unicefTitle, unicefText, "#29c3ff", "0")}
           </Grid>
-          <Grid item xs={12} sm={3} md={3}>
+          <Grid item xs={12} sm={12} md={6} lg={3}>
             {createBlock(startUpTitle, startUpText, "#ffd113", "0")}
           </Grid>
         </Grid>
