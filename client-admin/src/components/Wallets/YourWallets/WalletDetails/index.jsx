@@ -4,7 +4,7 @@ import { useParams } from "react-router-dom";
 import BreadCrumb from "./BreadCrumb";
 import { WalletDetailsCard } from "../../WalletCards";
 import TransactionDetails from "./TransactionDetails";
-
+import AuthorizationRecord from "./AuthorizationRecord";
 const mainStyles = makeStyles((theme) => ({
   root: {
     minHeight: "100%",
@@ -12,7 +12,9 @@ const mainStyles = makeStyles((theme) => ({
 }));
 
 export default function ({ viewWalletDetails }) {
+  const classes = mainStyles();
   let { walletAddress } = useParams();
+  const [authorizationRecord, setAuthorizationRecord] = useState(true);
   const [address] = useState(walletAddress);
   const [wallet, setWallet] = useState({});
 
@@ -21,9 +23,9 @@ export default function ({ viewWalletDetails }) {
     setWallet(walletData);
   }, [address]);
 
-  const classes = mainStyles();
   return (
     <div className={classes.root}>
+      <AuthorizationRecord authorizationRecord={authorizationRecord} />
       <BreadCrumb
         walletName={wallet.name}
         viewWalletDetails={viewWalletDetails}
@@ -38,7 +40,10 @@ export default function ({ viewWalletDetails }) {
         feesUSD={wallet.feesUSD}
         address={wallet.address}
       />
-      <TransactionDetails address={address} />
+      <TransactionDetails
+        address={address}
+        setAuthorizationRecord={setAuthorizationRecord}
+      />
     </div>
   );
 }

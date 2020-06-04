@@ -639,12 +639,14 @@ function WalletDetailsCard({
 }
 
 function TransactionDetailsCard({
+  txid,
   address,
   currency,
   amount,
   symbol,
   valueSent,
   currentValue,
+  setAuthorizationRecord,
 }) {
   const classes = WalletDetailsCardStyles();
 
@@ -698,7 +700,7 @@ function TransactionDetailsCard({
             className={classes.txDetailsButton}
             startIcon={<FormatListBulletedIcon />}
             onClick={() => {
-              console.log("authorization record clicked");
+              setAuthorizationRecord(txid);
             }}
           >
             Authorization Record
