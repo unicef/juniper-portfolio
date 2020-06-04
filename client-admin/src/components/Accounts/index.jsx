@@ -8,7 +8,6 @@ import Tab from '@material-ui/core/Tab';
 import Box from '@material-ui/core/Box';
 import Donors from "./Donors";
 import Startups from "./Startups"
-import AdminUsers from "./AdminUsers"
 import Natcoms from "./Natcoms"
 
 
@@ -124,7 +123,6 @@ export default function Accounts() {
                     <Tab className={classes.navTab} label="Startups" {...a11yProps(0)} />
                     <Tab className={classes.navTab} label="Donors" {...a11yProps(1)} />
                     <Tab className={classes.navTab} label="Natcoms" {...a11yProps(2)} />
-                    <Tab className={classes.navTab} label="Admin Users" {...a11yProps(3)} />
                 </Tabs>
             </AppBar>
             <ThemeProvider theme={theme}>
