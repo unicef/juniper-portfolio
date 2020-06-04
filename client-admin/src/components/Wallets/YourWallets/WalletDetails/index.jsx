@@ -14,7 +14,7 @@ const mainStyles = makeStyles((theme) => ({
 export default function ({ viewWalletDetails }) {
   const classes = mainStyles();
   let { walletAddress } = useParams();
-  const [authorizationRecord, setAuthorizationRecord] = useState(true);
+  const [authorizationRecord, setAuthorizationRecord] = useState(false);
   const [address] = useState(walletAddress);
   const [wallet, setWallet] = useState({});
 

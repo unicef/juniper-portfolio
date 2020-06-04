@@ -556,6 +556,7 @@ const WalletDetailsCardStyles = makeStyles((theme) => ({
     },
   },
   authorization: {
+    height: 370,
     backgroundColor: "#daf5ff",
     padding: "20px 40px 40px 40px",
   },
@@ -563,12 +564,11 @@ const WalletDetailsCardStyles = makeStyles((theme) => ({
     fontFamily: '"Roboto", sans-serif',
     fontSize: 24,
     fontWeight: 400,
-
     lineHeight: 1.17,
     color: "#000000",
   },
   authorizationInfo: {
-    marginTop: "2em",
+    marginTop: "1em",
   },
   subText: {
     marginTop: 0,
@@ -579,11 +579,30 @@ const WalletDetailsCardStyles = makeStyles((theme) => ({
     fontFamily: '"Roboto", sans-serif',
     letterSpacing: "normal",
   },
+  signerText: {
+    fontFamily: '"Roboto", sans-serif',
+    fontSize: 18,
+    lineHeight: 1.33,
+    marginTop: ".5em",
+    color: "#000000",
+  },
   authorizationAddress: {
     fontFamily: '"Roboto", sans-serif',
     fontSize: 18,
     lineHeight: 1.33,
     color: "#000000",
+  },
+  authorizationSigner: {
+    height: 283,
+    padding: "20px 40px 40px 40px",
+    borderBottom: "solid 1px #e0e0e0",
+  },
+  authorizationSubheading: {
+    fontSize: 12,
+    fontWeight: 700,
+    letterSpacing: 0.78,
+    color: "#898989",
+    textTransform: "uppercase",
   },
 }));
 
@@ -596,7 +615,6 @@ function WalletDetailsCard({
   amountUSD,
   feesUSD,
   address,
-  viewTransactionOnClick,
 }) {
   const classes = WalletDetailsCardStyles();
 
@@ -794,6 +812,31 @@ function AuthorizationCard({
   );
 }
 
+function AuthorizationSignerCard({ address, owner, timestamp, index }) {
+  const classes = WalletDetailsCardStyles();
+  return (
+    <Grid container className={classes.authorizationSigner}>
+      <Grid item xs={12} className={classes.authorizationInfo}>
+        <h3 className={classes.authorizationSubheading}>
+          Signer {index} details
+        </h3>
+      </Grid>
+      <Grid item xs={12}>
+        <div className={classes.signerText}>{address}</div>
+        <div className={classes.walletSubtitle}>Wallet Address</div>
+      </Grid>
+      <Grid item xs={12}>
+        <div className={classes.signerText}>{owner}</div>
+        <div className={classes.walletSubtitle}>Wallet Owner</div>
+      </Grid>
+      <Grid item xs={12}>
+        <div className={classes.signerText}>{timestamp}</div>
+        <div className={classes.walletSubtitle}>Time of Signing</div>
+      </Grid>
+    </Grid>
+  );
+}
+
 export {
   BalanceCard,
   TxFeeCard,
@@ -803,4 +846,5 @@ export {
   WalletDetailsCard,
   TransactionDetailsCard,
   AuthorizationCard,
+  AuthorizationSignerCard,
 };

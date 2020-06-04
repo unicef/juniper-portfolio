@@ -7,7 +7,7 @@ export default class YourWallets extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      walletDetailsAddress: true,
+      walletDetailsAddress: null,
     };
   }
 
