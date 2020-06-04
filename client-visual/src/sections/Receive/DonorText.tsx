@@ -54,17 +54,25 @@ export const DonorText = () => {
   const classes = useStyles();
   const [backgroundTitle] = useState("Our donors");
   const [donorText1] = useState(
-    "In line with current UNICEF practice, each crypto transaction is initiated after UNICEF has completed due diligence on a donor, ensuring a credible source of the donation."
+    "Investing in open source technology to benefit children around the world wouldn’t be possible without our generous donors."
   );
   const [donorText2] = useState(
-    "We would like to tank our donors supporting the CryptoFund: Ethereum foundation. If you are interested in making a donation in crypto, please write to us."
+    "We would like to thank our anchor donor, the Ethereum Foundation, for helping to launch the CryptoFund. If you are interested in making a donation in either bitcoin or ether, please, contact "
   );
+  const [donorText3] = useState(".");
+  const [blockchainEmail] = useState("blockchain@unicef.org");
+
   return (
     <div className={classes.root}>
       <div className={classes.backgroundTitle}>{backgroundTitle}</div>
       <div className={classes.backgroundText}>{donorText1}</div>
       <br />
-      <div className={classes.backgroundText}>{donorText2}</div>
+      <div className={classes.backgroundText}>
+        {donorText2}
+        <a href={`mailto:${blockchainEmail}`}>{blockchainEmail}</a>
+        {donorText3}
+      </div>
+
       <Button
         href="mailto:blockchain@unicef.org"
         className={classes.donationQueryButton}

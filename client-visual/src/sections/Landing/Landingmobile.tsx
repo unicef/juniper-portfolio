@@ -33,7 +33,7 @@ const useStyles = makeStyles({
 export const Landingmobile = () => {
   const classes = useStyles();
   const [landingText] = useState(
-    "A new financial vehicle allowing UNICEF to receive, hold and disburse cryptocurrency—a first for the UN."
+    "A new financial vehicle allowing UNICEF to receive, hold and disburse cryptocurrency – a first for the UN."
   );
   return (
     <div className={classes.root}>
