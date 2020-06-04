@@ -1,8 +1,8 @@
 import React from "react";
 import { makeStyles, Theme } from "@material-ui/core/styles";
-import { Grid } from "@material-ui/core";
-
+import { Grid, Button } from "@material-ui/core";
 import { ProgressBarMobile } from "./ProgressBar";
+import { TransactionInfo } from "./TransactionInfo";
 
 const useStyles = makeStyles((theme: Theme) => ({
   root: {
@@ -83,6 +83,15 @@ const useStyles = makeStyles((theme: Theme) => ({
 
 export const TransactionDetailsMobile = (props: any) => {
   const classes = useStyles();
+  const [open, setOpen] = React.useState(false);
+
+  const handleClickOpen = () => {
+    props.setOpen(true);
+  };
+
+  const handleClose = () => {
+    props.setOpen(false);
+  };
   return (
     <div
       style={{
@@ -115,6 +124,21 @@ export const TransactionDetailsMobile = (props: any) => {
             {props.valueMoving}
           </div>
           <div className={classes.amountlabel}>{props.valueType}</div>
+        </Grid>
+        <Grid>
+          <TransactionInfo
+            field1={"props.field1"}
+            field2={"props.field2"}
+            field3={"props.field3"}
+            field4={"props.field4"}
+            field5={"props.field5"}
+            yes={true}
+            field6={"props.field6"}
+            field7={"props.field7"}
+            field8={"props.field8"}
+            field9={"props.field9"}
+            field10={"props.field10"}
+          />
         </Grid>
       </Grid>
     </div>
