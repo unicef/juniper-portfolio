@@ -4,7 +4,7 @@ import { useMediaQuery } from "@material-ui/core";
 
 const useStyles = makeStyles((theme: any) => ({
   mainText: {
-    fontFamily: "Cabin",
+    fontFamily: '"Cabin", sans-serif',
     fontSize: "32px",
     fontWeight: "normal",
     fontStretch: "normal",
@@ -15,7 +15,7 @@ const useStyles = makeStyles((theme: any) => ({
     width: "80%",
   },
   mobile: {
-    fontFamily: "Cabin",
+    fontFamily: '"Cabin", sans-serif',
     fontSize: "24px",
     fontWeight: "normal",
     fontStretch: "normal",
