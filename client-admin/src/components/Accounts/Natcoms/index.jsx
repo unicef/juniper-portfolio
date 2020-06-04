@@ -15,13 +15,29 @@ const useStyles = makeStyles({
   
 });
 
+const NatComCardData = [
+  {
+    name: "UNICEF France",
+    amtETH: 50
+  }, 
+  {
+    name: "UNICEF Australia",
+    amtETH: 50
+  },
+  {
+    name: "UNICEF USA",
+    amtBTC: 5
+  }
+]
+
+
 export default function Natcoms() {
   const classes = useStyles();
   return (
     <MainContentContainer className={classes.root}>
       <PriceBar />
       <NatcomSummary />
-      <NatcomCards/>
+      <NatcomCards ncomdata={NatComCardData}/>
     </MainContentContainer>
         )
 }

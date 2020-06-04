@@ -98,27 +98,23 @@ const useStyles = makeStyles({
 });
 
 
-export default function NatcomCards()
+
+export default function NatcomCards({ncomdata}: NatcomCardProps)
 {
   const classes = useStyles();
-  const numcards = 4;
+  const numcards = ncomdata.length;
+
 
   return (
      <div className={classes.root}>
-      <div className={classes.numcards}>{numcards} NATCOM ACCOUNTS</div>
-      <Grid container className={classes.cardsection} spacing={4}>
-        <Grid item xs={6}>
-          <NatcomCard name= "UNICEF FRANCE" amtETH="50"/>
+       <div className={classes.numcards}>{numcards} NATCOM ACCOUNTS</div>
+       <Grid container className={classes.cardsection} spacing={4}>
+         {ncomdata.map((ncom) =>
+           <Grid item xs={6}>
+             <NatcomCard name={ncom.name} amtETH={ncom.amtETH} amtBTC={ncom.amtBTC}/>
+           </Grid>
+          )}
         </Grid>
-        <Grid item  xs={6}>
-          <NatcomCard name="UNICEF Australia" amtBTC="50"/>
-        </Grid>
-
-        <Grid item  xs={6}>
-          <NatcomCard name="UNICEF USA" amtBTC="5"/>
-        </Grid>
-
-      </Grid>
       </div>
   )
 }
@@ -189,11 +185,9 @@ function BTCData({amtBTC}: number)
 }
 
 
-export function NatcomCard({name, amtETH, amtBTC}: DonorCardProps)
+export function NatcomCard({name, amtETH, amtBTC}: NatcomCardProps)
 {
   const classes = useStyles();
-
-
 
   return (
     <Card className={classes.card} variant="outlined">
