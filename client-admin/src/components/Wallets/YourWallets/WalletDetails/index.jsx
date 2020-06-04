@@ -25,7 +25,10 @@ export default function ({ viewWalletDetails }) {
 
   return (
     <div className={classes.root}>
-      <AuthorizationRecord authorizationRecord={authorizationRecord} />
+      <AuthorizationRecord
+        authorizationRecord={authorizationRecord}
+        setAuthorizationRecord={setAuthorizationRecord}
+      />
       <BreadCrumb
         walletName={wallet.name}
         viewWalletDetails={viewWalletDetails}

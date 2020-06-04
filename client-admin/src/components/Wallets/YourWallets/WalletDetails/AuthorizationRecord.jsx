@@ -1,34 +1,52 @@
 import React, { useState, useEffect } from "react";
 import { makeStyles } from "@material-ui/core/styles";
-import Button from "@material-ui/core/Button";
 import Dialog from "@material-ui/core/Dialog";
-import CloseIcon from "@material-ui/icons/Close";
+import { AuthorizationCard } from "../../WalletCards";
 
 const useStyles = makeStyles((theme) => ({
-  appBar: {
-    position: "relative",
-  },
-  title: {
-    marginLeft: theme.spacing(2),
-    flex: 1,
+  modal: {
+    height: "100vh",
+    margin: 0,
+    maxHeight: "100vh",
+    borderRadius: 0,
+    maxWidth: 642,
   },
 }));
 
-export default function AuthorizationRecord({ authorizationRecord }) {
+export default function AuthorizationRecord({
+  authorizationRecord,
+  setAuthorizationRecord,
+}) {
   const classes = useStyles();
-  const [open, setOpen] = useState(false);
+  const [authorizationDetails, setAuthorizationDetails] = useState(
+    authorizationDetailsData
+  );
 
-  const handleClickOpen = () => {
-    setOpen(true);
-  };
-
-  const handleClose = () => {
-    setOpen(false);
-  };
+  useEffect(() => {
+    setAuthorizationDetails(authorizationDetailsData);
+  });
 
   return (
-    <Dialog fullScreen open={!!authorizationRecord} onClose={handleClose}>
-      <div>blah blah blah</div>
-    </Dialog>
+    <React.Fragment>
+      <Dialog
+        fullWidth
+        open={!!authorizationRecord}
+        onClose={() => {
+          setAuthorizationRecord(null);
+        }}
+        classes={{ paper: classes.modal }}
+      >
+        <AuthorizationCard {...authorizationDetails} />
+      </Dialog>
+    </React.Fragment>
   );
 }
+
+const authorizationDetailsData = {
+  address: "0x1287631231238712398712837",
+  amount: 25,
+  symbol: "ETH",
+  currency: "Ethereum",
+  valueSent: "3300.12",
+  currentValue: "8300.21",
+};

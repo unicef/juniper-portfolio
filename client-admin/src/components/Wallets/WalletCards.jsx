@@ -10,7 +10,10 @@ import EditIcon from "@material-ui/icons/Edit";
 import TxArrowIcon from "./icons/TxArrowIcon";
 import CopyIcon from "./icons/CopyIcon";
 
-// TODO, consider breaking up per card but a lot of styling is shared
+// TODO These are the obvious WET components in the Wallets section.
+// Common components can be refactored out of these + requirements from
+// other sections.
+
 const cardStyles = makeStyles((theme) => ({
   balances: {
     fontFamily: '"Roboto", sans-serif',
@@ -552,6 +555,36 @@ const WalletDetailsCardStyles = makeStyles((theme) => ({
       margin: 0,
     },
   },
+  authorization: {
+    backgroundColor: "#daf5ff",
+    padding: "20px 40px 40px 40px",
+  },
+  authorizationTitle: {
+    fontFamily: '"Roboto", sans-serif',
+    fontSize: 24,
+    fontWeight: 400,
+
+    lineHeight: 1.17,
+    color: "#000000",
+  },
+  authorizationInfo: {
+    marginTop: "2em",
+  },
+  subText: {
+    marginTop: 0,
+    marginBottom: 0,
+    fontSize: 14,
+    lineHeight: 1.57,
+    color: "#898989",
+    fontFamily: '"Roboto", sans-serif',
+    letterSpacing: "normal",
+  },
+  authorizationAddress: {
+    fontFamily: '"Roboto", sans-serif',
+    fontSize: 18,
+    lineHeight: 1.33,
+    color: "#000000",
+  },
 }));
 
 function WalletDetailsCard({
@@ -712,6 +745,55 @@ function TransactionDetailsCard({
   );
 }
 
+function AuthorizationCard({
+  address,
+  amount,
+  symbol,
+  currency,
+  valueSent,
+  currentValue,
+}) {
+  const classes = WalletDetailsCardStyles();
+  return (
+    <Grid container className={classes.authorization}>
+      <Grid item xs={12}>
+        <h1 className={classes.authorizationTitle}>Authorization record</h1>
+      </Grid>
+      <Grid item xs={12}>
+        <div className={classes.authorizationAddress}>{address}</div>
+        <div className={classes.walletSubtitle}>Destination Wallet</div>
+      </Grid>
+
+      <Grid item xs={3}>
+        <div className={classes.walletBalance}>
+          <span className={classes.currencyBalance}>
+            {amount} {symbol}
+          </span>
+        </div>
+        <div className={classes.walletSubtitle}>{currency} Sent</div>
+      </Grid>
+      <Grid item xs={3}>
+        <div className={classes.walletBalance}>{valueSent} USD</div>
+        <div className={classes.walletSubtitle}>Value at Disbursal</div>
+      </Grid>
+      <Grid item xs={3}>
+        <div className={classes.walletBalance}>{currentValue} USD</div>
+        <div className={classes.walletSubtitle}>Current Value</div>
+      </Grid>
+      <Grid item xs={12} className={classes.authorizationInfo}>
+        <p className={classes.subText}>
+          <b>Current value</b> = USD average across three cryotoexchanges,
+          calculated at 12:01 pm (EST)
+        </p>
+        <p className={classes.subText}>
+          <b>Value at disbursal</b> = USD average across three cryotexchanges,
+          calculated at 12:01 pm (EST) on the day of the disbursal
+        </p>
+      </Grid>
+    </Grid>
+  );
+}
+
 export {
   BalanceCard,
   TxFeeCard,
@@ -720,4 +802,5 @@ export {
   TrackWalletCard,
   WalletDetailsCard,
   TransactionDetailsCard,
+  AuthorizationCard,
 };

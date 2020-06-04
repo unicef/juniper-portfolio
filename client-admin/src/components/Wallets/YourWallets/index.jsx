@@ -1,7 +1,7 @@
 import React, { Fragment } from "react";
 import YourWalletsContent from "./YourWalletsContent";
 import WalletDetails from "./WalletDetails";
-import { Route } from "react-router-dom";
+
 // TODO: Add State/API calls/routes
 export default class YourWallets extends React.Component {
   constructor(props) {
