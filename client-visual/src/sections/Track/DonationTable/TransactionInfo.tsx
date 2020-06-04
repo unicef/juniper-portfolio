@@ -64,6 +64,8 @@ const useStyles = makeStyles((theme: Theme) =>
       color: "#0068ea",
       paddingLeft: "25px",
       paddingBottom: "21px",
+      overflow: "hidden",
+      width: "100%",
     },
   })
 );
@@ -124,7 +126,7 @@ export function TransactionInfo(props: any) {
           <div className={classes.value}>{props.field4}</div>
           <div className={classes.label}>TRANSACTION LINK</div>
           <div style={{ paddingBottom: "40px" }} className={classes.valueLink}>
-            {props.field5}
+            <a href={props.field5}>{"Link"}</a>
           </div>
         </Grid>
         {props.yes ? (
@@ -140,7 +142,9 @@ export function TransactionInfo(props: any) {
             <div className={classes.label}>TIME</div>
             <div className={classes.value}>{props.field9}</div>
             <div className={classes.label}>TRANSACTION LINK</div>
-            <div className={classes.valueLink}>{props.field10}</div>
+            <div className={classes.valueLink}>
+              <a href={props.field10}>{"Link"}</a>
+            </div>
           </Grid>
         ) : null}
       </Dialog>
