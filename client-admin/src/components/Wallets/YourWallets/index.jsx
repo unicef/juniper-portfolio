@@ -1,11 +1,11 @@
 import React, { Fragment } from "react";
-import MainContent from "./MainContent";
+import YourWalletsContent from "./YourWalletsContent";
 // TODO: Add State/API calls/routes
 export default class YourWallets extends React.Component {
   render() {
     return (
       <Fragment>
-        <MainContent />
+        <YourWalletsContent />
       </Fragment>
     );
   }

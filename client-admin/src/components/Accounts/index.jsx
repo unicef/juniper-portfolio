@@ -56,17 +56,17 @@ const useStyles = makeStyles((theme) => ({
         boxShadow: 'none'
     },
     navigation: {
-        backgroundColor: "#cbcbcb"
+        backgroundColor: "#ffffff"
     },
     navTab: {
-        fontSize: 20,
+        fontSize: '12px',
         fontWeight: 700,
         fontStretch: 'normal',
         fontStyle: 'normal',
         lineHeight: 'normal',
-        letterSpacing: 1,
+        letterSpacing: '1.2px',
         textAlign: 'center',
-        color: '#393939',
+        color: '#929292',
         textTransform: 'uppercase'
     }
 }));
@@ -101,35 +101,6 @@ const theme = createMuiTheme({
     }
   })
 
-const NavigationTabs = withStyles({
-    indicator: {
-        display: 'none',
-        backgroundColor: 'transparent',
-    },
-})((props) => <Tabs {...props} TabIndicatorProps={{ children: <div /> }} />);
-
-const NavigationTab = withStyles((theme) => ({
-    root: {
-        boxShadow: 'none',
-        textTransform: 'uppercase',
-        color: '#393939',
-        fontWeight: theme.typography.fontWeightRegular,
-        fontSize: theme.typography.pxToRem(15),
-        marginRight: theme.spacing(1),
-        '&:focus': {
-            opacity: 1,
-            backgroundColor: '#ffffff',
-            '&:hover': {
-                backgroundColor: '#ffffff'
-            }
-        },
-
-        '&:hover': {
-            backgroundColor: 'rgba(0,0,0,.14)'
-        }
-
-    },
-}))((props) => <Tab disableRipple {...props} />);
 
 export default function Accounts() {
     const classes = useStyles();
@@ -142,12 +113,13 @@ export default function Accounts() {
     return (
         <div className={classes.root} >
             <AppBar position="static" className={classes.appBar}>
-                <NavigationTabs value={value} variant="fullWidth" className={classes.navigation} onChange={handleChange} aria-label="simple tabs example">
-                    <NavigationTab label="Startups" {...a11yProps(0)} />
-                    <NavigationTab label="Donors" {...a11yProps(1)} />
-                    <NavigationTab label="Natcoms" {...a11yProps(2)} />
-                    <NavigationTab label="Admin Users" {...a11yProps(3)} />
-                </NavigationTabs>
+                <Tabs value={value} className={classes.navigation} onChange={handleChange} aria-label="simple tabs example"  indicatorColor="primary"
+                 textColor="primary" centered>
+                    <Tab className={classes.navTab} label="Startups" {...a11yProps(0)} />
+                    <Tab className={classes.navTab} label="Donors" {...a11yProps(1)} />
+                    <Tab className={classes.navTab} label="Natcoms" {...a11yProps(2)} />
+                    <Tab className={classes.navTab} label="Admin Users" {...a11yProps(3)} />
+                </Tabs>
             </AppBar>
             <ThemeProvider theme={theme}>
             <TabPanel value={value} index={0}>

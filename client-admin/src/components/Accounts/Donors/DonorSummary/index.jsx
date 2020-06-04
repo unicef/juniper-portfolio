@@ -46,23 +46,23 @@ const useStyles = makeStyles({
     
   });
 
-export default function StartupSummary()
+export default function DonorSummary()
 {
     const classes = useStyles();
-    const blurb =  "The investments are made through UNICEF's Cryptofund, in open source technology solutions that benefit children and the world."
+    const blurb =  "In line with current UNICEF practice, each crypto transaction is initiated after UNICEF has completed due diligence on a donor, ensuring a credible source of the donation."
     return (
       <Typography className={classes.root}>
-        <Typography variant="h1" style={{ marginBottom: '30px', marginTop: '50px' }}>3 investments</Typography>
+        <Typography variant="h1" style={{ marginBottom: '30px', marginTop: '50px' }}>2 donors</Typography>
         <Grid container className={classes.gridcontainer} spacing={4}>
           <Grid item lg={3}>
             <Typography variant="h2">50 ETH</Typography> 
             <Typography variant="h2" className={classes.regularweight}>18976.50 USD</Typography>
-            <div className={classes.smalltext}>TOTAL ETHER INVESTED</div>        
+            <div className={classes.smalltext}>TOTAL ETHER DONATED</div>        
           </Grid>
           <Grid item lg={3}>
             <Typography variant="h2">1 BTC</Typography> 
             <Typography variant="h2" className={classes.regularweight}>9644.32 USD</Typography>
-            <div className={classes.smalltext}>TOTAL BITCOIN INVESTED</div>   
+            <div className={classes.smalltext}>TOTAL BITCOIN DONATED</div>   
           </Grid>
           <Grid item lg={6}>
             <div style={{ paddingLeft: '16px' }}>{blurb}</div>
