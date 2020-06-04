@@ -85,6 +85,17 @@ export const Transaction = () => {
         valueMoving="100 ETH"
         valueType="Crypto Received"
         TXTableRows={TXTableRows1}
+        field1={"Ethereum Foundation"} // from
+        field2={"UNICEF France"} // reciepient
+        field3={"100 ETH"} // amount
+        field4={"Today"} // time
+        field5={"yesterday.com"} // tx link
+        yes={true}
+        field6={"UNICEF France"} // from
+        field7={"UNICEF HQ"} // reciepient
+        field8={"100 ETH"} // amount
+        field9={"Today"} // time
+        field10={"yesterday.com"} // tx link
       />
       <TransactionDetails
         transactionType="Received"
@@ -97,6 +108,17 @@ export const Transaction = () => {
         valueMoving="1 BTC"
         valueType="Crypto Received"
         TXTableRows={TXTableRows2}
+        field1={"Ethereum Foundation"} // from
+        field2={"UNICEF France"} // reciepient
+        field3={"1 BTC"} // amount
+        field4={"Today"} // time
+        field5={"yesterday.com"} // tx link
+        yes={true}
+        field6={"UNICEF France"} // from
+        field7={"UNICEF HQ"} // reciepient
+        field8={"1 BTC"} // amount
+        field9={"Today"} // time
+        field10={"yesterday.com"} // tx link
       />
       <TransactionDetails
         transactionType="Invested"
@@ -107,6 +129,11 @@ export const Transaction = () => {
         valueMoving="49.5 ETH"
         valueType="Crypto Received"
         TXTableRows={TXTableRows3}
+        field1={"UNICEF HQ"} // from
+        field2={"Atix Labs"} // reciepient
+        field3={"49.5 ETH"} // amount
+        field4={"Today"} // time
+        field5={"yesterday.com"} // tx link
       />
       <TransactionDetails
         transactionType="Invested"
@@ -117,6 +144,11 @@ export const Transaction = () => {
         valueMoving="1 BTC"
         valueType="Crypto Received"
         TXTableRows={TXTableRows4}
+        field1={"UNICEF HQ"} // from
+        field2={"Prescrypto"} // reciepient
+        field3={"1 BTC"} // amount
+        field4={"Today"} // time
+        field5={"yesterday.com"} // tx link
       />
 
       <TransactionDetails
@@ -128,6 +160,11 @@ export const Transaction = () => {
         valueMoving="49.5 ETH"
         valueType="Crypto Received"
         TXTableRows={TXTableRows5}
+        field1={"UNICEF HQ"} // from
+        field2={"Utopixar"} // reciepient
+        field3={"49.5 ETH"} // amount
+        field4={"Today"} // time
+        field5={"yesterday.com"} // tx link
       />
     </div>
   );

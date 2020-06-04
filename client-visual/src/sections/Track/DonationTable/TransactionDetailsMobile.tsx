@@ -127,17 +127,17 @@ export const TransactionDetailsMobile = (props: any) => {
         </Grid>
         <Grid>
           <TransactionInfo
-            field1={"props.field1"}
-            field2={"props.field2"}
-            field3={"props.field3"}
-            field4={"props.field4"}
-            field5={"props.field5"}
-            yes={true}
-            field6={"props.field6"}
-            field7={"props.field7"}
-            field8={"props.field8"}
-            field9={"props.field9"}
-            field10={"props.field10"}
+            field1={props.field1} // from
+            field2={props.field2} // reciepient
+            field3={props.field3} // amount
+            field4={props.field4} // time
+            field5={props.field5} // tx link
+            yes={props.yes}
+            field6={props.field6} // from
+            field7={props.field7} // reciepient
+            field8={props.field8} // amount
+            field9={props.field9} // time
+            field10={props.field10} // tx link
           />
         </Grid>
       </Grid>
