@@ -19,13 +19,15 @@ export const Invested = () => {
         partyType1="Donor"
         endParty="Prescrypto"
         partyType3="Recipient"
-        valueMoving="1 BTC"
+        valueMoving="49.5 ETH"
         valueType="Crypto Received"
         field1={"UNICEF HQ"} // from
         field2={"Prescrypto"} // reciepient
-        field3={"1 BTC"} // amount
-        field4={"Today"} // time
-        field5={"Yesterday.com"} // tx link
+        field3={"49.5 ETH"} // amount
+        field4={"October 8, 2019"} // time
+        field5={
+          "https://etherscan.io/tx/0x63b15553266e673f73315b93f9914a92d8208dfe8fa1d01dc119d156dc33d622"
+        } // tx link
       />
 
       <TransactionDetails
@@ -39,8 +41,10 @@ export const Invested = () => {
         field1={"UNICEF HQ"} // from
         field2={"Utopixar"} // reciepient
         field3={"49.5 ETH"} // amount
-        field4={"Today"} // time
-        field5={"Yesterday.com"} // tx link
+        field4={"October 8, 2019"} // time
+        field5={
+          "https://etherscan.io/tx/0x5735e0524e936818369f2eac2ef7c917b74f00993d187ffdb738e287032e70a0"
+        } // tx link
       />
 
       <TransactionDetails
@@ -54,8 +58,10 @@ export const Invested = () => {
         field1={"UNICEF HQ"} // from
         field2={"Atix Labs"} // reciepient
         field3={"49.5 ETH"} // amount
-        field4={"Today"} // time
-        field5={"Yesterday.com"} // tx link
+        field4={"October 8, 2019"} // time
+        field5={
+          "https://btc1.trezor.io/tx/001ef6f14df3b63f872c4cbdf7d3f36a15330eb9b9db4983f6c3b6d9093a8924"
+        } // tx link
       />
     </div>
   );
