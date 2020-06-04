@@ -36,7 +36,7 @@ const useStyles = makeStyles({
 
   donorname:
   {
-    fontFamily: "Roboto",
+    fontFamily: '"Roboto", sans-serif', 
     fontSize: '24px',
     lineHeight: 1.17,
     letterSpacing:'normal',
@@ -46,7 +46,7 @@ const useStyles = makeStyles({
 
   usvalue: 
   {
-    fontFamily: "Roboto",
+    fontFamily: '"Roboto", sans-serif', 
     fontSize: '18px',
     lineHeight: 1.33,
     letterSpacing: "normal",
@@ -56,7 +56,7 @@ const useStyles = makeStyles({
 
   amount:
   {
-    fontFamily: "Roboto",
+    fontFamily: '"Roboto", sans-serif', 
     fontSize: '18px',
     lineHeight: '24px',
     letterSpacing: 0,
@@ -67,7 +67,7 @@ const useStyles = makeStyles({
 
   smalltext:
   {
-    fontFamily: 'Cabin',
+    fontFamily: '"Cabin", sans-serif',
     size: '10px',
     letterSpacing: '0.83px',
     color: '#000000',
@@ -76,7 +76,7 @@ const useStyles = makeStyles({
 
   button:
   {
-    fontFamily: 'Cabin',
+    fontFamily: '"Cabin", sans-serif',
     fontWeight: 700,
     fontSize: '12px',
     letterSpacing: '1px',
@@ -85,7 +85,7 @@ const useStyles = makeStyles({
 
   numcards:
   {
-    fontFamily: 'Cabin',
+    fontFamily: '"Cabin", sans-serif',
     fontSize: '14px',
     fontWeight: 'bold',
     fontStretch: 'normal',
