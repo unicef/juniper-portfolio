@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from "react";
+import { withRouter } from "react-router-dom";
 import { makeStyles } from "@material-ui/core/styles";
 import Grid from "@material-ui/core/Grid";
 import Button from "@material-ui/core/Button";
-import priceIcon from "../YourWallets/priceIcon.svg";
-import { WalletCard } from "../YourWallets/Cards";
+import PriceIcon from "../icons/PriceIcon";
+import { TrackWalletCard } from "../WalletCards";
 
 const mainStyles = makeStyles((theme) => ({
   root: {
@@ -76,7 +77,7 @@ const mainStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function () {
+export default withRouter(function ({ history }) {
   const [trackedWallets, setTrackedWallets] = useState([]);
   const [otherWallets, setOtherWallets] = useState([]);
 
@@ -90,16 +91,20 @@ export default function () {
     setOtherWallets(otherWalletsData);
   }, []);
 
+  const viewWalletDetails = (address) => {
+    history.push(`/wallets/${address}`);
+  };
+
   const classes = mainStyles();
   return (
     <div className={classes.root}>
       <Grid container>
         <Grid item xs={12} className={classes.priceRectangle}>
           <div>
-            <img src={priceIcon} className={classes.priceIcon} />{" "}
+            <PriceIcon className={classes.priceIcon} />
             <b className={classes.priceTitle}>USD Price</b> = Average across
             three cryptocurrency exchanges, calculated at 12:01 pm (EST)
-            <a href="#" className={classes.moreInfo}>
+            <a href="/#" className={classes.moreInfo}>
               More Info
             </a>
           </div>
@@ -116,9 +121,6 @@ export default function () {
             color="primary"
             variant="contained"
             className={classes.followWalletButton}
-            InputProps={{
-              className: classes.followWalletButton,
-            }}
           >
             Follow a Blockchain Wallet
           </Button>
@@ -130,21 +132,23 @@ export default function () {
           </h3>
         </Grid>
         <Grid container spacing={2} style={{ position: "relative" }}>
-          {trackedWallets.map((wallet) => {
-            return (
-              <Grid item xs={6}>
-                <WalletCard
-                  name={wallet.name}
-                  currency={wallet.currency}
-                  tags={wallet.tags}
-                  symbol={wallet.symbol}
-                  amount={wallet.amount}
-                  amountUSD={wallet.amountUSD}
-                  address={wallet.address}
-                />
-              </Grid>
-            );
-          })}
+          {trackedWallets &&
+            trackedWallets.map((wallet, index) => {
+              return (
+                <Grid item xs={6} key={`${index}-${wallet.address}`}>
+                  <TrackWalletCard
+                    name={wallet.name}
+                    currency={wallet.currency}
+                    tags={wallet.tags}
+                    symbol={wallet.symbol}
+                    amount={wallet.amount}
+                    amountUSD={wallet.amountUSD}
+                    address={wallet.address}
+                    viewTransactionOnClick={viewWalletDetails}
+                  />
+                </Grid>
+              );
+            })}
         </Grid>
 
         <Grid item xs={12} style={{ marginTop: "4em" }}>
@@ -154,26 +158,27 @@ export default function () {
         </Grid>
 
         <Grid container spacing={2} style={{ position: "relative" }}>
-          {otherWallets.map((wallet) => {
-            return (
-              <Grid item xs={6}>
-                <WalletCard
-                  name={wallet.name}
-                  currency={wallet.currency}
-                  tags={wallet.tags}
-                  symbol={wallet.symbol}
-                  amount={wallet.amount}
-                  amountUSD={wallet.amountUSD}
-                  address={wallet.address}
-                />
-              </Grid>
-            );
-          })}
+          {otherWallets &&
+            otherWallets.map((wallet, index) => {
+              return (
+                <Grid item xs={6} key={`${index}-${wallet.address}`}>
+                  <TrackWalletCard
+                    name={wallet.name}
+                    currency={wallet.currency}
+                    tags={wallet.tags}
+                    symbol={wallet.symbol}
+                    amount={wallet.amount}
+                    amountUSD={wallet.amountUSD}
+                    address={wallet.address}
+                  />
+                </Grid>
+              );
+            })}
         </Grid>
       </Grid>
     </div>
   );
-}
+});
 
 // Mock Wallet Data. Will come from API and be passed from parent class
 const trackedWalletsData = [

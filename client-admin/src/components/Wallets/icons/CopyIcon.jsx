@@ -3,7 +3,7 @@ import SvgIcon from "@material-ui/core/SvgIcon";
 
 export default function CopyIcon(props) {
   return (
-    <SvgIcon {...props} fontSize="large">
+    <SvgIcon {...props}>
       <g fill="none" fillRule="evenodd" stroke="#00AEEF">
         <path d="M14.333 10.6H6.955c-.833 0-1.509-.676-1.509-1.509V1.713c0-.832.676-1.508 1.509-1.508h7.378c.832 0 1.508.676 1.508 1.508v7.378c0 .833-.676 1.509-1.508 1.509z" />
         <path

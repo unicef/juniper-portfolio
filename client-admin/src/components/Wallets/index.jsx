@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { makeStyles, withStyles } from "@material-ui/core/styles";
 import Tabs from "@material-ui/core/Tabs";
 import Tab from "@material-ui/core/Tab";
@@ -23,17 +23,17 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 function TabPanel(props) {
-  const { children, value, index, ...other } = props;
+  const { children, activeTab, index, ...other } = props;
   return (
     <div
       role="tabpanel"
-      hidden={value !== index}
+      hidden={activeTab !== index}
       id={`simple-tabpanel-${index}`}
       aria-labelledby={`simple-tab-${index}`}
       {...other}
       style={{ backgroundColor: "#f8f8f8", paddingBottom: "2em" }}
     >
-      {value === index && <Container maxWidth="md">{children}</Container>}
+      {activeTab === index && <Container maxWidth="md">{children}</Container>}
     </div>
   );
 }
@@ -63,30 +63,30 @@ const StyledTab = withStyles((theme) => ({
 
 export default function CustomizedTabs() {
   const classes = useStyles();
-  const [value, setValue] = React.useState(0);
+  const [activeTab, setActiveTab] = useState(0);
 
-  const handleChange = (event, newValue) => {
-    setValue(newValue);
+  const changeView = (event, newTab) => {
+    setActiveTab(newTab);
   };
 
   return (
     <div className={classes.root}>
-      <StyledTabs value={value} onChange={handleChange} centered>
+      <StyledTabs value={activeTab} onChange={changeView} centered>
         <StyledTab
           label="Your Wallet"
-          style={value === 0 ? { color: "#00aeef" } : {}}
+          style={activeTab === 0 ? { color: "#00aeef" } : {}}
         />
         <StyledTab
           label="Track Wallets"
-          style={value === 1 ? { color: "#00aeef" } : {}}
+          style={activeTab === 1 ? { color: "#00aeef" } : {}}
         />
       </StyledTabs>
       <Typography className={classes.padding} />
 
-      <TabPanel value={value} index={0}>
+      <TabPanel activeTab={activeTab} index={0}>
         <YourWallets />
       </TabPanel>
-      <TabPanel value={value} index={1}>
+      <TabPanel activeTab={activeTab} index={1}>
         <TrackWallets />
       </TabPanel>
     </div>
