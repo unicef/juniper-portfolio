@@ -137,9 +137,6 @@ export default function Accounts() {
             <TabPanel className={classes.tabpanel} value={value} index={2}>
                 <Natcoms />
             </TabPanel>
-            <TabPanel className={classes.tabpanel} value={value} index={3}>
-                <AdminUsers />
-              </TabPanel>
             </ThemeProvider>
         </div>
     );
