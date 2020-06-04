@@ -110,7 +110,7 @@ export default function NatcomCards({ncomdata}: NatcomCardProps)
        <div className={classes.numcards}>{numcards} NATCOM ACCOUNTS</div>
        <Grid container className={classes.cardsection} spacing={4}>
          {ncomdata.map((ncom) =>
-           <Grid item xs={6}>
+           <Grid item lg={6}>
              <NatcomCard name={ncom.name} amtETH={ncom.amtETH} amtBTC={ncom.amtBTC}/>
            </Grid>
           )}
