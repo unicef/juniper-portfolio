@@ -46,17 +46,17 @@ const useStyles = makeStyles({
     
   });
 
-export default function StartupSummary()
+export default function NatcomSummary()
 {
     const classes = useStyles();
-    const blurb =  "The investments are made through UNICEF's Cryptofund, in open source technology solutions that benefit children and the world."
+    const blurb =  "Cryptofund donations are received by HQ through four National Committees - Australia France, New Zealand and the United States."
     return (
       <div className={classes.root}>
-        <Typography variant="h1" style={{ marginBottom: '30px', marginTop: '50px' }}>3 investments</Typography>
+        <Typography variant="h1" style={{ marginBottom: '30px', marginTop: '50px' }}>4 NatComs</Typography>
         <Grid container className={classes.gridcontainer} spacing={4}>
           <Grid item lg={3}>
-            <Typography variant="h2">50 ETH</Typography> 
-            <Typography variant="h2" className={classes.regularweight}>18976.50 USD</Typography>
+            <Typography variant="h2">100 ETH</Typography> 
+            <Typography variant="h2" className={classes.regularweight}>21275.00 USD</Typography>
             <div className={classes.smalltext}>TOTAL ETHER INVESTED</div>        
           </Grid>
           <Grid item lg={3}>

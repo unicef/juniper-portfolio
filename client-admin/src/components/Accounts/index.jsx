@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { makeStyles, withStyles } from '@material-ui/core/styles';
+import { makeStyles} from '@material-ui/core/styles';
 import { createMuiTheme, ThemeProvider } from "@material-ui/core/styles";
 import AppBar from '@material-ui/core/AppBar';
 import Tabs from '@material-ui/core/Tabs';
@@ -8,7 +8,6 @@ import Tab from '@material-ui/core/Tab';
 import Box from '@material-ui/core/Box';
 import Donors from "./Donors";
 import Startups from "./Startups"
-import AdminUsers from "./AdminUsers"
 import Natcoms from "./Natcoms"
 
 
@@ -68,6 +67,11 @@ const useStyles = makeStyles((theme) => ({
         textAlign: 'center',
         color: '#929292',
         textTransform: 'uppercase'
+    },
+
+    tabpanel:
+    {
+        backgroundColor: "#f8f8f8", 
     }
 }));
 
@@ -119,22 +123,18 @@ export default function Accounts() {
                     <Tab className={classes.navTab} label="Startups" {...a11yProps(0)} />
                     <Tab className={classes.navTab} label="Donors" {...a11yProps(1)} />
                     <Tab className={classes.navTab} label="Natcoms" {...a11yProps(2)} />
-                    <Tab className={classes.navTab} label="Admin Users" {...a11yProps(3)} />
                 </Tabs>
             </AppBar>
             <ThemeProvider theme={theme}>
-              <TabPanel value={value} index={0}>
+            <TabPanel className={classes.tabpanel} value={value} index={0}>
                 <Startups />
-              </TabPanel>
-              <TabPanel value={value} index={1}>
+            </TabPanel>
+            <TabPanel className={classes.tabpanel} value={value} index={1}>
                 <Donors />
-              </TabPanel>
-              <TabPanel value={value} index={2}>
+            </TabPanel>
+            <TabPanel className={classes.tabpanel} value={value} index={2}>
                 <Natcoms />
-              </TabPanel>
-              <TabPanel value={value} index={3}>
-                <AdminUsers />
-              </TabPanel>
+            </TabPanel>
             </ThemeProvider>
         </div>
     );
