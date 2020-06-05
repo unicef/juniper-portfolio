@@ -12,6 +12,9 @@ import {
 } from "./graphql/resolvers/User/auth";
 import { sendRefreshToken } from "./sendRefreshToken";
 
+const JuniperAdmin = require("./admin");
+const admin = new JuniperAdmin();
+admin.start();
 const port = process.env.SERVER_PORT;
 
 const mount = async (app: Application) => {
