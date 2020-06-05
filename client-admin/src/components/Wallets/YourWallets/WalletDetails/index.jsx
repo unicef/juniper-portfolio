@@ -12,6 +12,9 @@ const mainStyles = makeStyles((theme) => ({
 }));
 
 export default function ({ viewWalletDetails, walletDetailsAddress }) {
+  const classes = mainStyles();
+
+  const [authorizationRecord, setAuthorizationRecord] = useState(false);
   const [address] = useState(walletDetailsAddress);
   const [wallet, setWallet] = useState({});
 
