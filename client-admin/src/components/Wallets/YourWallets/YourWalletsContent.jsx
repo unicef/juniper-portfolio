@@ -56,7 +56,7 @@ const mainStyles = makeStyles((theme) => ({
     color: "#ffffff",
     boxShadow: "none",
   },
-  walletSubtitle: {
+  walletSubheading: {
     fontSize: 14,
     fontWeight: 700,
     letterSpacing: 0.78,
@@ -240,7 +240,7 @@ export default function ({ viewWalletDetails }) {
         </Grid>
 
         <Grid item xs={12} style={{ marginTop: "4em" }}>
-          <h3 className={classes.walletSubtitle}>
+          <h3 className={classes.walletSubheading}>
             {ethereumWallets.length} Ethereum Wallets
           </h3>
         </Grid>
@@ -279,9 +279,7 @@ export default function ({ viewWalletDetails }) {
         </Grid>
 
         <Grid item xs={12} style={{ marginTop: "4em" }}>
-          <h3 className={classes.walletSubtitle}>
-            {bitcoinWallets.length} Bitcoin Wallets
-          </h3>
+          <h3 className={classes.walletSubheading}>2 Bitcoin Wallets</h3>
         </Grid>
 
         <Grid container spacing={2} style={{ position: "relative" }}>

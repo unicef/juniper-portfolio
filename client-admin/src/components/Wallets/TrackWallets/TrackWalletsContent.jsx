@@ -67,7 +67,7 @@ const mainStyles = makeStyles((theme) => ({
     color: "#ffffff",
     boxShadow: "none",
   },
-  walletSubtitle: {
+  walletSubheading: {
     fontSize: 14,
     fontWeight: 700,
     letterSpacing: 0.78,
@@ -127,7 +127,7 @@ export default withRouter(function ({ history }) {
         </Grid>
 
         <Grid item xs={12} style={{ marginTop: "4em" }}>
-          <h3 className={classes.walletSubtitle}>
+          <h3 className={classes.walletSubheading}>
             Following {trackedWallets.length} Wallets
           </h3>
         </Grid>
@@ -151,7 +151,7 @@ export default withRouter(function ({ history }) {
         </Grid>
 
         <Grid item xs={12} style={{ marginTop: "4em" }}>
-          <h3 className={classes.walletSubtitle}>
+          <h3 className={classes.walletSubheading}>
             {otherWallets.length} Other Wallets
           </h3>
         </Grid>

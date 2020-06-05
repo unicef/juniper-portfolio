@@ -37,7 +37,10 @@ const transactionDetailsStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function TransactionDetails({ address }) {
+export default function TransactionDetails({
+  address,
+  setAuthorizationRecord,
+}) {
   const classes = transactionDetailsStyles();
   const [txDetails, setTxDetails] = useState([]);
   useEffect(() => {
@@ -68,13 +71,15 @@ export default function TransactionDetails({ address }) {
             txDetails.map((txDetails, index) => {
               return (
                 <TransactionDetailsCard
-                  key={`${index}-${address}`}
+                  key={txDetails.txid}
+                  txid={txDetails.txid}
                   address={address}
                   currency={txDetails.currency}
                   amount={txDetails.amount}
                   symbol={txDetails.symbol}
                   valueSent={txDetails.valueSent}
                   currentValue={txDetails.currentValue}
+                  setAuthorizationRecord={setAuthorizationRecord}
                 />
               );
             })}
@@ -86,6 +91,7 @@ export default function TransactionDetails({ address }) {
 
 const transactionDetailsData = [
   {
+    txid: "0x12387123812312309182391723981asdf2387123",
     currency: "Ether",
     amount: 50,
     symbol: "ETH",
@@ -93,6 +99,7 @@ const transactionDetailsData = [
     currentValue: 9001,
   },
   {
+    txid: "0x123871238123123091823917239812387123",
     currency: "Ether",
     amount: 25,
     symbol: "ETH",
