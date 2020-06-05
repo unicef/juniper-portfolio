@@ -16,7 +16,7 @@ class Logger {
   static get DEFAULTS() {
     return {
       name: "logger",
-      level: process.env.DEBUG ? "debug" : "info",
+      level: process.env.NODE_ENV === "debug" ? "debug" : "info",
 
       streams: [
         {

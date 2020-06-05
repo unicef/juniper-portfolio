@@ -1,15 +1,21 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
-const userSchema = new Schema({
+const wallet = new Schema({
   address: { type: String, index: true },
   name: { type: String },
+  tags: { type: Array, default: [] },
   currency: { type: String },
-  signers: { type: Array },
+  symbol: { type: String },
+  amount: { type: Number, default: 0 },
+  amountUSD: { type: Number, default: 0 },
+  isMultisig: { type: Boolean, default: false },
+  multisigOwners: { type: Array, default: [] },
+  active: { type: Boolean, default: true },
 });
 
-userSchema.index({ email: 1 }, { unique: true });
+wallet.index({ address: 1 }, { unique: true });
 
-const User = mongoose.model("User", userSchema);
+const Wallet = mongoose.model("Wallet", wallet);
 
-module.exports = User;
+module.exports = Wallet;

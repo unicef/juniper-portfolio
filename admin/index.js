@@ -1,6 +1,9 @@
 const express = require("express");
+const bodyParser = require("body-parser");
 const Logger = require("./logger");
 const DB = require("./db");
+const utils = require("./utils");
+const { logRequest } = require("./middleware");
 const { publicRoutes, privateRoutes } = require("./routes")();
 const defaultConfig = require("./config");
 
@@ -20,19 +23,22 @@ class JuniperAdmin {
     this.environment = this.config.environment;
     this.db = new DB(this.config.db);
     this.server = express();
+    this.utils = utils;
 
     this.server.set("trust_proxy", this.config.trustProxy);
     this.server.set("json spaces", this.config.jsonSpaces);
-    this.server.set("juniper", this);
+    this.server.use(bodyParser.urlencoded(this.config.urlencoded));
+    this.server.use(bodyParser.json({ limit: this.config.uploadLimit }));
+    this.server.set("juniperAdmin", this);
 
-    this.server.use("/api", publicRoutes);
-    this.server.use("/admin/api", privateRoutes);
+    this.server.use("/api", logRequest, publicRoutes);
+    this.server.use("/admin/api", logRequest, privateRoutes);
 
     this.logger.info(`Initialized`);
   }
   start() {
     this.server.listen(this.config.port, () => {
-      this.logger.info(`listening on port ${this.config.port}`);
+      this.logger.info(`listening on http://localhost:${this.config.port}`);
     });
     this.logger.info(`started in ${this.environment}.`);
   }

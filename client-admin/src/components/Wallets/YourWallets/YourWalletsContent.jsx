@@ -8,7 +8,7 @@ import { BalanceCard, TxFeeCard, TotalCard, WalletCard } from "../WalletCards";
 import Fab from "@material-ui/core/Fab";
 import ChevronRightIcon from "@material-ui/icons/ChevronRight";
 import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
-import WalletModal from "./AddWallet";
+import AddWallet from "./AddWallet";
 
 const mainStyles = makeStyles((theme) => ({
   root: {
@@ -170,7 +170,7 @@ export default withRouter(function ({ history, viewWalletDetails }) {
   const classes = mainStyles();
   return (
     <div className={classes.root}>
-      <WalletModal
+      <AddWallet
         open={showAddWalletModal}
         setShowAddWalletModal={setShowAddWalletModal}
       />

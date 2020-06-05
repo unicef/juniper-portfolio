@@ -15,7 +15,8 @@
     "lodash.merge": "^4.6.2",
     "mongodb": "^3.4.0",
     "mongoose": "^5.9.17",
-    "react-router-dom": "^5.1.2"
+    "react-router-dom": "^5.1.2",
+    "web3": "^1.2.8"
   },
   "devDependencies": {
     "@types/bcryptjs": "^2.4.2",
