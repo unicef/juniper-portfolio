@@ -123,6 +123,26 @@ export default withRouter(function ({ history, viewWalletDetails }) {
     }
   };
 
+  const getWallets = async () => {
+    let res, walletData;
+    try {
+      res = await fetch("/admin/api/wallets");
+      walletData = await res.json();
+    } catch (e) {
+      return console.log(e);
+    }
+
+    setEthereumWallets(
+      walletData.filter((wallet) => {
+        return wallet.currency === "Ethereum";
+      })
+    );
+
+    setBitcoinWallets(
+      walletData.filter((wallet) => wallet.currency === "Bitcoin")
+    );
+  };
+
   useEffect(() => {
     /* 
       State will passed through props here
@@ -157,14 +177,7 @@ export default withRouter(function ({ history, viewWalletDetails }) {
       invested: "19,287.47",
     });
 
-    setEthereumWallets(
-      walletData.filter((wallet) => {
-        return wallet.currency === "Ethereum";
-      })
-    );
-    setBitcoinWallets(
-      walletData.filter((wallet) => wallet.currency === "Bitcoin")
-    );
+    getWallets();
   }, []);
 
   const classes = mainStyles();
@@ -173,6 +186,7 @@ export default withRouter(function ({ history, viewWalletDetails }) {
       <AddWallet
         open={showAddWalletModal}
         setShowAddWalletModal={setShowAddWalletModal}
+        getWallets={getWallets}
       />
       <Grid container>
         <Grid item xs={12} className={classes.priceRectangle}>
@@ -266,7 +280,9 @@ export default withRouter(function ({ history, viewWalletDetails }) {
         </Grid>
 
         <Grid item xs={12} style={{ marginTop: "4em" }}>
-          <h3 className={classes.walletSubtitle}>2 Bitcoin Wallets</h3>
+          <h3 className={classes.walletSubtitle}>
+            {bitcoinWallets.length} Bitcoin Wallets
+          </h3>
         </Grid>
 
         <Grid container spacing={2} style={{ position: "relative" }}>

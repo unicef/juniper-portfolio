@@ -34,10 +34,10 @@ class MongoDB {
     return new this.models.Wallet(wallet).save();
   }
   async getWallet(address) {
-    return new this.models.Wallet.findOne({ address });
+    return this.models.Wallet.findOne({ address });
   }
   async getWallets() {
-    return new this.models.Wallet.find();
+    return this.models.Wallet.find({});
   }
 }
 

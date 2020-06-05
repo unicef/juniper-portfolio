@@ -216,7 +216,7 @@ export default function AddWallet(props) {
     setName("");
     setCurrency("Ether");
     setSymbol("ETH");
-    setIsMultisig("false");
+    setIsMultisig(false);
     setMultisigOwners([
       {
         walletAddress: null,
@@ -224,9 +224,8 @@ export default function AddWallet(props) {
       },
     ]);
 
+    props.getWallets();
     handleClose();
-
-    console.log(json);
   };
 
   useEffect(() => {
