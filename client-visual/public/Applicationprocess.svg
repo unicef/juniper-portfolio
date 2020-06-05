@@ -1,29 +1,30 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<svg width="608px" height="219px" viewBox="0 0 608 219" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<svg width="298px" height="458px" viewBox="0 0 298 458" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
     <!-- Generator: Sketch 60.1 (88133) - https://sketch.com -->
-    <title>Group 2</title>
+    <title>Group</title>
     <desc>Created with Sketch.</desc>
     <g id="UI-keyscreens" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-        <g id="About" transform="translate(-700.000000, -1407.000000)">
-            <g id="Group-2" transform="translate(700.000000, 1409.000000)">
-                <circle id="Oval" fill="#FFD113" cx="85" cy="85" r="85"></circle>
-                <circle id="Oval-Copy" fill="#FFD113" cx="395" cy="85" r="53"></circle>
+        <g id="About/mobile" transform="translate(-23.000000, -1610.000000)">
+            <g id="Group" transform="translate(25.000000, 1610.000000)">
+                <circle id="Oval" fill="#FFD113" cx="75" cy="75" r="75"></circle>
+                <circle id="Oval-Copy" fill="#FFD113" cx="74" cy="325" r="49"></circle>
+                <path id="Line-5" d="M75.4448698,74.0000005 C75.9577054,73.9995001 76.3807532,74.3851277 76.4390036,74.8824097 L76.4458451,74.9990242 L76.54,171.999 L82.5404905,171.993176 L75.5541544,186 L68.5404972,172.006837 L74.54,172 L74.4458461,75.0009758 C74.4453072,74.4486913 74.8925854,74.0005394 75.4448698,74.0000005 Z" fill="#000000" fill-rule="nonzero"></path>
+                <path id="Line-5-Copy" d="M75.7021859,324.000011 C76.215016,324.002451 76.635846,324.390498 76.6912445,324.888105 L76.6974174,325.004757 L76.369,394.004 L82.3690938,394.033459 L75.3025713,408 L68.3692522,393.966858 L74.369,393.995 L74.69744,324.995243 C74.7000674,324.442964 75.1499074,323.997384 75.7021859,324.000011 Z" fill="#000000" fill-rule="nonzero"></path>
                 <text id="all-Applicants-Copy" font-family="Cabin-Bold, Cabin" font-size="12" font-weight="bold" letter-spacing="1" fill="#000000">
-                    <tspan x="33" y="216">ALL APPLICANTS</tspan>
+                    <tspan x="177" y="89">ALL APPLICANTS</tspan>
                 </text>
                 <text id="selected-Applicants" font-family="Cabin-Bold, Cabin" font-size="12" font-weight="bold" letter-spacing="1" fill="#000000">
-                    <tspan x="342" y="216">SELECTED APPLICANTS</tspan>
+                    <tspan x="177" y="322">SELECTED </tspan>
+                    <tspan x="177" y="337">APPLICANTS</tspan>
                 </text>
                 <text id="innovation-fund" font-family="Cabin-Bold, Cabin" font-size="12" font-weight="bold" letter-spacing="1" fill="#000000">
-                    <tspan x="186" y="216">INNOVATION FUND</tspan>
+                    <tspan x="177" y="235">INNOVATION FUND</tspan>
                 </text>
                 <text id="cryptofund" font-family="Cabin-Bold, Cabin" font-size="12" font-weight="bold" letter-spacing="1" fill="#000000">
-                    <tspan x="522" y="216">CRYPTOFUND</tspan>
+                    <tspan x="177" y="457">CRYPTOFUND</tspan>
                 </text>
-                <line x1="565" y1="0" x2="565" y2="170" id="Line-9-Copy" stroke="#0068EA" stroke-width="4" stroke-linecap="square" stroke-dasharray="4,9"></line>
-                <path id="Line-5" d="M188.976726,78.8985258 L202.983551,85.8848599 L188.990389,92.8985192 L188.984,86.898 L85.0009759,86.9999995 C84.4486914,87.0005385 84.0005395,86.5532604 84.0000005,86.0009759 C83.9995,85.4881403 84.3851275,85.0650924 84.8824096,85.006842 L84.9990241,85.0000005 L188.982,84.898 L188.976726,78.8985258 Z" fill="#000000" fill-rule="nonzero"></path>
-                <path id="Line-5-Copy" d="M478.953594,78.6022112 L492.986597,85.5358118 L479.019915,92.6020542 L478.991,86.602 L395.004737,86.9999888 C394.452459,87.0026051 394.002628,86.5570158 394.000011,86.0047372 C393.997582,85.4919071 394.381615,85.0674118 394.878675,85.0072913 L394.995263,85.0000112 L478.981,84.602 L478.953594,78.6022112 Z" fill="#000000" fill-rule="nonzero"></path>
-                <line x1="246" y1="0" x2="246" y2="170" id="Line-9" stroke="#0068EA" stroke-width="4" stroke-linecap="square" stroke-dasharray="4,9"></line>
+                <line x1="0" y1="230.5" x2="151" y2="230.5" id="Line-9" stroke="#0068EA" stroke-width="4" stroke-linecap="square" stroke-dasharray="4,9"></line>
+                <line x1="0" y1="452.5" x2="151" y2="452.5" id="Line-9-Copy" stroke="#0068EA" stroke-width="4" stroke-linecap="square" stroke-dasharray="4,9"></line>
             </g>
         </g>
     </g>
