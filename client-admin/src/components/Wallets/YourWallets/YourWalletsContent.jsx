@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import { withRouter } from "react-router-dom";
 import { makeStyles } from "@material-ui/core/styles";
 import Grid from "@material-ui/core/Grid";
 import Button from "@material-ui/core/Button";
@@ -91,7 +90,7 @@ const mainStyles = makeStyles((theme) => ({
   },
 }));
 
-export default withRouter(function ({ history, viewWalletDetails }) {
+export default function ({ viewWalletDetails }) {
   const [balances, setBalances] = useState([]);
   const [fees, setFees] = useState({});
   const [totals, setTotals] = useState({});
@@ -320,7 +319,7 @@ export default withRouter(function ({ history, viewWalletDetails }) {
       </Grid>
     </div>
   );
-});
+}
 
 // Mock Wallet Data. Will come from API and be passed from parent class
 const walletData = [

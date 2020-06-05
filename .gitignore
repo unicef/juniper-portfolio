@@ -3,3 +3,4 @@ package-lock.json
 build/
 .env
 admin/logger.log
+./logger.log

@@ -16,7 +16,7 @@ router.get("/wallets", async (req, res) => {
 
 router.get("/wallet/:address", async (req, res) => {
   const juniperAdmin = req.app.get("juniperAdmin");
-  const address = req.params;
+  const { address } = req.params;
   let wallet = {};
 
   try {
@@ -24,6 +24,7 @@ router.get("/wallet/:address", async (req, res) => {
   } catch (e) {
     return logger.error(e);
   }
+
   res.json(wallet);
 });
 
