@@ -11,16 +11,28 @@ const mainStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function ({ viewWalletDetails }) {
+export default function ({ viewWalletDetails, walletDetailsAddress }) {
   const classes = mainStyles();
-  let { walletAddress } = useParams();
+
   const [authorizationRecord, setAuthorizationRecord] = useState(false);
-  const [address] = useState(walletAddress);
+  const [address] = useState(walletDetailsAddress);
   const [wallet, setWallet] = useState({});
+
+  const getWallet = async () => {
+    let res, wallet;
+    try {
+      res = await fetch(`/admin/api/wallet/${address}`);
+      wallet = await res.json();
+    } catch (e) {
+      return console.log(e);
+    }
+
+    setWallet(wallet);
+  };
 
   useEffect(() => {
     // TODO Fetch from API
-    setWallet(walletData);
+    getWallet(walletDetailsAddress);
   }, [address]);
 
   return (

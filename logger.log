@@ -1,0 +1,28 @@
+{"name":"MongoDB","hostname":"rothbard","pid":20174,"level":30,"msg":"Mongo URL: mongodb://localhost/","time":"2020-06-05T00:11:43.172Z","v":0}
+{"name":"Juniper App","hostname":"rothbard","pid":20174,"level":30,"msg":"started","time":"2020-06-05T00:11:43.182Z","v":0}
+{"name":"MongoDB","hostname":"rothbard","pid":20174,"level":30,"msg":"Mongo database: juniperAdmin","time":"2020-06-05T00:11:43.173Z","v":0}
+{"name":"MongoDB","hostname":"rothbard","pid":20260,"level":30,"msg":"Mongo URL: mongodb://localhost/","time":"2020-06-05T00:12:51.129Z","v":0}
+{"name":"Juniper App","hostname":"rothbard","pid":20260,"level":30,"msg":"init","time":"2020-06-05T00:12:51.138Z","v":0}
+{"name":"MongoDB","hostname":"rothbard","pid":20260,"level":30,"msg":"Mongo database: juniperAdmin","time":"2020-06-05T00:12:51.130Z","v":0}
+{"name":"MongoDB","hostname":"rothbard","pid":20289,"level":30,"msg":"Mongo URL: mongodb://localhost/","time":"2020-06-05T00:12:58.126Z","v":0}
+{"name":"Juniper App","hostname":"rothbard","pid":20289,"level":30,"msg":"init","time":"2020-06-05T00:12:58.137Z","v":0}
+{"name":"MongoDB","hostname":"rothbard","pid":20289,"level":30,"msg":"Mongo database: juniperAdmin","time":"2020-06-05T00:12:58.127Z","v":0}
+{"name":"MongoDB","hostname":"rothbard","pid":20375,"level":30,"msg":"Mongo URL: mongodb://localhost/","time":"2020-06-05T00:13:29.940Z","v":0}
+{"name":"Juniper App","hostname":"rothbard","pid":20375,"level":30,"msg":"init","time":"2020-06-05T00:13:29.949Z","v":0}
+{"name":"MongoDB","hostname":"rothbard","pid":20375,"level":30,"msg":"Mongo database: juniperAdmin","time":"2020-06-05T00:13:29.941Z","v":0}
+{"name":"MongoDB","hostname":"rothbard","pid":20436,"level":30,"msg":"Mongo URL: mongodb://localhost/","time":"2020-06-05T00:13:54.721Z","v":0}
+{"name":"Juniper App","hostname":"rothbard","pid":20436,"level":30,"msg":"init","time":"2020-06-05T00:13:54.733Z","v":0}
+{"name":"MongoDB","hostname":"rothbard","pid":20436,"level":30,"msg":"Mongo database: juniperAdmin","time":"2020-06-05T00:13:54.723Z","v":0}
+{"name":"MongoDB","hostname":"rothbard","pid":20629,"level":30,"msg":"init","time":"2020-06-05T00:15:11.763Z","v":0}
+{"name":"Juniper App","hostname":"rothbard","pid":20629,"level":30,"msg":"init","time":"2020-06-05T00:15:11.775Z","v":0}
+{"name":"MongoDB","hostname":"rothbard","pid":20629,"level":30,"msg":"Mongo URL: mongodb://localhost/","time":"2020-06-05T00:15:11.765Z","v":0}
+{"name":"MongoDB","hostname":"rothbard","pid":20629,"level":30,"msg":"Mongo database: juniperAdmin","time":"2020-06-05T00:15:11.765Z","v":0}
+{"name":"Juniper App","hostname":"rothbard","pid":25948,"level":30,"msg":"Starting...","time":"2020-06-05T07:14:29.407Z","v":0}
+{"name":"MongoDB","hostname":"rothbard","pid":25948,"level":30,"msg":"Starting...","time":"2020-06-05T07:14:29.408Z","v":0}
+{"name":"Juniper App","hostname":"rothbard","pid":25948,"level":30,"msg":"Initializing","time":"2020-06-05T07:14:29.408Z","v":0}
+{"name":"Juniper App","hostname":"rothbard","pid":25948,"level":30,"msg":"Initialized","time":"2020-06-05T07:14:29.420Z","v":0}
+{"name":"Juniper App","hostname":"rothbard","pid":25948,"level":30,"msg":"started in development.","time":"2020-06-05T07:14:29.424Z","v":0}
+{"name":"Juniper App","hostname":"rothbard","pid":25948,"level":30,"msg":"listening on http://localhost:4000","time":"2020-06-05T07:14:29.433Z","v":0}
+{"name":"MongoDB","hostname":"rothbard","pid":25948,"level":30,"msg":"Initializing:","time":"2020-06-05T07:14:29.409Z","v":0}
+{"name":"MongoDB","hostname":"rothbard","pid":25948,"level":30,"msg":"Connected: mongodb://localhost/juniperAdmin","time":"2020-06-05T07:14:29.450Z","v":0}
+{"name":"MongoDB","hostname":"rothbard","pid":25948,"level":30,"msg":"Initialized","time":"2020-06-05T07:14:29.450Z","v":0}

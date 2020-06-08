@@ -20,7 +20,10 @@ export default class YourWallets extends React.Component {
     return (
       <Fragment>
         {walletDetailsAddress ? (
-          <WalletDetails viewWalletDetails={this.viewWalletDetails} />
+          <WalletDetails
+            viewWalletDetails={this.viewWalletDetails}
+            walletDetailsAddress={this.state.walletDetailsAddress}
+          />
         ) : (
           <YourWalletsContent viewWalletDetails={this.viewWalletDetails} />
         )}

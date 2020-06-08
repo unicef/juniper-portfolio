@@ -5,6 +5,8 @@
     "@types/node-fetch": "^2.5.4",
     "apollo-server-express": "^2.9.13",
     "bcryptjs": "^2.4.3",
+    "bunyan": "^1.8.12",
+    "bunyan-format": "^0.2.1",
     "cookie-parser": "^1.4.4",
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
@@ -12,7 +14,9 @@
     "jsonwebtoken": "^8.5.1",
     "lodash.merge": "^4.6.2",
     "mongodb": "^3.4.0",
-    "react-router-dom": "^5.1.2"
+    "mongoose": "^5.9.17",
+    "react-router-dom": "^5.1.2",
+    "web3": "^1.2.8"
   },
   "devDependencies": {
     "@types/bcryptjs": "^2.4.2",

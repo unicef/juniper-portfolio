@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import { withRouter } from "react-router-dom";
 import { makeStyles } from "@material-ui/core/styles";
 import Grid from "@material-ui/core/Grid";
 import Button from "@material-ui/core/Button";
@@ -8,7 +7,7 @@ import { BalanceCard, TxFeeCard, TotalCard, WalletCard } from "../WalletCards";
 import Fab from "@material-ui/core/Fab";
 import ChevronRightIcon from "@material-ui/icons/ChevronRight";
 import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
-import WalletModal from "./AddWallet";
+import AddWallet from "./AddWallet";
 
 const mainStyles = makeStyles((theme) => ({
   root: {
@@ -91,7 +90,7 @@ const mainStyles = makeStyles((theme) => ({
   },
 }));
 
-export default withRouter(function ({ history, viewWalletDetails }) {
+export default function ({ viewWalletDetails }) {
   const [balances, setBalances] = useState([]);
   const [fees, setFees] = useState({});
   const [totals, setTotals] = useState({});
@@ -121,6 +120,26 @@ export default withRouter(function ({ history, viewWalletDetails }) {
     if (bitcoinWalletIndex - 1 >= 0) {
       setBitcoinWalletIndex(bitcoinWalletIndex - 1);
     }
+  };
+
+  const getWallets = async () => {
+    let res, walletData;
+    try {
+      res = await fetch("/admin/api/wallets");
+      walletData = await res.json();
+    } catch (e) {
+      return console.log(e);
+    }
+
+    setEthereumWallets(
+      walletData.filter((wallet) => {
+        return wallet.currency === "Ethereum";
+      })
+    );
+
+    setBitcoinWallets(
+      walletData.filter((wallet) => wallet.currency === "Bitcoin")
+    );
   };
 
   useEffect(() => {
@@ -157,22 +176,16 @@ export default withRouter(function ({ history, viewWalletDetails }) {
       invested: "19,287.47",
     });
 
-    setEthereumWallets(
-      walletData.filter((wallet) => {
-        return wallet.currency === "Ethereum";
-      })
-    );
-    setBitcoinWallets(
-      walletData.filter((wallet) => wallet.currency === "Bitcoin")
-    );
+    getWallets();
   }, []);
 
   const classes = mainStyles();
   return (
     <div className={classes.root}>
-      <WalletModal
+      <AddWallet
         open={showAddWalletModal}
         setShowAddWalletModal={setShowAddWalletModal}
+        getWallets={getWallets}
       />
       <Grid container>
         <Grid item xs={12} className={classes.priceRectangle}>
@@ -304,7 +317,7 @@ export default withRouter(function ({ history, viewWalletDetails }) {
       </Grid>
     </div>
   );
-});
+}
 
 // Mock Wallet Data. Will come from API and be passed from parent class
 const walletData = [

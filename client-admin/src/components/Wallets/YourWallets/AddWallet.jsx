@@ -14,6 +14,13 @@ import CloseIcon from "@material-ui/icons/Close";
 import HelpOutlineIcon from "@material-ui/icons/HelpOutline";
 import AddIcon from "@material-ui/icons/Add";
 
+const web3Utils = require("web3-utils");
+
+const currencyLookup = {
+  BTC: "Bitcoin",
+  ETH: "Ethereum",
+};
+
 const useStyles = makeStyles((theme) => ({
   closeIcon: {
     position: "absolute",
@@ -137,6 +144,11 @@ function MultisigOwner(props) {
 export default function AddWallet(props) {
   const classes = useStyles();
   const [open, setOpen] = useState(false);
+  const [address, setAddress] = useState("");
+  const [tags, setTags] = useState([]);
+  const [name, setName] = useState("");
+  const [currency, setCurrency] = useState("Ethereum");
+  const [symbol, setSymbol] = useState("ETH");
   const [isMultisig, setIsMultisig] = useState(false);
   const [multisigOwners, setMultisigOwners] = useState([
     {
@@ -151,18 +163,74 @@ export default function AddWallet(props) {
     setOpen(false);
   };
 
+  const addTag = (tag) => {
+    const newTags = tags.slice();
+    newTags.push(tag);
+    setTags(newTags);
+  };
+
+  const removeTag = (tagToRemove) => {
+    setTags(tags.filter((tag) => tag != tagToRemove));
+  };
+
   const addMultisigOwner = () => {
     const newOwners = multisigOwners.slice();
     newOwners.push({
-      walletAddress: null,
-      ownerName: null,
+      walletAddress: "",
+      ownerName: "",
     });
     setMultisigOwners(newOwners);
   };
 
+  const addWallet = async () => {
+    const wallet = {
+      address,
+      name,
+      tags,
+      currency,
+      symbol,
+      isMultisig,
+      multisigOwners,
+    };
+
+    let res, json;
+    try {
+      res = await fetch(`/admin/api/wallet`, {
+        credentials: "include",
+        method: "POST",
+        body: JSON.stringify({
+          wallet,
+        }),
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+
+      json = await res.json();
+    } catch (e) {
+      return console.log(e);
+    }
+
+    setAddress("");
+    setTags([]);
+    setName("");
+    setCurrency("Ether");
+    setSymbol("ETH");
+    setIsMultisig(false);
+    setMultisigOwners([
+      {
+        walletAddress: null,
+        ownerName: null,
+      },
+    ]);
+
+    props.getWallets();
+    handleClose();
+  };
+
   useEffect(() => {
     setOpen(props.open);
-  }, [props.open, multisigOwners]);
+  }, [props.open]);
 
   return (
     <div>
@@ -181,11 +249,15 @@ export default function AddWallet(props) {
           <h1 className={classes.title}>Add new wallet</h1>
           <form className={classes.form}>
             <TextField
+              value={address}
               required
               className={classes.formControl}
               InputLabelProps={{ className: classes.label }}
               InputProps={{
                 className: classes.formControl,
+              }}
+              onChange={(e) => {
+                setAddress(e.target.value.toLowerCase());
               }}
               label="Wallet address"
             />
@@ -197,6 +269,9 @@ export default function AddWallet(props) {
               InputProps={{
                 className: classes.formControl,
               }}
+              onChange={(e) => {
+                setName(e.target.value);
+              }}
               label="Wallet name"
             />
 
@@ -204,7 +279,15 @@ export default function AddWallet(props) {
               <InputLabel className={classes.formControl}>
                 Wallet currency
               </InputLabel>
-              <Select onChange={() => {}} className={classes.formControl}>
+              <Select
+                value={symbol}
+                onChange={(e) => {
+                  const symbol = e.target.value;
+                  setSymbol(symbol);
+                  setCurrency(currencyLookup[symbol]);
+                }}
+                className={classes.formControl}
+              >
                 <MenuItem value={"BTC"}>Bitcoin</MenuItem>
                 <MenuItem value={"ETH"}>Ether</MenuItem>
               </Select>
@@ -224,6 +307,7 @@ export default function AddWallet(props) {
                 color: isMultisig ? "#000000" : "#898989",
               }}
               onClick={() => {
+                addTag("multisig");
                 setIsMultisig(true);
               }}
             >
@@ -237,6 +321,7 @@ export default function AddWallet(props) {
                 color: isMultisig ? "#898989" : "#000000",
               }}
               onClick={() => {
+                removeTag("multisig");
                 setIsMultisig(false);
               }}
             >
@@ -248,6 +333,7 @@ export default function AddWallet(props) {
                 {multisigOwners.map((owner, index) => {
                   return (
                     <MultisigOwner
+                      key={index}
                       owner={owner}
                       index={index}
                       addMultisigOwner={addMultisigOwner}
@@ -270,6 +356,7 @@ export default function AddWallet(props) {
               variant="contained"
               disabled={false}
               className={classes.addNewWalletButton}
+              onClick={addWallet}
             >
               Add New Wallet
             </Button>

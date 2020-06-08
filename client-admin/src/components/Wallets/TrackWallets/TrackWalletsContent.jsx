@@ -144,7 +144,6 @@ export default withRouter(function ({ history }) {
                     amount={wallet.amount}
                     amountUSD={wallet.amountUSD}
                     address={wallet.address}
-                    viewTransactionOnClick={viewWalletDetails}
                   />
                 </Grid>
               );
