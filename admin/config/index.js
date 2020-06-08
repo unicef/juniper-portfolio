@@ -22,4 +22,5 @@ module.exports = {
       useUnifiedTopology: true,
     },
   },
+  wallet: {},
 };

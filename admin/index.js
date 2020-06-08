@@ -1,6 +1,7 @@
 const express = require("express");
 const bodyParser = require("body-parser");
 const PriceMonitor = require("./price_monitor");
+const fetch = require("node-fetch");
 const Logger = require("./logger");
 const DB = require("./db");
 const utils = require("./utils");
@@ -31,6 +32,7 @@ class JuniperAdmin {
     this.server.set("json spaces", this.config.jsonSpaces);
     this.server.use(bodyParser.urlencoded(this.config.urlencoded));
     this.server.use(bodyParser.json({ limit: this.config.uploadLimit }));
+    this.server.use("fetch", fetch);
     this.server.set("juniperAdmin", this);
 
     this.server.use("/rest", logRequest, publicRoutes);
