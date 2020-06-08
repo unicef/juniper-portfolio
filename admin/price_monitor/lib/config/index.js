@@ -1,7 +1,7 @@
 const { oneMinute } = require("./constants");
 
 module.exports = {
-  interval: 5000,
+  interval: oneMinute,
   binance: {
     apiUrl: "https://www.binance.com/api/v3/avgPrice?symbol=",
     currencyPairs: [
@@ -25,7 +25,7 @@ module.exports = {
   },
   mongo: {
     url: "mongodb://localhost/",
-    database: "priceChecker",
+    database: "juniperAdmin",
     mongooseCfg: {
       useNewUrlParser: true,
       useCreateIndex: true,

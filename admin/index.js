@@ -1,5 +1,6 @@
 const express = require("express");
 const bodyParser = require("body-parser");
+const PriceMonitor = require("./price_monitor");
 const Logger = require("./logger");
 const DB = require("./db");
 const utils = require("./utils");
@@ -23,6 +24,7 @@ class JuniperAdmin {
     this.environment = this.config.environment;
     this.db = new DB(this.config.db);
     this.server = express();
+    this.priceMonitor = new PriceMonitor();
     this.utils = utils;
 
     this.server.set("trust_proxy", this.config.trustProxy);
@@ -37,6 +39,10 @@ class JuniperAdmin {
     this.logger.info(`Initialized`);
   }
   start() {
+    if (this.config.startPriceMonitor) {
+      this.priceMonitor.start();
+    }
+
     this.server.listen(this.config.port, () => {
       this.logger.info(`listening on http://localhost:${this.config.port}`);
     });
