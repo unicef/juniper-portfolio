@@ -22,5 +22,7 @@ module.exports = {
       useUnifiedTopology: true,
     },
   },
-  wallet: {},
+  wallet: {
+    limit: 500,
+  },
 };

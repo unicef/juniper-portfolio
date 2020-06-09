@@ -39,6 +39,16 @@ class MongoDB {
   async getWallets() {
     return this.models.Wallet.find({});
   }
+
+  async updateTransaction(tx) {
+    return new this.models.Transaction(tx).save();
+  }
+  async getTransaction(txid) {
+    return this.models.Transaction.findOne({ txid });
+  }
+  async getTransaction() {
+    return this.models.Transaction.find({});
+  }
 }
 
 module.exports = MongoDB;
