@@ -1,7 +1,7 @@
-const { oneMinute } = require("./constants");
+const { oneDay } = require("./constants");
 
 module.exports = {
-  interval: oneMinute,
+  interval: oneDay,
   binance: {
     apiUrl: "https://www.binance.com/api/v3/avgPrice?symbol=",
     currencyPairs: [
