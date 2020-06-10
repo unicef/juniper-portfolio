@@ -14,7 +14,6 @@ import { sendRefreshToken } from "./sendRefreshToken";
 
 const JuniperAdmin = require("./admin");
 const juniperAdmin = new JuniperAdmin();
-// juniperAdmin.start();
 
 const port = process.env.SERVER_PORT;
 
@@ -72,7 +71,7 @@ const mount = async (app: Application) => {
   console.log(`[server] running on port ${port}`);
 
   app.get("*", function (req, res) {
-    res.redirect("/visual");
+    res.redirect("/");
   });
 };
 
