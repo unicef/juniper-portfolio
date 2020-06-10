@@ -4,6 +4,7 @@ import Card from '@material-ui/core/Card';
 import Button from '@material-ui/core/Button';
 import Grid from '@material-ui/core/Grid';
 import { ChevronRight } from '@material-ui/icons';
+import { StartupModal } from '../StartupModal';
 
 const useStyles = makeStyles({
   
@@ -104,12 +105,27 @@ export default function StartupCards()
   const classes = useStyles();
   const numcards = 3;
 
+  const prescrypto = {
+    name: "Prescrypto",
+    country: "Mexico",
+    tagline: "Making sensitive clinical data portable, safe, and private",
+    link: "www.prescrypto.com",
+    amount: 50,
+    currency: "ETHER",
+    shortcurrency: "ETH",
+    investmentdate: 'March 29, 2020',
+    imageurl: "https://cdn.pixabay.com/photo/2020/05/09/09/13/house-5148865__340.jpg",
+    walletaddress: '0x89205A3A3b2A69De6Dbf7f01ED12B2108B2c43e7'
+
+  }
+
+
   return (
      <div className={classes.root}>
       <div className={classes.numcards}>{numcards} STARTUP ACCOUNTS</div>
       <Grid container className={classes.cardsection} spacing={4}>
         <Grid item>
-          <StartupCard name= "Prescrypto" country="Mexico" amount="50" currency="ETHER" shortcurrency="ETH" image="https://cdn.pixabay.com/photo/2020/05/09/09/13/house-5148865__340.jpg"/>
+          <StartupCard {...prescrypto}/>
         </Grid>
         <Grid item>
           <StartupCard />
@@ -120,39 +136,56 @@ export default function StartupCards()
 }
 
 
-
-type StartupCardProps = 
+/* Model template. Could go somewhere more makes-senselike but there you go...
+type StartupCardData = 
   {
     name: string,
+    tagline: string,
+    link: string,
     country: string,
     amount: number,
     currency: string,
     shortcurrency: string,
-    image: string,
+    investmentdate: string,
+    imageurl: string,
+    walletaddress: string,
   }
-  
+*/
 
 
-export function StartupCard({name, country, amount, currency, shortcurrency, image}: StartupCardProps)
-{
+export function StartupCard(props) {
   const classes = useStyles();
 
+  const [modalopen, setmodalopen] = React.useState(false);
+
+  const handleOpen = () => {
+    setmodalopen(true);
+  };
+
+  const handleClose = () =>
+  {
+    setmodalopen(false);
+  }
+
+
+
   return (
+    <div>
     <Card className={classes.card} variant="outlined">
-      <img src={image} alt="" className={classes.image} align='left'/>
+      <img src={props.imageurl} alt="" className={classes.image} align='left'/>
       <div className={classes.startupinfo}>
         <div className={classes.startupname}>
-          {name}
+          {props.name}
         </div>
         <div className={classes.country}>
-          {country}
+          {props.country}
         </div>
       </div>
       <div className={classes.amount}>
-        {amount} {shortcurrency}
+        {props.amount} {props.shortcurrency}
       </div>
       <div className={classes.smalltext}>
-        {currency} INVESTED
+        {props.currency} INVESTED
       </div>
       <div className={classes.country}>
         198987124. USD
@@ -160,7 +193,10 @@ export function StartupCard({name, country, amount, currency, shortcurrency, ima
       <div className={classes.smalltext}>
         CURRENT VALUE
       </div>
-      <Button className={classes.button} size="small" color="primary">VIEW ACCOUNT DETAILS <ChevronRight/></Button>
+      <Button className={classes.button} size="small" color="primary"  onClick={handleOpen} >VIEW ACCOUNT DETAILS <ChevronRight/></Button>
     </Card>
+
+      <StartupModal open={modalopen} closefn={handleClose} details={props}/>
+      </div>
   );
 }
