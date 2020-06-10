@@ -4,6 +4,7 @@ import Card from '@material-ui/core/Card';
 import Button from '@material-ui/core/Button';
 import Grid from '@material-ui/core/Grid';
 import { ChevronRight } from '@material-ui/icons';
+import { DonorModal } from '../DonorModal';
 
 const useStyles = makeStyles({
   
@@ -102,15 +103,26 @@ export default function DonorCards()
   const classes = useStyles();
   const numcards = 2;
 
+  const ethfoundation = {
+    name: "Ethereum Foundation",
+    amtETH: 50,
+    amtBTC: 10
+  }
+
+  const coinsense = {
+    name: "Coinsense",
+    amtBTC: 10
+  }
+
   return (
      <div className={classes.root}>
       <div className={classes.numcards}>{numcards} DONOR ACCOUNTS</div>
       <Grid container className={classes.cardsection} spacing={4}>
         <Grid item>
-          <DonorCard name= "Ethereum Foundation" amtETH="50" amtBTC="300"/>
+          <DonorCard {...ethfoundation} />
         </Grid>
         <Grid item>
-          <DonorCard name="Coinsense" amtBTC="10"/>
+          <DonorCard {...coinsense}/>
         </Grid>
       </Grid>
       </div>
@@ -119,7 +131,7 @@ export default function DonorCards()
 
 
 
-type DonorCardProps = 
+type DonorCardData = 
   {
     name: string,
     amtETH: number,
@@ -183,24 +195,38 @@ function BTCData({amtBTC}: number)
 }
 
 
-export function DonorCard({name, amtETH, amtBTC}: DonorCardProps)
+export function DonorCard(props)
 {
   const classes = useStyles();
 
+  const [modalopen, setmodalopen] = React.useState(false);
+
+  const handleOpen = () => {
+    setmodalopen(true);
+  };
+
+  const handleClose = () =>
+  {
+    setmodalopen(false);
+  }
 
 
   return (
-    <Card className={classes.card} variant="outlined">
-      <div className={classes.donorinfo}>
-        <div className={classes.donorname}>
-          {name}
+    <div>
+      <Card className={classes.card} variant="outlined">
+        <div className={classes.donorinfo}>
+          <div className={classes.donorname}>
+            {props.name}
+          </div>
         </div>
-      </div>
-      <Grid container spacing={10}>
-          <ETHData amtETH={amtETH}/>
-          <BTCData amtBTC={amtBTC} />
-      </Grid>
-      <Button className={classes.button} size="small" color="primary">VIEW ACCOUNT DETAILS <ChevronRight/></Button>
-    </Card>
+        <Grid container spacing={10}>
+            <ETHData amtETH={props.amtETH}/>
+            <BTCData amtBTC={props.amtBTC} />
+        </Grid>
+        <Button className={classes.button} size="small" onClick={handleOpen} color="primary">VIEW ACCOUNT DETAILS <ChevronRight/></Button>
+      </Card>
+
+      <DonorModal open={modalopen} closefn={handleClose} details={props}/>
+    </div>
   );
 }
