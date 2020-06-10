@@ -13,8 +13,8 @@ module.exports = {
   },
   uploadLimit,
   db: {
-    url: "mongodb://localhost/",
-    database: "juniperAdmin",
+    url: process.env.DB_URL || "mongodb://localhost/",
+    database: process.env.DB_NAME || "juniper",
     mongooseCfg: {
       useNewUrlParser: true,
       useCreateIndex: true,

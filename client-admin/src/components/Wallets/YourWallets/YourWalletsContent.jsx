@@ -279,7 +279,9 @@ export default function ({ viewWalletDetails }) {
         </Grid>
 
         <Grid item xs={12} style={{ marginTop: "4em" }}>
-          <h3 className={classes.walletSubheading}>2 Bitcoin Wallets</h3>
+          <h3 className={classes.walletSubheading}>
+            {bitcoinWallets.length} Bitcoin Wallets
+          </h3>
         </Grid>
 
         <Grid container spacing={2} style={{ position: "relative" }}>
@@ -318,52 +320,3 @@ export default function ({ viewWalletDetails }) {
     </div>
   );
 }
-
-// Mock Wallet Data. Will come from API and be passed from parent class
-const walletData = [
-  {
-    name: "Ethereum wallet test 1",
-    currency: "Ethereum",
-    tags: ["Unicef HQ"],
-    symbol: "ETH",
-    amount: 25,
-    amountUSD: "4692.75",
-    address: "0x89205A3A3b2A69De6Dbf7f01ED13B2108B2c43e7",
-  },
-  {
-    name: "Ethereum wallet test 2",
-    currency: "Ethereum",
-    tags: ["Unicef HQ", "Multisig"],
-    symbol: "ETH",
-    amount: 25,
-    amountUSD: "4692.75",
-    address: "0x89205A3A3b2A69De6Dbf7f01ED13B2108B2c43e7",
-  },
-  {
-    name: "Ethereum wallet test 3",
-    currency: "Ethereum",
-    tags: ["Unicef HQ", "Multisig"],
-    symbol: "ETH",
-    amount: 25,
-    amountUSD: "4692.75",
-    address: "0x89205A3A3b2A69De6Dbf7f01ED13B2108B2c43e7",
-  },
-  {
-    name: "Blockchain wallet test 1",
-    currency: "Bitcoin",
-    tags: [],
-    symbol: "BTC",
-    amount: 1,
-    amountUSD: "9692.75",
-    address: "Dbf7f01ED1389205A3A3b2A69De6B2c43e7",
-  },
-  {
-    name: "Bitcoin wallet 2",
-    currency: "Bitcoin",
-    tags: ["Unicef HQ"],
-    symbol: "BTC",
-    amount: 25,
-    amountUSD: "232,102.21",
-    address: "Dbf7f01ED1389205A3A3b2A69De6B2c43e7",
-  },
-];
