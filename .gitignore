@@ -4,3 +4,4 @@ build/
 .env
 admin/logger.log
 ./logger.log
+logger.log

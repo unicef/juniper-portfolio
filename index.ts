@@ -14,7 +14,6 @@ import { sendRefreshToken } from "./sendRefreshToken";
 
 const JuniperAdmin = require("./admin");
 const juniperAdmin = new JuniperAdmin();
-juniperAdmin.start();
 
 const port = process.env.SERVER_PORT;
 
@@ -28,6 +27,19 @@ const mount = async (app: Application) => {
 
   app.use(isAuth);
   app.use(cookieParser());
+  app.use("/", express.static("./client-visual/build"));
+  app.use("/receive", express.static("./client-visual/build"));
+  app.use("/receive/*", express.static("./client-visual/build"));
+  app.use("/invest", express.static("./client-visual/build"));
+  app.use("/invest/*", express.static("./client-visual/build"));
+  app.use("/track", express.static("./client-visual/build"));
+  app.use("/track/*", express.static("./client-visual/build"));
+  app.use("/about", express.static("./client-visual/build"));
+  app.use("/about/*", express.static("./client-visual/build"));
+  app.use("/admin", express.static("./client-admin/build"));
+  app.use("/admin/*", express.static("./client-admin/build"));
+
+  app.use("/", juniperAdmin.server);
 
   app.post("/refresh_token", async (req, res) => {
     const db = await connectDatabase();
@@ -57,6 +69,10 @@ const mount = async (app: Application) => {
   server.applyMiddleware({ app, path: "/api" });
   app.listen(port);
   console.log(`[server] running on port ${port}`);
+
+  app.get("*", function (req, res) {
+    res.redirect("/");
+  });
 };
 
 mount(express());

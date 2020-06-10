@@ -31,8 +31,8 @@ class JuniperAdmin {
     this.server.use(bodyParser.json({ limit: this.config.uploadLimit }));
     this.server.set("juniperAdmin", this);
 
-    this.server.use("/api", logRequest, publicRoutes);
-    this.server.use("/admin/api", logRequest, privateRoutes);
+    this.server.use("/rest", logRequest, publicRoutes);
+    this.server.use("/rest/admin", logRequest, privateRoutes);
 
     this.logger.info(`Initialized`);
   }
