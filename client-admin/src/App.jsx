@@ -76,22 +76,22 @@ export default function JuniperAdmin() {
             <Router>
               <Sidebar />
               <Switch>
-                <Route path="/wallets">
+                <Route path="/admin/wallets">
                   <Wallets />
                 </Route>
-                <Route path="/accounts">
+                <Route path="/admin/accounts">
                   <Accounts />
                 </Route>
-                <Route path="/tracker">
+                <Route path="/admin/tracker">
                   <PriceTracker />
                 </Route>
-                <Route path="/transactions">
+                <Route path="/admin/transactions">
                   <Transactions />
                 </Route>
-                <Route path="/settings">
+                <Route path="/admin/settings">
                   <Settings />
                 </Route>
-                <Route path="/">
+                <Route path="/admin">
                   <Wallets />
                 </Route>
               </Switch>
