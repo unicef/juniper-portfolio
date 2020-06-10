@@ -14,7 +14,7 @@ import { sendRefreshToken } from "./sendRefreshToken";
 
 const JuniperAdmin = require("./admin");
 const juniperAdmin = new JuniperAdmin();
-juniperAdmin.start();
+// juniperAdmin.start();
 
 const port = process.env.SERVER_PORT;
 
@@ -37,8 +37,10 @@ const mount = async (app: Application) => {
   app.use("/track/*", express.static("./client-visual/build"));
   app.use("/about", express.static("./client-visual/build"));
   app.use("/about/*", express.static("./client-visual/build"));
-  app.use("/admin/", express.static("./client-admin/build"));
-  app.use("/admin*", express.static("./client-admin/build"));
+  app.use("/admin", express.static("./client-admin/build"));
+  app.use("/admin/*", express.static("./client-admin/build"));
+
+  app.use("/", juniperAdmin.server);
 
   app.post("/refresh_token", async (req, res) => {
     const db = await connectDatabase();

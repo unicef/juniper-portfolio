@@ -125,7 +125,7 @@ export default function ({ viewWalletDetails }) {
   const getWallets = async () => {
     let res, walletData;
     try {
-      res = await fetch("/admin/api/wallets");
+      res = await fetch("/rest/admin/wallets");
       walletData = await res.json();
     } catch (e) {
       return console.log(e);

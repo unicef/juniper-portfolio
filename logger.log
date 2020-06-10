@@ -314,3 +314,89 @@
 {"name":"MongoDB","hostname":"rothbard","pid":31151,"level":30,"msg":"Initializing:","time":"2020-06-10T05:50:48.181Z","v":0}
 {"name":"MongoDB","hostname":"rothbard","pid":31151,"level":30,"msg":"Connected: mongodb://localhost:27017juniper","time":"2020-06-10T05:50:48.223Z","v":0}
 {"name":"MongoDB","hostname":"rothbard","pid":31151,"level":30,"msg":"Initialized","time":"2020-06-10T05:50:48.223Z","v":0}
+{"name":"Juniper App","hostname":"rothbard","pid":5223,"level":30,"msg":"Starting...","time":"2020-06-10T06:25:42.428Z","v":0}
+{"name":"MongoDB","hostname":"rothbard","pid":5223,"level":30,"msg":"Starting...","time":"2020-06-10T06:25:42.430Z","v":0}
+{"name":"Juniper App","hostname":"rothbard","pid":5223,"level":30,"msg":"Initializing","time":"2020-06-10T06:25:42.430Z","v":0}
+{"name":"Juniper App","hostname":"rothbard","pid":5223,"level":30,"msg":"Initialized","time":"2020-06-10T06:25:42.441Z","v":0}
+{"name":"MongoDB","hostname":"rothbard","pid":5223,"level":30,"msg":"Initializing:","time":"2020-06-10T06:25:42.431Z","v":0}
+{"name":"MongoDB","hostname":"rothbard","pid":5223,"level":30,"msg":"Connected: mongodb://localhost:27017juniper","time":"2020-06-10T06:25:42.465Z","v":0}
+{"name":"MongoDB","hostname":"rothbard","pid":5223,"level":30,"msg":"Initialized","time":"2020-06-10T06:25:42.465Z","v":0}
+{"name":"Juniper App","hostname":"rothbard","pid":5300,"level":30,"msg":"Starting...","time":"2020-06-10T06:26:03.339Z","v":0}
+{"name":"MongoDB","hostname":"rothbard","pid":5300,"level":30,"msg":"Starting...","time":"2020-06-10T06:26:03.341Z","v":0}
+{"name":"MongoDB","hostname":"rothbard","pid":5300,"level":30,"msg":"Initializing:","time":"2020-06-10T06:26:03.341Z","v":0}
+{"name":"Juniper App","hostname":"rothbard","pid":5300,"level":30,"msg":"Initializing","time":"2020-06-10T06:26:03.341Z","v":0}
+{"name":"Juniper App","hostname":"rothbard","pid":5300,"level":30,"msg":"Initialized","time":"2020-06-10T06:26:03.352Z","v":0}
+{"name":"MongoDB","hostname":"rothbard","pid":5300,"level":30,"msg":"Connected: mongodb://localhost:27017juniper","time":"2020-06-10T06:26:03.376Z","v":0}
+{"name":"MongoDB","hostname":"rothbard","pid":5300,"level":30,"msg":"Initialized","time":"2020-06-10T06:26:03.376Z","v":0}
+{"name":"Juniper App","hostname":"rothbard","pid":5513,"level":30,"msg":"Starting...","time":"2020-06-10T06:26:59.272Z","v":0}
+{"name":"MongoDB","hostname":"rothbard","pid":5513,"level":30,"msg":"Starting...","time":"2020-06-10T06:26:59.274Z","v":0}
+{"name":"Juniper App","hostname":"rothbard","pid":5513,"level":30,"msg":"Initializing","time":"2020-06-10T06:26:59.274Z","v":0}
+{"name":"Juniper App","hostname":"rothbard","pid":5513,"level":30,"msg":"Initialized","time":"2020-06-10T06:26:59.285Z","v":0}
+{"name":"MongoDB","hostname":"rothbard","pid":5513,"level":30,"msg":"Initializing:","time":"2020-06-10T06:26:59.274Z","v":0}
+{"name":"MongoDB","hostname":"rothbard","pid":5513,"level":30,"msg":"Connected: mongodb://localhost:27017/juniper","time":"2020-06-10T06:26:59.308Z","v":0}
+{"name":"MongoDB","hostname":"rothbard","pid":5513,"level":30,"msg":"Initialized","time":"2020-06-10T06:26:59.308Z","v":0}
+{"name":"logRequest","hostname":"rothbard","pid":5513,"level":30,"msg":"GET /rest/api/ping","time":"2020-06-10T06:27:29.710Z","v":0}
+{"name":"logRequest","hostname":"rothbard","pid":5513,"level":30,"msg":"GET /rest/rest/admin/wallets","time":"2020-06-10T06:27:35.083Z","v":0}
+{"name":"logRequest","hostname":"rothbard","pid":5513,"level":30,"msg":"GET /rest/rest/admin/ping","time":"2020-06-10T06:27:46.429Z","v":0}
+{"name":"logRequest","hostname":"rothbard","pid":5513,"level":30,"msg":"GET /rest/api/wallets","time":"2020-06-10T06:27:53.489Z","v":0}
+{"name":"Juniper App","hostname":"rothbard","pid":5909,"level":30,"msg":"Starting...","time":"2020-06-10T06:28:22.942Z","v":0}
+{"name":"MongoDB","hostname":"rothbard","pid":5909,"level":30,"msg":"Starting...","time":"2020-06-10T06:28:22.944Z","v":0}
+{"name":"Juniper App","hostname":"rothbard","pid":5909,"level":30,"msg":"Initializing","time":"2020-06-10T06:28:22.944Z","v":0}
+{"name":"Juniper App","hostname":"rothbard","pid":5909,"level":30,"msg":"Initialized","time":"2020-06-10T06:28:22.955Z","v":0}
+{"name":"MongoDB","hostname":"rothbard","pid":5909,"level":30,"msg":"Initializing:","time":"2020-06-10T06:28:22.944Z","v":0}
+{"name":"MongoDB","hostname":"rothbard","pid":5909,"level":30,"msg":"Connected: mongodb://localhost:27017/juniper","time":"2020-06-10T06:28:22.979Z","v":0}
+{"name":"MongoDB","hostname":"rothbard","pid":5909,"level":30,"msg":"Initialized","time":"2020-06-10T06:28:22.979Z","v":0}
+{"name":"logRequest","hostname":"rothbard","pid":5909,"level":30,"msg":"GET /rest/rest/admin/ping","time":"2020-06-10T06:28:29.428Z","v":0}
+{"name":"logRequest","hostname":"rothbard","pid":5909,"level":30,"msg":"GET /rest/rest/admin/wallets","time":"2020-06-10T06:28:37.931Z","v":0}
+{"name":"Juniper App","hostname":"rothbard","pid":5979,"level":30,"msg":"Starting...","time":"2020-06-10T06:28:56.461Z","v":0}
+{"name":"MongoDB","hostname":"rothbard","pid":5979,"level":30,"msg":"Starting...","time":"2020-06-10T06:28:56.464Z","v":0}
+{"name":"Juniper App","hostname":"rothbard","pid":5979,"level":30,"msg":"Initializing","time":"2020-06-10T06:28:56.463Z","v":0}
+{"name":"Juniper App","hostname":"rothbard","pid":5979,"level":30,"msg":"Initialized","time":"2020-06-10T06:28:56.475Z","v":0}
+{"name":"MongoDB","hostname":"rothbard","pid":5979,"level":30,"msg":"Initializing:","time":"2020-06-10T06:28:56.464Z","v":0}
+{"name":"MongoDB","hostname":"rothbard","pid":5979,"level":30,"msg":"Connected: mongodb://localhost:27017/juniper","time":"2020-06-10T06:28:56.499Z","v":0}
+{"name":"MongoDB","hostname":"rothbard","pid":5979,"level":30,"msg":"Initialized","time":"2020-06-10T06:28:56.499Z","v":0}
+{"name":"logRequest","hostname":"rothbard","pid":5979,"level":30,"msg":"GET /rest/admin/wallets/","time":"2020-06-10T06:29:40.751Z","v":0}
+{"name":"logRequest","hostname":"rothbard","pid":5979,"level":30,"msg":"POST /rest/admin/wallets/","time":"2020-06-10T06:29:42.055Z","v":0}
+{"name":"logRequest","hostname":"rothbard","pid":5979,"level":30,"msg":"POST /rest/admin/wallets/","time":"2020-06-10T06:29:42.130Z","v":0}
+{"name":"logRequest","hostname":"rothbard","pid":5979,"level":30,"msg":"POST /rest/admin/wallets/","time":"2020-06-10T06:29:43.144Z","v":0}
+{"name":"logRequest","hostname":"rothbard","pid":5979,"level":30,"msg":"POST /rest/admin/wallets/","time":"2020-06-10T06:29:45.206Z","v":0}
+{"name":"logRequest","hostname":"rothbard","pid":5979,"level":30,"msg":"POST /rest/admin/wallets/","time":"2020-06-10T06:29:47.242Z","v":0}
+{"name":"logRequest","hostname":"rothbard","pid":5979,"level":30,"msg":"POST /rest/admin/wallets/","time":"2020-06-10T06:29:49.310Z","v":0}
+{"name":"logRequest","hostname":"rothbard","pid":5979,"level":30,"msg":"POST /rest/admin/wallets/","time":"2020-06-10T06:29:51.394Z","v":0}
+{"name":"logRequest","hostname":"rothbard","pid":5979,"level":30,"msg":"POST /rest/admin/wallets/","time":"2020-06-10T06:29:53.490Z","v":0}
+{"name":"logRequest","hostname":"rothbard","pid":5979,"level":30,"msg":"POST /rest/admin/wallets/","time":"2020-06-10T06:29:55.541Z","v":0}
+{"name":"logRequest","hostname":"rothbard","pid":5979,"level":30,"msg":"POST /rest/admin/wallets/","time":"2020-06-10T06:29:57.567Z","v":0}
+{"name":"logRequest","hostname":"rothbard","pid":5979,"level":30,"msg":"POST /rest/admin/wallets/","time":"2020-06-10T06:29:59.607Z","v":0}
+{"name":"logRequest","hostname":"rothbard","pid":5979,"level":30,"msg":"POST /rest/admin/wallets/","time":"2020-06-10T06:30:01.690Z","v":0}
+{"name":"logRequest","hostname":"rothbard","pid":5979,"level":30,"msg":"POST /rest/admin/wallets/","time":"2020-06-10T06:30:03.750Z","v":0}
+{"name":"logRequest","hostname":"rothbard","pid":5979,"level":30,"msg":"POST /rest/admin/wallets/","time":"2020-06-10T06:30:05.839Z","v":0}
+{"name":"logRequest","hostname":"rothbard","pid":5979,"level":30,"msg":"POST /rest/admin/wallets/","time":"2020-06-10T06:30:07.879Z","v":0}
+{"name":"logRequest","hostname":"rothbard","pid":5979,"level":30,"msg":"POST /rest/admin/wallets/","time":"2020-06-10T06:30:09.905Z","v":0}
+{"name":"logRequest","hostname":"rothbard","pid":5979,"level":30,"msg":"POST /rest/admin/wallets/","time":"2020-06-10T06:30:11.958Z","v":0}
+{"name":"logRequest","hostname":"rothbard","pid":5979,"level":30,"msg":"POST /api/admin/wallets/","time":"2020-06-10T06:30:14.008Z","v":0}
+{"name":"logRequest","hostname":"rothbard","pid":5979,"level":30,"msg":"POST /api/admin/wallets/","time":"2020-06-10T06:30:16.037Z","v":0}
+{"name":"logRequest","hostname":"rothbard","pid":5979,"level":30,"msg":"POST /api/admin/wallets/","time":"2020-06-10T06:30:18.091Z","v":0}
+{"name":"logRequest","hostname":"rothbard","pid":5979,"level":30,"msg":"POST /api/admin/wallets/","time":"2020-06-10T06:30:20.135Z","v":0}
+{"name":"Juniper App","hostname":"rothbard","pid":6296,"level":30,"msg":"Starting...","time":"2020-06-10T06:30:42.759Z","v":0}
+{"name":"MongoDB","hostname":"rothbard","pid":6296,"level":30,"msg":"Starting...","time":"2020-06-10T06:30:42.761Z","v":0}
+{"name":"Juniper App","hostname":"rothbard","pid":6296,"level":30,"msg":"Initializing","time":"2020-06-10T06:30:42.761Z","v":0}
+{"name":"Juniper App","hostname":"rothbard","pid":6296,"level":30,"msg":"Initialized","time":"2020-06-10T06:30:42.776Z","v":0}
+{"name":"MongoDB","hostname":"rothbard","pid":6296,"level":30,"msg":"Initializing:","time":"2020-06-10T06:30:42.761Z","v":0}
+{"name":"MongoDB","hostname":"rothbard","pid":6296,"level":30,"msg":"Connected: mongodb://localhost:27017/juniper","time":"2020-06-10T06:30:42.802Z","v":0}
+{"name":"MongoDB","hostname":"rothbard","pid":6296,"level":30,"msg":"Initialized","time":"2020-06-10T06:30:42.802Z","v":0}
+{"name":"logRequest","hostname":"rothbard","pid":6296,"level":30,"msg":"GET /rest/ping","time":"2020-06-10T06:30:45.944Z","v":0}
+{"name":"logRequest","hostname":"rothbard","pid":6296,"level":30,"msg":"GET /rest/admin/wallets","time":"2020-06-10T06:30:51.094Z","v":0}
+{"name":"logRequest","hostname":"rothbard","pid":6296,"level":30,"msg":"GET /rest/admin/wallets","time":"2020-06-10T06:30:51.095Z","v":0}
+{"name":"Juniper App","hostname":"rothbard","pid":6486,"level":30,"msg":"Starting...","time":"2020-06-10T06:32:42.809Z","v":0}
+{"name":"MongoDB","hostname":"rothbard","pid":6486,"level":30,"msg":"Starting...","time":"2020-06-10T06:32:42.811Z","v":0}
+{"name":"Juniper App","hostname":"rothbard","pid":6486,"level":30,"msg":"Initializing","time":"2020-06-10T06:32:42.810Z","v":0}
+{"name":"Juniper App","hostname":"rothbard","pid":6486,"level":30,"msg":"Initialized","time":"2020-06-10T06:32:42.823Z","v":0}
+{"name":"MongoDB","hostname":"rothbard","pid":6486,"level":30,"msg":"Initializing:","time":"2020-06-10T06:32:42.811Z","v":0}
+{"name":"MongoDB","hostname":"rothbard","pid":6486,"level":30,"msg":"Connected: mongodb://localhost:27017/juniper","time":"2020-06-10T06:32:42.848Z","v":0}
+{"name":"MongoDB","hostname":"rothbard","pid":6486,"level":30,"msg":"Initialized","time":"2020-06-10T06:32:42.848Z","v":0}
+{"name":"logRequest","hostname":"rothbard","pid":6486,"level":30,"msg":"GET /rest/admin/wallets","time":"2020-06-10T06:33:10.289Z","v":0}
+{"name":"logRequest","hostname":"rothbard","pid":6486,"level":30,"msg":"GET /rest/admin/wallets","time":"2020-06-10T06:33:10.290Z","v":0}
+{"name":"logRequest","hostname":"rothbard","pid":6486,"level":30,"msg":"POST /rest/admin/wallet","time":"2020-06-10T06:33:21.790Z","v":0}
+{"name":"logRequest","hostname":"rothbard","pid":6486,"level":30,"msg":"POST /rest/admin/wallet","time":"2020-06-10T06:33:21.790Z","v":0}
+{"name":"logRequest","hostname":"rothbard","pid":6486,"level":30,"msg":"GET /rest/admin/wallets","time":"2020-06-10T06:33:21.864Z","v":0}
+{"name":"logRequest","hostname":"rothbard","pid":6486,"level":30,"msg":"GET /rest/admin/wallets","time":"2020-06-10T06:33:21.864Z","v":0}
