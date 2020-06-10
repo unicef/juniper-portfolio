@@ -13,7 +13,7 @@ export const ReceiveImage = () => {
   return (
     <img
       className={classes.imgSpecs}
-      src="./Receive_illustration.svg"
+      src="/Receive_illustration.svg"
       alt="ratio of crypto pie chart"
     />
   );

@@ -1,20 +1,18 @@
-import React from 'react'
-import { makeStyles } from '@material-ui/core/styles'
+import React from "react";
+import { makeStyles } from "@material-ui/core/styles";
 
 const useStyles = makeStyles({
-    root: {
-        paddingTop: '55px', 
-    },
-
-  });
+  root: {
+    paddingTop: "55px",
+  },
+});
 
 export const ArrowImg = () => {
+  const classes = useStyles();
 
-    const classes = useStyles()
-
-    return (
-        <div className = {classes.root}>
-            <img src="Arrow_white.svg" alt='arrow' />
-        </div>
-    )
-}
+  return (
+    <div className={classes.root}>
+      <img src="/Arrow_white.svg" alt="arrow" />
+    </div>
+  );
+};
