@@ -22,7 +22,8 @@ const NatComCardData = [
   }, 
   {
     name: "UNICEF Australia",
-    amtETH: 50
+    amtETH: 50,
+    walletaddress: '0x1234567890123456789012345678901234567890'
   },
   {
     name: "UNICEF USA",
