@@ -2,6 +2,8 @@ import React from 'react';
 import { makeStyles} from '@material-ui/core/styles';
 import Modal from '@material-ui/core/Modal';
 import Grid from '@material-ui/core/Grid';
+import Button from "@material-ui/core/Button";
+import CopyToClipboardBtn from '../../../../ui/CopyToClipboardBtn';
 
 
 const useStyles = makeStyles({
@@ -84,6 +86,13 @@ const useStyles = makeStyles({
         fontSize: '19px',
         lineHeight: 1.42,
         color: '#000000'
+  },
+    
+    closebtn:
+    {
+      position: 'absolute',
+      top: 0,
+      right:0,
     }
 
 
@@ -150,7 +159,6 @@ export function DonorModal(props) {
   return (
       <Modal
         open={props.open}
-        onClick={props.closefn}
         aria-labelledby="simple-modal-title"
         aria-describedby="simple-modal-description"
         className={classes.root}  
@@ -162,7 +170,11 @@ export function DonorModal(props) {
                     <ETHData amtETH={props.details.amtETH}/>
                     <BTCData amtBTC={props.details.amtBTC} />
                     
-                  <div className={classes.waddr}>{props.details.walletaddress}</div>
+                  <div className={classes.waddr}>
+                    {props.details.walletaddress}
+                    <CopyToClipboardBtn data={props.details.walletaddress} />
+            </div>
+  
                   <div className={classes.tiny}>WALLET ADDRESS</div>
                   <div className={classes.currentvalue}>
                     <p style={{marginBottom: 0}}>
@@ -182,6 +194,8 @@ export function DonorModal(props) {
                   <div className={classes.roboto19}>March 29, 2020</div>
                   <div className={classes.tiny}>DONATION DATE</div>
               </div>
+        
+        <Button className={classes.closebtn} onClick={props.closefn}>X</Button>
              
         </div>
       </Modal>
