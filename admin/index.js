@@ -14,7 +14,7 @@ class JuniperAdmin {
     config = { ...defaultConfig, ...config };
     this.config = config;
     this.logger = new Logger("Juniper App");
-
+    console.log(this.config);
     this.logger.info(`Starting...`);
     this.init();
   }
@@ -40,10 +40,14 @@ class JuniperAdmin {
 
     this.logger.info(`Initialized`);
   }
-  start() {
+
+  startPriceMonitor() {
     if (this.config.startPriceMonitor) {
       this.priceMonitor.start();
     }
+  }
+  start() {
+    this.startPriceMonitor();
 
     this.server.listen(this.config.port, () => {
       this.logger.info(`listening on http://localhost:${this.config.port}`);
