@@ -1,21 +1,21 @@
 const CONSTANTS = require("./constants");
 
-const uploadLimit = CONSTANTS.oneMegabyte;
+const { oneMegabyte } = CONSTANTS;
 
 module.exports = {
   startPriceMonitor: process.env.MONITOR_PRICE || true,
   environment: process.env.NODE_ENV || "development",
   trustProxy: 1,
   jsonSpaces: 2,
-  port: process.env.REST_PORT || 4000,
+  port: process.env.SERVER_PORT || 4000,
   urlencoded: {
     extended: false,
-    limit: uploadLimit,
+    limit: oneMegabyte,
   },
-  uploadLimit,
+  uploadLimit: oneMegabyte,
   db: {
-    url: "mongodb://localhost/",
-    database: "juniperAdmin",
+    url: process.env.DB_URL || "mongodb://localhost",
+    database: process.env.DB_NAME || "juniper",
     mongooseCfg: {
       useNewUrlParser: true,
       useCreateIndex: true,

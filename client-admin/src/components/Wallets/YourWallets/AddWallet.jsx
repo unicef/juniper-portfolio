@@ -195,7 +195,7 @@ export default function AddWallet(props) {
 
     let res, json;
     try {
-      res = await fetch(`/admin/api/wallet`, {
+      res = await fetch(`/rest/admin/wallet`, {
         credentials: "include",
         method: "POST",
         body: JSON.stringify({

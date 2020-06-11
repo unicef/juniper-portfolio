@@ -22,7 +22,7 @@ export const TrackMainImage = () => {
     return (
       <img
         className={classes.mobile}
-        src="Track_illustration.svg"
+        src="/Track_illustration.svg"
         alt="receive info"
       />
     );
@@ -32,7 +32,7 @@ export const TrackMainImage = () => {
         <Grid item xs={3} sm={3}>
           <img
             className={classes.desktop}
-            src="Track_illustration.svg"
+            src="/Track_illustration.svg"
             alt="receive info"
           />
         </Grid>

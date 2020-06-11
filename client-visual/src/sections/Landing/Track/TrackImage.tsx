@@ -13,7 +13,7 @@ export const TrackImage = () => {
   return (
     <img
       className={classes.imgSpecs}
-      src="./Track_illustration.svg"
+      src="/Track_illustration.svg"
       alt="ratio of crypto pie chart"
     />
   );

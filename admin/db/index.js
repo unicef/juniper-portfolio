@@ -7,7 +7,7 @@ class MongoDB {
     this.config = config;
     this.models = models;
     this.logger = new Logger("MongoDB");
-    this.connectionString = `${config.url}${config.database}`;
+    this.connectionString = `${config.url}/${config.database}`;
 
     this.logger.info(`Starting...`);
     this.init();
