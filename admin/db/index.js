@@ -39,15 +39,14 @@ class MongoDB {
   async getWallets() {
     return this.models.Wallet.find({});
   }
-
-  async updateTransaction(tx) {
+  async saveTransaction(tx) {
     return new this.models.Transaction(tx).save();
   }
   async getTransaction(txid) {
     return this.models.Transaction.findOne({ txid });
   }
-  async getTransaction() {
-    return this.models.Transaction.find({});
+  async getTransactionsForAddress(address) {
+    return this.models.Transaction.find({ address });
   }
 }
 

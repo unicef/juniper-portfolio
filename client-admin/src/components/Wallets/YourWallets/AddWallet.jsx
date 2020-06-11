@@ -257,7 +257,7 @@ export default function AddWallet(props) {
                 className: classes.formControl,
               }}
               onChange={(e) => {
-                setAddress(e.target.value.toLowerCase());
+                setAddress(e.target.value);
               }}
               label="Wallet address"
             />

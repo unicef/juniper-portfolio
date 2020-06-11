@@ -1,21 +1,45 @@
 const blockexplorer = require("blockchain.info/blockexplorer");
+const Logger = require("../logger");
 
 class BitcoinWalletScraper {
   constructor(config, db) {
     this.config = config;
+    this.logger = new Logger("Bitcoin Scraper");
 
     this.blockexplorer = blockexplorer;
-    this.address = this.config.address;
-    this.limit = this.config.limit || 500;
+    this.limit = this.config.limit || 50;
     this.db = db;
   }
-  async fetchWalletData(limit = 1, offset = 0) {
-    return this.blockexplorer.getAddress(this.address, { limit, offset });
+
+  async scrapeTransactionData(address) {
+    const walletData = await this.fetchWalletData(address);
+    const txs = walletData.n_tx;
+
+    let current = 0;
+    let count = 0;
+    let txData = [];
+
+    this.logger.info(`Scraping ${txs} txs for ${address}`);
+    while (current < txs) {
+      txData = await this.fetchTransactionData(address, this.limit, current);
+
+      txData.txs.forEach(async (tx) => {
+        count++;
+        await this.saveTransactionData(address, tx);
+      });
+      current += this.limit;
+    }
+
+    return true;
   }
-  async fetchTransactionData(limit, offset) {
-    return this.fetchWalletData(limit, offset);
+  async fetchTransactionData(address, limit = this.limit, offset) {
+    return this.fetchWalletData(address, limit, offset);
   }
-  async saveTransactionData(tx) {
+  async fetchWalletData(address, limit = 1, offset = 0) {
+    return await this.blockexplorer.getAddress(address, { limit, offset });
+  }
+
+  async saveTransactionData(address, tx) {
     let sent = false;
     let received = false;
 
@@ -31,8 +55,9 @@ class BitcoinWalletScraper {
       }
     });
 
-    console.log({
+    this.db.saveTransaction({
       txid: tx.hash,
+      address,
       currency: "Bitcoin",
       symbol: "BTC",
       source: "",
@@ -44,29 +69,10 @@ class BitcoinWalletScraper {
       index: tx.tx_index,
       sent,
       received,
-      rate: null, // TODO: pull price from price db, update amounts.
+      rate: null,
       amount: null,
       amountUSD: null,
     });
-  }
-  async scrapeTransactionData() {
-    const walletData = await this.fetchWalletData();
-    const txs = walletData.n_tx;
-    let current = 0;
-    let txData = [];
-    while (current < txs) {
-      txData = await this.fetchTransactionData(this.limit, current);
-
-      txData.txs.forEach((tx) => {
-        this.saveTransactionData(tx);
-      });
-      current += this.limit;
-    }
-    return true;
-  }
-
-  async test() {
-    console.log(await this.scrapeTransactionData());
   }
 }
 

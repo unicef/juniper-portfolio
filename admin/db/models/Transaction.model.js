@@ -3,6 +3,7 @@ const Schema = mongoose.Schema;
 
 const transaction = new Schema({
   txid: { type: String },
+  address: { type: String },
   currency: { type: String },
   symbol: { type: String },
   source: { type: String },
@@ -20,6 +21,7 @@ const transaction = new Schema({
 });
 
 transaction.index({ txid: 1, index: 1 });
+transaction.index({ address: 1 });
 
 const Transaction = mongoose.model("Transaction", transaction);
 

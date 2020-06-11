@@ -311,6 +311,7 @@ export default function ({ viewWalletDetails }) {
                       amount={wallet.amount}
                       amountUSD={wallet.amountUSD}
                       address={wallet.address}
+                      viewTransactionOnClick={viewWalletDetails}
                     />
                   </Grid>
                 );

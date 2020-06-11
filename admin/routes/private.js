@@ -6,6 +6,19 @@ router.get("/ping", (req, res) => {
   res.send("pong");
 });
 
+router.get("/transactions/:address", async (req, res) => {
+  const juniperAdmin = req.app.get("juniperAdmin");
+  const { address } = req.params;
+  let transactions = [];
+
+  try {
+    transactions = await juniperAdmin.db.getTransactionsForAddress(address);
+  } catch (e) {
+    return logger.error(e);
+  }
+  res.json(transactions);
+});
+
 router.get("/wallets", async (req, res) => {
   const juniperAdmin = req.app.get("juniperAdmin");
   let wallets = [];
@@ -37,13 +50,33 @@ router.post("/wallet", async (req, res) => {
   const { wallet } = req.body;
 
   try {
+    // TODO cleanup validation
+    if (!wallet.address) {
+      throw new Error(
+        "Failed to create wallet. Wallet does not contain an address"
+      );
+    }
+
+    switch (wallet.symbol) {
+      case "BTC":
+        juniperAdmin.bitcoinWalletScraper.scrapeTransactionData(wallet.address);
+        break;
+      case "ETH":
+        break;
+      default:
+        throw new Error(
+          "Failed to create wallet. Wallet does not contain a valid symbol"
+        );
+    }
+
     await juniperAdmin.db.createWallet(wallet);
   } catch (e) {
     logger.error(e);
-    return res.error({
+    return res.status(404).send({
       msg: "Failed to create wallet",
     });
   }
+
   res.send(wallet);
 });
 

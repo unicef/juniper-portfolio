@@ -17,6 +17,7 @@ export default function ({ viewWalletDetails, walletDetailsAddress }) {
   const [authorizationRecord, setAuthorizationRecord] = useState(false);
   const [address] = useState(walletDetailsAddress);
   const [wallet, setWallet] = useState({});
+  const [transactions, setTransactions] = useState([]);
 
   const getWallet = async () => {
     let res, wallet;
@@ -26,13 +27,25 @@ export default function ({ viewWalletDetails, walletDetailsAddress }) {
     } catch (e) {
       return console.log(e);
     }
-
+    console.log(wallet);
     setWallet(wallet);
+  };
+  const getTransactions = async () => {
+    let res, transactions;
+    try {
+      res = await fetch(`/rest/admin/transactions/${address}`);
+      transactions = await res.json();
+    } catch (e) {
+      return console.log(e);
+    }
+    console.log(transactions);
+    setTransactions(transactions);
   };
 
   useEffect(() => {
     // TODO Fetch from API
-    getWallet(walletDetailsAddress);
+    getWallet(address);
+    getTransactions(address);
   }, [address]);
 
   return (
@@ -42,7 +55,7 @@ export default function ({ viewWalletDetails, walletDetailsAddress }) {
         setAuthorizationRecord={setAuthorizationRecord}
       />
       <BreadCrumb
-        walletName={wallet.name}
+        walletName={wallet.name || wallet.address}
         viewWalletDetails={viewWalletDetails}
       />
       <WalletDetailsCard
@@ -58,6 +71,7 @@ export default function ({ viewWalletDetails, walletDetailsAddress }) {
       <TransactionDetails
         address={address}
         setAuthorizationRecord={setAuthorizationRecord}
+        transactionDetailsData={transactions}
       />
     </div>
   );

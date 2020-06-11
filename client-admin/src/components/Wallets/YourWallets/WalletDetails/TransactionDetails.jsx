@@ -40,12 +40,13 @@ const transactionDetailsStyles = makeStyles((theme) => ({
 export default function TransactionDetails({
   address,
   setAuthorizationRecord,
+  transactionDetailsData,
 }) {
   const classes = transactionDetailsStyles();
   const [txDetails, setTxDetails] = useState([]);
   useEffect(() => {
     setTxDetails(transactionDetailsData);
-  }, [txDetails]);
+  }, [transactionDetailsData]);
   return (
     <Fragment>
       <Grid container className={classes.root}>
@@ -89,7 +90,7 @@ export default function TransactionDetails({
   );
 }
 
-const transactionDetailsData = [
+const transactionDetailsMockData = [
   {
     txid: "0x12387123812312309182391723981asdf2387123",
     currency: "Ether",
