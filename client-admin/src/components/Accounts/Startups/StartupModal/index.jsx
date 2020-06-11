@@ -2,6 +2,8 @@ import React from 'react';
 import { makeStyles} from '@material-ui/core/styles';
 import Modal from '@material-ui/core/Modal';
 import Grid from '@material-ui/core/Grid';
+import Button from "@material-ui/core/Button";
+import CopyToClipboardBtn from '../../../../ui/CopyToClipboardBtn';
 
 
 const useStyles = makeStyles({
@@ -99,6 +101,12 @@ const useStyles = makeStyles({
         marginBottom: '20px'
     }, 
 
+    closebtn:
+    {
+      position: 'absolute',
+      top: 0,
+      right:0,
+    }
 
 });
 
@@ -109,7 +117,6 @@ export function StartupModal(props) {
   return (
       <Modal
         open={props.open}
-        onClick={props.closefn}
         aria-labelledby="simple-modal-title"
         aria-describedby="simple-modal-description"
         className={classes.root}  
@@ -121,7 +128,10 @@ export function StartupModal(props) {
                   <div className={classes.country}>{props.details.country}</div>
                   <div className={classes.tagline}>{props.details.tagline}</div>
                   <a href={"https://" + props.details.link } className={classes.link}>{props.details.link}</a>
-                  <div className={classes.waddr}>{props.details.walletaddress}</div>
+                  <div className={classes.waddr}>
+                      {props.details.walletaddress}
+                      <CopyToClipboardBtn data={props.details.walletaddress} />
+                  </div>
                   <div className={classes.tiny}>WALLET ADDRESS</div>
                   <div className={classes.currentvalue}>
                     <p style={{marginBottom: 0}}>
@@ -155,6 +165,8 @@ export function StartupModal(props) {
                   <div className={classes.tiny}>WALLET ADDRESS</div>
 
               </div>
+        
+        <Button className={classes.closebtn} onClick={props.closefn}>X</Button>
              
         </div>
       </Modal>

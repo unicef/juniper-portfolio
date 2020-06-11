@@ -153,7 +153,7 @@ else
 return (null)
 }
 
-export function DonorModal(props) {
+export function NatcomModal(props) {
   const classes = useStyles();
 
   return (
@@ -170,9 +170,9 @@ export function DonorModal(props) {
                     <ETHData amtETH={props.details.amtETH}/>
                     <BTCData amtBTC={props.details.amtBTC} />
                     
-                  <div className={classes.waddr}>
-                    {props.details.walletaddress}
-                    <CopyToClipboardBtn data={props.details.walletaddress} />
+            <div className={classes.waddr}>
+              {props.details.walletaddress}
+              <CopyToClipboardBtn data={props.details.walletaddress} />
             </div>
   
                   <div className={classes.tiny}>WALLET ADDRESS</div>
@@ -197,7 +197,8 @@ export function DonorModal(props) {
         
         <Button className={classes.closebtn} onClick={props.closefn}>X</Button>
              
-        </div>
-      </Modal>
+      </div>
+      
+    </Modal>
   );
 }
