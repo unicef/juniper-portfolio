@@ -754,7 +754,6 @@ function TransactionDetailsCard({
             className={classes.txDetailsButton}
             endIcon={<ChevronRightIcon />}
             onClick={() => {
-              console.log("all transaction clicked");
               switch (symbol) {
                 case "BTC":
                   window.open(
