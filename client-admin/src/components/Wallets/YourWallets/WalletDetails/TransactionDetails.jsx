@@ -79,6 +79,8 @@ export default function TransactionDetails({
                   amount={txDetails.amount}
                   symbol={txDetails.symbol}
                   valueSent={txDetails.valueSent}
+                  sent={txDetails.sent}
+                  received={txDetails.received}
                   currentValue={txDetails.currentValue}
                   setAuthorizationRecord={setAuthorizationRecord}
                 />

@@ -44,13 +44,13 @@ class BitcoinWalletScraper {
     let received = false;
 
     tx.out.forEach((output) => {
-      if (output.addr === this.address) {
+      if (output.addr === address) {
         received = true;
       }
     });
 
     tx.inputs.forEach((input) => {
-      if (input.prev_out.addr === this.address) {
+      if (input.prev_out.addr === address) {
         sent = true;
       }
     });

@@ -697,6 +697,8 @@ function TransactionDetailsCard({
   symbol,
   valueSent,
   currentValue,
+  sent,
+  received,
   setAuthorizationRecord,
 }) {
   const classes = WalletDetailsCardStyles();
@@ -707,19 +709,29 @@ function TransactionDetailsCard({
         <Grid item xs={12} className={classes.txHeader}>
           <TxArrowIcon className={classes.arrowIcon} />{" "}
           <span className={classes.headerText}>
-            Crypto sent at <b>13:12, Mar 24 2020</b>
+            Crypto {sent ? "sent" : null} {received ? "received" : null} at{" "}
+            <b>13:12, Mar 24 2020</b>
           </span>
         </Grid>
         <Grid item xs={3}>
           <div className={classes.txDetailsAddress}>{address}</div>
-          <div className={classes.walletSubtitle}>Destination Wallet</div>
-          <Button
-            color="primary"
-            variant="contained"
-            className={classes.tagDestinationButton}
-          >
-            Tag Destination Wallet
-          </Button>
+
+          {received && (
+            <div className={classes.walletSubtitle}>Source Wallet</div>
+          )}
+
+          {sent && (
+            <Fragment>
+              <div className={classes.walletSubtitle}>Destination Wallet</div>
+              <Button
+                color="primary"
+                variant="contained"
+                className={classes.tagDestinationButton}
+              >
+                Tag Destination Wallet
+              </Button>
+            </Fragment>
+          )}
         </Grid>
         <Grid item xs={2}>
           <div className={classes.walletBalance}>
@@ -743,6 +755,14 @@ function TransactionDetailsCard({
             endIcon={<ChevronRightIcon />}
             onClick={() => {
               console.log("all transaction clicked");
+              switch (symbol) {
+                case "BTC":
+                  window.open(
+                    `https://www.blockchain.com/btc/tx/${txid}`,
+                    "_blank"
+                  );
+                  break;
+              }
             }}
           >
             Transaction Details
