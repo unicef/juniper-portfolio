@@ -15,13 +15,13 @@ const useStyles = makeStyles({
         outline: 0,
         fontFamily: '"Roboto", sans-serif',
         overflowY: 'auto',
-        overflowX: 'hidden'
+        overflowX: 'hidden',
     },
 
-    img:
+    blue:
     {
         width: "100%",
-        height: '227px',
+        backgroundColor: '#daf5ff',
     },
 
     body:
@@ -35,30 +35,15 @@ const useStyles = makeStyles({
         fontWeight: 700,
         lineHeight: '28px',
         letterSpacing: '0',
+        paddingBottom: '30px'
     },
 
-    country:
+    large:
     { 
         fontSize: '18px',
         lineHeight: 1.33, 
-        paddingBottom: '20px',
     },
 
-    tagline:
-    {
-        fontSize: '19px',
-        lineHeight: 1.42,
-    },
-
-    link:
-    {
-        fontSize: '20px',
-        fontWeight: 'normal',
-        lineHeight: 1.35 ,
-        letterSpacing: 'normal',
-        textDecoration: 'none',
-        color: '#00aeef',
-    },
 
     waddr:
     {
@@ -82,14 +67,8 @@ const useStyles = makeStyles({
         color: '#898989',
     },
 
-    hr:
-    {
-        borderBottom: 'solid 1px #e0e0e0',
-        paddingTop: '40px',
-        marginBottom: '40px'
-    },
 
-    investmentdetails:
+    largegrey:
     {
 
         fontFamily: '"Cabin", sans-serif',
@@ -101,6 +80,14 @@ const useStyles = makeStyles({
         marginBottom: '20px'
     }, 
 
+    roboto19:
+    {
+        fontFamily: '"Roboto", sans-serif',
+        fontSize: '19px',
+        lineHeight: 1.42,
+        color: '#000000'
+  },
+    
     closebtn:
     {
       position: 'absolute',
@@ -108,11 +95,66 @@ const useStyles = makeStyles({
       right:0,
     }
 
+
 });
 
-export function StartupModal(props) {
-  const classes = useStyles();
+function ETHData({amtETH}: number)
+{
+const classes = useStyles();
 
+  if (amtETH)
+  {
+    return (
+      <Grid container spacing={5}>
+        <Grid item>
+          <div className={classes.large} style={{fontWeight: 'bold'}}>{amtETH} ETH</div>
+          <div className={classes.tiny}>ETHER DONATED</div>
+        </Grid>
+        <Grid item>
+          <div className={classes.large}>9823.50 USD</div>
+          <div className={classes.tiny}>CURRENT VALUE</div>
+        </Grid>
+        <Grid item>
+          <div className={classes.large}>9341.00 USD</div>
+          <div className={classes.tiny}>VALUE AT RECEIPT</div>   
+        </Grid>
+      </Grid>
+    ) 
+  }
+  else
+  return (null)
+}
+
+
+function BTCData({amtBTC}: number)
+{
+const classes = useStyles();
+
+if (amtBTC)
+{
+  return (
+      <Grid container spacing={5}>
+          <Grid item>
+              <div className={classes.large} style={{fontWeight: 'bold'}}>{amtBTC} BTC</div>
+              <div className={classes.tiny}>BITCOIN DONATED</div>
+        </Grid>
+        <Grid item>
+          <div className={classes.large}>6543.50 USD</div>
+          <div className={classes.tiny}>CURRENT VALUE</div>
+        </Grid>
+        <Grid item>
+          <div className={classes.large}>7002.00 USD</div>
+          <div className={classes.tiny}>VALUE AT RECEIPT</div>   
+        </Grid>
+      </Grid>
+  ) 
+}
+else
+return (null)
+}
+
+export function NatcomModal(props) {
+  const classes = useStyles();
 
   return (
       <Modal
@@ -122,16 +164,17 @@ export function StartupModal(props) {
         className={classes.root}  
       >
           <div className={classes.root}>
-              <img src={props.details.imageurl} className={classes.img} alt="" />
-              <div className={classes.body}>
+              <div className={classes.blue}>
+                <div className={classes.body}>
                   <div className={classes.title}>{props.details.name}</div>
-                  <div className={classes.country}>{props.details.country}</div>
-                  <div className={classes.tagline}>{props.details.tagline}</div>
-                  <a href={"https://" + props.details.link } className={classes.link}>{props.details.link}</a>
-                  <div className={classes.waddr}>
-                      {props.details.walletaddress}
-                      <CopyToClipboardBtn data={props.details.walletaddress} />
-                  </div>
+                    <ETHData amtETH={props.details.amtETH}/>
+                    <BTCData amtBTC={props.details.amtBTC} />
+                    
+            <div className={classes.waddr}>
+              {props.details.walletaddress}
+              <CopyToClipboardBtn data={props.details.walletaddress} />
+            </div>
+  
                   <div className={classes.tiny}>WALLET ADDRESS</div>
                   <div className={classes.currentvalue}>
                     <p style={{marginBottom: 0}}>
@@ -142,33 +185,20 @@ export function StartupModal(props) {
                       <span style={{fontWeight:'bold'}}>Value at receipt</span>
                       = USD average accross three cryptoexchanges, calculated at 12:01 p.m. (EST) on the day of the transaction.
                     </p>
-                  </div>
-                  <div className={classes.hr}></div>
-                  <div className={classes.investmentdetails}>INVESTMENT DETAILS</div>
-                  <div className={classes.tagline}>{props.details.investmentdate}</div>
-                  <div className={classes.tiny}>INVESTMENT DATE</div>
-                  <Grid container spacing={4}>
-                      <Grid item>
-                          <div style={{fontWeight: 'bold', paddingBottom: '0px'}} className={classes.country}>{props.details.amount} {props.details.shortcurrency}</div>
-                          <div className={classes.tiny}>AMOUNT INVESTED</div>
-                      </Grid>
-                      <Grid item>
-                         <div className={classes.country} style={{paddingBottom: '0px'}}>9823.50 USD</div>
-                         <div className={classes.tiny}>CURRENT VALUE</div>
-                      </Grid>
-                      <Grid item>
-                         <div className={classes.country} style={{paddingBottom: '0px'}}>9342.00 USD</div>
-                         <div className={classes.tiny}>VALUE AT INVESTMENT</div>
-                      </Grid>
-                  </Grid>
-                  <div className={classes.waddr} style={{paddingBottom: '0px', marginTop: '10px'}}>{props.details.walletaddress}</div>
-                  <div className={classes.tiny}>WALLET ADDRESS</div>
+                 </div>
+                </div>
+              </div>
 
+              <div className={classes.body}>
+                  <div className={classes.largegrey}>Donation 1 details</div>
+                  <div className={classes.roboto19}>March 29, 2020</div>
+                  <div className={classes.tiny}>DONATION DATE</div>
               </div>
         
         <Button className={classes.closebtn} onClick={props.closefn}>X</Button>
              
-        </div>
-      </Modal>
+      </div>
+      
+    </Modal>
   );
 }

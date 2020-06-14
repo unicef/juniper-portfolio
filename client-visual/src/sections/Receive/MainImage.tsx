@@ -21,7 +21,7 @@ export const MainImage = () => {
     return (
       <img
         className={classes.mobile}
-        src="Receive_illustration.svg"
+        src="/Receive_illustration.svg"
         alt="receive info"
       />
     );
@@ -31,7 +31,7 @@ export const MainImage = () => {
         <Grid item xs={3} sm={3}>
           <img
             className={classes.desktop}
-            src="Receive_illustration.svg"
+            src="/Receive_illustration.svg"
             alt="receive info"
           />
         </Grid>

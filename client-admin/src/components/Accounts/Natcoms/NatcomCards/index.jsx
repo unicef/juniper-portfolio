@@ -4,6 +4,7 @@ import Card from '@material-ui/core/Card';
 import Button from '@material-ui/core/Button';
 import Grid from '@material-ui/core/Grid';
 import { ChevronRight } from '@material-ui/icons';
+import { NatcomModal } from '../NatcomModal';
 
 const useStyles = makeStyles({
   
@@ -111,7 +112,7 @@ export default function NatcomCards({ncomdata}: NatcomCardProps)
        <Grid container className={classes.cardsection} spacing={4}>
          {ncomdata.map((ncom) =>
            <Grid item lg={6}>
-             <NatcomCard name={ncom.name} amtETH={ncom.amtETH} amtBTC={ncom.amtBTC}/>
+             <NatcomCard {...ncom}/>
            </Grid>
           )}
         </Grid>
@@ -120,14 +121,14 @@ export default function NatcomCards({ncomdata}: NatcomCardProps)
 }
 
 
-
-type NatcomCardProps = 
+/*Template for Natcom data
+type NatcomCardData = 
   {
     name: string,
     amtETH: number,
     amtBTC: number,
   }
-  
+  */
 
 function ETHData({amtETH}: number)
 {
@@ -185,22 +186,36 @@ function BTCData({amtBTC}: number)
 }
 
 
-export function NatcomCard({name, amtETH, amtBTC}: NatcomCardProps)
+export function NatcomCard(props)
 {
   const classes = useStyles();
 
+  const [modalopen, setmodalopen] = React.useState(false);
+
+  const handleOpen = () => {
+    setmodalopen(true);
+  };
+
+  const handleClose = () =>
+  {
+    setmodalopen(false);
+  }
+
   return (
-    <Card className={classes.card} variant="outlined">
-      <div className={classes.donorinfo}>
-        <div className={classes.donorname}>
-          {name}
+    <div>
+      <Card className={classes.card} variant="outlined">
+        <div className={classes.donorinfo}>
+          <div className={classes.donorname}>
+            {props.name}
+          </div>
         </div>
-      </div>
-      <Grid container spacing={10}>
-          <ETHData amtETH={amtETH}/>
-          <BTCData amtBTC={amtBTC} />
-      </Grid>
-      <Button className={classes.button} size="small" color="primary">VIEW ACCOUNT DETAILS <ChevronRight/></Button>
-    </Card>
+        <Grid container spacing={10}>
+          <ETHData amtETH={props.amtETH}/>
+          <BTCData amtBTC={props.amtBTC} />
+        </Grid>
+        <Button className={classes.button} size="small" color="primary" onClick={handleOpen}>VIEW ACCOUNT DETAILS <ChevronRight/></Button>
+      </Card>
+      <NatcomModal open={modalopen} closefn={handleClose} details={props} />
+    </div>
   );
 }

@@ -35,13 +35,13 @@ export const FundingProcessImage = (props: any) => {
         {props.flag ? (
           <img
             className={matches ? classes.imgFormat : classes.imgFormat2}
-            src="./sample-transaction.png"
+            src="/sample-transaction.png"
             alt="sample transaction"
           />
         ) : (
           <img
             className={matches ? classes.imgFormat : classes.imgFormat2}
-            src="./Funding flow illustration.png"
+            src="/Funding flow illustration.png"
             alt="sample transaction"
           />
         )}

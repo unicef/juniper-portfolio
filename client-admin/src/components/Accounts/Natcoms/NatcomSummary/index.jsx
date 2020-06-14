@@ -49,7 +49,7 @@ const useStyles = makeStyles({
 export default function NatcomSummary()
 {
     const classes = useStyles();
-    const blurb =  "Cryptofund donations are received by HQ through four National Committees - Australia France, New Zealand and the United States."
+    const blurb =  "Cryptofund donations are received by HQ through four National Committees - Australia, France, New Zealand, and the United States."
     return (
       <div className={classes.root}>
         <Typography variant="h1" style={{ marginBottom: '30px', marginTop: '50px' }}>4 NatComs</Typography>

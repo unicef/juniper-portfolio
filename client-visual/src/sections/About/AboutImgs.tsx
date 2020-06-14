@@ -68,7 +68,7 @@ export const ApplicationImg = () => {
   return (
     <img
       className={classes.appimg}
-      src="Applicationprocess.svg"
+      src="/Applicationprocess.svg"
       alt="Application Process"
     />
   );
