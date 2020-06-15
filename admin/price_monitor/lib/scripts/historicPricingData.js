@@ -1,5 +1,5 @@
 const fetch = require("node-fetch");
-const DB = require("../db");
+const DB = require("../../../db");
 const config = require("../config");
 const db = new DB(config.db);
 const btcEndpoint =

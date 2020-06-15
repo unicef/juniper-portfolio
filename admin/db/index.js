@@ -48,6 +48,48 @@ class MongoDB {
   async getTransactionsForAddress(address) {
     return this.models.Transaction.find({ address });
   }
+
+  async savePrice(price) {
+    return new this.models.Price(price).save();
+  }
+  async getPrice(exchange, symbol, timestamp) {
+    return this.models.Price.findOne({
+      exchange,
+      symbol,
+      timestamp: { $lte: timestamp },
+    }).sort({
+      timestamp: -1,
+    });
+  }
+  async getPrices(
+    exchange,
+    symbol,
+    timeStart = new Date(0),
+    timeEnd = new Date()
+  ) {
+    return this.models.Price.find({
+      exchange,
+      symbol,
+      timestamp: { $gte: timeStart, $lt: timeEnd },
+    });
+  }
+  async averagePrice(
+    exchange,
+    symbol,
+    timeStart = new Date(0),
+    timeEnd = new Date()
+  ) {
+    return this.models.Price.aggregate([
+      {
+        $match: {
+          exchange,
+          symbol,
+          timestamp: { $gte: timeStart, $lt: timeEnd },
+        },
+      },
+      { $group: { _id: "Coinbase", avgPrice: { $avg: "$price" } } },
+    ]);
+  }
 }
 
 module.exports = MongoDB;

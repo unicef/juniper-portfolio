@@ -1,6 +1,6 @@
 require("dotenv").config();
 const Logger = require("./lib/logger");
-const DB = require("./lib/db");
+const DB = require("../../db");
 const defaultConfig = require("./lib/config");
 const Coinbase = require("./lib/coinbase");
 const Binance = require("./lib/binance");
