@@ -20,6 +20,7 @@ module.exports = {
       useNewUrlParser: true,
       useCreateIndex: true,
       useUnifiedTopology: true,
+      useFindAndModify: false,
     },
   },
   wallet: {
@@ -31,7 +32,11 @@ module.exports = {
   ethereumScraper: {},
   priceMonitor: {
     interval: oneDay,
+    cryptoCompare: {
+      scrape: true,
+    },
     binance: {
+      scrape: false,
       apiUrl: "https://www.binance.com/api/v3/avgPrice?symbol=",
       currencyPairs: [
         { currency: "Bitcoin", symbol: "BTC", ticker: "BTCUSDT" },
@@ -39,6 +44,7 @@ module.exports = {
       ],
     },
     bitstamp: {
+      scrape: false,
       apiUrl: "https://www.bitstamp.net/api/v2/ticker/",
       currencyPairs: [
         { currency: "Bitcoin", symbol: "BTC", ticker: "btcusd" },
@@ -46,6 +52,7 @@ module.exports = {
       ],
     },
     coinbase: {
+      scrape: false,
       apiUrl: "https://api.coinbase.com/v2/prices/",
       currencyPairs: [
         { currency: "Bitcoin", symbol: "BTC", ticker: "BTC-USD" },

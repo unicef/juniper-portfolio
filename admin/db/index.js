@@ -50,7 +50,15 @@ class MongoDB {
   }
 
   async savePrice(price) {
-    return new this.models.Price(price).save();
+    return this.models.Price.findOneAndUpdate(
+      {
+        exchange: price.exchange,
+        symbol: price.symbol,
+        timestamp: price.timestamp,
+      },
+      price,
+      { upsert: true }
+    );
   }
   async getPrice(exchange, symbol, timestamp) {
     return this.models.Price.findOne({
@@ -73,8 +81,7 @@ class MongoDB {
       timestamp: { $gte: timeStart, $lt: timeEnd },
     });
   }
-  async averagePrice(
-    exchange,
+  async averagePriceInDateRange(
     symbol,
     timeStart = new Date(0),
     timeEnd = new Date()
@@ -82,12 +89,26 @@ class MongoDB {
     return this.models.Price.aggregate([
       {
         $match: {
-          exchange,
           symbol,
           timestamp: { $gte: timeStart, $lt: timeEnd },
         },
       },
-      { $group: { _id: "Coinbase", avgPrice: { $avg: "$price" } } },
+      { $group: { _id: "Average", avgPrice: { $avg: "$price" } } },
+    ]);
+  }
+  async averagePriceForDay(symbol, day = new Date()) {
+    // start = same Day, 12:01 AM
+    // end = same Day, midnight
+    // return all values between start/end
+    // average the price.
+    return this.models.Price.aggregate([
+      {
+        $match: {
+          symbol,
+          timestamp: { $gte: date, $lt: date },
+        },
+      },
+      { $group: { _id: "Average", avgPrice: { $avg: "$price" } } },
     ]);
   }
 }

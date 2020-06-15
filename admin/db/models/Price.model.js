@@ -10,7 +10,7 @@ const price = new Schema({
   timestamp: { type: Date, index: true },
 });
 
-price.index({ exchange: 1, timestamp: 1, currency: 1 });
+price.index({ exchange: 1, timestamp: 1, symbol: 1 }, { unique: true });
 
 const Price = mongoose.model("Price", price);
 
