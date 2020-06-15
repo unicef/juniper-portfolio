@@ -10,6 +10,8 @@ const price = new Schema({
   timestamp: { type: Date, index: true },
 });
 
+price.index({ exchange: 1, timestamp: 1, currency: 1 });
+
 const Price = mongoose.model("Price", price);
 
 module.exports = Price;
