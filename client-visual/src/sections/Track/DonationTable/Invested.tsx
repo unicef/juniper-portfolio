@@ -11,6 +11,43 @@ const useStyles = makeStyles((theme: Theme) => ({
 
 export const Invested = () => {
   const classes = useStyles();
+  function TXDetailRowCreate(
+    from: string,
+    recipient: string,
+    amount: string,
+    time: string,
+    txhash: string
+  ) {
+    return { from, recipient, amount, time, txhash };
+  }
+
+  const TXTableRows3 = [
+    TXDetailRowCreate(
+      "UNICEF HQ",
+      "Atix Labs",
+      "1 BTC",
+      "08 Oct 2019 17:16 UTC",
+      "https://btc4.trezor.io/tx/8bab8a3286e7a1b2b93ed86588a98876e8de510c5e8ad3922abb2351b49b43f7"
+    ),
+  ];
+  const TXTableRows4 = [
+    TXDetailRowCreate(
+      "UNICEF HQ",
+      "Prescrypto",
+      "49.5 ETH",
+      "08 Oct 2019 15:54 UTC",
+      "https://etherscan.io/tx/0x63b15553266e673f73315b93f9914a92d8208dfe8fa1d01dc119d156dc33d622"
+    ),
+  ];
+  const TXTableRows5 = [
+    TXDetailRowCreate(
+      "UNICEF HQ",
+      "Utopixar",
+      "49.5 ETH",
+      "08 Oct 2019 15:57 UTC",
+      "https://etherscan.io/tx/0x5735e0524e936818369f2eac2ef7c917b74f00993d187ffdb738e287032e70a0"
+    ),
+  ];
   return (
     <div className={classes.root}>
       <TransactionDetails
@@ -24,10 +61,11 @@ export const Invested = () => {
         field1={"UNICEF HQ"} // from
         field2={"Prescrypto"} // reciepient
         field3={"49.5 ETH"} // amount
-        field4={"October 8, 2019"} // time
+        field4={"08 Oct 2019 15:54 UTC"} // time
         field5={
           "https://etherscan.io/tx/0x63b15553266e673f73315b93f9914a92d8208dfe8fa1d01dc119d156dc33d622"
         } // tx link
+        TXTableRows={TXTableRows4}
       />
 
       <TransactionDetails
@@ -41,10 +79,11 @@ export const Invested = () => {
         field1={"UNICEF HQ"} // from
         field2={"Utopixar"} // reciepient
         field3={"49.5 ETH"} // amount
-        field4={"October 8, 2019"} // time
+        field4={"08 Oct 2019 17:57 UTC"} // time
         field5={
           "https://etherscan.io/tx/0x5735e0524e936818369f2eac2ef7c917b74f00993d187ffdb738e287032e70a0"
         } // tx link
+        TXTableRows={TXTableRows5}
       />
 
       <TransactionDetails
@@ -58,10 +97,11 @@ export const Invested = () => {
         field1={"UNICEF HQ"} // from
         field2={"Atix Labs"} // reciepient
         field3={"49.5 ETH"} // amount
-        field4={"October 8, 2019"} // time
+        field4={"08 Oct 2019 17:16 UTC"} // time
         field5={
           "https://btc1.trezor.io/tx/001ef6f14df3b63f872c4cbdf7d3f36a15330eb9b9db4983f6c3b6d9093a8924"
         } // tx link
+        TXTableRows={TXTableRows3}
       />
     </div>
   );

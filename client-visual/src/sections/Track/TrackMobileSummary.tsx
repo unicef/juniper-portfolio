@@ -61,7 +61,7 @@ export const TrackMobileSummary = () => {
           <br />
           <span className={classes.labelText}>Our Donors</span>
           <br />
-          <span className={classes.numberText}>100</span>
+          <span className={classes.numberText}>1300</span>
           <br />
           <span className={classes.labelText}>Ether Received</span>
           <br />
@@ -76,11 +76,11 @@ export const TrackMobileSummary = () => {
             <span className={classes.mainText}>Invested</span>
           </div>
           <br />
-          <span className={classes.numberText}>03</span>
+          <span className={classes.numberText}>12</span>
           <br />
           <span className={classes.labelText}>Our Investments</span>
           <br />
-          <span className={classes.numberText}>100</span>
+          <span className={classes.numberText}>1225</span>
           <br />
           <span className={classes.labelText}>Ether Invested</span>
           <br />

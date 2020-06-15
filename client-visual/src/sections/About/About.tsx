@@ -121,7 +121,6 @@ export const About = () => {
             <ApplicationImg />
             <AboutBlurb2 />
             <AboutBlurb3 />
-            <AboutBlurb4 />
           </Grid>
         </Grid>
         <ApplicationMiddleImg />
@@ -152,25 +151,30 @@ export const AboutBlurb1 = () => {
   return (
     <div>
       <div className={mobiledevice ? classes.headermobile : classes.header}>
-        Eligible applicants
+        Looking for seed funding for your open source tech startup?
       </div>
       <div className={mobiledevice ? classes.blurbmobile : classes.blurb}>
         <p>
-          Projects selected by the{" "}
-          <span className={classes.underline}>Innovation Fund</span> can then
-          apply to the CryptoFund, and the fund team reviews applications to
-          make investments into projects. The selected projects receive 12
-          months of mentorship.
+          <b>
+            Financial and technological support from UNICEF’s Venture Fund is
+            available for companies that can show a strong founding team and a
+            clear path to improving the lives of children.
+          </b>
         </p>
 
         <p>
-          UNICEF's Innovation Fund is a non-thematic, pooled fund which has been
-          specifically designed to finance early stage, open-source technology
-          that can benefit children. The core motivation of the Innovation Fund
-          is to identify "clusters" or portfolios of initiatives around emerging
-          technology - so that UNICEF can both shape markets and learn about and
-          guide these technologies to benefit children. We invest in solutions
-          that can impact the lives of the most vulnerable children.
+          If you’ve got a start-up registered in one of UNICEF’s programme
+          countries and have a working, open source prototype (hardware or
+          software) showing promising results, the UNICEF Venture Fund is
+          looking for you.
+        </p>
+        <p>
+          We invest in solutions that can impact the lives of the most
+          vulnerable children. We find these solutions clustered around
+          $100billion industries in frontier technology spaces, such as:
+          blockchain, UAVs, virtual and augmented reality, 3D printing, machine
+          learning, quantum computing, genetic engineering, Internet of Things,
+          artificial intelligence, nano-satellites and human dynamics.
         </p>
       </div>
     </div>
@@ -184,12 +188,29 @@ export const AboutBlurb2 = () => {
   return (
     <div>
       <div className={mobiledevice ? classes.headermobile : classes.header}>
-        Funding in bitcoin or ether
+        Who are we looking for
       </div>
       <div className={mobiledevice ? classes.blurbmobile : classes.blurb}>
         <p>
-          The CryptoFund can help with investments up to $100,000 USD (BTC or
-          ETH equivalent) to support the acceleration of your company's work.
+          We are seeking open-source projects that have already been started -
+          you’ve been running it for a while - it shows some positive indicators
+          - but you need funding to take it to a level where it can really
+          attract additional investment and funding by generating real data.
+        </p>
+        <p>
+          You might need a small investment to get your prototype to the stage
+          where the company has proof that the solution works for other people.
+          Maybe another developer or two are needed, design help to communicate
+          what the project can do or some server space. Refactoring something
+          into a new language because the initial one won’t scale. Testing it in
+          a new area. Getting some data points.
+        </p>
+        <p>
+          The UNICEF Venture Fund can help with these kinds of investments to
+          support the acceleration of your company’s work. The next stage after
+          that proof would be going for more funding (this could be private
+          sector investment or grant-funding, or other; depending on the type of
+          technology and solution).
         </p>
       </div>
     </div>
@@ -203,37 +224,12 @@ export const AboutBlurb3 = () => {
   return (
     <div>
       <div className={mobiledevice ? classes.headermobile : classes.header}>
-        Funding open source projects
+        Funding in bitcoin or ether
       </div>
       <div className={mobiledevice ? classes.blurbmobile : classes.blurb}>
         <p>
-          We are seeking open-source projects that have already been started -
-          you've been running it for a while - it shows some positive indicators
-          - but you need funding to take it to a level where it can really
-          attract additional investment and funding by generating real data.
-        </p>
-      </div>
-    </div>
-  );
-};
-
-export const AboutBlurb4 = () => {
-  const classes = useStyles();
-  const mobiledevice = useMediaQuery("(max-width: 800px)");
-
-  return (
-    <div>
-      <div className={mobiledevice ? classes.headermobile : classes.header}>
-        Scaling up your projects
-      </div>
-      <div className={mobiledevice ? classes.blurbmobile : classes.blurb}>
-        <p>
-          You might need a small amount of money to get your prototype to the
-          stage where the company has proof that the solution works for other
-          people. Maybe another developer or two are needed, design help to
-          communicate what the project can do, or some server space. Refactoring
-          something into a new language because the original one won't scale.
-          Testing it in a new area. Getting some data points.
+          The CryptoFund provides investments in bitcoin or ether to support the
+          acceleration of your company’s work.
         </p>
       </div>
     </div>
@@ -273,10 +269,10 @@ export const AboutBlurb6 = () => {
       </div>
       <div className={mobiledevice ? classes.blurbmobile : classes.blurb}>
         <p>
-          Blockkchain technology operates as a digital ledger, recording each
-          transaction which takes place on the network. With public
+          Blockchain technology operates as a digital ledger, recording each
+          transaction, which takes place on the network. With public
           cryptocurrencies such as bitcoin and ether, anyone is able to see
-          where and when the assets are moving, revolutionizing the way giving
+          where and when the assets are moving, revolutionising the way giving
           today works.
         </p>
       </div>

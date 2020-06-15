@@ -23,6 +23,7 @@ const useStyles = makeStyles({
     paddingTop: "58px",
   },
   text: {
+    width: "120px",
     fontFamily: "IBM Plex Sans",
     fontSize: "16px",
     fontWeight: "bold",

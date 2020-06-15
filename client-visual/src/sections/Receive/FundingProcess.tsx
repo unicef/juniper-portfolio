@@ -33,13 +33,34 @@ const useStyles = makeStyles((theme: any) => ({
 export const FundingProcess = () => {
   const classes = useStyles();
   const [fundingProcessTitle] = useState("Our funding process");
-  const [fundingProcessText] = useState(
-    "UNICEF Ventures has established a process enabling the Innovation Fund to receive cryptocurrency donations via four official UNICEF fundraising entities, also known as National Committees (NatComs). Through these four National Committees - Australia, France, New Zealand and the United States - donors are able to invest in the Innovation Fund using cryptocurrency."
+  const [fundingProcessText1] = useState(
+    "UNICEF is able to receive cryptocurrency donations via four official UNICEF fundraising entities, also known as National Committees (NatComs). Through these four National Committees - "
   );
+  const [fundingProcessText2] = useState(
+    " - donors are able to contribute to the CryptoFund in cryptocurrency"
+  );
+  const [australiaText] = useState("Australia");
+  const [australiaLink] = useState("https://www.unicef.org.au/");
+  const [franceText] = useState("France");
+  const [franceLink] = useState(
+    "https://lp.unicef.fr/donate-in-cryptocurrencies/"
+  );
+  const [newZealandText] = useState("New Zealand");
+  const [newZealandLink] = useState(
+    "https://www.unicef.org.nz/donate-in-crypto"
+  );
+  const [usaText] = useState("United States");
+  const [usaLink] = useState("https://www.unicefusa.org/");
   return (
     <div className={classes.root}>
       <div className={classes.fundingProcessTitle}>{fundingProcessTitle}</div>
-      <div className={classes.fundingProcessText}>{fundingProcessText}</div>
+      <div className={classes.fundingProcessText}>
+        {fundingProcessText1} <a href={australiaLink}>{australiaText}</a>,{" "}
+        <a href={franceLink}>{franceText}</a>,{" "}
+        <a href={newZealandLink}>{newZealandText}</a>, and the{" "}
+        <a href={usaLink}>{usaText}</a>
+        {fundingProcessText2}
+      </div>
     </div>
   );
 };

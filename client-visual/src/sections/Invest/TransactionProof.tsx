@@ -211,7 +211,7 @@ export default function TransactionProof(props: any) {
                 {props.amount}
               </Grid>
               <Grid item xs={3} className={classes.sender}>
-                Today at 17:09
+                {props.time}
               </Grid>
               <Grid item xs={3} className={classes.sender}>
                 <a href={props.linkToProof}>Link</a>

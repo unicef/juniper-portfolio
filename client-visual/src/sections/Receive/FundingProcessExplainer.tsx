@@ -103,10 +103,10 @@ export const FundingProcessExplainer = () => {
     `A donation is initiated by a donor, for example, the Ethereum Foundation, at 13:00 hours.`
   );
   const [unicefText, setUnicefText] = useState(
-    "The crypto amount is received  at UNICEF France almost instantaneously and is sent to UNICEF HQ at 16:30 hours."
+    "The crypto is received at UNICEF France almost instantaneously and is sent."
   );
   const [startUpText, setStartUpText] = useState(
-    "The money is moved to the starup at 17:00 hours on the same day. The movement of cryptocurrency takes 10x less time than traditional currencies."
+    "The crypto is moved to the startup at 17:00 hours on the same day. The movement of cryptocurrency takes 10x less time than traditional currencies."
   );
   const [fundFlowButtonClass, setFundFlowButtonClass] = useState(
     classes.buttonInactive
@@ -152,13 +152,13 @@ export const FundingProcessExplainer = () => {
 
   const setFundingFlowText = () => {
     setDonorText(
-      "The CryptoFund is generously supported by individuals and organizations who want to contribute to the development of open-source software in UNICEF programme countries."
+      "The CryptoFund is generously supported by individuals and organisations who want to contribute to the development of open-source software in UNICEF programme countries."
     );
     setUnicefText(
-      "Via a pooled fund, UNICEF Innovation evaluates potential companies and reviews criteria such as readiness of project, the strength of the team, and the problem being addressed to allocate funding and mentorship."
+      "Via a pooled fund, UNICEF Ventures evaluates potential companies and reviews criteria such as readiness of project, the strength of the team, and the problem being addressed to allocate funding and mentorship."
     );
     setStartUpText(
-      "Once a startup has been added to the UNICEF Innovation Fund portfolio, they have the option of receiving a portion of their funding in cryptocurrency, which enables fast and transparent transfers."
+      "Once a startup has been added to the UNICEF Venture Fund portfolio, they have the option of receiving a portion of their funding in cryptocurrency, which enables fast and transparent transfers."
     );
   };
   const setSampleTransactionText = () => {
@@ -166,10 +166,10 @@ export const FundingProcessExplainer = () => {
       `A donation is initiated by a donor, for example, the Ethereum Foundation, at 13:00 hours.`
     );
     setUnicefText(
-      "The crypto amount is received  at UNICEF France almost instantaneously and is sent to UNICEF HQ at 16:30 hours."
+      "The crypto is received at UNICEF France almost instantaneously and is sent."
     );
     setStartUpText(
-      "The money is moved to the starup at 17:00 hours on the same day. The movement of cryptocurrency takes 10x less time than traditional currencies."
+      "The crypto is moved to the startup at 17:00 hours on the same day. The movement of cryptocurrency takes 10x less time than traditional currencies."
     );
   };
   const handleFundingFlowButtonClick = () => {

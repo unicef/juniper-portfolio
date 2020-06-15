@@ -33,12 +33,12 @@ export const Invest = () => {
             <Grid item xs={12} sm={3}>
               <SideDetails
                 style={{ paddingBottom: "50px" }}
-                firstNumber="03"
+                firstNumber="12"
                 firstLabel="investments"
-                middleNumber="100 eth"
-                middleLabel="ether invested"
-                lastNumber="01 btc"
-                lastLabel="bitcoin invested"
+                middleNumber="01 btc"
+                middleLabel="bitcoin invested"
+                lastNumber="1225 eth"
+                lastLabel="ether invested"
               />
             </Grid>
           ) : null}
@@ -48,12 +48,12 @@ export const Invest = () => {
           {matches ? null : (
             <Grid style={{ paddingTop: "50px" }} item xs={12} sm={3}>
               <SideDetails
-                firstNumber="03"
+                firstNumber="12"
                 firstLabel="investments"
-                middleNumber="100 eth"
-                middleLabel="ether invested"
-                lastNumber="01 btc"
-                lastLabel="bitcoin invested"
+                middleNumber="01 btc"
+                middleLabel="bitcoin invested"
+                lastNumber="1225 eth"
+                lastLabel="ether invested"
               />
             </Grid>
           )}
@@ -88,6 +88,7 @@ export const Invest = () => {
           linkToProject={
             "https://www.unicef.org/innovation/FundGraduate/Atixlabs"
           }
+          time={"08 Oct 2019 17:16 UTC"}
         />
         <SelectionCriteria />
         <InvestmentObject
@@ -110,6 +111,7 @@ export const Invest = () => {
           linkToProject={
             "https://www.unicef.org/innovation/fundgraduate/Prescrypto"
           }
+          time={"08 Oct 2019 15:54 UTC"}
         />
         <InvestmentObject
           title={
@@ -133,6 +135,7 @@ export const Invest = () => {
           linkToProject={
             "https://www.unicef.org/innovation/fundgraduate/Coinsence"
           }
+          time={"08 Oct 2019 15:57 UTC"}
         />
         <InvestmentObject
           title={

@@ -197,6 +197,7 @@ export const InvestmentDetails = (props: any) => {
                   amount={props.detail2}
                   amountDescription={"AMOUNT INVESTED"}
                   linkToProof={props.linkToProof}
+                  time={props.time}
                 />
               </Grid>
             </div>

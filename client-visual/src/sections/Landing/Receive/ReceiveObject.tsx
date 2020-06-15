@@ -38,13 +38,13 @@ export const ReceiveObject = () => {
   const [title] = useState("Received");
   const [numberOfDonors] = useState(1);
   const [amountOfBitcoin] = useState(1);
-  const [amountOfEther] = useState(100);
+  const [amountOfEther] = useState(1300);
   return (
     <div className={classes.text}>
       <span className={classes.title}>{title}</span>
       <div className={classes.numberOfDonors}>{numberOfDonors} donor</div>
-      <div className={classes.amountOfBitcoin}> {amountOfBitcoin} bitcoin</div>
-      <div className={classes.amountOfEther}> {amountOfEther} ether</div>
+      <div className={classes.amountOfBitcoin}> {amountOfEther} ether</div>
+      <div className={classes.amountOfEther}> {amountOfBitcoin} bitcoin</div>
     </div>
   );
 };

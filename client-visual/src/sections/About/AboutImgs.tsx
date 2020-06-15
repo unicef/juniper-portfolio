@@ -90,7 +90,8 @@ export const ApplicationMiddleImgmobile = () => {
   return (
     <div className={classes.yellowpanelmobile}>
       <div className={classes.paneltextmobile}>
-        Do you have an early stage project that needs funding in cryptocurrency?
+        Do you have an early stage innovation that could use funding in
+        cryptocurrency?
         <Button
           className={classes.buttonToApply}
           color="primary"
@@ -111,7 +112,7 @@ export const ApplicationMiddleImgdesktop = () => {
         <Grid item sm={6}>
           <div className={classes.yellowpanel}>
             <div className={classes.paneltext}>
-              Do you have an early stage project that needs funding in
+              Do you have an early stage innovation that could use funding in
               cryptocurrency? <br />
               <Button
                 className={classes.buttonToApply}

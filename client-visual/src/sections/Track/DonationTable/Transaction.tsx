@@ -17,14 +17,14 @@ export const Transaction = () => {
       "Ethereum Foundation",
       "UNICEF France",
       "100 ETH",
-      "October 7, 2019",
+      "07 Oct 2019 13:56 UTC",
       "https://etherscan.io/tx/0x659566ad82bf3fb89c54b3ce25583df0138605272381aaf7ff3883b2d9e651e0"
     ),
     TXDetailRowCreate(
       "UNICEF France",
       "UNICEF HQ",
       "100 ETH",
-      "October 7, 2019",
+      "07 Oct 2019 15:08 UTC",
       "https://etherscan.io/tx/0xec285bbbe747076618ebcaf13f44553cbef068ee330c73a83cce8c356ef259e6"
     ),
   ];
@@ -33,14 +33,14 @@ export const Transaction = () => {
       "Ethereum Foundation",
       "UNICEF France",
       "1 BTC",
-      "October 7, 2019",
+      "07 Oct 2019 14:02 UTC",
       "https://btc4.trezor.io/tx/8bab8a3286e7a1b2b93ed86588a98876e8de510c5e8ad3922abb2351b49b43f7"
     ),
     TXDetailRowCreate(
       "UNICEF France",
       "UNICEF HQ",
       "1 BTC",
-      "October 7, 2019",
+      "07 Oct 2019 15:57 UTC",
       "https://btc4.trezor.io/tx/396e16f8ec98dacfc56ee0b0c00aedc1a94af203050b428ae7eb08d17019846b"
     ),
   ];
@@ -49,7 +49,7 @@ export const Transaction = () => {
       "UNICEF HQ",
       "Atix Labs",
       "1 BTC",
-      "October 8, 2019",
+      "08 Oct 2019 17:16 UTC",
       "https://btc4.trezor.io/tx/8bab8a3286e7a1b2b93ed86588a98876e8de510c5e8ad3922abb2351b49b43f7"
     ),
   ];
@@ -58,7 +58,7 @@ export const Transaction = () => {
       "UNICEF HQ",
       "Prescrypto",
       "49.5 ETH",
-      "October 8, 2019",
+      "08 Oct 2019 15:54 UTC",
       "https://etherscan.io/tx/0x63b15553266e673f73315b93f9914a92d8208dfe8fa1d01dc119d156dc33d622"
     ),
   ];
@@ -67,7 +67,7 @@ export const Transaction = () => {
       "UNICEF HQ",
       "Utopixar",
       "49.5 ETH",
-      "October 8, 2019",
+      "08 Oct 2019 15:57 UTC",
       "https://etherscan.io/tx/0x5735e0524e936818369f2eac2ef7c917b74f00993d187ffdb738e287032e70a0"
     ),
   ];
@@ -88,7 +88,7 @@ export const Transaction = () => {
         field1={"Ethereum Foundation"} // from
         field2={"UNICEF France"} // reciepient
         field3={"100 ETH"} // amount
-        field4={"October 7, 2019"} // time
+        field4={"07 Oct 2019 13:56 UTC"} // time
         field5={
           "https://etherscan.io/tx/0x659566ad82bf3fb89c54b3ce25583df0138605272381aaf7ff3883b2d9e651e0"
         } // tx link
@@ -96,7 +96,7 @@ export const Transaction = () => {
         field6={"UNICEF France"} // from
         field7={"UNICEF HQ"} // reciepient
         field8={"100 ETH"} // amount
-        field9={"October 7, 2019"} // time
+        field9={"07 Oct 2019 15:08 UTC"} // time
         field10={
           "https://etherscan.io/tx/0xec285bbbe747076618ebcaf13f44553cbef068ee330c73a83cce8c356ef259e6"
         } // tx link
@@ -115,7 +115,7 @@ export const Transaction = () => {
         field1={"Ethereum Foundation"} // from
         field2={"UNICEF France"} // reciepient
         field3={"1 BTC"} // amount
-        field4={"October 7, 2019"} // time
+        field4={"07 Oct 2019 14:02 UTC"} // time
         field5={
           "https://btc1.trezor.io/tx/8bab8a3286e7a1b2b93ed86588a98876e8de510c5e8ad3922abb2351b49b43f7"
         } // tx link
@@ -123,7 +123,7 @@ export const Transaction = () => {
         field6={"UNICEF France"} // from
         field7={"UNICEF HQ"} // reciepient
         field8={"1 BTC"} // amount
-        field9={"October 7, 2019"} // time
+        field9={"07 Oct 2019 15:57 UTC"} // time
         field10={
           "https://btc1.trezor.io/tx/396e16f8ec98dacfc56ee0b0c00aedc1a94af203050b428ae7eb08d17019846b"
         } // tx link
@@ -140,7 +140,7 @@ export const Transaction = () => {
         field1={"UNICEF HQ"} // from
         field2={"Atix Labs"} // reciepient
         field3={"1 BTC"} // amount
-        field4={"October 8, 2019"} // time
+        field4={"08 Oct 2019 17:16 UTC"} // time
         field5={
           "https://btc1.trezor.io/tx/001ef6f14df3b63f872c4cbdf7d3f36a15330eb9b9db4983f6c3b6d9093a8924"
         } // tx link
@@ -157,7 +157,7 @@ export const Transaction = () => {
         field1={"UNICEF HQ"} // from
         field2={"Prescrypto"} // reciepient
         field3={"49.5 ETH"} // amount
-        field4={"October 8, 2019"} // time
+        field4={"08 Oct 2019 15:54 UTC"} // time
         field5={
           "https://etherscan.io/tx/0x63b15553266e673f73315b93f9914a92d8208dfe8fa1d01dc119d156dc33d622"
         } // tx link
@@ -175,7 +175,7 @@ export const Transaction = () => {
         field1={"UNICEF HQ"} // from
         field2={"Utopixar"} // reciepient
         field3={"49.5 ETH"} // amount
-        field4={"Today"} // time
+        field4={"08 Oct 2019 17:57 UTC"} // time
         field5={
           "https://etherscan.io/tx/0x5735e0524e936818369f2eac2ef7c917b74f00993d187ffdb738e287032e70a0"
         } // tx link
