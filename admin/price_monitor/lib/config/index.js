@@ -23,9 +23,9 @@ module.exports = {
       { currency: "Ether", symbol: "ETH", ticker: "ETH-USD" },
     ],
   },
-  mongo: {
-    url: "mongodb://localhost/",
-    database: "juniperAdmin",
+  db: {
+    url: process.env.DB_URL || "mongodb://localhost",
+    database: process.env.DB_NAME || "juniper",
     mongooseCfg: {
       useNewUrlParser: true,
       useCreateIndex: true,
