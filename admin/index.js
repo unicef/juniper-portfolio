@@ -24,7 +24,7 @@ class JuniperAdmin {
     this.environment = this.config.environment;
 
     this.db = new DB(this.config.db);
-    this.priceMonitor = new PriceMonitor(this.config.priceMonitor);
+    this.priceMonitor = new PriceMonitor(this.config.priceMonitor, this.db);
     this.bitcoinWalletScraper = new BitcoinScraper(
       this.config.bitcoinScraper,
       this.db

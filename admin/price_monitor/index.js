@@ -1,16 +1,14 @@
 require("dotenv").config();
-const Logger = require("./lib/logger");
-const DB = require("../../db");
-const defaultConfig = require("./lib/config");
+const Logger = require("../logger");
 const Coinbase = require("./lib/coinbase");
 const Binance = require("./lib/binance");
 const Bitstamp = require("./lib/bitstamp");
 
 class PriceMonitor {
-  constructor(config) {
-    this.config = config || defaultConfig;
-    this.db = new DB(this.config.mongo);
+  constructor(config, db) {
+    this.config = config;
     this.logger = new Logger("PriceMonitor");
+    this.db = db;
     this.coinbase = new Coinbase(this.config.coinbase, this.db);
     this.binance = new Binance(this.config.binance, this.db);
     this.bitstamp = new Bitstamp(this.config.bitstamp, this.db);
