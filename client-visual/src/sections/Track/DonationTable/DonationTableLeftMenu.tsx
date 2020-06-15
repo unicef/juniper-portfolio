@@ -109,7 +109,10 @@ export const DonationTableLeftMenu = () => {
   );
 
   return (
-    <div className={classes.root}>
+    <div
+      style={{ height: "100vh", position: "sticky", top: "48" }}
+      className={classes.root}
+    >
       {sideList("left")}
       <DonationTableStepper />
     </div>

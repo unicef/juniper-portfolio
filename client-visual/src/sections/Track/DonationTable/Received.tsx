@@ -64,6 +64,33 @@ export const Received = () => {
         partyType2="National Committee"
         endParty="UNICEF HQ"
         partyType3="Recipient"
+        valueMoving="1200 ETH"
+        valueType="Crypto Received"
+        TXTableRows={TXTableRows1}
+        field1={"Ethereum Foundation"} // from
+        field2={"UNICEF France"} // reciepient
+        field3={"1200 ETH"} // amount
+        field4={"15 Jun 2020 17:03 UTC"} // time
+        field5={
+          "https://etherscan.io/tx/0x7034df9c87f950902d0f3a2f431aebea854c0d2e2fa6dca8ab127362711bbd11"
+        } // tx link
+        yes={true}
+        field6={"UNICEF France"} // from
+        field7={"UNICEF HQ"} // reciepient
+        field8={"1200 ETH"} // amount
+        field9={"15 Jun 2020 17:47 UTC"} // time
+        field10={
+          "https://etherscan.io/tx/0xc402f498a730b99d0105cfa3b49c483bd6f143a8c0ab082d0e2b63e8de3fd854"
+        } // tx link
+      />
+      <TransactionDetails
+        transactionType="Received"
+        startingParty="Ethereum Foundation"
+        partyType1="Donor"
+        middleParty="UNICEF France"
+        partyType2="National Committee"
+        endParty="UNICEF HQ"
+        partyType3="Recipient"
         valueMoving="100 ETH"
         valueType="Crypto Received"
         field1={"Ethereum Foundation"} // from

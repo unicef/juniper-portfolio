@@ -53,6 +53,117 @@ export const Invested = () => {
       <TransactionDetails
         transactionType="Invested"
         startingParty="UNICEF HQ"
+        partyType1="HQ"
+        endParty="Afinidata"
+        partyType3="Recipient"
+        valueMoving="125 ETH"
+        valueType="Crypto Received"
+        TXTableRows={TXTableRows3}
+        field1={"UNICEF HQ"} // from
+        field2={"Afinidata"} // reciepient
+        field3={"125 ETH"} // amount
+        field4={""} // time
+        field5={""} // tx link
+      />
+      <TransactionDetails
+        transactionType="Invested"
+        startingParty="UNICEF HQ"
+        partyType1="HQ"
+        endParty="Somleng"
+        partyType3="Recipient"
+        valueMoving="125 ETH"
+        valueType="Crypto Received"
+        field1="UNICEF HQ"
+        field2="Somleng"
+        field3="125 ETH"
+      />
+      <TransactionDetails
+        transactionType="Invested"
+        startingParty="UNICEF HQ"
+        partyType1="HQ"
+        endParty="Ideasis"
+        partyType3="Recipient"
+        valueMoving="125 ETH"
+        valueType="Crypto Received"
+        field1="UNICEF HQ"
+        field2="Ideasis"
+        field3="125 ETH"
+      />
+      <TransactionDetails
+        transactionType="Invested"
+        startingParty="UNICEF HQ"
+        partyType1="HQ"
+        endParty="StaTwig"
+        partyType3="Recipient"
+        valueMoving="125 ETH"
+        valueType="Crypto Received"
+        field1="UNICEF HQ"
+        field2="StaTwig"
+        field3="125 ETH"
+      />
+      <TransactionDetails
+        transactionType="Invested"
+        startingParty="UNICEF HQ"
+        partyType1="HQ"
+        endParty="W3 Engineers"
+        partyType3="Recipient"
+        valueMoving="125 ETH"
+        valueType="Crypto Received"
+        field1="UNICEF HQ"
+        field2="W3"
+        field3="125 ETH"
+      />
+      <TransactionDetails
+        transactionType="Invested"
+        startingParty="UNICEF HQ"
+        partyType1="HQ"
+        endParty="Avyantra"
+        partyType3="Recipient"
+        valueMoving="125 ETH"
+        valueType="Crypto Received"
+        field1="UNICEF HQ"
+        field2="Avyantra"
+        field3="125 ETH"
+      />
+      <TransactionDetails
+        transactionType="Invested"
+        startingParty="UNICEF HQ"
+        partyType1="HQ"
+        endParty="Cireha"
+        partyType3="Recipient"
+        valueMoving="125 ETH"
+        valueType="Crypto Received"
+        field1="UNICEF HQ"
+        field2="Cireha"
+        field3="125 ETH"
+      />
+      <TransactionDetails
+        transactionType="Invested"
+        startingParty="UNICEF HQ"
+        partyType1="HQ"
+        endParty="OS City"
+        partyType3="Recipient"
+        valueMoving="125 ETH"
+        valueType="Crypto Received"
+        field1="UNICEF HQ"
+        field2="OS City"
+        field3="125 ETH"
+      />
+      <TransactionDetails
+        transactionType="Invested"
+        startingParty="UNICEF HQ"
+        partyType1="HQ"
+        endParty="Utopic Studio"
+        partyType3="Recipient"
+        valueMoving="125 ETH"
+        valueType="Crypto Received"
+        field1="UNICEF HQ"
+        field2="Utopic Studio"
+        field3="125 ETH"
+      />
+      <TransactionDetails
+        transactionType="Invested"
+        startingParty="UNICEF HQ"
         partyType1="Donor"
         endParty="Prescrypto"
         partyType3="Recipient"

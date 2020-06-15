@@ -13,6 +13,7 @@ const useStyles = makeStyles((theme: any) => ({
   top: {
     backgroundColor: "#0068ea",
     paddingTop: "100px",
+    height: "100vh",
   },
 }));
 export const Invest = () => {
@@ -57,15 +58,10 @@ export const Invest = () => {
               />
             </Grid>
           )}
-          {/* <Grid item xs={12} sm={9}>
-                        <InvestmentMainText />
-                    </Grid> */}
         </Grid>
-        <Grid container>
-          <Grid item xs={12}>
-            <InvestmentMainImage />
-          </Grid>
-        </Grid>
+        <div style={{ position: "absolute", left: 57, bottom: 48 }}>
+          <InvestmentMainImage />
+        </div>
       </div>
       <div>
         <InvestmentObject

@@ -10,8 +10,9 @@ const useStyles = makeStyles((theme: any) => ({
     paddingTop: "0",
     paddingRight: "14px",
     paddingLeft: "14px",
-    // padding:'14px',
     paddingBottom: "65px",
+    width: "903px",
+    height: "496px",
   },
   container: {
     width: "100%",

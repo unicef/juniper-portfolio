@@ -4,7 +4,7 @@ import { Grid, useMediaQuery } from "@material-ui/core";
 
 const useStyles = makeStyles((theme: any) => ({
   desktop: {
-    paddingTop: "59px",
+    // paddingTop: "59px",
   },
   mobile: {
     paddingTop: "59px",
@@ -28,15 +28,11 @@ export const TrackMainImage = () => {
     );
   } else {
     return (
-      <Grid container>
-        <Grid item xs={3} sm={3}>
-          <img
-            className={classes.desktop}
-            src="/Track_illustration.svg"
-            alt="receive info"
-          />
-        </Grid>
-      </Grid>
+      <img
+        className={classes.desktop}
+        src="/Track_illustration.svg"
+        alt="receive info"
+      />
     );
   }
 };

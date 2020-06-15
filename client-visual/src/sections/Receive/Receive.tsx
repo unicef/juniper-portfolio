@@ -16,6 +16,7 @@ const useStyles = makeStyles({
   top: {
     backgroundColor: "#0068ea",
     paddingTop: "100px",
+    height: "100vh",
   },
   body: {
     backgroundColor: "white",
@@ -64,11 +65,9 @@ export const Receive = () => {
             </Grid>
           )}
         </Grid>
-        <Grid container>
-          <Grid item xs={12}>
-            <MainImage />
-          </Grid>
-        </Grid>
+        <div style={{ position: "absolute", left: 57, bottom: 48 }}>
+          <MainImage />
+        </div>
       </div>
       <div>
         <Grid container className={classes.body}>

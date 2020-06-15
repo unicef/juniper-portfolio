@@ -10,19 +10,17 @@ import { HorizontalBar } from "../Atoms/HorizontalBar";
 const useStyles = makeStyles({
   root: {
     flexGrow: 1,
-    //height:'183px'
+    height: "183px",
   },
-
   img: {
     paddingLeft: "30px",
   },
-
   arrow: {
     marginLeft: "50px",
+    paddingTop: "20px",
   },
-
   hb: {
-    marginTop: "-12px",
+    marginTop: "-11px",
   },
 });
 
