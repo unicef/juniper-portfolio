@@ -16,6 +16,8 @@ const transaction = new Schema({
   sent: { type: Boolean, default: false },
   received: { type: Boolean, default: false },
   rate: { type: Number },
+  fee: { type: Number },
+  feeUSD: { type: Number },
   amount: { type: Number },
   amountUSD: { type: Number },
 });

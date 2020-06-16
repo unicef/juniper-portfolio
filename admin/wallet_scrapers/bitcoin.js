@@ -1,5 +1,5 @@
-const blockexplorer = require("blockchain.info/blockexplorer");
 const Logger = require("../logger");
+const fetch = require("node-fetch");
 
 class BitcoinWalletScraper {
   constructor(config, db) {
@@ -7,52 +7,68 @@ class BitcoinWalletScraper {
     this.logger = new Logger("Bitcoin Scraper");
     this.symbol = "BTC";
 
-    this.blockexplorer = blockexplorer;
-    this.limit = this.config.limit || 50;
     this.db = db;
   }
 
   async scrapeTransactionData(address) {
     const walletData = await this.fetchWalletData(address);
+    const txData = await this.fetchTransactionData(address);
 
-    const txs = walletData.n_tx;
+    //this.updateWallet(walletData, txData);
 
-    let current = 0;
-    let txData = [];
-
-    while (current < txs) {
-      txData = await this.fetchTransactionData(address, this.limit, current);
-
-      txData.txs.forEach(async (tx) => {
-        await this.saveTransactionData(address, tx);
-      });
-      current += this.limit;
+    for (const tx of txData) {
+      await this.saveTransactionData(walletData.address, tx);
     }
-
-    this.updateWallet(address, txData);
-
     return true;
   }
-  async fetchTransactionData(address, limit = this.limit, offset) {
-    this.logger.info(
-      `Fetching Transaction Data for \t${address} \tlimit: ${limit} \toffset: ${offset}`
-    );
-    return await this.fetchWalletData(address, limit, offset);
+  async fetchTransactionData(address) {
+    this.logger.info(`Fetching Transaction Data for \t${address}`);
+    let txs = [];
+    let data, txData, lastSeenTxid;
+    try {
+      data = await fetch(`https://blockstream.info/api/address/${address}/txs`);
+      txData = await data.json();
+      txs = txs.concat(txData);
+      lastSeenTxid = txs[txs.length - 1].txid;
+
+      while (txData.length === 25) {
+        data = await fetch(
+          `https://blockstream.info/api/address/${address}/txs/chain/${lastSeenTxid}`
+        );
+        txData = await data.json();
+        txs = txs.concat(txData);
+        lastSeenTxid = txs[txs.length - 1].txid;
+      }
+    } catch (e) {
+      console.log(e);
+    }
+
+    return txs;
   }
-  async fetchWalletData(address, limit = 1, offset = 0) {
+  async fetchWalletData(address) {
     this.logger.info(`Fetch Wallet Data for ${address}`);
-    return await this.blockexplorer.getAddress(address, { limit, offset });
+
+    let data, wallet;
+    try {
+      data = await fetch(`https://blockstream.info/api/address/${address}`);
+      wallet = await data.json();
+    } catch (e) {
+      console.log(e);
+    }
+
+    console.log(wallet);
+    return wallet;
   }
 
   async saveTransactionData(address, tx) {
     let sent = false;
     let received = false;
+    let timestamp = tx.status.block_time * 1000;
+    let rate = await this.db.getNearestPrice(this.symbol, new Date(timestamp));
     let amount = 0;
-    let amountUSD = 0;
-    let timestamp = tx.time * 1000;
 
-    tx.out.forEach((output) => {
-      if (output.addr === address) {
+    tx.vout.forEach((output) => {
+      if (output.scriptpubkey_address === address) {
         received = true;
       }
 
@@ -61,32 +77,34 @@ class BitcoinWalletScraper {
       }
     });
 
-    tx.inputs.forEach((input) => {
-      if (input.prev_out.addr === address) {
+    tx.vin.forEach((input) => {
+      if (input.prevout.scriptpubkey_address === address) {
         sent = true;
       }
     });
 
-    let rate = await this.db.getNearestPrice(this.symbol, new Date(timestamp));
-
     amount = Math.round(amount) / 1e8;
-    amountUSD = Math.round(amount * rate.price * 100) / 100;
+    let amountUSD = Math.round(amount * rate.price * 100) / 100;
+    let fee = tx.fee / 1e8;
+    let feeUSD = Math.round(fee * rate.price * 100) / 100;
 
     this.db.saveTransaction({
-      txid: tx.hash,
+      txid: tx.txid,
       address,
       currency: "Bitcoin",
       symbol: this.symbol,
       source: "",
       destination: "",
-      inputs: tx.inputs,
-      outputs: tx.out,
-      block: tx.block_height,
+      inputs: tx.vin,
+      outputs: tx.vout,
+      block: tx.status.block_height,
       timestamp: tx.time,
       index: tx.tx_index,
       sent,
       received,
       rate: rate.price,
+      fee,
+      feeUSD,
       amount,
       amountUSD,
     });
