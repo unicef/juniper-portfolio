@@ -40,15 +40,30 @@ class MongoDB {
   }
 
   async createWallet(wallet) {
+    this.logger.debug(`Creating Wallet ${JSON.stringify(wallet)}`);
     return new this.models.Wallet(wallet).save();
   }
   async getWallet(address) {
+    this.logger.debug(`Getting Wallet for ${address}`);
     return this.models.Wallet.findOne({ address });
   }
+  async updateWallet(address, fields) {
+    this.logger.debug(
+      `Updating Wallet for ${address} with ${JSON.stringify(fields)}`
+    );
+    return this.models.Wallet.findOneAndUpdate(
+      {
+        address: address,
+      },
+      { fields }
+    );
+  }
   async getWallets() {
+    this.logger.debug(`Get Wallets`);
     return this.models.Wallet.find({});
   }
   async saveTransaction(tx) {
+    this.logger.debug(`Saving Transaction ${JSON.stringify(tx)}`);
     return this.models.Transaction.findOneAndUpdate(
       {
         txid: tx.txid,
@@ -59,13 +74,16 @@ class MongoDB {
     );
   }
   async getTransaction(txid) {
+    this.logger.debug(`Get Transaction ${txid}`);
     return this.models.Transaction.findOne({ txid });
   }
   async getTransactionsForAddress(address) {
+    this.logger.debug(`Get Transactions for ${address}`);
     return this.models.Transaction.find({ address });
   }
 
   async savePrice(price) {
+    this.logger.debug(`Saving Price ${JSON.stringify(price)}`);
     return this.models.Price.findOneAndUpdate(
       {
         exchange: price.exchange,
@@ -77,6 +95,7 @@ class MongoDB {
     );
   }
   async getPrice(exchange, symbol, timestamp) {
+    this.logger.debug(`Get Price \t${exchange} \t${symbol} \t${timestamp}`);
     return this.models.Price.findOne({
       exchange,
       symbol,
@@ -88,6 +107,7 @@ class MongoDB {
       .limit(1);
   }
   async getPrices(symbol, timeStart = new Date(0), timeEnd = new Date()) {
+    this.logger.debug(`Get Prices \t ${symbol} \t${timeStart} \t${timeEnd}`);
     return this.models.Price.find({
       symbol,
       timestamp: { $gte: timeStart, $lt: timeEnd },
@@ -98,6 +118,9 @@ class MongoDB {
     timeStart = new Date(0),
     timeEnd = new Date()
   ) {
+    this.logger.debug(
+      `AveragePriceInDateRange \t ${symbol} \t${timeStart} \t${timeEnd}`
+    );
     return this.models.Price.aggregate([
       {
         $match: {
@@ -109,6 +132,7 @@ class MongoDB {
     ]);
   }
   async getNearestPrice(symbol, day = new Date()) {
+    this.logger.debug(`Get Nearest Price \t${symbol} \t${day}`);
     return await this.models.Price.findOne({
       symbol,
       timestamp: { $gte: day },

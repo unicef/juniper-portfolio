@@ -14,29 +14,33 @@ class BitcoinWalletScraper {
 
   async scrapeTransactionData(address) {
     const walletData = await this.fetchWalletData(address);
+
     const txs = walletData.n_tx;
 
     let current = 0;
-    let count = 0;
     let txData = [];
 
-    this.logger.info(`Scraping ${txs} txs for ${address}`);
     while (current < txs) {
       txData = await this.fetchTransactionData(address, this.limit, current);
 
       txData.txs.forEach(async (tx) => {
-        count++;
         await this.saveTransactionData(address, tx);
       });
       current += this.limit;
     }
 
+    this.updateWallet(address, txData);
+
     return true;
   }
   async fetchTransactionData(address, limit = this.limit, offset) {
-    return this.fetchWalletData(address, limit, offset);
+    this.logger.info(
+      `Fetching Transaction Data for \t${address} \tlimit: ${limit} \toffset: ${offset}`
+    );
+    return await this.fetchWalletData(address, limit, offset);
   }
   async fetchWalletData(address, limit = 1, offset = 0) {
+    this.logger.info(`Fetch Wallet Data for ${address}`);
     return await this.blockexplorer.getAddress(address, { limit, offset });
   }
 
@@ -46,7 +50,6 @@ class BitcoinWalletScraper {
     let amount = 0;
     let amountUSD = 0;
     let timestamp = tx.time * 1000;
-    let rate = await this.db.getNearestPrice(this.symbol, new Date(timestamp));
 
     tx.out.forEach((output) => {
       if (output.addr === address) {
@@ -63,6 +66,8 @@ class BitcoinWalletScraper {
         sent = true;
       }
     });
+
+    let rate = await this.db.getNearestPrice(this.symbol, new Date(timestamp));
 
     amount = Math.round(amount) / 1e8;
     amountUSD = Math.round(amount * rate.price * 100) / 100;
@@ -85,6 +90,42 @@ class BitcoinWalletScraper {
       amount,
       amountUSD,
     });
+  }
+  async updateWallet(address, txData) {
+    this.logger.info(`Updating Wallet data for ${address}`);
+    let totalFeesUSD = 0;
+
+    for (const tx of txData.txs) {
+      let timestamp = tx.time * 1000;
+      let rate = await this.db.getNearestPrice(
+        this.symbol,
+        new Date(timestamp)
+      );
+      let inputValue = 0;
+      let outputValue = 0;
+      let fees = 0;
+
+      tx.out.forEach((output) => {
+        if (output.value) {
+          outputValue += output.value;
+        }
+      });
+
+      tx.inputs.forEach((input) => {
+        if (input.prev_out && input.prev_out.value) {
+          inputValue += input.prev_out.value;
+        }
+      });
+
+      fees = (inputValue - outputValue) / 1e8;
+      console.log("");
+      console.log(inputValue);
+      console.log(outputValue);
+      console.log(`fees ${fees}`);
+      totalFeesUSD += fees * rate.price;
+    }
+
+    console.log(`Total Fees: ${totalFeesUSD}`);
   }
 }
 module.exports = BitcoinWalletScraper;

@@ -57,6 +57,8 @@ router.post("/wallet", async (req, res) => {
       );
     }
 
+    await juniperAdmin.db.createWallet(wallet);
+
     switch (wallet.symbol) {
       case "BTC":
         juniperAdmin.bitcoinWalletScraper.scrapeTransactionData(wallet.address);
@@ -68,8 +70,6 @@ router.post("/wallet", async (req, res) => {
           "Failed to create wallet. Wallet does not contain a valid symbol"
         );
     }
-
-    await juniperAdmin.db.createWallet(wallet);
   } catch (e) {
     logger.error(e);
     return res.status(404).send({
