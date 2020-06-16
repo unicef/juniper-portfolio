@@ -104,6 +104,7 @@ class BitcoinWalletScraper {
       let inputValue = 0;
       let outputValue = 0;
       let fees = 0;
+      let sent = false;
 
       tx.out.forEach((output) => {
         if (output.value) {
@@ -112,17 +113,25 @@ class BitcoinWalletScraper {
       });
 
       tx.inputs.forEach((input) => {
+        console.log(input.prev_out.addr);
         if (input.prev_out && input.prev_out.value) {
           inputValue += input.prev_out.value;
+
+          if (input.prev_out.addr === address) {
+            console.log("sent");
+            sent = true;
+          }
         }
       });
 
-      fees = (inputValue - outputValue) / 1e8;
-      console.log("");
-      console.log(inputValue);
-      console.log(outputValue);
-      console.log(`fees ${fees}`);
-      totalFeesUSD += fees * rate.price;
+      if (sent) {
+        fees = (inputValue - outputValue) / 1e8;
+        console.log("");
+        console.log(inputValue);
+        console.log(outputValue);
+        console.log(`fees ${fees}`);
+        totalFeesUSD += fees * rate.price;
+      }
     }
 
     console.log(`Total Fees: ${totalFeesUSD}`);
