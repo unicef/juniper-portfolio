@@ -8,7 +8,6 @@ const wallet = new Schema({
   currency: { type: String },
   symbol: { type: String },
   amount: { type: Number, default: 0 },
-  amountUSD: { type: Number, default: 0 },
   feesUSD: { type: Number, default: 0 },
   isMultisig: { type: Boolean, default: false },
   multisigOwners: { type: Array, default: [] },

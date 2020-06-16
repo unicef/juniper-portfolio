@@ -4,7 +4,7 @@ const models = require("./models");
 
 class MongoDB {
   constructor(config) {
-    this.config = {
+    this.config = config || {
       url: process.env.DB_URL || "mongodb://localhost",
       database: process.env.DB_NAME || "juniper",
       mongooseCfg: {
@@ -47,6 +47,18 @@ class MongoDB {
     this.logger.debug(`Getting Wallet for ${address}`);
     return this.models.Wallet.findOne({ address });
   }
+  async getWalletFees(address) {
+    this.logger.debug(`Getting Wallet fees for ${address}`);
+    return this.models.Transaction.aggregate([
+      {
+        $match: {
+          address,
+          sent: true,
+        },
+      },
+      { $group: { _id: "Fees", totalFees: { $sum: "$feeUSD" } } },
+    ]);
+  }
   async updateWallet(address, fields) {
     this.logger.debug(
       `Updating Wallet for ${address} with ${JSON.stringify(fields)}`
@@ -55,7 +67,7 @@ class MongoDB {
       {
         address: address,
       },
-      { fields }
+      { ...fields }
     );
   }
   async getWallets() {

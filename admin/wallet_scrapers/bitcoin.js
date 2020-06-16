@@ -14,11 +14,11 @@ class BitcoinWalletScraper {
     const walletData = await this.fetchWalletData(address);
     const txData = await this.fetchTransactionData(address);
 
-    //this.updateWallet(walletData, txData);
-
     for (const tx of txData) {
       await this.saveTransactionData(walletData.address, tx);
     }
+
+    await this.updateWallet(walletData);
     return true;
   }
   async fetchTransactionData(address) {
@@ -109,50 +109,14 @@ class BitcoinWalletScraper {
       amountUSD,
     });
   }
-  async updateWallet(address, txData) {
-    this.logger.info(`Updating Wallet data for ${address}`);
-    let totalFeesUSD = 0;
+  async updateWallet(walletData) {
+    const { address } = walletData;
+    this.logger.info(`Updating Wallet data for \t${address}`);
+    let aggregateFees = await this.db.getWalletFees(address);
+    let { totalFees } = aggregateFees[0];
+    console.log(`Total Fees: ${totalFees}`);
 
-    for (const tx of txData.txs) {
-      let timestamp = tx.time * 1000;
-      let rate = await this.db.getNearestPrice(
-        this.symbol,
-        new Date(timestamp)
-      );
-      let inputValue = 0;
-      let outputValue = 0;
-      let fees = 0;
-      let sent = false;
-
-      tx.out.forEach((output) => {
-        if (output.value) {
-          outputValue += output.value;
-        }
-      });
-
-      tx.inputs.forEach((input) => {
-        console.log(input.prev_out.addr);
-        if (input.prev_out && input.prev_out.value) {
-          inputValue += input.prev_out.value;
-
-          if (input.prev_out.addr === address) {
-            console.log("sent");
-            sent = true;
-          }
-        }
-      });
-
-      if (sent) {
-        fees = (inputValue - outputValue) / 1e8;
-        console.log("");
-        console.log(inputValue);
-        console.log(outputValue);
-        console.log(`fees ${fees}`);
-        totalFeesUSD += fees * rate.price;
-      }
-    }
-
-    console.log(`Total Fees: ${totalFeesUSD}`);
+    await this.db.updateWallet(address, { feesUSD: totalFees });
   }
 }
 module.exports = BitcoinWalletScraper;
