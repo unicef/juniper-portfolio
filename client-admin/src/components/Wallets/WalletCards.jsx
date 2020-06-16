@@ -695,13 +695,19 @@ function TransactionDetailsCard({
   currency,
   amount,
   symbol,
-  valueSent,
+  amountUSD,
   currentValue,
   sent,
   received,
   setAuthorizationRecord,
 }) {
   const classes = WalletDetailsCardStyles();
+
+  const formatter = new Intl.NumberFormat("en-US", {
+    style: "currency",
+    currency: "USD",
+    minimumFractionDigits: 2,
+  });
 
   return (
     <Fragment>
@@ -742,11 +748,15 @@ function TransactionDetailsCard({
           <div className={classes.walletSubtitle}>{currency} Sent</div>
         </Grid>
         <Grid item xs={2}>
-          <div className={classes.walletBalance}>{valueSent} USD</div>
+          <div className={classes.walletBalance}>
+            {formatter.format(amountUSD)} USD
+          </div>
           <div className={classes.walletSubtitle}>Value at Disbursal</div>
         </Grid>
         <Grid item xs={2}>
-          <div className={classes.walletBalance}>{currentValue} USD</div>
+          <div className={classes.walletBalance}>
+            {formatter.format(currentValue)} USD
+          </div>
           <div className={classes.walletSubtitle}>Current Value</div>
         </Grid>
         <Grid item xs={3}>

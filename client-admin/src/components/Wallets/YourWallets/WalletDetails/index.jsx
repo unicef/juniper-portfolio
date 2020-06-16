@@ -18,6 +18,20 @@ export default function ({ viewWalletDetails, walletDetailsAddress }) {
   const [address] = useState(walletDetailsAddress);
   const [wallet, setWallet] = useState({});
   const [transactions, setTransactions] = useState([]);
+  const [exchangeRate, setExchangeRate] = useState(0);
+
+  const getCurrentPrice = async (symbol) => {
+    let res, price;
+    try {
+      res = await fetch(
+        `https://min-api.cryptocompare.com/data/price?fsym=${symbol}&tsyms=USD`
+      );
+      price = await res.json();
+    } catch (e) {
+      console.log(e);
+    }
+    setExchangeRate(price.USD);
+  };
 
   const getWallet = async () => {
     let res, wallet;
@@ -28,6 +42,7 @@ export default function ({ viewWalletDetails, walletDetailsAddress }) {
       return console.log(e);
     }
     console.log(wallet);
+    await getCurrentPrice(wallet.symbol);
     setWallet(wallet);
   };
   const getTransactions = async () => {
@@ -38,7 +53,7 @@ export default function ({ viewWalletDetails, walletDetailsAddress }) {
     } catch (e) {
       return console.log(e);
     }
-    console.log(transactions);
+
     setTransactions(transactions);
   };
 
@@ -67,11 +82,13 @@ export default function ({ viewWalletDetails, walletDetailsAddress }) {
         amountUSD={wallet.amountUSD}
         feesUSD={wallet.feesUSD}
         address={wallet.address}
+        exchangeRate={exchangeRate}
       />
       <TransactionDetails
         address={address}
         setAuthorizationRecord={setAuthorizationRecord}
         transactionDetailsData={transactions}
+        exchangeRate={exchangeRate}
       />
     </div>
   );
