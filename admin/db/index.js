@@ -4,10 +4,19 @@ const models = require("./models");
 
 class MongoDB {
   constructor(config) {
-    this.config = config;
+    this.config = {
+      url: process.env.DB_URL || "mongodb://localhost",
+      database: process.env.DB_NAME || "juniper",
+      mongooseCfg: {
+        useNewUrlParser: true,
+        useCreateIndex: true,
+        useUnifiedTopology: true,
+        useFindAndModify: false,
+      },
+    };
     this.models = models;
     this.logger = new Logger("MongoDB");
-    this.connectionString = `${config.url}/${config.database}`;
+    this.connectionString = `${this.config.url}/${this.config.database}`;
 
     this.logger.info(`Starting...`);
     this.init();
@@ -65,18 +74,14 @@ class MongoDB {
       exchange,
       symbol,
       timestamp: { $lte: timestamp },
-    }).sort({
-      timestamp: -1,
-    });
+    })
+      .sort({
+        timestamp: -1,
+      })
+      .limit(1);
   }
-  async getPrices(
-    exchange,
-    symbol,
-    timeStart = new Date(0),
-    timeEnd = new Date()
-  ) {
+  async getPrices(symbol, timeStart = new Date(0), timeEnd = new Date()) {
     return this.models.Price.find({
-      exchange,
       symbol,
       timestamp: { $gte: timeStart, $lt: timeEnd },
     });
@@ -96,20 +101,11 @@ class MongoDB {
       { $group: { _id: "Average", avgPrice: { $avg: "$price" } } },
     ]);
   }
-  async averagePriceForDay(symbol, day = new Date()) {
-    // start = same Day, 12:01 AM
-    // end = same Day, midnight
-    // return all values between start/end
-    // average the price.
-    return this.models.Price.aggregate([
-      {
-        $match: {
-          symbol,
-          timestamp: { $gte: date, $lt: date },
-        },
-      },
-      { $group: { _id: "Average", avgPrice: { $avg: "$price" } } },
-    ]);
+  async getNearestPrice(symbol, day = new Date()) {
+    return await this.models.Price.findOne({
+      symbol,
+      timestamp: { $gte: day },
+    });
   }
 }
 
