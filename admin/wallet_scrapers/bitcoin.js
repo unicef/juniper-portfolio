@@ -5,6 +5,7 @@ class BitcoinWalletScraper {
   constructor(config, db) {
     this.config = config;
     this.logger = new Logger("Bitcoin Scraper");
+    this.symbol = "BTC";
 
     this.blockexplorer = blockexplorer;
     this.limit = this.config.limit || 50;
@@ -42,10 +43,18 @@ class BitcoinWalletScraper {
   async saveTransactionData(address, tx) {
     let sent = false;
     let received = false;
+    let amount = 0;
+    let amountUSD = 0;
+    let timestamp = tx.time * 1000;
+    let rate = await this.db.getNearestPrice(this.symbol, new Date(timestamp));
 
     tx.out.forEach((output) => {
       if (output.addr === address) {
         received = true;
+      }
+
+      if (output.value) {
+        amount += output.value;
       }
     });
 
@@ -55,11 +64,14 @@ class BitcoinWalletScraper {
       }
     });
 
+    amount = Math.round(amount) / 1e8;
+    amountUSD = Math.round(amount * rate.price * 100) / 100;
+
     this.db.saveTransaction({
       txid: tx.hash,
       address,
       currency: "Bitcoin",
-      symbol: "BTC",
+      symbol: this.symbol,
       source: "",
       destination: "",
       inputs: tx.inputs,
@@ -69,9 +81,9 @@ class BitcoinWalletScraper {
       index: tx.tx_index,
       sent,
       received,
-      rate: null,
-      amount: null,
-      amountUSD: null,
+      rate: rate.price,
+      amount,
+      amountUSD,
     });
   }
 }

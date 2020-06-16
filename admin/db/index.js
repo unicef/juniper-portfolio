@@ -49,7 +49,14 @@ class MongoDB {
     return this.models.Wallet.find({});
   }
   async saveTransaction(tx) {
-    return new this.models.Transaction(tx).save();
+    return this.models.Transaction.findOneAndUpdate(
+      {
+        txid: tx.txid,
+        index: tx.index,
+      },
+      tx,
+      { upsert: true }
+    );
   }
   async getTransaction(txid) {
     return this.models.Transaction.findOne({ txid });
