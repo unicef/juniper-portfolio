@@ -3,14 +3,11 @@ import { makeStyles } from "@material-ui/styles";
 import { Grid, useMediaQuery } from "@material-ui/core";
 
 const useStyles = makeStyles((theme: any) => ({
-  desktop: {
-    // paddingTop: "59px",
-  },
+  desktop: {},
   mobile: {
     paddingTop: "59px",
     width: "100%",
     paddingLeft: "165px",
-    // paddingBottom: "50px",
   },
 }));
 

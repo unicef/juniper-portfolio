@@ -97,7 +97,7 @@ const useStyles = makeStyles((theme: any) => ({
 
 export const About = () => {
   const classes = useStyles();
-  const mobiledevice = useMediaQuery("(max-width: 800px)");
+  const mobiledevice = useMediaQuery("(max-width: 700px)");
 
   return (
     <div>
@@ -146,7 +146,7 @@ export const About = () => {
 
 export const AboutBlurb1 = () => {
   const classes = useStyles();
-  const mobiledevice = useMediaQuery("(max-width: 800px)");
+  const mobiledevice = useMediaQuery("(max-width: 700px)");
 
   return (
     <div>
@@ -183,7 +183,7 @@ export const AboutBlurb1 = () => {
 
 export const AboutBlurb2 = () => {
   const classes = useStyles();
-  const mobiledevice = useMediaQuery("(max-width: 800px)");
+  const mobiledevice = useMediaQuery("(max-width: 700px)");
 
   return (
     <div>
@@ -219,7 +219,7 @@ export const AboutBlurb2 = () => {
 
 export const AboutBlurb3 = () => {
   const classes = useStyles();
-  const mobiledevice = useMediaQuery("(max-width: 800px)");
+  const mobiledevice = useMediaQuery("(max-width: 700px)");
 
   return (
     <div>
@@ -238,7 +238,7 @@ export const AboutBlurb3 = () => {
 
 export const AboutBlurb5 = () => {
   const classes = useStyles();
-  const mobiledevice = useMediaQuery("(max-width: 800px)");
+  const mobiledevice = useMediaQuery("(max-width: 700px)");
 
   return (
     <div>
@@ -260,7 +260,7 @@ export const AboutBlurb5 = () => {
 
 export const AboutBlurb6 = () => {
   const classes = useStyles();
-  const mobiledevice = useMediaQuery("(max-width: 800px)");
+  const mobiledevice = useMediaQuery("(max-width: 700px)");
 
   return (
     <div>

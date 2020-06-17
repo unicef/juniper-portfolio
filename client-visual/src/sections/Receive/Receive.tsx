@@ -31,7 +31,7 @@ export const Receive = () => {
   const classes = useStyles();
   const matches = useMediaQuery(
     json2mq({
-      minWidth: 800,
+      minWidth: 700,
     })
   );
   return (
@@ -46,7 +46,7 @@ export const Receive = () => {
       >
         <Grid container>
           {matches ? (
-            <Grid style={{ paddingBottom: "50px" }} item xs={12} sm={3}>
+            <Grid style={{ paddingBottom: "50px" }} item xs={12} sm={3} md={4}>
               <SideDetails
                 firstNumber="01"
                 firstLabel="donors"

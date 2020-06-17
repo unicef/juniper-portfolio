@@ -31,7 +31,7 @@ const useStyles = makeStyles((theme: any) => ({
 }));
 export const AboutMainText = () => {
   const classes = useStyles();
-  const mobiledevice = useMediaQuery("(max-width: 800px)");
+  const mobiledevice = useMediaQuery("(max-width: 700px)");
 
   const [mainText] = useState(
     "UNICEF’s CryptoFund is a new financial vehicle allowing UNICEF to receive, hold, and disburse cryptocurrency - a first for the UN. The CryptoFund is part of UNICEF’s Venture Fund, with the distinction that investments through the CryptoFund are denominated in bitcoin and ether."

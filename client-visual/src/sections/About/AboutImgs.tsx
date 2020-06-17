@@ -75,7 +75,7 @@ export const ApplicationImg = () => {
 };
 
 export const ApplicationMiddleImg = () => {
-  const mobiledevice = useMediaQuery("(max-width: 800px)");
+  const mobiledevice = useMediaQuery("(max-width: 700px)");
 
   if (mobiledevice) {
     return <ApplicationMiddleImgmobile />;

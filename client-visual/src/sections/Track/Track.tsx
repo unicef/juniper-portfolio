@@ -4,7 +4,7 @@ import { TrackDesktop } from "./TrackDesktop";
 import { TrackMobile } from "./TrackMobile";
 
 export const Track = () => {
-  const mobiledevice = useMediaQuery("(max-width: 800px)");
+  const mobiledevice = useMediaQuery("(max-width: 700px)");
 
   if (mobiledevice) {
     return (

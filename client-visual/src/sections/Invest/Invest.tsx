@@ -24,7 +24,7 @@ export const Invest = () => {
   const classes = useStyles();
   const matches = useMediaQuery(
     json2mq({
-      minWidth: 800,
+      minWidth: 700,
     })
   );
   return (
@@ -39,7 +39,7 @@ export const Invest = () => {
       >
         <Grid container>
           {matches ? (
-            <Grid style={{ paddingBottom: "50px" }} item xs={12} sm={3}>
+            <Grid style={{ paddingBottom: "50px" }} item xs={12} sm={3} md={4}>
               <SideDetails
                 firstNumber="12"
                 firstLabel="investments"

@@ -28,7 +28,7 @@ const useStyles = makeStyles((theme: any) => ({
 }));
 export const MainText = () => {
   const classes = useStyles();
-  const mobileDevice = useMediaQuery("(max-width: 800px)");
+  const mobileDevice = useMediaQuery("(max-width: 700px)");
   const [mainText] = useState(
     "To understand and be ready for a digitally financed future, UNICEF with the support of donors is the first UN organisation to receive and hold crypto-denominated assets through its CryptoFund. By contributing either bitcoin or ether to the CryptoFund, donors support the growth of open-source technology projects. UNICEF’s work will benefit from tapping into new funding streams via cryptocurrency, ultimately driving greater impact for the entire organisation and, most importantly, children."
   );
