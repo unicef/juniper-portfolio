@@ -14,11 +14,12 @@ import CopyIcon from "./icons/CopyIcon";
 // Common components can be refactored out of these + requirements from
 // other sections.
 
-const formatter = new Intl.NumberFormat("en-US", {
+const usdFormatter = new Intl.NumberFormat("en-US", {
   style: "currency",
   currency: "USD",
   minimumFractionDigits: 2,
 });
+const cryptoFormatter = new Intl.NumberFormat({ maximumSignificantDigits: 5 });
 
 const cardStyles = makeStyles((theme) => ({
   balances: {
@@ -312,11 +313,13 @@ function WalletCard({
         })}
       <div className={classes.walletBalance}>
         <span className={classes.currencyBalance}>
-          {balance} {symbol}
+          {cryptoFormatter.format(balance)} {symbol}
         </span>{" "}
         /{" "}
         {balance &&
-          formatter.format(Math.round(balance * exchangeRate * 100) / 100)}{" "}
+          usdFormatter.format(
+            Math.round(balance * exchangeRate * 100) / 100
+          )}{" "}
         USD
       </div>
       <div className={classes.walletSubtitle}>Wallet Balance</div>
@@ -672,7 +675,7 @@ function WalletDetailsCard({
         <Grid item md={2}>
           <div className={classes.walletBalance}>
             {balance &&
-              formatter.format(
+              usdFormatter.format(
                 Math.round(balance * exchangeRate * 100) / 100
               )}{" "}
             USD
@@ -681,7 +684,7 @@ function WalletDetailsCard({
         </Grid>
         <Grid item md={2}>
           <div className={classes.walletBalance}>
-            {feesUSD && formatter.format(feesUSD)} USD
+            {feesUSD && usdFormatter.format(feesUSD)} USD
           </div>
           <div className={classes.walletSubtitle}>Transaction Fees</div>
         </Grid>
@@ -760,13 +763,13 @@ function TransactionDetailsCard({
         </Grid>
         <Grid item xs={2}>
           <div className={classes.walletBalance}>
-            {formatter.format(amountUSD)} USD
+            {usdFormatter.format(amountUSD)} USD
           </div>
           <div className={classes.walletSubtitle}>Value at Disbursal</div>
         </Grid>
         <Grid item xs={2}>
           <div className={classes.walletBalance}>
-            {formatter.format(currentValue)} USD
+            {usdFormatter.format(currentValue)} USD
           </div>
           <div className={classes.walletSubtitle}>Current Value</div>
         </Grid>
