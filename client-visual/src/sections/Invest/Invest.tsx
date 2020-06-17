@@ -15,6 +15,10 @@ const useStyles = makeStyles((theme: any) => ({
     paddingTop: "100px",
     height: "90vh",
   },
+  topMobile: {
+    backgroundColor: "#0068ea",
+    paddingTop: "100px",
+  },
 }));
 export const Invest = () => {
   const classes = useStyles();
@@ -26,18 +30,17 @@ export const Invest = () => {
   return (
     <div>
       <div
-        className={classes.top}
+        className={matches ? classes.top : classes.topMobile}
         style={{
           paddingLeft: "14px",
           paddingRight: "14px",
-          paddingBottom: "14px",
+          // paddingBottom: "14px",
         }}
       >
         <Grid container>
           {matches ? (
-            <Grid item xs={12} sm={3}>
+            <Grid style={{ paddingBottom: "50px" }} item xs={12} sm={3}>
               <SideDetails
-                style={{ paddingBottom: "50px" }}
                 firstNumber="12"
                 firstLabel="investments"
                 middleNumber="01 btc"
@@ -58,12 +61,17 @@ export const Invest = () => {
                 lastNumber="1225 eth"
                 lastLabel="ether invested"
               />
+              <div style={{ textAlign: "right", paddingTop: "-10px" }}>
+                <InvestmentMainImage />
+              </div>
             </Grid>
           )}
         </Grid>
-        <div style={{ position: "absolute", left: 57, bottom: 48 }}>
-          <InvestmentMainImage />
-        </div>
+        {matches ? (
+          <div style={{ position: "absolute", left: 57, bottom: 48 }}>
+            <InvestmentMainImage />
+          </div>
+        ) : null}
         <Grid
           container
           style={{ position: "absolute", bottom: 96 }}
