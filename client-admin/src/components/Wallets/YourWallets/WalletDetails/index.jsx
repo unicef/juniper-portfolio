@@ -11,7 +11,11 @@ const mainStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function ({ viewWalletDetails, walletDetailsAddress }) {
+export default function ({
+  viewWalletDetails,
+  walletDetailsAddress,
+  getExchangeRate,
+}) {
   const classes = mainStyles();
 
   const [authorizationRecord, setAuthorizationRecord] = useState(false);
@@ -19,19 +23,6 @@ export default function ({ viewWalletDetails, walletDetailsAddress }) {
   const [wallet, setWallet] = useState({});
   const [transactions, setTransactions] = useState([]);
   const [exchangeRate, setExchangeRate] = useState(0);
-
-  const getCurrentPrice = async (symbol) => {
-    let res, price;
-    try {
-      res = await fetch(
-        `https://min-api.cryptocompare.com/data/price?fsym=${symbol}&tsyms=USD`
-      );
-      price = await res.json();
-    } catch (e) {
-      console.log(e);
-    }
-    setExchangeRate(price.USD);
-  };
 
   const getWallet = async () => {
     let res, wallet;
@@ -42,7 +33,7 @@ export default function ({ viewWalletDetails, walletDetailsAddress }) {
       return console.log(e);
     }
     console.log(wallet);
-    await getCurrentPrice(wallet.symbol);
+    setExchangeRate(await getExchangeRate(wallet.symbol));
     setWallet(wallet);
   };
   const getTransactions = async () => {
@@ -78,8 +69,7 @@ export default function ({ viewWalletDetails, walletDetailsAddress }) {
         currency={wallet.currency}
         tags={wallet.tags}
         symbol={wallet.symbol}
-        amount={wallet.amount}
-        amountUSD={wallet.amountUSD}
+        balance={wallet.balance}
         feesUSD={wallet.feesUSD}
         address={wallet.address}
         exchangeRate={exchangeRate}

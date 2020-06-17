@@ -14,6 +14,12 @@ import CopyIcon from "./icons/CopyIcon";
 // Common components can be refactored out of these + requirements from
 // other sections.
 
+const formatter = new Intl.NumberFormat("en-US", {
+  style: "currency",
+  currency: "USD",
+  minimumFractionDigits: 2,
+});
+
 const cardStyles = makeStyles((theme) => ({
   balances: {
     fontFamily: '"Roboto", sans-serif',
@@ -273,10 +279,10 @@ function WalletCard({
   currency,
   tags,
   symbol,
-  amount,
-  amountUSD,
+  balance,
   address,
   viewTransactionOnClick,
+  exchangeRate,
 }) {
   const classes = walletStyles();
 
@@ -306,9 +312,12 @@ function WalletCard({
         })}
       <div className={classes.walletBalance}>
         <span className={classes.currencyBalance}>
-          {amount} {symbol}
+          {balance} {symbol}
         </span>{" "}
-        / {amountUSD} USD
+        /{" "}
+        {balance &&
+          formatter.format(Math.round(balance * exchangeRate * 100) / 100)}{" "}
+        USD
       </div>
       <div className={classes.walletSubtitle}>Wallet Balance</div>
       <div className={classes.address}>{address}</div>
@@ -611,10 +620,10 @@ function WalletDetailsCard({
   currency,
   tags,
   symbol,
-  amount,
-  amountUSD,
+  balance,
   feesUSD,
   address,
+  exchangeRate,
 }) {
   const classes = WalletDetailsCardStyles();
 
@@ -655,17 +664,25 @@ function WalletDetailsCard({
         <Grid item md={2}>
           <div className={classes.walletBalance}>
             <span className={classes.currencyBalance}>
-              {amount} {symbol}
+              {balance} {symbol}
             </span>
           </div>
           <div className={classes.walletSubtitle}>Wallet Balance</div>
         </Grid>
         <Grid item md={2}>
-          <div className={classes.walletBalance}>{amountUSD} USD</div>
+          <div className={classes.walletBalance}>
+            {balance &&
+              formatter.format(
+                Math.round(balance * exchangeRate * 100) / 100
+              )}{" "}
+            USD
+          </div>
           <div className={classes.walletSubtitle}>Current Value</div>
         </Grid>
         <Grid item md={2}>
-          <div className={classes.walletBalance}>{feesUSD} USD</div>
+          <div className={classes.walletBalance}>
+            {feesUSD && formatter.format(feesUSD)} USD
+          </div>
           <div className={classes.walletSubtitle}>Transaction Fees</div>
         </Grid>
       </Grid>
@@ -702,12 +719,6 @@ function TransactionDetailsCard({
   setAuthorizationRecord,
 }) {
   const classes = WalletDetailsCardStyles();
-
-  const formatter = new Intl.NumberFormat("en-US", {
-    style: "currency",
-    currency: "USD",
-    minimumFractionDigits: 2,
-  });
 
   return (
     <Fragment>

@@ -115,8 +115,12 @@ class BitcoinWalletScraper {
     let aggregateFees = await this.db.getWalletFees(address);
     let { totalFees } = aggregateFees[0];
     console.log(`Total Fees: ${totalFees}`);
-
-    await this.db.updateWallet(address, { feesUSD: totalFees });
+    console.log(walletData);
+    const balance =
+      (walletData.chain_stats.funded_txo_sum -
+        walletData.chain_stats.spent_txo_sum) /
+      1e8;
+    await this.db.updateWallet(address, { feesUSD: totalFees, balance });
   }
 }
 module.exports = BitcoinWalletScraper;

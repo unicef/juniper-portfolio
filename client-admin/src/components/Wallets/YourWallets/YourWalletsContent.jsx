@@ -90,7 +90,7 @@ const mainStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function ({ viewWalletDetails }) {
+export default function ({ viewWalletDetails, getExchangeRate }) {
   const [balances, setBalances] = useState([]);
   const [fees, setFees] = useState({});
   const [totals, setTotals] = useState({});
@@ -99,6 +99,8 @@ export default function ({ viewWalletDetails }) {
   const [bitcoinWallets, setBitcoinWallets] = useState([]);
   const [bitcoinWalletIndex, setBitcoinWalletIndex] = useState(0);
   const [showAddWalletModal, setShowAddWalletModal] = useState(false);
+  const [bitcoinExchangeRate, setBitcoinExchangeRate] = useState(0);
+  const [ethereumExchangeRate, setEthereumExchangeRate] = useState(0);
 
   const incrementEthWalletIndex = () => {
     if (ethereumWalletIndex + 1 <= ethereumWallets.length) {
@@ -142,6 +144,11 @@ export default function ({ viewWalletDetails }) {
     );
   };
 
+  const getExchangeRates = async () => {
+    setBitcoinExchangeRate(await getExchangeRate("BTC"));
+    setEthereumExchangeRate(await getExchangeRate("ETH"));
+  };
+
   useEffect(() => {
     /* 
       State will passed through props here
@@ -176,6 +183,7 @@ export default function ({ viewWalletDetails }) {
       invested: "19,287.47",
     });
 
+    getExchangeRates();
     getWallets();
   }, []);
 
@@ -268,10 +276,11 @@ export default function ({ viewWalletDetails }) {
                       currency={wallet.currency}
                       tags={wallet.tags}
                       symbol={wallet.symbol}
-                      amount={wallet.amount}
+                      balance={wallet.balance}
                       amountUSD={wallet.amountUSD}
                       address={wallet.address}
                       viewTransactionOnClick={viewWalletDetails}
+                      exchangeRate={ethereumExchangeRate}
                     />
                   </Grid>
                 );
@@ -308,10 +317,10 @@ export default function ({ viewWalletDetails }) {
                       currency={wallet.currency}
                       tags={wallet.tags}
                       symbol={wallet.symbol}
-                      amount={wallet.amount}
-                      amountUSD={wallet.amountUSD}
+                      balance={wallet.balance}
                       address={wallet.address}
                       viewTransactionOnClick={viewWalletDetails}
+                      exchangeRate={bitcoinExchangeRate}
                     />
                   </Grid>
                 );
