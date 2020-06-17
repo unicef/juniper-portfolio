@@ -1,8 +1,9 @@
+require("dotenv").config({ path: "../.env" });
 const express = require("express");
 const bodyParser = require("body-parser");
 const PriceMonitor = require("./price_monitor");
 const fetch = require("node-fetch");
-const { BitcoinScraper } = require("./wallet_scrapers");
+const { BitcoinScraper, EthereumScraper } = require("./wallet_scrapers");
 const Logger = require("./logger");
 const DB = require("./db");
 const utils = require("./utils");
@@ -27,6 +28,10 @@ class JuniperAdmin {
     this.priceMonitor = new PriceMonitor(this.config.priceMonitor, this.db);
     this.bitcoinWalletScraper = new BitcoinScraper(
       this.config.bitcoinScraper,
+      this.db
+    );
+    this.ethereumWalletScraper = new EthereumScraper(
+      this.config.ethereumScraper,
       this.db
     );
     this.utils = utils;

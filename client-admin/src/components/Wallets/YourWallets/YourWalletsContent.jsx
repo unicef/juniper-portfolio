@@ -271,7 +271,6 @@ export default function ({ viewWalletDetails, getExchangeRate }) {
               .map((wallet, index) => {
                 return (
                   <Grid item xs={6} key={index}>
-                    {wallet.balance}
                     <WalletCard
                       name={wallet.name}
                       currency={wallet.currency}

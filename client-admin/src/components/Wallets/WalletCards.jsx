@@ -785,6 +785,9 @@ function TransactionDetailsCard({
                     "_blank"
                   );
                   break;
+                case "ETH":
+                  window.open(`https://etherscan.io/tx/${txid}`);
+                  break;
               }
             }}
           >

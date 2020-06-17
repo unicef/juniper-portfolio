@@ -1,21 +1,20 @@
 const Logger = require("../logger");
 const fetch = require("node-fetch");
 
-class BitcoinWalletScraper {
+class EthereumWalletScraper {
   constructor(config, db) {
     this.config = config;
     this.logger = new Logger("Ethereum Scraper");
     this.symbol = "ETH";
-
     this.db = db;
   }
 
   async scrapeTransactionData(address) {
     const walletData = await this.fetchWalletData(address);
-    const txData = []; //await this.fetchTransactionData(address);
+    const txData = await this.fetchTransactionData(address);
 
     for (const tx of txData) {
-      //await this.saveTransactionData(walletData.address, tx);
+      await this.saveTransactionData(address, tx);
     }
 
     await this.updateWallet(walletData);
@@ -23,6 +22,19 @@ class BitcoinWalletScraper {
   }
   async fetchTransactionData(address) {
     this.logger.info(`Fetching Transaction Data for \t${address}`);
+    let data, txs;
+    try {
+      data = await fetch(
+        `http://api.etherscan.io/api?module=account&action=txlist&address=${address}&startblock=0&endblock=99999999&sort=asc&apikey=${this.config.apiKey}`
+      );
+
+      txs = await data.json();
+      txs = txs.result;
+    } catch (e) {
+      console.log(e);
+    }
+
+    return txs;
   }
   async fetchWalletData(address) {
     this.logger.info(`Fetch Wallet Data for ${address}`);
@@ -39,18 +51,57 @@ class BitcoinWalletScraper {
       console.log(e);
     }
 
-    console.log(balance);
     return {
       address,
       balance,
     };
   }
 
-  async saveTransactionData(address, tx) {}
+  async saveTransactionData(address, tx) {
+    let sent = false;
+    let received = false;
+    let timestamp = tx.timeStamp * 1000;
+    let rate = await this.db.getNearestPrice(this.symbol, new Date(timestamp));
+    let amount = tx.value / 1e18;
+    amount = Math.round(amount * 1e5) / 1e5;
+
+    if (tx.to === address) {
+      received = true;
+    }
+
+    if (tx.from === address) {
+      sent = true;
+    }
+
+    let amountUSD = Math.round(amount * rate.price * 100) / 100;
+    let fee = 0; //tx.fee / 1e8;
+    let feeUSD = 0; //Math.round(fee * rate.price * 100) / 100;
+
+    this.db.saveTransaction({
+      txid: tx.hash,
+      address,
+      currency: "Ethereum",
+      symbol: this.symbol,
+      source: "",
+      destination: "",
+      to: tx.to,
+      from: tx.from,
+      block: tx.blockNumber,
+      timestamp,
+      index: tx.nonce,
+      sent,
+      received,
+      rate: rate.price,
+      fee,
+      feeUSD,
+      amount,
+      amountUSD,
+    });
+  }
+
   async updateWallet(walletData) {
-    console.log(walletData);
     const { address, balance } = walletData;
     await this.db.updateWallet(address, { balance });
   }
 }
-module.exports = BitcoinWalletScraper;
+module.exports = EthereumWalletScraper;

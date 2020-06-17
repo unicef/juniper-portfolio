@@ -64,6 +64,10 @@ router.post("/wallet", async (req, res) => {
         juniperAdmin.bitcoinWalletScraper.scrapeTransactionData(wallet.address);
         break;
       case "ETH":
+        juniperAdmin.ethereumWalletScraper.scrapeTransactionData(
+          wallet.address
+        );
+
         break;
       default:
         throw new Error(

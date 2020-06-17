@@ -10,6 +10,8 @@ const transaction = new Schema({
   destination: { type: String },
   inputs: { type: Array, default: [] },
   outputs: { type: Array, default: [] },
+  to: { type: String },
+  from: { type: String },
   block: { type: Number, default: -1 },
   timestamp: { type: Date },
   index: { type: Number },
