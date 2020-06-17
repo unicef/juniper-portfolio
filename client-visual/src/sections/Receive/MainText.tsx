@@ -23,6 +23,7 @@ const useStyles = makeStyles((theme: any) => ({
     lineHeight: "1.44",
     letterSpacing: "normal",
     color: "#ffffff",
+    paddingBottom: "50px",
   },
 }));
 export const MainText = () => {

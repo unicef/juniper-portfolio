@@ -21,6 +21,10 @@ const useStyles = makeStyles({
   body: {
     backgroundColor: "white",
   },
+  topMobile: {
+    backgroundColor: "#0068ea",
+    paddingTop: "100px",
+  },
 });
 
 export const Receive = () => {
@@ -33,16 +37,16 @@ export const Receive = () => {
   return (
     <div>
       <div
-        className={classes.top}
+        className={matches ? classes.top : classes.topMobile}
         style={{
-          paddingBottom: "14px",
+          // paddingBottom: "14px",
           paddingLeft: "14px",
           paddingRight: "14px",
         }}
       >
         <Grid container>
           {matches ? (
-            <Grid style={{ paddingBottom: "50px" }} item xs={12} sm={4}>
+            <Grid style={{ paddingBottom: "50px" }} item xs={12} sm={3}>
               <SideDetails
                 firstNumber="01"
                 firstLabel="donors"
@@ -55,7 +59,7 @@ export const Receive = () => {
           ) : null}
           <MainText />
           {matches ? null : (
-            <Grid item xs={12} sm={4}>
+            <Grid item xs={12} sm={3}>
               <SideDetails
                 firstNumber="01"
                 firstLabel="donors"
@@ -63,13 +67,20 @@ export const Receive = () => {
                 middleLabel="bitcoin received"
                 lastNumber="1300 eth"
                 lastLabel="ether received"
+                // style={{ paddingBottom: "50px" }}
               />
+
+              <div style={{ textAlign: "right", paddingTop: "-10px" }}>
+                <MainImage />
+              </div>
             </Grid>
           )}
         </Grid>
-        <div style={{ position: "absolute", left: 57, bottom: 48 }}>
-          <MainImage />
-        </div>
+        {matches ? (
+          <div style={{ position: "absolute", left: 57, bottom: 48 }}>
+            <MainImage />
+          </div>
+        ) : null}
         <Grid
           container
           style={{ position: "absolute", bottom: 96 }}

@@ -35,7 +35,7 @@ export const Invest = () => {
       >
         <Grid container>
           {matches ? (
-            <Grid item xs={12} sm={4}>
+            <Grid item xs={12} sm={3}>
               <SideDetails
                 style={{ paddingBottom: "50px" }}
                 firstNumber="12"
@@ -49,7 +49,7 @@ export const Invest = () => {
           ) : null}
           <InvestmentMainText />
           {matches ? null : (
-            <Grid item xs={12} sm={4}>
+            <Grid item xs={12} sm={3}>
               <SideDetails
                 firstNumber="12"
                 firstLabel="investments"

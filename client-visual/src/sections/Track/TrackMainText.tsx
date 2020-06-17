@@ -35,10 +35,7 @@ export const TrackMainText = () => {
     "The UNICEF CryptoFund is a part of the organisation’s work to explore the transparent nature of public blockchains and the ability to quickly transfer assets globally. The CryptoFund allows anyone with an internet connection to confirm transfers have been made between donors, UNICEF and projects. The CryptoFund brings a new level of transparency and speed to the disbursement of funds."
   );
   return (
-    <div
-      style={{ paddingTop: "75px" }}
-      className={mobiledevice ? classes.mobile : classes.desktop}
-    >
+    <div className={mobiledevice ? classes.mobile : classes.desktop}>
       {mainText}
     </div>
   );
