@@ -29,7 +29,9 @@ module.exports = {
   bitcoinScraper: {
     network: "main",
   },
-  ethereumScraper: {},
+  ethereumScraper: {
+    apiKey: process.env.ETHERSCAN_API_KEY || null,
+  },
   priceMonitor: {
     interval: oneDay,
     cryptoCompare: {

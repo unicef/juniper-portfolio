@@ -63,6 +63,7 @@ class MongoDB {
     this.logger.debug(
       `Updating Wallet for ${address} with ${JSON.stringify(fields)}`
     );
+    console.log("wtf");
     return this.models.Wallet.findOneAndUpdate(
       {
         address: address,

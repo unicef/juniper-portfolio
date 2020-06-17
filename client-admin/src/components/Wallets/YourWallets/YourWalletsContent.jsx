@@ -271,13 +271,13 @@ export default function ({ viewWalletDetails, getExchangeRate }) {
               .map((wallet, index) => {
                 return (
                   <Grid item xs={6} key={index}>
+                    {wallet.balance}
                     <WalletCard
                       name={wallet.name}
                       currency={wallet.currency}
                       tags={wallet.tags}
                       symbol={wallet.symbol}
                       balance={wallet.balance}
-                      amountUSD={wallet.amountUSD}
                       address={wallet.address}
                       viewTransactionOnClick={viewWalletDetails}
                       exchangeRate={ethereumExchangeRate}
