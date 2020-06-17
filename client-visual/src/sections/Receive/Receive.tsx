@@ -9,14 +9,14 @@ import { BackgroundText } from "./BackgroundText";
 import { FundingProcess } from "./FundingProcess";
 import { DonorText } from "./DonorText";
 import { FundingProcessExplainer } from "./FundingProcessExplainer";
-// import { ThankYouText } from './ThankYouText'
+import { MoreDetails } from "./MoreDetails";
 import json2mq from "json2mq";
 
 const useStyles = makeStyles({
   top: {
     backgroundColor: "#0068ea",
     paddingTop: "100px",
-    height: "100vh",
+    height: "90vh",
   },
   body: {
     backgroundColor: "white",
@@ -34,11 +34,15 @@ export const Receive = () => {
     <div>
       <div
         className={classes.top}
-        style={{ paddingLeft: "14px", paddingRight: "14px" }}
+        style={{
+          paddingBottom: "14px",
+          paddingLeft: "14px",
+          paddingRight: "14px",
+        }}
       >
         <Grid container>
           {matches ? (
-            <Grid style={{ paddingBottom: "50px" }} item xs={12} sm={3}>
+            <Grid style={{ paddingBottom: "50px" }} item xs={12} sm={4}>
               <SideDetails
                 firstNumber="01"
                 firstLabel="donors"
@@ -49,11 +53,9 @@ export const Receive = () => {
               />
             </Grid>
           ) : null}
-          <Grid item xs={12} sm={9}>
-            <MainText />
-          </Grid>
+          <MainText />
           {matches ? null : (
-            <Grid style={{ paddingTop: "50px" }} item xs={12} sm={3}>
+            <Grid item xs={12} sm={4}>
               <SideDetails
                 firstNumber="01"
                 firstLabel="donors"
@@ -68,6 +70,15 @@ export const Receive = () => {
         <div style={{ position: "absolute", left: 57, bottom: 48 }}>
           <MainImage />
         </div>
+        <Grid
+          container
+          style={{ position: "absolute", bottom: 96 }}
+          alignContent="center"
+          alignItems="center"
+          justify="center"
+        >
+          {matches ? <MoreDetails /> : null}
+        </Grid>
       </div>
       <div>
         <Grid container className={classes.body}>

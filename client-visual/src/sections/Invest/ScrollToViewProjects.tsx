@@ -17,13 +17,13 @@ const useStyles = makeStyles((theme: any) => ({
     textAlign: "center",
   },
 }));
-export const CryptoTracker = () => {
+export const ScrollToViewProjects = () => {
   const classes = useStyles();
 
-  const [cryptoTrackerText] = useState("Scroll To View Crypto Tracker");
+  const [text] = useState("Scroll To View Projects");
   return (
     <div className={classes.mainText}>
-      {cryptoTrackerText}
+      {text}
       <br />
       <ArrowDownButton />
     </div>

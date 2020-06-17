@@ -1,19 +1,19 @@
 import React from "react";
+import json2mq from "json2mq";
 import { Grid, useMediaQuery } from "@material-ui/core";
 import { makeStyles } from "@material-ui/styles";
-
 import { SideDetails } from "../../common/SideDetails";
 import { InvestmentMainText } from "./InvestmentMainText";
 import { InvestmentMainImage } from "./InvestmentMainImage";
 import { InvestmentObject } from "./InvestmentObject";
-import json2mq from "json2mq";
 import { SelectionCriteria } from "./SelectionCriteria";
+import { ScrollToViewProjects } from "./ScrollToViewProjects";
 
 const useStyles = makeStyles((theme: any) => ({
   top: {
     backgroundColor: "#0068ea",
     paddingTop: "100px",
-    height: "100vh",
+    height: "90vh",
   },
 }));
 export const Invest = () => {
@@ -27,11 +27,15 @@ export const Invest = () => {
     <div>
       <div
         className={classes.top}
-        style={{ paddingLeft: "14px", paddingRight: "14px" }}
+        style={{
+          paddingLeft: "14px",
+          paddingRight: "14px",
+          paddingBottom: "14px",
+        }}
       >
         <Grid container>
           {matches ? (
-            <Grid item xs={12} sm={3}>
+            <Grid item xs={12} sm={4}>
               <SideDetails
                 style={{ paddingBottom: "50px" }}
                 firstNumber="12"
@@ -43,11 +47,9 @@ export const Invest = () => {
               />
             </Grid>
           ) : null}
-          <Grid item xs={12} sm={9}>
-            <InvestmentMainText />
-          </Grid>
+          <InvestmentMainText />
           {matches ? null : (
-            <Grid style={{ paddingTop: "50px" }} item xs={12} sm={3}>
+            <Grid item xs={12} sm={4}>
               <SideDetails
                 firstNumber="12"
                 firstLabel="investments"
@@ -62,6 +64,15 @@ export const Invest = () => {
         <div style={{ position: "absolute", left: 57, bottom: 48 }}>
           <InvestmentMainImage />
         </div>
+        <Grid
+          container
+          style={{ position: "absolute", bottom: 96 }}
+          alignContent="center"
+          alignItems="center"
+          justify="center"
+        >
+          {matches ? <ScrollToViewProjects /> : null}
+        </Grid>
       </div>
       <div>
         <InvestmentObject
@@ -111,7 +122,7 @@ export const Invest = () => {
         />
         <InvestmentObject
           title={
-            "Using Blockchain technology to inspire young people to become local changemakers"
+            "Using blockchain technology to inspire young people to become local changemakers"
           }
           label1={"Startup"}
           label2={"Funding Amount"}
