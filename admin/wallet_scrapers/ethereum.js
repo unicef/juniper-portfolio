@@ -65,17 +65,17 @@ class EthereumWalletScraper {
     let amount = tx.value / 1e18;
     amount = Math.round(amount * 1e5) / 1e5;
 
-    if (tx.to === address) {
+    if (tx.to.toLowerCase() === address.toLowerCase()) {
       received = true;
     }
 
-    if (tx.from === address) {
+    if (tx.from.toLowerCase() === address.toLowerCase()) {
       sent = true;
     }
 
     let amountUSD = Math.round(amount * rate.price * 100) / 100;
-    let fee = 0; //tx.fee / 1e8;
-    let feeUSD = 0; //Math.round(fee * rate.price * 100) / 100;
+    let fee = (tx.gas * tx.gasPrice) / 1e18;
+    let feeUSD = Math.round(fee * rate.price * 100) / 100;
 
     this.db.saveTransaction({
       txid: tx.hash,
@@ -101,7 +101,17 @@ class EthereumWalletScraper {
 
   async updateWallet(walletData) {
     const { address, balance } = walletData;
-    await this.db.updateWallet(address, { balance });
+    let aggregateFees = await this.db.getWalletFees(address);
+    console.log(aggregateFees);
+
+    let totalFees = 0;
+    if (aggregateFees.length > 0) {
+      totalFees = aggregateFees[0].totalFees;
+    }
+
+    console.log(totalFees);
+
+    await this.db.updateWallet(address, { feesUSD: totalFees, balance });
   }
 }
 module.exports = EthereumWalletScraper;
