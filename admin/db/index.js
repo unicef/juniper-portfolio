@@ -70,7 +70,42 @@ class MongoDB {
       { ...fields }
     );
   }
-
+  async getTotalSentForCurrency(symbol) {
+    this.logger.debug(`getTotalSentForCurrency \t ${symbol}`);
+    return this.models.Transaction.aggregate([
+      {
+        $match: {
+          symbol,
+          sent: true,
+        },
+      },
+      { $group: { _id: "Sum", totalSent: { $sum: "$amount" } } },
+    ]);
+  }
+  async getTotalReceivedForCurrency(symbol) {
+    this.logger.debug(`getTotalReceivedForCurrency \t ${symbol}`);
+    return this.models.Transaction.aggregate([
+      {
+        $match: {
+          symbol,
+          received: true,
+        },
+      },
+      { $group: { _id: "Sum", totalReceived: { $sum: "$amount" } } },
+    ]);
+  }
+  async getTotalFeesForCurrent(symbol) {
+    this.logger.debug(`getTotalFeesForCurrent \t ${symbol}`);
+    return this.models.Transaction.aggregate([
+      {
+        $match: {
+          symbol,
+          sent: true,
+        },
+      },
+      { $group: { _id: "Sum", totalFees: { $sum: "$fees" } } },
+    ]);
+  }
   async getWallets() {
     this.logger.debug(`Get Wallets`);
     return this.models.Wallet.find({});

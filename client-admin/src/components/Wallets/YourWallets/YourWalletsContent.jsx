@@ -149,12 +149,25 @@ export default function ({ viewWalletDetails, getExchangeRate }) {
     setEthereumExchangeRate(await getExchangeRate("ETH"));
   };
 
+  const getWalletSummary = async () => {
+    let data, summary;
+    try {
+      data = await fetch("/rest/admin/wallets/summary");
+      summary = await data.json();
+    } catch (e) {
+      console.log(e);
+    }
+
+    console.log("summary");
+    console.log(summary);
+  };
+
   useEffect(() => {
     /* 
       State will passed through props here
       Maths will take place in the parent class
     */
-
+    getWalletSummary();
     setBalances([
       {
         symbol: "ETH",
