@@ -61,10 +61,12 @@ router.post("/wallet", async (req, res) => {
 
     switch (wallet.symbol) {
       case "BTC":
-        juniperAdmin.bitcoinWalletScraper.scrapeTransactionData(wallet.address);
+        await juniperAdmin.bitcoinWalletScraper.scrapeTransactionData(
+          wallet.address
+        );
         break;
       case "ETH":
-        juniperAdmin.ethereumWalletScraper.scrapeTransactionData(
+        await juniperAdmin.ethereumWalletScraper.scrapeTransactionData(
           wallet.address
         );
 

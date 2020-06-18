@@ -70,6 +70,7 @@ class MongoDB {
       { ...fields }
     );
   }
+
   async getWallets() {
     this.logger.debug(`Get Wallets`);
     return this.models.Wallet.find({});

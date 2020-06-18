@@ -101,15 +101,13 @@ class EthereumWalletScraper {
 
   async updateWallet(walletData) {
     const { address, balance } = walletData;
+    this.logger.info(`Updating Wallet data for \t${address}`);
     let aggregateFees = await this.db.getWalletFees(address);
-    console.log(aggregateFees);
 
     let totalFees = 0;
     if (aggregateFees.length > 0) {
       totalFees = aggregateFees[0].totalFees;
     }
-
-    console.log(totalFees);
 
     await this.db.updateWallet(address, { feesUSD: totalFees, balance });
   }
