@@ -1,6 +1,7 @@
 import React, { Fragment } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import Divider from "@material-ui/core/Divider";
+import Tooltip from "@material-ui/core/Tooltip";
 import Chip from "@material-ui/core/Chip";
 import Button from "@material-ui/core/Button";
 import Grid from "@material-ui/core/Grid";
@@ -41,6 +42,9 @@ const cardStyles = makeStyles((theme) => ({
   totalsSummary: {
     display: "flex",
     direction: "columns",
+  },
+  totalTooltip: {
+    cursor: "pointer",
   },
   balance: {
     color: "#000000",
@@ -100,16 +104,13 @@ const cardStyles = makeStyles((theme) => ({
     marginTop: 0,
     textTransform: "uppercase",
   },
-  bigDot: {
+  btcDot: {
     borderRadius: "50%",
-    width: 108,
-    height: 108,
     backgroundColor: "#00aeef",
   },
-  littleDot: {
+  ethDot: {
     borderRadius: "50%",
-    width: 74,
-    height: 74,
+
     backgroundColor: "#374ea2",
     marginLeft: 15,
   },
@@ -172,17 +173,49 @@ function TxFeeCard({ amountUSD, amountETH, amountBTC }) {
 function TotalCard({
   received,
   invested,
-  ethReceived,
-  btcReceived,
-  ethSent,
-  btcSent,
+  ethReceivedUSD,
+  btcReceivedUSD,
+  ethSentUSD,
+  btcSentUSD,
 }) {
   const classes = cardStyles();
+  const totalSentUSD = ethSentUSD + btcSentUSD;
+  console.log(totalSentUSD);
+  const ethPercentage = Math.round((ethSentUSD / totalSentUSD) * 100) / 100;
+  const btcPercentage = Math.round((btcSentUSD / totalSentUSD) * 100) / 100;
+  console.log(ethPercentage);
+  console.log(btcPercentage);
   return (
     <div className={classes.totals}>
       <div className={classes.totalsSummary}>
-        <div className={classes.bigDot}></div>
-        <div className={classes.littleDot}></div>
+        <Tooltip
+          className={classes.totalTooltip}
+          title={`Bitcoin: ${usdFormatter.format(
+            btcSentUSD
+          )}: ${btcPercentage.toFixed(2)}%`}
+        >
+          <div
+            className={classes.btcDot}
+            style={{
+              height: Math.max(100 * btcPercentage, 5),
+              width: Math.max(100 * btcPercentage, 5),
+            }}
+          ></div>
+        </Tooltip>
+        <Tooltip
+          className={classes.totalTooltip}
+          title={`Ethereum: ${usdFormatter.format(
+            ethSentUSD
+          )}: ${ethPercentage.toFixed(2)}%`}
+        >
+          <div
+            className={classes.ethDot}
+            style={{
+              height: Math.max(100 * ethPercentage, 5),
+              width: Math.max(100 * ethPercentage, 5),
+            }}
+          ></div>
+        </Tooltip>
       </div>
       <div className={classes.balanceTotals}>
         <p className={classes.totalReceived}>
