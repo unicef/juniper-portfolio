@@ -59,7 +59,7 @@ router.get("/wallet/:address", async (req, res) => {
 router.post("/wallet", async (req, res) => {
   const juniperAdmin = req.app.get("juniperAdmin");
   const { wallet } = req.body;
-
+  const { isUnicef } = wallet;
   try {
     // TODO cleanup validation
     if (!wallet.address) {
@@ -73,12 +73,14 @@ router.post("/wallet", async (req, res) => {
     switch (wallet.symbol) {
       case "BTC":
         await juniperAdmin.bitcoinWalletScraper.scrapeTransactionData(
-          wallet.address
+          wallet.address,
+          isUnicef
         );
         break;
       case "ETH":
         await juniperAdmin.ethereumWalletScraper.scrapeTransactionData(
-          wallet.address
+          wallet.address,
+          isUnicef
         );
 
         break;

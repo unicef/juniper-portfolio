@@ -9,12 +9,12 @@ class EthereumWalletScraper {
     this.db = db;
   }
 
-  async scrapeTransactionData(address) {
+  async scrapeTransactionData(address, isUnicef) {
     const walletData = await this.fetchWalletData(address);
     const txData = await this.fetchTransactionData(address);
 
     for (const tx of txData) {
-      await this.saveTransactionData(address, tx);
+      await this.saveTransactionData(address, tx, isUnicef);
     }
 
     await this.updateWallet(walletData);
@@ -57,7 +57,7 @@ class EthereumWalletScraper {
     };
   }
 
-  async saveTransactionData(address, tx) {
+  async saveTransactionData(address, tx, isUnicef) {
     let sent = false;
     let received = false;
     let timestamp = tx.timeStamp * 1000;
@@ -96,6 +96,7 @@ class EthereumWalletScraper {
       feeUSD,
       amount,
       amountUSD,
+      isUnicef,
     });
   }
 

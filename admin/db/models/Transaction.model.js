@@ -22,6 +22,7 @@ const transaction = new Schema({
   feeUSD: { type: Number },
   amount: { type: Number },
   amountUSD: { type: Number },
+  isUnicef: { type: Boolean, default: false },
 });
 
 transaction.index({ txid: 1, index: 1 }, { unique: true });

@@ -98,15 +98,19 @@ const mainStyles = makeStyles((theme) => ({
 
 export default function ({ viewWalletDetails, getExchangeRate }) {
   const [balances, setBalances] = useState([]);
-  const [fees, setFees] = useState({});
+  const [fees, setFees] = useState(null);
   const [totals, setTotals] = useState({});
   const [ethereumWallets, setEthereumWallets] = useState([]);
   const [ethereumWalletIndex, setEthereumWalletIndex] = useState(0);
+  const [ethSent, setEthSent] = useState(0);
+  const [ethReceived, setEthReceived] = useState(0);
   const [bitcoinWallets, setBitcoinWallets] = useState([]);
   const [bitcoinWalletIndex, setBitcoinWalletIndex] = useState(0);
   const [showAddWalletModal, setShowAddWalletModal] = useState(false);
   const [bitcoinExchangeRate, setBitcoinExchangeRate] = useState(0);
   const [ethereumExchangeRate, setEthereumExchangeRate] = useState(0);
+  const [btcSent, setBtcSent] = useState(0);
+  const [btcReceived, setBtcReceived] = useState(0);
 
   const incrementEthWalletIndex = () => {
     if (ethereumWalletIndex + 1 <= ethereumWallets.length) {
@@ -164,8 +168,6 @@ export default function ({ viewWalletDetails, getExchangeRate }) {
       console.log(e);
     }
 
-    console.log(ethereumExchangeRate);
-
     console.log("summary");
     console.log(summary);
 
@@ -175,11 +177,15 @@ export default function ({ viewWalletDetails, getExchangeRate }) {
       ethSent,
       ethFees,
       ethFeesUSD,
+      ethSentUSD,
+      ethReceivedUSD,
       btcBalance,
       btcReceived,
       btcSent,
       btcFees,
       btcFeesUSD,
+      btcSentUSD,
+      btcReceivedUSD,
     } = summary;
 
     setBalances([
@@ -206,6 +212,16 @@ export default function ({ viewWalletDetails, getExchangeRate }) {
       ethFees,
       btcFees,
     });
+
+    setTotals({
+      received: ethReceivedUSD + btcReceivedUSD,
+      invested: ethSentUSD + btcSentUSD,
+    });
+
+    setEthSent(ethSent);
+    setEthReceived(ethReceived);
+    setBtcSent(btcSent);
+    setBtcReceived(btcReceived);
   };
 
   useEffect(() => {
@@ -215,20 +231,8 @@ export default function ({ viewWalletDetails, getExchangeRate }) {
     */
     getExchangeRates();
 
-    // For now, updating rates will trigger a couple times here for each rate update
-
+    // For now, updating rates will trigger a couple times here for the rate update
     getWalletSummary();
-
-    setFees({
-      amountUSD: 3.23,
-      amountBTC: 0.012,
-      amountETH: 0.0000321,
-    });
-
-    setTotals({
-      received: "28,531.96",
-      invested: "19,287.47",
-    });
 
     getWallets();
   }, [bitcoinExchangeRate]);
@@ -273,14 +277,25 @@ export default function ({ viewWalletDetails, getExchangeRate }) {
             );
           })}
         <Grid item xs={12} sm={3}>
-          <TxFeeCard
-            amountUSD={fees.amountUSD}
-            amountBTC={fees.btcFees}
-            amountETH={fees.ethFees}
-          />
+          {fees && (
+            <TxFeeCard
+              amountUSD={fees.amountUSD}
+              amountBTC={fees.btcFees}
+              amountETH={fees.ethFees}
+            />
+          )}
         </Grid>
         <Grid item xs={12} sm={3}>
-          <TotalCard received={totals.received} invested={totals.invested} />
+          {totals && (
+            <TotalCard
+              received={totals.received}
+              invested={totals.invested}
+              ethSent={ethSent}
+              ethReceived={ethReceived}
+              btcSent={btcSent}
+              btcReceived={btcReceived}
+            />
+          )}
         </Grid>
         <Grid item xs={12} style={{ marginTop: "2em" }}>
           <Button

@@ -169,7 +169,14 @@ function TxFeeCard({ amountUSD, amountETH, amountBTC }) {
   );
 }
 
-function TotalCard({ received, invested }) {
+function TotalCard({
+  received,
+  invested,
+  ethReceived,
+  btcReceived,
+  ethSent,
+  btcSent,
+}) {
   const classes = cardStyles();
   return (
     <div className={classes.totals}>
@@ -178,9 +185,13 @@ function TotalCard({ received, invested }) {
         <div className={classes.littleDot}></div>
       </div>
       <div className={classes.balanceTotals}>
-        <p className={classes.totalReceived}>{received} USD</p>
+        <p className={classes.totalReceived}>
+          {usdFormatter.format(received)} USD
+        </p>
         <p className={classes.received}>Total Crypto Received</p>
-        <p className={classes.totalInvested}>{invested} USD</p>
+        <p className={classes.totalInvested}>
+          {usdFormatter.format(invested)} USD
+        </p>
         <p className={classes.invested}>Total Crypto Invested</p>
       </div>
     </div>

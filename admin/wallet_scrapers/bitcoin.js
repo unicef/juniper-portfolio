@@ -10,12 +10,12 @@ class BitcoinWalletScraper {
     this.db = db;
   }
 
-  async scrapeTransactionData(address) {
+  async scrapeTransactionData(address, isUnicef) {
     const walletData = await this.fetchWalletData(address);
     const txData = await this.fetchTransactionData(address);
 
     for (const tx of txData) {
-      await this.saveTransactionData(walletData.address, tx);
+      await this.saveTransactionData(walletData.address, tx, isUnicef);
     }
 
     await this.updateWallet(walletData);
@@ -56,11 +56,10 @@ class BitcoinWalletScraper {
       console.log(e);
     }
 
-    console.log(wallet);
     return wallet;
   }
 
-  async saveTransactionData(address, tx) {
+  async saveTransactionData(address, tx, isUnicef) {
     let sent = false;
     let received = false;
     let timestamp = tx.status.block_time * 1000;
@@ -109,6 +108,7 @@ class BitcoinWalletScraper {
       feeUSD,
       amount,
       amountUSD,
+      isUnicef,
     });
   }
   async updateWallet(walletData) {

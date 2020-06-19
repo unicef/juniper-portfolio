@@ -100,6 +100,7 @@ class MongoDB {
         $match: {
           symbol,
           sent: true,
+          isUnicef: true,
         },
       },
       { $group: { _id: "Sum", totalSent: { $sum: "$amount" } } },
@@ -112,9 +113,36 @@ class MongoDB {
         $match: {
           symbol,
           received: true,
+          isUnicef: true,
         },
       },
       { $group: { _id: "Sum", totalReceived: { $sum: "$amount" } } },
+    ]);
+  }
+  async getTotalUSDSentForCurrency(symbol) {
+    this.logger.debug(`getTotalSentForCurrency \t ${symbol}`);
+    return this.models.Transaction.aggregate([
+      {
+        $match: {
+          symbol,
+          sent: true,
+          isUnicef: true,
+        },
+      },
+      { $group: { _id: "Sum", totalSentUSD: { $sum: "$amountUSD" } } },
+    ]);
+  }
+  async getTotalUSDReceivedForCurrency(symbol) {
+    this.logger.debug(`getTotalReceivedForCurrency \t ${symbol}`);
+    return this.models.Transaction.aggregate([
+      {
+        $match: {
+          symbol,
+          received: true,
+          isUnicef: true,
+        },
+      },
+      { $group: { _id: "Sum", totalReceivedUSD: { $sum: "$amountUSD" } } },
     ]);
   }
   async getTotalUnicefFeesForCurrency(symbol) {

@@ -70,15 +70,16 @@ class JuniperAdmin {
     let ethReceived = await this.db.getTotalReceivedForCurrency("ETH");
     let ethFees = await this.db.getTotalUnicefFeesForCurrency("ETH");
     let ethFeesUSD = 0;
-    // TODO: Fees
+    let ethSentUSD = await this.db.getTotalUSDSentForCurrency("ETH");
+    let ethReceivedUSD = await this.db.getTotalUSDReceivedForCurrency("ETH");
+
     let btcBalance = await this.db.getUnicefBalanceForCurrency("BTC");
     let btcSent = await this.db.getTotalSentForCurrency("BTC");
     let btcReceived = await this.db.getTotalReceivedForCurrency("BTC");
     let btcFees = await this.db.getTotalUnicefFeesForCurrency("BTC");
     let btcFeesUSD = 0;
-
-    console.log(ethFees);
-    console.log(btcFees);
+    let btcSentUSD = await this.db.getTotalUSDSentForCurrency("BTC");
+    let btcReceivedUSD = await this.db.getTotalUSDReceivedForCurrency("BTC");
 
     if (ethBalance.length > 0 && ethBalance[0].balance) {
       ethBalance = ethBalance[0].balance;
@@ -105,6 +106,17 @@ class JuniperAdmin {
       ethFees = 0;
     }
 
+    if (ethSentUSD.length > 0 && ethSentUSD[0].totalSentUSD) {
+      ethSentUSD = ethSentUSD[0].totalSentUSD;
+    } else {
+      ethSentUSD = 0;
+    }
+    if (ethReceivedUSD.length > 0 && ethReceivedUSD[0].totalReceivedUSD) {
+      ethReceivedUSD = ethReceivedUSD[0].totalReceivedUSD;
+    } else {
+      ethReceivedUSD = 0;
+    }
+
     if (btcBalance.length > 0 && btcBalance[0].balance) {
       btcBalance = btcBalance[0].balance;
     } else {
@@ -125,7 +137,18 @@ class JuniperAdmin {
       btcFeesUSD = btcFees[0].totalFeesUSD;
       btcFees = btcFees[0].totalFees;
     } else {
-      btcFees = 0;
+      btcFeesUSD = 0;
+    }
+
+    if (btcSentUSD.length > 0 && btcSentUSD[0].totalSentUSD) {
+      btcSentUSD = btcSentUSD[0].totalSentUSD;
+    } else {
+      btcSent = 0;
+    }
+    if (btcReceivedUSD.length > 0 && btcReceivedUSD[0].totalReceivedUSD) {
+      btcReceivedUSD = btcReceivedUSD[0].totalReceivedUSD;
+    } else {
+      btcReceivedUSD = 0;
     }
 
     return {
@@ -134,11 +157,16 @@ class JuniperAdmin {
       ethReceived,
       ethFees,
       ethFeesUSD,
+      ethSentUSD,
+      ethReceivedUSD,
+
       btcBalance,
       btcSent,
       btcReceived,
       btcFees,
       btcFeesUSD,
+      btcSentUSD,
+      btcReceivedUSD,
     };
   }
 }
