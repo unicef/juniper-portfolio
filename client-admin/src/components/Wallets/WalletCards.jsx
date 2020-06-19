@@ -181,8 +181,20 @@ function TotalCard({
   const classes = cardStyles();
   const totalSentUSD = ethSentUSD + btcSentUSD;
   console.log(totalSentUSD);
-  const ethPercentage = Math.round((ethSentUSD / totalSentUSD) * 100) / 100;
-  const btcPercentage = Math.round((btcSentUSD / totalSentUSD) * 100) / 100;
+
+  let ethPercentage;
+  let btcPercentage;
+
+  if (totalSentUSD === 0) {
+    ethPercentage = 0.5;
+    btcPercentage = 0.5;
+  } else {
+    ethPercentage = Math.round((ethSentUSD / totalSentUSD) * 100) / 100;
+    btcPercentage = Math.round((btcSentUSD / totalSentUSD) * 100) / 100;
+  }
+  console.log("ethSentUSD");
+  console.log(ethSentUSD);
+  console.log(btcSentUSD);
   console.log(ethPercentage);
   console.log(btcPercentage);
   return (

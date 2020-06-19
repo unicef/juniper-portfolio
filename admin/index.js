@@ -103,6 +103,7 @@ class JuniperAdmin {
       ethFeesUSD = ethFees[0].totalFeesUSD;
       ethFees = ethFees[0].totalFees;
     } else {
+      ethFeesUSD = 0;
       ethFees = 0;
     }
 
@@ -138,12 +139,13 @@ class JuniperAdmin {
       btcFees = btcFees[0].totalFees;
     } else {
       btcFeesUSD = 0;
+      btcFees = 0;
     }
 
     if (btcSentUSD.length > 0 && btcSentUSD[0].totalSentUSD) {
       btcSentUSD = btcSentUSD[0].totalSentUSD;
     } else {
-      btcSent = 0;
+      btcSentUSD = 0;
     }
     if (btcReceivedUSD.length > 0 && btcReceivedUSD[0].totalReceivedUSD) {
       btcReceivedUSD = btcReceivedUSD[0].totalReceivedUSD;

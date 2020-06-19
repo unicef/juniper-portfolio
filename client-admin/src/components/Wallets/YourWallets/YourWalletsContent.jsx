@@ -262,9 +262,9 @@ export default function ({ viewWalletDetails, getExchangeRate }) {
           <h1 className={classes.title}>UNICEF HQ wallet overview</h1>
         </Grid>
         {balances &&
-          balances.map((balance) => {
+          balances.map((balance, index) => {
             return (
-              <Grid item xs={12} sm={3} key={balance.received}>
+              <Grid item xs={12} sm={3} key={index}>
                 <BalanceCard
                   symbol={balance.symbol}
                   balance={balance.balance}
