@@ -23,35 +23,35 @@ export default function ({
   const [transactions, setTransactions] = useState([]);
   const [exchangeRate, setExchangeRate] = useState(0);
 
-  const getWallet = async () => {
-    let res, wallet;
-    try {
-      res = await fetch(`/rest/admin/wallet/${address}`);
-      wallet = await res.json();
-    } catch (e) {
-      return console.log(e);
-    }
-    console.log(wallet);
-    setExchangeRate(await getExchangeRate(wallet.symbol));
-    setWallet(wallet);
-  };
-  const getTransactions = async () => {
-    let res, transactions;
-    try {
-      res = await fetch(`/rest/admin/transactions/${address}`);
-      transactions = await res.json();
-    } catch (e) {
-      return console.log(e);
-    }
-
-    setTransactions(transactions);
-  };
-
   useEffect(() => {
-    // TODO Fetch from API
+    const getTransactions = async () => {
+      let res, transactions;
+      try {
+        res = await fetch(`/rest/admin/transactions/${address}`);
+        transactions = await res.json();
+      } catch (e) {
+        return console.log(e);
+      }
+
+      setTransactions(transactions);
+    };
+
+    const getWallet = async () => {
+      let res, wallet;
+      try {
+        res = await fetch(`/rest/admin/wallet/${address}`);
+        wallet = await res.json();
+      } catch (e) {
+        return console.log(e);
+      }
+      console.log(wallet);
+      setExchangeRate(await getExchangeRate(wallet.symbol));
+      setWallet(wallet);
+    };
+
     getWallet(address);
     getTransactions(address);
-  }, [address]);
+  }, [address, getExchangeRate]);
 
   return (
     <div className={classes.root}>
@@ -82,15 +82,3 @@ export default function ({
     </div>
   );
 }
-
-// Mock Wallet Data. Will come from API and be passed from parent class
-const walletData = {
-  name: "Ethereum wallet test 1",
-  currency: "Ethereum",
-  tags: ["Unicef HQ"],
-  symbol: "ETH",
-  amount: 25,
-  amountUSD: "4692.75",
-  feesUSD: "1.75",
-  address: "0x89205A3A3b2A69De6Dbf7f01ED13B2108B2c43e7",
-};

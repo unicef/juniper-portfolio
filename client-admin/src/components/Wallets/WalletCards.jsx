@@ -860,6 +860,8 @@ function TransactionDetailsCard({
                 case "ETH":
                   window.open(`https://etherscan.io/tx/${txid}`);
                   break;
+                default:
+                  break;
               }
             }}
           >

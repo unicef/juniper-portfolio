@@ -177,7 +177,7 @@ export default function AddWallet(props) {
   };
 
   const removeTag = (tagToRemove) => {
-    setTags(tags.filter((tag) => tag != tagToRemove));
+    setTags(tags.filter((tag) => tag !== tagToRemove));
   };
 
   const addMultisigOwner = () => {
@@ -202,9 +202,8 @@ export default function AddWallet(props) {
     };
     setAddingWallet(true);
 
-    let res, json;
     try {
-      res = await fetch(`/rest/admin/wallet`, {
+      await fetch(`/rest/admin/wallet`, {
         credentials: "include",
         method: "POST",
         body: JSON.stringify({
@@ -214,8 +213,6 @@ export default function AddWallet(props) {
           "Content-Type": "application/json",
         },
       });
-
-      json = await res.json();
     } catch (e) {
       return console.log(e);
     }
@@ -241,7 +238,7 @@ export default function AddWallet(props) {
   useEffect(() => {
     setIsUnicef(props.isUnicef);
     setOpen(props.open);
-  }, [props.open]);
+  }, [props.open, props.isUnicef]);
 
   return (
     <div>
