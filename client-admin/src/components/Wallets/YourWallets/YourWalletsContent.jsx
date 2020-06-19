@@ -194,7 +194,7 @@ export default function ({ viewWalletDetails, getExchangeRate }) {
       {
         symbol: "BTC",
         balance: btcBalance,
-        balanceUSD: usdFormatter.format(btcBalance * ethereumExchangeRate),
+        balanceUSD: usdFormatter.format(btcBalance * bitcoinExchangeRate),
         currency: "Bitcoin",
         received: btcReceived,
         invested: btcSent,
