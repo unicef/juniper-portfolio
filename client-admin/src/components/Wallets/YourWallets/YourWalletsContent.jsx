@@ -200,6 +200,7 @@ export default function ({ viewWalletDetails, getExchangeRate }) {
     getExchangeRates();
 
     // For now, updating rates will trigger a couple times here for each rate update
+
     getWalletSummary();
 
     setFees({
@@ -214,7 +215,7 @@ export default function ({ viewWalletDetails, getExchangeRate }) {
     });
 
     getWallets();
-  }, [bitcoinExchangeRate, ethereumExchangeRate]);
+  }, [bitcoinExchangeRate]);
 
   const classes = mainStyles();
   return (

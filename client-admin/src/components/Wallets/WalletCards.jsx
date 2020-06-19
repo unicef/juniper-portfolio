@@ -723,6 +723,8 @@ function TransactionDetailsCard({
   currency,
   amount,
   symbol,
+  to,
+  from,
   amountUSD,
   currentValue,
   sent,
@@ -744,14 +746,16 @@ function TransactionDetailsCard({
           </span>
         </Grid>
         <Grid item xs={3}>
-          <div className={classes.txDetailsAddress}>{address}</div>
-
           {received && (
-            <div className={classes.walletSubtitle}>Source Wallet</div>
+            <Fragment>
+              <div className={classes.txDetailsAddress}>{from}</div>
+              <div className={classes.walletSubtitle}>Source Wallet</div>
+            </Fragment>
           )}
 
           {sent && (
             <Fragment>
+              <div className={classes.txDetailsAddress}>{to}</div>
               <div className={classes.walletSubtitle}>Destination Wallet</div>
               <Button
                 color="primary"
