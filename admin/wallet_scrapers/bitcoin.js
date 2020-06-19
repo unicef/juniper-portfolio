@@ -70,16 +70,18 @@ class BitcoinWalletScraper {
     tx.vout.forEach((output) => {
       if (output.scriptpubkey_address === address) {
         received = true;
-      }
-
-      if (output.value) {
-        amount += output.value;
+        if (output.value) {
+          amount += output.value;
+        }
       }
     });
 
     tx.vin.forEach((input) => {
       if (input.prevout.scriptpubkey_address === address) {
         sent = true;
+        if (input.prevout.value) {
+          amount += input.prevout.value;
+        }
       }
     });
 
@@ -98,7 +100,7 @@ class BitcoinWalletScraper {
       inputs: tx.vin,
       outputs: tx.vout,
       block: tx.status.block_height,
-      timestamp: tx.status.block_time,
+      timestamp: tx.status.block_time * 1000,
       index: tx.tx_index,
       sent,
       received,
@@ -114,15 +116,21 @@ class BitcoinWalletScraper {
     this.logger.info(`Updating Wallet data for \t${address}`);
     let aggregateFees = await this.db.getWalletFees(address);
     let totalFees = 0;
+    let totalFeesUSD = 0;
     if (aggregateFees.length > 0) {
       totalFees = aggregateFees[0].totalFees;
+      totalFeesUSD = aggregateFees[0].totalFeesUSD;
     }
 
     const balance =
       (walletData.chain_stats.funded_txo_sum -
         walletData.chain_stats.spent_txo_sum) /
       1e8;
-    await this.db.updateWallet(address, { feesUSD: totalFees, balance });
+    await this.db.updateWallet(address, {
+      fees: totalFees,
+      feesUSD: totalFeesUSD,
+      balance,
+    });
   }
 }
 module.exports = BitcoinWalletScraper;

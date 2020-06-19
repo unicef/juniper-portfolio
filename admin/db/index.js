@@ -62,7 +62,13 @@ class MongoDB {
           sent: true,
         },
       },
-      { $group: { _id: "Fees", totalFees: { $sum: "$feeUSD" } } },
+      {
+        $group: {
+          _id: "Fees",
+          totalFees: { $sum: "$fee" },
+          totalFeesUSD: { $sum: "$feeUSD" },
+        },
+      },
     ]);
   }
   async updateWallet(address, fields) {
@@ -75,6 +81,17 @@ class MongoDB {
       },
       { ...fields }
     );
+  }
+  async getUnicefBalanceForCurrency(symbol) {
+    return this.models.Wallet.aggregate([
+      {
+        $match: {
+          symbol,
+          isUnicef: true,
+        },
+      },
+      { $group: { _id: "Sum", balance: { $sum: "$balance" } } },
+    ]);
   }
   async getTotalSentForCurrency(symbol) {
     this.logger.debug(`getTotalSentForCurrency \t ${symbol}`);
@@ -133,7 +150,7 @@ class MongoDB {
   }
   async getTransactionsForAddress(address) {
     this.logger.debug(`Get Transactions for ${address}`);
-    return this.models.Transaction.find({ address });
+    return this.models.Transaction.find({ address }).sort({ timestamp: -1 });
   }
 
   async savePrice(price) {

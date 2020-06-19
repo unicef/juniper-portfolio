@@ -115,13 +115,20 @@ const cardStyles = makeStyles((theme) => ({
   },
 }));
 
-function BalanceCard({ received, invested, balanceUSD, currency, symbol }) {
+function BalanceCard({
+  received,
+  invested,
+  balance,
+  balanceUSD,
+  currency,
+  symbol,
+}) {
   const classes = cardStyles();
   return (
     <div className={classes.balances}>
       <div className={classes.balanceSummary}>
         <h2 className={classes.balance}>
-          {received - invested} {symbol}
+          {balance} {symbol}
         </h2>
         <h2 className={classes.balanceUSD}>{balanceUSD} USD</h2>
         <p className={classes.currency}>Current {currency} balance</p>

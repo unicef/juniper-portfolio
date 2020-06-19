@@ -65,21 +65,41 @@ class JuniperAdmin {
   }
 
   async getWalletSummary() {
+    let ethBalance = await this.db.getUnicefBalanceForCurrency("ETH");
     let ethSent = await this.db.getTotalSentForCurrency("ETH");
     let ethReceived = await this.db.getTotalReceivedForCurrency("ETH");
+    // TODO: Fees
+    let btcBalance = await this.db.getUnicefBalanceForCurrency("BTC");
     let btcSent = await this.db.getTotalSentForCurrency("BTC");
     let btcReceived = await this.db.getTotalReceivedForCurrency("BTC");
+
+    console.log(ethBalance);
+    console.log(btcBalance);
+
+    if (ethBalance.length > 0 && ethBalance[0].balance) {
+      ethBalance = ethBalance[0].balance;
+    } else {
+      ethBalance = 0;
+    }
 
     if (ethSent.length > 0 && ethSent[0].totalSent) {
       ethSent = ethSent[0].totalSent;
     } else {
       ethSent = 0;
     }
+
     if (ethReceived.length > 0 && ethReceived[0].totalReceived) {
       ethReceived = ethReceived[0].totalReceived;
     } else {
       ethReceived = 0;
     }
+
+    if (btcBalance.length > 0 && btcBalance[0].balance) {
+      btcBalance = btcBalance[0].balance;
+    } else {
+      btcBalance = 0;
+    }
+
     if (btcSent.length > 0 && btcSent[0].totalSent) {
       btcSent = btcSent[0].totalSent;
     } else {
@@ -92,8 +112,10 @@ class JuniperAdmin {
     }
 
     return {
+      ethBalance,
       ethSent,
       ethReceived,
+      btcBalance,
       btcSent,
       btcReceived,
     };

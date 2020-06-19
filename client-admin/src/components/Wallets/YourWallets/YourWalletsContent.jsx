@@ -9,6 +9,12 @@ import ChevronRightIcon from "@material-ui/icons/ChevronRight";
 import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
 import AddWallet from "./AddWallet";
 
+const usdFormatter = new Intl.NumberFormat("en-US", {
+  style: "currency",
+  currency: "USD",
+  minimumFractionDigits: 2,
+});
+
 const mainStyles = makeStyles((theme) => ({
   root: {
     minHeight: "100%",
@@ -158,8 +164,32 @@ export default function ({ viewWalletDetails, getExchangeRate }) {
       console.log(e);
     }
 
+    console.log(ethereumExchangeRate);
+
     console.log("summary");
     console.log(summary);
+    setBalances([
+      {
+        symbol: "ETH",
+        balance: summary.ethBalance,
+        balanceUSD: usdFormatter.format(
+          summary.ethBalance * ethereumExchangeRate
+        ),
+        currency: "Ether",
+        received: summary.ethReceived,
+        invested: summary.ethSent,
+      },
+      {
+        symbol: "BTC",
+        balance: summary.btcBalance,
+        balanceUSD: usdFormatter.format(
+          summary.btcBalance * ethereumExchangeRate
+        ),
+        currency: "Bitcoin",
+        received: summary.btcReceived,
+        invested: summary.btcSent,
+      },
+    ]);
   };
 
   useEffect(() => {
@@ -167,23 +197,10 @@ export default function ({ viewWalletDetails, getExchangeRate }) {
       State will passed through props here
       Maths will take place in the parent class
     */
+    getExchangeRates();
+
+    // For now, updating rates will trigger a couple times here for each rate update
     getWalletSummary();
-    setBalances([
-      {
-        symbol: "ETH",
-        balanceUSD: "10,000",
-        currency: "Ether",
-        received: 100,
-        invested: 50,
-      },
-      {
-        symbol: "BTC",
-        balanceUSD: "0",
-        currency: "Bitcoin",
-        received: 1,
-        invested: 1,
-      },
-    ]);
 
     setFees({
       amountUSD: 3.23,
@@ -196,9 +213,8 @@ export default function ({ viewWalletDetails, getExchangeRate }) {
       invested: "19,287.47",
     });
 
-    getExchangeRates();
     getWallets();
-  }, []);
+  }, [bitcoinExchangeRate, ethereumExchangeRate]);
 
   const classes = mainStyles();
   return (
@@ -230,6 +246,7 @@ export default function ({ viewWalletDetails, getExchangeRate }) {
               <Grid item xs={12} sm={3} key={balance.received}>
                 <BalanceCard
                   symbol={balance.symbol}
+                  balance={balance.balance}
                   balanceUSD={balance.balanceUSD}
                   currency={balance.currency}
                   received={balance.received}

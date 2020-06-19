@@ -84,6 +84,8 @@ export default function TransactionDetails({
                   amountUSD={txDetails.amountUSD}
                   sent={txDetails.sent}
                   received={txDetails.received}
+                  to={txDetails.to || address}
+                  from={txDetails.from || address}
                   setAuthorizationRecord={setAuthorizationRecord}
                   currentValue={
                     Math.round(txDetails.amount * exchangeRate * 100) / 100
