@@ -13,6 +13,7 @@ import IconButton from "@material-ui/core/IconButton";
 import CloseIcon from "@material-ui/icons/Close";
 import HelpOutlineIcon from "@material-ui/icons/HelpOutline";
 import AddIcon from "@material-ui/icons/Add";
+import CircularProgress from "@material-ui/core/CircularProgress";
 
 const web3Utils = require("web3-utils");
 
@@ -111,6 +112,10 @@ const useStyles = makeStyles((theme) => ({
     fontSize: 12,
     fontWeight: 700,
   },
+  addingWallet: {
+    marginTop: "1em",
+    textAlign: "center",
+  },
 }));
 
 function MultisigOwner(props) {
@@ -151,6 +156,7 @@ export default function AddWallet(props) {
   const [symbol, setSymbol] = useState("ETH");
   const [isMultisig, setIsMultisig] = useState(false);
   const [isUnicef, setIsUnicef] = useState(false);
+  const [addingWallet, setAddingWallet] = useState(false);
   const [multisigOwners, setMultisigOwners] = useState([
     {
       walletAddress: null,
@@ -194,6 +200,7 @@ export default function AddWallet(props) {
       multisigOwners,
       isUnicef,
     };
+    setAddingWallet(true);
 
     let res, json;
     try {
@@ -225,13 +232,14 @@ export default function AddWallet(props) {
         ownerName: null,
       },
     ]);
-    setIsUnicef(props.isUnicef);
 
     props.getWallets();
+    setAddingWallet(false);
     handleClose();
   };
 
   useEffect(() => {
+    setIsUnicef(props.isUnicef);
     setOpen(props.open);
   }, [props.open]);
 
@@ -354,15 +362,23 @@ export default function AddWallet(props) {
               </div>
             )}
 
-            <Button
-              color="primary"
-              variant="contained"
-              disabled={false}
-              className={classes.addNewWalletButton}
-              onClick={addWallet}
-            >
-              Add New Wallet
-            </Button>
+            {!addingWallet && (
+              <Button
+                color="primary"
+                variant="contained"
+                disabled={false}
+                className={classes.addNewWalletButton}
+                onClick={addWallet}
+              >
+                Add New Wallet
+              </Button>
+            )}
+
+            {addingWallet && (
+              <div className={classes.addingWallet}>
+                <CircularProgress />
+              </div>
+            )}
           </form>
         </Container>
       </Dialog>

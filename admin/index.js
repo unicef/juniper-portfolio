@@ -63,6 +63,41 @@ class JuniperAdmin {
     });
     this.logger.info(`started in ${this.environment}.`);
   }
+
+  async getWalletSummary() {
+    let ethSent = await this.db.getTotalSentForCurrency("ETH");
+    let ethReceived = await this.db.getTotalReceivedForCurrency("ETH");
+    let btcSent = await this.db.getTotalSentForCurrency("BTC");
+    let btcReceived = await this.db.getTotalReceivedForCurrency("BTC");
+
+    if (ethSent.length > 0 && ethSent[0].totalSent) {
+      ethSent = ethSent[0].totalSent;
+    } else {
+      ethSent = 0;
+    }
+    if (ethReceived.length > 0 && ethReceived[0].totalReceived) {
+      ethReceived = ethReceived[0].totalReceived;
+    } else {
+      ethReceived = 0;
+    }
+    if (btcSent.length > 0 && btcSent[0].totalSent) {
+      btcSent = btcSent[0].totalSent;
+    } else {
+      btcSent = 0;
+    }
+    if (btcReceived.length > 0 && btcReceived[0].totalReceived) {
+      btcReceived = btcReceived[0].totalReceived;
+    } else {
+      btcReceived = 0;
+    }
+
+    return {
+      ethSent,
+      ethReceived,
+      btcSent,
+      btcReceived,
+    };
+  }
 }
 
 if (require.main === module) {

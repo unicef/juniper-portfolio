@@ -32,17 +32,14 @@ router.get("/wallets", async (req, res) => {
 });
 router.get("/wallets/summary", async (req, res) => {
   const juniperAdmin = req.app.get("juniperAdmin");
-  let ethSent, ethReceived, btcSent, btcReceived;
+  let summary = {};
 
   try {
-    ethSent = await juniperAdmin.db.getTotalSentForCurrency("ETH");
-    ethReceived = await juniperAdmin.db.getTotalReceivedForCurrency("ETH");
-    btcSent = await juniperAdmin.db.getTotalSentForCurrency("BTC");
-    btcReceived = await juniperAdmin.db.getTotalReceivedForCurrency("BTC");
+    summary = await juniperAdmin.getWalletSummary();
   } catch (e) {
     return logger.error(e);
   }
-  res.json({ ethSent, ethReceived, btcSent, btcReceived });
+  res.json(summary);
 });
 
 router.get("/wallet/:address", async (req, res) => {
