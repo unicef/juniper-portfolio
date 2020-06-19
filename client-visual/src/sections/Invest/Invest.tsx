@@ -172,6 +172,7 @@ export const Invest = () => {
           color={"#0068ea"}
           fontColor={"#fff"}
           linkToProject={"https://www.somleng.org"}
+          time={"18 Jun 2020 08:06 UTC"}
         />
         <InvestmentObject
           title={
@@ -195,6 +196,7 @@ export const Invest = () => {
           linkToProject={
             "https://www.unicef.org/innovation/stories/avyantra-using-machine-learning-facilitate-early-treatment-infants-neonatal-sepsis"
           }
+          time={"18 Jun 2020 07:52 UTC"}
         />
 
         <InvestmentObject
@@ -217,6 +219,7 @@ export const Invest = () => {
           color={"#0068ea"}
           fontColor={"#fff"}
           linkToProject={"https://statwig.com"}
+          time={"18 Jun 2020 07:52 UTC"}
         />
         <InvestmentObject
           title={"Improving children's reading skills using VR technology"}
@@ -236,6 +239,7 @@ export const Invest = () => {
           color={"#ffd113"}
           fontColor={"#000"}
           linkToProject={"https://utopicstudio.com"}
+          time={"18 Jun 2020 07:41 UTC"}
         />
         <InvestmentObject
           title={
@@ -257,6 +261,7 @@ export const Invest = () => {
           color={"#0068ea"}
           fontColor={"#fff"}
           linkToProject={"http://www.ideasis.com.tr"}
+          time={"18 Jun 2020 07:57 UTC"}
         />
         <InvestmentObject
           title={
@@ -278,6 +283,7 @@ export const Invest = () => {
           color={"#ffd113"}
           fontColor={"#000"}
           linkToProject={"https://afinidata.com/en/home/"}
+          time={"18 Jun 2020 08:06 UTC"}
         />
         <InvestmentObject
           title={
@@ -299,6 +305,7 @@ export const Invest = () => {
           color={"#0068ea"}
           fontColor={"#fff"}
           linkToProject={"http://cireha.com.ar"}
+          time={"18 Jun 2020 07:50 UTC"}
         />
         <InvestmentObject
           title={
@@ -322,6 +329,7 @@ export const Invest = () => {
           linkToProject={
             "https://www.unicef.org/innovation/stories/one-smart-creating-data-driven-verified-cities-through-blockchain-and-ai"
           }
+          time={"18 Jun 2020 07:44 UTC"}
         />
       </div>
     </div>
