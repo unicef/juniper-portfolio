@@ -168,28 +168,44 @@ export default function ({ viewWalletDetails, getExchangeRate }) {
 
     console.log("summary");
     console.log(summary);
+
+    const {
+      ethBalance,
+      ethReceived,
+      ethSent,
+      ethFees,
+      ethFeesUSD,
+      btcBalance,
+      btcReceived,
+      btcSent,
+      btcFees,
+      btcFeesUSD,
+    } = summary;
+
     setBalances([
       {
         symbol: "ETH",
-        balance: summary.ethBalance,
-        balanceUSD: usdFormatter.format(
-          summary.ethBalance * ethereumExchangeRate
-        ),
+        balance: ethBalance,
+        balanceUSD: usdFormatter.format(ethBalance * ethereumExchangeRate),
         currency: "Ether",
-        received: summary.ethReceived,
-        invested: summary.ethSent,
+        received: ethReceived,
+        invested: ethSent,
       },
       {
         symbol: "BTC",
-        balance: summary.btcBalance,
-        balanceUSD: usdFormatter.format(
-          summary.btcBalance * ethereumExchangeRate
-        ),
+        balance: btcBalance,
+        balanceUSD: usdFormatter.format(btcBalance * ethereumExchangeRate),
         currency: "Bitcoin",
-        received: summary.btcReceived,
-        invested: summary.btcSent,
+        received: btcReceived,
+        invested: btcSent,
       },
     ]);
+
+    setFees({
+      amountUSD: ethFeesUSD + btcFeesUSD,
+      ethFees,
+      btcFees,
+    });
   };
 
   useEffect(() => {
@@ -259,8 +275,8 @@ export default function ({ viewWalletDetails, getExchangeRate }) {
         <Grid item xs={12} sm={3}>
           <TxFeeCard
             amountUSD={fees.amountUSD}
-            amountBTC={fees.amountBTC}
-            amountETH={fees.amountETH}
+            amountBTC={fees.btcFees}
+            amountETH={fees.ethFees}
           />
         </Grid>
         <Grid item xs={12} sm={3}>

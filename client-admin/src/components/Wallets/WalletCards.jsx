@@ -153,7 +153,9 @@ function TxFeeCard({ amountUSD, amountETH, amountBTC }) {
   return (
     <div className={classes.fees}>
       <div className={classes.feeSummary}>
-        <h2 className={classes.balance}>{amountUSD} USD</h2>
+        <h2 className={classes.balance}>
+          {usdFormatter.format(amountUSD)} USD
+        </h2>
         <p className={classes.currency}>Total transaction fee</p>
       </div>
       <Divider className={classes.divider} />
