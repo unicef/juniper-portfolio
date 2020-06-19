@@ -12,10 +12,11 @@ const useStyles = makeStyles({
     flexGrow: 1,
     paddingTop: "25px",
     backgroundColor: "#0068ea",
-    padding: "14px",
-    height: "100%",
+    // padding: "14px",
+    // height: "100%",
     width: "100%",
     position: "absolute",
+    height: "110vh",
   },
   container: {
     // width: "60%",
@@ -59,7 +60,7 @@ export const Landingdesktop = () => {
           <Invest />
         </div>
         {/* <div style={{ paddingBottom: "30px" }}> */}
-        <div>
+        <div style={{ paddingBottom: "30px" }}>
           <Track />
         </div>
       </div>

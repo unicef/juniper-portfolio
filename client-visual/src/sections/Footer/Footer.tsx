@@ -59,7 +59,7 @@ export default function Footer() {
   const classes = useStyles();
   const matches = useMediaQuery(
     json2mq({
-      minWidth: 700,
+      minWidth: 991,
     })
   );
   const [bitcoinPrice, setBitcoinPrice] = useState(0);

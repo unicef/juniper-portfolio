@@ -11,6 +11,7 @@ const useStyles = makeStyles({
   root: {
     flexGrow: 1,
     height: "183px",
+    paddingBottom: "100px",
   },
   img: {
     paddingLeft: "40px",

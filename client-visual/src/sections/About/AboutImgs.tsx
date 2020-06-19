@@ -64,7 +64,7 @@ const useStyles = makeStyles((theme: any) => ({
 
 export const ApplicationImg = () => {
   const classes = useStyles();
-  const mobiledevice = useMediaQuery("(max-width: 700px)");
+  const mobiledevice = useMediaQuery("(max-width: 991px)");
   return (
     <img
       className={classes.appimg}
@@ -79,7 +79,7 @@ export const ApplicationImg = () => {
 };
 
 export const ApplicationMiddleImg = () => {
-  const mobiledevice = useMediaQuery("(max-width: 700px)");
+  const mobiledevice = useMediaQuery("(max-width: 991px)");
 
   if (mobiledevice) {
     return <ApplicationMiddleImgmobile />;

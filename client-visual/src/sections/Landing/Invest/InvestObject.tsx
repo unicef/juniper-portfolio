@@ -38,7 +38,7 @@ const useStyles = makeStyles({
 export const InvestObject = () => {
   const classes = useStyles();
   const [title] = useState("Invested");
-  const [numberOfInvestments] = useState(12);
+  const [numberOfInvestments] = useState(11);
   const [amountOfBitcoin] = useState(1);
   const [amountOfEther] = useState(1100);
   return (

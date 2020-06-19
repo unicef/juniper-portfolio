@@ -117,7 +117,7 @@ export const FundingProcessExplainer = () => {
   ] = useState(classes.buttonActive);
   const matches = useMediaQuery(
     json2mq({
-      minWidth: 700,
+      minWidth: 991,
     })
   );
   const createBlock = (

@@ -13,7 +13,7 @@ const useStyles = makeStyles((theme: any) => ({
 
 export const TrackMainImage = () => {
   const classes = useStyles();
-  const mobiledevice = useMediaQuery("(max-width: 700px)");
+  const mobiledevice = useMediaQuery("(max-width: 991px)");
 
   if (mobiledevice) {
     return (

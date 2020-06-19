@@ -97,7 +97,7 @@ export default function TransactionProof(props: any) {
   const [open, setOpen] = React.useState(false);
   const matches = useMediaQuery(
     json2mq({
-      minWidth: 700,
+      minWidth: 991,
     })
   );
   const handleClickOpen = () => {
