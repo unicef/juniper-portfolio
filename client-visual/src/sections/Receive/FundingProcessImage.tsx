@@ -23,7 +23,7 @@ export const FundingProcessImage = (props: any) => {
   const classes = useStyles();
   const matches = useMediaQuery(
     json2mq({
-      minWidth: 700,
+      minWidth: 991,
     })
   );
   return (

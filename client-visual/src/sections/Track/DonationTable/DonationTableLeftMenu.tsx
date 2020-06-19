@@ -85,11 +85,11 @@ export const DonationTableLeftMenu = () => {
             <span className={classes.mainText}>Crypto Received</span>
           </div>
 
-          <div className={classes.numberText}>1</div>
+          <div className={classes.numberText}>01</div>
           <div className={classes.labelText}>Donor</div>
-          <div className={classes.numberText}>1 BTC</div>
+          <div className={classes.numberText}>01 BTC</div>
           <div className={classes.labelText}>Bitcoin Received</div>
-          <div className={classes.numberText}>100 ETH</div>
+          <div className={classes.numberText}>1300 ETH</div>
           <div className={classes.labelText}>Ether Received</div>
         </div>
         <div className={classes.textWrapper}>
@@ -97,11 +97,11 @@ export const DonationTableLeftMenu = () => {
             <img src="/sidearrow.svg" alt="" className={classes.arrowicon} />
             <span className={classes.mainText}>Crypto Invested</span>
           </div>
-          <div className={classes.numberText}>03</div>
+          <div className={classes.numberText}>11</div>
           <div className={classes.labelText}>Investments</div>
-          <div className={classes.numberText}>1 BTC</div>
+          <div className={classes.numberText}>01 BTC</div>
           <div className={classes.labelText}>Bitcoin Invested</div>
-          <div className={classes.numberText}>99 ETH</div>
+          <div className={classes.numberText}>1100 ETH</div>
           <div className={classes.labelText}>Ether Invested</div>
         </div>
       </div>
@@ -109,7 +109,10 @@ export const DonationTableLeftMenu = () => {
   );
 
   return (
-    <div className={classes.root}>
+    <div
+      style={{ height: "100vh", position: "sticky", top: "48" }}
+      className={classes.root}
+    >
       {sideList("left")}
       <DonationTableStepper />
     </div>

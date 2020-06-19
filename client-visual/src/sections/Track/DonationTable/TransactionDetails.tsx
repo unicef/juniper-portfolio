@@ -12,7 +12,7 @@ const useStyles = makeStyles((theme: Theme) => ({
   root: {
     flexGrow: 1,
     backgroundColor: theme.palette.background.paper,
-    width: "70%",
+    width: "837px",
     height: "auto",
     marginLeft: "114px",
     marginBottom: "50px",
@@ -183,7 +183,7 @@ const useStyles = makeStyles((theme: Theme) => ({
 }));
 
 export const TransactionDetails = (props: any) => {
-  const mobiledevice = useMediaQuery("(max-width: 800px)");
+  const mobiledevice = useMediaQuery("(max-width: 991px)");
 
   if (mobiledevice) {
     return (

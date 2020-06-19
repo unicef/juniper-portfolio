@@ -3,8 +3,8 @@ import { makeStyles } from "@material-ui/core/styles";
 
 const useStyles = makeStyles({
   imgSpecs: {
-    width: "236px",
-    paddingTop: "10px",
+    width: "255px",
+    paddingTop: "25px",
   },
 });
 

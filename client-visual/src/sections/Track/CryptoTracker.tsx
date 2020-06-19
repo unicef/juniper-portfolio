@@ -1,35 +1,31 @@
-import React, { useState } from 'react'
-import { makeStyles } from '@material-ui/styles'
-import { ArrowDownButton } from './ArrowDownButton';
+import React, { useState } from "react";
+import { makeStyles } from "@material-ui/styles";
+import { ArrowDownButton } from "./ArrowDownButton";
 
 const useStyles = makeStyles((theme: any) => ({
-    mainText: {
-        fontFamily: 'Cabin',
-        fontSize: '14px',
-        fontWeight: 'bold',
-        fontStretch: 'normal',
-        fontStyle: 'normal',
-        lineHeight: 'normal',
-        letterSpacing: '1.17px',
-        color: '#ffffff',
-        textTransform: 'uppercase',
-        margin: 'auto',
-        textAlign: 'center',
-        paddingTop: '45px',
-        marginTop: '20px',
-    }, 
-
+  mainText: {
+    fontFamily: "Cabin",
+    fontSize: "14px",
+    fontWeight: "bold",
+    fontStretch: "normal",
+    fontStyle: "normal",
+    lineHeight: "normal",
+    letterSpacing: "1.17px",
+    color: "#ffffff",
+    textTransform: "uppercase",
+    margin: "auto",
+    textAlign: "center",
+  },
 }));
 export const CryptoTracker = () => {
-    const classes = useStyles()
+  const classes = useStyles();
 
-    const [cryptoTrackerText] = useState(
-        'Crypto Tracker'
-    )
-    return(
-        <div className={classes.mainText}>
-            {cryptoTrackerText}<br />
-            <ArrowDownButton />
-        </div>
-    )
-}
+  const [cryptoTrackerText] = useState("Scroll To View Crypto Tracker");
+  return (
+    <div className={classes.mainText}>
+      {cryptoTrackerText}
+      <br />
+      <ArrowDownButton />
+    </div>
+  );
+};
