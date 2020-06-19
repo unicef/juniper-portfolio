@@ -68,13 +68,17 @@ class JuniperAdmin {
     let ethBalance = await this.db.getUnicefBalanceForCurrency("ETH");
     let ethSent = await this.db.getTotalSentForCurrency("ETH");
     let ethReceived = await this.db.getTotalReceivedForCurrency("ETH");
+    let ethFees = await this.db.getTotalUnicefFeesForCurrency("ETH");
+    let ethFeesUSD = 0;
     // TODO: Fees
     let btcBalance = await this.db.getUnicefBalanceForCurrency("BTC");
     let btcSent = await this.db.getTotalSentForCurrency("BTC");
     let btcReceived = await this.db.getTotalReceivedForCurrency("BTC");
+    let btcFees = await this.db.getTotalUnicefFeesForCurrency("BTC");
+    let btcFeesUSD = 0;
 
-    console.log(ethBalance);
-    console.log(btcBalance);
+    console.log(ethFees);
+    console.log(btcFees);
 
     if (ethBalance.length > 0 && ethBalance[0].balance) {
       ethBalance = ethBalance[0].balance;
@@ -94,6 +98,13 @@ class JuniperAdmin {
       ethReceived = 0;
     }
 
+    if (ethFees.length > 0 && ethFees[0].totalFees) {
+      ethFeesUSD = ethFees[0].totalFeesUSD;
+      ethFees = ethFees[0].totalFees;
+    } else {
+      ethFees = 0;
+    }
+
     if (btcBalance.length > 0 && btcBalance[0].balance) {
       btcBalance = btcBalance[0].balance;
     } else {
@@ -110,14 +121,24 @@ class JuniperAdmin {
     } else {
       btcReceived = 0;
     }
+    if (btcFees.length > 0 && btcFees[0].totalFees) {
+      btcFeesUSD = btcFees[0].totalFeesUSD;
+      btcFees = btcFees[0].totalFees;
+    } else {
+      btcFees = 0;
+    }
 
     return {
       ethBalance,
       ethSent,
       ethReceived,
+      ethFees,
+      ethFeesUSD,
       btcBalance,
       btcSent,
       btcReceived,
+      btcFees,
+      btcFeesUSD,
     };
   }
 }

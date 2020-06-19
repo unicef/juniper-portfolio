@@ -117,16 +117,22 @@ class MongoDB {
       { $group: { _id: "Sum", totalReceived: { $sum: "$amount" } } },
     ]);
   }
-  async getTotalFeesForCurrent(symbol) {
-    this.logger.debug(`getTotalFeesForCurrent \t ${symbol}`);
-    return this.models.Transaction.aggregate([
+  async getTotalUnicefFeesForCurrency(symbol) {
+    this.logger.debug(`getTotalUnicefFeesForCurrency \t ${symbol}`);
+    return this.models.Wallet.aggregate([
       {
         $match: {
           symbol,
-          sent: true,
+          isUnicef: true,
         },
       },
-      { $group: { _id: "Sum", totalFees: { $sum: "$fees" } } },
+      {
+        $group: {
+          _id: "Sum",
+          totalFees: { $sum: "$fees" },
+          totalFeesUSD: { $sum: "$feesUSD" },
+        },
+      },
     ]);
   }
   async getWallets() {

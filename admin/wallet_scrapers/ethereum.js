@@ -103,13 +103,18 @@ class EthereumWalletScraper {
     const { address, balance } = walletData;
     this.logger.info(`Updating Wallet data for \t${address}`);
     let aggregateFees = await this.db.getWalletFees(address);
-
     let totalFees = 0;
+    let totalFeesUSD = 0;
     if (aggregateFees.length > 0) {
       totalFees = aggregateFees[0].totalFees;
+      totalFeesUSD = aggregateFees[0].totalFeesUSD;
     }
 
-    await this.db.updateWallet(address, { feesUSD: totalFees, balance });
+    await this.db.updateWallet(address, {
+      fees: totalFees,
+      feesUSD: totalFeesUSD,
+      balance,
+    });
   }
 }
 module.exports = EthereumWalletScraper;
