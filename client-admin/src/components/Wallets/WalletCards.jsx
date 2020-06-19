@@ -711,6 +711,7 @@ function WalletDetailsCard({
 
 function TransactionDetailsCard({
   txid,
+  timestamp,
   address,
   currency,
   amount,
@@ -722,7 +723,7 @@ function TransactionDetailsCard({
   setAuthorizationRecord,
 }) {
   const classes = WalletDetailsCardStyles();
-
+  const txSent = new Date(timestamp);
   return (
     <Fragment>
       <Grid container className={classes.transaction}>
@@ -730,7 +731,9 @@ function TransactionDetailsCard({
           <TxArrowIcon className={classes.arrowIcon} />{" "}
           <span className={classes.headerText}>
             Crypto {sent ? "sent" : null} {received ? "received" : null} at{" "}
-            <b>13:12, Mar 24 2020</b>
+            <b>
+              {txSent.toLocaleTimeString()}, {txSent.toDateString()}
+            </b>
           </span>
         </Grid>
         <Grid item xs={3}>

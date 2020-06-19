@@ -76,6 +76,7 @@ export default function TransactionDetails({
                 <TransactionDetailsCard
                   key={txDetails.txid}
                   txid={txDetails.txid}
+                  timestamp={txDetails.timestamp}
                   address={address}
                   currency={txDetails.currency}
                   amount={txDetails.amount}

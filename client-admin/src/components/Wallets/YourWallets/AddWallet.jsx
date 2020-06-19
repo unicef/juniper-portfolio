@@ -150,6 +150,7 @@ export default function AddWallet(props) {
   const [currency, setCurrency] = useState("Ethereum");
   const [symbol, setSymbol] = useState("ETH");
   const [isMultisig, setIsMultisig] = useState(false);
+  const [isUnicef, setIsUnicef] = useState(false);
   const [multisigOwners, setMultisigOwners] = useState([
     {
       walletAddress: null,
@@ -191,6 +192,7 @@ export default function AddWallet(props) {
       symbol,
       isMultisig,
       multisigOwners,
+      isUnicef,
     };
 
     let res, json;
@@ -223,6 +225,7 @@ export default function AddWallet(props) {
         ownerName: null,
       },
     ]);
+    setIsUnicef(props.isUnicef);
 
     props.getWallets();
     handleClose();

@@ -9,6 +9,7 @@ const wallet = new Schema({
   symbol: { type: String },
   balance: { type: Number, default: 0 },
   feesUSD: { type: Number, default: 0 },
+  isUnicef: { type: Boolean, default: false },
   isMultisig: { type: Boolean, default: false },
   multisigOwners: { type: Array, default: [] },
   txs: { type: Number, default: 0 },

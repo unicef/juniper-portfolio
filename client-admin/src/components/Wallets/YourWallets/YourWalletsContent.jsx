@@ -207,6 +207,7 @@ export default function ({ viewWalletDetails, getExchangeRate }) {
         open={showAddWalletModal}
         setShowAddWalletModal={setShowAddWalletModal}
         getWallets={getWallets}
+        isUnicef={true}
       />
       <Grid container>
         <Grid item xs={12} className={classes.priceRectangle}>
