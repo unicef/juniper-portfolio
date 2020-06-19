@@ -98,7 +98,7 @@ class BitcoinWalletScraper {
       inputs: tx.vin,
       outputs: tx.vout,
       block: tx.status.block_height,
-      timestamp: tx.time,
+      timestamp: tx.status.block_time,
       index: tx.tx_index,
       sent,
       received,

@@ -21,6 +21,7 @@ module.exports = {
       useCreateIndex: true,
       useUnifiedTopology: true,
       useFindAndModify: false,
+      autoIndex: true,
     },
   },
   wallet: {

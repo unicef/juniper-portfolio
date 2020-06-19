@@ -263,7 +263,8 @@ export default function ({ viewWalletDetails, getExchangeRate }) {
 
         <Grid item xs={12} style={{ marginTop: "4em" }}>
           <h3 className={classes.walletSubheading}>
-            {ethereumWallets.length} Ethereum Wallets
+            {ethereumWallets.length} Ethereum Wallet
+            {ethereumWallets.length !== 1 && "s"}
           </h3>
         </Grid>
         <Grid container spacing={2} style={{ position: "relative" }}>
@@ -302,7 +303,8 @@ export default function ({ viewWalletDetails, getExchangeRate }) {
 
         <Grid item xs={12} style={{ marginTop: "4em" }}>
           <h3 className={classes.walletSubheading}>
-            {bitcoinWallets.length} Bitcoin Wallets
+            {bitcoinWallets.length} Bitcoin Wallet
+            {bitcoinWallets.length !== 1 && "s"}
           </h3>
         </Grid>
 

@@ -2,7 +2,7 @@ const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
 const wallet = new Schema({
-  address: { type: String, index: true },
+  address: { type: String, index: true, unique: true },
   name: { type: String },
   tags: { type: Array, default: [] },
   currency: { type: String },

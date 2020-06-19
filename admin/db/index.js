@@ -41,7 +41,13 @@ class MongoDB {
 
   async createWallet(wallet) {
     this.logger.debug(`Creating Wallet ${JSON.stringify(wallet)}`);
-    return new this.models.Wallet(wallet).save();
+    return this.models.Wallet.findOneAndUpdate(
+      {
+        address: wallet.address,
+      },
+      wallet,
+      { upsert: true }
+    );
   }
   async getWallet(address) {
     this.logger.debug(`Getting Wallet for ${address}`);
