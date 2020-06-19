@@ -9,6 +9,7 @@ const useStyles = makeStyles((theme: any) => ({
   top: {
     backgroundColor: "#ffd113",
     padding: "100px 0px",
+    height: "90vh",
   },
 
   lcolumn: {
@@ -156,7 +157,7 @@ export const AboutBlurb1 = () => {
       <div className={mobiledevice ? classes.blurbmobile : classes.blurb}>
         <p>
           <b>
-            Financial and technological support from UNICEF’s Venture Fund is
+            Financial and technological support from UNICEF’s Innovation Fund is
             available for companies that can show a strong founding team and a
             clear path to improving the lives of children.
           </b>
@@ -170,11 +171,11 @@ export const AboutBlurb1 = () => {
         </p>
         <p>
           We invest in solutions that can impact the lives of the most
-          vulnerable children. We find these solutions clustered around
-          $100billion industries in frontier technology spaces, such as:
-          blockchain, UAVs, virtual and augmented reality, 3D printing, machine
-          learning, quantum computing, genetic engineering, Internet of Things,
-          artificial intelligence, nano-satellites and human dynamics.
+          vulnerable children. We find these solutions clustered around $100
+          billion industries in frontier technology spaces, such as: blockchain,
+          UAVs, virtual and augmented reality, 3D printing, machine learning,
+          quantum computing, genetic engineering, Internet of Things, artificial
+          intelligence, nano-satellites and human dynamics.
         </p>
       </div>
     </div>

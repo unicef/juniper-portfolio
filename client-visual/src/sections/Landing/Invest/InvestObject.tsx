@@ -40,7 +40,7 @@ export const InvestObject = () => {
   const [title] = useState("Invested");
   const [numberOfInvestments] = useState(12);
   const [amountOfBitcoin] = useState(1);
-  const [amountOfEther] = useState(1225);
+  const [amountOfEther] = useState(1100);
   return (
     <div className={classes.text}>
       <span className={classes.title}>{title}</span>

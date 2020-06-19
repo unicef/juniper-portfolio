@@ -53,7 +53,22 @@ export const Received = () => {
       "https://btc4.trezor.io/tx/396e16f8ec98dacfc56ee0b0c00aedc1a94af203050b428ae7eb08d17019846b"
     ),
   ];
-
+  const TXTableRows14 = [
+    TXDetailRowCreate(
+      "Ethereum Foundation",
+      "UNICEF France",
+      "100 ETH",
+      "15 Jun 2020 05:03 UTC",
+      "https://etherscan.io/tx/0x7034df9c87f950902d0f3a2f431aebea854c0d2e2fa6dca8ab127362711bbd11"
+    ),
+    TXDetailRowCreate(
+      "UNICEF France",
+      "UNICEF HQ",
+      "100 ETH",
+      "15 Jun 2020 05:47 UTC",
+      "https://etherscan.io/tx/0xc402f498a730b99d0105cfa3b49c483bd6f143a8c0ab082d0e2b63e8de3fd854"
+    ),
+  ];
   return (
     <div className={classes.root}>
       <TransactionDetails
@@ -66,7 +81,7 @@ export const Received = () => {
         partyType3="Recipient"
         valueMoving="1200 ETH"
         valueType="Crypto Received"
-        TXTableRows={TXTableRows1}
+        TXTableRows={TXTableRows14}
         field1={"Ethereum Foundation"} // from
         field2={"UNICEF France"} // reciepient
         field3={"1200 ETH"} // amount

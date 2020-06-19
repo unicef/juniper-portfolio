@@ -1,6 +1,6 @@
 import React from "react";
 import { makeStyles } from "@material-ui/styles";
-import { Grid, Button } from "@material-ui/core";
+import { Grid, Button, Link } from "@material-ui/core";
 import useMediaQuery from "@material-ui/core/useMediaQuery";
 
 const useStyles = makeStyles((theme: any) => ({
@@ -64,11 +64,15 @@ const useStyles = makeStyles((theme: any) => ({
 
 export const ApplicationImg = () => {
   const classes = useStyles();
-
+  const mobiledevice = useMediaQuery("(max-width: 700px)");
   return (
     <img
       className={classes.appimg}
-      src="/Applicationprocess.svg"
+      src={
+        mobiledevice
+          ? "/Applicationprocess.svg"
+          : "Application_process_desktop.svg"
+      }
       alt="Application Process"
     />
   );
@@ -97,7 +101,13 @@ export const ApplicationMiddleImgmobile = () => {
           color="primary"
           variant="contained"
         >
-          APPLY NOW
+          <Link
+            target="_blank"
+            style={{ textDecoration: "none", color: "white" }}
+            href="https://www.unicef.org/innovation/applyBlockchainCrypto"
+          >
+            APPLY NOW
+          </Link>
         </Button>
       </div>
     </div>
@@ -106,6 +116,7 @@ export const ApplicationMiddleImgmobile = () => {
 
 export const ApplicationMiddleImgdesktop = () => {
   const classes = useStyles();
+
   return (
     <div>
       <Grid container className={classes.root}>
@@ -119,7 +130,13 @@ export const ApplicationMiddleImgdesktop = () => {
                 color="primary"
                 variant="contained"
               >
-                APPLY NOW
+                <Link
+                  target="_blank"
+                  style={{ textDecoration: "none", color: "white" }}
+                  href="https://www.unicef.org/innovation/applyBlockchainCrypto"
+                >
+                  APPLY NOW
+                </Link>
               </Button>
             </div>
           </div>

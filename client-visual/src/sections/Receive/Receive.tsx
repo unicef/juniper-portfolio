@@ -9,7 +9,7 @@ import { BackgroundText } from "./BackgroundText";
 import { FundingProcess } from "./FundingProcess";
 import { DonorText } from "./DonorText";
 import { FundingProcessExplainer } from "./FundingProcessExplainer";
-import { MoreDetails } from "./MoreDetails";
+import { ReceivePageArrow } from "./ReceivePageArrow";
 import json2mq from "json2mq";
 
 const useStyles = makeStyles({
@@ -88,7 +88,7 @@ export const Receive = () => {
           alignItems="center"
           justify="center"
         >
-          {matches ? <MoreDetails /> : null}
+          {matches ? <ReceivePageArrow /> : null}
         </Grid>
       </div>
       <div>

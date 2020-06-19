@@ -87,7 +87,7 @@ export const DonationTableLeftMenu = () => {
 
           <div className={classes.numberText}>01</div>
           <div className={classes.labelText}>Donor</div>
-          <div className={classes.numberText}>1 BTC</div>
+          <div className={classes.numberText}>01 BTC</div>
           <div className={classes.labelText}>Bitcoin Received</div>
           <div className={classes.numberText}>1300 ETH</div>
           <div className={classes.labelText}>Ether Received</div>
@@ -99,9 +99,9 @@ export const DonationTableLeftMenu = () => {
           </div>
           <div className={classes.numberText}>12</div>
           <div className={classes.labelText}>Investments</div>
-          <div className={classes.numberText}>1 BTC</div>
+          <div className={classes.numberText}>01 BTC</div>
           <div className={classes.labelText}>Bitcoin Invested</div>
-          <div className={classes.numberText}>1225 ETH</div>
+          <div className={classes.numberText}>1100 ETH</div>
           <div className={classes.labelText}>Ether Invested</div>
         </div>
       </div>

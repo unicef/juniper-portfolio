@@ -37,7 +37,7 @@ export const FundingProcess = () => {
     "UNICEF is able to receive cryptocurrency donations via four official UNICEF fundraising entities, also known as National Committees (NatComs). Through these four National Committees - "
   );
   const [fundingProcessText2] = useState(
-    " - donors are able to contribute to the CryptoFund in cryptocurrency"
+    " - donors are able to contribute to the CryptoFund in cryptocurrency."
   );
   const [australiaText] = useState("Australia");
   const [australiaLink] = useState("https://www.unicef.org.au/");

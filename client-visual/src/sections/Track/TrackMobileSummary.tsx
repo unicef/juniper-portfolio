@@ -80,7 +80,7 @@ export const TrackMobileSummary = () => {
           <br />
           <span className={classes.labelText}>Our Investments</span>
           <br />
-          <span className={classes.numberText}>1225</span>
+          <span className={classes.numberText}>1100</span>
           <br />
           <span className={classes.labelText}>Ether Invested</span>
           <br />

@@ -125,7 +125,7 @@ export default function Footer() {
         <Toolbar variant="dense">
           {matches ? (
             <div>
-              <span className={classes.cryptoText}>1 ether </span>{" "}
+              <span className={classes.cryptoText}>1 ETH </span>{" "}
               <span className={classes.priceText}>
                 ${etherPrice ? etherPrice : 0} (USD)
               </span>
@@ -134,7 +134,7 @@ export default function Footer() {
                 className={classes.cryptoText}
               >
                 {" "}
-                1 bitcoin{" "}
+                1 BTC{" "}
               </span>{" "}
               <span className={classes.priceText}>
                 ${bitcoinPrice ? bitcoinPrice : 0} (USD)

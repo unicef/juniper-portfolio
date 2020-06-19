@@ -60,8 +60,8 @@ export const Landingmobile = () => {
           <LandingMobileCard
             title="Invest"
             link="/invest"
-            lineOne="12 investments"
-            lineTwo="1225 ether"
+            lineOne="11 investments"
+            lineTwo="1100 ether"
             lineThree="1 bitcoin"
             colorOne="#fff"
             colorTwo="#ffd113"

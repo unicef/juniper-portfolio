@@ -7,7 +7,7 @@ import { InvestmentMainText } from "./InvestmentMainText";
 import { InvestmentMainImage } from "./InvestmentMainImage";
 import { InvestmentObject } from "./InvestmentObject";
 import { SelectionCriteria } from "./SelectionCriteria";
-import { ScrollToViewProjects } from "./ScrollToViewProjects";
+import { InvestPageArrow } from "./InvestPageArrow";
 
 const useStyles = makeStyles((theme: any) => ({
   top: {
@@ -41,11 +41,11 @@ export const Invest = () => {
           {matches ? (
             <Grid style={{ paddingBottom: "50px" }} item xs={12} sm={3} md={4}>
               <SideDetails
-                firstNumber="12"
+                firstNumber="11"
                 firstLabel="investments"
                 middleNumber="01 btc"
                 middleLabel="bitcoin invested"
-                lastNumber="1225 eth"
+                lastNumber="1100 eth"
                 lastLabel="ether invested"
               />
             </Grid>
@@ -54,11 +54,11 @@ export const Invest = () => {
           {matches ? null : (
             <Grid item xs={12} sm={3}>
               <SideDetails
-                firstNumber="12"
+                firstNumber="11"
                 firstLabel="investments"
                 middleNumber="01 btc"
                 middleLabel="bitcoin invested"
-                lastNumber="1225 eth"
+                lastNumber="1100 eth"
                 lastLabel="ether invested"
               />
               <div style={{ textAlign: "right", paddingTop: "-10px" }}>
@@ -79,7 +79,7 @@ export const Invest = () => {
           alignItems="center"
           justify="center"
         >
-          {matches ? <ScrollToViewProjects /> : null}
+          {matches ? <InvestPageArrow /> : null}
         </Grid>
       </div>
       <div>
@@ -89,7 +89,7 @@ export const Invest = () => {
           label2={"Funding Amount"}
           label3={"Country"}
           detail1={"Atix Labs"}
-          detail2={"1 BTC"}
+          detail2={"01 BTC"}
           detail3={"Argentina"}
           button={"View Project"}
           link={"Transaction Proof"}
@@ -164,9 +164,9 @@ export const Invest = () => {
           detail3={"Cambodia"}
           button={"View Project"}
           link={"Transaction Proof"}
-          //   linkToProof={
-          //     "https://etherscan.io/tx/0x5735e0524e936818369f2eac2ef7c917b74f00993d187ffdb738e287032e70a0"
-          //   }
+          linkToProof={
+            "https://etherscan.io/tx/0xea13d93f88bc5cc1c86b0c57e60ef0bd6a6c4446c623acc2622da7fbcbfec3e8"
+          }
           linkToImage={"./Somleng.png"}
           altDescription={""}
           color={"#0068ea"}
@@ -185,9 +185,9 @@ export const Invest = () => {
           detail3={"India"}
           button={"View Project"}
           link={"Transaction Proof"}
-          //   linkToProof={
-          // "https://etherscan.io/tx/0x5735e0524e936818369f2eac2ef7c917b74f00993d187ffdb738e287032e70a0"
-          //   }
+          linkToProof={
+            "https://etherscan.io/tx/0xe7951d7a78fa3581c48b8914c7f2c5737aeeab29989f65763c21bd1fa2134b06"
+          }
           linkToImage={"./Avyantra.png"}
           altDescription={""}
           color={"#ffd113"}
@@ -196,50 +196,7 @@ export const Invest = () => {
             "https://www.unicef.org/innovation/stories/avyantra-using-machine-learning-facilitate-early-treatment-infants-neonatal-sepsis"
           }
         />
-        <InvestmentObject
-          title={
-            "Developing an open-source messaging solution providing connectivity in remote areas"
-          }
-          label1={"Startup"}
-          label2={"Funding Amount"}
-          label3={"Country"}
-          detail1={"W3 Engineers"}
-          detail2={"125 ETH"}
-          detail3={"Bangladesh"}
-          button={"View Project"}
-          link={"Transaction Proof"}
-          //   linkToProof={
-          //     "https://etherscan.io/tx/0x5735e0524e936818369f2eac2ef7c917b74f00993d187ffdb738e287032e70a0"
-          //   }
-          linkToImage={"./W3.png"}
-          altDescription={""}
-          color={"#0068ea"}
-          fontColor={"#fff"}
-          linkToProject={"https://w3engineers.com"}
-        />
-        <InvestmentObject
-          title={
-            "Creating data-driven, verified cities through blockchain and AI"
-          }
-          label1={"Startup"}
-          label2={"Funding Amount"}
-          label3={"Country"}
-          detail1={"OS City"}
-          detail2={"125 ETH"}
-          detail3={"Mexico"}
-          button={"View Project"}
-          link={"Transaction Proof"}
-          //   linkToProof={
-          //     "https://etherscan.io/tx/0x5735e0524e936818369f2eac2ef7c917b74f00993d187ffdb738e287032e70a0"
-          //   }
-          linkToImage={"./OS.png"}
-          altDescription={""}
-          color={"#ffd113"}
-          fontColor={"#000"}
-          linkToProject={
-            "https://www.unicef.org/innovation/stories/one-smart-creating-data-driven-verified-cities-through-blockchain-and-ai"
-          }
-        />
+
         <InvestmentObject
           title={
             "Improving food and vaccines distribution systems more efficiently through blockchain"
@@ -252,9 +209,9 @@ export const Invest = () => {
           detail3={"India"}
           button={"View Project"}
           link={"Transaction Proof"}
-          //   linkToProof={
-          //     "https://etherscan.io/tx/0x5735e0524e936818369f2eac2ef7c917b74f00993d187ffdb738e287032e70a0"
-          //   }
+          linkToProof={
+            "https://etherscan.io/tx/0x36a083becc6d49514c4fa8dc61ea398f01be0e681d9b79d640eccbf5bd4d80e4"
+          }
           linkToImage={"./StaTwig.png"}
           altDescription={""}
           color={"#0068ea"}
@@ -271,9 +228,9 @@ export const Invest = () => {
           detail3={"Chile"}
           button={"View Project"}
           link={"Transaction Proof"}
-          //   linkToProof={
-          //     "https://etherscan.io/tx/0x5735e0524e936818369f2eac2ef7c917b74f00993d187ffdb738e287032e70a0"
-          //   }
+          linkToProof={
+            "https://etherscan.io/tx/0x30e928db6a6eb5d88bbdb8c19202308047683be8dd4b4f80fbe49db6c9e56cb9"
+          }
           linkToImage={"./UtopicStudio.png"}
           altDescription={""}
           color={"#ffd113"}
@@ -292,9 +249,9 @@ export const Invest = () => {
           detail3={"Turkey"}
           button={"View Project"}
           link={"Transaction Proof"}
-          //   linkToProof={
-          //     "https://etherscan.io/tx/0x5735e0524e936818369f2eac2ef7c917b74f00993d187ffdb738e287032e70a0"
-          //   }
+          linkToProof={
+            "https://etherscan.io/tx/0x776e0b64c76f58b7521e4e6de44026cfb6f2aa7186bc127b302544faabf83c5a"
+          }
           linkToImage={"./Ideasis.png"}
           altDescription={""}
           color={"#0068ea"}
@@ -313,9 +270,9 @@ export const Invest = () => {
           detail3={"Guatemala"}
           button={"View Project"}
           link={"Transaction Proof"}
-          //   linkToProof={
-          //     "https://etherscan.io/tx/0x5735e0524e936818369f2eac2ef7c917b74f00993d187ffdb738e287032e70a0"
-          //   }
+          linkToProof={
+            "https://etherscan.io/tx/0x5a20f875d51ec96726ae484e9083cb3a93b0d2ced74692f473f8822b8722f20e"
+          }
           linkToImage={"./Afinidata.png"}
           altDescription={""}
           color={"#ffd113"}
@@ -334,14 +291,37 @@ export const Invest = () => {
           detail3={"Argentina"}
           button={"View Project"}
           link={"Transaction Proof"}
-          //   linkToProof={
-          //     // "https://etherscan.io/tx/0x5735e0524e936818369f2eac2ef7c917b74f00993d187ffdb738e287032e70a0"
-          //   }
+          linkToProof={
+            "https://etherscan.io/tx/0x5f7fa39683f421dc98b0981feef0573bd805293d38dfdbaa7bcab4438175c3bd"
+          }
           linkToImage={"./Cireha.png"}
           altDescription={""}
           color={"#0068ea"}
           fontColor={"#fff"}
           linkToProject={"http://cireha.com.ar"}
+        />
+        <InvestmentObject
+          title={
+            "Creating data-driven, verified cities through blockchain and AI"
+          }
+          label1={"Startup"}
+          label2={"Funding Amount"}
+          label3={"Country"}
+          detail1={"OS City"}
+          detail2={"125 ETH"}
+          detail3={"Mexico"}
+          button={"View Project"}
+          link={"Transaction Proof"}
+          linkToProof={
+            "https://etherscan.io/tx/0x7df0ef84451e66e26046bb896c9ea7d4ab589b97c3fa80c080d18d0b3e22be1b"
+          }
+          linkToImage={"./OS.png"}
+          altDescription={""}
+          color={"#ffd113"}
+          fontColor={"#000"}
+          linkToProject={
+            "https://www.unicef.org/innovation/stories/one-smart-creating-data-driven-verified-cities-through-blockchain-and-ai"
+          }
         />
       </div>
     </div>

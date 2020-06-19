@@ -34,7 +34,7 @@ export const BackgroundText = () => {
   const classes = useStyles();
   const [backgroundTitle] = useState("Background");
   const [backgroundText] = useState(
-    "UNICEF’s CryptoFund was launched in October 2019. The CryptoFund is part of UNICEF’s larger Venture Fund, which allows UNICEF to quickly assess, fund and grow open-source solutions that can improve children’s lives. Financial and technological support is available for companies that are using technology in innovative ways to improve the world. The Fund has made 85 investments in 55 countries with an eye to invest in 20 more start-ups each year. Until 2019, all investments were made in USD."
+    "UNICEF’s CryptoFund was launched in October 2019. The CryptoFund is part of UNICEF’s larger Innovation Fund, which allows UNICEF to quickly assess, fund and grow open-source solutions that can improve children’s lives. Financial and technological support is available for companies that are using technology in innovative ways to improve the world. The Fund has made 98 investments in 56 countries with an eye to invest in 20 more start-ups each year. Until 2019, all investments were made in USD."
   );
   return (
     <div className={classes.root}>

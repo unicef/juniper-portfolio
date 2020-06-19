@@ -72,6 +72,94 @@ export const Transaction = () => {
     ),
   ];
 
+  const TXTableRows6 = [
+    TXDetailRowCreate(
+      "UNICEF HQ",
+      "Afinidata",
+      "125 ETH",
+      "18 Jun 2020 08:06 UTC",
+      "https://etherscan.io/tx/0x5a20f875d51ec96726ae484e9083cb3a93b0d2ced74692f473f8822b8722f20e"
+    ),
+  ];
+  const TXTableRows7 = [
+    TXDetailRowCreate(
+      "UNICEF HQ",
+      "Somleng",
+      "125 ETH",
+      "18 Jun 2020 08:06 UTC",
+      "https://etherscan.io/tx/0xea13d93f88bc5cc1c86b0c57e60ef0bd6a6c4446c623acc2622da7fbcbfec3e8"
+    ),
+  ];
+  const TXTableRows8 = [
+    TXDetailRowCreate(
+      "UNICEF HQ",
+      "Ideasis",
+      "125 ETH",
+      "18 Jun 2020 07:57 UTC",
+      "https://etherscan.io/tx/0x776e0b64c76f58b7521e4e6de44026cfb6f2aa7186bc127b302544faabf83c5a"
+    ),
+  ];
+  const TXTableRows9 = [
+    TXDetailRowCreate(
+      "UNICEF HQ",
+      "StaTwig",
+      "125 ETH",
+      "18 Jun 2020 07:52 UTC",
+      "https://etherscan.io/tx/0x36a083becc6d49514c4fa8dc61ea398f01be0e681d9b79d640eccbf5bd4d80e4"
+    ),
+  ];
+  const TXTableRows10 = [
+    TXDetailRowCreate(
+      "UNICEF HQ",
+      "Avyantra",
+      "125 ETH",
+      "18 Jun 2020 07:52 UTC",
+      "https://etherscan.io/tx/0x36a083becc6d49514c4fa8dc61ea398f01be0e681d9b79d640eccbf5bd4d80e4"
+    ),
+  ];
+  const TXTableRows11 = [
+    TXDetailRowCreate(
+      "UNICEF HQ",
+      "Cireha",
+      "125 ETH",
+      "18 Jun 2020 07:50 UTC",
+      "https://etherscan.io/tx/0xe7951d7a78fa3581c48b8914c7f2c5737aeeab29989f65763c21bd1fa2134b06"
+    ),
+  ];
+  const TXTableRows12 = [
+    TXDetailRowCreate(
+      "UNICEF HQ",
+      "OS City",
+      "125 ETH",
+      "18 Jun 2020 07:44 UTC",
+      "https://etherscan.io/tx/0x7df0ef84451e66e26046bb896c9ea7d4ab589b97c3fa80c080d18d0b3e22be1b"
+    ),
+  ];
+  const TXTableRows13 = [
+    TXDetailRowCreate(
+      "UNICEF HQ",
+      "Utopic Studio",
+      "125 ETH",
+      "18 Jun 2020 07:41 UTC",
+      "https://etherscan.io/tx/0x30e928db6a6eb5d88bbdb8c19202308047683be8dd4b4f80fbe49db6c9e56cb9"
+    ),
+  ];
+  const TXTableRows14 = [
+    TXDetailRowCreate(
+      "Ethereum Foundation",
+      "UNICEF France",
+      "100 ETH",
+      "15 Jun 2020 05:03 UTC",
+      "https://etherscan.io/tx/0x7034df9c87f950902d0f3a2f431aebea854c0d2e2fa6dca8ab127362711bbd11"
+    ),
+    TXDetailRowCreate(
+      "UNICEF France",
+      "UNICEF HQ",
+      "100 ETH",
+      "15 Jun 2020 05:47 UTC",
+      "https://etherscan.io/tx/0xc402f498a730b99d0105cfa3b49c483bd6f143a8c0ab082d0e2b63e8de3fd854"
+    ),
+  ];
   return (
     <div className={classes.root}>
       {/** NEW */}
@@ -83,12 +171,14 @@ export const Transaction = () => {
         partyType3="Recipient"
         valueMoving="125 ETH"
         valueType="Crypto Received"
-        TXTableRows={TXTableRows3}
+        TXTableRows={TXTableRows6}
         field1={"UNICEF HQ"} // from
         field2={"Afinidata"} // reciepient
         field3={"125 ETH"} // amount
-        field4={""} // time
-        field5={""} // tx link
+        field4={"18 Jun 2020 08:06 UTC"} // time
+        field5={
+          "https://etherscan.io/tx/0x5a20f875d51ec96726ae484e9083cb3a93b0d2ced74692f473f8822b8722f20e"
+        } // tx link
       />
       <TransactionDetails
         transactionType="Invested"
@@ -98,11 +188,14 @@ export const Transaction = () => {
         partyType3="Recipient"
         valueMoving="125 ETH"
         valueType="Crypto Received"
+        TXTableRows={TXTableRows7}
         field1="UNICEF HQ"
         field2="Somleng"
         field3="125 ETH"
-        field4={""} // time
-        field5={""} // tx link
+        field4={"18 Jun 2020 08:06 UTC"} // time
+        field5={
+          "https://etherscan.io/tx/0xea13d93f88bc5cc1c86b0c57e60ef0bd6a6c4446c623acc2622da7fbcbfec3e8"
+        } // tx link
       />
       <TransactionDetails
         transactionType="Invested"
@@ -115,8 +208,11 @@ export const Transaction = () => {
         field1="UNICEF HQ"
         field2="Ideasis"
         field3="125 ETH"
-        field4={""} // time
-        field5={""} // tx link
+        TXTableRows={TXTableRows8}
+        field4={"18 Jun 2020 07:57 UTC"} // time
+        field5={
+          "https://etherscan.io/tx/0x776e0b64c76f58b7521e4e6de44026cfb6f2aa7186bc127b302544faabf83c5a"
+        } // tx link
       />
       <TransactionDetails
         transactionType="Invested"
@@ -129,23 +225,13 @@ export const Transaction = () => {
         field1="UNICEF HQ"
         field2="StaTwig"
         field3="125 ETH"
-        field4={""} // time
-        field5={""} // tx link
+        TXTableRows={TXTableRows9}
+        field4={"18 Jun 2020 07:52 UTC"} // time
+        field5={
+          "https://etherscan.io/tx/0x36a083becc6d49514c4fa8dc61ea398f01be0e681d9b79d640eccbf5bd4d80e4"
+        } // tx link
       />
-      <TransactionDetails
-        transactionType="Invested"
-        startingParty="UNICEF HQ"
-        partyType1="HQ"
-        endParty="W3 Engineers"
-        partyType3="Recipient"
-        valueMoving="125 ETH"
-        valueType="Crypto Received"
-        field1="UNICEF HQ"
-        field2="W3"
-        field3="125 ETH"
-        field4={""} // time
-        field5={""} // tx link
-      />
+
       <TransactionDetails
         transactionType="Invested"
         startingParty="UNICEF HQ"
@@ -155,10 +241,13 @@ export const Transaction = () => {
         valueMoving="125 ETH"
         valueType="Crypto Received"
         field1="UNICEF HQ"
+        TXTableRows={TXTableRows10}
         field2="Avyantra"
         field3="125 ETH"
-        field4={""} // time
-        field5={""} // tx link
+        field4={"18 Jun 2020 07:52 UTC"} // time
+        field5={
+          "https://etherscan.io/tx/0x36a083becc6d49514c4fa8dc61ea398f01be0e681d9b79d640eccbf5bd4d80e4"
+        } // tx link
       />
       <TransactionDetails
         transactionType="Invested"
@@ -167,12 +256,15 @@ export const Transaction = () => {
         endParty="Cireha"
         partyType3="Recipient"
         valueMoving="125 ETH"
+        TXTableRows={TXTableRows11}
         valueType="Crypto Received"
         field1="UNICEF HQ"
         field2="Cireha"
         field3="125 ETH"
-        field4={""} // time
-        field5={""} // tx link
+        field4={"18 Jun 2020 07:50 UTC"} // time
+        field5={
+          "https://etherscan.io/tx/0xe7951d7a78fa3581c48b8914c7f2c5737aeeab29989f65763c21bd1fa2134b06"
+        } // tx link
       />
       <TransactionDetails
         transactionType="Invested"
@@ -180,13 +272,16 @@ export const Transaction = () => {
         partyType1="HQ"
         endParty="OS City"
         partyType3="Recipient"
+        TXTableRows={TXTableRows12}
         valueMoving="125 ETH"
         valueType="Crypto Received"
         field1="UNICEF HQ"
         field2="OS City"
         field3="125 ETH"
-        field4={""} // time
-        field5={""} // tx link
+        field4={"18 Jun 2020 07:44 UTC"} // time
+        field5={
+          "https://etherscan.io/tx/0x7df0ef84451e66e26046bb896c9ea7d4ab589b97c3fa80c080d18d0b3e22be1b"
+        } // tx link
       />
       <TransactionDetails
         transactionType="Invested"
@@ -196,11 +291,14 @@ export const Transaction = () => {
         partyType3="Recipient"
         valueMoving="125 ETH"
         valueType="Crypto Received"
+        TXTableRows={TXTableRows13}
         field1="UNICEF HQ"
         field2="Utopic Studio"
         field3="125 ETH"
-        field4={""} // time
-        field5={""} // tx link
+        field4={"18 Jun 2020 07:41 UTC"} // time
+        field5={
+          "https://etherscan.io/tx/0x30e928db6a6eb5d88bbdb8c19202308047683be8dd4b4f80fbe49db6c9e56cb9"
+        } // tx link
       />
       <TransactionDetails
         transactionType="Received"
@@ -212,7 +310,7 @@ export const Transaction = () => {
         partyType3="Recipient"
         valueMoving="1200 ETH"
         valueType="Crypto Received"
-        TXTableRows={TXTableRows1}
+        TXTableRows={TXTableRows14}
         field1={"Ethereum Foundation"} // from
         field2={"UNICEF France"} // reciepient
         field3={"1200 ETH"} // amount
