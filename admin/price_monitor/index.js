@@ -1,37 +1,48 @@
 require("dotenv").config();
-const Logger = require("./lib/logger");
-const DB = require("./lib/db");
-const config = require("./lib/config");
+const Logger = require("../logger");
 const Coinbase = require("./lib/coinbase");
 const Binance = require("./lib/binance");
 const Bitstamp = require("./lib/bitstamp");
+const CryptoCompare = require("./lib/cryptocompare");
 
 class PriceMonitor {
-  constructor() {
+  constructor(config, db) {
     this.config = config;
-    this.db = new DB(this.config.mongo);
     this.logger = new Logger("PriceMonitor");
+    this.db = db;
     this.coinbase = new Coinbase(this.config.coinbase, this.db);
     this.binance = new Binance(this.config.binance, this.db);
     this.bitstamp = new Bitstamp(this.config.bitstamp, this.db);
+    this.cryptoCompare = new CryptoCompare(this.config.cryptocompare, this.db);
   }
 
   async start() {
     this.logger.info("Started");
 
-    this.getPrices();
+    this.getPrices(2000);
 
     setInterval(() => {
-      this.getPrices();
+      this.getPrices(10);
     }, this.config.interval);
   }
 
-  async getPrices() {
+  async getPrices(limit) {
     const timestamp = new Date();
 
-    this.coinbase.getPrices(timestamp);
-    this.binance.getPrices(timestamp);
-    this.bitstamp.getPrices(timestamp);
+    if (this.config.coinbase.scrape) {
+      this.coinbase.getPrices(timestamp);
+    }
+    if (this.config.binance.scrape) {
+      this.binance.getPrices(timestamp);
+    }
+    if (this.config.bitstamp.scrape) {
+      this.bitstamp.getPrices(timestamp);
+    }
+
+    if (this.config.cryptoCompare.scrape) {
+      this.cryptoCompare.getBTCPrices(limit);
+      this.cryptoCompare.getETHPrices(limit);
+    }
   }
 }
 
