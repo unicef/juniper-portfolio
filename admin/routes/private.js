@@ -47,4 +47,16 @@ router.post("/wallet", async (req, res) => {
   res.send(wallet);
 });
 
+router.get("/startups", async (req, res) => {
+  const juniperAdmin = req.app.get("juniperAdmin");
+  let startups = [];
+
+  try {
+    startups = await juniperAdmin.db.getStartups();
+  } catch (e) {
+    return logger.error(e);
+  }
+  res.json(startups);
+});
+
 module.exports = router;

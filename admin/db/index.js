@@ -39,6 +39,12 @@ class MongoDB {
   async getWallets() {
     return this.models.Wallet.find({});
   }
+
+  async getStartups()
+  {
+    this.logger.info("Getting startup info...");
+    return this.models.Startup.find({});
+  }
 }
 
 module.exports = MongoDB;
