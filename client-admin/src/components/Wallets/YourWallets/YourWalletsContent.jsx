@@ -9,6 +9,12 @@ import ChevronRightIcon from "@material-ui/icons/ChevronRight";
 import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
 import AddWallet from "./AddWallet";
 
+const usdFormatter = new Intl.NumberFormat("en-US", {
+  style: "currency",
+  currency: "USD",
+  minimumFractionDigits: 2,
+});
+
 const mainStyles = makeStyles((theme) => ({
   root: {
     minHeight: "100%",
@@ -90,15 +96,21 @@ const mainStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function ({ viewWalletDetails }) {
+export default function ({ viewWalletDetails, getExchangeRate }) {
   const [balances, setBalances] = useState([]);
-  const [fees, setFees] = useState({});
-  const [totals, setTotals] = useState({});
+  const [fees, setFees] = useState(null);
+  const [totals, setTotals] = useState(null);
   const [ethereumWallets, setEthereumWallets] = useState([]);
   const [ethereumWalletIndex, setEthereumWalletIndex] = useState(0);
+  const [ethSentUSD, setEthSentUSD] = useState(0);
+  const [ethReceivedUSD, setEthReceivedUSD] = useState(0);
   const [bitcoinWallets, setBitcoinWallets] = useState([]);
   const [bitcoinWalletIndex, setBitcoinWalletIndex] = useState(0);
   const [showAddWalletModal, setShowAddWalletModal] = useState(false);
+  const [bitcoinExchangeRate, setBitcoinExchangeRate] = useState(0);
+  const [ethereumExchangeRate, setEthereumExchangeRate] = useState(0);
+  const [btcSentUSD, setBtcSentUSD] = useState(0);
+  const [btcReceivedUSD, setBtcReceivedUSD] = useState(0);
 
   const incrementEthWalletIndex = () => {
     if (ethereumWalletIndex + 1 <= ethereumWallets.length) {
@@ -143,41 +155,82 @@ export default function ({ viewWalletDetails }) {
   };
 
   useEffect(() => {
-    /* 
-      State will passed through props here
-      Maths will take place in the parent class
-    */
+    const getExchangeRates = async () => {
+      setBitcoinExchangeRate(await getExchangeRate("BTC"));
+      setEthereumExchangeRate(await getExchangeRate("ETH"));
+    };
 
-    setBalances([
-      {
-        symbol: "ETH",
-        balanceUSD: "10,000",
-        currency: "Ether",
-        received: 100,
-        invested: 50,
-      },
-      {
-        symbol: "BTC",
-        balanceUSD: "0",
-        currency: "Bitcoin",
-        received: 1,
-        invested: 1,
-      },
-    ]);
+    const getWalletSummary = async () => {
+      let data, summary;
+      try {
+        data = await fetch("/rest/admin/wallets/summary");
+        summary = await data.json();
+      } catch (e) {
+        console.log(e);
+      }
 
-    setFees({
-      amountUSD: 3.23,
-      amountBTC: 0.012,
-      amountETH: 0.0000321,
-    });
+      console.log("summary");
+      console.log(summary);
 
-    setTotals({
-      received: "28,531.96",
-      invested: "19,287.47",
-    });
+      const {
+        ethBalance,
+        ethReceived,
+        ethSent,
+        ethFees,
+        ethFeesUSD,
+        ethSentUSD,
+        ethReceivedUSD,
+        btcBalance,
+        btcReceived,
+        btcSent,
+        btcFees,
+        btcFeesUSD,
+        btcSentUSD,
+        btcReceivedUSD,
+      } = summary;
+
+      setBalances([
+        {
+          symbol: "ETH",
+          balance: ethBalance,
+          balanceUSD: usdFormatter.format(ethBalance * ethereumExchangeRate),
+          currency: "Ether",
+          received: ethReceived,
+          invested: ethSent,
+        },
+        {
+          symbol: "BTC",
+          balance: btcBalance,
+          balanceUSD: usdFormatter.format(btcBalance * bitcoinExchangeRate),
+          currency: "Bitcoin",
+          received: btcReceived,
+          invested: btcSent,
+        },
+      ]);
+
+      setFees({
+        amountUSD: ethFeesUSD + btcFeesUSD,
+        ethFees,
+        btcFees,
+      });
+
+      setTotals({
+        received: ethReceivedUSD + btcReceivedUSD,
+        invested: ethSentUSD + btcSentUSD,
+      });
+
+      setEthSentUSD(ethSentUSD);
+      setEthReceivedUSD(ethReceivedUSD);
+      setBtcSentUSD(btcSentUSD);
+      setBtcReceivedUSD(btcReceivedUSD);
+    };
+    getExchangeRates();
+
+    // For now, updating rates will trigger a couple times here for the rate update
+    getWalletSummary();
 
     getWallets();
-  }, []);
+  }, [bitcoinExchangeRate, ethereumExchangeRate, getExchangeRate]);
 
   const classes = mainStyles();
   return (
@@ -186,6 +239,7 @@ export default function ({ viewWalletDetails }) {
         open={showAddWalletModal}
         setShowAddWalletModal={setShowAddWalletModal}
         getWallets={getWallets}
+        isUnicef={true}
       />
       <Grid container>
         <Grid item xs={12} className={classes.priceRectangle}>
@@ -203,11 +257,12 @@ export default function ({ viewWalletDetails }) {
           <h1 className={classes.title}>UNICEF HQ wallet overview</h1>
         </Grid>
         {balances &&
-          balances.map((balance) => {
+          balances.map((balance, index) => {
             return (
-              <Grid item xs={12} sm={3} key={balance.received}>
+              <Grid item xs={12} sm={3} key={index}>
                 <BalanceCard
                   symbol={balance.symbol}
+                  balance={balance.balance}
                   balanceUSD={balance.balanceUSD}
                   currency={balance.currency}
                   received={balance.received}
@@ -217,14 +272,25 @@ export default function ({ viewWalletDetails }) {
             );
           })}
         <Grid item xs={12} sm={3}>
-          <TxFeeCard
-            amountUSD={fees.amountUSD}
-            amountBTC={fees.amountBTC}
-            amountETH={fees.amountETH}
-          />
+          {fees && (
+            <TxFeeCard
+              amountUSD={fees.amountUSD}
+              amountBTC={fees.btcFees}
+              amountETH={fees.ethFees}
+            />
+          )}
         </Grid>
         <Grid item xs={12} sm={3}>
-          <TotalCard received={totals.received} invested={totals.invested} />
+          {totals && (
+            <TotalCard
+              received={totals.received}
+              invested={totals.invested}
+              ethSentUSD={ethSentUSD}
+              ethReceivedUSD={ethReceivedUSD}
+              btcSentUSD={btcSentUSD}
+              btcReceivedUSD={btcReceivedUSD}
+            />
+          )}
         </Grid>
         <Grid item xs={12} style={{ marginTop: "2em" }}>
           <Button
@@ -241,7 +307,8 @@ export default function ({ viewWalletDetails }) {
 
         <Grid item xs={12} style={{ marginTop: "4em" }}>
           <h3 className={classes.walletSubheading}>
-            {ethereumWallets.length} Ethereum Wallets
+            {ethereumWallets.length} Ethereum Wallet
+            {ethereumWallets.length !== 1 && "s"}
           </h3>
         </Grid>
         <Grid container spacing={2} style={{ position: "relative" }}>
@@ -268,10 +335,10 @@ export default function ({ viewWalletDetails }) {
                       currency={wallet.currency}
                       tags={wallet.tags}
                       symbol={wallet.symbol}
-                      amount={wallet.amount}
-                      amountUSD={wallet.amountUSD}
+                      balance={wallet.balance}
                       address={wallet.address}
                       viewTransactionOnClick={viewWalletDetails}
+                      exchangeRate={ethereumExchangeRate}
                     />
                   </Grid>
                 );
@@ -280,7 +347,8 @@ export default function ({ viewWalletDetails }) {
 
         <Grid item xs={12} style={{ marginTop: "4em" }}>
           <h3 className={classes.walletSubheading}>
-            {bitcoinWallets.length} Bitcoin Wallets
+            {bitcoinWallets.length} Bitcoin Wallet
+            {bitcoinWallets.length !== 1 && "s"}
           </h3>
         </Grid>
 
@@ -308,9 +376,10 @@ export default function ({ viewWalletDetails }) {
                       currency={wallet.currency}
                       tags={wallet.tags}
                       symbol={wallet.symbol}
-                      amount={wallet.amount}
-                      amountUSD={wallet.amountUSD}
+                      balance={wallet.balance}
                       address={wallet.address}
+                      viewTransactionOnClick={viewWalletDetails}
+                      exchangeRate={bitcoinExchangeRate}
                     />
                   </Grid>
                 );

@@ -14,6 +14,7 @@ import { sendRefreshToken } from "./sendRefreshToken";
 
 const JuniperAdmin = require("./admin");
 const juniperAdmin = new JuniperAdmin();
+juniperAdmin.startPriceMonitor();
 
 const port = process.env.SERVER_PORT;
 
@@ -67,6 +68,7 @@ const mount = async (app: Application) => {
     return res.send({ ok: true, accessToken: createAccessToken(user) });
   });
   server.applyMiddleware({ app, path: "/api" });
+
   app.listen(port);
   console.log(`[server] running on port ${port}`);
 
