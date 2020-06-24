@@ -66,20 +66,22 @@ class JuniperAdmin {
 
   async getWalletSummary() {
     let ethBalance = await this.db.getUnicefBalanceForCurrency("ETH");
-    let ethSent = await this.db.getTotalSentForCurrency("ETH");
-    let ethReceived = await this.db.getTotalReceivedForCurrency("ETH");
+    let ethSent = await this.db.getTotalUnicefSentForCurrency("ETH");
+    let ethReceived = await this.db.getUnicefTotalReceivedForCurrency("ETH");
     let ethFees = await this.db.getTotalUnicefFeesForCurrency("ETH");
     let ethFeesUSD = 0;
     let ethSentUSD = await this.db.getTotalUSDSentForCurrency("ETH");
     let ethReceivedUSD = await this.db.getTotalUSDReceivedForCurrency("ETH");
 
     let btcBalance = await this.db.getUnicefBalanceForCurrency("BTC");
-    let btcSent = await this.db.getTotalSentForCurrency("BTC");
-    let btcReceived = await this.db.getTotalReceivedForCurrency("BTC");
+    let btcSent = await this.db.getTotalUnicefSentForCurrency("BTC");
+    let btcReceived = await this.db.getTotalUnicefReceivedForCurrency("BTC");
     let btcFees = await this.db.getTotalUnicefFeesForCurrency("BTC");
     let btcFeesUSD = 0;
-    let btcSentUSD = await this.db.getTotalUSDSentForCurrency("BTC");
-    let btcReceivedUSD = await this.db.getTotalUSDReceivedForCurrency("BTC");
+    let btcSentUSD = await this.db.getTotalUSDUnicefSentForCurrency("BTC");
+    let btcReceivedUSD = await this.db.getTotalUSDUnicefReceivedForCurrency(
+      "BTC"
+    );
 
     if (ethBalance.length > 0 && ethBalance[0].balance) {
       ethBalance = ethBalance[0].balance;

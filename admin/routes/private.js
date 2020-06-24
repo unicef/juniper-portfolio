@@ -24,7 +24,7 @@ router.get("/wallets", async (req, res) => {
   let wallets = [];
 
   try {
-    wallets = await juniperAdmin.db.getWallets();
+    wallets = await juniperAdmin.db.getUnicefWallets();
   } catch (e) {
     return logger.error(e);
   }

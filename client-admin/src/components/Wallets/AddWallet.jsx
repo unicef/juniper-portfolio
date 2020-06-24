@@ -300,63 +300,67 @@ export default function AddWallet(props) {
                 <MenuItem value={"ETH"}>Ether</MenuItem>
               </Select>
             </FormControl>
-            <h2 className={classes.subtitle}>
-              Is this a multisig wallet?{" "}
-              <HelpOutlineIcon
-                color="primary"
-                className={classes.subtitleIcon}
-              />
-            </h2>
-            <Button
-              color={isMultisig ? "primary" : "default"}
-              variant={isMultisig ? "contained" : "outlined"}
-              className={classes.multisigButton}
-              style={{
-                color: isMultisig ? "#000000" : "#898989",
-              }}
-              onClick={() => {
-                addTag("multisig");
-                setIsMultisig(true);
-              }}
-            >
-              Yes
-            </Button>
-            <Button
-              color={isMultisig ? "default" : "primary"}
-              variant={isMultisig ? "outlined" : "contained"}
-              className={classes.multisigButton}
-              style={{
-                color: isMultisig ? "#898989" : "#000000",
-              }}
-              onClick={() => {
-                removeTag("multisig");
-                setIsMultisig(false);
-              }}
-            >
-              No
-            </Button>
-
-            {isMultisig && (
-              <div className={classes.multisigOwners}>
-                {multisigOwners.map((owner, index) => {
-                  return (
-                    <MultisigOwner
-                      key={index}
-                      owner={owner}
-                      index={index}
-                      addMultisigOwner={addMultisigOwner}
-                    />
-                  );
-                })}
+            {props.showMultisig && (
+              <Fragment>
+                <h2 className={classes.subtitle}>
+                  Is this a multisig wallet?{" "}
+                  <HelpOutlineIcon
+                    color="primary"
+                    className={classes.subtitleIcon}
+                  />
+                </h2>
                 <Button
-                  color="primary"
-                  className={classes.addMultisigOwnerButton}
-                  startIcon={<AddIcon />}
-                  onClick={addMultisigOwner}
+                  color={isMultisig ? "primary" : "default"}
+                  variant={isMultisig ? "contained" : "outlined"}
+                  className={classes.multisigButton}
+                  style={{
+                    color: isMultisig ? "#000000" : "#898989",
+                  }}
+                  onClick={() => {
+                    addTag("multisig");
+                    setIsMultisig(true);
+                  }}
                 >
-                  Add Another Wallet Owner
+                  Yes
                 </Button>
-              </div>
+                <Button
+                  color={isMultisig ? "default" : "primary"}
+                  variant={isMultisig ? "outlined" : "contained"}
+                  className={classes.multisigButton}
+                  style={{
+                    color: isMultisig ? "#898989" : "#000000",
+                  }}
+                  onClick={() => {
+                    removeTag("multisig");
+                    setIsMultisig(false);
+                  }}
+                >
+                  No
+                </Button>
+
+                {isMultisig && (
+                  <div className={classes.multisigOwners}>
+                    {multisigOwners.map((owner, index) => {
+                      return (
+                        <MultisigOwner
+                          key={index}
+                          owner={owner}
+                          index={index}
+                          addMultisigOwner={addMultisigOwner}
+                        />
+                      );
+                    })}
+                    <Button
+                      color="primary"
+                      className={classes.addMultisigOwnerButton}
+                      startIcon={<AddIcon />}
+                      onClick={addMultisigOwner}
+                    >
+                      Add Another Wallet Owner
+                    </Button>
+                  </div>
+                )}
+              </Fragment>
             )}
 
             {!addingWallet && (

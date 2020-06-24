@@ -5,6 +5,7 @@ import Grid from "@material-ui/core/Grid";
 import Button from "@material-ui/core/Button";
 import PriceIcon from "../icons/PriceIcon";
 import { TrackWalletCard } from "../WalletCards";
+import AddWallet from "../AddWallet";
 
 const mainStyles = makeStyles((theme) => ({
   root: {
@@ -80,6 +81,7 @@ const mainStyles = makeStyles((theme) => ({
 export default withRouter(function ({ history }) {
   const [trackedWallets, setTrackedWallets] = useState([]);
   const [otherWallets, setOtherWallets] = useState([]);
+  const [showAddWalletModal, setShowAddWalletModal] = useState(false);
 
   useEffect(() => {
     /* 
@@ -91,13 +93,19 @@ export default withRouter(function ({ history }) {
     setOtherWallets(otherWalletsData);
   }, []);
 
-  const viewWalletDetails = (address) => {
-    history.push(`/wallets/${address}`);
-  };
-
   const classes = mainStyles();
   return (
     <div className={classes.root}>
+      <AddWallet
+        open={showAddWalletModal}
+        setShowAddWalletModal={setShowAddWalletModal}
+        afterAddWallet={() => {
+          console.log("Refresh here");
+          //getWallets();
+        }}
+        showMultisig={false}
+        isUnicef={false}
+      />
       <Grid container>
         <Grid item xs={12} className={classes.priceRectangle}>
           <div>
@@ -121,6 +129,9 @@ export default withRouter(function ({ history }) {
             color="primary"
             variant="contained"
             className={classes.followWalletButton}
+            onClick={() => {
+              setShowAddWalletModal(true);
+            }}
           >
             Follow a Blockchain Wallet
           </Button>

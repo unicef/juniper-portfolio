@@ -240,6 +240,7 @@ export default function ({ viewWalletDetails, getExchangeRate }) {
           getWalletSummary();
           getWallets();
         }}
+        showMultisig={true}
         isUnicef={true}
       />
       <Grid container>

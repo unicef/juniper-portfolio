@@ -93,7 +93,7 @@ class MongoDB {
       { $group: { _id: "Sum", balance: { $sum: "$balance" } } },
     ]);
   }
-  async getTotalSentForCurrency(symbol) {
+  async getTotalUnicefSentForCurrency(symbol) {
     this.logger.debug(`getTotalSentForCurrency \t ${symbol}`);
     return this.models.Transaction.aggregate([
       {
@@ -106,7 +106,7 @@ class MongoDB {
       { $group: { _id: "Sum", totalSent: { $sum: "$amount" } } },
     ]);
   }
-  async getTotalReceivedForCurrency(symbol) {
+  async getTotalUnicefReceivedForCurrency(symbol) {
     this.logger.debug(`getTotalReceivedForCurrency \t ${symbol}`);
     return this.models.Transaction.aggregate([
       {
@@ -119,7 +119,7 @@ class MongoDB {
       { $group: { _id: "Sum", totalReceived: { $sum: "$amount" } } },
     ]);
   }
-  async getTotalUSDSentForCurrency(symbol) {
+  async getTotalUSDUnicefSentForCurrency(symbol) {
     this.logger.debug(`getTotalSentForCurrency \t ${symbol}`);
     return this.models.Transaction.aggregate([
       {
@@ -132,7 +132,7 @@ class MongoDB {
       { $group: { _id: "Sum", totalSentUSD: { $sum: "$amountUSD" } } },
     ]);
   }
-  async getTotalUSDReceivedForCurrency(symbol) {
+  async getTotalUSDUnicefReceivedForCurrency(symbol) {
     this.logger.debug(`getTotalReceivedForCurrency \t ${symbol}`);
     return this.models.Transaction.aggregate([
       {
@@ -163,9 +163,11 @@ class MongoDB {
       },
     ]);
   }
-  async getWallets() {
+  async getUnicefWallets() {
     this.logger.debug(`Get Wallets`);
-    return this.models.Wallet.find({});
+    return this.models.Wallet.find({
+      isUnicef: true,
+    });
   }
   async saveTransaction(tx) {
     this.logger.debug(`Saving Transaction ${JSON.stringify(tx)}`);
