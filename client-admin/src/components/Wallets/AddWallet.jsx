@@ -230,7 +230,7 @@ export default function AddWallet(props) {
       },
     ]);
 
-    props.getWallets();
+    props.afterAddWallet();
     setAddingWallet(false);
     handleClose();
   };

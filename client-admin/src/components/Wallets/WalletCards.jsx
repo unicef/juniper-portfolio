@@ -180,7 +180,6 @@ function TotalCard({
 }) {
   const classes = cardStyles();
   const totalSentUSD = ethSentUSD + btcSentUSD;
-  console.log(totalSentUSD);
 
   let ethPercentage;
   let btcPercentage;
@@ -192,11 +191,6 @@ function TotalCard({
     ethPercentage = Math.round((ethSentUSD / totalSentUSD) * 100) / 100;
     btcPercentage = Math.round((btcSentUSD / totalSentUSD) * 100) / 100;
   }
-  console.log("ethSentUSD");
-  console.log(ethSentUSD);
-  console.log(btcSentUSD);
-  console.log(ethPercentage);
-  console.log(btcPercentage);
   return (
     <div className={classes.totals}>
       <div className={classes.totalsSummary}>

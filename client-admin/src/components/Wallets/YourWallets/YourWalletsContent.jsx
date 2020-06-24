@@ -7,7 +7,7 @@ import { BalanceCard, TxFeeCard, TotalCard, WalletCard } from "../WalletCards";
 import Fab from "@material-ui/core/Fab";
 import ChevronRightIcon from "@material-ui/icons/ChevronRight";
 import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
-import AddWallet from "./AddWallet";
+import AddWallet from "../AddWallet";
 
 const usdFormatter = new Intl.NumberFormat("en-US", {
   style: "currency",
@@ -154,76 +154,74 @@ export default function ({ viewWalletDetails, getExchangeRate }) {
     );
   };
 
+  const getWalletSummary = async () => {
+    let data, summary;
+    try {
+      data = await fetch("/rest/admin/wallets/summary");
+      summary = await data.json();
+    } catch (e) {
+      console.log(e);
+    }
+
+    const {
+      ethBalance,
+      ethReceived,
+      ethSent,
+      ethFees,
+      ethFeesUSD,
+      ethSentUSD,
+      ethReceivedUSD,
+      btcBalance,
+      btcReceived,
+      btcSent,
+      btcFees,
+      btcFeesUSD,
+      btcSentUSD,
+      btcReceivedUSD,
+    } = summary;
+
+    setBalances([
+      {
+        symbol: "ETH",
+        balance: ethBalance,
+        balanceUSD: usdFormatter.format(ethBalance * ethereumExchangeRate),
+        currency: "Ether",
+        received: ethReceived,
+        invested: ethSent,
+      },
+      {
+        symbol: "BTC",
+        balance: btcBalance,
+        balanceUSD: usdFormatter.format(btcBalance * bitcoinExchangeRate),
+        currency: "Bitcoin",
+        received: btcReceived,
+        invested: btcSent,
+      },
+    ]);
+
+    setFees({
+      amountUSD: ethFeesUSD + btcFeesUSD,
+      ethFees,
+      btcFees,
+    });
+
+    setTotals({
+      received: ethReceivedUSD + btcReceivedUSD,
+      invested: ethSentUSD + btcSentUSD,
+    });
+
+    setEthSentUSD(ethSentUSD);
+    setEthReceivedUSD(ethReceivedUSD);
+    setBtcSentUSD(btcSentUSD);
+    setBtcReceivedUSD(btcReceivedUSD);
+  };
+
   useEffect(() => {
     const getExchangeRates = async () => {
       setBitcoinExchangeRate(await getExchangeRate("BTC"));
       setEthereumExchangeRate(await getExchangeRate("ETH"));
     };
 
-    const getWalletSummary = async () => {
-      let data, summary;
-      try {
-        data = await fetch("/rest/admin/wallets/summary");
-        summary = await data.json();
-      } catch (e) {
-        console.log(e);
-      }
-
-      console.log("summary");
-      console.log(summary);
-
-      const {
-        ethBalance,
-        ethReceived,
-        ethSent,
-        ethFees,
-        ethFeesUSD,
-        ethSentUSD,
-        ethReceivedUSD,
-        btcBalance,
-        btcReceived,
-        btcSent,
-        btcFees,
-        btcFeesUSD,
-        btcSentUSD,
-        btcReceivedUSD,
-      } = summary;
-
-      setBalances([
-        {
-          symbol: "ETH",
-          balance: ethBalance,
-          balanceUSD: usdFormatter.format(ethBalance * ethereumExchangeRate),
-          currency: "Ether",
-          received: ethReceived,
-          invested: ethSent,
-        },
-        {
-          symbol: "BTC",
-          balance: btcBalance,
-          balanceUSD: usdFormatter.format(btcBalance * bitcoinExchangeRate),
-          currency: "Bitcoin",
-          received: btcReceived,
-          invested: btcSent,
-        },
-      ]);
-
-      setFees({
-        amountUSD: ethFeesUSD + btcFeesUSD,
-        ethFees,
-        btcFees,
-      });
-
-      setTotals({
-        received: ethReceivedUSD + btcReceivedUSD,
-        invested: ethSentUSD + btcSentUSD,
-      });
-
-      setEthSentUSD(ethSentUSD);
-      setEthReceivedUSD(ethReceivedUSD);
-      setBtcSentUSD(btcSentUSD);
-      setBtcReceivedUSD(btcReceivedUSD);
-    };
     getExchangeRates();
 
     // For now, updating rates will trigger a couple times here for the rate update
@@ -238,7 +236,10 @@ export default function ({ viewWalletDetails, getExchangeRate }) {
       <AddWallet
         open={showAddWalletModal}
         setShowAddWalletModal={setShowAddWalletModal}
-        getWallets={getWallets}
+        afterAddWallet={() => {
+          getWalletSummary();
+          getWallets();
+        }}
         isUnicef={true}
       />
       <Grid container>
