@@ -46,7 +46,9 @@ export default function AuthorizationRecord({
           currentValue={authorizationDetails.currentValue}
         />
         {authorizationDetails.signers.map((signer, index) => {
-          return <AuthorizationSignerCard {...signer} index={index} />;
+          return (
+            <AuthorizationSignerCard key={index} {...signer} index={index} />
+          );
         })}
       </Dialog>
     </React.Fragment>

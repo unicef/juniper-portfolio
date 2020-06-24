@@ -5,6 +5,7 @@
     "@types/node-fetch": "^2.5.4",
     "apollo-server-express": "^2.9.13",
     "bcryptjs": "^2.4.3",
+    "blockchain.info": "^2.12.1",
     "bunyan": "^1.8.12",
     "bunyan-format": "^0.2.1",
     "cookie-parser": "^1.4.4",
