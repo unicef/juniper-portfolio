@@ -40,12 +40,15 @@ const transactionDetailsStyles = makeStyles((theme) => ({
 export default function TransactionDetails({
   address,
   setAuthorizationRecord,
+  transactionDetailsData,
+  exchangeRate,
 }) {
   const classes = transactionDetailsStyles();
   const [txDetails, setTxDetails] = useState([]);
   useEffect(() => {
     setTxDetails(transactionDetailsData);
-  }, [txDetails]);
+  }, [transactionDetailsData]);
+
   return (
     <Fragment>
       <Grid container className={classes.root}>
@@ -73,13 +76,20 @@ export default function TransactionDetails({
                 <TransactionDetailsCard
                   key={txDetails.txid}
                   txid={txDetails.txid}
+                  timestamp={txDetails.timestamp}
                   address={address}
                   currency={txDetails.currency}
                   amount={txDetails.amount}
                   symbol={txDetails.symbol}
-                  valueSent={txDetails.valueSent}
-                  currentValue={txDetails.currentValue}
+                  amountUSD={txDetails.amountUSD}
+                  sent={txDetails.sent}
+                  received={txDetails.received}
+                  to={txDetails.to || address}
+                  from={txDetails.from || address}
                   setAuthorizationRecord={setAuthorizationRecord}
+                  currentValue={
+                    Math.round(txDetails.amount * exchangeRate * 100) / 100
+                  }
                 />
               );
             })}
@@ -88,22 +98,3 @@ export default function TransactionDetails({
     </Fragment>
   );
 }
-
-const transactionDetailsData = [
-  {
-    txid: "0x12387123812312309182391723981asdf2387123",
-    currency: "Ether",
-    amount: 50,
-    symbol: "ETH",
-    valueSent: 5000,
-    currentValue: 9001,
-  },
-  {
-    txid: "0x123871238123123091823917239812387123",
-    currency: "Ether",
-    amount: 25,
-    symbol: "ETH",
-    valueSent: 2500,
-    currentValue: 4500,
-  },
-];

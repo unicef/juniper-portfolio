@@ -1,6 +1,7 @@
 import React, { Fragment } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import Divider from "@material-ui/core/Divider";
+import Tooltip from "@material-ui/core/Tooltip";
 import Chip from "@material-ui/core/Chip";
 import Button from "@material-ui/core/Button";
 import Grid from "@material-ui/core/Grid";
@@ -13,6 +14,13 @@ import CopyIcon from "./icons/CopyIcon";
 // TODO These are the obvious WET components in the Wallets section.
 // Common components can be refactored out of these + requirements from
 // other sections.
+
+const usdFormatter = new Intl.NumberFormat("en-US", {
+  style: "currency",
+  currency: "USD",
+  minimumFractionDigits: 2,
+});
+const cryptoFormatter = new Intl.NumberFormat({ maximumSignificantDigits: 5 });
 
 const cardStyles = makeStyles((theme) => ({
   balances: {
@@ -34,6 +42,9 @@ const cardStyles = makeStyles((theme) => ({
   totalsSummary: {
     display: "flex",
     direction: "columns",
+  },
+  totalTooltip: {
+    cursor: "pointer",
   },
   balance: {
     color: "#000000",
@@ -93,28 +104,32 @@ const cardStyles = makeStyles((theme) => ({
     marginTop: 0,
     textTransform: "uppercase",
   },
-  bigDot: {
+  btcDot: {
     borderRadius: "50%",
-    width: 108,
-    height: 108,
     backgroundColor: "#00aeef",
   },
-  littleDot: {
+  ethDot: {
     borderRadius: "50%",
-    width: 74,
-    height: 74,
+
     backgroundColor: "#374ea2",
     marginLeft: 15,
   },
 }));
 
-function BalanceCard({ received, invested, balanceUSD, currency, symbol }) {
+function BalanceCard({
+  received,
+  invested,
+  balance,
+  balanceUSD,
+  currency,
+  symbol,
+}) {
   const classes = cardStyles();
   return (
     <div className={classes.balances}>
       <div className={classes.balanceSummary}>
         <h2 className={classes.balance}>
-          {received - invested} {symbol}
+          {balance} {symbol}
         </h2>
         <h2 className={classes.balanceUSD}>{balanceUSD} USD</h2>
         <p className={classes.currency}>Current {currency} balance</p>
@@ -139,7 +154,9 @@ function TxFeeCard({ amountUSD, amountETH, amountBTC }) {
   return (
     <div className={classes.fees}>
       <div className={classes.feeSummary}>
-        <h2 className={classes.balance}>{amountUSD} USD</h2>
+        <h2 className={classes.balance}>
+          {usdFormatter.format(amountUSD)} USD
+        </h2>
         <p className={classes.currency}>Total transaction fee</p>
       </div>
       <Divider className={classes.divider} />
@@ -153,18 +170,73 @@ function TxFeeCard({ amountUSD, amountETH, amountBTC }) {
   );
 }
 
-function TotalCard({ received, invested }) {
+function TotalCard({
+  received,
+  invested,
+  ethReceivedUSD,
+  btcReceivedUSD,
+  ethSentUSD,
+  btcSentUSD,
+}) {
   const classes = cardStyles();
+  const totalSentUSD = ethSentUSD + btcSentUSD;
+  console.log(totalSentUSD);
+
+  let ethPercentage;
+  let btcPercentage;
+
+  if (totalSentUSD === 0) {
+    ethPercentage = 0.5;
+    btcPercentage = 0.5;
+  } else {
+    ethPercentage = Math.round((ethSentUSD / totalSentUSD) * 100) / 100;
+    btcPercentage = Math.round((btcSentUSD / totalSentUSD) * 100) / 100;
+  }
+  console.log("ethSentUSD");
+  console.log(ethSentUSD);
+  console.log(btcSentUSD);
+  console.log(ethPercentage);
+  console.log(btcPercentage);
   return (
     <div className={classes.totals}>
       <div className={classes.totalsSummary}>
-        <div className={classes.bigDot}></div>
-        <div className={classes.littleDot}></div>
+        <Tooltip
+          className={classes.totalTooltip}
+          title={`Bitcoin: ${usdFormatter.format(
+            btcSentUSD
+          )}: ${btcPercentage.toFixed(2)}%`}
+        >
+          <div
+            className={classes.btcDot}
+            style={{
+              height: Math.max(100 * btcPercentage, 5),
+              width: Math.max(100 * btcPercentage, 5),
+            }}
+          ></div>
+        </Tooltip>
+        <Tooltip
+          className={classes.totalTooltip}
+          title={`Ethereum: ${usdFormatter.format(
+            ethSentUSD
+          )}: ${ethPercentage.toFixed(2)}%`}
+        >
+          <div
+            className={classes.ethDot}
+            style={{
+              height: Math.max(100 * ethPercentage, 5),
+              width: Math.max(100 * ethPercentage, 5),
+            }}
+          ></div>
+        </Tooltip>
       </div>
       <div className={classes.balanceTotals}>
-        <p className={classes.totalReceived}>{received} USD</p>
+        <p className={classes.totalReceived}>
+          {usdFormatter.format(received)} USD
+        </p>
         <p className={classes.received}>Total Crypto Received</p>
-        <p className={classes.totalInvested}>{invested} USD</p>
+        <p className={classes.totalInvested}>
+          {usdFormatter.format(invested)} USD
+        </p>
         <p className={classes.invested}>Total Crypto Invested</p>
       </div>
     </div>
@@ -273,10 +345,10 @@ function WalletCard({
   currency,
   tags,
   symbol,
-  amount,
-  amountUSD,
+  balance,
   address,
   viewTransactionOnClick,
+  exchangeRate,
 }) {
   const classes = walletStyles();
 
@@ -306,9 +378,14 @@ function WalletCard({
         })}
       <div className={classes.walletBalance}>
         <span className={classes.currencyBalance}>
-          {amount} {symbol}
+          {cryptoFormatter.format(balance)} {symbol}
         </span>{" "}
-        / {amountUSD} USD
+        /{" "}
+        {balance &&
+          usdFormatter.format(
+            Math.round(balance * exchangeRate * 100) / 100
+          )}{" "}
+        USD
       </div>
       <div className={classes.walletSubtitle}>Wallet Balance</div>
       <div className={classes.address}>{address}</div>
@@ -611,10 +688,10 @@ function WalletDetailsCard({
   currency,
   tags,
   symbol,
-  amount,
-  amountUSD,
+  balance,
   feesUSD,
   address,
+  exchangeRate,
 }) {
   const classes = WalletDetailsCardStyles();
 
@@ -655,17 +732,25 @@ function WalletDetailsCard({
         <Grid item md={2}>
           <div className={classes.walletBalance}>
             <span className={classes.currencyBalance}>
-              {amount} {symbol}
+              {balance} {symbol}
             </span>
           </div>
           <div className={classes.walletSubtitle}>Wallet Balance</div>
         </Grid>
         <Grid item md={2}>
-          <div className={classes.walletBalance}>{amountUSD} USD</div>
+          <div className={classes.walletBalance}>
+            {balance &&
+              usdFormatter.format(
+                Math.round(balance * exchangeRate * 100) / 100
+              )}{" "}
+            USD
+          </div>
           <div className={classes.walletSubtitle}>Current Value</div>
         </Grid>
         <Grid item md={2}>
-          <div className={classes.walletBalance}>{feesUSD} USD</div>
+          <div className={classes.walletBalance}>
+            {feesUSD && usdFormatter.format(feesUSD)} USD
+          </div>
           <div className={classes.walletSubtitle}>Transaction Fees</div>
         </Grid>
       </Grid>
@@ -691,35 +776,54 @@ function WalletDetailsCard({
 
 function TransactionDetailsCard({
   txid,
+  timestamp,
   address,
   currency,
   amount,
   symbol,
-  valueSent,
+  to,
+  from,
+  amountUSD,
   currentValue,
+  sent,
+  received,
   setAuthorizationRecord,
 }) {
   const classes = WalletDetailsCardStyles();
-
+  const txSent = new Date(timestamp);
   return (
     <Fragment>
       <Grid container className={classes.transaction}>
         <Grid item xs={12} className={classes.txHeader}>
           <TxArrowIcon className={classes.arrowIcon} />{" "}
           <span className={classes.headerText}>
-            Crypto sent at <b>13:12, Mar 24 2020</b>
+            Crypto {sent ? "sent" : null} {received ? "received" : null} at{" "}
+            <b>
+              {txSent.toLocaleTimeString()}, {txSent.toDateString()}
+            </b>
           </span>
         </Grid>
         <Grid item xs={3}>
-          <div className={classes.txDetailsAddress}>{address}</div>
-          <div className={classes.walletSubtitle}>Destination Wallet</div>
-          <Button
-            color="primary"
-            variant="contained"
-            className={classes.tagDestinationButton}
-          >
-            Tag Destination Wallet
-          </Button>
+          {received && (
+            <Fragment>
+              <div className={classes.txDetailsAddress}>{from}</div>
+              <div className={classes.walletSubtitle}>Source Wallet</div>
+            </Fragment>
+          )}
+
+          {sent && (
+            <Fragment>
+              <div className={classes.txDetailsAddress}>{to}</div>
+              <div className={classes.walletSubtitle}>Destination Wallet</div>
+              <Button
+                color="primary"
+                variant="contained"
+                className={classes.tagDestinationButton}
+              >
+                Tag Destination Wallet
+              </Button>
+            </Fragment>
+          )}
         </Grid>
         <Grid item xs={2}>
           <div className={classes.walletBalance}>
@@ -730,11 +834,15 @@ function TransactionDetailsCard({
           <div className={classes.walletSubtitle}>{currency} Sent</div>
         </Grid>
         <Grid item xs={2}>
-          <div className={classes.walletBalance}>{valueSent} USD</div>
+          <div className={classes.walletBalance}>
+            {usdFormatter.format(amountUSD)} USD
+          </div>
           <div className={classes.walletSubtitle}>Value at Disbursal</div>
         </Grid>
         <Grid item xs={2}>
-          <div className={classes.walletBalance}>{currentValue} USD</div>
+          <div className={classes.walletBalance}>
+            {usdFormatter.format(currentValue)} USD
+          </div>
           <div className={classes.walletSubtitle}>Current Value</div>
         </Grid>
         <Grid item xs={3}>
@@ -742,7 +850,19 @@ function TransactionDetailsCard({
             className={classes.txDetailsButton}
             endIcon={<ChevronRightIcon />}
             onClick={() => {
-              console.log("all transaction clicked");
+              switch (symbol) {
+                case "BTC":
+                  window.open(
+                    `https://www.blockchain.com/btc/tx/${txid}`,
+                    "_blank"
+                  );
+                  break;
+                case "ETH":
+                  window.open(`https://etherscan.io/tx/${txid}`);
+                  break;
+                default:
+                  break;
+              }
             }}
           >
             Transaction Details

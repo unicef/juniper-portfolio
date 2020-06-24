@@ -13,6 +13,7 @@ import IconButton from "@material-ui/core/IconButton";
 import CloseIcon from "@material-ui/icons/Close";
 import HelpOutlineIcon from "@material-ui/icons/HelpOutline";
 import AddIcon from "@material-ui/icons/Add";
+import CircularProgress from "@material-ui/core/CircularProgress";
 
 const web3Utils = require("web3-utils");
 
@@ -111,6 +112,10 @@ const useStyles = makeStyles((theme) => ({
     fontSize: 12,
     fontWeight: 700,
   },
+  addingWallet: {
+    marginTop: "1em",
+    textAlign: "center",
+  },
 }));
 
 function MultisigOwner(props) {
@@ -150,6 +155,8 @@ export default function AddWallet(props) {
   const [currency, setCurrency] = useState("Ethereum");
   const [symbol, setSymbol] = useState("ETH");
   const [isMultisig, setIsMultisig] = useState(false);
+  const [isUnicef, setIsUnicef] = useState(false);
+  const [addingWallet, setAddingWallet] = useState(false);
   const [multisigOwners, setMultisigOwners] = useState([
     {
       walletAddress: null,
@@ -170,7 +177,7 @@ export default function AddWallet(props) {
   };
 
   const removeTag = (tagToRemove) => {
-    setTags(tags.filter((tag) => tag != tagToRemove));
+    setTags(tags.filter((tag) => tag !== tagToRemove));
   };
 
   const addMultisigOwner = () => {
@@ -191,11 +198,12 @@ export default function AddWallet(props) {
       symbol,
       isMultisig,
       multisigOwners,
+      isUnicef,
     };
+    setAddingWallet(true);
 
-    let res, json;
     try {
-      res = await fetch(`/rest/admin/wallet`, {
+      await fetch(`/rest/admin/wallet`, {
         credentials: "include",
         method: "POST",
         body: JSON.stringify({
@@ -205,8 +213,6 @@ export default function AddWallet(props) {
           "Content-Type": "application/json",
         },
       });
-
-      json = await res.json();
     } catch (e) {
       return console.log(e);
     }
@@ -225,12 +231,14 @@ export default function AddWallet(props) {
     ]);
 
     props.getWallets();
+    setAddingWallet(false);
     handleClose();
   };
 
   useEffect(() => {
+    setIsUnicef(props.isUnicef);
     setOpen(props.open);
-  }, [props.open]);
+  }, [props.open, props.isUnicef]);
 
   return (
     <div>
@@ -257,7 +265,7 @@ export default function AddWallet(props) {
                 className: classes.formControl,
               }}
               onChange={(e) => {
-                setAddress(e.target.value.toLowerCase());
+                setAddress(e.target.value);
               }}
               label="Wallet address"
             />
@@ -351,15 +359,23 @@ export default function AddWallet(props) {
               </div>
             )}
 
-            <Button
-              color="primary"
-              variant="contained"
-              disabled={false}
-              className={classes.addNewWalletButton}
-              onClick={addWallet}
-            >
-              Add New Wallet
-            </Button>
+            {!addingWallet && (
+              <Button
+                color="primary"
+                variant="contained"
+                disabled={false}
+                className={classes.addNewWalletButton}
+                onClick={addWallet}
+              >
+                Add New Wallet
+              </Button>
+            )}
+
+            {addingWallet && (
+              <div className={classes.addingWallet}>
+                <CircularProgress />
+              </div>
+            )}
           </form>
         </Container>
       </Dialog>
