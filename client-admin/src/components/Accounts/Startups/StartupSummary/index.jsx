@@ -3,6 +3,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid';
 import Button from '@material-ui/core/Button';
+import { StartupCreateModal } from '../StartupCreateModal';
 import { ChevronRight } from '@material-ui/icons';
 
 const useStyles = makeStyles({
@@ -39,8 +40,21 @@ const useStyles = makeStyles({
       fontSize: '12px',
       letterSpacing: '1px',
       color: '#00aeef',
-      marginLeft: '14px'
-    }
+      paddingLeft: '0px',
+    }, 
+
+  createbutton: 
+  {
+    backgroundColor: "#00aeef",
+    color: '#ffffff',
+    fontFamily: 'Cabin',
+    fontWeight: 'Bold',
+    fontSize: '12px',
+    letterSpacing: '1px',
+    margin: '30px 0px',
+    padding: '10px',
+
+  }
 
   
     
@@ -50,6 +64,18 @@ export default function StartupSummary()
 {
     const classes = useStyles();
     const blurb =  "The investments are made through UNICEF's Cryptofund, in open source technology solutions that benefit children and the world."
+   
+    const [modalopen, setmodalopen] = React.useState(false);
+
+    const handleOpen = () => {
+      setmodalopen(true);
+    };
+
+    const handleClose = () =>{
+      setmodalopen(false);
+     };
+
+  
     return (
       <div className={classes.root}>
         <Typography variant="h1" style={{ marginBottom: '30px', marginTop: '50px' }}>3 investments</Typography>
@@ -65,10 +91,12 @@ export default function StartupSummary()
             <div className={classes.smalltext}>TOTAL BITCOIN INVESTED</div>   
           </Grid>
           <Grid item lg={6}>
-            <div style={{ paddingLeft: '16px' }}>{blurb}</div>
+            <div>{blurb}</div>
             <Button className={classes.button} size="small" color="primary">LEARN MORE ABOUT CRYPTOFUND <ChevronRight/></Button>
           </Grid>
         </Grid>
+        <Button className={classes.createbutton} onClick={handleOpen}>CREATE STARTUP ACCOUNT</Button>
+        <StartupCreateModal open={modalopen} closefn={handleClose}/>
       </div>
   )   
 }
