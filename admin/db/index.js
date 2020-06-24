@@ -40,6 +40,10 @@ class MongoDB {
     return this.models.Wallet.find({});
   }
 
+  async createStartup(startup) {
+    return new this.models.Startup(startup).save();
+  }
+
   async getStartups()
   {
     this.logger.info("Getting startup info...");
