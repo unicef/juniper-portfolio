@@ -69,6 +69,19 @@ export default function CustomizedTabs() {
     setActiveTab(newTab);
   };
 
+  const getExchangeRate = async (symbol) => {
+    let res, price;
+    try {
+      res = await fetch(
+        `https://min-api.cryptocompare.com/data/price?fsym=${symbol}&tsyms=USD`
+      );
+      price = await res.json();
+    } catch (e) {
+      console.log(e);
+    }
+    return price.USD;
+  };
+
   return (
     <div className={classes.root}>
       <StyledTabs value={activeTab} onChange={changeView} centered>
@@ -84,10 +97,10 @@ export default function CustomizedTabs() {
       <Typography className={classes.padding} />
 
       <TabPanel activeTab={activeTab} index={0}>
-        <YourWallets />
+        <YourWallets getExchangeRate={getExchangeRate} />
       </TabPanel>
       <TabPanel activeTab={activeTab} index={1}>
-        <TrackWallets />
+        <TrackWallets getExchangeRate={getExchangeRate} />
       </TabPanel>
     </div>
   );

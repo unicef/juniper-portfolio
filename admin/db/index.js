@@ -35,7 +35,6 @@ class MongoDB {
     }
 
     this.logger.info(`Connected: ${this.connectionString}`);
-
     this.logger.info("Initialized");
   }
 
@@ -164,9 +163,15 @@ class MongoDB {
     ]);
   }
   async getUnicefWallets() {
-    this.logger.debug(`Get Wallets`);
+    this.logger.debug(`Get Unicef Wallets`);
     return this.models.Wallet.find({
       isUnicef: true,
+    });
+  }
+  async getTrackedWallets() {
+    this.logger.debug(`Get Tracked Wallets`);
+    return this.models.Wallet.find({
+      isTracked: true,
     });
   }
 
@@ -174,8 +179,7 @@ class MongoDB {
     return new this.models.Startup(startup).save();
   }
 
-  async getStartups()
-  {
+  async getStartups() {
     this.logger.info("Getting startup info...");
     return this.models.Startup.find({});
   }

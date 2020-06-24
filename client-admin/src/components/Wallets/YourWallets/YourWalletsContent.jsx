@@ -242,6 +242,7 @@ export default function ({ viewWalletDetails, getExchangeRate }) {
         }}
         showMultisig={true}
         isUnicef={true}
+        isTracked={false}
       />
       <Grid container>
         <Grid item xs={12} className={classes.priceRectangle}>

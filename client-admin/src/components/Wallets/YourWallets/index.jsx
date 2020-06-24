@@ -15,19 +15,6 @@ export default class YourWallets extends React.Component {
     this.setState({ walletDetailsAddress });
   };
 
-  getExchangeRate = async (symbol) => {
-    let res, price;
-    try {
-      res = await fetch(
-        `https://min-api.cryptocompare.com/data/price?fsym=${symbol}&tsyms=USD`
-      );
-      price = await res.json();
-    } catch (e) {
-      console.log(e);
-    }
-    return price.USD;
-  };
-
   render() {
     const { walletDetailsAddress } = this.state;
     return (
@@ -36,12 +23,12 @@ export default class YourWallets extends React.Component {
           <WalletDetails
             viewWalletDetails={this.viewWalletDetails}
             walletDetailsAddress={this.state.walletDetailsAddress}
-            getExchangeRate={this.getExchangeRate}
+            getExchangeRate={this.props.getExchangeRate}
           />
         ) : (
           <YourWalletsContent
             viewWalletDetails={this.viewWalletDetails}
-            getExchangeRate={this.getExchangeRate}
+            getExchangeRate={this.props.getExchangeRate}
           />
         )}
       </Fragment>

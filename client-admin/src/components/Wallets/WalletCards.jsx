@@ -137,11 +137,11 @@ function BalanceCard({
       <Divider className={classes.divider} />
       <div className={classes.balanceTotals}>
         <p className={classes.totalReceived}>
-          {received} {symbol}
+          {Math.round(received * 1e8) / 1e8} {symbol}
         </p>
         <p className={classes.received}>Received</p>
         <p className={classes.totalInvested}>
-          {invested} {symbol}
+          {Math.round(invested * 1e8) / 1e8} {symbol}
         </p>
         <p className={classes.invested}>Invested</p>
       </div>
@@ -414,10 +414,10 @@ function TrackWalletCard({
   currency,
   tags,
   symbol,
-  amount,
-  amountUSD,
+  balance,
   address,
   viewTransactionOnClick,
+  exchangeRate,
 }) {
   const classes = walletStyles();
 
@@ -447,9 +447,9 @@ function TrackWalletCard({
         })}
       <div className={classes.walletBalance}>
         <span className={classes.currencyBalance}>
-          {amount} {symbol}
+          {balance} {symbol}
         </span>{" "}
-        / {amountUSD} USD
+        / {balance * exchangeRate} USD
       </div>
       <div className={classes.walletSubtitle}>Wallet Balance</div>
       <div className={classes.address}>{address}</div>

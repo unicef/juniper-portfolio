@@ -156,6 +156,7 @@ export default function AddWallet(props) {
   const [symbol, setSymbol] = useState("ETH");
   const [isMultisig, setIsMultisig] = useState(false);
   const [isUnicef, setIsUnicef] = useState(false);
+  const [isTracked, setIsTracked] = useState(false);
   const [addingWallet, setAddingWallet] = useState(false);
   const [multisigOwners, setMultisigOwners] = useState([
     {
@@ -199,6 +200,7 @@ export default function AddWallet(props) {
       isMultisig,
       multisigOwners,
       isUnicef,
+      isTracked,
     };
     setAddingWallet(true);
 
@@ -237,6 +239,7 @@ export default function AddWallet(props) {
 
   useEffect(() => {
     setIsUnicef(props.isUnicef);
+    setIsTracked(props.isTracked);
     setOpen(props.open);
   }, [props.open, props.isUnicef]);
 

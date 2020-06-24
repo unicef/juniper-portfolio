@@ -30,6 +30,18 @@ router.get("/wallets", async (req, res) => {
   }
   res.json(wallets);
 });
+
+router.get("/wallets/tracked", async (req, res) => {
+  const juniperAdmin = req.app.get("juniperAdmin");
+  let wallets = [];
+
+  try {
+    wallets = await juniperAdmin.db.getTrackedWallets();
+  } catch (e) {
+    return logger.error(e);
+  }
+  res.json(wallets);
+});
 router.get("/wallets/summary", async (req, res) => {
   const juniperAdmin = req.app.get("juniperAdmin");
   let summary = {};

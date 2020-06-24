@@ -12,6 +12,7 @@ const wallet = new Schema({
   feesUSD: { type: Number, default: 0 },
   isUnicef: { type: Boolean, default: false },
   isMultisig: { type: Boolean, default: false },
+  isTracked: { type: Boolean, default: false },
   multisigOwners: { type: Array, default: [] },
   txs: { type: Number, default: 0 },
   active: { type: Boolean, default: true },

@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import { withRouter } from "react-router-dom";
 import { makeStyles } from "@material-ui/core/styles";
 import Grid from "@material-ui/core/Grid";
 import Button from "@material-ui/core/Button";
@@ -78,19 +77,33 @@ const mainStyles = makeStyles((theme) => ({
   },
 }));
 
-export default withRouter(function ({ history }) {
+export default function ({ getExchangeRate }) {
   const [trackedWallets, setTrackedWallets] = useState([]);
   const [otherWallets, setOtherWallets] = useState([]);
   const [showAddWalletModal, setShowAddWalletModal] = useState(false);
+  const [bitcoinExchangeRate, setBitcoinExchangeRate] = useState(0);
+  const [ethereumExchangeRate, setEthereumExchangeRate] = useState(0);
+
+  const getTrackedWallets = async () => {
+    let res, walletData;
+    try {
+      res = await fetch("/rest/admin/wallets/tracked");
+      walletData = await res.json();
+    } catch (e) {
+      return console.log(e);
+    }
+
+    setTrackedWallets(walletData);
+    setOtherWallets(otherWalletsData);
+  };
 
   useEffect(() => {
-    /* 
-      State will passed through props here
-      Maths will take place in the parent class
-    */
-
-    setTrackedWallets(trackedWalletsData);
-    setOtherWallets(otherWalletsData);
+    const getExchangeRates = async () => {
+      setBitcoinExchangeRate(await getExchangeRate("BTC"));
+      setEthereumExchangeRate(await getExchangeRate("ETH"));
+    };
+    getExchangeRates();
+    getTrackedWallets();
   }, []);
 
   const classes = mainStyles();
@@ -100,11 +113,11 @@ export default withRouter(function ({ history }) {
         open={showAddWalletModal}
         setShowAddWalletModal={setShowAddWalletModal}
         afterAddWallet={() => {
-          console.log("Refresh here");
-          //getWallets();
+          getTrackedWallets();
         }}
         showMultisig={false}
         isUnicef={false}
+        isTracked={true}
       />
       <Grid container>
         <Grid item xs={12} className={classes.priceRectangle}>
@@ -152,9 +165,13 @@ export default withRouter(function ({ history }) {
                     currency={wallet.currency}
                     tags={wallet.tags}
                     symbol={wallet.symbol}
-                    amount={wallet.amount}
-                    amountUSD={wallet.amountUSD}
+                    balance={wallet.balance}
                     address={wallet.address}
+                    exchangeRate={
+                      wallet.symbol === "ETH"
+                        ? ethereumExchangeRate
+                        : bitcoinExchangeRate
+                    }
                   />
                 </Grid>
               );
@@ -188,7 +205,7 @@ export default withRouter(function ({ history }) {
       </Grid>
     </div>
   );
-});
+}
 
 // Mock Wallet Data. Will come from API and be passed from parent class
 const trackedWalletsData = [

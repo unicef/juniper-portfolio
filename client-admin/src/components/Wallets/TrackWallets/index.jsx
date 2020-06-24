@@ -5,7 +5,7 @@ export default class YourWallets extends React.Component {
   render() {
     return (
       <Fragment>
-        <TrackWalletsContent />
+        <TrackWalletsContent getExchangeRate={this.props.getExchangeRate} />
       </Fragment>
     );
   }
