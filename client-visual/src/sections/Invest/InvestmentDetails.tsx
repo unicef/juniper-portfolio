@@ -10,8 +10,9 @@ const useStyles = makeStyles((theme: any) => ({
     paddingTop: "0",
     paddingRight: "14px",
     paddingLeft: "14px",
-    // padding:'14px',
     paddingBottom: "65px",
+    width: "903px",
+    // height: "496px",
   },
   container: {
     width: "100%",
@@ -115,7 +116,7 @@ export const InvestmentDetails = (props: any) => {
   const classes = useStyles();
   const matches = useMediaQuery(
     json2mq({
-      minWidth: 800,
+      minWidth: 991,
     })
   );
   return (
@@ -141,7 +142,7 @@ export const InvestmentDetails = (props: any) => {
                 <Grid container>
                   <Grid item xs={12} sm={2} md={2}></Grid>
                   <Grid
-                    style={{ marginBottom: "50px" }}
+                    style={{ marginBottom: "20px" }}
                     item
                     xs={12}
                     sm={3}
@@ -154,7 +155,7 @@ export const InvestmentDetails = (props: any) => {
                     <div style={{ height: "15px" }}></div>
                   </Grid>
                   <Grid
-                    style={{ marginBottom: "50px" }}
+                    style={{ marginBottom: "20px" }}
                     item
                     xs={12}
                     sm={3}
@@ -177,7 +178,7 @@ export const InvestmentDetails = (props: any) => {
               </Grid>
               <Grid container>
                 <Grid item xs={12} sm={2} md={2}></Grid>
-                <Grid item style={{ paddingTop: "40px" }}>
+                <Grid item style={{ paddingTop: "30px" }}>
                   <Button href={props.linkToProject} className={classes.button}>
                     {props.button}
                   </Button>
@@ -197,6 +198,7 @@ export const InvestmentDetails = (props: any) => {
                   amount={props.detail2}
                   amountDescription={"AMOUNT INVESTED"}
                   linkToProof={props.linkToProof}
+                  time={props.time}
                 />
               </Grid>
             </div>

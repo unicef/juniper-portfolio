@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<svg width="262px" height="117px" viewBox="0 0 262 117" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<svg width="241px" height="108px" viewBox="0 0 241 108" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
     <!-- Generator: Sketch 60.1 (88133) - https://sketch.com -->
     <title>Group 5</title>
     <desc>Created with Sketch.</desc>
     <g id="UI-keyscreens" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-        <g id="Landing-page/final" transform="translate(-827.000000, -321.000000)">
-            <g id="Group-5" transform="translate(830.000000, 321.000000)">
-                <path d="M259,114 C259,51.0395385 207.960461,0 145,0 C82.0395385,0 31,51.0395385 31,114 L259,114 Z" id="Oval" fill="#FFD113"></path>
-                <path d="M82.5,115.5 L-1.5,115.5 L-1.5,114 C-1.5,90.5319901 17.2998926,71.5 40.5,71.5 C63.7001074,71.5 82.5,90.5319901 82.5,114 L82.5,115.5 Z" id="Oval-Copy" stroke="#0068EA" stroke-width="3" fill="#13E7FF"></path>
+        <g id="Landing-page/udpdate/150620" transform="translate(-844.000000, -325.000000)">
+            <g id="Group-5" transform="translate(847.000000, 325.000000)">
+                <path d="M238,106 C238,47.4578165 190.766041,0 132.5,0 C74.2339589,0 27,47.4578165 27,106 L238,106 Z" id="Oval" fill="#FFD113"></path>
+                <path d="M55.5,106.5 L-1.5,106.5 L-1.5,105 C-1.5,89.2598846 11.2598846,76.5 27,76.5 C42.7401154,76.5 55.5,89.2598846 55.5,105 L55.5,106.5 Z" id="Oval-Copy" stroke="#0068EA" stroke-width="3" fill="#13E7FF"></path>
             </g>
         </g>
     </g>

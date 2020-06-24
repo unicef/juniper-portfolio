@@ -10,10 +10,7 @@ const useStyles = makeStyles((theme: any) => ({
   top: {
     backgroundColor: "#0068ea",
     paddingTop: "100px",
-  },
-
-  ctracker: {
-    paddingBottom: "10px",
+    height: "90vh",
   },
 }));
 
@@ -31,18 +28,12 @@ export const TrackDesktop = () => {
         }}
       >
         <TrackMainText />
-
-        <Grid
-          container
-          alignContent="center"
-          alignItems="center"
-          justify="center"
-        >
+        <div style={{ position: "absolute", left: 57, bottom: 48 }}>
           <TrackMainImage />
-        </Grid>
+        </div>
         <Grid
           container
-          className={classes.ctracker}
+          style={{ position: "absolute", bottom: 96 }}
           alignContent="center"
           alignItems="center"
           justify="center"

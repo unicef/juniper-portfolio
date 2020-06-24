@@ -1,9 +1,11 @@
 import React, { useState } from "react";
 import { makeStyles } from "@material-ui/styles";
 import { useMediaQuery } from "@material-ui/core";
+import json2mq from "json2mq";
 
 const useStyles = makeStyles((theme: any) => ({
   desktop: {
+    width: "723px",
     fontFamily: "Cabin",
     fontSize: "32px",
     fontWeight: "normal",
@@ -12,7 +14,6 @@ const useStyles = makeStyles((theme: any) => ({
     lineHeight: "1.44",
     letterSpacing: "normal",
     color: "#ffffff",
-    width: "60%",
     margin: "auto",
   },
 
@@ -29,17 +30,17 @@ const useStyles = makeStyles((theme: any) => ({
 }));
 export const TrackMainText = () => {
   const classes = useStyles();
-  const mobiledevice = useMediaQuery("(max-width: 800px)");
+  // const mobiledevice = useMediaQuery("(max-width: 991px)");
+  const matches = useMediaQuery(
+    json2mq({
+      minWidth: 991,
+    })
+  );
 
   const [mainText] = useState(
     "The UNICEF CryptoFund is a part of the organisation’s work to explore the transparent nature of public blockchains and the ability to quickly transfer assets globally. The CryptoFund allows anyone with an internet connection to confirm transfers have been made between donors, UNICEF and projects. The CryptoFund brings a new level of transparency and speed to the disbursement of funds."
   );
   return (
-    <div
-      style={{ paddingTop: "75px" }}
-      className={mobiledevice ? classes.mobile : classes.desktop}
-    >
-      {mainText}
-    </div>
+    <div className={matches ? classes.desktop : classes.mobile}>{mainText}</div>
   );
 };

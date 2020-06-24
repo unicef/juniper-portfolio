@@ -1,6 +1,6 @@
 import React from "react";
 import { makeStyles } from "@material-ui/styles";
-import { Grid, Button } from "@material-ui/core";
+import { Grid, Button, Link } from "@material-ui/core";
 import useMediaQuery from "@material-ui/core/useMediaQuery";
 
 const useStyles = makeStyles((theme: any) => ({
@@ -64,18 +64,22 @@ const useStyles = makeStyles((theme: any) => ({
 
 export const ApplicationImg = () => {
   const classes = useStyles();
-
+  const mobiledevice = useMediaQuery("(max-width: 991px)");
   return (
     <img
       className={classes.appimg}
-      src="/Applicationprocess.svg"
+      src={
+        mobiledevice
+          ? "/Applicationprocess.svg"
+          : "Application_process_desktop.svg"
+      }
       alt="Application Process"
     />
   );
 };
 
 export const ApplicationMiddleImg = () => {
-  const mobiledevice = useMediaQuery("(max-width: 800px)");
+  const mobiledevice = useMediaQuery("(max-width: 991px)");
 
   if (mobiledevice) {
     return <ApplicationMiddleImgmobile />;
@@ -90,13 +94,20 @@ export const ApplicationMiddleImgmobile = () => {
   return (
     <div className={classes.yellowpanelmobile}>
       <div className={classes.paneltextmobile}>
-        Do you have an early stage project that needs funding in cryptocurrency?
+        Do you have an early stage innovation that could use funding in
+        cryptocurrency?
         <Button
           className={classes.buttonToApply}
           color="primary"
           variant="contained"
         >
-          APPLY NOW
+          <Link
+            target="_blank"
+            style={{ textDecoration: "none", color: "white" }}
+            href="https://www.unicef.org/innovation/applyBlockchainCrypto"
+          >
+            APPLY NOW
+          </Link>
         </Button>
       </div>
     </div>
@@ -105,20 +116,27 @@ export const ApplicationMiddleImgmobile = () => {
 
 export const ApplicationMiddleImgdesktop = () => {
   const classes = useStyles();
+
   return (
     <div>
       <Grid container className={classes.root}>
         <Grid item sm={6}>
           <div className={classes.yellowpanel}>
             <div className={classes.paneltext}>
-              Do you have an early stage project that needs funding in
+              Do you have an early stage innovation that could use funding in
               cryptocurrency? <br />
               <Button
                 className={classes.buttonToApply}
                 color="primary"
                 variant="contained"
               >
-                APPLY NOW
+                <Link
+                  target="_blank"
+                  style={{ textDecoration: "none", color: "white" }}
+                  href="https://www.unicef.org/innovation/applyBlockchainCrypto"
+                >
+                  APPLY NOW
+                </Link>
               </Button>
             </div>
           </div>

@@ -12,10 +12,14 @@ const useStyles = makeStyles({
     flexGrow: 1,
     paddingTop: "25px",
     backgroundColor: "#0068ea",
-    padding: "14px",
+    // padding: "14px",
+    // height: "100%",
+    width: "100%",
+    position: "absolute",
+    height: "110vh",
   },
   container: {
-    width: "60%",
+    // width: "60%",
     margin: "auto",
   },
   landingText: {
@@ -48,12 +52,14 @@ export const Landingdesktop = () => {
             <span className={classes.landingText}>{landingText}</span>
           </Grid>
         </Grid>
-        <div style={{ paddingBottom: "30px", paddingTop: "30px" }}>
+        <div style={{ paddingBottom: "60px", paddingTop: "30px" }}>
           <Receive />
         </div>
         <div style={{ paddingBottom: "30px" }}>
+          {/* <div> */}
           <Invest />
         </div>
+        {/* <div style={{ paddingBottom: "30px" }}> */}
         <div style={{ paddingBottom: "30px" }}>
           <Track />
         </div>
