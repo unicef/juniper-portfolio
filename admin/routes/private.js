@@ -99,4 +99,31 @@ router.post("/wallet", async (req, res) => {
   res.send(wallet);
 });
 
+router.get("/startups", async (req, res) => {
+  const juniperAdmin = req.app.get("juniperAdmin");
+  let startups = [];
+
+  try {
+    startups = await juniperAdmin.db.getStartups();
+  } catch (e) {
+    return logger.error(e);
+  }
+  res.json(startups);
+});
+
+router.post("/startup", async (req, res) => {
+  const juniperAdmin = req.app.get("juniperAdmin");
+  const { startup } = req.body;
+
+  try {
+    await juniperAdmin.db.createStartup(startup);
+  } catch (e) {
+    logger.error(e);
+    return res.error({
+      msg: "Failed to create startup",
+    });
+  }
+  res.send(startup);
+});
+
 module.exports = router;

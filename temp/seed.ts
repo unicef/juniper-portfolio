@@ -106,7 +106,8 @@ const seed = async() => {
                 toFundraisingArm: false,
                 toProject: false
             }
-        ]
+        ];
+
         
         // for(const user of users) {
         //     await db.users.insertOne(user)
@@ -116,9 +117,11 @@ const seed = async() => {
         //     await db.dailyPrices.insertOne(dailyPrice)
         // }
 
+
         for(const blockchainTransaction of blockchainTransactions) {
             await db.blockchainTransactions.insertOne(blockchainTransaction)
         }
+
 
         console.log('[seed]: success')
 

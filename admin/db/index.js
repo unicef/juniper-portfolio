@@ -167,6 +167,16 @@ class MongoDB {
     this.logger.debug(`Get Wallets`);
     return this.models.Wallet.find({});
   }
+
+  async createStartup(startup) {
+    return new this.models.Startup(startup).save();
+  }
+
+  async getStartups()
+  {
+    this.logger.info("Getting startup info...");
+    return this.models.Startup.find({});
+  }
   async saveTransaction(tx) {
     this.logger.debug(`Saving Transaction ${JSON.stringify(tx)}`);
     return this.models.Transaction.findOneAndUpdate(
