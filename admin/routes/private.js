@@ -68,6 +68,19 @@ router.get("/wallet/:address", async (req, res) => {
   res.json(wallet);
 });
 
+router.get("/wallet/untrack/:address", async (req, res) => {
+  const juniperAdmin = req.app.get("juniperAdmin");
+  const { address } = req.params;
+
+  try {
+    await juniperAdmin.db.untrackWallet(address);
+  } catch (e) {
+    return logger.error(e);
+  }
+
+  res.send();
+});
+
 router.post("/wallet", async (req, res) => {
   const juniperAdmin = req.app.get("juniperAdmin");
   const { wallet } = req.body;

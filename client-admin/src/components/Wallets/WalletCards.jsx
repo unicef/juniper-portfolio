@@ -336,7 +336,6 @@ const walletStyles = makeStyles((theme) => ({
 
 function WalletCard({
   name,
-  currency,
   tags,
   symbol,
   balance,
@@ -411,15 +410,22 @@ function WalletCard({
 }
 function TrackWalletCard({
   name,
-  currency,
   tags,
   symbol,
   balance,
   address,
-  viewTransactionOnClick,
   exchangeRate,
+  afterUnfollowWallet,
 }) {
   const classes = walletStyles();
+
+  const unfollowWallet = async (address) => {
+    try {
+      await fetch(`/rest/admin/wallet/untrack/${address}`);
+    } catch (e) {
+      console.log(e);
+    }
+  };
 
   const copyToClipboard = (text) => {
     const el = document.createElement("textarea");
@@ -468,8 +474,9 @@ function TrackWalletCard({
           className={classes.unfollowWalletButton}
           variant="outlined"
           onClick={() => {
-            if (viewTransactionOnClick) {
-              viewTransactionOnClick(address);
+            unfollowWallet(address);
+            if (afterUnfollowWallet) {
+              afterUnfollowWallet();
             }
           }}
         >

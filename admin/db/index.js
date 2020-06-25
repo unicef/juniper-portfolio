@@ -259,6 +259,13 @@ class MongoDB {
       timestamp: { $gte: day },
     });
   }
+  async untrackWallet(address) {
+    this.logger.debug(`Untrack Wallet ${address}`);
+    return await this.models.Wallet.findOneAndUpdate(
+      { address },
+      { isTracked: false }
+    );
+  }
 }
 
 module.exports = MongoDB;

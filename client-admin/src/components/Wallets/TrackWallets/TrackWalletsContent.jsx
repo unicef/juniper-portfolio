@@ -172,6 +172,9 @@ export default function ({ getExchangeRate }) {
                         ? ethereumExchangeRate
                         : bitcoinExchangeRate
                     }
+                    afterUnfollowWallet={() => {
+                      getTrackedWallets();
+                    }}
                   />
                 </Grid>
               );
@@ -207,36 +210,6 @@ export default function ({ getExchangeRate }) {
   );
 }
 
-// Mock Wallet Data. Will come from API and be passed from parent class
-const trackedWalletsData = [
-  {
-    name: "Prescrypto",
-    currency: "Ethereum",
-    tags: ["Unicef HQ"],
-    symbol: "ETH",
-    amount: 25,
-    amountUSD: "4692.75",
-    address: "0x89205A3A3b2A69De6Dbf7f01ED13B2108B2c43e7",
-  },
-  {
-    name: "Natcom France",
-    currency: "Ethereum",
-    tags: [],
-    symbol: "ETH",
-    amount: 25,
-    amountUSD: "4692.75",
-    address: "0x89205A3A3b2A69De6Dbf7f01ED13B2108B2c43e7",
-  },
-  {
-    name: "UTO Pixar",
-    currency: "Bitcoin",
-    tags: [],
-    symbol: "BTC",
-    amount: 1,
-    amountUSD: "9692.75",
-    address: "Dbf7f01ED1389205A3A3b2A69De6B2c43e7",
-  },
-];
 const otherWalletsData = [
   {
     name: "Natcom New Zealand",
