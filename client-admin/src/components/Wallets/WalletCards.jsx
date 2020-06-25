@@ -693,6 +693,8 @@ function WalletDetailsCard({
   feesUSD,
   address,
   exchangeRate,
+  isMultisig,
+  multisigOwners,
 }) {
   const classes = WalletDetailsCardStyles();
 
@@ -755,7 +757,6 @@ function WalletDetailsCard({
           <div className={classes.walletSubtitle}>Transaction Fees</div>
         </Grid>
       </Grid>
-
       <div className={classes.address}>
         {address}{" "}
         <Button
@@ -769,8 +770,12 @@ function WalletDetailsCard({
         </Button>
       </div>
       <div className={classes.walletSubtitle}>Wallet Address</div>
-      <div className={classes.owners}>You + 2 users</div>
-      <div className={classes.walletSubtitle}>Wallet Owners</div>
+      {isMultisig && (
+        <Fragment>
+          <div className={classes.owners}>{multisigOwners.length} users</div>
+          <div className={classes.walletSubtitle}>Wallet Owners</div>
+        </Fragment>
+      )}
     </div>
   );
 }

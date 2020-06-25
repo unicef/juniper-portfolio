@@ -72,6 +72,8 @@ export default function ({
         feesUSD={wallet.feesUSD}
         address={wallet.address}
         exchangeRate={exchangeRate}
+        isMultisig={wallet.isMultisig}
+        multisigOwners={wallet.multisigOwners}
       />
       <TransactionDetails
         address={address}
