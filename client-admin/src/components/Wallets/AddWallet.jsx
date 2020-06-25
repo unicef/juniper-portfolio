@@ -282,7 +282,9 @@ export default function AddWallet(props) {
           </IconButton>
         </Toolbar>
         <Container maxWidth={"sm"}>
-          <h1 className={classes.title}>Add new wallet</h1>
+          <h1 className={classes.title}>
+            {props.editWallet ? "Edit" : "Add new"} wallet
+          </h1>
           <form className={classes.form}>
             <TextField
               disabled={props.editWallet}
@@ -402,7 +404,7 @@ export default function AddWallet(props) {
                 className={classes.addNewWalletButton}
                 onClick={addWallet}
               >
-                Add New Wallet
+                {props.editWallet ? "Edit" : "Add new"} wallet
               </Button>
             )}
 
