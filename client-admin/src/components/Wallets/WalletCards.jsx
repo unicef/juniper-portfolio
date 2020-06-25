@@ -698,6 +698,7 @@ function WalletDetailsCard({
   isTracked,
   isMultisig,
   afterEditWallet,
+  multisigOwners,
 }) {
   const classes = WalletDetailsCardStyles();
   const [showAddWalletModal, setShowAddWalletModal] = useState(false);
@@ -730,6 +731,7 @@ function WalletDetailsCard({
         isUnicef={isUnicef}
         isTracked={isTracked}
         isMultisig={isMultisig}
+        multisigOwners={multisigOwners}
         editWallet={true}
       />
 
@@ -781,7 +783,6 @@ function WalletDetailsCard({
           <div className={classes.walletSubtitle}>Transaction Fees</div>
         </Grid>
       </Grid>
-
       <div className={classes.address}>
         {address}{" "}
         <Button
@@ -795,8 +796,12 @@ function WalletDetailsCard({
         </Button>
       </div>
       <div className={classes.walletSubtitle}>Wallet Address</div>
-      <div className={classes.owners}>You + 2 users</div>
-      <div className={classes.walletSubtitle}>Wallet Owners</div>
+      {isMultisig && (
+        <Fragment>
+          <div className={classes.owners}>{multisigOwners.length} users</div>
+          <div className={classes.walletSubtitle}>Wallet Owners</div>
+        </Fragment>
+      )}
     </div>
   );
 }
