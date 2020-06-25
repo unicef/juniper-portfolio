@@ -4,6 +4,7 @@ import BreadCrumb from "./BreadCrumb";
 import { WalletDetailsCard } from "../../WalletCards";
 import TransactionDetails from "./TransactionDetails";
 import AuthorizationRecord from "./AuthorizationRecord";
+
 const mainStyles = makeStyles((theme) => ({
   root: {
     minHeight: "100%",
@@ -23,32 +24,32 @@ export default function ({
   const [transactions, setTransactions] = useState([]);
   const [exchangeRate, setExchangeRate] = useState(0);
 
+  const getTransactions = async () => {
+    let res, transactions;
+    try {
+      res = await fetch(`/rest/admin/transactions/${address}`);
+      transactions = await res.json();
+    } catch (e) {
+      return console.log(e);
+    }
+
+    setTransactions(transactions);
+  };
+
+  const getWallet = async () => {
+    let res, wallet;
+    try {
+      res = await fetch(`/rest/admin/wallet/${address}`);
+      wallet = await res.json();
+    } catch (e) {
+      return console.log(e);
+    }
+    console.log(wallet);
+    setExchangeRate(await getExchangeRate(wallet.symbol));
+    setWallet(wallet);
+  };
+
   useEffect(() => {
-    const getTransactions = async () => {
-      let res, transactions;
-      try {
-        res = await fetch(`/rest/admin/transactions/${address}`);
-        transactions = await res.json();
-      } catch (e) {
-        return console.log(e);
-      }
-
-      setTransactions(transactions);
-    };
-
-    const getWallet = async () => {
-      let res, wallet;
-      try {
-        res = await fetch(`/rest/admin/wallet/${address}`);
-        wallet = await res.json();
-      } catch (e) {
-        return console.log(e);
-      }
-      console.log(wallet);
-      setExchangeRate(await getExchangeRate(wallet.symbol));
-      setWallet(wallet);
-    };
-
     getWallet(address);
     getTransactions(address);
   }, [address, getExchangeRate]);
@@ -72,6 +73,14 @@ export default function ({
         feesUSD={wallet.feesUSD}
         address={wallet.address}
         exchangeRate={exchangeRate}
+        isMultisig={wallet.isMultisig}
+        multisigOwners={wallet.multisigOwners}
+        isUnicef={wallet.isUnicef}
+        isTracked={wallet.isTracked}
+        afterEditWallet={() => {
+          getWallet(address);
+          getTransactions(address);
+        }}
       />
       <TransactionDetails
         address={address}
