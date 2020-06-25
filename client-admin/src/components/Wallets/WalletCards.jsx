@@ -137,11 +137,11 @@ function BalanceCard({
       <Divider className={classes.divider} />
       <div className={classes.balanceTotals}>
         <p className={classes.totalReceived}>
-          {received} {symbol}
+          {Math.round(received * 1e8) / 1e8} {symbol}
         </p>
         <p className={classes.received}>Received</p>
         <p className={classes.totalInvested}>
-          {invested} {symbol}
+          {Math.round(invested * 1e8) / 1e8} {symbol}
         </p>
         <p className={classes.invested}>Invested</p>
       </div>
@@ -180,7 +180,6 @@ function TotalCard({
 }) {
   const classes = cardStyles();
   const totalSentUSD = ethSentUSD + btcSentUSD;
-  console.log(totalSentUSD);
 
   let ethPercentage;
   let btcPercentage;
@@ -192,11 +191,6 @@ function TotalCard({
     ethPercentage = Math.round((ethSentUSD / totalSentUSD) * 100) / 100;
     btcPercentage = Math.round((btcSentUSD / totalSentUSD) * 100) / 100;
   }
-  console.log("ethSentUSD");
-  console.log(ethSentUSD);
-  console.log(btcSentUSD);
-  console.log(ethPercentage);
-  console.log(btcPercentage);
   return (
     <div className={classes.totals}>
       <div className={classes.totalsSummary}>
@@ -342,7 +336,6 @@ const walletStyles = makeStyles((theme) => ({
 
 function WalletCard({
   name,
-  currency,
   tags,
   symbol,
   balance,
@@ -417,15 +410,22 @@ function WalletCard({
 }
 function TrackWalletCard({
   name,
-  currency,
   tags,
   symbol,
-  amount,
-  amountUSD,
+  balance,
   address,
-  viewTransactionOnClick,
+  exchangeRate,
+  afterUnfollowWallet,
 }) {
   const classes = walletStyles();
+
+  const unfollowWallet = async (address) => {
+    try {
+      await fetch(`/rest/admin/wallet/untrack/${address}`);
+    } catch (e) {
+      console.log(e);
+    }
+  };
 
   const copyToClipboard = (text) => {
     const el = document.createElement("textarea");
@@ -453,9 +453,9 @@ function TrackWalletCard({
         })}
       <div className={classes.walletBalance}>
         <span className={classes.currencyBalance}>
-          {amount} {symbol}
+          {balance} {symbol}
         </span>{" "}
-        / {amountUSD} USD
+        / {balance * exchangeRate} USD
       </div>
       <div className={classes.walletSubtitle}>Wallet Balance</div>
       <div className={classes.address}>{address}</div>
@@ -474,8 +474,9 @@ function TrackWalletCard({
           className={classes.unfollowWalletButton}
           variant="outlined"
           onClick={() => {
-            if (viewTransactionOnClick) {
-              viewTransactionOnClick(address);
+            unfollowWallet(address);
+            if (afterUnfollowWallet) {
+              afterUnfollowWallet();
             }
           }}
         >

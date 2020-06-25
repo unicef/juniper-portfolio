@@ -24,7 +24,19 @@ router.get("/wallets", async (req, res) => {
   let wallets = [];
 
   try {
-    wallets = await juniperAdmin.db.getWallets();
+    wallets = await juniperAdmin.db.getUnicefWallets();
+  } catch (e) {
+    return logger.error(e);
+  }
+  res.json(wallets);
+});
+
+router.get("/wallets/tracked", async (req, res) => {
+  const juniperAdmin = req.app.get("juniperAdmin");
+  let wallets = [];
+
+  try {
+    wallets = await juniperAdmin.db.getTrackedWallets();
   } catch (e) {
     return logger.error(e);
   }
@@ -54,6 +66,19 @@ router.get("/wallet/:address", async (req, res) => {
   }
 
   res.json(wallet);
+});
+
+router.get("/wallet/untrack/:address", async (req, res) => {
+  const juniperAdmin = req.app.get("juniperAdmin");
+  const { address } = req.params;
+
+  try {
+    await juniperAdmin.db.untrackWallet(address);
+  } catch (e) {
+    return logger.error(e);
+  }
+
+  res.send();
 });
 
 router.post("/wallet", async (req, res) => {
