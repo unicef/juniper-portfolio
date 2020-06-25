@@ -238,10 +238,35 @@ export default function AddWallet(props) {
   };
 
   useEffect(() => {
+    setName(props.name || "");
+    setTags(props.tags || []);
+    setAddress(props.address || "");
+    setSymbol(props.symbol || "ETH");
+    setIsMultisig(props.isMultisig || false);
+    setMultisigOwners(
+      props.multisigOwners || [
+        {
+          walletAddress: null,
+          ownerName: null,
+        },
+      ]
+    );
+    setCurrency(props.currency);
     setIsUnicef(props.isUnicef);
     setIsTracked(props.isTracked);
     setOpen(props.open);
-  }, [props.open, props.isUnicef]);
+  }, [
+    props.open,
+    props.isUnicef,
+    props.address,
+    props.currency,
+    props.isMultisig,
+    props.isTracked,
+    props.multisigOwners,
+    props.name,
+    props.symbol,
+    props.tags,
+  ]);
 
   return (
     <div>
@@ -257,9 +282,12 @@ export default function AddWallet(props) {
           </IconButton>
         </Toolbar>
         <Container maxWidth={"sm"}>
-          <h1 className={classes.title}>Add new wallet</h1>
+          <h1 className={classes.title}>
+            {props.editWallet ? "Edit" : "Add new"} wallet
+          </h1>
           <form className={classes.form}>
             <TextField
+              disabled={props.editWallet}
               value={address}
               required
               className={classes.formControl}
@@ -275,12 +303,14 @@ export default function AddWallet(props) {
 
             <TextField
               required
+              value={name}
               className={classes.formControl}
               InputLabelProps={{ className: classes.label }}
               InputProps={{
                 className: classes.formControl,
               }}
               onChange={(e) => {
+                console.log("wtf");
                 setName(e.target.value);
               }}
               label="Wallet name"
@@ -374,7 +404,7 @@ export default function AddWallet(props) {
                 className={classes.addNewWalletButton}
                 onClick={addWallet}
               >
-                Add New Wallet
+                {props.editWallet ? "Edit" : "Add new"} wallet
               </Button>
             )}
 

@@ -1,4 +1,4 @@
-import React, { Fragment } from "react";
+import React, { Fragment, useState } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import Divider from "@material-ui/core/Divider";
 import Tooltip from "@material-ui/core/Tooltip";
@@ -10,6 +10,7 @@ import FormatListBulletedIcon from "@material-ui/icons/FormatListBulleted";
 import EditIcon from "@material-ui/icons/Edit";
 import TxArrowIcon from "./icons/TxArrowIcon";
 import CopyIcon from "./icons/CopyIcon";
+import AddWallet from "./AddWallet";
 
 // TODO These are the obvious WET components in the Wallets section.
 // Common components can be refactored out of these + requirements from
@@ -686,17 +687,21 @@ const WalletDetailsCardStyles = makeStyles((theme) => ({
 
 function WalletDetailsCard({
   name,
-  currency,
   tags,
+  currency,
   symbol,
   balance,
   feesUSD,
   address,
   exchangeRate,
+  isUnicef,
+  isTracked,
   isMultisig,
+  afterEditWallet,
   multisigOwners,
 }) {
   const classes = WalletDetailsCardStyles();
+  const [showAddWalletModal, setShowAddWalletModal] = useState(false);
 
   const copyToClipboard = (text) => {
     const el = document.createElement("textarea");
@@ -709,11 +714,32 @@ function WalletDetailsCard({
 
   return (
     <div className={classes.wallet}>
+      <AddWallet
+        open={showAddWalletModal}
+        setShowAddWalletModal={setShowAddWalletModal}
+        afterAddWallet={() => {
+          afterEditWallet();
+        }}
+        showMultisig={true}
+        name={name}
+        tags={tags}
+        currency={currency}
+        symbol={symbol}
+        balance={balance}
+        feesUSD={feesUSD}
+        address={address}
+        isUnicef={isUnicef}
+        isTracked={isTracked}
+        isMultisig={isMultisig}
+        multisigOwners={multisigOwners}
+        editWallet={true}
+      />
+
       <Button
         className={classes.editWalletButton}
         startIcon={<EditIcon />}
         onClick={() => {
-          console.log("edit wallet click");
+          setShowAddWalletModal(true);
         }}
       >
         Edit Wallet
