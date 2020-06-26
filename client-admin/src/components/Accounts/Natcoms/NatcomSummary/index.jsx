@@ -1,5 +1,6 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
+import { NatcomCreateModal } from '../NatcomCreateModal';
 import Typography from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid';
 import Button from '@material-ui/core/Button';
@@ -40,7 +41,20 @@ const useStyles = makeStyles({
       letterSpacing: '1px',
       color: '#00aeef',
       marginLeft: '14px'
-    }
+  },
+    
+  createbutton: 
+  {
+    backgroundColor: "#00aeef",
+    color: '#ffffff',
+    fontFamily: 'Cabin',
+    fontWeight: 'Bold',
+    fontSize: '12px',
+    letterSpacing: '1px',
+    margin: '30px 0px',
+    padding: '10px',
+
+  }
 
   
     
@@ -50,6 +64,16 @@ export default function NatcomSummary()
 {
     const classes = useStyles();
     const blurb =  "Cryptofund donations are received by HQ through four National Committees - Australia, France, New Zealand, and the United States."
+  const [modalopen, setmodalopen] = React.useState(false);
+  
+    const handleOpen = () => {
+      setmodalopen(true);
+    };
+
+    const handleClose = () =>{
+      setmodalopen(false);
+     };
+  
     return (
       <div className={classes.root}>
         <Typography variant="h1" style={{ marginBottom: '30px', marginTop: '50px' }}>4 NatComs</Typography>
@@ -69,6 +93,8 @@ export default function NatcomSummary()
             <Button className={classes.button} size="small" color="primary">LEARN MORE ABOUT CRYPTOFUND <ChevronRight/></Button>
           </Grid>
         </Grid>
+        <Button className={classes.createbutton} onClick={handleOpen}>CREATE NATCOM ACCOUNT</Button>
+        <NatcomCreateModal open={modalopen} closefn={handleClose}/>
       </div>
   )   
 }

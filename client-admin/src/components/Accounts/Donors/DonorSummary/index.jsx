@@ -64,7 +64,7 @@ export default function DonorSummary()
 {
     const classes = useStyles();
     const blurb =  "In line with current UNICEF practice, each crypto transaction is initiated after UNICEF has completed due diligence on a donor, ensuring a credible source of the donation."
-const [modalopen, setmodalopen] = React.useState(false);
+    const [modalopen, setmodalopen] = React.useState(false);
 
     const handleOpen = () => {
       setmodalopen(true);

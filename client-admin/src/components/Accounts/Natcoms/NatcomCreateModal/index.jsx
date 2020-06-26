@@ -73,10 +73,11 @@ const useStyles = makeStyles({
       margin: '30px 0px',
       padding: '10px',
 
-    }
+  }
+    
 });
 
-export function DonorCreateModal(props) {
+export function NatcomCreateModal(props) {
     const classes = useStyles();
 
   const [name, setName] = useState("");
@@ -85,8 +86,8 @@ export function DonorCreateModal(props) {
   const [walletaddress, setWalletaddress] = useState('');
 
 
-    const addDonor = async () => {
-        const donor = {
+    const addNatcom = async () => {
+        const natcom = {
           name,
           amtETH,
           amtBTC,
@@ -95,11 +96,11 @@ export function DonorCreateModal(props) {
     
         let res, json;
         try {
-          res = await fetch(`/rest/admin/donor`, {
+          res = await fetch(`/rest/admin/natcom`, {
             credentials: "include",
             method: "POST",
             body: JSON.stringify({
-              donor,
+              natcom,
             }),
             headers: {
               "Content-Type": "application/json",
@@ -129,11 +130,11 @@ export function DonorCreateModal(props) {
          <div className={classes.root} >
             <Button className={classes.closebtn} onClick={props.closefn}>X</Button>
                 <div className={classes.container}>
-                    <div className={classes.title}>Create donor account</div>
+                    <div className={classes.title}>Create natcom account</div>
                     <form>
-                        <TextField fullWidth InputProps={{ className: classes.textfield, }} InputLabelProps={{className: classes.label,}} value={name} onChange={(e) => { setName(e.target.value); }} label="DONOR NAME" placeholder="Enter donor name"  />
+                        <TextField fullWidth InputProps={{ className: classes.textfield, }} InputLabelProps={{className: classes.label,}} value={name} onChange={(e) => { setName(e.target.value); }} label="NATCOM NAME" placeholder="Enter natcom name"  />
                         <TextField fullWidth InputProps={{ className: classes.textfield, }} InputLabelProps={{className: classes.label,}} value={walletaddress} onChange={(e) => { setWalletaddress(e.target.value); }} label="WALLET ADDRESS" placeholder="0x123456789" />
-                        <Button fullWidth color="primary" className={classes.submitbtn} onClick={addDonor}>Add Donor</Button>
+                        <Button fullWidth color="primary" className={classes.submitbtn} onClick={addNatcom}>Add Natcom</Button>
                     </form>
              
             </div>
