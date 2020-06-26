@@ -251,9 +251,9 @@ export default function AddWallet(props) {
         },
       ]
     );
-    setCurrency(props.currency);
-    setIsUnicef(props.isUnicef);
-    setIsTracked(props.isTracked);
+    setCurrency(props.currency || "Ethereum");
+    setIsUnicef(props.isUnicef || false);
+    setIsTracked(props.isTracked || false);
     setOpen(props.open);
   }, [
     props.open,
@@ -310,7 +310,6 @@ export default function AddWallet(props) {
                 className: classes.formControl,
               }}
               onChange={(e) => {
-                console.log("wtf");
                 setName(e.target.value);
               }}
               label="Wallet name"

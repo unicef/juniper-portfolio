@@ -44,7 +44,7 @@ export default function ({
     } catch (e) {
       return console.log(e);
     }
-    console.log(wallet);
+
     setExchangeRate(await getExchangeRate(wallet.symbol));
     setWallet(wallet);
   };
