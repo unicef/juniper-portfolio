@@ -151,4 +151,31 @@ router.post("/startup", async (req, res) => {
   res.send(startup);
 });
 
+router.get("/donors", async (req, res) => {
+  const juniperAdmin = req.app.get("juniperAdmin");
+  let donors = [];
+
+  try {
+    donors = await juniperAdmin.db.getDonors();
+  } catch (e) {
+    return logger.error(e);
+  }
+  res.json(donors);
+});
+
+router.post("/donor", async (req, res) => {
+  const juniperAdmin = req.app.get("juniperAdmin");
+  const { donor } = req.body;
+
+  try {
+    await juniperAdmin.db.createDonor(donor);
+  } catch (e) {
+    logger.error(e);
+    return res.error({
+      msg: "Failed to create donor",
+    });
+  }
+  res.send(donor);
+});
+
 module.exports = router;

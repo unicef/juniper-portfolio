@@ -3,6 +3,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid';
 import Button from '@material-ui/core/Button';
+import { DonorCreateModal } from '../DonorCreateModal';
 import { ChevronRight } from '@material-ui/icons';
 
 const useStyles = makeStyles({
@@ -40,7 +41,20 @@ const useStyles = makeStyles({
       letterSpacing: '1px',
       color: '#00aeef',
       marginLeft: '14px'
-    }
+    }, 
+
+  createbutton: 
+  {
+    backgroundColor: "#00aeef",
+    color: '#ffffff',
+    fontFamily: 'Cabin',
+    fontWeight: 'Bold',
+    fontSize: '12px',
+    letterSpacing: '1px',
+    margin: '30px 0px',
+    padding: '10px',
+
+  }
 
   
     
@@ -50,6 +64,15 @@ export default function DonorSummary()
 {
     const classes = useStyles();
     const blurb =  "In line with current UNICEF practice, each crypto transaction is initiated after UNICEF has completed due diligence on a donor, ensuring a credible source of the donation."
+const [modalopen, setmodalopen] = React.useState(false);
+
+    const handleOpen = () => {
+      setmodalopen(true);
+    };
+
+    const handleClose = () =>{
+      setmodalopen(false);
+     };
     return (
       <div className={classes.root}>
         <Typography variant="h1" style={{ marginBottom: '30px', marginTop: '50px' }}>2 donors</Typography>
@@ -69,6 +92,8 @@ export default function DonorSummary()
             <Button className={classes.button} size="small" color="primary">LEARN MORE ABOUT CRYPTOFUND <ChevronRight/></Button>
           </Grid>
         </Grid>
+        <Button className={classes.createbutton} onClick={handleOpen}>CREATE DONOR ACCOUNT</Button>
+        <DonorCreateModal open={modalopen} closefn={handleClose}/>
       </div>
   )   
 }

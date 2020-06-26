@@ -183,6 +183,16 @@ class MongoDB {
     this.logger.info("Getting startup info...");
     return this.models.Startup.find({});
   }
+
+  async createDonor(donor) {
+    return new this.models.Donor(donor).save();
+  }
+
+  async getDonors() {
+    this.logger.info("Getting donor info...");
+    return this.models.Donor.find({});
+  }
+
   async saveTransaction(tx) {
     this.logger.debug(`Saving Transaction ${JSON.stringify(tx)}`);
     return this.models.Transaction.findOneAndUpdate(
