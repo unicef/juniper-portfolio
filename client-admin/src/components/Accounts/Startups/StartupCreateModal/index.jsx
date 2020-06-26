@@ -1,6 +1,7 @@
 import React, {useState} from 'react';
 import { makeStyles} from '@material-ui/core/styles';
 import Modal from '@material-ui/core/Modal';
+import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 
 const useStyles = makeStyles({
@@ -24,7 +25,7 @@ const useStyles = makeStyles({
     
     title:
     {
-        fontFamily: '"Roboto", sans serif',
+        fontFamily: '"Roboto", sans-serif',
         fontSize: '28px',
         fontWeight: 'normal',
         fontStyle: 'normal',
@@ -33,7 +34,25 @@ const useStyles = makeStyles({
         color: '#000000',
         textAlign: 'center',
         padding: '20px 0px'
+  },
+    
+  textfield:
+  {
+    fontFamily: '"Roboto", sans-serif',
+    fontSize: '19px',
+    lineHeight: '27px',
+    marginBottom: "20px",
+  },
+
+  label:
+  {
+    fontFamily: '"Cabin", sans-serif',
+    fontSize: '10px',
+    letterSpacing: '0.83px',
+    fontWeight: 500,
+    color: "#000000",
     },
+  
 
 
     closebtn:
@@ -41,18 +60,37 @@ const useStyles = makeStyles({
       position: 'absolute',
       top: 0,
       right:0,
-    },
+  },
+    
+    submitbtn:
+    {
+      backgroundColor: "#00aeef",
+      color: '#ffffff',
+      fontFamily: 'Cabin',
+      fontWeight: 'Bold',
+      fontSize: '12px',
+      letterSpacing: '1px',
+      margin: '30px 0px',
+      padding: '10px',
+
+    }
 });
 
 export function StartupCreateModal(props) {
     const classes = useStyles();
 
-    const [name, setName] = useState("");
+  const [name, setName] = useState("");
+  const [tagline, setTagline] = useState("");
+  const [link, setLink] = useState('');
+  const [walletaddress, setWalletaddress] = useState('');
 
 
     const addStartup = async () => {
         const startup = {
           name,
+          tagline,
+          link,
+          walletaddress,
         };
     
         let res, json;
@@ -74,8 +112,11 @@ export function StartupCreateModal(props) {
         }
     
         setName("");
-        console.log("Form submitted!")
-        alert('Form submitted!')
+        setTagline('');
+        setLink('');
+        setWalletaddress('');
+        console.log("Form submitted!");
+        alert('Form submitted!');
       };
   
   
@@ -90,17 +131,11 @@ export function StartupCreateModal(props) {
                 <div className={classes.container}>
                     <div className={classes.title}>Create startup account</div>
                     <form>
-                        Name:
-                        <input type="text" value={name} onChange={(e) => { setName(e.target.value); }} label="Startup name"></input>
-                        <Button
-              color="primary"
-              variant="contained"
-              disabled={false}
-              className={classes.addNewWalletButton}
-              onClick={addStartup}
-            >
-              Add Startup
-            </Button>
+                        <TextField fullWidth InputProps={{ className: classes.textfield, }} InputLabelProps={{className: classes.label,}} value={name} onChange={(e) => { setName(e.target.value); }} label="STARTUP NAME" placeholder="Enter startup name"  />
+                        <TextField fullWidth InputProps={{ className: classes.textfield, }} InputLabelProps={{className: classes.label,}} value={tagline} onChange={(e) => { setTagline(e.target.value); }} label="TAGLINE" placeholder="Brief description (up to 100 characters)" />
+                        <TextField fullWidth InputProps={{ className: classes.textfield, }} InputLabelProps={{className: classes.label,}} value={link} onChange={(e) => { setLink(e.target.value); }} label="EXTERNAL WEBLINK" placeholder="Link to startup" />
+                        <TextField fullWidth InputProps={{ className: classes.textfield, }} InputLabelProps={{className: classes.label,}} value={walletaddress} onChange={(e) => { setWalletaddress(e.target.value); }} label="WALLET ADDRESS" placeholder="0x123456789" />
+                        <Button fullWidth color="primary" className={classes.submitbtn} onClick={addStartup}>Add Startup</Button>
                     </form>
              
             </div>
