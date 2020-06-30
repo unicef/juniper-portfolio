@@ -11,7 +11,7 @@ const startup = new Schema({
   shortcurrency: { type: String, default: "ETH" },
   investmentdate: {type: Date, default: Date.now},
   imageurl: { type: String },
-  walletaddres: {type: String},
+  walletaddress: {type: String},
 });
 
 const Startup = mongoose.model("Startup", startup);

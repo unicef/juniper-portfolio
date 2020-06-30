@@ -76,30 +76,30 @@ const useStyles = makeStyles({
     }
 });
 
-export function StartupCreateModal(props) {
+export function DonorCreateModal(props) {
     const classes = useStyles();
 
   const [name, setName] = useState("");
-  const [tagline, setTagline] = useState("");
-  const [link, setLink] = useState('');
+  const [amtETH, setAmtETH] = useState("");
+  const [amtBTC, setAmtBTC] = useState('');
   const [walletaddress, setWalletaddress] = useState('');
 
 
-    const addStartup = async () => {
-        const startup = {
+    const addDonor = async () => {
+        const donor = {
           name,
-          tagline,
-          link,
+          amtETH,
+          amtBTC,
           walletaddress,
         };
     
         let res, json;
         try {
-          res = await fetch(`/rest/admin/startup`, {
+          res = await fetch(`/rest/admin/donor`, {
             credentials: "include",
             method: "POST",
             body: JSON.stringify({
-              startup,
+              donor,
             }),
             headers: {
               "Content-Type": "application/json",
@@ -112,8 +112,8 @@ export function StartupCreateModal(props) {
         }
     
         setName("");
-        setTagline('');
-        setLink('');
+        setAmtETH(0);
+        setAmtBTC(0);
         setWalletaddress('');
         console.log("Form submitted!");
         alert('Form submitted!');
@@ -129,13 +129,11 @@ export function StartupCreateModal(props) {
          <div className={classes.root} >
             <Button className={classes.closebtn} onClick={props.closefn}>X</Button>
                 <div className={classes.container}>
-                    <div className={classes.title}>Create startup account</div>
+                    <div className={classes.title}>Create donor account</div>
                     <form>
-                        <TextField fullWidth InputProps={{ className: classes.textfield, }} InputLabelProps={{className: classes.label,}} value={name} onChange={(e) => { setName(e.target.value); }} label="STARTUP NAME" placeholder="Enter startup name"  />
-                        <TextField fullWidth InputProps={{ className: classes.textfield, }} InputLabelProps={{className: classes.label,}} value={tagline} onChange={(e) => { setTagline(e.target.value); }} label="TAGLINE" placeholder="Brief description (up to 100 characters)" />
-                        <TextField fullWidth InputProps={{ className: classes.textfield, }} InputLabelProps={{className: classes.label,}} value={link} onChange={(e) => { setLink(e.target.value); }} label="EXTERNAL WEBLINK" placeholder="Link to startup" />
+                        <TextField fullWidth InputProps={{ className: classes.textfield, }} InputLabelProps={{className: classes.label,}} value={name} onChange={(e) => { setName(e.target.value); }} label="DONOR NAME" placeholder="Enter donor name"  />
                         <TextField fullWidth InputProps={{ className: classes.textfield, }} InputLabelProps={{className: classes.label,}} value={walletaddress} onChange={(e) => { setWalletaddress(e.target.value); }} label="WALLET ADDRESS" placeholder="0x123456789" />
-                        <Button fullWidth color="primary" className={classes.submitbtn} onClick={addStartup}>Add Startup</Button>
+                        <Button fullWidth color="primary" className={classes.submitbtn} onClick={addDonor}>Add Donor</Button>
                     </form>
              
             </div>
