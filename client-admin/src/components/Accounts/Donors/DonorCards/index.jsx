@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
 import Button from '@material-ui/core/Button';
@@ -101,29 +101,39 @@ const useStyles = makeStyles({
 export default function DonorCards()
 {
   const classes = useStyles();
-  const numcards = 2;
+  const [donors, setDonors] = useState([]);
 
-  const ethfoundation = {
-    name: "Ethereum Foundation",
-    amtETH: 50,
-    amtBTC: 10
-  }
 
-  const coinsense = {
-    name: "Coinsense",
-    amtBTC: 10
-  }
+  const getDonors = async () => {
+    let res, donors;
+    try {
+      res = await fetch("/rest/admin/donors");
+      donors = await res.json();
+      setDonors(donors);
+      console.log('Got startup data: ', donors);
+    } catch (e) {
+      return console.log(e);
+    }
+
+  
+  };
+
+
+  useEffect(() => {
+    getDonors();
+  });
+    
+
 
   return (
      <div className={classes.root}>
-      <div className={classes.numcards}>{numcards} DONOR ACCOUNTS</div>
+      <div className={classes.numcards}>{donors.length} DONOR ACCOUNTS</div>
       <Grid container className={classes.cardsection} spacing={4}>
-        <Grid item>
-          <DonorCard {...ethfoundation} />
-        </Grid>
-        <Grid item>
-          <DonorCard {...coinsense}/>
-        </Grid>
+         {donors.map((donor) =>
+           <Grid item>
+             <DonorCard {...donor}/>
+           </Grid>
+          )}
       </Grid>
       </div>
   )
@@ -143,7 +153,7 @@ function ETHData({amtETH}: number)
 {
   const classes = useStyles();
 
-  if (amtETH)
+  if (amtETH != null)
   {
     return (
       <Grid item>
@@ -171,7 +181,7 @@ function BTCData({amtBTC}: number)
 {
   const classes = useStyles();
 
-  if (amtBTC)
+  if (amtBTC !=null)
   {
     return (
       <Grid item>
