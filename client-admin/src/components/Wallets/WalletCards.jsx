@@ -23,7 +23,7 @@ const usdFormatter = new Intl.NumberFormat("en-US", {
 });
 
 const formatCrypto = (amount) => {
-  return Math.round(amount * 1e8) / 1e8;
+  return Math.round(amount * 1e5) / 1e5;
 };
 
 const cardStyles = makeStyles((theme) => ({
@@ -141,11 +141,11 @@ function BalanceCard({
       <Divider className={classes.divider} />
       <div className={classes.balanceTotals}>
         <p className={classes.totalReceived}>
-          {Math.round(received * 1e8) / 1e8} {symbol}
+          {formatCrypto(received)} {symbol}
         </p>
         <p className={classes.received}>Received</p>
         <p className={classes.totalInvested}>
-          {Math.round(invested * 1e8) / 1e8} {symbol}
+          {formatCrypto(invested)} {symbol}
         </p>
         <p className={classes.invested}>Invested</p>
       </div>
