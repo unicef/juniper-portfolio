@@ -12,14 +12,34 @@ class EthereumWalletScraper {
   async scrapeTransactionData(address, isUnicef) {
     const walletData = await this.fetchWalletData(address);
     const txData = await this.fetchTransactionData(address);
+    const internalTxData = await this.fetchInternalTransactionData(address);
 
     for (const tx of txData) {
       await this.saveTransactionData(address, tx, isUnicef);
+    }
+    for (const itx of internalTxData) {
+      await this.saveTransactionData(address, itx, isUnicef);
     }
 
     await this.updateWallet(walletData);
     return true;
   }
+  async fetchInternalTransactionData(address) {
+    this.logger.info(`Fetching Internal Transactions for \t ${address}`);
+    let data, txs;
+    try {
+      data = await fetch(
+        `http://api.etherscan.io/api?module=account&action=txlistinternal&address=${address}#internaltx&startblock=0&endblock=9999999999999&sort=asc#internaltx`
+      );
+      txs = await data.json();
+      txs = txs.result;
+    } catch (e) {
+      console.log(e);
+    }
+
+    return txs;
+  }
+
   async fetchTransactionData(address) {
     this.logger.info(`Fetching Transaction Data for \t${address}`);
     let data, txs;
@@ -74,7 +94,11 @@ class EthereumWalletScraper {
     }
 
     let amountUSD = Math.round(amount * rate.price * 100) / 100;
-    let fee = (tx.gas * tx.gasPrice) / 1e18;
+
+    let fee = 0;
+    if (tx.gasPrice) {
+      fee = (tx.gasUsed * tx.gasPrice) / 1e18;
+    }
     let feeUSD = Math.round(fee * rate.price * 100) / 100;
 
     this.db.saveTransaction({
@@ -88,7 +112,7 @@ class EthereumWalletScraper {
       from: tx.from,
       block: tx.blockNumber,
       timestamp,
-      index: tx.nonce,
+      index: tx.nonce || null,
       sent,
       received,
       rate: rate.price,
@@ -99,7 +123,6 @@ class EthereumWalletScraper {
       isUnicef,
     });
   }
-
   async updateWallet(walletData) {
     const { address, balance } = walletData;
     this.logger.info(`Updating Wallet data for \t${address}`);

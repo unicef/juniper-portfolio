@@ -193,7 +193,6 @@ class MongoDB {
     return this.models.Donor.find({});
   }
 
-
   async createNatcom(natcom) {
     return new this.models.Natcom(natcom).save();
   }
@@ -202,7 +201,7 @@ class MongoDB {
     this.logger.info("Getting natcom info...");
     return this.models.Natcom.find({});
   }
-  
+
   async saveTransaction(tx) {
     this.logger.debug(`Saving Transaction ${JSON.stringify(tx)}`);
     return this.models.Transaction.findOneAndUpdate(
