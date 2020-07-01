@@ -21,7 +21,10 @@ const usdFormatter = new Intl.NumberFormat("en-US", {
   currency: "USD",
   minimumFractionDigits: 2,
 });
-const cryptoFormatter = new Intl.NumberFormat({ maximumSignificantDigits: 5 });
+
+const formatCrypto = (amount) => {
+  return Math.round(amount * 1e8) / 1e8;
+};
 
 const cardStyles = makeStyles((theme) => ({
   balances: {
@@ -130,7 +133,7 @@ function BalanceCard({
     <div className={classes.balances}>
       <div className={classes.balanceSummary}>
         <h2 className={classes.balance}>
-          {balance} {symbol}
+          {formatCrypto(balance)} {symbol}
         </h2>
         <h2 className={classes.balanceUSD}>{balanceUSD} USD</h2>
         <p className={classes.currency}>Current {currency} balance</p>
@@ -372,7 +375,7 @@ function WalletCard({
         })}
       <div className={classes.walletBalance}>
         <span className={classes.currencyBalance}>
-          {cryptoFormatter.format(balance)} {symbol}
+          {formatCrypto(balance)} {symbol}
         </span>{" "}
         /{" "}
         {balance &&
@@ -454,9 +457,9 @@ function TrackWalletCard({
         })}
       <div className={classes.walletBalance}>
         <span className={classes.currencyBalance}>
-          {balance} {symbol}
+          {formatCrypto(balance)} {symbol}
         </span>{" "}
-        / {balance * exchangeRate} USD
+        / {usdFormatter.format(balance * exchangeRate)} USD
       </div>
       <div className={classes.walletSubtitle}>Wallet Balance</div>
       <div className={classes.address}>{address}</div>
@@ -761,7 +764,7 @@ function WalletDetailsCard({
         <Grid item md={2}>
           <div className={classes.walletBalance}>
             <span className={classes.currencyBalance}>
-              {balance} {symbol}
+              {formatCrypto(balance)} {symbol}
             </span>
           </div>
           <div className={classes.walletSubtitle}>Wallet Balance</div>
@@ -860,7 +863,7 @@ function TransactionDetailsCard({
         <Grid item xs={2}>
           <div className={classes.walletBalance}>
             <span className={classes.currencyBalance}>
-              {amount} {symbol}
+              {formatCrypto(amount)} {symbol}
             </span>
           </div>
           <div className={classes.walletSubtitle}>{currency} Sent</div>
@@ -937,7 +940,7 @@ function AuthorizationCard({
       <Grid item xs={3}>
         <div className={classes.walletBalance}>
           <span className={classes.currencyBalance}>
-            {amount} {symbol}
+            {formatCrypto(amount)} {symbol}
           </span>
         </div>
         <div className={classes.walletSubtitle}>{currency} Sent</div>
