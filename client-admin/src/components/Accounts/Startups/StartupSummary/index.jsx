@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState, useEffect} from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid';
@@ -66,6 +66,7 @@ export default function StartupSummary()
     const blurb =  "The investments are made through UNICEF's Cryptofund, in open source technology solutions that benefit children and the world."
    
     const [modalopen, setmodalopen] = React.useState(false);
+    const [nstartups, setNStartups] = useState([]);
 
     const handleOpen = () => {
       setmodalopen(true);
@@ -75,10 +76,27 @@ export default function StartupSummary()
       setmodalopen(false);
      };
 
+
+     const getStartups = async () => {
+      let res, startups;
+      try {
+        res = await fetch("/rest/admin/startups");
+        startups = await res.json();
+        setNStartups(startups.length);
+      } catch (e) {
+        return console.log(e);
+      }
+  
+    };
+  
+  
+    useEffect(() => {
+      getStartups();
+    });
   
     return (
       <div className={classes.root}>
-        <Typography variant="h1" style={{ marginBottom: '30px', marginTop: '50px' }}>3 investments</Typography>
+        <Typography variant="h1" style={{ marginBottom: '30px', marginTop: '50px' }}>{nstartups} investments</Typography>
         <Grid container className={classes.gridcontainer} spacing={4}>
           <Grid item lg={3}>
             <Typography variant="h2">50 ETH</Typography> 

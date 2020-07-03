@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState, useEffect} from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid';
@@ -65,6 +65,7 @@ export default function DonorSummary()
     const classes = useStyles();
     const blurb =  "In line with current UNICEF practice, each crypto transaction is initiated after UNICEF has completed due diligence on a donor, ensuring a credible source of the donation."
     const [modalopen, setmodalopen] = React.useState(false);
+    const [ndonors, setNDonors] = useState([]);
 
     const handleOpen = () => {
       setmodalopen(true);
@@ -73,9 +74,28 @@ export default function DonorSummary()
     const handleClose = () =>{
       setmodalopen(false);
      };
+
+
+     const getDonors = async () => {
+      let res, donors;
+      try {
+        res = await fetch("/rest/admin/donors");
+        donors = await res.json();
+        setNDonors(donors.length);
+      } catch (e) {
+        return console.log(e);
+      }
+  
+    };
+  
+  
+    useEffect(() => {
+      getDonors();
+    });
+
     return (
       <div className={classes.root}>
-        <Typography variant="h1" style={{ marginBottom: '30px', marginTop: '50px' }}>2 donors</Typography>
+        <Typography variant="h1" style={{ marginBottom: '30px', marginTop: '50px' }}>{ndonors} donors</Typography>
         <Grid container className={classes.gridcontainer} spacing={4}>
           <Grid item lg={3}>
             <Typography variant="h2">50 ETH</Typography> 
