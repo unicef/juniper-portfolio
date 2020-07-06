@@ -8,9 +8,9 @@ import Grid from "@material-ui/core/Grid";
 import ChevronRightIcon from "@material-ui/icons/ChevronRight";
 import FormatListBulletedIcon from "@material-ui/icons/FormatListBulleted";
 import EditIcon from "@material-ui/icons/Edit";
-import TxArrowIcon from "../../ui/icons/TxArrowIcon";
-import CopyIcon from "../../ui/icons/CopyIcon";
-import AddWallet from "./AddWallet";
+import TxArrowIcon from "../icons/TxArrowIcon";
+import CopyIcon from "../icons/CopyIcon";
+import AddWallet from "../../components/Wallets/AddWallet";
 
 // TODO These are the obvious WET components in the Wallets section.
 // Common components can be refactored out of these + requirements from

@@ -3,7 +3,12 @@ import { makeStyles } from "@material-ui/core/styles";
 import Grid from "@material-ui/core/Grid";
 import Button from "@material-ui/core/Button";
 import PriceInfoBanner from "../../../ui/PriceInfoBanner";
-import { BalanceCard, TxFeeCard, TotalCard, WalletCard } from "../WalletCards";
+import {
+  BalanceCard,
+  TxFeeCard,
+  TotalCard,
+  WalletCard,
+} from "../../../ui/WalletCards";
 import Fab from "@material-ui/core/Fab";
 import ChevronRightIcon from "@material-ui/icons/ChevronRight";
 import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";

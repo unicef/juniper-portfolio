@@ -1,7 +1,10 @@
 import React, { useState, useEffect } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import Dialog from "@material-ui/core/Dialog";
-import { AuthorizationCard, AuthorizationSignerCard } from "../../WalletCards";
+import {
+  AuthorizationCard,
+  AuthorizationSignerCard,
+} from "../../../../ui/WalletCards";
 
 const useStyles = makeStyles((theme) => ({
   modal: {

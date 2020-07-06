@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import BreadCrumb from "./BreadCrumb";
-import { WalletDetailsCard } from "../../WalletCards";
+import { WalletDetailsCard } from "../../../../ui/WalletCards";
 import TransactionDetails from "./TransactionDetails";
 import AuthorizationRecord from "./AuthorizationRecord";
 
