@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import Grid from "@material-ui/core/Grid";
 import Button from "@material-ui/core/Button";
-import PriceIcon from "../icons/PriceIcon";
+import PriceInfoBanner from "../../../ui/PriceInfoBanner";
 import { BalanceCard, TxFeeCard, TotalCard, WalletCard } from "../WalletCards";
 import Fab from "@material-ui/core/Fab";
 import ChevronRightIcon from "@material-ui/icons/ChevronRight";
@@ -18,33 +18,6 @@ const usdFormatter = new Intl.NumberFormat("en-US", {
 const mainStyles = makeStyles((theme) => ({
   root: {
     minHeight: "100%",
-  },
-  priceRectangle: {
-    fontFamily: '"Roboto", sans-serif',
-    minHeight: 77,
-    borderRadius: 5,
-    fontSize: 19,
-    backgroundColor: "#daf5ff",
-    display: "flex",
-    flexDirection: "rows",
-    alignItems: "center",
-    justifyContent: "center",
-  },
-  priceIcon: {
-    marginRight: 5,
-  },
-  priceTitle: {
-    marginRight: 5,
-  },
-  moreInfo: {
-    textTransform: "uppercase",
-    textDecoration: "none",
-    width: 73,
-    height: 15,
-    fontSize: 12,
-    fontWeight: 700,
-    color: "#00aeef",
-    marginLeft: "1em",
   },
   title: {
     fontFamily: '"Roboto", sans-serif',
@@ -245,15 +218,8 @@ export default function ({ viewWalletDetails, getExchangeRate }) {
         isTracked={false}
       />
       <Grid container>
-        <Grid item xs={12} className={classes.priceRectangle}>
-          <div>
-            <PriceIcon className={classes.priceIcon} />
-            <b className={classes.priceTitle}>USD Price</b> = Average across
-            three cryptocurrency exchanges, calculated at 12:01 pm (EST)
-            <a href="/#" className={classes.moreInfo}>
-              More Info
-            </a>
-          </div>
+        <Grid item xs={12}>
+          <PriceInfoBanner />
         </Grid>
 
         <Grid item xs={12} style={{ marginTop: "2em" }}>

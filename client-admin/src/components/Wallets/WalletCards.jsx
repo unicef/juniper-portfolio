@@ -8,8 +8,8 @@ import Grid from "@material-ui/core/Grid";
 import ChevronRightIcon from "@material-ui/icons/ChevronRight";
 import FormatListBulletedIcon from "@material-ui/icons/FormatListBulleted";
 import EditIcon from "@material-ui/icons/Edit";
-import TxArrowIcon from "./icons/TxArrowIcon";
-import CopyIcon from "./icons/CopyIcon";
+import TxArrowIcon from "../../ui/icons/TxArrowIcon";
+import CopyIcon from "../../ui/icons/CopyIcon";
 import AddWallet from "./AddWallet";
 
 // TODO These are the obvious WET components in the Wallets section.
