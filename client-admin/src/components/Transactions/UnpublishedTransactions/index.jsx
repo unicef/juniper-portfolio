@@ -1,6 +1,6 @@
 import React, { Fragment, useEffect, useState } from "react";
 import { makeStyles } from "@material-ui/core/styles";
-
+import PriceInfoBanner from "../../../ui/PriceInfoBanner";
 import Grid from "@material-ui/core/Grid";
 import Button from "@material-ui/core/Button";
 import Divider from "@material-ui/core/Divider";
@@ -69,6 +69,9 @@ export default function TransactionDetails({
       </Grid>
       <Divider />
       <Grid container className={classes.transactionDetails}>
+        <Grid item xs={12}>
+          <PriceInfoBanner />
+        </Grid>
         <Grid item xs={12}>
           {txDetails &&
             txDetails.map((txDetails, index) => {
