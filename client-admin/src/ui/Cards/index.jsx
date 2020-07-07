@@ -10,6 +10,7 @@ import FormatListBulletedIcon from "@material-ui/icons/FormatListBulleted";
 import EditIcon from "@material-ui/icons/Edit";
 import TxArrowIcon from "../icons/TxArrowIcon";
 import CopyIcon from "../icons/CopyIcon";
+import ArchiveTxIcon from "../icons/ArchiveTxIcon";
 import AddWallet from "../../components/Wallets/AddWallet";
 
 // TODO These are the obvious WET components in the Wallets section.
@@ -634,6 +635,42 @@ const WalletDetailsCardStyles = makeStyles((theme) => ({
       margin: 0,
     },
   },
+  unpublishedTxDetailsButton: {
+    marginTop: "1em",
+    float: "left",
+    fontSize: 12,
+    fontWeight: 700,
+    letterSpacing: 1,
+    fontFamily: '"Cabin", sans-serif',
+    color: "#00aeef",
+    "&:hover": {
+      backgroundColor: "#ecfaff",
+    },
+    "& .MuiButton-endIcon": {
+      margin: 0,
+    },
+    paddingLeft: 0,
+  },
+  archiveTransactionButton: {
+    marginTop: "1em",
+    float: "left",
+    fontSize: 12,
+    fontWeight: 700,
+    letterSpacing: 1,
+    fontFamily: '"Cabin", sans-serif',
+    color: "#00aeef",
+    "&:hover": {
+      backgroundColor: "#ecfaff",
+    },
+    "& .MuiButton-endIcon": {
+      margin: 0,
+    },
+    paddingLeft: 0,
+    "& .MuiButton-startIcon": {
+      margin: 0,
+      marginTop: 8,
+    },
+  },
   authorization: {
     height: 370,
     backgroundColor: "#daf5ff",
@@ -682,6 +719,24 @@ const WalletDetailsCardStyles = makeStyles((theme) => ({
     letterSpacing: 0.78,
     color: "#898989",
     textTransform: "uppercase",
+  },
+  unpublishedTxBalance: {
+    fontFamily: '"Roboto", sans-serif',
+    color: "#000000",
+    fontSize: 24,
+    fontWeight: 400,
+    margin: 0,
+  },
+  tagTransactionButton: {
+    width: 176,
+    height: 35,
+    fontFamily: '"Cabin", sans-serif',
+    fontSize: 12,
+    fontWeight: 700,
+    textAlign: "center",
+    color: "#ffffff",
+    boxShadow: "none",
+    marginTop: 13,
   },
 }));
 
@@ -989,6 +1044,109 @@ function AuthorizationSignerCard({ address, owner, timestamp, index }) {
   );
 }
 
+function UnpublishedTransactionCard({
+  txid,
+  timestamp,
+  address,
+  currency,
+  amount,
+  symbol,
+  to,
+  from,
+  amountUSD,
+  currentValue,
+  sent,
+  received,
+  setAuthorizationRecord,
+}) {
+  const classes = WalletDetailsCardStyles();
+  const txSent = new Date(timestamp);
+  return (
+    <Fragment>
+      <Grid container className={classes.transaction}>
+        <Grid item xs={12} className={classes.txHeader}>
+          <TxArrowIcon className={classes.arrowIcon} />{" "}
+          <span className={classes.headerText}>
+            Crypto {sent ? "sent" : null} {received ? "received" : null} at{" "}
+            <b>
+              {txSent.toLocaleTimeString()}, {txSent.toDateString()}
+            </b>
+          </span>
+        </Grid>
+        <Grid item xs={8}>
+          {received && (
+            <Fragment>
+              <div className={classes.txDetailsAddress}>{from}</div>
+              <div className={classes.walletSubtitle}>Source Wallet</div>
+            </Fragment>
+          )}
+
+          {sent && (
+            <Fragment>
+              <div className={classes.txDetailsAddress}>{to}</div>
+              <div className={classes.walletSubtitle}>Destination Wallet</div>
+              <Button
+                color="primary"
+                variant="contained"
+                className={classes.tagDestinationButton}
+              >
+                Tag Destination Wallet
+              </Button>
+            </Fragment>
+          )}
+          <Button
+            className={classes.unpublishedTxDetailsButton}
+            endIcon={<ChevronRightIcon />}
+            onClick={() => {
+              switch (symbol) {
+                case "BTC":
+                  window.open(
+                    `https://www.blockchain.com/btc/tx/${txid}`,
+                    "_blank"
+                  );
+                  break;
+                case "ETH":
+                  window.open(`https://etherscan.io/tx/${txid}`);
+                  break;
+                default:
+                  break;
+              }
+            }}
+          >
+            Show Transaction Details
+          </Button>
+        </Grid>
+        <Grid item xs={4}>
+          <div className={classes.unpublishedTxBalance}>
+            <b>{amount}</b> {symbol} / {usdFormatter.format(amountUSD)}
+          </div>
+          <div className={classes.walletSubtitle}>Donated Amount</div>
+          <Button
+            variant="contained"
+            color="primary"
+            className={classes.tagTransactionButton}
+            onClick={() => {
+              console.log("tag tx btn clicked");
+            }}
+          >
+            Tag Transaction
+          </Button>
+          <Button
+            className={classes.archiveTransactionButton}
+            startIcon={<ArchiveTxIcon />}
+            onClick={() => {
+              console.log("archive tx clicks");
+            }}
+          >
+            Archive Transaction
+          </Button>
+        </Grid>
+      </Grid>
+      <Divider />
+    </Fragment>
+  );
+}
+
 export {
   BalanceCard,
   TxFeeCard,
@@ -997,6 +1155,7 @@ export {
   TrackWalletCard,
   WalletDetailsCard,
   TransactionDetailsCard,
+  UnpublishedTransactionCard,
   AuthorizationCard,
   AuthorizationSignerCard,
 };

@@ -5,6 +5,7 @@ import Grid from "@material-ui/core/Grid";
 import Button from "@material-ui/core/Button";
 import Divider from "@material-ui/core/Divider";
 import KeyboardArrowDownIcon from "@material-ui/icons/KeyboardArrowDown";
+import { UnpublishedTransactionCard } from "../../../ui/Cards";
 
 const transactionDetailsStyles = makeStyles((theme) => ({
   root: {
@@ -37,17 +38,27 @@ const transactionDetailsStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function TransactionDetails({
-  address,
-  setAuthorizationRecord,
-  transactionDetailsData,
-  exchangeRate,
-}) {
+export default function TransactionDetails() {
   const classes = transactionDetailsStyles();
-  const [txDetails, setTxDetails] = useState([]);
+  const [txs, setTxs] = useState([]);
+
+  const getUnpublishedTransations = async () => {
+    let data, txs;
+    console.log("test");
+    try {
+      data = await fetch("/rest/admin/transactions/unpublished");
+
+      txs = await data.json();
+    } catch (e) {
+      console.log(e);
+    }
+
+    setTxs(txs);
+  };
+
   useEffect(() => {
-    setTxDetails(transactionDetailsData);
-  }, [transactionDetailsData]);
+    getUnpublishedTransations();
+  }, []);
 
   return (
     <Fragment>
@@ -73,9 +84,24 @@ export default function TransactionDetails({
           <PriceInfoBanner />
         </Grid>
         <Grid item xs={12}>
-          {txDetails &&
-            txDetails.map((txDetails, index) => {
-              return <div>{index}</div>;
+          {txs &&
+            txs.map((tx, index) => {
+              return (
+                <UnpublishedTransactionCard
+                  key={tx.txid}
+                  txid={tx.txid}
+                  timestamp={tx.timestamp}
+                  address={null}
+                  currency={tx.currency}
+                  amount={tx.amount}
+                  symbol={tx.symbol}
+                  amountUSD={tx.amountUSD}
+                  sent={tx.sent}
+                  received={tx.received}
+                  to={tx.to}
+                  from={tx.from}
+                />
+              );
             })}
         </Grid>
       </Grid>

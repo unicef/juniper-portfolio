@@ -4,7 +4,7 @@ import Dialog from "@material-ui/core/Dialog";
 import {
   AuthorizationCard,
   AuthorizationSignerCard,
-} from "../../../../ui/WalletCards";
+} from "../../../../ui/Cards";
 
 const useStyles = makeStyles((theme) => ({
   modal: {

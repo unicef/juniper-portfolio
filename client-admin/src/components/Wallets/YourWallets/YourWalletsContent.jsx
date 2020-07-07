@@ -8,7 +8,7 @@ import {
   TxFeeCard,
   TotalCard,
   WalletCard,
-} from "../../../ui/WalletCards";
+} from "../../../ui/Cards";
 import Fab from "@material-ui/core/Fab";
 import ChevronRightIcon from "@material-ui/icons/ChevronRight";
 import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";

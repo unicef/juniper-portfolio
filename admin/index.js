@@ -175,6 +175,10 @@ class JuniperAdmin {
       btcReceivedUSD,
     };
   }
+
+  async getUnpublishedTransactions() {
+    return this.db.getUnpublishedTransactions();
+  }
 }
 
 if (require.main === module) {
