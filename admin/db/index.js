@@ -175,11 +175,17 @@ class MongoDB {
     });
   }
 
-  async getUnpublishedTransactions() {
-    this.logger.debug(`getUnpublishedTransactions`);
-    return this.models.Transaction.find({
-      published: false,
-    });
+  async getTransactions() {
+    this.logger.debug(`getTransactions`);
+    return this.models.Transaction.find();
+  }
+
+  async archiveTx(txid) {
+    this.logger.debug(`archiveTx`);
+    return this.models.Transaction.findOneAndUpdate(
+      { txid },
+      { $set: { archived: true } }
+    );
   }
 
   async createStartup(startup) {

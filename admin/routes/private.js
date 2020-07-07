@@ -54,17 +54,30 @@ router.get("/wallets/summary", async (req, res) => {
   res.json(summary);
 });
 
-router.get("/transactions/unpublished", async (req, res) => {
+router.get("/transactions", async (req, res) => {
   const juniperAdmin = req.app.get("juniperAdmin");
   let txs = [];
 
   try {
-    txs = await juniperAdmin.getUnpublishedTransactions();
+    txs = await juniperAdmin.db.getTransactions();
   } catch (e) {
     return logger.error(e);
   }
 
   res.json(txs);
+});
+
+router.post("/transaction/archive", async (req, res) => {
+  const juniperAdmin = req.app.get("juniperAdmin");
+  let { txid } = req.body;
+
+  try {
+    await juniperAdmin.db.archiveTx(txid);
+  } catch (e) {
+    return logger.error(e);
+  }
+
+  res.send(true);
 });
 
 router.get("/wallet/:address", async (req, res) => {

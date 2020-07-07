@@ -1,11 +1,10 @@
 import React, { Fragment, useEffect, useState } from "react";
 import { makeStyles } from "@material-ui/core/styles";
-import PriceInfoBanner from "../../../ui/PriceInfoBanner";
+import PriceInfoBanner from "../PriceInfoBanner";
 import Grid from "@material-ui/core/Grid";
 import Button from "@material-ui/core/Button";
 import Divider from "@material-ui/core/Divider";
 import KeyboardArrowDownIcon from "@material-ui/icons/KeyboardArrowDown";
-import { UnpublishedTransactionCard } from "../../../ui/Cards";
 
 const transactionDetailsStyles = makeStyles((theme) => ({
   root: {
@@ -38,33 +37,19 @@ const transactionDetailsStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function TransactionDetails() {
+export default function TxList({
+  title,
+  txs,
+  TxCard,
+  afterArchiveTransaction,
+}) {
   const classes = transactionDetailsStyles();
-  const [txs, setTxs] = useState([]);
-
-  const getUnpublishedTransations = async () => {
-    let data, txs;
-    console.log("test");
-    try {
-      data = await fetch("/rest/admin/transactions/unpublished");
-
-      txs = await data.json();
-    } catch (e) {
-      console.log(e);
-    }
-
-    setTxs(txs);
-  };
-
-  useEffect(() => {
-    getUnpublishedTransations();
-  }, []);
 
   return (
     <Fragment>
       <Grid container className={classes.root}>
         <Grid item xs={6}>
-          <h3 className={classes.subtitle}> Unpublished Transactions</h3>
+          <h3 className={classes.subtitle}> {title}</h3>
         </Grid>
         <Grid item xs={6}>
           <Button
@@ -87,7 +72,7 @@ export default function TransactionDetails() {
           {txs &&
             txs.map((tx, index) => {
               return (
-                <UnpublishedTransactionCard
+                <TxCard
                   key={tx.txid}
                   txid={tx.txid}
                   timestamp={tx.timestamp}
@@ -100,6 +85,7 @@ export default function TransactionDetails() {
                   received={tx.received}
                   to={tx.to}
                   from={tx.from}
+                  afterArchiveTransaction={afterArchiveTransaction}
                 />
               );
             })}

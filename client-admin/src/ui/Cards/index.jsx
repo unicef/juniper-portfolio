@@ -11,7 +11,10 @@ import EditIcon from "@material-ui/icons/Edit";
 import TxArrowIcon from "../icons/TxArrowIcon";
 import CopyIcon from "../icons/CopyIcon";
 import ArchiveTxIcon from "../icons/ArchiveTxIcon";
+import PencilIcon from "../icons/PencilIcon";
 import AddWallet from "../../components/Wallets/AddWallet";
+import TxStepper from "../TxStepper";
+import CircularProgress from "@material-ui/core/CircularProgress";
 
 // TODO These are the obvious WET components in the Wallets section.
 // Common components can be refactored out of these + requirements from
@@ -1044,7 +1047,7 @@ function AuthorizationSignerCard({ address, owner, timestamp, index }) {
   );
 }
 
-function UnpublishedTransactionCard({
+function PublishedTransactionCard({
   txid,
   timestamp,
   address,
@@ -1074,26 +1077,185 @@ function UnpublishedTransactionCard({
           </span>
         </Grid>
         <Grid item xs={8}>
-          {received && (
-            <Fragment>
-              <div className={classes.txDetailsAddress}>{from}</div>
-              <div className={classes.walletSubtitle}>Source Wallet</div>
-            </Fragment>
-          )}
+          <TxStepper />
+          <Button
+            className={classes.unpublishedTxDetailsButton}
+            endIcon={<ChevronRightIcon />}
+            onClick={() => {
+              switch (symbol) {
+                case "BTC":
+                  window.open(
+                    `https://www.blockchain.com/btc/tx/${txid}`,
+                    "_blank"
+                  );
+                  break;
+                case "ETH":
+                  window.open(`https://etherscan.io/tx/${txid}`);
+                  break;
+                default:
+                  break;
+              }
+            }}
+          >
+            Show Transaction Details
+          </Button>
+        </Grid>
+        <Grid item xs={4}>
+          <div className={classes.unpublishedTxBalance}>
+            <b>{amount}</b> {symbol} / {usdFormatter.format(amountUSD)}
+          </div>
+          <div className={classes.walletSubtitle}>Donated Amount</div>
 
-          {sent && (
-            <Fragment>
-              <div className={classes.txDetailsAddress}>{to}</div>
-              <div className={classes.walletSubtitle}>Destination Wallet</div>
-              <Button
-                color="primary"
-                variant="contained"
-                className={classes.tagDestinationButton}
-              >
-                Tag Destination Wallet
-              </Button>
-            </Fragment>
-          )}
+          <Button
+            className={classes.archiveTransactionButton}
+            startIcon={<PencilIcon />}
+            onClick={() => {
+              console.log("archive tx clicks");
+            }}
+          >
+            Edit Transaction
+          </Button>
+        </Grid>
+      </Grid>
+      <Divider />
+    </Fragment>
+  );
+}
+function UnpublishedTransactionCard({
+  txid,
+  timestamp,
+  address,
+  currency,
+  amount,
+  symbol,
+  to,
+  from,
+  amountUSD,
+  currentValue,
+  sent,
+  received,
+  setAuthorizationRecord,
+  afterArchiveTransaction,
+}) {
+  const classes = WalletDetailsCardStyles();
+  const txSent = new Date(timestamp);
+
+  const archiveTransaction = async (txid) => {
+    try {
+      await fetch(`/rest/admin/transaction/archive`, {
+        credentials: "include",
+        method: "POST",
+        body: JSON.stringify({
+          txid,
+        }),
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+    } catch (e) {
+      console.log(e);
+    }
+  };
+
+  return (
+    <Fragment>
+      <Grid container className={classes.transaction}>
+        <Grid item xs={12} className={classes.txHeader}>
+          <TxArrowIcon className={classes.arrowIcon} />{" "}
+          <span className={classes.headerText}>
+            Crypto {sent ? "sent" : null} {received ? "received" : null} at{" "}
+            <b>
+              {txSent.toLocaleTimeString()}, {txSent.toDateString()}
+            </b>
+          </span>
+        </Grid>
+        <Grid item xs={8}>
+          <TxStepper />
+          <Button
+            className={classes.unpublishedTxDetailsButton}
+            endIcon={<ChevronRightIcon />}
+            onClick={() => {
+              switch (symbol) {
+                case "BTC":
+                  window.open(
+                    `https://www.blockchain.com/btc/tx/${txid}`,
+                    "_blank"
+                  );
+                  break;
+                case "ETH":
+                  window.open(`https://etherscan.io/tx/${txid}`);
+                  break;
+                default:
+                  break;
+              }
+            }}
+          >
+            Show Transaction Details
+          </Button>
+        </Grid>
+        <Grid item xs={4}>
+          <div className={classes.unpublishedTxBalance}>
+            <b>{amount}</b> {symbol} / {usdFormatter.format(amountUSD)}
+          </div>
+          <div className={classes.walletSubtitle}>Donated Amount</div>
+          <Button
+            variant="contained"
+            color="primary"
+            className={classes.tagTransactionButton}
+            onClick={() => {
+              console.log("tag tx btn clicked");
+            }}
+          >
+            Tag Transaction
+          </Button>
+
+          <Button
+            className={classes.archiveTransactionButton}
+            startIcon={<ArchiveTxIcon />}
+            onClick={async () => {
+              await archiveTransaction(txid);
+              await afterArchiveTransaction();
+            }}
+          >
+            Archive Transaction
+          </Button>
+        </Grid>
+      </Grid>
+      <Divider />
+    </Fragment>
+  );
+}
+function ArchivedTransactionCard({
+  txid,
+  timestamp,
+  address,
+  currency,
+  amount,
+  symbol,
+  to,
+  from,
+  amountUSD,
+  currentValue,
+  sent,
+  received,
+  setAuthorizationRecord,
+}) {
+  const classes = WalletDetailsCardStyles();
+  const txSent = new Date(timestamp);
+  return (
+    <Fragment>
+      <Grid container className={classes.transaction}>
+        <Grid item xs={12} className={classes.txHeader}>
+          <TxArrowIcon className={classes.arrowIcon} />{" "}
+          <span className={classes.headerText}>
+            Crypto {sent ? "sent" : null} {received ? "received" : null} at{" "}
+            <b>
+              {txSent.toLocaleTimeString()}, {txSent.toDateString()}
+            </b>
+          </span>
+        </Grid>
+        <Grid item xs={8}>
+          <TxStepper />
           <Button
             className={classes.unpublishedTxDetailsButton}
             endIcon={<ChevronRightIcon />}
@@ -1133,12 +1295,12 @@ function UnpublishedTransactionCard({
           </Button>
           <Button
             className={classes.archiveTransactionButton}
-            startIcon={<ArchiveTxIcon />}
+            startIcon={<PencilIcon />}
             onClick={() => {
               console.log("archive tx clicks");
             }}
           >
-            Archive Transaction
+            Edit Transaction
           </Button>
         </Grid>
       </Grid>
@@ -1156,6 +1318,8 @@ export {
   WalletDetailsCard,
   TransactionDetailsCard,
   UnpublishedTransactionCard,
+  PublishedTransactionCard,
+  ArchivedTransactionCard,
   AuthorizationCard,
   AuthorizationSignerCard,
 };
