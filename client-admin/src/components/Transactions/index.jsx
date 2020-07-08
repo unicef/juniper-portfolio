@@ -68,12 +68,24 @@ const StyledTab = withStyles((theme) => ({
 export default function CustomizedTabs() {
   const classes = useStyles();
   const [activeTab, setActiveTab] = useState(0);
+  const [txs, setTxs] = useState([]);
   const [unpublishedTxs, setUnpublishedTxs] = useState([]);
   const [publishedTxs, setPublishedTxs] = useState([]);
   const [archivedTxs, setArchivedTxs] = useState([]);
 
   const changeView = (event, newTab) => {
     setActiveTab(newTab);
+  };
+
+  const filterTransactions = (txs = txs) => {
+    setUnpublishedTxs(
+      txs.filter((tx) => tx.published === false && tx.archived === false)
+    );
+    // setting unpublished to false for now until modals are wired up
+    setPublishedTxs(
+      txs.filter((tx) => tx.published === false && tx.archived === false)
+    );
+    setArchivedTxs(txs.filter((tx) => tx.archived === true));
   };
 
   const getTransactions = async () => {
@@ -86,14 +98,8 @@ export default function CustomizedTabs() {
       console.log(e);
     }
 
-    setUnpublishedTxs(
-      txs.filter((tx) => tx.published === false && tx.archived === false)
-    );
-    // setting unpublished to false for now until modals are wired up
-    setPublishedTxs(
-      txs.filter((tx) => tx.published === false && tx.archived === false)
-    );
-    setArchivedTxs(txs.filter((tx) => tx.archived === true));
+    setTxs(txs);
+    filterTransactions(txs);
   };
 
   useEffect(() => {

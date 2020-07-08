@@ -14,7 +14,7 @@ import ArchiveTxIcon from "../icons/ArchiveTxIcon";
 import PencilIcon from "../icons/PencilIcon";
 import AddWallet from "../../components/Wallets/AddWallet";
 import TxStepper from "../TxStepper";
-import CircularProgress from "@material-ui/core/CircularProgress";
+import Snackbar from "../Snackbar";
 
 // TODO These are the obvious WET components in the Wallets section.
 // Common components can be refactored out of these + requirements from
