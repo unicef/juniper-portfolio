@@ -14,7 +14,6 @@ import ArchiveTxIcon from "../icons/ArchiveTxIcon";
 import PencilIcon from "../icons/PencilIcon";
 import AddWallet from "../../components/Wallets/AddWallet";
 import TxStepper from "../TxStepper";
-import Snackbar from "../Snackbar";
 
 // TODO These are the obvious WET components in the Wallets section.
 // Common components can be refactored out of these + requirements from
@@ -1110,7 +1109,7 @@ function PublishedTransactionCard({
             className={classes.archiveTransactionButton}
             startIcon={<PencilIcon />}
             onClick={() => {
-              console.log("archive tx clicks");
+              console.log("edit tx clicks");
             }}
           >
             Edit Transaction
@@ -1135,14 +1134,17 @@ function UnpublishedTransactionCard({
   sent,
   received,
   setAuthorizationRecord,
-  afterArchiveTransaction,
+  archiveTransaction,
+  archiveTransactionSuccess,
+  archiveTransactionFailed,
 }) {
   const classes = WalletDetailsCardStyles();
   const txSent = new Date(timestamp);
 
-  const archiveTransaction = async (txid) => {
+  const archiveTransactionPost = async (txid) => {
+    let res;
     try {
-      await fetch(`/rest/admin/transaction/archive`, {
+      res = await fetch(`/rest/admin/transaction/archive`, {
         credentials: "include",
         method: "POST",
         body: JSON.stringify({
@@ -1154,6 +1156,13 @@ function UnpublishedTransactionCard({
       });
     } catch (e) {
       console.log(e);
+      return;
+    }
+
+    if (res.status === 200) {
+      archiveTransactionSuccess();
+    } else {
+      archiveTransactionFailed(txid);
     }
   };
 
@@ -1213,8 +1222,8 @@ function UnpublishedTransactionCard({
             className={classes.archiveTransactionButton}
             startIcon={<ArchiveTxIcon />}
             onClick={async () => {
-              await archiveTransaction(txid);
-              await afterArchiveTransaction();
+              archiveTransaction(txid);
+              await archiveTransactionPost(txid);
             }}
           >
             Archive Transaction

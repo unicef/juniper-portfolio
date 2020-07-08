@@ -41,7 +41,9 @@ export default function TxList({
   title,
   txs,
   TxCard,
-  afterArchiveTransaction,
+  archiveTransaction,
+  archiveTransactionSuccess,
+  archiveTransactionFailed,
 }) {
   const classes = transactionDetailsStyles();
 
@@ -85,7 +87,9 @@ export default function TxList({
                   received={tx.received}
                   to={tx.to}
                   from={tx.from}
-                  afterArchiveTransaction={afterArchiveTransaction}
+                  archiveTransaction={archiveTransaction}
+                  archiveTransactionSuccess={archiveTransactionSuccess}
+                  archiveTransactionFailed={archiveTransactionFailed}
                 />
               );
             })}

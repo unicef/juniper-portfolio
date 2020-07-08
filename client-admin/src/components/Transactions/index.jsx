@@ -10,6 +10,8 @@ import {
   ArchivedTransactionCard,
 } from "../../ui/Cards";
 import TxList from "../../ui/TxList";
+import Snackbar from "../../ui/Snackbar";
+import CircularProgress from "@material-ui/core/CircularProgress";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -23,6 +25,9 @@ const useStyles = makeStyles((theme) => ({
   },
   tabs: {
     backgroundColor: "#2e1534",
+  },
+  fetchingTxs: {
+    textAlign: "center",
   },
 }));
 
@@ -68,13 +73,47 @@ const StyledTab = withStyles((theme) => ({
 export default function CustomizedTabs() {
   const classes = useStyles();
   const [activeTab, setActiveTab] = useState(0);
+  const [fetchingTxs, setFetchingTxs] = useState(false);
   const [txs, setTxs] = useState([]);
   const [unpublishedTxs, setUnpublishedTxs] = useState([]);
   const [publishedTxs, setPublishedTxs] = useState([]);
   const [archivedTxs, setArchivedTxs] = useState([]);
+  const [showSnackbar, setShowSnackbar] = useState(false);
+  const [snackbarDuration] = useState(3000);
+  const [snackbarMessage, setSnackbarMessage] = useState("");
+  const [snackbarSeverity, setSnackbarSeverity] = useState("success");
 
   const changeView = (event, newTab) => {
     setActiveTab(newTab);
+  };
+
+  const archiveTransaction = (txid) => {
+    txs.forEach((tx) => {
+      if (tx.txid === txid) {
+        tx.archived = true;
+      }
+    });
+    setTxs(txs);
+    filterTransactions(txs);
+  };
+
+  const archiveTransactionSuccess = () => {
+    setSnackbarMessage("Tx Archived");
+    setSnackbarSeverity("success");
+    setShowSnackbar(true);
+  };
+
+  const archiveTransactionFailed = (txid) => {
+    txs.forEach((tx) => {
+      if (tx.txid === txid) {
+        tx.archived = false;
+      }
+    });
+    setTxs(txs);
+    filterTransactions(txs);
+    setSnackbarMessage("Tx Archive Failed");
+    setSnackbarSeverity("error");
+    setShowSnackbar(true);
   };
 
   const filterTransactions = (txs = txs) => {
@@ -89,6 +128,7 @@ export default function CustomizedTabs() {
   };
 
   const getTransactions = async () => {
+    setFetchingTxs(true);
     let data;
     let txs = [];
     try {
@@ -100,6 +140,7 @@ export default function CustomizedTabs() {
 
     setTxs(txs);
     filterTransactions(txs);
+    setFetchingTxs(false);
   };
 
   useEffect(() => {
@@ -125,12 +166,21 @@ export default function CustomizedTabs() {
       <Typography className={classes.padding} />
 
       <TabPanel activeTab={activeTab} index={0}>
-        <TxList
-          title={`${unpublishedTxs.length} Unpublished Transactions`}
-          txs={unpublishedTxs}
-          TxCard={UnpublishedTransactionCard}
-          afterArchiveTransaction={getTransactions}
-        />
+        {fetchingTxs ? (
+          <div className={classes.fetchingTxs}>
+            <CircularProgress />
+            <h2>Loading Transactions</h2>
+          </div>
+        ) : (
+          <TxList
+            title={`${unpublishedTxs.length} Unpublished Transactions`}
+            txs={unpublishedTxs}
+            TxCard={UnpublishedTransactionCard}
+            archiveTransaction={archiveTransaction}
+            archiveTransactionSuccess={archiveTransactionSuccess}
+            archiveTransactionFailed={archiveTransactionFailed}
+          />
+        )}
       </TabPanel>
       <TabPanel activeTab={activeTab} index={1}>
         <TxList
@@ -146,6 +196,15 @@ export default function CustomizedTabs() {
           TxCard={ArchivedTransactionCard}
         />
       </TabPanel>
+      <Snackbar
+        open={showSnackbar}
+        severity={snackbarSeverity}
+        duration={snackbarDuration}
+        message={snackbarMessage}
+        onClose={() => {
+          setShowSnackbar(false);
+        }}
+      />
     </div>
   );
 }
