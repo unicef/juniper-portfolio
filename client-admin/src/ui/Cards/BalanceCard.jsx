@@ -72,6 +72,7 @@ export default function BalanceCard({
   symbol,
 }) {
   const classes = useStyles();
+
   return (
     <div className={classes.balances}>
       <div className={classes.balanceSummary}>
