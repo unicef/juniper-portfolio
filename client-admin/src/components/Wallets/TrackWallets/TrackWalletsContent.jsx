@@ -4,7 +4,7 @@ import PriceInfoBanner from "../../../ui/PriceInfoBanner";
 import Grid from "@material-ui/core/Grid";
 import Button from "@material-ui/core/Button";
 import { TrackWalletCard } from "../../../ui/Cards";
-import AddWallet from "../AddWallet";
+import AddWallet from "../../../ui/Dialog/AddWallet";
 
 const mainStyles = makeStyles((theme) => ({
   root: {

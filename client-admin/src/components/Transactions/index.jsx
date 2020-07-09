@@ -116,7 +116,7 @@ export default function CustomizedTabs() {
     setShowSnackbar(true);
   };
 
-  const filterTransactions = (txs = txs) => {
+  const filterTransactions = (txs) => {
     setUnpublishedTxs(
       txs.filter((tx) => tx.published === false && tx.archived === false)
     );
@@ -127,23 +127,23 @@ export default function CustomizedTabs() {
     setArchivedTxs(txs.filter((tx) => tx.archived === true));
   };
 
-  const getTransactions = async () => {
-    setFetchingTxs(true);
-    let data;
-    let txs = [];
-    try {
-      data = await fetch("/rest/admin/transactions");
-      txs = await data.json();
-    } catch (e) {
-      console.log(e);
-    }
-
-    setTxs(txs);
-    filterTransactions(txs);
-    setFetchingTxs(false);
-  };
-
   useEffect(() => {
+    const getTransactions = async () => {
+      setFetchingTxs(true);
+      let data;
+      let txs = [];
+      try {
+        data = await fetch("/rest/admin/transactions");
+        txs = await data.json();
+      } catch (e) {
+        console.log(e);
+      }
+
+      setTxs(txs);
+      filterTransactions(txs);
+      setFetchingTxs(false);
+    };
+
     getTransactions();
   }, []);
 
