@@ -3,7 +3,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import BreadCrumb from "./BreadCrumb";
 import { WalletDetailsCard } from "../../../../ui/Cards";
 import TransactionDetails from "./TransactionDetails";
-import AuthorizationRecord from "./AuthorizationRecord";
+import AuthorizationRecord from "../../../../ui/Dialog/AuthorizationRecord";
 
 const mainStyles = makeStyles((theme) => ({
   root: {

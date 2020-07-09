@@ -6,7 +6,7 @@ import Grid from "@material-ui/core/Grid";
 import ChevronRightIcon from "@material-ui/icons/ChevronRight";
 import FormatListBulletedIcon from "@material-ui/icons/FormatListBulleted";
 import TxArrowIcon from "../icons/TxArrowIcon";
-import { usdFormatter } from "../../util";
+import { usdFormatter, cryptoFormatter } from "../../util";
 
 const useStyles = makeStyles((theme) => ({
   walletBalance: {
@@ -138,7 +138,7 @@ export default function TransactionDetailsCard({
         <Grid item xs={2}>
           <div className={classes.walletBalance}>
             <span className={classes.currencyBalance}>
-              {amount} {symbol}
+              {cryptoFormatter.format(amount)} {symbol}
             </span>
           </div>
           <div className={classes.walletSubtitle}>{currency} Sent</div>

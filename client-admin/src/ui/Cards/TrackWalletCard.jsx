@@ -4,6 +4,8 @@ import Chip from "@material-ui/core/Chip";
 import Button from "@material-ui/core/Button";
 import CopyIcon from "../icons/CopyIcon";
 
+import { usdFormatter, cryptoFormatter } from "../../util";
+
 const walletStyles = makeStyles((theme) => ({
   wallet: {
     minHeight: 301,
@@ -136,9 +138,9 @@ export default function TrackWalletCard({
         })}
       <div className={classes.walletBalance}>
         <span className={classes.currencyBalance}>
-          {balance} {symbol}
+          {cryptoFormatter(balance)} {symbol}
         </span>{" "}
-        / {balance * exchangeRate} USD
+        / {usdFormatter.format(balance * exchangeRate)} USD
       </div>
       <div className={classes.walletSubtitle}>Wallet Balance</div>
       <div className={classes.address}>{address}</div>

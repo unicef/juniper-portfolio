@@ -1,4 +1,4 @@
-import React, { Fragment, useState } from "react";
+import React, { Fragment } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import Divider from "@material-ui/core/Divider";
 import Button from "@material-ui/core/Button";
@@ -8,7 +8,7 @@ import TxArrowIcon from "../icons/TxArrowIcon";
 import PencilIcon from "../icons/PencilIcon";
 import TxStepper from "../TxStepper";
 
-import { usdFormatter } from "../../util";
+import { usdFormatter, cryptoFormatter } from "../../util";
 
 const useStyles = makeStyles((theme) => ({
   walletSubtitle: {
@@ -139,7 +139,8 @@ export default function PublishedTransactionCard({
         </Grid>
         <Grid item xs={4}>
           <div className={classes.unpublishedTxBalance}>
-            <b>{amount}</b> {symbol} / {usdFormatter.format(amountUSD)}
+            <b>{cryptoFormatter(amount)}</b> {symbol} /{" "}
+            {usdFormatter.format(amountUSD)}
           </div>
           <div className={classes.walletSubtitle}>Donated Amount</div>
 

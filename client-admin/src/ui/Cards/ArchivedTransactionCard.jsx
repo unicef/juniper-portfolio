@@ -7,7 +7,7 @@ import ChevronRightIcon from "@material-ui/icons/ChevronRight";
 import TxArrowIcon from "../icons/TxArrowIcon";
 import PencilIcon from "../icons/ArchiveTxIcon";
 import TxStepper from "../TxStepper";
-import { usdFormatter } from "../../util";
+import { usdFormatter, cryptoFormatter } from "../../util";
 
 const useStyles = makeStyles((theme) => ({
   walletSubtitle: {
@@ -143,7 +143,8 @@ export default function ArchivedTransactionCard({
         </Grid>
         <Grid item xs={4}>
           <div className={classes.unpublishedTxBalance}>
-            <b>{amount}</b> {symbol} / {usdFormatter.format(amountUSD)}
+            <b>{cryptoFormatter(amount)}</b> {symbol} /{" "}
+            {usdFormatter.format(amountUSD)}
           </div>
           <div className={classes.walletSubtitle}>Donated Amount</div>
           <Button

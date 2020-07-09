@@ -1,8 +1,9 @@
 import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import Grid from "@material-ui/core/Grid";
+import { usdFormatter, cryptoFormatter } from "../../util";
 
-const WalletDetailsCardStyles = makeStyles((theme) => ({
+const useStyles = makeStyles((theme) => ({
   walletBalance: {
     fontFamily: '"Roboto", sans-serif',
     fontSize: 18,
@@ -61,7 +62,7 @@ export default function AuthorizationCard({
   valueSent,
   currentValue,
 }) {
-  const classes = WalletDetailsCardStyles();
+  const classes = useStyles();
   return (
     <Grid container className={classes.authorization}>
       <Grid item xs={12}>
@@ -75,17 +76,21 @@ export default function AuthorizationCard({
       <Grid item xs={3}>
         <div className={classes.walletBalance}>
           <span className={classes.currencyBalance}>
-            {amount} {symbol}
+            {cryptoFormatter(amount)} {symbol}
           </span>
         </div>
         <div className={classes.walletSubtitle}>{currency} Sent</div>
       </Grid>
       <Grid item xs={3}>
-        <div className={classes.walletBalance}>{valueSent} USD</div>
+        <div className={classes.walletBalance}>
+          {usdFormatter.format(valueSent)} USD
+        </div>
         <div className={classes.walletSubtitle}>Value at Disbursal</div>
       </Grid>
       <Grid item xs={3}>
-        <div className={classes.walletBalance}>{currentValue} USD</div>
+        <div className={classes.walletBalance}>
+          {usdFormatter.format(currentValue)} USD
+        </div>
         <div className={classes.walletSubtitle}>Current Value</div>
       </Grid>
       <Grid item xs={12} className={classes.authorizationInfo}>

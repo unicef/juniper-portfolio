@@ -12,7 +12,7 @@ import {
 import Fab from "@material-ui/core/Fab";
 import ChevronRightIcon from "@material-ui/icons/ChevronRight";
 import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
-import AddWallet from "../AddWallet";
+import AddWallet from "../../../ui/Dialog/AddWallet";
 
 const usdFormatter = new Intl.NumberFormat("en-US", {
   style: "currency",
@@ -20,7 +20,7 @@ const usdFormatter = new Intl.NumberFormat("en-US", {
   minimumFractionDigits: 2,
 });
 
-const mainStyles = makeStyles((theme) => ({
+const useStyles = makeStyles((theme) => ({
   root: {
     minHeight: "100%",
   },
@@ -162,7 +162,7 @@ export default function ({ viewWalletDetails, getExchangeRate }) {
       {
         symbol: "ETH",
         balance: ethBalance,
-        balanceUSD: usdFormatter.format(ethBalance * ethereumExchangeRate),
+        balanceUSD: ethBalance * ethereumExchangeRate,
         currency: "Ether",
         received: ethReceived,
         invested: ethSent,
@@ -170,7 +170,7 @@ export default function ({ viewWalletDetails, getExchangeRate }) {
       {
         symbol: "BTC",
         balance: btcBalance,
-        balanceUSD: usdFormatter.format(btcBalance * bitcoinExchangeRate),
+        balanceUSD: btcBalance * bitcoinExchangeRate,
         currency: "Bitcoin",
         received: btcReceived,
         invested: btcSent,
@@ -206,9 +206,9 @@ export default function ({ viewWalletDetails, getExchangeRate }) {
     getWalletSummary();
 
     getWallets();
-  }, [bitcoinExchangeRate, ethereumExchangeRate, getExchangeRate]);
+  }, []);
 
-  const classes = mainStyles();
+  const classes = useStyles();
   return (
     <div className={classes.root}>
       <AddWallet

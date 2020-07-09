@@ -1,6 +1,7 @@
 import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import Divider from "@material-ui/core/Divider";
+import { usdFormatter, cryptoFormatter } from "../../util";
 
 const useStyles = makeStyles((theme) => ({
   balances: {
@@ -75,19 +76,21 @@ export default function BalanceCard({
     <div className={classes.balances}>
       <div className={classes.balanceSummary}>
         <h2 className={classes.balance}>
-          {balance} {symbol}
+          {cryptoFormatter(balance)} {symbol}
         </h2>
-        <h2 className={classes.balanceUSD}>{balanceUSD} USD</h2>
+        <h2 className={classes.balanceUSD}>
+          {usdFormatter.format(balanceUSD)} USD
+        </h2>
         <p className={classes.currency}>Current {currency} balance</p>
       </div>
       <Divider className={classes.divider} />
       <div className={classes.balanceTotals}>
         <p className={classes.totalReceived}>
-          {Math.round(received * 1e8) / 1e8} {symbol}
+          {cryptoFormatter(received)} {symbol}
         </p>
         <p className={classes.received}>Received</p>
         <p className={classes.totalInvested}>
-          {Math.round(invested * 1e8) / 1e8} {symbol}
+          {cryptoFormatter(invested)} {symbol}
         </p>
         <p className={classes.invested}>Invested</p>
       </div>

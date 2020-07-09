@@ -1,7 +1,7 @@
 import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import Divider from "@material-ui/core/Divider";
-import { usdFormatter } from "../../util";
+import { usdFormatter, cryptoFormatter } from "../../util";
 
 const useStyles = makeStyles((theme) => ({
   fees: {
@@ -63,9 +63,9 @@ export default function TxFeeCard({ amountUSD, amountETH, amountBTC }) {
       </div>
       <Divider className={classes.divider} />
       <div className={classes.feeTotals}>
-        <p className={classes.totalFees}>{amountBTC} BTC</p>
+        <p className={classes.totalFees}>{cryptoFormatter(amountBTC)} BTC</p>
         <p className={classes.received}>Total BTC Transaction Fee</p>
-        <p className={classes.totalFees}>{amountETH} ETH</p>
+        <p className={classes.totalFees}>{cryptoFormatter(amountETH)} ETH</p>
         <p className={classes.invested}>Total ETH Transaction Fee</p>
       </div>
     </div>

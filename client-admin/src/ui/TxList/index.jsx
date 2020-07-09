@@ -1,4 +1,4 @@
-import React, { Fragment, useEffect, useState } from "react";
+import React, { Fragment } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import PriceInfoBanner from "../PriceInfoBanner";
 import Grid from "@material-ui/core/Grid";

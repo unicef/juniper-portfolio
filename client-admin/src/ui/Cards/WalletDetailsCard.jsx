@@ -5,8 +5,8 @@ import Button from "@material-ui/core/Button";
 import Grid from "@material-ui/core/Grid";
 import EditIcon from "@material-ui/icons/Edit";
 import CopyIcon from "../icons/CopyIcon";
-import AddWallet from "../../components/Wallets/AddWallet";
-import { usdFormatter } from "../../util";
+import AddWallet from "../Dialog/AddWallet";
+import { usdFormatter, cryptoFormatter } from "../../util";
 
 const useStyles = makeStyles((theme) => ({
   wallet: {
@@ -174,18 +174,14 @@ export default function WalletDetailsCard({
         <Grid item md={2}>
           <div className={classes.walletBalance}>
             <span className={classes.currencyBalance}>
-              {balance} {symbol}
+              {cryptoFormatter(balance)} {symbol}
             </span>
           </div>
           <div className={classes.walletSubtitle}>Wallet Balance</div>
         </Grid>
         <Grid item md={2}>
           <div className={classes.walletBalance}>
-            {balance &&
-              usdFormatter.format(
-                Math.round(balance * exchangeRate * 100) / 100
-              )}{" "}
-            USD
+            {balance && usdFormatter.format(balance * exchangeRate)} USD
           </div>
           <div className={classes.walletSubtitle}>Current Value</div>
         </Grid>

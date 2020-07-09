@@ -128,12 +128,7 @@ export default function WalletCard({
         <span className={classes.currencyBalance}>
           {cryptoFormatter(balance)} {symbol}
         </span>{" "}
-        /{" "}
-        {balance &&
-          usdFormatter.format(
-            Math.round(balance * exchangeRate * 100) / 100
-          )}{" "}
-        USD
+        / {balance && usdFormatter.format(balance * exchangeRate)} USD
       </div>
       <div className={classes.walletSubtitle}>Wallet Balance</div>
       <div className={classes.address}>{address}</div>
