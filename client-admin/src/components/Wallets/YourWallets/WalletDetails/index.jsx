@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import BreadCrumb from "./BreadCrumb";
-import { WalletDetailsCard } from "../../WalletCards";
+import { WalletDetailsCard } from "../../../../ui/Cards";
 import TransactionDetails from "./TransactionDetails";
 import AuthorizationRecord from "./AuthorizationRecord";
 
@@ -27,7 +27,7 @@ export default function ({
   const getTransactions = async () => {
     let res, transactions;
     try {
-      res = await fetch(`/rest/admin/transactions/${address}`);
+      res = await fetch(`/rest/admin/transactions/address/${address}`);
       transactions = await res.json();
     } catch (e) {
       return console.log(e);

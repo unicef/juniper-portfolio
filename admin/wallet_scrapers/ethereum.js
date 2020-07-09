@@ -97,6 +97,8 @@ class EthereumWalletScraper {
       amount,
       amountUSD,
       isUnicef,
+      published: false,
+      archived: false,
     });
   }
 

@@ -1,6 +1,6 @@
 import React, { Fragment, useEffect, useState } from "react";
 import { makeStyles } from "@material-ui/core/styles";
-import { TransactionDetailsCard } from "../../../../ui/Cards";
+import PriceInfoBanner from "../PriceInfoBanner";
 import Grid from "@material-ui/core/Grid";
 import Button from "@material-ui/core/Button";
 import Divider from "@material-ui/core/Divider";
@@ -37,23 +37,21 @@ const transactionDetailsStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function TransactionDetails({
-  address,
-  setAuthorizationRecord,
-  transactionDetailsData,
-  exchangeRate,
+export default function TxList({
+  title,
+  txs,
+  TxCard,
+  archiveTransaction,
+  archiveTransactionSuccess,
+  archiveTransactionFailed,
 }) {
   const classes = transactionDetailsStyles();
-  const [txDetails, setTxDetails] = useState([]);
-  useEffect(() => {
-    setTxDetails(transactionDetailsData);
-  }, [transactionDetailsData]);
 
   return (
     <Fragment>
       <Grid container className={classes.root}>
         <Grid item xs={6}>
-          <h3 className={classes.subtitle}> Wallet Transactions</h3>
+          <h3 className={classes.subtitle}> {title}</h3>
         </Grid>
         <Grid item xs={6}>
           <Button
@@ -70,26 +68,28 @@ export default function TransactionDetails({
       <Divider />
       <Grid container className={classes.transactionDetails}>
         <Grid item xs={12}>
-          {txDetails &&
-            txDetails.map((txDetails, index) => {
+          <PriceInfoBanner />
+        </Grid>
+        <Grid item xs={12}>
+          {txs &&
+            txs.map((tx, index) => {
               return (
-                <TransactionDetailsCard
-                  key={txDetails.txid}
-                  txid={txDetails.txid}
-                  timestamp={txDetails.timestamp}
-                  address={address}
-                  currency={txDetails.currency}
-                  amount={txDetails.amount}
-                  symbol={txDetails.symbol}
-                  amountUSD={txDetails.amountUSD}
-                  sent={txDetails.sent}
-                  received={txDetails.received}
-                  to={txDetails.to || address}
-                  from={txDetails.from || address}
-                  setAuthorizationRecord={setAuthorizationRecord}
-                  currentValue={
-                    Math.round(txDetails.amount * exchangeRate * 100) / 100
-                  }
+                <TxCard
+                  key={tx.txid}
+                  txid={tx.txid}
+                  timestamp={tx.timestamp}
+                  address={null}
+                  currency={tx.currency}
+                  amount={tx.amount}
+                  symbol={tx.symbol}
+                  amountUSD={tx.amountUSD}
+                  sent={tx.sent}
+                  received={tx.received}
+                  to={tx.to}
+                  from={tx.from}
+                  archiveTransaction={archiveTransaction}
+                  archiveTransactionSuccess={archiveTransactionSuccess}
+                  archiveTransactionFailed={archiveTransactionFailed}
                 />
               );
             })}

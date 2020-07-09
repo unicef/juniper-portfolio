@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { makeStyles, withStyles } from "@material-ui/core/styles";
 import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
@@ -66,6 +66,21 @@ export default function SidebarNavigation() {
   const handleListItemClick = (event, index) => {
     setSelectedIndex(index);
   };
+
+  useEffect(() => {
+    const path = window.location.pathname;
+    console.log(path);
+
+    if (path.indexOf("wallets") > -1) {
+      setSelectedIndex(0);
+    } else if (path.indexOf("accounts") > -1) {
+      setSelectedIndex(1);
+    } else if (path.indexOf("tracker") > -1) {
+      setSelectedIndex(2);
+    } else if (path.indexOf("transactions") > -1) {
+      setSelectedIndex(3);
+    }
+  }, []);
 
   return (
     <List
