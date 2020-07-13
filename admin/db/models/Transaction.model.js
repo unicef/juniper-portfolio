@@ -23,6 +23,8 @@ const transaction = new Schema({
   amount: { type: Number },
   amountUSD: { type: Number },
   isUnicef: { type: Boolean, default: false },
+  published: { type: Boolean, default: false },
+  archived: { type: Boolean, default: false },
 });
 
 transaction.index({ txid: 1, index: 1 }, { unique: true });

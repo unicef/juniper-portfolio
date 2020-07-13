@@ -6,7 +6,7 @@ router.get("/ping", (req, res) => {
   res.send("pong");
 });
 
-router.get("/transactions/:address", async (req, res) => {
+router.get("/transactions/address/:address", async (req, res) => {
   const juniperAdmin = req.app.get("juniperAdmin");
   const { address } = req.params;
   let transactions = [];
@@ -52,6 +52,32 @@ router.get("/wallets/summary", async (req, res) => {
     return logger.error(e);
   }
   res.json(summary);
+});
+
+router.get("/transactions", async (req, res) => {
+  const juniperAdmin = req.app.get("juniperAdmin");
+  let txs = [];
+
+  try {
+    txs = await juniperAdmin.db.getTransactions();
+  } catch (e) {
+    return logger.error(e);
+  }
+
+  res.json(txs);
+});
+
+router.post("/transaction/archive", async (req, res) => {
+  const juniperAdmin = req.app.get("juniperAdmin");
+  let { txid } = req.body;
+
+  try {
+    await juniperAdmin.db.archiveTx(txid);
+  } catch (e) {
+    return logger.error(e);
+  }
+
+  res.send(true);
 });
 
 router.get("/wallet/:address", async (req, res) => {
@@ -177,8 +203,6 @@ router.post("/donor", async (req, res) => {
   }
   res.send(donor);
 });
-
-
 
 router.get("/natcoms", async (req, res) => {
   const juniperAdmin = req.app.get("juniperAdmin");
