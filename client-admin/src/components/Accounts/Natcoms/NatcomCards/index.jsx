@@ -121,7 +121,7 @@ export default function NatcomCards()
 
   useEffect(() => {
     getNatcoms();
-  }, [natcoms]);
+  }, [natcoms.length]);
 
   return (
      <div className={classes.root}>

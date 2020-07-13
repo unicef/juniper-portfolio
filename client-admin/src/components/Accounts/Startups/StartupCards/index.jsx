@@ -123,7 +123,7 @@ export default function StartupCards()
 
   useEffect(() => {
     getStartups();
-  }, [startups]);
+  }, [startups.length]);
     
 
 
