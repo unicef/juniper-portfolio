@@ -12,6 +12,7 @@ import {
 import TxList from "../../ui/TxList";
 import Snackbar from "../../ui/Snackbar";
 import CircularProgress from "@material-ui/core/CircularProgress";
+import { TagTransaction } from "../../ui/Dialog";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -82,6 +83,7 @@ export default function CustomizedTabs() {
   const [snackbarDuration] = useState(3000);
   const [snackbarMessage, setSnackbarMessage] = useState("");
   const [snackbarSeverity, setSnackbarSeverity] = useState("success");
+  const [transaction, setTransaction] = useState(null);
 
   const changeView = (event, newTab) => {
     setActiveTab(newTab);
@@ -147,8 +149,27 @@ export default function CustomizedTabs() {
     getTransactions();
   }, []);
 
+  function UnpublishedTxCard(props) {
+    return (
+      <UnpublishedTransactionCard
+        {...props}
+        archiveTransaction={archiveTransaction}
+        archiveTransactionSuccess={archiveTransactionSuccess}
+        archiveTransactionFailed={archiveTransactionFailed}
+      />
+    );
+  }
+
   return (
     <div className={classes.root}>
+      <TagTransaction
+        title={"Tag Donor Details"}
+        open={transaction}
+        transaction={transaction}
+        onClose={() => {
+          setTransaction(null);
+        }}
+      />
       <StyledTabs value={activeTab} onChange={changeView} centered>
         <StyledTab
           label="Unpublished"
@@ -175,10 +196,7 @@ export default function CustomizedTabs() {
           <TxList
             title={`${unpublishedTxs.length} Unpublished Transactions`}
             txs={unpublishedTxs}
-            TxCard={UnpublishedTransactionCard}
-            archiveTransaction={archiveTransaction}
-            archiveTransactionSuccess={archiveTransactionSuccess}
-            archiveTransactionFailed={archiveTransactionFailed}
+            TxCard={UnpublishedTxCard}
           />
         )}
       </TabPanel>

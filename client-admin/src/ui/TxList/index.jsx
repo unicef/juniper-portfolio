@@ -37,14 +37,7 @@ const transactionDetailsStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function TxList({
-  title,
-  txs,
-  TxCard,
-  archiveTransaction,
-  archiveTransactionSuccess,
-  archiveTransactionFailed,
-}) {
+export default function TxList({ title, txs, TxCard }) {
   const classes = transactionDetailsStyles();
 
   return (
@@ -87,9 +80,6 @@ export default function TxList({
                   received={tx.received}
                   to={tx.to}
                   from={tx.from}
-                  archiveTransaction={archiveTransaction}
-                  archiveTransactionSuccess={archiveTransactionSuccess}
-                  archiveTransactionFailed={archiveTransactionFailed}
                 />
               );
             })}
