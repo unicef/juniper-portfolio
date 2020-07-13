@@ -180,6 +180,14 @@ class MongoDB {
     return this.models.Transaction.find();
   }
 
+  async getUnpublishedTransactions(notZero) {
+    this.logger.debug(`getUnpublishedTransactions`);
+    return this.models.Transaction.find({
+      isUnicef: true,
+      amountUSD: { $gte: 0.01 },
+    });
+  }
+
   async archiveTx(txid) {
     this.logger.debug(`archiveTx`);
     return this.models.Transaction.findOneAndUpdate(
