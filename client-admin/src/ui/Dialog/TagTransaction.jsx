@@ -59,8 +59,8 @@ export default function TagTransaction(props) {
   const classes = useStyles();
 
   const handleClose = () => {
-    if (props.setShowAddWalletModal) {
-      props.setShowAddWalletModal(false);
+    if (props.onClose) {
+      props.onClose();
     }
   };
 

@@ -83,7 +83,8 @@ export default function CustomizedTabs() {
   const [snackbarDuration] = useState(3000);
   const [snackbarMessage, setSnackbarMessage] = useState("");
   const [snackbarSeverity, setSnackbarSeverity] = useState("success");
-  const [transaction, setTransaction] = useState(null);
+  const [showTagTransaction, setShowTagTransaction] = useState(false);
+  const [transaction, setTransaction] = useState({});
 
   const changeView = (event, newTab) => {
     setActiveTab(newTab);
@@ -141,8 +142,8 @@ export default function CustomizedTabs() {
         console.log(e);
       }
 
-      setTxs(txs);
-      filterTransactions(txs);
+      setTxs(txs.splice(0, 50));
+      filterTransactions(txs.splice(0, 50));
       setFetchingTxs(false);
     };
 
@@ -156,6 +157,12 @@ export default function CustomizedTabs() {
         archiveTransaction={archiveTransaction}
         archiveTransactionSuccess={archiveTransactionSuccess}
         archiveTransactionFailed={archiveTransactionFailed}
+        onTagTransactionClick={(tx) => {
+          //setTransaction(tx);
+          console.log("wtf");
+          setShowTagTransaction(true);
+          console.log("wtf2");
+        }}
       />
     );
   }
@@ -164,9 +171,10 @@ export default function CustomizedTabs() {
     <div className={classes.root}>
       <TagTransaction
         title={"Tag Donor Details"}
-        open={transaction}
+        open={showTagTransaction}
         transaction={transaction}
         onClose={() => {
+          setShowTagTransaction(false);
           setTransaction(null);
         }}
       />

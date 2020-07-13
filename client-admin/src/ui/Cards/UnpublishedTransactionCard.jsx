@@ -95,6 +95,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function UnpublishedTransactionCard({
+  tx,
   txid,
   timestamp,
   address,
@@ -111,6 +112,7 @@ export default function UnpublishedTransactionCard({
   archiveTransaction,
   archiveTransactionSuccess,
   archiveTransactionFailed,
+  onTagTransactionClick,
 }) {
   const classes = useStyles();
   const txSent = new Date(timestamp);
@@ -187,7 +189,7 @@ export default function UnpublishedTransactionCard({
             color="primary"
             className={classes.tagTransactionButton}
             onClick={() => {
-              console.log("tag tx btn clicked");
+              onTagTransactionClick(tx);
             }}
           >
             Tag Transaction

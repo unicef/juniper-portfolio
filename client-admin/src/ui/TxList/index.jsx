@@ -5,6 +5,8 @@ import Grid from "@material-ui/core/Grid";
 import Button from "@material-ui/core/Button";
 import Divider from "@material-ui/core/Divider";
 import KeyboardArrowDownIcon from "@material-ui/icons/KeyboardArrowDown";
+import List from "@material-ui/core/List";
+import ListItem from "@material-ui/core/ListItem";
 
 const transactionDetailsStyles = makeStyles((theme) => ({
   root: {
@@ -63,12 +65,15 @@ export default function TxList({ title, txs, TxCard }) {
         <Grid item xs={12}>
           <PriceInfoBanner />
         </Grid>
-        <Grid item xs={12}>
-          {txs &&
-            txs.map((tx, index) => {
-              return (
+      </Grid>
+      {txs && (
+        <List>
+          {txs.map((tx, index) => {
+            return (
+              <ListItem>
                 <TxCard
-                  key={tx.txid}
+                  key={index}
+                  tx={tx}
                   txid={tx.txid}
                   timestamp={tx.timestamp}
                   address={null}
@@ -81,10 +86,11 @@ export default function TxList({ title, txs, TxCard }) {
                   to={tx.to}
                   from={tx.from}
                 />
-              );
-            })}
-        </Grid>
-      </Grid>
+              </ListItem>
+            );
+          })}
+        </List>
+      )}
     </Fragment>
   );
 }
