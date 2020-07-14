@@ -61,25 +61,12 @@ const StyledTab = withStyles((theme) => ({
   },
 }))((props) => <Tab disableRipple {...props} />);
 
-export default function CustomizedTabs() {
+export default function Wallets({ getExchangeRate }) {
   const classes = useStyles();
   const [activeTab, setActiveTab] = useState(0);
 
   const changeView = (event, newTab) => {
     setActiveTab(newTab);
-  };
-
-  const getExchangeRate = async (symbol) => {
-    let res, price;
-    try {
-      res = await fetch(
-        `https://min-api.cryptocompare.com/data/price?fsym=${symbol}&tsyms=USD`
-      );
-      price = await res.json();
-    } catch (e) {
-      console.log(e);
-    }
-    return price.USD;
   };
 
   return (

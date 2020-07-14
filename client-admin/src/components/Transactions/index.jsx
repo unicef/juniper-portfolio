@@ -71,7 +71,7 @@ const StyledTab = withStyles((theme) => ({
   },
 }))((props) => <Tab disableRipple {...props} />);
 
-export default function CustomizedTabs() {
+export default function Transactions({ getExchangeRate }) {
   const classes = useStyles();
   const [activeTab, setActiveTab] = useState(0);
   const [fetchingTxs, setFetchingTxs] = useState(false);
@@ -142,9 +142,11 @@ export default function CustomizedTabs() {
         console.log(e);
       }
 
-      setTxs(txs.splice(0, 50));
-      filterTransactions(txs.splice(0, 50));
+      setTxs(txs);
+      filterTransactions(txs.splice(0, 10));
       setFetchingTxs(false);
+      setTransaction(txs[7]);
+      setShowTagTransaction(true);
     };
 
     getTransactions();
@@ -158,10 +160,8 @@ export default function CustomizedTabs() {
         archiveTransactionSuccess={archiveTransactionSuccess}
         archiveTransactionFailed={archiveTransactionFailed}
         onTagTransactionClick={(tx) => {
-          //setTransaction(tx);
-          console.log("wtf");
+          setTransaction(tx);
           setShowTagTransaction(true);
-          console.log("wtf2");
         }}
       />
     );
@@ -172,11 +172,12 @@ export default function CustomizedTabs() {
       <TagTransaction
         title={"Tag Donor Details"}
         open={showTagTransaction}
-        transaction={transaction}
+        tx={transaction}
         onClose={() => {
           setShowTagTransaction(false);
-          setTransaction(null);
+          setTransaction({});
         }}
+        getExchangeRate={getExchangeRate}
       />
       <StyledTabs value={activeTab} onChange={changeView} centered>
         <StyledTab

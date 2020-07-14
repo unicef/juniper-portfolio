@@ -70,9 +70,8 @@ export default function TxList({ title, txs, TxCard }) {
         <List>
           {txs.map((tx, index) => {
             return (
-              <ListItem>
+              <ListItem key={index}>
                 <TxCard
-                  key={index}
                   tx={tx}
                   txid={tx.txid}
                   timestamp={tx.timestamp}
