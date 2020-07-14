@@ -17,7 +17,7 @@ import Checkbox from "@material-ui/core/Checkbox";
 import CircleChecked from "@material-ui/icons/CheckCircleOutline";
 import CircleCheckedFilled from "@material-ui/icons/CheckCircle";
 import CircleUnchecked from "@material-ui/icons/RadioButtonUnchecked";
-
+import QuestionMarkIcon from "../icons/QuestionMarkIcon";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
 import FormLabel from "@material-ui/core/FormLabel";
 
@@ -67,6 +67,7 @@ const useStyles = makeStyles((theme) => ({
     lineHeight: 1.42,
   },
   donorListSelect: {
+    fontFamily: '"Roboto", sans-serif',
     height: 42,
     fontSize: 19,
     lineHeight: 1.42,
@@ -78,12 +79,27 @@ const useStyles = makeStyles((theme) => ({
     fontWeight: 700,
     lineHeight: 1.33,
     color: "#898989",
+    marginTop: 35,
   },
   donorNameTextfield: {
+    fontFamily: '"Roboto", sans-serif',
     height: 42,
     width: "100%",
   },
+  donorWalletTextfield: {
+    fontFamily: '"Roboto", sans-serif',
+    height: 42,
+    width: "100%",
+    marginBottom: 35,
+  },
+  donorTxidTextfield: {
+    fontFamily: '"Roboto", sans-serif',
+    height: 42,
+    width: "100%",
+    marginBottom: 35,
+  },
   donorName: {
+    fontFamily: '"Roboto", sans-serif',
     fontSize: 19,
     lineHeight: 1.42,
     color: "#898989",
@@ -93,6 +109,47 @@ const useStyles = makeStyles((theme) => ({
     fontSize: 14,
     color: "#898989",
     lineHeight: 1.57,
+  },
+  relativeContainer: {
+    position: "relative",
+  },
+  questionMark: {
+    position: "absolute",
+    bottom: "22%",
+    marginLeft: ".5em",
+    width: 20,
+    height: 20,
+  },
+  filledButton: {
+    width: "100%",
+    height: 35,
+    fontFamily: '"Cabin", sans-serif',
+    fontSize: 12,
+    fontWeight: 700,
+    textAlign: "center",
+    color: "#ffffff",
+    boxShadow: "none",
+  },
+  outlineButton: {
+    width: "100%",
+    height: 35,
+    fontFamily: '"Cabin", sans-serif',
+    fontSize: 12,
+    fontWeight: 700,
+    textAlign: "center",
+    color: "#00aeef",
+    borderRadius: 5,
+    boxShadow: "none",
+  },
+  or: {
+    textTransform: "uppercase",
+    textAlign: "center",
+    fontWeight: 700,
+    lineHeight: 1.2,
+    fontSize: 12,
+    color: "#929292",
+    marginTop: 10,
+    marginBottom: 10,
   },
 }));
 
@@ -211,6 +268,68 @@ export default function TagTransaction(props) {
               label="Donor’s identity unknown or cannot be made public"
               labelPlacement="end"
             />
+            <TextField
+              className={classes.donorWalletTextfield}
+              label="Donor's Wallet Address"
+              InputProps={{
+                classes: {
+                  root: classes.donorName,
+                },
+              }}
+              InputLabelProps={{
+                classes: {
+                  root: classes.donorName,
+                },
+              }}
+            />
+            <div className={classes.relativeContainer}>
+              <TextField
+                className={classes.donorTxidTextfield}
+                label="Transaction id"
+                InputProps={{
+                  classes: {
+                    root: classes.donorName,
+                  },
+                }}
+                InputLabelProps={{
+                  classes: {
+                    root: classes.donorName,
+                  },
+                }}
+              />
+              <QuestionMarkIcon
+                className={classes.questionMark}
+                style={{ bottom: "50%" }}
+              />
+            </div>
+
+            <div className={classes.relativeContainer}>
+              <Button
+                variant="outlined"
+                color="primary"
+                className={classes.outlineButton}
+                onClick={() => {
+                  console.log("test");
+                }}
+              >
+                Tag and Save Transaction
+              </Button>
+              <QuestionMarkIcon className={classes.questionMark} />
+            </div>
+            <p className={classes.or}>Or</p>
+            <div className={classes.relativeContainer}>
+              <Button
+                variant="contained"
+                color="primary"
+                className={classes.filledButton}
+                onClick={() => {
+                  console.log("test");
+                }}
+              >
+                Tag and Publish Transaction
+              </Button>
+              <QuestionMarkIcon className={classes.questionMark} />
+            </div>
           </form>
         </Container>
       </Dialog>

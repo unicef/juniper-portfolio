@@ -145,8 +145,6 @@ export default function Transactions({ getExchangeRate }) {
       setTxs(txs);
       filterTransactions(txs.splice(0, 10));
       setFetchingTxs(false);
-      setTransaction(txs[7]);
-      setShowTagTransaction(true);
     };
 
     getTransactions();
