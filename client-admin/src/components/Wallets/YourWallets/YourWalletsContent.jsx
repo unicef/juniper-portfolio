@@ -206,7 +206,7 @@ export default function ({ viewWalletDetails, getExchangeRate }) {
     getWalletSummary();
 
     getWallets();
-  }, []);
+  }, [ethereumExchangeRate, bitcoinExchangeRate]);
 
   const classes = useStyles();
   return (
