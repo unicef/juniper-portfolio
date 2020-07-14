@@ -1,6 +1,7 @@
 import React from 'react'
 import { makeStyles } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
+import Grid from '@material-ui/core/Grid';
 import MainContentContainer from '../../../ui/MainContentContainer'
 import PriceBar from '../../PriceBar'
 
@@ -31,7 +32,6 @@ const useStyles = makeStyles({
   fontSize: '24px',
   lineHeight: 1.17,
   letterSpacing: 'normal',
-  color: '#000000',
 
   },
   
@@ -75,6 +75,12 @@ const useStyles = makeStyles({
 
   },
 
+  today:
+  {
+    color: "#00aeef",
+    fontWeight: 'Bold',
+  }
+
 });
 
 export default function BitcoinPriceTracker() {
@@ -89,6 +95,7 @@ export default function BitcoinPriceTracker() {
       <div className={classes.header}>Bitcoin price overview</div>
       <div className={classes.subheader}>{datestring}</div>
       <MainCard />
+      <WeekCard/>
     </MainContentContainer>
         )
 }
@@ -104,6 +111,49 @@ export function MainCard() {
         <div className={classes.cardsubheader}>8798 USD</div>
         <div className={classes.smalltext}>Q1 AVERAGE PRICE</div>
         <div className={classes.cardsubheader}>8798 USD</div>
+      </Card>
+    </div>
+  )
+}
+
+
+export function WeekCard()
+{
+  const classes = useStyles();
+  return (
+    <div className={classes.card}>
+      <Card className={classes.cardinner} variant="outlined">
+        <Grid container spacing={3}>
+          <Grid item>
+            <div className={classes.smalltext}>19 Dec 2020</div>
+            <div className={classes.subheader}>8798 USD</div>
+          </Grid>
+          <Grid item>
+            <div className={classes.smalltext}>19 Dec 2020</div>
+            <div className={classes.subheader}>8798 USD</div>
+          </Grid>
+          <Grid item>
+            <div className={classes.smalltext}>19 Dec 2020</div>
+            <div className={classes.subheader}>8798 USD</div>
+          </Grid>
+          <Grid item>
+            <div className={classes.smalltext}>19 Dec 2020</div>
+            <div className={classes.subheader}>8798 USD</div>
+          </Grid>
+          <Grid item>
+            <div className={classes.smalltext}>19 Dec 2020</div>
+            <div className={classes.subheader}>8798 USD</div>
+          </Grid>
+          <Grid item>
+            <div className={classes.smalltext}>19 Dec 2020</div>
+            <div className={classes.subheader}>8798 USD</div>
+          </Grid>
+          <Grid item className={classes.today}>
+            <div className={classes.smalltext}>19 Dec 2020</div>
+            <div className={classes.subheader}>8798 USD</div>
+          </Grid>
+        </Grid>
+        
       </Card>
     </div>
   )
