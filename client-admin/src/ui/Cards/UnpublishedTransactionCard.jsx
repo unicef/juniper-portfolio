@@ -4,8 +4,8 @@ import Divider from "@material-ui/core/Divider";
 import Button from "@material-ui/core/Button";
 import Grid from "@material-ui/core/Grid";
 import ChevronRightIcon from "@material-ui/icons/ChevronRight";
-import TxArrowIcon from "../icons/TxArrowIcon";
-import ArchiveTxIcon from "../icons/ArchiveTxIcon";
+import TxArrowIcon from "../Icons/TxArrowIcon";
+import ArchiveTxIcon from "../Icons/ArchiveTxIcon";
 import TxStepper from "../TxStepper";
 import { usdFormatter, cryptoFormatter } from "../../util";
 

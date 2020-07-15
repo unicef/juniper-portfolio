@@ -1,6 +1,6 @@
 import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
-import PriceIcon from "../icons/PriceIcon";
+import PriceIcon from "../Icons/PriceIcon";
 
 const useStyles = makeStyles((theme) => ({
   priceInfoBanner: {
