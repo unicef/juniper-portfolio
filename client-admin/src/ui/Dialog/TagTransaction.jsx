@@ -14,12 +14,10 @@ import IconButton from "@material-ui/core/IconButton";
 import CloseIcon from "@material-ui/icons/Close";
 import { usdFormatter, cryptoFormatter } from "../../util";
 import Checkbox from "@material-ui/core/Checkbox";
-import CircleChecked from "@material-ui/icons/CheckCircleOutline";
 import CircleCheckedFilled from "@material-ui/icons/CheckCircle";
 import CircleUnchecked from "@material-ui/icons/RadioButtonUnchecked";
 import QuestionMarkIcon from "../Icons/QuestionMarkIcon";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
-import FormLabel from "@material-ui/core/FormLabel";
 
 const useStyles = makeStyles((theme) => ({
   closeIcon: {
@@ -60,6 +58,7 @@ const useStyles = makeStyles((theme) => ({
   },
   donorList: {
     width: "100%",
+    marginTop: 26,
   },
   donorListLabel: {
     fontFamily: '"Roboto", sans-serif',
@@ -90,12 +89,14 @@ const useStyles = makeStyles((theme) => ({
     fontFamily: '"Roboto", sans-serif',
     height: 42,
     width: "100%",
-    marginBottom: 35,
+    marginTop: 16,
+    marginBottom: 16,
   },
   donorTxidTextfield: {
     fontFamily: '"Roboto", sans-serif',
     height: 42,
     width: "100%",
+    marginTop: 16,
     marginBottom: 35,
   },
   donorName: {
