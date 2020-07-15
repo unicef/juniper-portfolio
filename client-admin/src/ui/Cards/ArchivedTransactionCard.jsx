@@ -5,7 +5,7 @@ import Button from "@material-ui/core/Button";
 import Grid from "@material-ui/core/Grid";
 import ChevronRightIcon from "@material-ui/icons/ChevronRight";
 import TxArrowIcon from "../icons/TxArrowIcon";
-import PencilIcon from "../icons/ArchiveTxIcon";
+import EditIcon from "../icons/ArchiveTxIcon";
 import TxStepper from "../TxStepper";
 import { usdFormatter, cryptoFormatter } from "../../util";
 
@@ -159,7 +159,7 @@ export default function ArchivedTransactionCard({
           </Button>
           <Button
             className={classes.archiveTransactionButton}
-            startIcon={<PencilIcon />}
+            startIcon={<EditIcon />}
             onClick={() => {
               console.log("archive tx clicks");
             }}
