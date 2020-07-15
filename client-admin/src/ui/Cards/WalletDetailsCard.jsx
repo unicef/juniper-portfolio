@@ -4,8 +4,8 @@ import Chip from "@material-ui/core/Chip";
 import Button from "@material-ui/core/Button";
 import Grid from "@material-ui/core/Grid";
 import EditIcon from "@material-ui/icons/Edit";
-import CopyIcon from "../icons/CopyIcon";
-import { AddWallet } from "../Dialog";
+import CopyIcon from "../Icons/CopyIcon";
+import AddWallet from "../Dialog/AddWallet";
 import { usdFormatter, cryptoFormatter } from "../../util";
 
 const useStyles = makeStyles((theme) => ({

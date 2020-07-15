@@ -4,8 +4,8 @@ import Divider from "@material-ui/core/Divider";
 import Button from "@material-ui/core/Button";
 import Grid from "@material-ui/core/Grid";
 import ChevronRightIcon from "@material-ui/icons/ChevronRight";
-import TxArrowIcon from "../icons/TxArrowIcon";
-import PencilIcon from "../icons/PencilIcon";
+import TxArrowIcon from "../Icons/TxArrowIcon";
+import EditIcon from "../Icons/EditIcon";
 import TxStepper from "../TxStepper";
 
 import { usdFormatter, cryptoFormatter } from "../../util";
@@ -146,7 +146,7 @@ export default function PublishedTransactionCard({
 
           <Button
             className={classes.archiveTransactionButton}
-            startIcon={<PencilIcon />}
+            startIcon={<EditIcon />}
             onClick={() => {
               console.log("edit tx clicks");
             }}

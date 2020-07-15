@@ -5,12 +5,14 @@ import ListItem from "@material-ui/core/ListItem";
 import ListItemIcon from "@material-ui/core/ListItemIcon";
 import ListItemText from "@material-ui/core/ListItemText";
 import Typography from "@material-ui/core/Typography";
-import AccountBalanceWalletIcon from "@material-ui/icons/AccountBalanceWallet";
-import AccountBoxIcon from "@material-ui/icons/AccountBox";
-import EqualizerIcon from "@material-ui/icons/Equalizer";
-import SettingsIcon from "@material-ui/icons/Settings";
-import SyncAltIcon from "@material-ui/icons/SyncAlt";
+
 import { Link } from "react-router-dom";
+
+import WalletsIcon from "../../../ui/Icons/WalletsIcon";
+import AccountsIcon from "../../../ui/Icons/AccountsIcon";
+import PriceTrackerIcon from "../../../ui/Icons/PriceTrackerIcon";
+import TransactionsIcon from "../../../ui/Icons/TransactionsIcon";
+import SettingsIcon from "@material-ui/icons/Settings";
 
 const useStyles = makeStyles((theme) => ({
   list: {
@@ -19,12 +21,15 @@ const useStyles = makeStyles((theme) => ({
     flexDirection: "column",
   },
   listItem: {
+    height: "1.6em",
     minWidth: 40,
   },
   navIcon: {
+    width: "1.5em",
     color: "#4d4d4d",
   },
   navIconSelected: {
+    width: "1.5em",
     color: "#00aeef",
   },
   navText: {
@@ -69,7 +74,6 @@ export default function SidebarNavigation() {
 
   useEffect(() => {
     const path = window.location.pathname;
-    console.log(path);
 
     if (path.indexOf("wallets") > -1) {
       setSelectedIndex(0);
@@ -96,11 +100,10 @@ export default function SidebarNavigation() {
           className={classes.navLink}
         >
           <ListItemIcon className={classes.listItem}>
-            <AccountBalanceWalletIcon
+            <WalletsIcon
               className={
                 selectedIndex === 0 ? classes.navIconSelected : classes.navIcon
               }
-              fontSize="large"
             />
           </ListItemIcon>
           <ListItemText
@@ -118,11 +121,10 @@ export default function SidebarNavigation() {
           className={classes.navLink}
         >
           <ListItemIcon className={classes.listItem}>
-            <AccountBoxIcon
+            <AccountsIcon
               className={
                 selectedIndex === 1 ? classes.navIconSelected : classes.navIcon
               }
-              fontSize="large"
             />
           </ListItemIcon>
           <ListItemText
@@ -140,11 +142,10 @@ export default function SidebarNavigation() {
           className={classes.navLink}
         >
           <ListItemIcon className={classes.listItem}>
-            <EqualizerIcon
+            <PriceTrackerIcon
               className={
                 selectedIndex === 2 ? classes.navIconSelected : classes.navIcon
               }
-              fontSize="large"
             />
           </ListItemIcon>
           <ListItemText
@@ -166,11 +167,10 @@ export default function SidebarNavigation() {
           className={classes.navLink}
         >
           <ListItemIcon className={classes.listItem}>
-            <SyncAltIcon
+            <TransactionsIcon
               className={
                 selectedIndex === 3 ? classes.navIconSelected : classes.navIcon
               }
-              fontSize="large"
             />
           </ListItemIcon>
           <ListItemText
@@ -199,6 +199,7 @@ export default function SidebarNavigation() {
             primary={
               <Typography className={classes.navText}>Settings</Typography>
             }
+            style={{ marginTop: "1.25em" }}
           />
         </JuniperListItem>
       </Link>

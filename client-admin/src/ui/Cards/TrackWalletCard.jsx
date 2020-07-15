@@ -2,7 +2,7 @@ import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import Chip from "@material-ui/core/Chip";
 import Button from "@material-ui/core/Button";
-import CopyIcon from "../icons/CopyIcon";
+import CopyIcon from "../Icons/CopyIcon";
 
 import { usdFormatter, cryptoFormatter } from "../../util";
 

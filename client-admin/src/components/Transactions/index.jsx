@@ -131,12 +131,12 @@ export default function Transactions({ getExchangeRate }) {
   };
 
   useEffect(() => {
-    const getTransactions = async () => {
+    const getUnpublishedTransactions = async () => {
       setFetchingTxs(true);
       let data;
       let txs = [];
       try {
-        data = await fetch("/rest/admin/transactions");
+        data = await fetch("/rest/admin/transactions/unpublished");
         txs = await data.json();
       } catch (e) {
         console.log(e);
@@ -147,7 +147,7 @@ export default function Transactions({ getExchangeRate }) {
       setFetchingTxs(false);
     };
 
-    getTransactions();
+    getUnpublishedTransactions();
   }, []);
 
   function UnpublishedTxCard(props) {
