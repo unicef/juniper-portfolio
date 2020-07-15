@@ -128,12 +128,12 @@ export default function CustomizedTabs() {
   };
 
   useEffect(() => {
-    const getTransactions = async () => {
+    const getUnpublishedTransactions = async () => {
       setFetchingTxs(true);
       let data;
       let txs = [];
       try {
-        data = await fetch("/rest/admin/transactions");
+        data = await fetch("/rest/admin/transactions/unpublished");
         txs = await data.json();
       } catch (e) {
         console.log(e);
@@ -144,7 +144,7 @@ export default function CustomizedTabs() {
       setFetchingTxs(false);
     };
 
-    getTransactions();
+    getUnpublishedTransactions();
   }, []);
 
   return (

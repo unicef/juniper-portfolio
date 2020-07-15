@@ -138,7 +138,7 @@ export default function TransactionDetailsCard({
         <Grid item xs={2}>
           <div className={classes.walletBalance}>
             <span className={classes.currencyBalance}>
-              {cryptoFormatter.format(amount)} {symbol}
+              {cryptoFormatter(amount)} {symbol}
             </span>
           </div>
           <div className={classes.walletSubtitle}>{currency} Sent</div>

@@ -66,6 +66,18 @@ router.get("/transactions", async (req, res) => {
 
   res.json(txs);
 });
+router.get("/transactions/unpublished", async (req, res) => {
+  const juniperAdmin = req.app.get("juniperAdmin");
+  let txs = [];
+
+  try {
+    txs = await juniperAdmin.db.getUnpublishedTransactions();
+  } catch (e) {
+    return logger.error(e);
+  }
+
+  res.json(txs);
+});
 
 router.post("/transaction/archive", async (req, res) => {
   const juniperAdmin = req.app.get("juniperAdmin");
