@@ -12,7 +12,7 @@ import {
 import Fab from "@material-ui/core/Fab";
 import ChevronRightIcon from "@material-ui/icons/ChevronRight";
 import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
-import AddWallet from "../../../ui/Dialog/AddWallet";
+import { AddWallet } from "../../../ui/Dialog";
 
 const usdFormatter = new Intl.NumberFormat("en-US", {
   style: "currency",

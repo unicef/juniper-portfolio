@@ -5,6 +5,8 @@ import Grid from "@material-ui/core/Grid";
 import Button from "@material-ui/core/Button";
 import Divider from "@material-ui/core/Divider";
 import KeyboardArrowDownIcon from "@material-ui/icons/KeyboardArrowDown";
+import List from "@material-ui/core/List";
+import ListItem from "@material-ui/core/ListItem";
 
 const transactionDetailsStyles = makeStyles((theme) => ({
   root: {
@@ -37,14 +39,7 @@ const transactionDetailsStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function TxList({
-  title,
-  txs,
-  TxCard,
-  archiveTransaction,
-  archiveTransactionSuccess,
-  archiveTransactionFailed,
-}) {
+export default function TxList({ title, txs, TxCard }) {
   const classes = transactionDetailsStyles();
 
   return (
@@ -70,12 +65,14 @@ export default function TxList({
         <Grid item xs={12}>
           <PriceInfoBanner />
         </Grid>
-        <Grid item xs={12}>
-          {txs &&
-            txs.map((tx, index) => {
-              return (
+      </Grid>
+      {txs && (
+        <List>
+          {txs.map((tx, index) => {
+            return (
+              <ListItem key={index}>
                 <TxCard
-                  key={tx.txid}
+                  tx={tx}
                   txid={tx.txid}
                   timestamp={tx.timestamp}
                   address={null}
@@ -87,14 +84,12 @@ export default function TxList({
                   received={tx.received}
                   to={tx.to}
                   from={tx.from}
-                  archiveTransaction={archiveTransaction}
-                  archiveTransactionSuccess={archiveTransactionSuccess}
-                  archiveTransactionFailed={archiveTransactionFailed}
                 />
-              );
-            })}
-        </Grid>
-      </Grid>
+              </ListItem>
+            );
+          })}
+        </List>
+      )}
     </Fragment>
   );
 }

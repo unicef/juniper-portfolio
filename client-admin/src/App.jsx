@@ -67,6 +67,19 @@ const theme = createMuiTheme({
 export default function JuniperAdmin() {
   const classes = useStyles();
 
+  const getExchangeRate = async (symbol) => {
+    let res, price;
+    try {
+      res = await fetch(
+        `https://min-api.cryptocompare.com/data/price?fsym=${symbol}&tsyms=USD`
+      );
+      price = await res.json();
+    } catch (e) {
+      console.log(e);
+    }
+    return price.USD;
+  };
+
   return (
     <div className={classes.root}>
       <ThemeProvider theme={theme}>
@@ -77,7 +90,7 @@ export default function JuniperAdmin() {
               <Sidebar />
               <Switch>
                 <Route path="/admin/wallets">
-                  <Wallets />
+                  <Wallets getExchangeRate={getExchangeRate} />
                 </Route>
                 <Route path="/admin/accounts">
                   <Accounts />
@@ -86,13 +99,13 @@ export default function JuniperAdmin() {
                   <PriceTracker />
                 </Route>
                 <Route path="/admin/transactions">
-                  <Transactions />
+                  <Transactions getExchangeRate={getExchangeRate} />
                 </Route>
                 <Route path="/admin/settings">
                   <Settings />
                 </Route>
                 <Route path="/admin">
-                  <Wallets />
+                  <Wallets getExchangeRate={getExchangeRate} />
                 </Route>
               </Switch>
             </Router>

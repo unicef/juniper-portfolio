@@ -12,6 +12,7 @@ import {
 import TxList from "../../ui/TxList";
 import Snackbar from "../../ui/Snackbar";
 import CircularProgress from "@material-ui/core/CircularProgress";
+import { TagTransaction } from "../../ui/Dialog";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -70,7 +71,7 @@ const StyledTab = withStyles((theme) => ({
   },
 }))((props) => <Tab disableRipple {...props} />);
 
-export default function CustomizedTabs() {
+export default function Transactions({ getExchangeRate }) {
   const classes = useStyles();
   const [activeTab, setActiveTab] = useState(0);
   const [fetchingTxs, setFetchingTxs] = useState(false);
@@ -82,6 +83,8 @@ export default function CustomizedTabs() {
   const [snackbarDuration] = useState(3000);
   const [snackbarMessage, setSnackbarMessage] = useState("");
   const [snackbarSeverity, setSnackbarSeverity] = useState("success");
+  const [showTagTransaction, setShowTagTransaction] = useState(false);
+  const [transaction, setTransaction] = useState({});
 
   const changeView = (event, newTab) => {
     setActiveTab(newTab);
@@ -140,15 +143,40 @@ export default function CustomizedTabs() {
       }
 
       setTxs(txs);
-      filterTransactions(txs);
+      filterTransactions(txs.splice(0, 10));
       setFetchingTxs(false);
     };
 
     getUnpublishedTransactions();
   }, []);
 
+  function UnpublishedTxCard(props) {
+    return (
+      <UnpublishedTransactionCard
+        {...props}
+        archiveTransaction={archiveTransaction}
+        archiveTransactionSuccess={archiveTransactionSuccess}
+        archiveTransactionFailed={archiveTransactionFailed}
+        onTagTransactionClick={(tx) => {
+          setTransaction(tx);
+          setShowTagTransaction(true);
+        }}
+      />
+    );
+  }
+
   return (
     <div className={classes.root}>
+      <TagTransaction
+        title={"Tag Donor Details"}
+        open={showTagTransaction}
+        tx={transaction}
+        onClose={() => {
+          setShowTagTransaction(false);
+          setTransaction({});
+        }}
+        getExchangeRate={getExchangeRate}
+      />
       <StyledTabs value={activeTab} onChange={changeView} centered>
         <StyledTab
           label="Unpublished"
@@ -175,10 +203,7 @@ export default function CustomizedTabs() {
           <TxList
             title={`${unpublishedTxs.length} Unpublished Transactions`}
             txs={unpublishedTxs}
-            TxCard={UnpublishedTransactionCard}
-            archiveTransaction={archiveTransaction}
-            archiveTransactionSuccess={archiveTransactionSuccess}
-            archiveTransactionFailed={archiveTransactionFailed}
+            TxCard={UnpublishedTxCard}
           />
         )}
       </TabPanel>
