@@ -4,7 +4,8 @@ import Divider from "@material-ui/core/Divider";
 import Button from "@material-ui/core/Button";
 import Grid from "@material-ui/core/Grid";
 import ChevronRightIcon from "@material-ui/icons/ChevronRight";
-import TxArrowIcon from "../Icons/TxArrowIcon";
+import TxReceivedIcon from "../Icons/TxReceivedIcon";
+import TxSentIcon from "../Icons/TxSentIcon";
 import ArchiveTxIcon from "../Icons/ArchiveTxIcon";
 import TxStepper from "../TxStepper";
 import { usdFormatter, cryptoFormatter } from "../../util";
@@ -146,7 +147,12 @@ export default function UnpublishedTransactionCard({
     <Fragment>
       <Grid container className={classes.transaction}>
         <Grid item xs={12} className={classes.txHeader}>
-          <TxArrowIcon className={classes.arrowIcon} />{" "}
+          {sent ? (
+            <TxSentIcon className={classes.arrowIcon} />
+          ) : (
+            <TxReceivedIcon className={classes.arrowIcon} />
+          )}
+
           <span className={classes.headerText}>
             Crypto {sent ? "sent" : null} {received ? "received" : null} at{" "}
             <b>
