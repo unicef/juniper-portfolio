@@ -3,6 +3,7 @@ import { withStyles } from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
 import ExpansionPanel from "../../ui/ExpansionPanel";
 import LoginSettings from "./Login";
+import Notifications from "./Notifications";
 import UserActivity from "./UserActivity";
 
 const styles = (theme) => ({
@@ -42,7 +43,9 @@ class Settings extends React.Component {
           <ExpansionPanel
             title={"Notifications"}
             heading={"Email Notifications"}
-          />
+          >
+            <Notifications />
+          </ExpansionPanel>
           <h5 className={classes.title}>User Activity</h5>
           <ExpansionPanel title={"User Activity"} heading={"View Activity Log"}>
             <UserActivity />

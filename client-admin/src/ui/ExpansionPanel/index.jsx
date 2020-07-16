@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { withStyles } from "@material-ui/core/styles";
 import ExpansionPanel from "@material-ui/core/ExpansionPanel";
 import ExpansionPanelSummary from "@material-ui/core/ExpansionPanelSummary";
@@ -26,10 +26,22 @@ const styles = (theme) => ({
 });
 
 function SimpleExpansionPanel(props) {
+  const [expanded, setExpanded] = useState(false);
   const { classes } = props;
+
+  useEffect(() => {
+    setExpanded(props.expanded);
+  }, []);
+
   return (
     <div className={classes.root}>
-      <ExpansionPanel elevation={0} expanded={true}>
+      <ExpansionPanel
+        elevation={0}
+        expanded={expanded}
+        onChange={() => {
+          setExpanded(!expanded);
+        }}
+      >
         <ExpansionPanelSummary
           expandIcon={<ExpandMoreIcon style={{ color: "#00aaef" }} />}
         >
