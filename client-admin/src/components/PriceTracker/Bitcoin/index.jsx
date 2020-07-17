@@ -1,7 +1,9 @@
-import React from 'react'
+import React, {useState, useEffect} from 'react'
 import { makeStyles } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
 import Grid from '@material-ui/core/Grid';
+import { gql } from 'apollo-boost'
+import { useQuery } from 'react-apollo'
 import MainContentContainer from '../../../ui/MainContentContainer'
 import PriceBar from '../../PriceBar'
 
@@ -83,17 +85,44 @@ const useStyles = makeStyles({
 
 });
 
+
+const DAILY_PRICES = gql`
+    query DailyPrices {
+        dailyPrices {
+            id
+            currency
+            priceBinance
+            priceCoinbasePro
+            priceBitstamp
+            averagePrice
+            date
+        }
+    }
+`
+
+
+
 export default function BitcoinPriceTracker() {
   const classes = useStyles();
   const date = new Date();
   const month = date.toLocaleString('default', { month: 'short' });
   const datestring = date.getUTCDate() + " " + month + " " + date.getUTCFullYear();
+
+
+  const { loading, error, prices } = useQuery(DAILY_PRICES);
+  if (loading) return 'Loading...';
+  if (error) return `Error! ${error.message}`;
+  console.log(prices)
+
+    
+    
   
   return (
     <MainContentContainer className={classes.root}>
       <PriceBar />
       <div className={classes.header}>Bitcoin price overview</div>
       <div className={classes.subheader}>{datestring}</div>
+      <div>{prices}</div>
       <MainCard />
       <WeekCard/>
     </MainContentContainer>
