@@ -70,6 +70,24 @@ class MongoDB {
       },
     ]);
   }
+  async getMultisigWalletFees(address) {
+    this.logger.debug(`Getting Wallet fees for ${address}`);
+    return this.models.Transaction.aggregate([
+      {
+        $match: {
+          address,
+          isMultisigOwner: true,
+        },
+      },
+      {
+        $group: {
+          _id: "Fees",
+          totalFees: { $sum: "$fee" },
+          totalFeesUSD: { $sum: "$feeUSD" },
+        },
+      },
+    ]);
+  }
   async updateWallet(address, fields) {
     this.logger.debug(
       `Updating Wallet for ${address} with ${JSON.stringify(fields)}`

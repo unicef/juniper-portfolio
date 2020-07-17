@@ -10,7 +10,7 @@ class BitcoinWalletScraper {
     this.db = db;
   }
 
-  async scrapeTransactionData(address, isUnicef) {
+  async scrapeTransactionData(address, isUnicef, multisigOwners) {
     const walletData = await this.fetchWalletData(address);
     const txData = await this.fetchTransactionData(address);
 

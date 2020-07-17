@@ -132,18 +132,20 @@ router.post("/wallet", async (req, res) => {
     }
 
     await juniperAdmin.db.createWallet(wallet);
-    console.log(wallet);
+
     switch (wallet.symbol) {
       case "BTC":
         await juniperAdmin.bitcoinWalletScraper.scrapeTransactionData(
           wallet.address,
-          isUnicef
+          isUnicef,
+          wallet.multisigOwners
         );
         break;
       case "ETH":
         await juniperAdmin.ethereumWalletScraper.scrapeTransactionData(
           wallet.address,
-          isUnicef
+          isUnicef,
+          wallet.multisigOwners
         );
 
         break;
