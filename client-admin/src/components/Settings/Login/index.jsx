@@ -7,7 +7,7 @@ import Button from "@material-ui/core/Button";
 const useStyles = makeStyles({
   root: {},
   textField: {
-    marginTop: 0,
+    marginBottom: 16,
     width: "100%",
   },
   textLabelInput: {
@@ -25,6 +25,8 @@ const useStyles = makeStyles({
     height: 40,
     fontSize: 16,
     lineHeight: 1.5,
+    letterSpacing: "normal",
+    color: "#898989",
   },
   messageBox: {
     paddingLeft: 100,
@@ -45,7 +47,7 @@ const useStyles = makeStyles({
     padding: "11px 16px 11px 16px",
   },
   changePasswordButton: {
-    width: 208,
+    width: "100%",
     height: 35,
     fontFamily: '"Cabin", sans-serif',
     letterSpacing: 1,
@@ -54,7 +56,7 @@ const useStyles = makeStyles({
     textAlign: "center",
     color: "#ffffff",
     boxShadow: "none",
-    marginTop: 35,
+    marginTop: 17,
   },
 });
 

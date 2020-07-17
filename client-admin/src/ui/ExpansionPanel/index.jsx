@@ -30,7 +30,7 @@ function SimpleExpansionPanel(props) {
   const { classes } = props;
 
   useEffect(() => {
-    setExpanded(props.expanded);
+    setExpanded(props.expanded || false);
   }, []);
 
   return (
