@@ -120,6 +120,7 @@ const useStyles = makeStyles((theme) => ({
 
 function MultisigOwner(props) {
   const classes = useStyles();
+
   return (
     <Fragment>
       <TextField
@@ -130,6 +131,12 @@ function MultisigOwner(props) {
           className: classes.formControl,
         }}
         label={`Owner ${props.index + 1} wallet address`}
+        value={props.multisigOwners[props.index].walletAddress}
+        onChange={(e) => {
+          const newMultisigOwners = props.multisigOwners.slice();
+          newMultisigOwners[props.index].walletAddress = e.target.value;
+          props.setMultisigOwners(newMultisigOwners);
+        }}
       />
       <TextField
         className={classes.formControl}
@@ -141,6 +148,12 @@ function MultisigOwner(props) {
         }}
         label={`Owner ${props.index + 1} name (optional)`}
         style={{ marginBottom: 0 }}
+        value={props.multisigOwners[props.index].ownerName}
+        onChange={(e) => {
+          const newMultisigOwners = props.multisigOwners.slice();
+          newMultisigOwners[props.index].ownerName = e.target.value;
+          props.setMultisigOwners(newMultisigOwners);
+        }}
       />
     </Fragment>
   );
@@ -160,8 +173,8 @@ export default function AddWallet(props) {
   const [addingWallet, setAddingWallet] = useState(false);
   const [multisigOwners, setMultisigOwners] = useState([
     {
-      walletAddress: null,
-      ownerName: null,
+      walletAddress: "",
+      ownerName: "",
     },
   ]);
   const handleClose = () => {
@@ -227,8 +240,8 @@ export default function AddWallet(props) {
     setIsMultisig(false);
     setMultisigOwners([
       {
-        walletAddress: null,
-        ownerName: null,
+        walletAddress: "",
+        ownerName: "",
       },
     ]);
 
@@ -246,8 +259,8 @@ export default function AddWallet(props) {
     setMultisigOwners(
       props.multisigOwners || [
         {
-          walletAddress: null,
-          ownerName: null,
+          walletAddress: "",
+          ownerName: "",
         },
       ]
     );
@@ -378,6 +391,8 @@ export default function AddWallet(props) {
                           key={index}
                           owner={owner}
                           index={index}
+                          multisigOwners={multisigOwners}
+                          setMultisigOwners={setMultisigOwners}
                           addMultisigOwner={addMultisigOwner}
                         />
                       );
