@@ -83,6 +83,8 @@ export default function SidebarNavigation() {
       setSelectedIndex(2);
     } else if (path.indexOf("transactions") > -1) {
       setSelectedIndex(3);
+    } else if (path.indexOf("settings") > -1) {
+      setSelectedIndex(4);
     }
   }, []);
 
