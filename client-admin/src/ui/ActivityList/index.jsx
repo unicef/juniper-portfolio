@@ -32,12 +32,10 @@ function ListItemLink(props) {
 
 export default function ActivityList(props) {
   const classes = useStyles();
-  console.log("props");
-  console.log(props);
+
   return (
     <List component="nav" className={classes.root}>
       {props.data.map((action, index) => {
-        console.log(action);
         return (
           <Fragment key={index}>
             <Divider />

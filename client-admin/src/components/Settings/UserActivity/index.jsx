@@ -34,6 +34,7 @@ export default function UserActivity() {
         console.log(e);
       }
       activity = await activity.json();
+      activity = activity.reverse();
       activity.forEach((activity) => {
         // calc time
         const timestamp = activity._id.toString().substring(0, 8);

@@ -94,9 +94,14 @@ router.get("/transactions/unpublished", async (req, res) => {
 router.post("/transaction/archive", async (req, res) => {
   const juniperAdmin = req.app.get("juniperAdmin");
   let { txid } = req.body;
+  const user = "Alex Sherbuck"; // Todo, get from session
 
   try {
     await juniperAdmin.db.archiveTx(txid);
+    await juniperAdmin.logActivity({
+      name: user,
+      text: `<a href="#" class="link">${user}</a> archived a transaction.`,
+    });
   } catch (e) {
     return logger.error(e);
   }
@@ -147,10 +152,18 @@ router.post("/wallet", async (req, res) => {
     }
 
     await juniperAdmin.createWallet(wallet);
-    await juniperAdmin.logActivity({
-      name: user,
-      text: `<a href="#" class="link">${user}</a> added a new wallet.`,
-    });
+
+    if (wallet.isUnicef) {
+      await juniperAdmin.logActivity({
+        name: user,
+        text: `<a href="#" class="link">${user}</a> added a new wallet.`,
+      });
+    } else if (wallet.isTracked) {
+      await juniperAdmin.logActivity({
+        name: user,
+        text: `<a href="#" class="link">${user}</a> tracked a wallet.`,
+      });
+    }
 
     switch (wallet.symbol) {
       case "BTC":
