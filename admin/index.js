@@ -67,6 +67,15 @@ class JuniperAdmin {
     this.logger.info(`started in ${this.environment}.`);
   }
 
+  async logActivity(activity) {
+    this.db.logActivity(activity);
+  }
+
+  async createWallet(wallet) {
+    this.logger.debug(`createWallet ${wallet}`);
+    this.db.createWallet(wallet);
+  }
+
   async getWalletSummary() {
     let ethBalance = await this.db.getUnicefBalanceForCurrency("ETH");
     let ethSent = await this.db.getTotalUnicefSentForCurrency("ETH");

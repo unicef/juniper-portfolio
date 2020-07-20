@@ -6,6 +6,18 @@ router.get("/ping", (req, res) => {
   res.send("pong");
 });
 
+router.get("/activities", async (req, res) => {
+  const juniperAdmin = req.app.get("juniperAdmin");
+  let activities = [];
+  try {
+    activities = await juniperAdmin.db.getActivities();
+  } catch (e) {
+    return this.logger.error(e);
+  }
+
+  res.json(activities);
+});
+
 router.get("/transactions/address/:address", async (req, res) => {
   const juniperAdmin = req.app.get("juniperAdmin");
   const { address } = req.params;
@@ -123,6 +135,9 @@ router.post("/wallet", async (req, res) => {
   const juniperAdmin = req.app.get("juniperAdmin");
   const { wallet } = req.body;
   const { isUnicef } = wallet;
+  const user = "Alex Sherbuck"; // Todo, get from session
+
+  logger.info(`/wallet ${JSON.stringify(wallet)}`);
   try {
     // TODO cleanup validation
     if (!wallet.address) {
@@ -131,7 +146,11 @@ router.post("/wallet", async (req, res) => {
       );
     }
 
-    await juniperAdmin.db.createWallet(wallet);
+    await juniperAdmin.createWallet(wallet);
+    await juniperAdmin.logActivity({
+      name: user,
+      text: `<a href="#" class="link">${user}</a> added a new wallet.`,
+    });
 
     switch (wallet.symbol) {
       case "BTC":
@@ -243,22 +262,23 @@ router.post("/natcom", async (req, res) => {
   res.send(natcom);
 });
 
-
 router.get("/prices", async (req, res) => {
   const juniperAdmin = req.app.get("juniperAdmin");
   const { params } = req.body;
   let prices = [];
 
-
-  console.log('params', params)
+  console.log("params", params);
 
   try {
-    prices = await juniperAdmin.db.getPrices(params.symbol, params.timeStart, params.timeEnd);
+    prices = await juniperAdmin.db.getPrices(
+      params.symbol,
+      params.timeStart,
+      params.timeEnd
+    );
   } catch (e) {
     return logger.error(e);
   }
   res.json(prices);
 });
-
 
 module.exports = router;

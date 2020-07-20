@@ -3,7 +3,7 @@ const Schema = mongoose.Schema;
 
 const activity = new Schema({
   name: { type: String },
-  message: { type: String },
+  text: { type: String },
 });
 
 const Activity = mongoose.model("Activity", activity);
