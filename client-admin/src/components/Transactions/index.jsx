@@ -91,13 +91,15 @@ export default function Transactions({ getExchangeRate }) {
   };
 
   const archiveTransaction = (txid) => {
-    txs.forEach((tx) => {
+    const newTxs = txs.slice();
+
+    newTxs.forEach((tx) => {
       if (tx.txid === txid) {
         tx.archived = true;
       }
     });
-    setTxs(txs);
-    filterTransactions(txs);
+    setTxs(newTxs);
+    filterTransactions(newTxs);
   };
 
   const archiveTransactionSuccess = () => {
@@ -107,13 +109,14 @@ export default function Transactions({ getExchangeRate }) {
   };
 
   const archiveTransactionFailed = (txid) => {
-    txs.forEach((tx) => {
+    const newTxs = txs.slice();
+    newTxs.forEach((tx) => {
       if (tx.txid === txid) {
         tx.archived = false;
       }
     });
-    setTxs(txs);
-    filterTransactions(txs);
+    setTxs(newTxs);
+    filterTransactions(newTxs);
     setSnackbarMessage("Tx Archive Failed");
     setSnackbarSeverity("error");
     setShowSnackbar(true);
@@ -143,7 +146,7 @@ export default function Transactions({ getExchangeRate }) {
       }
 
       setTxs(txs);
-      filterTransactions(txs.splice(0, 10));
+      filterTransactions(txs);
       setFetchingTxs(false);
     };
 
