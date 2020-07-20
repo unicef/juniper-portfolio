@@ -49,6 +49,9 @@ class JuniperAdmin {
 
     this.logger.info(`Initialized`);
   }
+  logUserActivity(activity) {
+    this.logger.info(`Logging activity: ${activity}`);
+  }
 
   startPriceMonitor() {
     if (this.config.startPriceMonitor) {

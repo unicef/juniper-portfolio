@@ -38,6 +38,11 @@ class MongoDB {
     this.logger.info("Initialized");
   }
 
+  async logActivity(activity) {
+    this.logger.debug(`Logging activity ${JSON.stringify(activity)}`);
+    return this.models.Activity(activity).save();
+  }
+
   async createWallet(wallet) {
     this.logger.debug(`Creating Wallet ${JSON.stringify(wallet)}`);
     return this.models.Wallet.findOneAndUpdate(
