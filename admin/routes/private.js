@@ -280,8 +280,6 @@ router.get("/prices", async (req, res) => {
   const { params } = req.body;
   let prices = [];
 
-  console.log("params", params);
-
   try {
     prices = await juniperAdmin.db.getPrices(
       params.symbol,
