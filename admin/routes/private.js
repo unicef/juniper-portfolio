@@ -137,13 +137,15 @@ router.post("/wallet", async (req, res) => {
       case "BTC":
         await juniperAdmin.bitcoinWalletScraper.scrapeTransactionData(
           wallet.address,
-          isUnicef
+          isUnicef,
+          wallet.multisigOwners
         );
         break;
       case "ETH":
         await juniperAdmin.ethereumWalletScraper.scrapeTransactionData(
           wallet.address,
-          isUnicef
+          isUnicef,
+          wallet.multisigOwners
         );
 
         break;

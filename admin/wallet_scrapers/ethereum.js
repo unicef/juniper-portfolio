@@ -9,13 +9,24 @@ class EthereumWalletScraper {
     this.db = db;
   }
 
-  async scrapeTransactionData(address, isUnicef) {
+  async scrapeTransactionData(address, isUnicef, multisigOwners) {
     const walletData = await this.fetchWalletData(address);
     const txData = await this.fetchTransactionData(address);
     const internalTxData = await this.fetchInternalTransactionData(address);
 
+    const multisigOwnerLookup = {};
+
+    multisigOwners.forEach((owner) => {
+      multisigOwnerLookup[owner.walletAddress.toLowerCase()] = true;
+    });
+
     for (const tx of txData) {
-      await this.saveTransactionData(address, tx, isUnicef);
+      await this.saveTransactionData(
+        address,
+        tx,
+        isUnicef,
+        multisigOwnerLookup
+      );
     }
     for (const itx of internalTxData) {
       await this.saveTransactionData(address, itx, isUnicef);
@@ -77,9 +88,10 @@ class EthereumWalletScraper {
     };
   }
 
-  async saveTransactionData(address, tx, isUnicef) {
+  async saveTransactionData(address, tx, isUnicef, multisigOwnerLookup = {}) {
     let sent = false;
     let received = false;
+    let isMultisigOwner = false;
     let timestamp = tx.timeStamp * 1000;
     let rate = await this.db.getNearestPrice(this.symbol, new Date(timestamp));
     let amount = tx.value / 1e18;
@@ -91,6 +103,10 @@ class EthereumWalletScraper {
 
     if (tx.from.toLowerCase() === address.toLowerCase()) {
       sent = true;
+    }
+
+    if (multisigOwnerLookup[tx.from.toLowerCase()]) {
+      isMultisigOwner = true;
     }
 
     let amountUSD = Math.round(amount * rate.price * 100) / 100;
@@ -121,6 +137,7 @@ class EthereumWalletScraper {
       amount,
       amountUSD,
       isUnicef,
+      isMultisigOwner,
       published: false,
       archived: false,
     });
@@ -129,11 +146,19 @@ class EthereumWalletScraper {
     const { address, balance } = walletData;
     this.logger.info(`Updating Wallet data for \t${address}`);
     let aggregateFees = await this.db.getWalletFees(address);
+    let aggregateMultisigFees = await this.db.getMultisigWalletFees(address);
+
     let totalFees = 0;
     let totalFeesUSD = 0;
+
     if (aggregateFees.length > 0) {
       totalFees = aggregateFees[0].totalFees;
       totalFeesUSD = aggregateFees[0].totalFeesUSD;
+    }
+
+    if (aggregateMultisigFees.length > 0) {
+      totalFees = aggregateMultisigFees[0].totalFees;
+      totalFeesUSD = aggregateMultisigFees[0].totalFeesUSD;
     }
 
     await this.db.updateWallet(address, {
