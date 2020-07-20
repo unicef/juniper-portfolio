@@ -44,29 +44,29 @@ function a11yProps(index) {
 }
 
 const useStyles = makeStyles((theme) => ({
-  root: {
-    flexGrow: 1,
-    //backgroundColor: theme.palette.background.paper,
-    backgroundColor: "#f8f8f8",
-  },
-  appBar: {
-    marginTop: "5em",
-    boxShadow: "none",
-  },
-  navigation: {
-    backgroundColor: "#ffffff",
-  },
-  navTab: {
-    fontSize: "12px",
-    fontWeight: 700,
-    fontStretch: "normal",
-    fontStyle: "normal",
-    lineHeight: "normal",
-    letterSpacing: "1.2px",
-    textAlign: "center",
-    color: "#929292",
-    textTransform: "uppercase",
-  },
+    root: {
+        flexGrow: 1,
+        //backgroundColor: theme.palette.background.paper,
+        backgroundColor: '#f8f8f8',
+    },
+    appBar: {
+        marginTop: '4em',
+        boxShadow: 'none'
+    },
+    navigation: {
+        backgroundColor: "#ffffff"
+    },
+    navTab: {
+        fontSize: '12px',
+        fontWeight: 700,
+        fontStretch: 'normal',
+        fontStyle: 'normal',
+        lineHeight: 'normal',
+        letterSpacing: '1.2px',
+        textAlign: 'center',
+        color: '#929292',
+        textTransform: 'uppercase'
+    },
 
   tabpanel: {
     backgroundColor: "#f8f8f8",

@@ -243,4 +243,22 @@ router.post("/natcom", async (req, res) => {
   res.send(natcom);
 });
 
+
+router.get("/prices", async (req, res) => {
+  const juniperAdmin = req.app.get("juniperAdmin");
+  const { params } = req.body;
+  let prices = [];
+
+
+  console.log('params', params)
+
+  try {
+    prices = await juniperAdmin.db.getPrices(params.symbol, params.timeStart, params.timeEnd);
+  } catch (e) {
+    return logger.error(e);
+  }
+  res.json(prices);
+});
+
+
 module.exports = router;

@@ -134,6 +134,7 @@ export function NatcomCreateModal(props) {
                     <form>
                         <TextField fullWidth InputProps={{ className: classes.textfield, }} InputLabelProps={{className: classes.label,}} value={name} onChange={(e) => { setName(e.target.value); }} label="NATCOM NAME" placeholder="Enter natcom name"  />
                         <TextField fullWidth InputProps={{ className: classes.textfield, }} InputLabelProps={{className: classes.label,}} value={walletaddress} onChange={(e) => { setWalletaddress(e.target.value); }} label="WALLET ADDRESS" placeholder="0x123456789" />
+                        <TextField type="number" InputProps={{ className: classes.textfield, }} InputLabelProps={{className: classes.label,}} value={amtETH} onChange={(e) => { setAmtETH(e.target.value); }} label="AMOUNT" placeholder="Enter amount (ETH)"  />
                         <Button fullWidth color="primary" className={classes.submitbtn} onClick={addNatcom}>Add Natcom</Button>
                     </form>
              

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState, useEffect} from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { NatcomCreateModal } from '../NatcomCreateModal';
 import Typography from '@material-ui/core/Typography';
@@ -64,7 +64,9 @@ export default function NatcomSummary()
 {
     const classes = useStyles();
     const blurb =  "Cryptofund donations are received by HQ through four National Committees - Australia, France, New Zealand, and the United States."
-  const [modalopen, setmodalopen] = React.useState(false);
+    const [modalopen, setmodalopen] = React.useState(false);
+    const [numnatcoms, setNNatcoms] = useState([]);
+
   
     const handleOpen = () => {
       setmodalopen(true);
@@ -73,10 +75,28 @@ export default function NatcomSummary()
     const handleClose = () =>{
       setmodalopen(false);
      };
+
+     
+  const getNatcoms = async () => {
+    let res, natcoms;
+    try {
+      res = await fetch("/rest/admin/natcoms");
+      natcoms = await res.json();
+      setNNatcoms(natcoms.length);
+    } catch (e) {
+      return console.log(e);
+    }
+
+  };
+
+
+  useEffect(() => {
+    getNatcoms();
+  });
   
     return (
       <div className={classes.root}>
-        <Typography variant="h1" style={{ marginBottom: '30px', marginTop: '50px' }}>4 NatComs</Typography>
+        <Typography variant="h1" style={{ marginBottom: '30px', marginTop: '50px' }}>{numnatcoms} NatComs</Typography>
         <Grid container className={classes.gridcontainer} spacing={4}>
           <Grid item lg={3}>
             <Typography variant="h2">100 ETH</Typography> 

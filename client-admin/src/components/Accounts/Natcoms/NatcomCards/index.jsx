@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState, useEffect} from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
 import Button from '@material-ui/core/Button';
@@ -100,17 +100,34 @@ const useStyles = makeStyles({
 
 
 
-export default function NatcomCards({ncomdata}: NatcomCardProps)
+export default function NatcomCards()
 {
   const classes = useStyles();
-  const numcards = ncomdata.length;
+  const [natcoms, setNatcoms] = useState([]);
 
+  const getNatcoms = async () => {
+    let res, natcoms;
+    try {
+      res = await fetch("/rest/admin/natcoms");
+      natcoms = await res.json();
+      setNatcoms(natcoms);
+      console.log('Got natcom data: ', natcoms);
+    } catch (e) {
+      return console.log(e);
+    }
+
+  };
+
+
+  useEffect(() => {
+    getNatcoms();
+  }, [natcoms.length]);
 
   return (
      <div className={classes.root}>
-       <div className={classes.numcards}>{numcards} NATCOM ACCOUNTS</div>
+       <div className={classes.numcards}>{natcoms.length} NATCOM ACCOUNTS</div>
        <Grid container className={classes.cardsection} spacing={4}>
-         {ncomdata.map((ncom) =>
+         {natcoms.map((ncom) =>
            <Grid item>
              <NatcomCard {...ncom}/>
            </Grid>
@@ -121,20 +138,13 @@ export default function NatcomCards({ncomdata}: NatcomCardProps)
 }
 
 
-/*Template for Natcom data
-type NatcomCardData = 
-  {
-    name: string,
-    amtETH: number,
-    amtBTC: number,
-  }
-  */
+
 
 function ETHData({amtETH}: number)
 {
   const classes = useStyles();
 
-  if (amtETH)
+  if (amtETH !=null)
   {
     return (
       <Grid item>
@@ -162,7 +172,7 @@ function BTCData({amtBTC}: number)
 {
   const classes = useStyles();
 
-  if (amtBTC)
+  if (amtBTC !=null)
   {
     return (
       <Grid item>
