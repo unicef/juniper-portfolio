@@ -7,6 +7,7 @@ import Divider from "@material-ui/core/Divider";
 import KeyboardArrowDownIcon from "@material-ui/icons/KeyboardArrowDown";
 import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
+import Pagination from "../pagination";
 
 const transactionDetailsStyles = makeStyles((theme) => ({
   root: {
@@ -39,9 +40,16 @@ const transactionDetailsStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function TxList({ title, txs, TxCard }) {
+export default function TxList({ title, txs, TxCard, page, limit }) {
   const classes = transactionDetailsStyles();
 
+  const start = page * limit;
+  const end = page * limit + limit - 1;
+  const totalItems = txs.length;
+  const totalPages = Math.ceil(totalItems / limit);
+  const currentPage = Math.ceil(start / limit);
+  console.log(start);
+  console.log(end - 1);
   return (
     <Fragment>
       <Grid container className={classes.root}>
@@ -68,7 +76,7 @@ export default function TxList({ title, txs, TxCard }) {
       </Grid>
       {txs && (
         <List>
-          {txs.map((tx, index) => {
+          {txs.slice(start, end).map((tx, index) => {
             return (
               <ListItem key={index}>
                 <TxCard
@@ -90,6 +98,13 @@ export default function TxList({ title, txs, TxCard }) {
           })}
         </List>
       )}
+      <Pagination
+        start={start}
+        end={end}
+        totalItems={totalItems}
+        totalPages={totalPages}
+        currentPage={currentPage}
+      />
     </Fragment>
   );
 }
