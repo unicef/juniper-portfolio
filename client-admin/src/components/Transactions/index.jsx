@@ -78,11 +78,15 @@ export default function Transactions({ getExchangeRate }) {
   const [txs, setTxs] = useState([]);
   const [unpublishedTxs, setUnpublishedTxs] = useState([]);
   const [unpublishedPage, setUnpublishedPage] = useState(0);
-  const [unpublishedLimit, setUnpublishedLimit] = useState(30);
+  const [unpublishedLimit, setUnpublishedLimit] = useState(3);
 
   const [publishedTxs, setPublishedTxs] = useState([]);
+  const [publishedPage, setPublishedPage] = useState(0);
+  const [publishedLimit, setPublishedLimit] = useState(3);
 
   const [archivedTxs, setArchivedTxs] = useState([]);
+  const [archivedPage, setArchivedPage] = useState(0);
+  const [archivedLimit, setArchivedLimit] = useState(3);
 
   const [showSnackbar, setShowSnackbar] = useState(false);
   const [snackbarDuration] = useState(3000);
@@ -211,6 +215,7 @@ export default function Transactions({ getExchangeRate }) {
             TxCard={UnpublishedTxCard}
             page={unpublishedPage}
             limit={unpublishedLimit}
+            onPaginationClick={setUnpublishedPage}
           />
         )}
       </TabPanel>
@@ -219,8 +224,9 @@ export default function Transactions({ getExchangeRate }) {
           title={`${publishedTxs.length} Published Transactions`}
           txs={publishedTxs}
           TxCard={PublishedTransactionCard}
-          page={unpublishedPage}
-          limit={unpublishedLimit}
+          page={publishedPage}
+          limit={publishedLimit}
+          onPaginationClick={setPublishedPage}
         />
       </TabPanel>
       <TabPanel activeTab={activeTab} index={2}>
@@ -228,6 +234,9 @@ export default function Transactions({ getExchangeRate }) {
           title={`${archivedTxs.length} Archived Transactions`}
           txs={archivedTxs}
           TxCard={ArchivedTransactionCard}
+          page={archivedPage}
+          limit={archivedLimit}
+          onPaginationClick={setArchivedPage}
         />
       </TabPanel>
       <Snackbar

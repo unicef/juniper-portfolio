@@ -40,16 +40,22 @@ const transactionDetailsStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function TxList({ title, txs, TxCard, page, limit }) {
+export default function TxList({
+  title,
+  txs,
+  TxCard,
+  page,
+  limit,
+  onPaginationClick,
+}) {
   const classes = transactionDetailsStyles();
 
   const start = page * limit;
-  const end = page * limit + limit - 1;
+  const end = page * limit + limit;
   const totalItems = txs.length;
   const totalPages = Math.ceil(totalItems / limit);
-  const currentPage = Math.ceil(start / limit);
-  console.log(start);
-  console.log(end - 1);
+  const currentPage = page + 1;
+
   return (
     <Fragment>
       <Grid container className={classes.root}>
@@ -99,11 +105,12 @@ export default function TxList({ title, txs, TxCard, page, limit }) {
         </List>
       )}
       <Pagination
-        start={start}
+        start={start + 1}
         end={end}
         totalItems={totalItems}
         totalPages={totalPages}
         currentPage={currentPage}
+        onClick={onPaginationClick}
       />
     </Fragment>
   );

@@ -44,13 +44,15 @@ export default function PagePagination({
   totalItems,
   totalPages,
   currentPage,
+  onClick,
 }) {
   const classes = useStyles();
 
   return (
     <Grid container className={classes.root}>
       <Grid item xs={7} className={classes.boxLeft}>
-        Showing {start} - {end} of {totalItems} Transactions
+        Showing {start} - {totalItems < end ? totalItems : end} of {totalItems}{" "}
+        Transactions
       </Grid>
       <Grid item xs={5} className={classes.boxRight}>
         <Pagination
@@ -59,7 +61,7 @@ export default function PagePagination({
           className={classes.pagination}
           page={currentPage}
           onChange={(e, value) => {
-            console.log(value);
+            onClick(value - 1);
           }}
         />
       </Grid>
