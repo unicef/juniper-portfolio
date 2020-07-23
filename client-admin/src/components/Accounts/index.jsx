@@ -123,7 +123,18 @@ export default function Transactions({ getExchangeRate }) {
         />
       </TabPanel>
       <TabPanel activeTab={activeTab} index={2}>
-        <AccountLayout title={"5 Natcoms"} />
+        <AccountLayout
+          title={"5 Natcoms"}
+          type={"Natcoms"}
+          totalEther={25}
+          totalETHUSD={12000}
+          totalBitcoin={2.5}
+          totalBTCUSD={50000}
+          accounts={mockNatcomData}
+          message={
+            "Cryptofund donations are received by HQ through four National Committees - Australia, France, New Zealand and the United States."
+          }
+        />
       </TabPanel>
     </div>
   );
@@ -133,7 +144,7 @@ const mockAccountData = [
   {
     image:
       "https://www.google.com/images/branding/googlelogo/1x/googlelogo_color_272x92dp.png",
-    name: "Name",
+    name: "Startup 1",
     location: "Location",
     totalETHInvested: 10,
     totalETHUSD: 25000,
@@ -141,14 +152,14 @@ const mockAccountData = [
   {
     image:
       "https://www.google.com/images/branding/googlelogo/1x/googlelogo_color_272x92dp.png",
-    name: "Name",
+    name: "Startup 2",
     location: "Location",
     totalBTCInvested: 1,
     totalBTCUSD: 20000,
   },
   {
     image: null,
-    name: "Name",
+    name: "Startup 3",
     location: "Location",
     totalETHInvested: 10,
     totalETHUSD: 25000,
@@ -157,7 +168,7 @@ const mockAccountData = [
   },
   {
     image: null,
-    name: "Name",
+    name: "Startup 4",
     location: "Location",
     totalETHInvested: 10,
     totalETHUSD: 25000,
@@ -168,28 +179,51 @@ const mockAccountData = [
 
 const mockDonorData = [
   {
-    name: "Name",
-    location: "Location",
+    name: "Donor 1",
     totalETHInvested: 10,
     totalETHUSD: 25000,
   },
   {
-    name: "Name",
-    location: "Location",
+    name: "Donor 2",
     totalBTCInvested: 1,
     totalBTCUSD: 20000,
   },
   {
-    name: "Name",
-    location: "Location",
+    name: "Donor 3",
     totalETHInvested: 10,
     totalETHUSD: 25000,
     totalBTCInvested: 1,
     totalBTCUSD: 20000,
   },
   {
-    name: "Name",
-    location: "Location",
+    name: "Donor 4",
+    totalETHInvested: 10,
+    totalETHUSD: 25000,
+    totalBTCInvested: 1,
+    totalBTCUSD: 20000,
+  },
+];
+
+const mockNatcomData = [
+  {
+    name: "Natcom 1",
+    totalETHInvested: 10,
+    totalETHUSD: 25000,
+  },
+  {
+    name: "Donor 2",
+    totalBTCInvested: 1,
+    totalBTCUSD: 20000,
+  },
+  {
+    name: "Donor 3",
+    totalETHInvested: 10,
+    totalETHUSD: 25000,
+    totalBTCInvested: 1,
+    totalBTCUSD: 20000,
+  },
+  {
+    name: "Donor 4",
     totalETHInvested: 10,
     totalETHUSD: 25000,
     totalBTCInvested: 1,

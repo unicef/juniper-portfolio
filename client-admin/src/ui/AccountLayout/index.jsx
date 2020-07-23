@@ -17,6 +17,7 @@ const transactionDetailsStyles = makeStyles((theme) => ({
   },
   bannerBox: {
     marginTop: "2em",
+    minHeight: 330,
   },
   title: {
     fontFamily: '"Roboto",  sans-serif',

@@ -8,7 +8,7 @@ import { usdFormatter, cryptoFormatter } from "../../util";
 
 const useStyles = makeStyles((theme) => ({
   wallet: {
-    minHeight: 301,
+    minHeight: 254,
     backgroundColor: "#ffffff",
     fontFamily: '"Roboto", sans-serif',
     paddingTop: 10,
