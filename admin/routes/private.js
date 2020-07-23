@@ -164,103 +164,23 @@ router.post("/wallet", async (req, res) => {
   res.send(wallet);
 });
 
-router.get("/startups", async (req, res) => {
-  const juniperAdmin = req.app.get("juniperAdmin");
-  let startups = [];
-
-  try {
-    startups = await juniperAdmin.db.getStartups();
-  } catch (e) {
-    return logger.error(e);
-  }
-  res.json(startups);
-});
-
-router.post("/startup", async (req, res) => {
-  const juniperAdmin = req.app.get("juniperAdmin");
-  const { startup } = req.body;
-
-  try {
-    await juniperAdmin.db.createStartup(startup);
-  } catch (e) {
-    logger.error(e);
-    return res.error({
-      msg: "Failed to create startup",
-    });
-  }
-  res.send(startup);
-});
-
-router.get("/donors", async (req, res) => {
-  const juniperAdmin = req.app.get("juniperAdmin");
-  let donors = [];
-
-  try {
-    donors = await juniperAdmin.db.getDonors();
-  } catch (e) {
-    return logger.error(e);
-  }
-  res.json(donors);
-});
-
-router.post("/donor", async (req, res) => {
-  const juniperAdmin = req.app.get("juniperAdmin");
-  const { donor } = req.body;
-
-  try {
-    await juniperAdmin.db.createDonor(donor);
-  } catch (e) {
-    logger.error(e);
-    return res.error({
-      msg: "Failed to create donor",
-    });
-  }
-  res.send(donor);
-});
-
-router.get("/natcoms", async (req, res) => {
-  const juniperAdmin = req.app.get("juniperAdmin");
-  let natcoms = [];
-
-  try {
-    natcoms = await juniperAdmin.db.getNatcoms();
-  } catch (e) {
-    return logger.error(e);
-  }
-  res.json(natcoms);
-});
-
-router.post("/natcom", async (req, res) => {
-  const juniperAdmin = req.app.get("juniperAdmin");
-  const { natcom } = req.body;
-
-  try {
-    await juniperAdmin.db.createNatcom(natcom);
-  } catch (e) {
-    logger.error(e);
-    return res.error({
-      msg: "Failed to create natcom",
-    });
-  }
-  res.send(natcom);
-});
-
-
 router.get("/prices", async (req, res) => {
   const juniperAdmin = req.app.get("juniperAdmin");
   const { params } = req.body;
   let prices = [];
 
-
-  console.log('params', params)
+  console.log("params", params);
 
   try {
-    prices = await juniperAdmin.db.getPrices(params.symbol, params.timeStart, params.timeEnd);
+    prices = await juniperAdmin.db.getPrices(
+      params.symbol,
+      params.timeStart,
+      params.timeEnd
+    );
   } catch (e) {
     return logger.error(e);
   }
   res.json(prices);
 });
-
 
 module.exports = router;
