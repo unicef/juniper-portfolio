@@ -27,12 +27,15 @@ const transactionDetailsStyles = makeStyles((theme) => ({
     color: "000000",
     marginTop: 50,
   },
+  messageBox: {
+    minHeight: 160,
+  },
   message: {
     fontFamily: '"Roboto",  sans-serif',
     fontSize: 19,
     lineHeight: 1.42,
     marginTop: 0,
-    minHeight: 115,
+    minHeight: 110,
   },
   messageButton: {
     fontSize: 12,
@@ -91,7 +94,7 @@ export default function AccountLayout({
             symbol={"BTC"}
           />
         </Grid>
-        <Grid item xs={6}>
+        <Grid item xs={6} className={classes.messageBox}>
           <p className={classes.message}>{message}</p>
           <Button
             className={classes.messageButton}
