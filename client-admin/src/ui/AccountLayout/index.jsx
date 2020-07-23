@@ -30,6 +30,7 @@ const transactionDetailsStyles = makeStyles((theme) => ({
     fontFamily: '"Roboto",  sans-serif',
     fontSize: 19,
     lineHeight: 1.42,
+    marginTop: 0,
   },
   messageButton: {
     fontSize: 12,

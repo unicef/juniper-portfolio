@@ -26,6 +26,9 @@ const useStyles = makeStyles((theme) => ({
     width: 125,
     height: 71,
   },
+  imageTitle: {
+    paddingLeft: 12,
+  },
   name: {
     fontSize: 24,
     fontWeight: 700,
@@ -33,14 +36,12 @@ const useStyles = makeStyles((theme) => ({
     color: "#000000",
     marginTop: 0,
     marginBottom: 0,
-    marginLeft: 12,
   },
   location: {
     fontSize: 18,
     lineHeight: 1.33,
     fontWeight: 400,
     marginTop: 0,
-    marginLeft: 12,
   },
   walletBalance: {
     fontSize: 18,
@@ -120,7 +121,8 @@ export default function AccountCard({
             <Grid item xs={4}>
               <img className={classes.image} src={image} />
             </Grid>
-            <Grid item xs={8}>
+
+            <Grid item xs={8} className={classes.imageTitle}>
               <h2 className={classes.name}>{name}</h2>
               <h3 className={classes.location}>{location}</h3>
             </Grid>

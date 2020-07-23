@@ -108,7 +108,19 @@ export default function Transactions({ getExchangeRate }) {
         />
       </TabPanel>
       <TabPanel activeTab={activeTab} index={1}>
-        <AccountLayout title={"2 Donors"} />
+        <AccountLayout
+          title={"2 Donors"}
+          type={"Donors"}
+          totalEther={57}
+          totalETHUSD={18000}
+          totalBitcoin={2}
+          totalBTCUSD={40000}
+          accounts={mockDonorData}
+          message={
+            "In line with current UNICEF practice, each crypto transaction is initiated after UNICEF has completed due diligence on a donor, ensuring a credible source of the donation."
+          }
+        />
+        />
       </TabPanel>
       <TabPanel activeTab={activeTab} index={2}>
         <AccountLayout title={"5 Natcoms"} />
@@ -145,6 +157,37 @@ const mockAccountData = [
   },
   {
     image: null,
+    name: "Name",
+    location: "Location",
+    totalETHInvested: 10,
+    totalETHUSD: 25000,
+    totalBTCInvested: 1,
+    totalBTCUSD: 20000,
+  },
+];
+
+const mockDonorData = [
+  {
+    name: "Name",
+    location: "Location",
+    totalETHInvested: 10,
+    totalETHUSD: 25000,
+  },
+  {
+    name: "Name",
+    location: "Location",
+    totalBTCInvested: 1,
+    totalBTCUSD: 20000,
+  },
+  {
+    name: "Name",
+    location: "Location",
+    totalETHInvested: 10,
+    totalETHUSD: 25000,
+    totalBTCInvested: 1,
+    totalBTCUSD: 20000,
+  },
+  {
     name: "Name",
     location: "Location",
     totalETHInvested: 10,
