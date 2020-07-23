@@ -55,6 +55,15 @@ const transactionDetailsStyles = makeStyles((theme) => ({
     textTransform: "uppercase",
     marginBottom: "2em",
   },
+  addButton: {
+    height: 35,
+    fontFamily: '"Cabin", sans-serif',
+    fontSize: 12,
+    fontWeight: 700,
+    textAlign: "center",
+    color: "#ffffff",
+    boxShadow: "none",
+  },
 }));
 
 export default function AccountLayout({
@@ -66,6 +75,7 @@ export default function AccountLayout({
   totalBitcoin,
   totalBTCUSD,
   accounts,
+  addButtonText,
 }) {
   const classes = transactionDetailsStyles();
 
@@ -104,7 +114,18 @@ export default function AccountLayout({
             Learn more about Cryptofund
           </Button>
         </Grid>
+        <Grid item xs={12}>
+          <Button
+            variant="contained"
+            color="primary"
+            className={classes.addButton}
+            onClick={() => {}}
+          >
+            {addButtonText}
+          </Button>
+        </Grid>
       </Grid>
+
       <Grid item xs={12} style={{ marginTop: "4em" }}>
         <h3 className={classes.walletSubheading}>
           {accounts.length} {type} account{accounts.length === 1 ? "" : "s"}

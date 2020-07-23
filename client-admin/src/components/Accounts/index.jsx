@@ -97,6 +97,7 @@ export default function Transactions({ getExchangeRate }) {
         <AccountLayout
           title={"3 Investments"}
           type={"Startups"}
+          addButtonText={"Create Startup Account"}
           totalEther={100}
           totalETHUSD={25000}
           totalBitcoin={1}
@@ -111,6 +112,7 @@ export default function Transactions({ getExchangeRate }) {
         <AccountLayout
           title={"2 Donors"}
           type={"Donors"}
+          addButtonText={"Create Donor Account"}
           totalEther={57}
           totalETHUSD={18000}
           totalBitcoin={2}
@@ -126,6 +128,7 @@ export default function Transactions({ getExchangeRate }) {
         <AccountLayout
           title={"5 Natcoms"}
           type={"Natcoms"}
+          addButtonText={"Create Natcom Account"}
           totalEther={25}
           totalETHUSD={12000}
           totalBitcoin={2.5}
