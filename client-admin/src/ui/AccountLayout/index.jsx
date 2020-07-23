@@ -32,6 +32,7 @@ const transactionDetailsStyles = makeStyles((theme) => ({
     fontSize: 19,
     lineHeight: 1.42,
     marginTop: 0,
+    minHeight: 115,
   },
   messageButton: {
     fontSize: 12,
