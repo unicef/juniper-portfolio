@@ -248,11 +248,9 @@ router.post("/natcom", async (req, res) => {
 
 router.get("/prices", async (req, res) => {
   const juniperAdmin = req.app.get("juniperAdmin");
-  const { params } = req.body;
+  const params = req.query;
   let prices = [];
 
-
-  console.log('params', params)
 
   try {
     prices = await juniperAdmin.db.getPrices(params.symbol, params.timeStart, params.timeEnd);
@@ -265,14 +263,15 @@ router.get("/prices", async (req, res) => {
 
 router.get("/avgprice", async (req, res) => {
   const juniperAdmin = req.app.get("juniperAdmin");
-  const { params } = req.body;
+  const params  = req.query;
   let avgprice = [];
-
-
-  console.log('params', params)
+  const timeStart = new Date(params.timeStart);
+  const timeEnd = new Date(params.timeEnd);
 
   try {
-    avgprice = await juniperAdmin.db.averagePriceInDateRange(params.symbol, params.timeStart, params.timeEnd);
+    logger.error('timeStart', timeStart)
+    logger.error('timeEnd', timeEnd)
+    avgprice = await juniperAdmin.db.averagePriceInDateRange(params.symbol, timeStart, timeEnd);
   } catch (e) {
     return logger.error(e);
   }
