@@ -89,7 +89,7 @@ const useStyles = makeStyles((theme) => ({
     textTransform: "uppercase",
     color: "#00aaef",
   },
-  addNewWalletButton: {
+  addStartupButton: {
     height: 35,
     display: "block",
     fontFamily: '"Cabin",  sans-serif',
@@ -102,7 +102,7 @@ const useStyles = makeStyles((theme) => ({
     borderRadius: 5,
     textTransform: "uppercase",
   },
-  multisigOwners: {
+  walletDetails: {
     marginTop: "2em",
   },
   addMultisigOwnerButton: {
@@ -156,6 +156,7 @@ const useStyles = makeStyles((theme) => ({
 export default function CreateStartup(props) {
   const classes = useStyles();
   const [open, setOpen] = useState(false);
+  const [addingStartup, setAddingStartup] = useState(false);
 
   const [name, setName] = useState("");
   const [country, setCountry] = useState("");
@@ -164,7 +165,6 @@ export default function CreateStartup(props) {
   const [image, setImage] = useState(
     "/image/1595615783349-imageplaceholder.png"
   );
-  const [addingStartup, setAddingStartup] = useState(false);
   const [addresses, setAddresses] = useState([
     {
       walletAddress: "",
@@ -184,10 +184,59 @@ export default function CreateStartup(props) {
   };
 
   const handleClose = () => {
-    if (props.setShowAddWalletModal) {
-      props.setShowAddWalletModal(false);
+    if (props.onDialogClose) {
+      props.onDialogClose();
     }
     setOpen(false);
+  };
+
+  const createStartup = async () => {
+    const account = {
+      name,
+      type: "startup",
+      country,
+      description,
+      weblink,
+      image,
+      addresses,
+      active: true,
+    };
+    setAddingStartup(true);
+
+    try {
+      await fetch(`/rest/admin/account`, {
+        credentials: "include",
+        method: "POST",
+        body: JSON.stringify({
+          account,
+        }),
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+    } catch (e) {
+      return console.log(e);
+    }
+
+    setName("");
+    setCountry("");
+    setDescription("");
+    setWeblink("");
+    setImage("");
+    setAddresses([
+      {
+        walletAddress: "",
+        currency: "",
+        amount: "",
+      },
+    ]);
+
+    if (props.onDialogClose) {
+      props.onDialogClose();
+    }
+
+    setAddingStartup(false);
+    handleClose();
   };
 
   useEffect(() => {
@@ -213,7 +262,6 @@ export default function CreateStartup(props) {
             <TextField
               disabled={props.editWallet}
               value={name}
-              required
               className={classes.formControl}
               InputLabelProps={{ className: classes.label }}
               InputProps={{
@@ -246,7 +294,6 @@ export default function CreateStartup(props) {
             </FormControl>
 
             <TextField
-              required
               value={description}
               className={classes.formControl}
               InputLabelProps={{ className: classes.label }}
@@ -260,7 +307,6 @@ export default function CreateStartup(props) {
             />
 
             <TextField
-              required
               value={weblink}
               className={classes.formControl}
               InputLabelProps={{ className: classes.label }}
@@ -284,9 +330,10 @@ export default function CreateStartup(props) {
                   should be 2MB
                 </p>
                 <FileUpload
-                  url={"/upload"}
+                  url={"/upload/image"}
                   afterUpload={(json) => {
                     console.log(json);
+                    setImage(json.imageUrl);
                   }}
                 >
                   <Button
@@ -302,9 +349,18 @@ export default function CreateStartup(props) {
 
             <Grid container>
               <Grid item xs={12}>
-                <div className={classes.multisigOwners}>
+                <div className={classes.walletDetails}>
                   {addresses.map((address, index) => {
-                    return <AddressDetails key={index} index={index} />;
+                    return (
+                      <AddressDetails
+                        key={index}
+                        currency={address.currency}
+                        addresses={addresses}
+                        amount={address.amount}
+                        setAddresses={setAddresses}
+                        index={index}
+                      />
+                    );
                   })}
                   <Button
                     color="primary"
@@ -323,8 +379,8 @@ export default function CreateStartup(props) {
                 color="primary"
                 variant="contained"
                 disabled={false}
-                className={classes.addNewWalletButton}
-                onClick={() => {}}
+                className={classes.addStartupButton}
+                onClick={createStartup}
               >
                 {props.editWallet ? "Edit" : "Create"} Account
               </Button>
@@ -355,15 +411,18 @@ function AddressDetails(props) {
         </Grid>
         <Grid item xs={12}>
           <TextField
-            required
             className={classes.formControl}
             InputLabelProps={{ className: classes.label }}
             InputProps={{
               className: classes.formControl,
             }}
             label={`Wallet address`}
-            value={""}
-            onChange={(e) => {}}
+            value={props.address}
+            onChange={(e) => {
+              const newAddresses = props.addresses.slice();
+              newAddresses[props.index].address = e.target.value;
+              props.setAddresses(newAddresses);
+            }}
           />
         </Grid>
         <Grid item xs={6}>
@@ -372,14 +431,16 @@ function AddressDetails(props) {
             <Select
               value={props.currency}
               onChange={(e) => {
-                const currency = e.target.value;
+                const newAddresses = props.addresses.slice();
+                newAddresses[props.index].currency = e.target.value;
+                props.setAddresses(newAddresses);
               }}
               className={classes.formControl}
             >
-              <MenuItem key="ETH" value="Ether">
+              <MenuItem key="Ether" value="Ether">
                 Ether
               </MenuItem>
-              <MenuItem key="BTC" value="Bitcoin">
+              <MenuItem key="Bitcoin" value="Bitcoin">
                 Bitcoin
               </MenuItem>
             </Select>
@@ -396,8 +457,12 @@ function AddressDetails(props) {
             }}
             label={`Amount Invested`}
             style={{ marginBottom: 0 }}
-            value={""}
-            onChange={(e) => {}}
+            value={props.amount}
+            onChange={(e) => {
+              const newAddresses = props.addresses.slice();
+              newAddresses[props.index].amount = e.target.value;
+              props.setAddresses(newAddresses);
+            }}
           />
         </Grid>
       </Grid>

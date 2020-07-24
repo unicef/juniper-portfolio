@@ -47,7 +47,9 @@ class JuniperAdmin {
     this.server.use("/rest", publicRoutes);
     this.server.use("/rest/admin", privateRoutes);
 
-    this.server.use("/upload", s3Upload.single("image"), (req, res) => {
+    this.server.use("/upload/image", s3Upload.single("image"), (req, res) => {
+      req.file.imageUrl = `/image/${req.file.key}`;
+      req.file.downloadUrl = `/download/${req.file.key}`;
       res.json(req.file);
     });
     this.server.use("/download/:key", (req, res) => {

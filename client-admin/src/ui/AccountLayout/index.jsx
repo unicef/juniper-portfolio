@@ -1,4 +1,4 @@
-import React, { Fragment } from "react";
+import React, { Fragment, useState } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import PriceInfoBanner from "../PriceInfoBanner";
 import Grid from "@material-ui/core/Grid";
@@ -6,10 +6,6 @@ import Button from "@material-ui/core/Button";
 import ChevronRightIcon from "@material-ui/icons/ChevronRight";
 import AccountBalanceCard from "../Cards/AccountBalanceCard";
 import AccountCard from "../Cards/AccountCard";
-import Divider from "@material-ui/core/Divider";
-import KeyboardArrowDownIcon from "@material-ui/icons/KeyboardArrowDown";
-import List from "@material-ui/core/List";
-import ListItem from "@material-ui/core/ListItem";
 
 const transactionDetailsStyles = makeStyles((theme) => ({
   root: {
@@ -79,10 +75,20 @@ export default function AccountLayout({
   CreateModal,
 }) {
   const classes = transactionDetailsStyles();
+  console.log(type);
+  const [openCreateDialog, setOpenCreateDialog] = useState(false);
 
+  const closeCreateDialog = () => {
+    setOpenCreateDialog(false);
+  };
   return (
     <Fragment>
-      <CreateModal open={true} />
+      {CreateModal && (
+        <CreateModal
+          open={openCreateDialog}
+          onDialogClose={closeCreateDialog}
+        />
+      )}
       <Grid container className={classes.bannerBox}>
         <Grid item xs={12}>
           <PriceInfoBanner />
@@ -121,7 +127,9 @@ export default function AccountLayout({
             variant="contained"
             color="primary"
             className={classes.addButton}
-            onClick={() => {}}
+            onClick={() => {
+              setOpenCreateDialog(true);
+            }}
           >
             {addButtonText}
           </Button>
@@ -130,7 +138,8 @@ export default function AccountLayout({
 
       <Grid item xs={12} style={{ marginTop: "4em" }}>
         <h3 className={classes.walletSubheading}>
-          {accounts.length} {type} account{accounts.length === 1 ? "" : "s"}
+          {accounts.length} {type || ""} account
+          {accounts.length === 1 ? "" : "s"}
         </h3>
       </Grid>
       <Grid container spacing={2} style={{ position: "relative" }}>

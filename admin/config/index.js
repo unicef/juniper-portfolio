@@ -13,6 +13,7 @@ module.exports = {
     limit: oneMegabyte,
   },
   uploadLimit: oneMegabyte,
+
   db: {
     url: process.env.DB_URL || "mongodb://localhost",
     database: process.env.DB_NAME || "juniper",

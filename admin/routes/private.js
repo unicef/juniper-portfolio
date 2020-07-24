@@ -196,6 +196,13 @@ router.post("/wallet", async (req, res) => {
   res.send(wallet);
 });
 
+router.post("/account", async (req, res) => {
+  const juniperAdmin = req.app.get("juniperAdmin");
+  const { account } = req.body;
+  console.log(req.body);
+  res.send(true);
+});
+
 router.get("/prices", async (req, res) => {
   const juniperAdmin = req.app.get("juniperAdmin");
   const { params } = req.body;
