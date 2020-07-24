@@ -19,8 +19,6 @@ import AddIcon from "@material-ui/icons/Add";
 
 import countries from "./countries.jsx";
 
-const placeholder = require("./imageplaceholder.png");
-
 const useStyles = makeStyles((theme) => ({
   closeIcon: {
     position: "absolute",
@@ -223,7 +221,9 @@ export default function CreateStartup(props) {
   const [description, setDescription] = useState("");
   const [country, setCountry] = useState("");
   const [weblink, setWeblink] = useState("");
-  const [image, setImage] = useState(placeholder);
+  const [image, setImage] = useState(
+    "/image/1595615783349-imageplaceholder.png"
+  );
 
   const [addingStartup, setAddingStartup] = useState(false);
   const [addresses, setAddress] = useState([
