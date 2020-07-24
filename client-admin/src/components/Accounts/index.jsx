@@ -7,6 +7,7 @@ import Container from "@material-ui/core/Container";
 import Snackbar from "../../ui/Snackbar";
 import CircularProgress from "@material-ui/core/CircularProgress";
 import AccountLayout from "../../ui/AccountLayout";
+import { CreateStartup } from "../../ui/Dialog";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -98,6 +99,7 @@ export default function Transactions({ getExchangeRate }) {
           title={"3 Investments"}
           type={"Startups"}
           addButtonText={"Create Startup Account"}
+          CreateModal={CreateStartup}
           totalEther={100}
           totalETHUSD={25000}
           totalBitcoin={1}

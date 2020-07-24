@@ -76,11 +76,13 @@ export default function AccountLayout({
   totalBTCUSD,
   accounts,
   addButtonText,
+  CreateModal,
 }) {
   const classes = transactionDetailsStyles();
 
   return (
     <Fragment>
+      <CreateModal open={true} />
       <Grid container className={classes.bannerBox}>
         <Grid item xs={12}>
           <PriceInfoBanner />

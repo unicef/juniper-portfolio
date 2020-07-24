@@ -1,122 +1,101 @@
-import React from 'react'
-import { makeStyles } from '@material-ui/core/styles';
-import Card from '@material-ui/core/Card';
-import Grid from '@material-ui/core/Grid';
-import { gql } from 'apollo-boost'
-import { useQuery } from 'react-apollo'
-import MainContentContainer from '../../../ui/MainContentContainer'
-import PriceBar from '../../PriceBar'
-
+import React from "react";
+import { makeStyles } from "@material-ui/core/styles";
+import Card from "@material-ui/core/Card";
+import Grid from "@material-ui/core/Grid";
+import { gql } from "apollo-boost";
+import { useQuery } from "react-apollo";
+import MainContentContainer from "../../../ui/MainContentContainer";
+import PriceBar from "../../../ui/PriceInfoBanner";
 
 const useStyles = makeStyles({
-  
-  root:
-  {
-    marginTop: '20px',
-    backgroundColor: '#f8f8f8',
+  root: {
+    marginTop: "20px",
+    backgroundColor: "#f8f8f8",
   },
-  header:
-  {
+  header: {
     fontFamily: '"Roboto", sans-serif',
-    fontSize: '24px',
-    fontWeight: 'bold',
-    fontStretch: 'normal',
-    fontStyle: 'normal',
+    fontSize: "24px",
+    fontWeight: "bold",
+    fontStretch: "normal",
+    fontStyle: "normal",
     lineHeight: 1.17,
-    letterSpacing: 'normal',
-    color: '#000000',
-    padding: '40px 0px 10px 0px',
+    letterSpacing: "normal",
+    color: "#000000",
+    padding: "40px 0px 10px 0px",
   },
 
-  subheader:
-  {
+  subheader: {
     fontFamily: '"Roboto", sans-serif',
-  fontSize: '24px',
-  lineHeight: 1.17,
-  letterSpacing: 'normal',
-
-  },
-  
-  card:
-  {
-    paddingTop: '40px',
+    fontSize: "24px",
+    lineHeight: 1.17,
+    letterSpacing: "normal",
   },
 
-  cardinner:
-  {
-      padding: '40px',
+  card: {
+    paddingTop: "40px",
   },
-  
-  cardheader:
-  {
+
+  cardinner: {
+    padding: "40px",
+  },
+
+  cardheader: {
     fontFamily: '"Roboto", sans-serif',
-    fontSize: '28px',
-    lineHeight: '28px',
-    fontWeight: 'bold',
-    color: '#000000',
-    paddingBottom:'30px',
-
+    fontSize: "28px",
+    lineHeight: "28px",
+    fontWeight: "bold",
+    color: "#000000",
+    paddingBottom: "30px",
   },
 
-  cardsubheader:
-  {
+  cardsubheader: {
     fontFamily: '"Roboto", sans-serif',
-    fontSize: '28px',
-    lineHeight: '28px',
-    fontWeight: 'normal',
-    color: '#000000',
-    paddingBottom: '30px',
+    fontSize: "28px",
+    lineHeight: "28px",
+    fontWeight: "normal",
+    color: "#000000",
+    paddingBottom: "30px",
   },
 
-  smalltext:
-  {
+  smalltext: {
     fontFamily: '"Cabin", sans-serif',
-    fontSize: '10px',
-    letterSpacing: '0.83px',
-    paddingBottom: '5px',
-
+    fontSize: "10px",
+    letterSpacing: "0.83px",
+    paddingBottom: "5px",
   },
 
-  today:
-  {
+  today: {
     color: "#00aeef",
-    fontWeight: 'Bold',
-  }
-
+    fontWeight: "Bold",
+  },
 });
 
-
 const DAILY_PRICES = gql`
-    query DailyPrices {
-        dailyPrices {
-            id
-            currency
-            priceBinance
-            priceCoinbasePro
-            priceBitstamp
-            averagePrice
-            date
-        }
+  query DailyPrices {
+    dailyPrices {
+      id
+      currency
+      priceBinance
+      priceCoinbasePro
+      priceBitstamp
+      averagePrice
+      date
     }
-`
-
-
+  }
+`;
 
 export default function BitcoinPriceTracker() {
   const classes = useStyles();
   const date = new Date();
-  const month = date.toLocaleString('default', { month: 'short' });
-  const datestring = date.getUTCDate() + " " + month + " " + date.getUTCFullYear();
-
+  const month = date.toLocaleString("default", { month: "short" });
+  const datestring =
+    date.getUTCDate() + " " + month + " " + date.getUTCFullYear();
 
   const { loading, error, prices } = useQuery(DAILY_PRICES);
-  if (loading) return 'Loading...';
+  if (loading) return "Loading...";
   if (error) return `Error! ${error.message}`;
-  console.log(prices)
+  console.log(prices);
 
-    
-    
-  
   return (
     <MainContentContainer className={classes.root}>
       <PriceBar />
@@ -124,9 +103,9 @@ export default function BitcoinPriceTracker() {
       <div className={classes.subheader}>{datestring}</div>
       <div>{prices}</div>
       <MainCard />
-      <WeekCard/>
+      <WeekCard />
     </MainContentContainer>
-        )
+  );
 }
 
 export function MainCard() {
@@ -142,12 +121,10 @@ export function MainCard() {
         <div className={classes.cardsubheader}>8798 USD</div>
       </Card>
     </div>
-  )
+  );
 }
 
-
-export function WeekCard()
-{
+export function WeekCard() {
   const classes = useStyles();
   return (
     <div className={classes.card}>
@@ -182,8 +159,7 @@ export function WeekCard()
             <div className={classes.subheader}>8798 USD</div>
           </Grid>
         </Grid>
-        
       </Card>
     </div>
-  )
+  );
 }
