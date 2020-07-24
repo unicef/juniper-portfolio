@@ -263,4 +263,21 @@ router.get("/prices", async (req, res) => {
 });
 
 
+router.get("/avgprice", async (req, res) => {
+  const juniperAdmin = req.app.get("juniperAdmin");
+  const { params } = req.body;
+  let avgprice = [];
+
+
+  console.log('params', params)
+
+  try {
+    avgprice = await juniperAdmin.db.averagePriceInDateRange(params.symbol, params.timeStart, params.timeEnd);
+  } catch (e) {
+    return logger.error(e);
+  }
+  res.json(avgprice);
+});
+
+
 module.exports = router;
