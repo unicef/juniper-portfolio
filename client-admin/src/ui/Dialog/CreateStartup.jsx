@@ -15,6 +15,7 @@ import CloseIcon from "@material-ui/icons/Close";
 import CircularProgress from "@material-ui/core/CircularProgress";
 import UploadIcon from "../Icons/UploadIcon";
 import AddIcon from "@material-ui/icons/Add";
+import FileUpload from "../../components/FileUpload";
 
 import countries from "./countries.jsx";
 
@@ -152,69 +153,6 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-function AddressDetails(props) {
-  const classes = useStyles();
-
-  return (
-    <Fragment>
-      <Grid container>
-        <Grid item xs={12}>
-          <h3 className={classes.addressDetailsTitle}>
-            Wallet {props.index + 1} Details
-          </h3>
-        </Grid>
-        <Grid item xs={12}>
-          <TextField
-            required
-            className={classes.formControl}
-            InputLabelProps={{ className: classes.label }}
-            InputProps={{
-              className: classes.formControl,
-            }}
-            label={`Wallet address`}
-            value={""}
-            onChange={(e) => {}}
-          />
-        </Grid>
-        <Grid item xs={6}>
-          <FormControl className={classes.formControl} style={{ width: 230 }}>
-            <InputLabel className={classes.formControl}>Currency</InputLabel>
-            <Select
-              value={props.currency}
-              onChange={(e) => {
-                const currency = e.target.value;
-              }}
-              className={classes.formControl}
-            >
-              <MenuItem key="ETH" value="Ether">
-                Ether
-              </MenuItem>
-              <MenuItem key="BTC" value="Bitcoin">
-                Bitcoin
-              </MenuItem>
-            </Select>
-          </FormControl>
-        </Grid>
-        <Grid item xs={6}>
-          <TextField
-            className={classes.formControl}
-            InputLabelProps={{
-              className: classes.label,
-            }}
-            InputProps={{
-              className: classes.formControl,
-            }}
-            label={`Amount Invested`}
-            style={{ marginBottom: 0 }}
-            value={""}
-            onChange={(e) => {}}
-          />
-        </Grid>
-      </Grid>
-    </Fragment>
-  );
-}
-
 export default function CreateStartup(props) {
   const classes = useStyles();
   const [open, setOpen] = useState(false);
@@ -345,13 +283,20 @@ export default function CreateStartup(props) {
                   Minimum image dimensions are 1500x1024 Maximum image size
                   should be 2MB
                 </p>
-                <Button
-                  className={classes.imageButton}
-                  startIcon={<UploadIcon />}
-                  onClick={() => {}}
+                <FileUpload
+                  url={"/upload"}
+                  afterUpload={(json) => {
+                    console.log(json);
+                  }}
                 >
-                  Upload Image
-                </Button>
+                  <Button
+                    className={classes.imageButton}
+                    startIcon={<UploadIcon />}
+                    onClick={() => {}}
+                  >
+                    Upload Image
+                  </Button>
+                </FileUpload>
               </Grid>
             </Grid>
 
@@ -394,5 +339,68 @@ export default function CreateStartup(props) {
         </Container>
       </Dialog>
     </div>
+  );
+}
+
+function AddressDetails(props) {
+  const classes = useStyles();
+
+  return (
+    <Fragment>
+      <Grid container>
+        <Grid item xs={12}>
+          <h3 className={classes.addressDetailsTitle}>
+            Wallet {props.index + 1} Details
+          </h3>
+        </Grid>
+        <Grid item xs={12}>
+          <TextField
+            required
+            className={classes.formControl}
+            InputLabelProps={{ className: classes.label }}
+            InputProps={{
+              className: classes.formControl,
+            }}
+            label={`Wallet address`}
+            value={""}
+            onChange={(e) => {}}
+          />
+        </Grid>
+        <Grid item xs={6}>
+          <FormControl className={classes.formControl} style={{ width: 230 }}>
+            <InputLabel className={classes.formControl}>Currency</InputLabel>
+            <Select
+              value={props.currency}
+              onChange={(e) => {
+                const currency = e.target.value;
+              }}
+              className={classes.formControl}
+            >
+              <MenuItem key="ETH" value="Ether">
+                Ether
+              </MenuItem>
+              <MenuItem key="BTC" value="Bitcoin">
+                Bitcoin
+              </MenuItem>
+            </Select>
+          </FormControl>
+        </Grid>
+        <Grid item xs={6}>
+          <TextField
+            className={classes.formControl}
+            InputLabelProps={{
+              className: classes.label,
+            }}
+            InputProps={{
+              className: classes.formControl,
+            }}
+            label={`Amount Invested`}
+            style={{ marginBottom: 0 }}
+            value={""}
+            onChange={(e) => {}}
+          />
+        </Grid>
+      </Grid>
+    </Fragment>
   );
 }

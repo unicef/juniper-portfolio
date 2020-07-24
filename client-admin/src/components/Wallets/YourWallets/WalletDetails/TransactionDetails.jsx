@@ -74,7 +74,7 @@ export default function TransactionDetails({
             txDetails.map((txDetails, index) => {
               return (
                 <TransactionDetailsCard
-                  key={txDetails.txid}
+                  key={`txDetails.txid-${index}`}
                   txid={txDetails.txid}
                   timestamp={txDetails.timestamp}
                   address={address}
