@@ -49,6 +49,9 @@ class JuniperAdmin {
 
     this.logger.info(`Initialized`);
   }
+  logUserActivity(activity) {
+    this.logger.info(`Logging activity: ${activity}`);
+  }
 
   startPriceMonitor() {
     if (this.config.startPriceMonitor) {
@@ -62,6 +65,15 @@ class JuniperAdmin {
       this.logger.info(`listening on http://localhost:${this.config.port}`);
     });
     this.logger.info(`started in ${this.environment}.`);
+  }
+
+  async logActivity(activity) {
+    this.db.logActivity(activity);
+  }
+
+  async createWallet(wallet) {
+    this.logger.debug(`createWallet ${wallet}`);
+    this.db.createWallet(wallet);
   }
 
   async getWalletSummary() {
