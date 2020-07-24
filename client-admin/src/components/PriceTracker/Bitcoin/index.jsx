@@ -175,7 +175,7 @@ export default function BitcoinPriceTracker() {
       <div className={classes.header}>Bitcoin price overview</div>
       <div className={classes.subheader}>{datestring}</div>
       <div>{todayprice}</div>
-      <MainCard today={todayprice} monthavgprice={monthavgprice}/>
+      <MainCard todayprice={todayprice} monthavgprice={monthavgprice}/>
       <WeekCard/>
     </MainContentContainer>
         )
@@ -187,7 +187,7 @@ export function MainCard(params) {
     <div className={classes.card}>
       <Card className={classes.cardinner} variant="outlined">
         <div className={classes.smalltext}>TODAY'S AVERAGE PRICE</div>
-        <div className={classes.cardheader}>{params.today} USD</div>
+        <div className={classes.cardheader}>{params.todayprice} USD</div>
         <div className={classes.smalltext}>MONTHLY AVERAGE PRICE</div>
         <div className={classes.cardsubheader}>{params.monthavgprice} USD</div>
         <div className={classes.smalltext}>Q1 AVERAGE PRICE</div>
