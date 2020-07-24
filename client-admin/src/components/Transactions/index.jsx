@@ -77,8 +77,17 @@ export default function Transactions({ getExchangeRate }) {
   const [fetchingTxs, setFetchingTxs] = useState(false);
   const [txs, setTxs] = useState([]);
   const [unpublishedTxs, setUnpublishedTxs] = useState([]);
+  const [unpublishedPage, setUnpublishedPage] = useState(0);
+  const [unpublishedLimit, setUnpublishedLimit] = useState(5);
+
   const [publishedTxs, setPublishedTxs] = useState([]);
+  const [publishedPage, setPublishedPage] = useState(0);
+  const [publishedLimit, setPublishedLimit] = useState(5);
+
   const [archivedTxs, setArchivedTxs] = useState([]);
+  const [archivedPage, setArchivedPage] = useState(0);
+  const [archivedLimit, setArchivedLimit] = useState(5);
+
   const [showSnackbar, setShowSnackbar] = useState(false);
   const [snackbarDuration] = useState(3000);
   const [snackbarMessage, setSnackbarMessage] = useState("");
@@ -207,6 +216,9 @@ export default function Transactions({ getExchangeRate }) {
             title={`${unpublishedTxs.length} Unpublished Transactions`}
             txs={unpublishedTxs}
             TxCard={UnpublishedTxCard}
+            page={unpublishedPage}
+            limit={unpublishedLimit}
+            onPaginationClick={setUnpublishedPage}
           />
         )}
       </TabPanel>
@@ -215,6 +227,9 @@ export default function Transactions({ getExchangeRate }) {
           title={`${publishedTxs.length} Published Transactions`}
           txs={publishedTxs}
           TxCard={PublishedTransactionCard}
+          page={publishedPage}
+          limit={publishedLimit}
+          onPaginationClick={setPublishedPage}
         />
       </TabPanel>
       <TabPanel activeTab={activeTab} index={2}>
@@ -222,6 +237,9 @@ export default function Transactions({ getExchangeRate }) {
           title={`${archivedTxs.length} Archived Transactions`}
           txs={archivedTxs}
           TxCard={ArchivedTransactionCard}
+          page={archivedPage}
+          limit={archivedLimit}
+          onPaginationClick={setArchivedPage}
         />
       </TabPanel>
       <Snackbar
