@@ -12,7 +12,6 @@ import Button from "@material-ui/core/Button";
 import Toolbar from "@material-ui/core/Toolbar";
 import IconButton from "@material-ui/core/IconButton";
 import CloseIcon from "@material-ui/icons/Close";
-import HelpOutlineIcon from "@material-ui/icons/HelpOutline";
 import CircularProgress from "@material-ui/core/CircularProgress";
 import UploadIcon from "../Icons/UploadIcon";
 import AddIcon from "@material-ui/icons/Add";
@@ -28,6 +27,9 @@ const useStyles = makeStyles((theme) => ({
     letterSpacing: 1.17,
     fontWeight: 700,
     textTransform: "uppercase",
+  },
+  container: {
+    marginBottom: "2em",
   },
   title: {
     fontFamily: '"Roboto", sans-serif',
@@ -218,21 +220,30 @@ export default function CreateStartup(props) {
   const [open, setOpen] = useState(false);
 
   const [name, setName] = useState("");
-  const [description, setDescription] = useState("");
   const [country, setCountry] = useState("");
+  const [description, setDescription] = useState("");
   const [weblink, setWeblink] = useState("");
   const [image, setImage] = useState(
     "/image/1595615783349-imageplaceholder.png"
   );
-
   const [addingStartup, setAddingStartup] = useState(false);
-  const [addresses, setAddress] = useState([
+  const [addresses, setAddresses] = useState([
     {
       walletAddress: "",
       currency: "",
       amount: "",
     },
   ]);
+
+  const addAddress = () => {
+    const newAddresses = addresses.slice();
+    newAddresses.push({
+      walletAddress: "",
+      currency: "",
+      amount: "",
+    });
+    setAddresses(newAddresses);
+  };
 
   const handleClose = () => {
     if (props.setShowAddWalletModal) {
@@ -258,7 +269,7 @@ export default function CreateStartup(props) {
             Cancel <CloseIcon fontSize="large" />
           </IconButton>
         </Toolbar>
-        <Container maxWidth={"sm"}>
+        <Container maxWidth={"sm"} className={classes.container}>
           <h1 className={classes.title}>Create Startup Account</h1>
           <form className={classes.form}>
             <TextField
@@ -354,7 +365,7 @@ export default function CreateStartup(props) {
                     color="primary"
                     className={classes.addMultisigOwnerButton}
                     startIcon={<AddIcon />}
-                    onClick={() => {}}
+                    onClick={addAddress}
                   >
                     Add Another Wallet Wallet
                   </Button>
