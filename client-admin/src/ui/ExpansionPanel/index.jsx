@@ -9,6 +9,7 @@ import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 const styles = (theme) => ({
   root: {
     width: "100%",
+    marginBottom: "2px",
   },
   heading: {
     fontFamily: '"Cabin", sans-serif',
@@ -25,7 +26,7 @@ const styles = (theme) => ({
   },
 });
 
-function SimpleExpansionPanel(props) {
+function ExpansionList(props) {
   const [expanded, setExpanded] = useState(false);
   const { classes } = props;
 
@@ -55,4 +56,4 @@ function SimpleExpansionPanel(props) {
   );
 }
 
-export default withStyles(styles)(SimpleExpansionPanel);
+export default withStyles(styles)(ExpansionList);
