@@ -8,6 +8,7 @@ import Avatar from "@material-ui/core/Avatar";
 import Button from "@material-ui/core/Button";
 import GenerateLinkIcon from "../../../ui/Icons/GenerateLinkIcon";
 import EnvelopeIcon from "../../../ui/Icons/EnvelopeIcon";
+import CancelIcon from "../../../ui/Icons/CancelIcons";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -55,8 +56,10 @@ const useStyles = makeStyles((theme) => ({
     marginTop: 0,
     marginBottom: 0,
   },
-  generatLinkButton: {
-    marginTop: "1em",
+  generateButton: {
+    padding: 0,
+    paddingBottom: 6,
+    height: 22,
     float: "left",
     fontSize: 12,
     fontWeight: 700,
@@ -71,6 +74,29 @@ const useStyles = makeStyles((theme) => ({
     },
     paddingLeft: 0,
     "& .MuiButton-startIcon": {
+      margin: 0,
+      marginTop: 8,
+    },
+  },
+  removeButton: {
+    padding: 0,
+    paddingBottom: 6,
+    height: 22,
+    float: "left",
+    fontSize: 12,
+    fontWeight: 700,
+    letterSpacing: 1,
+    fontFamily: '"Cabin", sans-serif',
+    color: "#ef6161",
+    "&:hover": {
+      backgroundColor: "#f1bfbf",
+    },
+    "& .MuiButton-endIcon": {
+      margin: 0,
+    },
+    paddingLeft: 0,
+    "& .MuiButton-startIcon": {
+      color: "#ef6161",
       margin: 0,
       marginTop: 8,
     },
@@ -100,7 +126,7 @@ export default function ActivityList(props) {
             </Grid>
             <Grid item xs={3}>
               <Button
-                className={classes.generatLinkButton}
+                className={classes.generateButton}
                 startIcon={<EnvelopeIcon />}
                 onClick={async () => {
                   console.log("button");
@@ -109,13 +135,40 @@ export default function ActivityList(props) {
                 Send New Invite
               </Button>
               <Button
-                className={classes.generatLinkButton}
+                className={classes.generateButton}
                 startIcon={<GenerateLinkIcon />}
                 onClick={async () => {
                   console.log("button");
                 }}
               >
                 Generate Invite Link
+              </Button>
+            </Grid>
+          </Grid>
+        </ListItem>
+        <ListItem className={classes.listItem}>
+          <Grid container>
+            <Grid item xs={1}>
+              <Avatar src={null} className={classes.avatar}>
+                MH
+              </Avatar>
+            </Grid>
+            <Grid item xs={4}>
+              <p className={classes.username}>Christopher Waltz</p>
+              <p className={classes.position}>Director, DFAM</p>
+            </Grid>
+            <Grid item xs={4}>
+              <p className={classes.joinMessage}>User joined on June 6 2020</p>
+            </Grid>
+            <Grid item xs={3}>
+              <Button
+                className={classes.removeButton}
+                startIcon={<CancelIcon style={{ fill: "#ef6161" }} />}
+                onClick={async () => {
+                  console.log("button");
+                }}
+              >
+                Remove User
               </Button>
             </Grid>
           </Grid>
