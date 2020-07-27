@@ -44,13 +44,17 @@ export default function UserActivity() {
 
         if (timeDiffInMinutes > 60 * 24) {
           // days
-          activity.timestamp = `${timeDiffInMinutes / (60 * 24)} days ago`;
+          activity.timestamp = `${Math.round(
+            timeDiffInMinutes / (60 * 24)
+          )} days ago`;
         } else if (timeDiffInMinutes > 60) {
           // hours
-          activity.timestamp = `${timeDiffInMinutes / 60} hours ago`;
+          activity.timestamp = `${Math.round(
+            timeDiffInMinutes / 60
+          )} hours ago`;
         } else {
           // minutes
-          activity.timestamp = `${timeDiffInMinutes} minutes ago`;
+          activity.timestamp = `${Math.round(timeDiffInMinutes)} minutes ago`;
         }
       });
       setActivities(activity);

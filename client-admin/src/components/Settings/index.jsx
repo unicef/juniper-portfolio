@@ -14,6 +14,9 @@ const styles = (theme) => ({
     marginBottom: "5em",
     backgroundColor: "#f8f8f8",
     width: "100%",
+    maxHeight: "100vh",
+    overflow: "hidden",
+    overflowY: "scroll",
   },
   title: {
     fontFamily: '"Cabin", sans-serif',
