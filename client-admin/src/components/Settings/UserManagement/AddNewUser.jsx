@@ -7,6 +7,8 @@ import MenuItem from "@material-ui/core/MenuItem";
 import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
 import InputLabel from "@material-ui/core/InputLabel";
+import Divider from "@material-ui/core/Divider";
+import GenerateLinkIcon from "../../../ui/Icons/GenerateLinkIcon";
 
 const useStyles = makeStyles({
   root: {
@@ -66,9 +68,46 @@ const useStyles = makeStyles({
     lineHeight: 1.5,
     letterSpacing: "normal",
   },
-  formitem: {
+  formItem: {
     paddingLeft: 15,
     paddingRight: 15,
+  },
+  divider: {
+    marginTop: "2em",
+    backgroundColor: "#4d4d4d",
+  },
+  or: {
+    position: "absolute",
+    textTransform: "uppercase",
+    color: "#4d4d4d",
+    marginLeft: -22,
+    marginTop: 16,
+  },
+  directLink: {
+    fontFamily: '"Roboto",  sans-serif',
+    fontSize: 19,
+    lineHeight: 1.42,
+    color: "#000000",
+  },
+  generatLinkButton: {
+    marginTop: "1em",
+    float: "left",
+    fontSize: 12,
+    fontWeight: 700,
+    letterSpacing: 1,
+    fontFamily: '"Cabin", sans-serif',
+    color: "#00aeef",
+    "&:hover": {
+      backgroundColor: "#ecfaff",
+    },
+    "& .MuiButton-endIcon": {
+      margin: 0,
+    },
+    paddingLeft: 0,
+    "& .MuiButton-startIcon": {
+      margin: 0,
+      marginTop: 8,
+    },
   },
 });
 
@@ -79,7 +118,7 @@ export default function AddNewUser() {
 
   return (
     <Grid container className={classes.root}>
-      <Grid item xs={6} className={classes.formitem}>
+      <Grid item xs={6} className={classes.formItem}>
         <TextField
           label="First Name"
           className={classes.textField}
@@ -94,7 +133,7 @@ export default function AddNewUser() {
           }}
         />
       </Grid>
-      <Grid item xs={6} className={classes.formitem}>
+      <Grid item xs={6} className={classes.formItem}>
         <TextField
           label="Last Name"
           className={classes.textField}
@@ -110,7 +149,7 @@ export default function AddNewUser() {
         />
       </Grid>
 
-      <Grid item xs={6} className={classes.formitem}>
+      <Grid item xs={6} className={classes.formItem}>
         <FormControl className={classes.formControl}>
           <InputLabel id="WorkUnit">Department</InputLabel>
           <Select
@@ -142,7 +181,7 @@ export default function AddNewUser() {
           </Select>
         </FormControl>
       </Grid>
-      <Grid item xs={6} className={classes.formitem}>
+      <Grid item xs={6} className={classes.formItem}>
         <FormControl className={classes.formControl}>
           <InputLabel id="AccessLevel">Access level</InputLabel>
           <Select
@@ -162,7 +201,7 @@ export default function AddNewUser() {
           </Select>
         </FormControl>
       </Grid>
-      <Grid item xs={6} className={classes.formitem}>
+      <Grid item xs={6} className={classes.formItem}>
         <TextField
           label="UNICEF email id"
           className={classes.textField}
@@ -177,13 +216,37 @@ export default function AddNewUser() {
           }}
         />
       </Grid>
-      <Grid item xs={12}>
+      <Grid item xs={12} className={classes.formItem}>
         <Button
           className={classes.filledButton}
           variant="contained"
           color="primary"
         >
           Send Invite
+        </Button>
+      </Grid>
+      <Grid item xs={6} className={classes.formItem}>
+        <Divider className={classes.divider} />
+      </Grid>
+      <Grid item xs={6} className={classes.formItem}>
+        <p className={classes.or}>or</p>
+        <Divider className={classes.divider} />
+      </Grid>
+      <Grid item xs={12} className={classes.formItem}>
+        <p className={classes.directLink}>
+          Send a link to the user directly. Clicking on the link would activate
+          their account.
+        </p>
+      </Grid>
+      <Grid item xs={12} className={classes.formItem}>
+        <Button
+          className={classes.generatLinkButton}
+          startIcon={<GenerateLinkIcon />}
+          onClick={async () => {
+            console.log("button");
+          }}
+        >
+          Generate Invite Link
         </Button>
       </Grid>
     </Grid>
