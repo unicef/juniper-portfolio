@@ -56,6 +56,15 @@ const useStyles = makeStyles((theme) => ({
     marginTop: 0,
     marginBottom: 0,
   },
+  pendingMessage: {
+    maxWidth: 200,
+    fontFamily: '"Roboto", sans-serif',
+    fontSize: 14,
+    lineHeight: 1.64,
+    color: "#ef6161",
+    marginTop: 0,
+    marginBottom: 0,
+  },
   generateButton: {
     padding: 0,
     paddingBottom: 6,
@@ -158,7 +167,9 @@ export default function ActivityList(props) {
               <p className={classes.position}>Director, DFAM</p>
             </Grid>
             <Grid item xs={4}>
-              <p className={classes.joinMessage}>User joined on June 6 2020</p>
+              <p className={classes.pendingMessage}>
+                User response pending. Invited via email on 25 Jun 2020
+              </p>
             </Grid>
             <Grid item xs={3}>
               <Button
