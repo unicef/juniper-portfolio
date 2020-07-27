@@ -11,6 +11,7 @@ import WorkDetails from "./WorkDetails";
 const styles = (theme) => ({
   root: {
     marginTop: "5em",
+    marginBottom: "5em",
     backgroundColor: "#f8f8f8",
     width: "100%",
   },
