@@ -20,6 +20,7 @@ const styles = (theme) => ({
     color: "#00aeef",
     boxShadow: "none",
     textTransform: "uppercase",
+    paddingLeft: 15,
   },
   expansionDetails: {
     paddingTop: 0,

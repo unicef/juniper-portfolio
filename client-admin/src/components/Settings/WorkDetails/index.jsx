@@ -8,6 +8,7 @@ import Button from "@material-ui/core/Button";
 const useStyles = makeStyles({
   root: {
     backgroundColor: "#ffffff",
+    paddingLeft: 15,
   },
   select: {
     fontFamily: '"Roboto", sans-serif',
@@ -42,7 +43,7 @@ const useStyles = makeStyles({
 
 export default function SettingsProfile() {
   const classes = useStyles();
-  const [workUnit, setWorkUnit] = useState(null);
+  const [workUnit, setWorkUnit] = useState("");
 
   return (
     <Grid container className={classes.root}>

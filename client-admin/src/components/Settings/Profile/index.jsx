@@ -9,6 +9,7 @@ const useStyles = makeStyles({
     backgroundColor: "#ffffff",
     paddingTop: 19,
     paddingBottom: 19,
+    paddingLeft: 15,
   },
   avatarbox: {
     textAlign: "right",

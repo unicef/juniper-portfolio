@@ -7,11 +7,13 @@ import Notifications from "./Notifications";
 import UserActivity from "./UserActivity";
 import Profile from "./Profile";
 import WorkDetails from "./WorkDetails";
+import AddNewUser from "./UserManagement/AddNewUser";
+import ExistingUsers from "./UserManagement/ExistingUsers";
 
 const styles = (theme) => ({
   root: {
     marginTop: "5em",
-    marginBottom: "5em",
+    paddingBottom: "5em",
     backgroundColor: "#f8f8f8",
     width: "100%",
     maxHeight: "100vh",
@@ -79,11 +81,11 @@ class Settings extends React.Component {
             email link.
           </h5>
           <ExpansionList heading={"Add a new user"}>
-            <UserActivity />
+            <AddNewUser />
           </ExpansionList>
 
           <ExpansionList heading={"View existing users"}>
-            <UserActivity />
+            <ExistingUsers />
           </ExpansionList>
         </Container>
       </div>

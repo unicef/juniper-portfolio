@@ -12,6 +12,7 @@ const useStyles = makeStyles({
     color: "#000000",
     fontWeight: 400,
     margin: 0,
+    paddingLeft: 15,
   },
 });
 
