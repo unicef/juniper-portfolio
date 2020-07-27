@@ -299,12 +299,11 @@ router.get("/avgprice", async (req, res) => {
   const juniperAdmin = req.app.get("juniperAdmin");
   const params  = req.query;
   let avgprice = [];
-  const timeStart = new Date(params.timeStart);
-  const timeEnd = new Date(params.timeEnd);
+  
 
   try {
   
-    avgprice = await juniperAdmin.db.averagePriceInDateRange(params.symbol, timeStart, timeEnd);
+    avgprice = await juniperAdmin.db.averagePriceInDateRange(params.symbol, params.timeStart, params.timeEnd);
   } catch (e) {
     return logger.error(e);
   }
