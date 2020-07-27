@@ -6,6 +6,7 @@ import LoginSettings from "./Login";
 import Notifications from "./Notifications";
 import UserActivity from "./UserActivity";
 import Profile from "./Profile";
+import WorkDetails from "./WorkDetails";
 
 const styles = (theme) => ({
   root: {
@@ -46,7 +47,9 @@ class Settings extends React.Component {
       <div className={classes.root}>
         <Container maxWidth="md">
           <h5 className={classes.title}>Profile</h5>
-          <ExpansionList heading={"Work Details"}></ExpansionList>
+          <ExpansionList heading={"Work Details"}>
+            <WorkDetails />
+          </ExpansionList>
           <Profile />
           <h5 className={classes.title}>Login</h5>
           <ExpansionList title={"Login"} heading={"Change Password"}>
