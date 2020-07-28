@@ -5,7 +5,9 @@ import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
 
 const useStyles = makeStyles({
-  root: {},
+  root: {
+    paddingLeft: 15,
+  },
   textField: {
     marginBottom: 16,
     width: "100%",
