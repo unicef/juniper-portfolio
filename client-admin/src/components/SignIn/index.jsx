@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect, Fragment } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import Drawer from "@material-ui/core/Drawer";
 import TextField from "@material-ui/core/TextField";
@@ -46,7 +46,8 @@ const useStyles = makeStyles((theme) => ({
     fontSize: 28,
     fontWeight: 700,
     lineHeight: 1.14,
-    marginBottom: 40,
+    marginBottom: 10,
+    height: 155,
   },
   textField: {
     marginBottom: 16,
@@ -106,21 +107,43 @@ const useStyles = makeStyles((theme) => ({
 
 export default function PermanentDrawerLeft() {
   const classes = useStyles();
+  const [signIn, setSignIn] = useState(true);
+  const [forgotPassword, setForgotPassword] = useState(false);
+  const [resetPasswordSent, setResetPasswordSent] = useState(false);
+  const [subtitle, setSubtitle] = useState(
+    "Welcome to Juniper! Sign in to your account."
+  );
 
-  return (
-    <div className={classes.root}>
-      <Drawer
-        className={classes.drawer}
-        variant="permanent"
-        classes={{
-          paper: classes.drawerPaper,
-        }}
-        anchor="left"
-      >
-        <h1 className={classes.heading}>Juniper</h1>
-        <h2 className={classes.subtitle}>
-          Welcome to Juniper! Sign in to your account.
-        </h2>
+  const resetState = () => {
+    setSignIn(false);
+    setResetPasswordSent(false);
+    setForgotPassword(false);
+  };
+  const forgotPasswordClick = () => {
+    resetState();
+    setForgotPassword(true);
+    setSubtitle(
+      "Please provide us with your registered email and we will send you a password reset link"
+    );
+  };
+
+  const resetPasswordClick = () => {
+    resetState();
+    setResetPasswordSent(true);
+    setSubtitle(
+      "We have sent you a password reset link to the provided email id."
+    );
+  };
+
+  const goToSignInPageClick = () => {
+    resetState();
+    setSignIn(true);
+    setSubtitle("Welcome to Juniper! Sign in to your account.");
+  };
+
+  function SignIn() {
+    return (
+      <Fragment>
         <TextField
           label="Registered email id"
           className={classes.textField}
@@ -134,6 +157,7 @@ export default function PermanentDrawerLeft() {
             console.log(e.target.value);
           }}
         />
+
         <TextField
           label="Password"
           type="password"
@@ -148,7 +172,9 @@ export default function PermanentDrawerLeft() {
             console.log(e.target.value);
           }}
         />
-        <p className={classes.subtext}>Forgot Password?</p>
+        <p className={classes.subtext} onClick={forgotPasswordClick}>
+          Forgot Password?
+        </p>
         <Button
           className={classes.filledButton}
           variant="contained"
@@ -156,6 +182,80 @@ export default function PermanentDrawerLeft() {
         >
           Sign In
         </Button>
+      </Fragment>
+    );
+  }
+
+  function ForgotPassword() {
+    return (
+      <Fragment>
+        <TextField
+          label="Registered email id"
+          className={classes.textField}
+          InputLabelProps={{
+            className: classes.textLabelInput,
+          }}
+          InputProps={{
+            className: classes.textInput,
+          }}
+          onChange={(e) => {
+            console.log(e.target.value);
+          }}
+        />
+        <Button
+          className={classes.filledButton}
+          variant="contained"
+          color="primary"
+          onClick={resetPasswordClick}
+        >
+          Reset Password
+        </Button>
+      </Fragment>
+    );
+  }
+
+  function ResetPasswordSent() {
+    return (
+      <Button
+        className={classes.filledButton}
+        variant="contained"
+        color="primary"
+        onClick={goToSignInPageClick}
+      >
+        Go To Sign In Page
+      </Button>
+    );
+  }
+
+  useEffect(() => {
+    const params = window.location.search;
+    let verification = false;
+    if (params.indexOf("verification") >= 0) {
+      verification = params.split("verification=")[1].split("&")[0];
+    }
+    console.log(params);
+    console.log(verification);
+    // Validate verification Id
+  }, []);
+
+  return (
+    <div className={classes.root}>
+      <Drawer
+        className={classes.drawer}
+        variant="permanent"
+        classes={{
+          paper: classes.drawerPaper,
+        }}
+        anchor="left"
+      >
+        <h1 className={classes.heading}>Juniper</h1>
+        <h2 className={classes.subtitle}>{subtitle}</h2>
+
+        {signIn && <SignIn />}
+
+        {forgotPassword && <ForgotPassword />}
+
+        {resetPasswordSent && <ResetPasswordSent />}
         <img src={logo} className={classes.logo} />
       </Drawer>
       <main className={classes.content}></main>

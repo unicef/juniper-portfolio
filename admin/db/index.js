@@ -38,6 +38,20 @@ class MongoDB {
     this.logger.info("Initialized");
   }
 
+  async createUser(user) {
+    return this.models.User.findOneAndUpdate(
+      {
+        email: user.email,
+      },
+      user,
+      { upsert: true }
+    );
+  }
+
+  async getUser(email) {
+    return this.models.User.findOne({ email });
+  }
+
   async getActivities() {
     this.logger.debug(`getActivities `);
     return this.models.Activity.find();

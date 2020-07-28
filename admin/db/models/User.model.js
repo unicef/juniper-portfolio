@@ -8,7 +8,13 @@ const user = new Schema({
   picture: { type: String },
   title: { type: String },
   department: { type: String },
-  userLevel: { type: String },
+  password: { type: String },
+  salt: { type: String },
+  notifications: { type: Boolean },
+  userAdded: { type: Boolean },
+  newTransaction: { type: Boolean },
+  transactionTagged: { type: Boolean },
+  isAdmin: { type: Boolean },
 });
 
 user.index({ email: 1 }, { unique: true });

@@ -5,6 +5,7 @@ const Natcom = require("./Natcom.model.js");
 const Transaction = require("./Transaction.model.js");
 const Price = require("./Price.model.js");
 const Activity = require("./Activity.model.js");
+const User = require("./User.model.js");
 
 module.exports = {
   Activity,
@@ -14,4 +15,5 @@ module.exports = {
   Startup,
   Donor,
   Natcom,
+  User,
 };

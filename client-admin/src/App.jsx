@@ -97,7 +97,7 @@ export default function JuniperAdmin() {
                 <Route path="/admin/signin">
                   <SignIn />
                 </Route>
-                <Route path="/admin">
+                <Route exact path="/admin">
                   <TopBar />
                   <Sidebar />
                   <Wallets getExchangeRate={getExchangeRate} />

@@ -67,6 +67,8 @@ class JuniperAdmin {
     this.logger.info(`started in ${this.environment}.`);
   }
 
+  async createUser(user) {}
+
   async logActivity(activity) {
     this.db.logActivity(activity);
   }
@@ -74,6 +76,32 @@ class JuniperAdmin {
   async createWallet(wallet) {
     this.logger.debug(`createWallet ${wallet}`);
     this.db.createWallet(wallet);
+  }
+
+  async createUser(user) {
+    user.salt = this.utils.createSalt();
+    user.password = this.utils.hash256(user.password.concat(user.salt));
+    await this.db.createUser(user);
+  }
+
+  async signInUser(user) {
+    let savedUser;
+    try {
+      savedUser = await this.db.getUser(user.email);
+    } catch (e) {
+      this.logger.error(e);
+    }
+    const saltedPassword = this.utils.hash256(
+      user.password.concat(savedUser.salt)
+    );
+
+    if (saltedPassword === savedUser.password) {
+      this.logger.info(`User authenticated for ${user.email}`);
+      return savedUser;
+    } else {
+      this.logger.error(`User authentication failed for ${user.email}`);
+      return false;
+    }
   }
 
   async getWalletSummary() {

@@ -194,7 +194,7 @@ export default function ActivityList(props) {
             color="primary"
             className={classes.changePasswordButton}
           >
-            Change Password
+            Save Changes
           </Button>
         </Grid>
       </Grid>
