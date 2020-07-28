@@ -47,6 +47,8 @@ export default function TxList({
   page,
   limit,
   onPaginationClick,
+  setAuthorizationRecord,
+  exchangeRate,
 }) {
   const classes = transactionDetailsStyles();
 
@@ -83,21 +85,26 @@ export default function TxList({
       {txs && (
         <List>
           {txs.slice(start, end).map((tx, index) => {
+            console.log(tx);
+            console.log(exchangeRate);
+
             return (
               <ListItem key={index}>
                 <TxCard
                   tx={tx}
                   txid={tx.txid}
                   timestamp={tx.timestamp}
-                  address={null}
+                  address={tx.address}
                   currency={tx.currency}
                   amount={tx.amount}
                   symbol={tx.symbol}
                   amountUSD={tx.amountUSD}
                   sent={tx.sent}
                   received={tx.received}
-                  to={tx.to}
-                  from={tx.from}
+                  to={tx.to || tx.address}
+                  from={tx.from || tx.address}
+                  setAuthorizationRecord={setAuthorizationRecord}
+                  exchangeRate={exchangeRate}
                 />
               </ListItem>
             );
