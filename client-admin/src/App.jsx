@@ -2,8 +2,14 @@ import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import { createMuiTheme, ThemeProvider } from "@material-ui/core/styles";
 import CssBaseline from "@material-ui/core/CssBaseline";
-import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  Redirect,
+} from "react-router-dom";
 import "./app.css";
+import SignIn from "./components/SignIn";
 import TopBar from "./components/TopBar";
 import Sidebar from "./components/Sidebar";
 import Accounts from "./components/Accounts";
@@ -21,6 +27,7 @@ const useStyles = makeStyles((theme) => ({
     display: "flex",
     backgroundColor: "#f8f8f8",
     height: "100%",
+    width: "100%",
   },
   appBar: {
     zIndex: theme.zIndex.drawer + 1,
@@ -85,28 +92,42 @@ export default function JuniperAdmin() {
       <ThemeProvider theme={theme}>
         <ApolloProvider client={client}>
           <CssBaseline>
-            <TopBar />
             <Router>
-              <Sidebar />
               <Switch>
+                <Route path="/admin/signin">
+                  <SignIn />
+                </Route>
+                <Route path="/admin">
+                  <TopBar />
+                  <Sidebar />
+                  <Wallets getExchangeRate={getExchangeRate} />
+                </Route>
                 <Route path="/admin/wallets">
+                  <TopBar />
+                  <Sidebar />
                   <Wallets getExchangeRate={getExchangeRate} />
                 </Route>
                 <Route path="/admin/accounts">
+                  <TopBar />
+                  <Sidebar />
                   <Accounts />
                 </Route>
                 <Route path="/admin/tracker">
+                  <TopBar />
+                  <Sidebar />
                   <PriceTracker />
                 </Route>
                 <Route path="/admin/transactions">
+                  <TopBar />
+                  <Sidebar />
                   <Transactions getExchangeRate={getExchangeRate} />
                 </Route>
                 <Route path="/admin/settings">
+                  <TopBar />
+                  <Sidebar />
                   <Settings />
                 </Route>
-                <Route path="/admin">
-                  <Wallets getExchangeRate={getExchangeRate} />
-                </Route>
+                <Redirect from="*" to="/admin/wallets" />
               </Switch>
             </Router>
           </CssBaseline>
