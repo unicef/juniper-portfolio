@@ -12,7 +12,8 @@ router.get("/activities", async (req, res) => {
   try {
     activities = await juniperAdmin.db.getActivities();
   } catch (e) {
-    return this.logger.error(e);
+    this.logger.error(e);
+    return res.status(500).send();
   }
 
   res.json(activities);
@@ -38,7 +39,8 @@ router.get("/wallets", async (req, res) => {
   try {
     wallets = await juniperAdmin.db.getUnicefWallets();
   } catch (e) {
-    return logger.error(e);
+    logger.error(e);
+    return res.status(500).send();
   }
   res.json(wallets);
 });
@@ -50,7 +52,8 @@ router.get("/wallets/tracked", async (req, res) => {
   try {
     wallets = await juniperAdmin.db.getTrackedWallets();
   } catch (e) {
-    return logger.error(e);
+    logger.error(e);
+    return res.status(500).send();
   }
   res.json(wallets);
 });
@@ -61,7 +64,8 @@ router.get("/wallets/summary", async (req, res) => {
   try {
     summary = await juniperAdmin.getWalletSummary();
   } catch (e) {
-    return logger.error(e);
+    logger.error(e);
+    return res.status(500).send();
   }
   res.json(summary);
 });
@@ -73,7 +77,8 @@ router.get("/transactions", async (req, res) => {
   try {
     txs = await juniperAdmin.db.getTransactions();
   } catch (e) {
-    return logger.error(e);
+    logger.error(e);
+    return res.status(500).send();
   }
 
   res.json(txs);
@@ -85,7 +90,8 @@ router.get("/transactions/unpublished", async (req, res) => {
   try {
     txs = await juniperAdmin.db.getUnpublishedTransactions();
   } catch (e) {
-    return logger.error(e);
+    logger.error(e);
+    return res.status(500).send();
   }
 
   res.json(txs);
@@ -94,16 +100,18 @@ router.get("/transactions/unpublished", async (req, res) => {
 router.post("/transaction/archive", async (req, res) => {
   const juniperAdmin = req.app.get("juniperAdmin");
   let { txid } = req.body;
-  const user = "Alex Sherbuck"; // Todo, get from session
 
   try {
+    const profile = req.session.passport.user.profile;
+    const name = `${profile.firstName} ${profile.lastName}`;
     await juniperAdmin.db.archiveTx(txid);
     await juniperAdmin.logActivity({
-      name: user,
-      text: `<a href="#" class="link">${user}</a> archived a transaction.`,
+      name: name,
+      text: `<a href="#" class="link">${name}</a> archived a transaction.`,
     });
   } catch (e) {
-    return logger.error(e);
+    logger.error(e);
+    return res.status(500).send();
   }
 
   res.send(true);
@@ -117,7 +125,8 @@ router.get("/wallet/:address", async (req, res) => {
   try {
     wallet = await juniperAdmin.db.getWallet(address);
   } catch (e) {
-    return logger.error(e);
+    logger.error(e);
+    return res.status(500).send();
   }
 
   res.json(wallet);
@@ -130,7 +139,8 @@ router.get("/wallet/untrack/:address", async (req, res) => {
   try {
     await juniperAdmin.db.untrackWallet(address);
   } catch (e) {
-    return logger.error(e);
+    logger.error(e);
+    return res.status(500).send();
   }
 
   res.send();
@@ -203,7 +213,8 @@ router.get("/startups", async (req, res) => {
   try {
     startups = await juniperAdmin.db.getStartups();
   } catch (e) {
-    return logger.error(e);
+    logger.error(e);
+    return res.status(500).send();
   }
   res.json(startups);
 });
@@ -230,7 +241,8 @@ router.get("/donors", async (req, res) => {
   try {
     donors = await juniperAdmin.db.getDonors();
   } catch (e) {
-    return logger.error(e);
+    logger.error(e);
+    return res.status(500).send();
   }
   res.json(donors);
 });
@@ -257,7 +269,8 @@ router.get("/natcoms", async (req, res) => {
   try {
     natcoms = await juniperAdmin.db.getNatcoms();
   } catch (e) {
-    return logger.error(e);
+    logger.error(e);
+    return res.status(500).send();
   }
   res.json(natcoms);
 });
@@ -289,7 +302,8 @@ router.get("/prices", async (req, res) => {
       params.timeEnd
     );
   } catch (e) {
-    return logger.error(e);
+    logger.error(e);
+    return res.status(500).send();
   }
   res.json(prices);
 });
@@ -308,7 +322,8 @@ router.get("/avgprice", async (req, res) => {
       timeEnd
     );
   } catch (e) {
-    return logger.error(e);
+    logger.error(e);
+    return res.status(500).send();
   }
   res.json(avgprice);
 });

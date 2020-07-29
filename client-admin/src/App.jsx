@@ -123,7 +123,7 @@ export default function JuniperAdmin() {
           <CssBaseline>
             {!isLoggedIn ? (
               loading ? (
-                <LoadingScreen />
+                <LoadingScreen open={true} />
               ) : (
                 <SignIn loginUser={loginUser} />
               )
@@ -131,34 +131,34 @@ export default function JuniperAdmin() {
               <Router>
                 <Switch>
                   <Route exact path="/admin">
-                    <TopBar />
+                    <TopBar user={user} />
                     <Sidebar />
                     <Wallets getExchangeRate={getExchangeRate} />
                   </Route>
                   <Route path="/admin/wallets">
-                    <TopBar />
+                    <TopBar user={user} />
                     <Sidebar />
                     <Wallets getExchangeRate={getExchangeRate} />
                   </Route>
                   <Route path="/admin/accounts">
-                    <TopBar />
+                    <TopBar user={user} />
                     <Sidebar />
                     <Accounts />
                   </Route>
                   <Route path="/admin/tracker">
-                    <TopBar />
+                    <TopBar user={user} />
                     <Sidebar />
                     <PriceTracker />
                   </Route>
                   <Route path="/admin/transactions">
-                    <TopBar />
+                    <TopBar user={user} />
                     <Sidebar />
                     <Transactions getExchangeRate={getExchangeRate} />
                   </Route>
                   <Route path="/admin/settings">
-                    <TopBar />
+                    <TopBar user={user} />
                     <Sidebar />
-                    <Settings />
+                    <Settings user={user} />
                   </Route>
                   <Redirect from="*" to="/admin/wallets" />
                 </Switch>

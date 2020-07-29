@@ -48,7 +48,8 @@ const styles = (theme) => ({
 
 class Settings extends React.Component {
   render() {
-    const { classes } = this.props;
+    const { classes, user } = this.props;
+    console.log(user);
     return (
       <div className={classes.root}>
         <Container maxWidth="md">
@@ -66,7 +67,7 @@ class Settings extends React.Component {
             title={"Notifications"}
             heading={"Email Notifications"}
           >
-            <Notifications />
+            <Notifications user={user} />
           </ExpansionList>
           <h5 className={classes.title}>User Activity</h5>
           <ExpansionList title={"User Activity"} heading={"View Activity Log"}>

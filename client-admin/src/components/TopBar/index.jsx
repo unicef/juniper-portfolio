@@ -28,9 +28,17 @@ const useStyles = makeStyles((theme) => ({
   title: {
     flexGrow: 1,
   },
+  username: {
+    fontFamily: '"Cabin",  sans-serif',
+    fontSize: 12,
+    fontWeight: 700,
+    color: "#ffffff",
+    textTransform: "uppercase",
+    cursor: "pointer",
+  },
 }));
 
-export default function TopBar() {
+export default function TopBar(props) {
   const classes = useStyles();
 
   return (
@@ -39,8 +47,8 @@ export default function TopBar() {
         <Typography variant="h6" className={classes.title}>
           <img className={classes.logo} src={logo} alt="UNICEF" />
         </Typography>
-        <Typography variant="h6" style={{ color: "#ffffff" }}>
-          First Last
+        <Typography variant="h6" className={classes.username}>
+          {props.user.firstName} {props.user.lastName}
         </Typography>
         <ExpandMoreIcon style={{ color: "#ffffff", marginRight: 40 }} />
       </Toolbar>

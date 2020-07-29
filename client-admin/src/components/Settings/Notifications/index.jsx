@@ -103,6 +103,7 @@ const BlueSwitch = withStyles((theme) => ({
     <Switch
       focusVisibleClassName={classes.focusVisible}
       disableRipple
+      checked={props.checked}
       classes={{
         root: classes.root,
         switchBase: classes.switchBase,
@@ -142,7 +143,7 @@ export default function ActivityList(props) {
               </Grid>
               <Grid item xs={2} className={classes.toggle}>
                 <FormControlLabel
-                  control={<BlueSwitch />}
+                  control={<BlueSwitch checked={props.user.notifications} />}
                   label="On"
                   labelPlacement="start"
                   className={classes.toggleLabel}
@@ -159,7 +160,7 @@ export default function ActivityList(props) {
                 </h5>
               </Grid>
               <Grid item xs={2} className={classes.checkbox}>
-                <BlueCheckbox />
+                <BlueCheckbox checked={props.user.userAdded} />
               </Grid>
             </Grid>
           </ListItem>
@@ -171,7 +172,7 @@ export default function ActivityList(props) {
                 </h5>
               </Grid>
               <Grid item xs={2} className={classes.checkbox}>
-                <BlueCheckbox />
+                <BlueCheckbox checked={props.user.newTransaction} />
               </Grid>
             </Grid>
           </ListItem>
@@ -183,7 +184,7 @@ export default function ActivityList(props) {
                 </h5>
               </Grid>
               <Grid item xs={2} className={classes.checkbox}>
-                <BlueCheckbox />
+                <BlueCheckbox checked={props.user.transactionTagged} />
               </Grid>
             </Grid>
           </ListItem>
