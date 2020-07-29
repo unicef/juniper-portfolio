@@ -15,7 +15,9 @@ const user = new Schema({
   newTransaction: { type: Boolean },
   transactionTagged: { type: Boolean },
   verificationCode: { type: String },
+  isVerified: { type: Boolean, default: false },
   isAdmin: { type: Boolean },
+  active: { type: Boolean, default: true },
 });
 
 user.index({ email: 1 }, { unique: true });
