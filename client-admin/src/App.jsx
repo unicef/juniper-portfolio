@@ -98,6 +98,12 @@ export default function JuniperAdmin() {
     return price.USD;
   };
 
+  const updateUser = (property) => {
+    const newUser = { ...user, ...property };
+    setUser(newUser);
+    // todo update on server
+  };
+
   useEffect(() => {
     // check if logged in
     const getUserProfile = async () => {
@@ -158,7 +164,7 @@ export default function JuniperAdmin() {
                   <Route path="/admin/settings">
                     <TopBar user={user} />
                     <Sidebar />
-                    <Settings user={user} />
+                    <Settings user={user} updateUser={updateUser} />
                   </Route>
                   <Redirect from="*" to="/admin/wallets" />
                 </Switch>

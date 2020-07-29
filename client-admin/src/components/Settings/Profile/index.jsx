@@ -3,6 +3,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import Grid from "@material-ui/core/Grid";
 import Avatar from "@material-ui/core/Avatar";
 import ChevronRightIcon from "@material-ui/icons/ChevronRight";
+import FileUpload from "../../FileUpload";
 
 const useStyles = makeStyles({
   root: {
@@ -43,12 +44,16 @@ export default function User(props) {
   return (
     <Grid container className={classes.root}>
       <Grid item xs={1} className={classes.avatarbox}>
-        <Avatar src={props.user.picture} className={classes.avatar}>
-          {props.user.firstName.charAt(0)} {props.user.lastName.charAt(0)}
-        </Avatar>
+        <FileUpload afterUpload={props.updateUser} showStatus={false}>
+          <Avatar src={props.user.picture} className={classes.avatar}>
+            {props.user.firstName.charAt(0)} {props.user.lastName.charAt(0)}
+          </Avatar>
+        </FileUpload>
       </Grid>
       <Grid item xs={10} className={classes.message}>
-        Change Profile Picture
+        <FileUpload afterUpload={props.updateUser} showStatus={false}>
+          Change Profile Picture
+        </FileUpload>
       </Grid>
       <Grid item xs={1} className={classes.chevron}>
         <ChevronRightIcon />

@@ -48,7 +48,7 @@ const styles = (theme) => ({
 
 class Settings extends React.Component {
   render() {
-    const { classes, user } = this.props;
+    const { classes, user, updateUser } = this.props;
 
     return (
       <div className={classes.root}>
@@ -57,7 +57,7 @@ class Settings extends React.Component {
           <ExpansionList heading={"Work Details"}>
             <WorkDetails user={user} />
           </ExpansionList>
-          <Profile user={user} />
+          <Profile user={user} updateUser={updateUser} />
           <h5 className={classes.title}>Login</h5>
           <ExpansionList title={"Login"} heading={"Change Password"}>
             <LoginSettings />
