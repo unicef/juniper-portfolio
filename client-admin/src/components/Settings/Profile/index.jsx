@@ -46,7 +46,16 @@ export default function User(props) {
       <Grid item xs={1} className={classes.avatarbox}>
         <FileUpload afterUpload={props.updateUser} showStatus={false}>
           <Avatar src={props.user.picture} className={classes.avatar}>
-            {props.user.firstName.charAt(0)} {props.user.lastName.charAt(0)}
+            {props.user
+              ? props.user.firstName
+                ? props.user.firstName.charAt(0)
+                : ""
+              : ""}{" "}
+            {props.user
+              ? props.user.lastName
+                ? props.user.lastName.charAt(0)
+                : ""
+              : ""}
           </Avatar>
         </FileUpload>
       </Grid>
