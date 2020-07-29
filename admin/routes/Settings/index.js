@@ -15,6 +15,25 @@ router.get("/activities", async (req, res) => {
   res.json(activities);
 });
 
+router.post("/user/invite", async (req, res) => {
+  const juniperAdmin = req.app.get("juniperAdmin");
+  const { user } = req.body;
+
+  const verificationCode = juniperAdmin.utils.createVerificationCode();
+  console.log(verificationCode);
+
+  user.verificationCode = verificationCode;
+
+  try {
+    await juniperAdmin.inviteUser(user);
+  } catch (e) {
+    logger.error(e);
+    return res.status(500).send();
+  }
+
+  res.send(user);
+});
+
 router.put("/user", async (req, res) => {
   const juniperAdmin = req.app.get("juniperAdmin");
   const { user } = req.body;

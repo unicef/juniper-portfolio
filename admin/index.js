@@ -144,7 +144,9 @@ class JuniperAdmin {
     this.logger.info(`started in ${this.environment}.`);
   }
 
-  async createUser(user) {}
+  async inviteUser(user) {
+    await this.db.createUser(user);
+  }
 
   async logActivity(activity) {
     this.db.logActivity(activity);

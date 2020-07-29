@@ -109,18 +109,77 @@ const useStyles = makeStyles({
       marginTop: 8,
     },
   },
+  verificationCode: {
+    paddingTop: 22,
+    fontSize: 14,
+    margin: 0,
+  },
 });
 
 export default function AddNewUser() {
   const classes = useStyles();
-  const [workUnit, setWorkUnit] = useState("");
-  const [accessLevel, setAccessLevel] = useState("");
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
+  const [department, setDepartment] = useState("");
+  const [isAdmin, setIsAdmin] = useState("");
+  const [email, setEmail] = useState("");
+  const [siteLink, setSiteLink] = useState(
+    "https://juniper.unicef.io/admin/signin?verificationCode="
+  );
+  const [verificationCode, setVerificationCode] = useState("");
+
+  const addNewUser = async () => {
+    let res;
+    let notifications = false;
+    let userAdded = false;
+    let newTransaction = false;
+    let transactionTagged = false;
+
+    if (isAdmin) {
+      notifications = true;
+      userAdded = true;
+      newTransaction = true;
+      transactionTagged = true;
+    }
+
+    let user = {
+      firstName,
+      lastName,
+      department,
+      isAdmin,
+      email,
+      notifications,
+      userAdded,
+      newTransaction,
+      transactionTagged,
+    };
+
+    try {
+      res = await fetch(`/rest/admin/settings/user/invite`, {
+        credentials: "include",
+        method: "POST",
+        body: JSON.stringify({
+          user,
+        }),
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+    } catch (e) {
+      return console.log(e);
+    }
+
+    user = await res.json();
+
+    setVerificationCode(user.verificationCode);
+  };
 
   return (
     <Grid container className={classes.root}>
       <Grid item xs={6} className={classes.formItem}>
         <TextField
           label="First Name"
+          value={firstName}
           className={classes.textField}
           InputLabelProps={{
             className: classes.textLabelInput,
@@ -129,13 +188,14 @@ export default function AddNewUser() {
             className: classes.textInput,
           }}
           onChange={(e) => {
-            console.log(e.target.value);
+            setFirstName(e.target.value);
           }}
         />
       </Grid>
       <Grid item xs={6} className={classes.formItem}>
         <TextField
           label="Last Name"
+          value={lastName}
           className={classes.textField}
           InputLabelProps={{
             className: classes.textLabelInput,
@@ -144,7 +204,7 @@ export default function AddNewUser() {
             className: classes.textInput,
           }}
           onChange={(e) => {
-            console.log(e.target.value);
+            setLastName(e.target.value);
           }}
         />
       </Grid>
@@ -155,9 +215,9 @@ export default function AddNewUser() {
           <Select
             labelId="WorkUnit"
             className={classes.select}
-            value={workUnit}
+            value={department}
             onChange={(e) => {
-              setWorkUnit(e.target.value);
+              setDepartment(e.target.value);
             }}
           >
             <MenuItem className={classes.menuitem} value={"DFAM"}>
@@ -187,15 +247,19 @@ export default function AddNewUser() {
           <Select
             labelId="AccessLevel"
             className={classes.select}
-            value={accessLevel}
+            value={isAdmin}
             onChange={(e) => {
-              setAccessLevel(e.target.value);
+              if (e.target.value) {
+                setIsAdmin(true);
+              } else {
+                setIsAdmin(false);
+              }
             }}
           >
-            <MenuItem className={classes.menuitem} value={"Administrator"}>
+            <MenuItem className={classes.menuitem} value={true}>
               Administrator (editing permissions)
             </MenuItem>
-            <MenuItem className={classes.menuitem} value={"General"}>
+            <MenuItem className={classes.menuitem} value={false}>
               General (view only permission)
             </MenuItem>
           </Select>
@@ -204,6 +268,7 @@ export default function AddNewUser() {
       <Grid item xs={6} className={classes.formItem}>
         <TextField
           label="UNICEF email id"
+          value={email}
           className={classes.textField}
           InputLabelProps={{
             className: classes.textLabelInput,
@@ -212,7 +277,7 @@ export default function AddNewUser() {
             className: classes.textInput,
           }}
           onChange={(e) => {
-            console.log(e.target.value);
+            setEmail(e.target.value);
           }}
         />
       </Grid>
@@ -221,6 +286,9 @@ export default function AddNewUser() {
           className={classes.filledButton}
           variant="contained"
           color="primary"
+          onClick={() => {
+            addNewUser();
+          }}
         >
           Send Invite
         </Button>
@@ -238,16 +306,37 @@ export default function AddNewUser() {
           their account.
         </p>
       </Grid>
-      <Grid item xs={12} className={classes.formItem}>
-        <Button
-          className={classes.generatLinkButton}
-          startIcon={<GenerateLinkIcon />}
-          onClick={async () => {
-            console.log("button");
-          }}
-        >
-          Generate Invite Link
-        </Button>
+      <Grid item xs={3} className={classes.formItem}>
+        {!verificationCode && (
+          <Button
+            className={classes.generatLinkButton}
+            startIcon={<GenerateLinkIcon />}
+            onClick={async () => {
+              console.log("button");
+            }}
+          >
+            Generate Invite Link
+          </Button>
+        )}
+        {verificationCode && (
+          <Button
+            className={classes.generatLinkButton}
+            startIcon={<GenerateLinkIcon />}
+            onClick={async () => {
+              console.log("button");
+            }}
+          >
+            Copy Invite Link
+          </Button>
+        )}
+      </Grid>
+      <Grid item xs={9} className={classes.formItem}>
+        {verificationCode && (
+          <p className={classes.verificationCode}>
+            {siteLink}
+            {verificationCode}
+          </p>
+        )}
       </Grid>
     </Grid>
   );

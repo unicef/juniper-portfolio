@@ -14,6 +14,7 @@ const user = new Schema({
   userAdded: { type: Boolean },
   newTransaction: { type: Boolean },
   transactionTagged: { type: Boolean },
+  verificationCode: { type: String },
   isAdmin: { type: Boolean },
 });
 
