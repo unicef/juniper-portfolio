@@ -10,8 +10,9 @@ router.get("/isLoggedIn", async (req, res) => {
       return res.json(req.session.passport.user.profile);
     }
   } catch (e) {
-    return res.status(401).send();
+    return res.status(500).send();
   }
+  return res.status(401).send();
 });
 
 module.exports = router;
