@@ -37,14 +37,14 @@ const useStyles = makeStyles({
   },
 });
 
-export default function SettingsProfile() {
+export default function User(props) {
   const classes = useStyles();
 
   return (
     <Grid container className={classes.root}>
       <Grid item xs={1} className={classes.avatarbox}>
-        <Avatar src={null} className={classes.avatar}>
-          MH
+        <Avatar src={props.user.picture} className={classes.avatar}>
+          {props.user.firstName.charAt(0)} {props.user.lastName.charAt(0)}
         </Avatar>
       </Grid>
       <Grid item xs={10} className={classes.message}>
