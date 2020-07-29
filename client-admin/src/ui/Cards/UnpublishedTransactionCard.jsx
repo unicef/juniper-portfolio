@@ -121,7 +121,7 @@ export default function UnpublishedTransactionCard({
   const archiveTransactionPost = async (txid) => {
     let res;
     try {
-      res = await fetch(`/rest/admin/transaction/archive`, {
+      res = await fetch(`/rest/admin/transactions/archive`, {
         credentials: "include",
         method: "POST",
         body: JSON.stringify({
