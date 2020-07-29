@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import { createMuiTheme, ThemeProvider } from "@material-ui/core/styles";
 import CssBaseline from "@material-ui/core/CssBaseline";
@@ -73,6 +73,15 @@ const theme = createMuiTheme({
 
 export default function JuniperAdmin() {
   const classes = useStyles();
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [user, setUser] = useState({});
+
+  const loginUser = (user) => {
+    if (user) {
+      setIsLoggedIn(true);
+      setUser(user);
+    }
+  };
 
   const getExchangeRate = async (symbol) => {
     let res, price;
@@ -92,44 +101,45 @@ export default function JuniperAdmin() {
       <ThemeProvider theme={theme}>
         <ApolloProvider client={client}>
           <CssBaseline>
-            <Router>
-              <Switch>
-                <Route path="/admin/signin">
-                  <SignIn />
-                </Route>
-                <Route exact path="/admin">
-                  <TopBar />
-                  <Sidebar />
-                  <Wallets getExchangeRate={getExchangeRate} />
-                </Route>
-                <Route path="/admin/wallets">
-                  <TopBar />
-                  <Sidebar />
-                  <Wallets getExchangeRate={getExchangeRate} />
-                </Route>
-                <Route path="/admin/accounts">
-                  <TopBar />
-                  <Sidebar />
-                  <Accounts />
-                </Route>
-                <Route path="/admin/tracker">
-                  <TopBar />
-                  <Sidebar />
-                  <PriceTracker />
-                </Route>
-                <Route path="/admin/transactions">
-                  <TopBar />
-                  <Sidebar />
-                  <Transactions getExchangeRate={getExchangeRate} />
-                </Route>
-                <Route path="/admin/settings">
-                  <TopBar />
-                  <Sidebar />
-                  <Settings />
-                </Route>
-                <Redirect from="*" to="/admin/wallets" />
-              </Switch>
-            </Router>
+            {!isLoggedIn ? (
+              <SignIn loginUser={loginUser} />
+            ) : (
+              <Router>
+                <Switch>
+                  <Route exact path="/admin">
+                    <TopBar />
+                    <Sidebar />
+                    <Wallets getExchangeRate={getExchangeRate} />
+                  </Route>
+                  <Route path="/admin/wallets">
+                    <TopBar />
+                    <Sidebar />
+                    <Wallets getExchangeRate={getExchangeRate} />
+                  </Route>
+                  <Route path="/admin/accounts">
+                    <TopBar />
+                    <Sidebar />
+                    <Accounts />
+                  </Route>
+                  <Route path="/admin/tracker">
+                    <TopBar />
+                    <Sidebar />
+                    <PriceTracker />
+                  </Route>
+                  <Route path="/admin/transactions">
+                    <TopBar />
+                    <Sidebar />
+                    <Transactions getExchangeRate={getExchangeRate} />
+                  </Route>
+                  <Route path="/admin/settings">
+                    <TopBar />
+                    <Sidebar />
+                    <Settings />
+                  </Route>
+                  <Redirect from="*" to="/admin/wallets" />
+                </Switch>
+              </Router>
+            )}
           </CssBaseline>
         </ApolloProvider>
       </ThemeProvider>

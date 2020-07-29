@@ -84,20 +84,35 @@ class JuniperAdmin {
     await this.db.createUser(user);
   }
 
-  async signInUser(user) {
+  async login(user) {
     let savedUser;
     try {
       savedUser = await this.db.getUser(user.email);
     } catch (e) {
       this.logger.error(e);
     }
+
+    if (!savedUser) return false;
+
     const saltedPassword = this.utils.hash256(
       user.password.concat(savedUser.salt)
     );
 
     if (saltedPassword === savedUser.password) {
       this.logger.info(`User authenticated for ${user.email}`);
-      return savedUser;
+      return {
+        firstName: savedUser.firstName,
+        lastName: savedUser.lastName,
+        email: savedUser.email,
+        picture: savedUser.picture,
+        title: savedUser.title,
+        department: savedUser.department,
+        notifications: savedUser.notifications,
+        userAdded: savedUser.userAdded,
+        newTransaction: savedUser.newTransaction,
+        transactionTagged: savedUser.transactionTagged,
+        isAdmin: savedUser.isAdmin,
+      };
     } else {
       this.logger.error(`User authentication failed for ${user.email}`);
       return false;

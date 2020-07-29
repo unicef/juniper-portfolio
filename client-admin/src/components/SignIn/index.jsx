@@ -59,6 +59,9 @@ const useStyles = makeStyles((theme) => ({
     height: 40,
     fontSize: 19,
     lineHeight: 1.5,
+    "&.MuiFormLabel-root.Mui-error": {
+      color: "#ef6161",
+    },
     "&.MuiInputLabel-shrink": {
       textTransform: "uppercase",
       fontSize: 12,
@@ -105,14 +108,150 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function PermanentDrawerLeft() {
+function SignInForm(props) {
+  const classes = useStyles();
+  return (
+    <Fragment>
+      <TextField
+        value={props.email}
+        error={props.signInError}
+        label="Registered email id"
+        className={classes.textField}
+        InputLabelProps={{
+          error: props.signInError,
+          className: classes.textLabelInput,
+        }}
+        InputProps={{
+          className: classes.textInput,
+        }}
+        onChange={(e) => {
+          props.setSignInError(false);
+          props.setEmail(e.target.value);
+        }}
+      />
+
+      <TextField
+        value={props.password}
+        error={props.signInError}
+        label="Password"
+        type="password"
+        className={classes.textField}
+        InputLabelProps={{
+          error: props.signInError,
+          className: classes.textLabelInput,
+        }}
+        InputProps={{
+          className: classes.textInput,
+        }}
+        onKeyPress={(e) => {
+          if (e.key === "Enter") {
+            props.login();
+          }
+        }}
+        onChange={(e) => {
+          props.setSignInError(false);
+          props.setPassword(e.target.value);
+        }}
+      />
+      <p className={classes.subtext} onClick={props.forgotPasswordClick}>
+        Forgot Password?
+      </p>
+      <Button
+        className={classes.filledButton}
+        variant="contained"
+        color="primary"
+        onClick={props.login}
+      >
+        Sign In
+      </Button>
+    </Fragment>
+  );
+}
+
+function ForgotPassword(props) {
+  const classes = useStyles();
+  return (
+    <Fragment>
+      <TextField
+        label="Registered email id"
+        className={classes.textField}
+        InputLabelProps={{
+          className: classes.textLabelInput,
+        }}
+        InputProps={{
+          className: classes.textInput,
+        }}
+        onChange={(e) => {
+          console.log(e.target.value);
+        }}
+      />
+      <Button
+        className={classes.filledButton}
+        variant="contained"
+        color="primary"
+        onClick={props.resetPasswordClick}
+      >
+        Reset Password
+      </Button>
+    </Fragment>
+  );
+}
+
+function ResetPasswordSent(props) {
+  const classes = useStyles();
+  return (
+    <Button
+      className={classes.filledButton}
+      variant="contained"
+      color="primary"
+      onClick={props.goToSignInPageClick}
+    >
+      Go To Sign In Page
+    </Button>
+  );
+}
+
+export default function SignIn(props) {
   const classes = useStyles();
   const [signIn, setSignIn] = useState(true);
+  const [signInError, setSignInError] = useState(false);
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
   const [forgotPassword, setForgotPassword] = useState(false);
   const [resetPasswordSent, setResetPasswordSent] = useState(false);
   const [subtitle, setSubtitle] = useState(
     "Welcome to Juniper! Sign in to your account."
   );
+
+  const login = async () => {
+    let res;
+    try {
+      res = await fetch(`/rest/admin/login`, {
+        credentials: "include",
+        method: "POST",
+        body: JSON.stringify({
+          email,
+          password,
+        }),
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+    } catch (e) {
+      console.log(e);
+      return;
+    }
+
+    if (res.status === 403) {
+      // set login error
+      setSignInError(true);
+      setSubtitle("Oops! the provided password or email is incorrect.");
+    } else if (res.status === 200) {
+      // success
+      const user = await res.json();
+      props.loginUser(user);
+    }
+  };
 
   const resetState = () => {
     setSignIn(false);
@@ -141,92 +280,6 @@ export default function PermanentDrawerLeft() {
     setSubtitle("Welcome to Juniper! Sign in to your account.");
   };
 
-  function SignIn() {
-    return (
-      <Fragment>
-        <TextField
-          label="Registered email id"
-          className={classes.textField}
-          InputLabelProps={{
-            className: classes.textLabelInput,
-          }}
-          InputProps={{
-            className: classes.textInput,
-          }}
-          onChange={(e) => {
-            console.log(e.target.value);
-          }}
-        />
-
-        <TextField
-          label="Password"
-          type="password"
-          className={classes.textField}
-          InputLabelProps={{
-            className: classes.textLabelInput,
-          }}
-          InputProps={{
-            className: classes.textInput,
-          }}
-          onChange={(e) => {
-            console.log(e.target.value);
-          }}
-        />
-        <p className={classes.subtext} onClick={forgotPasswordClick}>
-          Forgot Password?
-        </p>
-        <Button
-          className={classes.filledButton}
-          variant="contained"
-          color="primary"
-        >
-          Sign In
-        </Button>
-      </Fragment>
-    );
-  }
-
-  function ForgotPassword() {
-    return (
-      <Fragment>
-        <TextField
-          label="Registered email id"
-          className={classes.textField}
-          InputLabelProps={{
-            className: classes.textLabelInput,
-          }}
-          InputProps={{
-            className: classes.textInput,
-          }}
-          onChange={(e) => {
-            console.log(e.target.value);
-          }}
-        />
-        <Button
-          className={classes.filledButton}
-          variant="contained"
-          color="primary"
-          onClick={resetPasswordClick}
-        >
-          Reset Password
-        </Button>
-      </Fragment>
-    );
-  }
-
-  function ResetPasswordSent() {
-    return (
-      <Button
-        className={classes.filledButton}
-        variant="contained"
-        color="primary"
-        onClick={goToSignInPageClick}
-      >
-        Go To Sign In Page
-      </Button>
-    );
-  }
-
   useEffect(() => {
     const params = window.location.search;
     let verification = false;
@@ -249,13 +302,32 @@ export default function PermanentDrawerLeft() {
         anchor="left"
       >
         <h1 className={classes.heading}>Juniper</h1>
-        <h2 className={classes.subtitle}>{subtitle}</h2>
+        <h2
+          className={classes.subtitle}
+          style={signInError ? { color: "#ef6161" } : {}}
+        >
+          {subtitle}
+        </h2>
 
-        {signIn && <SignIn />}
+        {signIn && (
+          <SignInForm
+            email={email}
+            setEmail={setEmail}
+            setPassword={setPassword}
+            forgotPasswordClick={forgotPasswordClick}
+            login={login}
+            signInError={signInError}
+            setSignInError={setSignInError}
+          />
+        )}
 
-        {forgotPassword && <ForgotPassword />}
+        {forgotPassword && (
+          <ForgotPassword resetPasswordClick={resetPasswordClick} />
+        )}
 
-        {resetPasswordSent && <ResetPasswordSent />}
+        {resetPasswordSent && (
+          <ResetPasswordSent goToSignInPageClick={goToSignInPageClick} />
+        )}
         <img src={logo} className={classes.logo} />
       </Drawer>
       <main className={classes.content}></main>

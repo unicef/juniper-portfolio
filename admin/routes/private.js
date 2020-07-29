@@ -109,6 +109,24 @@ router.post("/transaction/archive", async (req, res) => {
   res.send(true);
 });
 
+router.post("/login", async (req, res) => {
+  const juniperAdmin = req.app.get("juniperAdmin");
+  let { email, password } = req.body;
+  let user;
+
+  try {
+    user = await juniperAdmin.login({ email, password });
+  } catch (e) {
+    return logger.error(e);
+  }
+
+  if (!user) {
+    res.status(403).send();
+  } else {
+    res.send(user);
+  }
+});
+
 router.get("/wallet/:address", async (req, res) => {
   const juniperAdmin = req.app.get("juniperAdmin");
   const { address } = req.params;
@@ -294,23 +312,23 @@ router.get("/prices", async (req, res) => {
   res.json(prices);
 });
 
-
 router.get("/avgprice", async (req, res) => {
   const juniperAdmin = req.app.get("juniperAdmin");
-  const params  = req.query;
+  const params = req.query;
   let avgprice = [];
   const timeStart = new Date(params.timeStart);
   const timeEnd = new Date(params.timeEnd);
-  
 
   try {
-  
-    avgprice = await juniperAdmin.db.averagePriceInDateRange(params.symbol, timeStart, timeEnd);
+    avgprice = await juniperAdmin.db.averagePriceInDateRange(
+      params.symbol,
+      timeStart,
+      timeEnd
+    );
   } catch (e) {
     return logger.error(e);
   }
   res.json(avgprice);
 });
-
 
 module.exports = router;
