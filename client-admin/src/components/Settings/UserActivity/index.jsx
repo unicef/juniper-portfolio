@@ -30,7 +30,7 @@ export default function UserActivity() {
     const getActivities = async () => {
       let activity = [];
       try {
-        activity = await fetch("/rest/admin/activities");
+        activity = await fetch("/rest/admin/settings/activities");
       } catch (e) {
         console.log(e);
       }

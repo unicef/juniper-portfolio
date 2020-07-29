@@ -18,7 +18,12 @@ const {
   s3Upload,
   s3Download,
 } = require("./middleware");
-const { publicRoutes, privateRoutes, loginRoutes } = require("./routes")();
+const {
+  publicRoutes,
+  privateRoutes,
+  loginRoutes,
+  settingRoutes,
+} = require("./routes")();
 const defaultConfig = require("./config");
 
 class JuniperAdmin {
@@ -96,6 +101,7 @@ class JuniperAdmin {
       loginRoutes
     );
     this.server.use("/rest/admin", isLoggedIn, privateRoutes);
+    this.server.use("/rest/admin/settings", isLoggedIn, settingRoutes);
     this.server.use(
       "/upload/image",
       isLoggedIn,

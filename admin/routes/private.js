@@ -6,19 +6,6 @@ router.get("/ping", (req, res) => {
   res.send("pong");
 });
 
-router.get("/activities", async (req, res) => {
-  const juniperAdmin = req.app.get("juniperAdmin");
-  let activities = [];
-  try {
-    activities = await juniperAdmin.db.getActivities();
-  } catch (e) {
-    this.logger.error(e);
-    return res.status(500).send();
-  }
-
-  res.json(activities);
-});
-
 router.get("/transactions/address/:address", async (req, res) => {
   const juniperAdmin = req.app.get("juniperAdmin");
   const { address } = req.params;
@@ -204,22 +191,6 @@ router.post("/wallet", async (req, res) => {
   }
 
   res.send(wallet);
-});
-
-router.put("/user", async (req, res) => {
-  const juniperAdmin = req.app.get("juniperAdmin");
-  const { user } = req.body;
-
-  try {
-    await juniperAdmin.updateUser(user);
-  } catch (e) {
-    logger.error(e);
-    return res.status(500).send();
-  }
-
-  req.session.passport.user.profile = user;
-
-  res.send();
 });
 
 router.get("/startups", async (req, res) => {
