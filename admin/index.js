@@ -1,5 +1,7 @@
 require("dotenv").config({ path: "../.env" });
 const express = require("express");
+const session = require("express-session");
+const MongoStore = require("connect-mongo")(session);
 const passport = require("passport");
 const LocalStrategy = require("passport-local").Strategy;
 const bodyParser = require("body-parser");
@@ -9,8 +11,8 @@ const { BitcoinScraper, EthereumScraper } = require("./wallet_scrapers");
 const Logger = require("./logger");
 const DB = require("./db");
 const utils = require("./utils");
-const { logRequest } = require("./middleware");
-const { publicRoutes, privateRoutes } = require("./routes")();
+const { logRequest, isLoggedIn } = require("./middleware");
+const { publicRoutes, privateRoutes, loginRoutes } = require("./routes")();
 const defaultConfig = require("./config");
 
 class JuniperAdmin {
@@ -37,8 +39,42 @@ class JuniperAdmin {
       this.db
     );
     this.utils = utils;
+    this.passport = passport;
+
+    this.passport.use(
+      new LocalStrategy(
+        { usernameField: "email" },
+        async (email, password, done) => {
+          let profile = await this.login({ email, password });
+          return done(null, {
+            provider: "local",
+            email,
+            password,
+            profile,
+          });
+        }
+      )
+    );
+
+    this.passport.serializeUser((user, done) => {
+      done(null, user);
+    });
+
+    this.passport.deserializeUser((user, done) => {
+      done(null, user);
+    });
 
     this.server = express();
+    this.server.use(
+      session({
+        store: new MongoStore(this.config.db),
+        secret: "secret",
+        resave: true,
+        saveUninitialized: true,
+      })
+    );
+    this.server.use(passport.initialize());
+    this.server.use(passport.session());
     this.server.set("trust_proxy", this.config.trustProxy);
     this.server.set("json spaces", this.config.jsonSpaces);
     this.server.use(bodyParser.urlencoded(this.config.urlencoded));
@@ -47,7 +83,13 @@ class JuniperAdmin {
     this.server.set("juniperAdmin", this);
     this.server.use("/rest", logRequest);
     this.server.use("/rest", publicRoutes);
-    this.server.use("/rest/admin", privateRoutes);
+    this.server.use("/rest/admin", isLoggedIn, privateRoutes);
+
+    this.server.use(
+      "/rest/login",
+      this.passport.authenticate("local"),
+      loginRoutes
+    );
 
     this.logger.info(`Initialized`);
   }

@@ -242,7 +242,7 @@ export default function SignIn(props) {
       return;
     }
 
-    if (res.status === 403) {
+    if (res.status === 400 || res.status === 401) {
       // set login error
       setSignInError(true);
       setSubtitle("Oops! the provided password or email is incorrect.");

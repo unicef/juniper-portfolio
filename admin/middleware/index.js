@@ -11,6 +11,15 @@ function logRequest(req, res, next) {
   return next();
 }
 
+function isLoggedIn(req, res, next) {
+  if (!req.session.profile) {
+    return res.status(401).send();
+  }
+
+  next();
+}
+
 module.exports = {
   logRequest,
+  isLoggedIn,
 };
