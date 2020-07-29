@@ -55,7 +55,7 @@ class Settings extends React.Component {
         <Container maxWidth="md">
           <h5 className={classes.title}>Profile</h5>
           <ExpansionList heading={"Work Details"}>
-            <WorkDetails user={user} />
+            <WorkDetails user={user} updateUser={updateUser} />
           </ExpansionList>
           <Profile user={user} updateUser={updateUser} />
           <h5 className={classes.title}>Login</h5>
@@ -67,7 +67,7 @@ class Settings extends React.Component {
             title={"Notifications"}
             heading={"Email Notifications"}
           >
-            <Notifications user={user} />
+            <Notifications user={user} updateUser={updateUser} />
           </ExpansionList>
           <h5 className={classes.title}>User Activity</h5>
           <ExpansionList title={"User Activity"} heading={"View Activity Log"}>

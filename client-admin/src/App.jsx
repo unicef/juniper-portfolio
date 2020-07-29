@@ -98,8 +98,24 @@ export default function JuniperAdmin() {
     return price.USD;
   };
 
-  const updateUser = (property) => {
+  const updateUser = async (property) => {
     const newUser = { ...user, ...property };
+
+    let res;
+    try {
+      res = await fetch(`/rest/admin/user`, {
+        credentials: "include",
+        method: "PUT",
+        body: JSON.stringify({
+          user: newUser,
+        }),
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+    } catch (e) {
+      console.log(e);
+    }
     setUser(newUser);
     // todo update on server
   };

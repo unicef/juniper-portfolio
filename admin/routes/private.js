@@ -206,6 +206,22 @@ router.post("/wallet", async (req, res) => {
   res.send(wallet);
 });
 
+router.put("/user", async (req, res) => {
+  const juniperAdmin = req.app.get("juniperAdmin");
+  const { user } = req.body;
+
+  try {
+    await juniperAdmin.updateUser(user);
+  } catch (e) {
+    logger.error(e);
+    return res.status(500).send();
+  }
+
+  req.session.passport.user.profile = user;
+
+  res.send();
+});
+
 router.get("/startups", async (req, res) => {
   const juniperAdmin = req.app.get("juniperAdmin");
   let startups = [];

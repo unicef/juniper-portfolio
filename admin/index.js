@@ -144,6 +144,10 @@ class JuniperAdmin {
     await this.db.createUser(user);
   }
 
+  async updateUser(user) {
+    await this.db.updateUser(user);
+  }
+
   async login(user) {
     let savedUser;
     try {
