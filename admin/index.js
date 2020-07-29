@@ -11,7 +11,12 @@ const { BitcoinScraper, EthereumScraper } = require("./wallet_scrapers");
 const Logger = require("./logger");
 const DB = require("./db");
 const utils = require("./utils");
-const { logRequest, isLoggedIn } = require("./middleware");
+const {
+  logRequest,
+  isLoggedIn,
+  s3Upload,
+  s3Download,
+} = require("./middleware");
 const { publicRoutes, privateRoutes, loginRoutes } = require("./routes")();
 const defaultConfig = require("./config");
 
@@ -83,13 +88,24 @@ class JuniperAdmin {
     this.server.set("juniperAdmin", this);
     this.server.use("/rest", logRequest);
     this.server.use("/rest", publicRoutes);
+    this.server.use("/rest/admin", isLoggedIn, privateRoutes);
     this.server.use(
       "/rest/admin/login",
       this.passport.authenticate("local"),
       loginRoutes
     );
-
-    this.server.use("/rest/admin", isLoggedIn, privateRoutes);
+    this.server.use("/upload/image", s3Upload.single("image"), (req, res) => {
+      req.file.imageUrl = `/image/${req.file.key}`;
+      req.file.downloadUrl = `/download/${req.file.key}`;
+      res.json(req.file);
+    });
+    this.server.use("/download/:key", (req, res) => {
+      res.setHeader("Content-Disposition", "download");
+      s3Download(req.params.key).pipe(res);
+    });
+    this.server.use("/image/:key", (req, res) => {
+      s3Download(req.params.key).pipe(res);
+    });
 
     this.logger.info(`Initialized`);
   }

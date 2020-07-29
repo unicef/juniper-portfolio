@@ -51,7 +51,12 @@ export default function User(props) {
         </FileUpload>
       </Grid>
       <Grid item xs={10} className={classes.message}>
-        <FileUpload afterUpload={props.updateUser} showStatus={false}>
+        <FileUpload
+          afterUpload={(json) => {
+            props.updateUser({ picture: json.imageUrl });
+          }}
+          showStatus={false}
+        >
           Change Profile Picture
         </FileUpload>
       </Grid>

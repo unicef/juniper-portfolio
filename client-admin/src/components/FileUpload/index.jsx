@@ -6,7 +6,7 @@ export default class FileUpload extends Component {
     super(props);
     this.state = {
       uploading: false,
-      url: props.url || "/upload",
+      url: props.url || "/upload/image",
       showStatus: props.showStatus,
     };
 
