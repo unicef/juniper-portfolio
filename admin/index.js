@@ -95,16 +95,21 @@ class JuniperAdmin {
       loginRoutes
     );
     this.server.use("/rest/admin", isLoggedIn, privateRoutes);
-    this.server.use("/upload/image", s3Upload.single("image"), (req, res) => {
-      req.file.imageUrl = `/image/${req.file.key}`;
-      req.file.downloadUrl = `/download/${req.file.key}`;
-      res.json(req.file);
-    });
-    this.server.use("/download/:key", (req, res) => {
+    this.server.use(
+      "/upload/image",
+      isLoggedIn,
+      s3Upload.single("image"),
+      (req, res) => {
+        req.file.imageUrl = `/image/${req.file.key}`;
+        req.file.downloadUrl = `/download/${req.file.key}`;
+        res.json(req.file);
+      }
+    );
+    this.server.use("/download/:key", isLoggedIn, (req, res) => {
       res.setHeader("Content-Disposition", "download");
       s3Download(req.params.key).pipe(res);
     });
-    this.server.use("/image/:key", (req, res) => {
+    this.server.use("/image/:key", isLoggedIn, (req, res) => {
       s3Download(req.params.key).pipe(res);
     });
 
