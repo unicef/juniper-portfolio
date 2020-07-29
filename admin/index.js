@@ -1,5 +1,7 @@
 require("dotenv").config({ path: "../.env" });
 const express = require("express");
+const passport = require("passport");
+const LocalStrategy = require("passport-local").Strategy;
 const bodyParser = require("body-parser");
 const PriceMonitor = require("./price_monitor");
 const fetch = require("node-fetch");
