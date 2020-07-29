@@ -48,6 +48,20 @@ router.post("/user/invite", async (req, res) => {
   res.send(user);
 });
 
+router.post("/user/remove", async (req, res) => {
+  const juniperAdmin = req.app.get("juniperAdmin");
+  const { email } = req.body;
+
+  try {
+    await juniperAdmin.db.setUserInactive(email);
+  } catch (e) {
+    logger.error(e);
+    return res.status(500).send();
+  }
+
+  res.send(true);
+});
+
 router.put("/user", async (req, res) => {
   const juniperAdmin = req.app.get("juniperAdmin");
   const { user } = req.body;

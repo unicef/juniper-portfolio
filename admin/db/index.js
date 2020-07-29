@@ -78,6 +78,13 @@ class MongoDB {
     return this.models.User.findOne({ email });
   }
 
+  async setUserInactive(email) {
+    return this.models.User.findOneAndUpdate(
+      { email },
+      { $set: { active: false } }
+    );
+  }
+
   async getActivities() {
     this.logger.debug(`getActivities `);
     return this.models.Activity.find();

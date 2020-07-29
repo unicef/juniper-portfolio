@@ -18,7 +18,7 @@ const useStyles = makeStyles({
 
 export default function UserActivity() {
   const classes = useStyles();
-  const [activities, setActivities] = useState(mockUserActivity);
+  const [activities, setActivities] = useState([]);
 
   useEffect(() => {
     const diffMinutes = (dt2, dt1) => {
@@ -75,26 +75,3 @@ export default function UserActivity() {
     </Grid>
   );
 }
-
-const mockUserActivity = [
-  {
-    text:
-      "<a class='link'>Christ Fabian</a> added a new wallet <a class='link'>UNICEF HQ Test</a>",
-    timestamp: "6 hours ago",
-  },
-  {
-    text:
-      "<a class='link'>Christ Fabian</a> added a new wallet <a class='link'>UNICEF HQ Test</a>",
-    timestamp: "6 hours ago",
-  },
-  {
-    text:
-      "<a class='link'>Christ Fabian</a> added a new wallet <a class='link'>UNICEF HQ Test</a>",
-    timestamp: "6 hours ago",
-  },
-  {
-    text:
-      "<a class='link'>Christ Fabian</a> added a new wallet <a class='link'>UNICEF HQ Test</a>",
-    timestamp: "6 hours ago",
-  },
-];

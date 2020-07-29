@@ -10,6 +10,21 @@ import GenerateLinkIcon from "../../../ui/Icons/GenerateLinkIcon";
 import EnvelopeIcon from "../../../ui/Icons/EnvelopeIcon";
 import CancelIcon from "../../../ui/Icons/CancelIcons";
 
+const monthNames = [
+  "January",
+  "February",
+  "March",
+  "April",
+  "May",
+  "June",
+  "July",
+  "August",
+  "September",
+  "October",
+  "November",
+  "December",
+];
+
 const useStyles = makeStyles((theme) => ({
   root: {
     width: "100%",
@@ -115,20 +130,26 @@ const useStyles = makeStyles((theme) => ({
 export default function ActivityList(props) {
   const classes = useStyles();
   const [users, setUsers] = useState([]);
-  const monthNames = [
-    "January",
-    "February",
-    "March",
-    "April",
-    "May",
-    "June",
-    "July",
-    "August",
-    "September",
-    "October",
-    "November",
-    "December",
-  ];
+
+  const removeUser = async (email) => {
+    let res;
+    try {
+      res = await fetch(`/rest/admin/settings/user/remove`, {
+        credentials: "include",
+        method: "POST",
+        body: JSON.stringify({
+          email,
+        }),
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+    } catch (e) {
+      return console.log(e);
+    }
+
+    console.log(res.status);
+  };
 
   useEffect(() => {
     const getUsers = async () => {
@@ -147,12 +168,12 @@ export default function ActivityList(props) {
     <List component="nav" className={classes.root}>
       <Fragment>
         <Divider />
-        {users.map((user) => {
+        {users.map((user, index) => {
           const joinDate = new Date(
             parseInt(user._id.toString().substring(0, 8), 16) * 1000
           );
           return (
-            <ListItem className={classes.listItem}>
+            <ListItem className={classes.listItem} key={index}>
               <Grid container>
                 <Grid item xs={1}>
                   <Avatar src={user.picture} className={classes.avatar}>
@@ -213,6 +234,7 @@ export default function ActivityList(props) {
                     startIcon={<CancelIcon style={{ fill: "#ef6161" }} />}
                     onClick={async () => {
                       console.log("button");
+                      removeUser(user.email);
                     }}
                   >
                     Remove User
