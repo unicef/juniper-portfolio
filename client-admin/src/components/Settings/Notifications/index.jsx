@@ -123,7 +123,7 @@ const BlueCheckbox = withStyles({
     },
   },
   checked: {},
-})((props) => <Checkbox color="default" {...props} />);
+})((props) => <Checkbox color="default" fontSize="large" {...props} />);
 
 export default function ActivityList(props) {
   const classes = useStyles();

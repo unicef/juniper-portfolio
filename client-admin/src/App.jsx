@@ -96,6 +96,10 @@ export default function JuniperAdmin() {
     return price.USD;
   };
 
+  useEffect(() => {
+    // check if logged in
+  });
+
   return (
     <div className={classes.root}>
       <ThemeProvider theme={theme}>
