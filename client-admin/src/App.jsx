@@ -19,6 +19,7 @@ import Transactions from "./components/Transactions";
 import Wallets from "./components/Wallets";
 import ApolloClient from "apollo-boost";
 import { ApolloProvider } from "react-apollo";
+import LoadingScreen from "./ui/Dialog/LoadingScreen";
 
 const drawerWidth = 240;
 
@@ -75,6 +76,7 @@ export default function JuniperAdmin() {
   const classes = useStyles();
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [user, setUser] = useState({});
+  const [loading, setLoading] = useState(true);
 
   const loginUser = (user) => {
     if (user) {
@@ -98,7 +100,21 @@ export default function JuniperAdmin() {
 
   useEffect(() => {
     // check if logged in
-  });
+    const getUserProfile = async () => {
+      let res;
+      try {
+        res = await fetch("/rest/isLoggedIn");
+      } catch (e) {
+        console.log(e);
+      }
+      if (res.status === 200) {
+        setUser(await res.json());
+        setIsLoggedIn(true);
+      }
+      setLoading(false);
+    };
+    getUserProfile();
+  }, []);
 
   return (
     <div className={classes.root}>
@@ -106,7 +122,11 @@ export default function JuniperAdmin() {
         <ApolloProvider client={client}>
           <CssBaseline>
             {!isLoggedIn ? (
-              <SignIn loginUser={loginUser} />
+              loading ? (
+                <LoadingScreen />
+              ) : (
+                <SignIn loginUser={loginUser} />
+              )
             ) : (
               <Router>
                 <Switch>

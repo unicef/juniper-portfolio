@@ -12,11 +12,13 @@ function logRequest(req, res, next) {
 }
 
 function isLoggedIn(req, res, next) {
-  if (!req.session.profile) {
+  try {
+    if (req.session.passport.user.profile) {
+      return next();
+    }
+  } catch (e) {
     return res.status(401).send();
   }
-
-  next();
 }
 
 module.exports = {
