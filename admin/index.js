@@ -88,12 +88,13 @@ class JuniperAdmin {
     this.server.set("juniperAdmin", this);
     this.server.use("/rest", logRequest);
     this.server.use("/rest", publicRoutes);
-    this.server.use("/rest/admin", isLoggedIn, privateRoutes);
+
     this.server.use(
       "/rest/admin/login",
       this.passport.authenticate("local"),
       loginRoutes
     );
+    this.server.use("/rest/admin", isLoggedIn, privateRoutes);
     this.server.use("/upload/image", s3Upload.single("image"), (req, res) => {
       req.file.imageUrl = `/image/${req.file.key}`;
       req.file.downloadUrl = `/download/${req.file.key}`;

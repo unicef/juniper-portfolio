@@ -8,6 +8,7 @@ function logRequest(req, res, next) {
   logger.debug(req.body);
   logger.debug(req.params);
   logger.debug(req.query);
+
   return next();
 }
 

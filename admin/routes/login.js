@@ -6,7 +6,7 @@ router.post("/", async (req, res) => {
       return res.json(req.session.passport.user.profile);
     }
   } catch (e) {
-    res.status(401).send();
+    return res.status(401).send();
   }
 });
 
