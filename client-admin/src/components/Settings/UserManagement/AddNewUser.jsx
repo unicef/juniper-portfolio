@@ -128,7 +128,16 @@ export default function AddNewUser() {
   );
   const [verificationCode, setVerificationCode] = useState("");
 
-  const addNewUser = async () => {
+  const copyToClipboard = (str) => {
+    const el = document.createElement("textarea");
+    el.value = str;
+    document.body.appendChild(el);
+    el.select();
+    document.execCommand("copy");
+    document.body.removeChild(el);
+  };
+
+  const addNewUser = async (copyLink = false) => {
     let res;
     let notifications = false;
     let userAdded = false;
@@ -172,6 +181,11 @@ export default function AddNewUser() {
     user = await res.json();
 
     setVerificationCode(user.verificationCode);
+    if (copyLink) {
+      copyToClipboard(
+        `https://juniper.unicef.io/admin/signin?verification=${user.verificationCode}`
+      );
+    }
   };
 
   return (
@@ -306,37 +320,16 @@ export default function AddNewUser() {
           their account.
         </p>
       </Grid>
-      <Grid item xs={3} className={classes.formItem}>
-        {!verificationCode && (
-          <Button
-            className={classes.generatLinkButton}
-            startIcon={<GenerateLinkIcon />}
-            onClick={async () => {
-              console.log("button");
-            }}
-          >
-            Generate Invite Link
-          </Button>
-        )}
-        {verificationCode && (
-          <Button
-            className={classes.generatLinkButton}
-            startIcon={<GenerateLinkIcon />}
-            onClick={async () => {
-              console.log("button");
-            }}
-          >
-            Copy Invite Link
-          </Button>
-        )}
-      </Grid>
-      <Grid item xs={9} className={classes.formItem}>
-        {verificationCode && (
-          <p className={classes.verificationCode}>
-            {siteLink}
-            {verificationCode}
-          </p>
-        )}
+      <Grid item xs={12} className={classes.formItem}>
+        <Button
+          className={classes.generatLinkButton}
+          startIcon={<GenerateLinkIcon />}
+          onClick={async () => {
+            addNewUser(true);
+          }}
+        >
+          Generate Invite Link
+        </Button>
       </Grid>
     </Grid>
   );

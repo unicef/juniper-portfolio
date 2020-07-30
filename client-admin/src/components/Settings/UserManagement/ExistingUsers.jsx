@@ -131,6 +131,15 @@ export default function ActivityList(props) {
   const classes = useStyles();
   const [users, setUsers] = useState([]);
 
+  const copyToClipboard = (str) => {
+    const el = document.createElement("textarea");
+    el.value = str;
+    document.body.appendChild(el);
+    el.select();
+    document.execCommand("copy");
+    document.body.removeChild(el);
+  };
+
   const removeUser = async (email) => {
     let res;
     try {
@@ -221,7 +230,9 @@ export default function ActivityList(props) {
                         className={classes.generateButton}
                         startIcon={<GenerateLinkIcon />}
                         onClick={async () => {
-                          console.log("button");
+                          copyToClipboard(
+                            `https://juniper.unicef.io/admin/signin?verification=${user.verificationCode}`
+                          );
                         }}
                       >
                         Generate Invite Link
