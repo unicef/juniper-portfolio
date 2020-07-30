@@ -32,34 +32,37 @@ router.post("/user/invite", async (req, res) => {
   const { user } = req.body;
 
   const verificationCode = juniperAdmin.utils.createVerificationCode();
-  console.log(verificationCode);
 
   user.verificationCode = verificationCode;
   user.isVerified = false;
   user.active = true;
 
+  let users;
   try {
     await juniperAdmin.inviteUser(user);
+    users = await juniperAdmin.db.getUsers();
   } catch (e) {
     logger.error(e);
     return res.status(500).send();
   }
 
-  res.send(user);
+  res.send(users);
 });
 
 router.post("/user/remove", async (req, res) => {
   const juniperAdmin = req.app.get("juniperAdmin");
   const { email } = req.body;
+  let users = [];
 
   try {
     await juniperAdmin.db.setUserInactive(email);
+    users = await juniperAdmin.db.getUsers();
   } catch (e) {
     logger.error(e);
     return res.status(500).send();
   }
 
-  res.send(true);
+  res.send(users);
 });
 
 router.put("/user", async (req, res) => {

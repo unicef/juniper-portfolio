@@ -116,7 +116,7 @@ const useStyles = makeStyles({
   },
 });
 
-export default function AddNewUser() {
+export default function AddNewUser(props) {
   const classes = useStyles();
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
@@ -139,6 +139,7 @@ export default function AddNewUser() {
 
   const addNewUser = async (copyLink = false) => {
     let res;
+    let users;
     let notifications = false;
     let userAdded = false;
     let newTransaction = false;
@@ -174,17 +175,21 @@ export default function AddNewUser() {
           "Content-Type": "application/json",
         },
       });
+      users = await res.json();
     } catch (e) {
       return console.log(e);
     }
 
-    user = await res.json();
+    if (res.status === 200) {
+      user = users.filter((u) => {
+        return u.email === user.email;
+      });
 
-    setVerificationCode(user.verificationCode);
-    if (copyLink) {
-      copyToClipboard(
-        `https://juniper.unicef.io/admin/signin?verification=${user.verificationCode}`
-      );
+      setVerificationCode(user.verificationCode);
+      if (copyLink) {
+        copyToClipboard(`${siteLink}${user.verificationCode}`);
+      }
+      props.setUsers(users);
     }
   };
 

@@ -129,7 +129,6 @@ const useStyles = makeStyles((theme) => ({
 
 export default function ActivityList(props) {
   const classes = useStyles();
-  const [users, setUsers] = useState([]);
 
   const copyToClipboard = (str) => {
     const el = document.createElement("textarea");
@@ -140,44 +139,11 @@ export default function ActivityList(props) {
     document.body.removeChild(el);
   };
 
-  const removeUser = async (email) => {
-    let res;
-    try {
-      res = await fetch(`/rest/admin/settings/user/remove`, {
-        credentials: "include",
-        method: "POST",
-        body: JSON.stringify({
-          email,
-        }),
-        headers: {
-          "Content-Type": "application/json",
-        },
-      });
-    } catch (e) {
-      return console.log(e);
-    }
-
-    console.log(res.status);
-  };
-
-  useEffect(() => {
-    const getUsers = async () => {
-      let res;
-      try {
-        res = await fetch("/rest/admin/settings/users");
-      } catch (e) {
-        console.log(e);
-      }
-      setUsers(await res.json());
-    };
-    getUsers();
-  }, []);
-
   return (
     <List component="nav" className={classes.root}>
       <Fragment>
         <Divider />
-        {users.map((user, index) => {
+        {props.users.map((user, index) => {
           const joinDate = new Date(
             parseInt(user._id.toString().substring(0, 8), 16) * 1000
           );
@@ -245,7 +211,7 @@ export default function ActivityList(props) {
                     startIcon={<CancelIcon style={{ fill: "#ef6161" }} />}
                     onClick={async () => {
                       console.log("button");
-                      removeUser(user.email);
+                      props.removeUser(user.email);
                     }}
                   >
                     Remove User
