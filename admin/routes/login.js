@@ -1,10 +1,6 @@
 const router = require("express").Router();
 
-router.get("/ping", (req, res) => {
-  res.send("pong");
-});
-
-router.get("/isLoggedIn", async (req, res) => {
+router.post("/", async (req, res) => {
   try {
     if (req.session.passport.user.profile) {
       return res.json(req.session.passport.user.profile);

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import Grid from "@material-ui/core/Grid";
 import Select from "@material-ui/core/Select";
@@ -41,17 +41,21 @@ const useStyles = makeStyles({
   },
 });
 
-export default function SettingsProfile() {
+export default function SettingsProfile(props) {
   const classes = useStyles();
-  const [workUnit, setWorkUnit] = useState("");
+  const [department, setDepartment] = useState("");
+
+  useEffect(() => {
+    setDepartment(props.user.department);
+  }, []);
 
   return (
     <Grid container className={classes.root}>
       <Grid item xs={12}>
         <Select
-          value={workUnit}
+          value={department}
           onChange={(e) => {
-            setWorkUnit(e.target.value);
+            setDepartment(e.target.value);
           }}
           className={classes.select}
         >
@@ -77,6 +81,9 @@ export default function SettingsProfile() {
           className={classes.filledButton}
           variant="contained"
           color="primary"
+          onClick={() => {
+            props.updateUser({ department });
+          }}
         >
           Save Changes
         </Button>

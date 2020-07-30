@@ -48,15 +48,16 @@ const styles = (theme) => ({
 
 class Settings extends React.Component {
   render() {
-    const { classes } = this.props;
+    const { classes, user, updateUser } = this.props;
+
     return (
       <div className={classes.root}>
         <Container maxWidth="md">
           <h5 className={classes.title}>Profile</h5>
           <ExpansionList heading={"Work Details"}>
-            <WorkDetails />
+            <WorkDetails user={user} updateUser={updateUser} />
           </ExpansionList>
-          <Profile />
+          <Profile user={user} updateUser={updateUser} />
           <h5 className={classes.title}>Login</h5>
           <ExpansionList title={"Login"} heading={"Change Password"}>
             <LoginSettings />
@@ -66,7 +67,7 @@ class Settings extends React.Component {
             title={"Notifications"}
             heading={"Email Notifications"}
           >
-            <Notifications />
+            <Notifications user={user} updateUser={updateUser} />
           </ExpansionList>
           <h5 className={classes.title}>User Activity</h5>
           <ExpansionList title={"User Activity"} heading={"View Activity Log"}>

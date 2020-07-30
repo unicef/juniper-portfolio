@@ -38,6 +38,42 @@ class MongoDB {
     this.logger.info("Initialized");
   }
 
+  async createUser(user) {
+    return this.models.User.findOneAndUpdate(
+      {
+        email: user.email,
+      },
+      user,
+      { upsert: true }
+    );
+  }
+
+  async updateUser(user) {
+    return this.models.User.findOneAndUpdate(
+      {
+        email: user.email,
+      },
+      {
+        $set: {
+          firstName: user.firstName,
+          lastName: user.lastName,
+          email: user.email,
+          picture: user.picture,
+          title: user.title,
+          department: user.department,
+          notifications: user.notifications,
+          userAdded: user.userAdded,
+          newTransaction: user.newTransaction,
+          transactionTagged: user.transactionTagged,
+        },
+      }
+    );
+  }
+
+  async getUser(email) {
+    return this.models.User.findOne({ email });
+  }
+
   async getActivities() {
     this.logger.debug(`getActivities `);
     return this.models.Activity.find();

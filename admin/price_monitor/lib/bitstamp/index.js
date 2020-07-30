@@ -36,7 +36,6 @@ class Bitstamp {
     } catch (e) {
       return console.log(e);
     }
-    //console.log(price);
 
     return price.last;
   }
