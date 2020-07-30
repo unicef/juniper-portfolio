@@ -183,13 +183,21 @@ export default function AddNewUser(props) {
     if (res.status === 200) {
       user = users.filter((u) => {
         return u.email === user.email;
-      });
-
+      })[0];
+      console.log(user);
       setVerificationCode(user.verificationCode);
       if (copyLink) {
         copyToClipboard(`${siteLink}${user.verificationCode}`);
       }
       props.setUsers(users);
+
+      setFirstName("");
+      setLastName("");
+      setDepartment("");
+      setIsAdmin("");
+      setEmail("");
+      setSiteLink("");
+      setVerificationCode("");
     }
   };
 
@@ -330,7 +338,11 @@ export default function AddNewUser(props) {
           className={classes.generatLinkButton}
           startIcon={<GenerateLinkIcon />}
           onClick={async () => {
-            addNewUser(true);
+            if (verificationCode) {
+              copyToClipboard(`${siteLink}${verificationCode}`);
+            } else {
+              addNewUser(true);
+            }
           }}
         >
           Generate Invite Link
