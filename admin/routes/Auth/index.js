@@ -1,8 +1,11 @@
 const router = require("express").Router();
+const Logger = require("../../logger");
+const logger = new Logger("Auth Routes");
 
-router.post("/", async (req, res) => {
+router.post("/login", async (req, res) => {
   try {
     if (req.session.passport.user.profile) {
+      logger.info(`Login ${req.session.passport.user.profile.email}`);
       return res.json(req.session.passport.user.profile);
     }
   } catch (e) {
