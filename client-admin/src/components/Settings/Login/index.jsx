@@ -76,10 +76,9 @@ export default function SettingsLogin() {
   const [passwordInvalid, setPasswordInvalid] = useState(false);
 
   const [showSnackbar, setShowSnackbar] = useState(false);
-  const [snackbarDuration] = useState(30000);
+  const [snackbarDuration] = useState(3000);
   const [snackbarMessage, setSnackbarMessage] = useState("Password Saved");
   const [snackbarSeverity, setSnackbarSeverity] = useState("success");
-  const [showTagTransaction, setShowTagTransaction] = useState(false);
 
   const validatePassword = () => {
     let newPWMatch = false;
@@ -135,6 +134,9 @@ export default function SettingsLogin() {
     } else {
       // success
       setShowSnackbar(true);
+      setCurrentPassword("");
+      setNewPassword("");
+      setNewPassword2("");
     }
   };
 
@@ -162,6 +164,7 @@ export default function SettingsLogin() {
               className: classes.textInput,
             }}
             type="password"
+            value={currentPassword}
             onChange={(e) => {
               setPasswordInvalid(false);
               setPasswordWrong(false);
