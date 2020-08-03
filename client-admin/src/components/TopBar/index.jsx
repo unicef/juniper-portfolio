@@ -3,8 +3,10 @@ import { makeStyles } from "@material-ui/core/styles";
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
 import Typography from "@material-ui/core/Typography";
+import Button from "@material-ui/core/Button";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import logo from "./UNICEF.png";
+import MenuPopper from "../../ui/MenuPopper";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -28,13 +30,17 @@ const useStyles = makeStyles((theme) => ({
   title: {
     flexGrow: 1,
   },
-  username: {
+
+  rightButton: {
+    float: "right",
     fontFamily: '"Cabin",  sans-serif',
     fontSize: 12,
     fontWeight: 700,
     color: "#ffffff",
     textTransform: "uppercase",
-    cursor: "pointer",
+    "&:hover": {
+      backgroundColor: "rgba(0,0,0,0)",
+    },
   },
 }));
 
@@ -47,10 +53,15 @@ export default function TopBar(props) {
         <Typography variant="h6" className={classes.title}>
           <img className={classes.logo} src={logo} alt="UNICEF" />
         </Typography>
-        <Typography variant="h6" className={classes.username}>
-          {props.user.firstName} {props.user.lastName}
-        </Typography>
-        <ExpandMoreIcon style={{ color: "#ffffff", marginRight: 40 }} />
+        <MenuPopper>
+          <Button
+            className={classes.rightButton}
+            endIcon={<ExpandMoreIcon />}
+            onClick={() => {}}
+          >
+            {props.user.firstName} {props.user.lastName}
+          </Button>
+        </MenuPopper>
       </Toolbar>
     </AppBar>
   );
