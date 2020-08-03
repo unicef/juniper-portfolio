@@ -16,7 +16,9 @@ const user = {
   userAdded: true,
   newTransaction: true,
   transactionTagged: true,
+  isVerified: true,
   isAdmin: true,
+  active: true,
 };
 
 juniper.createUser(user);
