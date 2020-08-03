@@ -86,13 +86,21 @@ export default function SettingsLogin() {
     let hasLower = /[a-z]/.test(newPassword);
     let hasNumbers = /\d/.test(newPassword);
     let hasSpecial = /\W/.test(newPassword);
+    let hwPWLength = newPassword.length >= 8;
 
     //hasNumbers = /\d/.test(password);
     if (newPassword === newPassword2) {
       newPWMatch = true;
     }
 
-    if (newPWMatch && hasUpper && hasLower && hasNumbers && hasSpecial) {
+    if (
+      newPWMatch &&
+      hasUpper &&
+      hasLower &&
+      hasNumbers &&
+      hasSpecial &&
+      hwPWLength
+    ) {
       setShowErrorMessage(false);
       return true;
     }

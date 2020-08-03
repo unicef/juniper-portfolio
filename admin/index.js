@@ -173,6 +173,7 @@ class JuniperAdmin {
     let hasLower = /[a-z]/.test(newPassword);
     let hasNumbers = /\d/.test(newPassword);
     let hasSpecial = /\W/.test(newPassword);
+    let hwPWLength = newPassword.length >= 8;
 
     //hasNumbers = /\d/.test(password);
     if (newPassword === newPassword2) {
@@ -182,7 +183,14 @@ class JuniperAdmin {
       return false;
     }
 
-    if (newPWMatch && hasUpper && hasLower && hasNumbers && hasSpecial) {
+    if (
+      newPWMatch &&
+      hasUpper &&
+      hasLower &&
+      hasNumbers &&
+      hasSpecial &&
+      hwPWLength
+    ) {
       this.logger.error("Password did not pass validation");
       return true;
     }
