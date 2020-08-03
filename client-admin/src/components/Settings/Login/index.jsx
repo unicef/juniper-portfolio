@@ -67,10 +67,54 @@ export default function SettingsLogin() {
   const [currentPassword, setCurrentPassword] = useState("");
   const [newPassword, setNewPassword] = useState("");
   const [newPassword2, setNewPassword2] = useState("");
-  const [showErrorMessage, setShowErrorMessage] = useState(true);
+  const [showErrorMessage, setShowErrorMessage] = useState(false);
   const [errorMessage, setErrorMessage] = useState(
     "The new password does not meet the above requirement"
   );
+  const [passwordWrong, setPasswordWrong] = useState(false);
+
+  const validatePassword = () => {
+    let newPWMatch = false;
+    let hasUpper = /[A-Z]/.test(newPassword);
+    let hasLower = /[a-z]/.test(newPassword);
+    let hasNumbers = /\d/.test(newPassword);
+    let hasSpecial = /\W/.test(newPassword);
+
+    //hasNumbers = /\d/.test(password);
+    if (newPassword === newPassword2) {
+      newPWMatch = true;
+    }
+
+    if (newPWMatch && hasUpper && hasLower && hasNumbers && hasSpecial) {
+      setShowErrorMessage(false);
+      return true;
+    }
+    setErrorMessage("The new password does not meet the above requirement");
+    setShowErrorMessage(true);
+    return false;
+  };
+
+  const changePassword = async () => {
+    let res;
+    try {
+      res = await fetch(`/rest/admin/settings/user/password`, {
+        credentials: "include",
+        method: "PUT",
+        body: JSON.stringify({
+          currentPassword,
+          newPassword,
+          newPassword2,
+        }),
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+    } catch (e) {
+      return console.log(e);
+    }
+
+    console.log(res.status);
+  };
 
   return (
     <Grid container className={classes.root}>
@@ -87,12 +131,13 @@ export default function SettingsLogin() {
             }}
             type="password"
             onChange={(e) => {
-              console.log(e.target.value);
+              setShowErrorMessage(false);
               setCurrentPassword(e.target.value);
             }}
           />
           <TextField
             label="New Password"
+            error={showErrorMessage}
             className={classes.textField}
             InputLabelProps={{
               className: classes.textLabelInput,
@@ -103,11 +148,13 @@ export default function SettingsLogin() {
             type="password"
             value={newPassword}
             onChange={(e) => {
+              setShowErrorMessage(false);
               setNewPassword(e.target.value);
             }}
           />
           <TextField
             label="Re-Enter New Password"
+            error={showErrorMessage}
             className={classes.textField}
             InputLabelProps={{
               className: classes.textLabelInput,
@@ -118,6 +165,7 @@ export default function SettingsLogin() {
             type="password"
             value={newPassword2}
             onChange={(e) => {
+              setShowErrorMessage(false);
               setNewPassword2(e.target.value);
             }}
           />
@@ -125,7 +173,11 @@ export default function SettingsLogin() {
             variant="contained"
             color="primary"
             className={classes.changePasswordButton}
-            disabled={true}
+            onClick={() => {
+              if (validatePassword()) {
+                changePassword();
+              }
+            }}
           >
             Change Password
           </Button>
