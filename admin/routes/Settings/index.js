@@ -86,11 +86,14 @@ router.put("/user/password", async (req, res) => {
   const { currentPassword, newPassword, newPassword2 } = req.body;
   const { email } = req.session.passport.user.profile;
   try {
+    if (!juniperAdmin.validatePassword(newPassword, newPassword2)) {
+      return res.status(400).send();
+    }
+
     if (
-      !juniperAdmin.validatePassword(newPassword, newPassword2) ||
       !(await juniperAdmin.changePassword(email, currentPassword, newPassword))
     ) {
-      return res.status(400).send();
+      return res.status(401).send();
     }
   } catch (e) {
     logger.error(e);
