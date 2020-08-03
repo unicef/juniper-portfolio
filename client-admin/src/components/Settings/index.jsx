@@ -47,7 +47,60 @@ const styles = (theme) => ({
 });
 
 class Settings extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      users: [],
+    };
+  }
+
+  async getUsers() {
+    let res;
+    let users = [];
+    try {
+      res = await fetch("/rest/admin/settings/users");
+      users = await res.json();
+    } catch (e) {
+      console.log(e);
+    }
+    this.setState({ users });
+  }
+
+  componentDidMount() {
+    this.getUsers();
+  }
+
   render() {
+    const setUsers = (users) => {
+      this.setState({ users });
+    };
+
+    const removeUser = async (email) => {
+      let res;
+      let users = [];
+      try {
+        res = await fetch(`/rest/admin/settings/user/remove`, {
+          credentials: "include",
+          method: "POST",
+          body: JSON.stringify({
+            email,
+          }),
+          headers: {
+            "Content-Type": "application/json",
+          },
+        });
+      } catch (e) {
+        return console.log(e);
+      }
+
+      if (res.status === 200) {
+        users = await res.json();
+        console.log(this);
+        console.log(this.setState);
+        this.setState({ users });
+      }
+    };
+
     const { classes, user, updateUser } = this.props;
 
     return (
@@ -82,11 +135,11 @@ class Settings extends React.Component {
             email link.
           </h5>
           <ExpansionList heading={"Add a new user"}>
-            <AddNewUser />
+            <AddNewUser setUsers={setUsers} />
           </ExpansionList>
 
           <ExpansionList heading={"View existing users"}>
-            <ExistingUsers />
+            <ExistingUsers users={this.state.users} removeUser={removeUser} />
           </ExpansionList>
         </Container>
       </div>

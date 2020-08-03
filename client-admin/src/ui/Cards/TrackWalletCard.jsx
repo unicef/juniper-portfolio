@@ -106,7 +106,7 @@ export default function TrackWalletCard({
 
   const unfollowWallet = async (address) => {
     try {
-      await fetch(`/rest/admin/wallet/untrack/${address}`);
+      await fetch(`/rest/admin/wallets/untrack/${address}`);
     } catch (e) {
       console.log(e);
     }

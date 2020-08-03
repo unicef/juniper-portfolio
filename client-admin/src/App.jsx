@@ -103,7 +103,7 @@ export default function JuniperAdmin() {
 
     let res;
     try {
-      res = await fetch(`/rest/admin/user`, {
+      res = await fetch(`/rest/admin/settings/user`, {
         credentials: "include",
         method: "PUT",
         body: JSON.stringify({
