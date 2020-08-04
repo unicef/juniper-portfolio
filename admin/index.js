@@ -167,6 +167,68 @@ class JuniperAdmin {
     await this.db.updateUser(user);
   }
 
+  validatePassword(newPassword, newPassword2) {
+    let newPWMatch = false;
+    let hasUpper = /[A-Z]/.test(newPassword);
+    let hasLower = /[a-z]/.test(newPassword);
+    let hasNumbers = /\d/.test(newPassword);
+    let hasSpecial = /\W/.test(newPassword);
+    let hwPWLength = newPassword.length >= 8;
+
+    //hasNumbers = /\d/.test(password);
+    if (newPassword === newPassword2) {
+      newPWMatch = true;
+    } else {
+      this.logger.error("Passwords do not match");
+      return false;
+    }
+
+    if (
+      newPWMatch &&
+      hasUpper &&
+      hasLower &&
+      hasNumbers &&
+      hasSpecial &&
+      hwPWLength
+    ) {
+      this.logger.error("Password did not pass validation");
+      return true;
+    }
+
+    return false;
+  }
+
+  async changePassword(email, currentPassword, password) {
+    let savedUser;
+
+    try {
+      savedUser = await this.db.getUser(email);
+      const saltedCurrentPassword = this.utils.hash256(
+        currentPassword.concat(savedUser.salt)
+      );
+
+      if (!savedUser) {
+        this.logger.error("User does not exist");
+        return false;
+      }
+
+      if (savedUser.password !== saltedCurrentPassword) {
+        this.logger.error("Saved User password does not match");
+        return false;
+      }
+
+      savedUser.password = this.utils.hash256(password.concat(savedUser.salt));
+
+      await savedUser.save();
+    } catch (e) {
+      this.logger.error(e);
+      return false;
+    }
+
+    console.log(savedUser);
+    return true;
+  }
+
   async login(user) {
     let savedUser;
     try {
