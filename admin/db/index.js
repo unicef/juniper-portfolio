@@ -70,8 +70,19 @@ class MongoDB {
     );
   }
 
+  async getUsers(active = true) {
+    return this.models.User.find({ active });
+  }
+
   async getUser(email) {
     return this.models.User.findOne({ email });
+  }
+
+  async setUserInactive(email) {
+    return this.models.User.findOneAndUpdate(
+      { email },
+      { $set: { active: false } }
+    );
   }
 
   async getActivities() {

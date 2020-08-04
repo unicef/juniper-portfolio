@@ -1,4 +1,4 @@
-import React, { Fragment } from "react";
+import React, { useState, useEffect, Fragment } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
@@ -9,6 +9,21 @@ import Button from "@material-ui/core/Button";
 import GenerateLinkIcon from "../../../ui/Icons/GenerateLinkIcon";
 import EnvelopeIcon from "../../../ui/Icons/EnvelopeIcon";
 import CancelIcon from "../../../ui/Icons/CancelIcons";
+
+const monthNames = [
+  "January",
+  "February",
+  "March",
+  "April",
+  "May",
+  "June",
+  "July",
+  "August",
+  "September",
+  "October",
+  "November",
+  "December",
+];
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -68,7 +83,7 @@ const useStyles = makeStyles((theme) => ({
   generateButton: {
     padding: 0,
     paddingBottom: 6,
-    height: 22,
+    height: 26,
     float: "left",
     fontSize: 12,
     fontWeight: 700,
@@ -90,7 +105,7 @@ const useStyles = makeStyles((theme) => ({
   removeButton: {
     padding: 0,
     paddingBottom: 6,
-    height: 22,
+    height: 26,
     float: "left",
     fontSize: 12,
     fontWeight: 700,
@@ -115,75 +130,97 @@ const useStyles = makeStyles((theme) => ({
 export default function ActivityList(props) {
   const classes = useStyles();
 
+  const copyToClipboard = (str) => {
+    const el = document.createElement("textarea");
+    el.value = str;
+    document.body.appendChild(el);
+    el.select();
+    document.execCommand("copy");
+    document.body.removeChild(el);
+  };
+
   return (
     <List component="nav" className={classes.root}>
       <Fragment>
         <Divider />
-        <ListItem className={classes.listItem}>
-          <Grid container>
-            <Grid item xs={1}>
-              <Avatar src={null} className={classes.avatar}>
-                MH
-              </Avatar>
-            </Grid>
-            <Grid item xs={4}>
-              <p className={classes.username}>Christopher Waltz</p>
-              <p className={classes.position}>Director, DFAM</p>
-            </Grid>
-            <Grid item xs={4}>
-              <p className={classes.joinMessage}>User joined on June 6 2020</p>
-            </Grid>
-            <Grid item xs={3}>
-              <Button
-                className={classes.generateButton}
-                startIcon={<EnvelopeIcon />}
-                onClick={async () => {
-                  console.log("button");
-                }}
-              >
-                Send New Invite
-              </Button>
-              <Button
-                className={classes.generateButton}
-                startIcon={<GenerateLinkIcon />}
-                onClick={async () => {
-                  console.log("button");
-                }}
-              >
-                Generate Invite Link
-              </Button>
-            </Grid>
-          </Grid>
-        </ListItem>
-        <ListItem className={classes.listItem}>
-          <Grid container>
-            <Grid item xs={1}>
-              <Avatar src={null} className={classes.avatar}>
-                MH
-              </Avatar>
-            </Grid>
-            <Grid item xs={4}>
-              <p className={classes.username}>Christopher Waltz</p>
-              <p className={classes.position}>Director, DFAM</p>
-            </Grid>
-            <Grid item xs={4}>
-              <p className={classes.pendingMessage}>
-                User response pending. Invited via email on 25 Jun 2020
-              </p>
-            </Grid>
-            <Grid item xs={3}>
-              <Button
-                className={classes.removeButton}
-                startIcon={<CancelIcon style={{ fill: "#ef6161" }} />}
-                onClick={async () => {
-                  console.log("button");
-                }}
-              >
-                Remove User
-              </Button>
-            </Grid>
-          </Grid>
-        </ListItem>
+        {props.users.map((user, index) => {
+          const joinDate = new Date(
+            parseInt(user._id.toString().substring(0, 8), 16) * 1000
+          );
+          return (
+            <ListItem className={classes.listItem} key={index}>
+              <Grid container>
+                <Grid item xs={1}>
+                  <Avatar src={user.picture} className={classes.avatar}>
+                    {user
+                      ? user.firstName
+                        ? user.firstName.charAt(0)
+                        : ""
+                      : ""}{" "}
+                    {user ? (user.lastName ? user.lastName.charAt(0) : "") : ""}
+                  </Avatar>
+                </Grid>
+                <Grid item xs={4}>
+                  <p className={classes.username}>
+                    {user.firstName} {user.lastName}
+                  </p>
+                  <p className={classes.position}>{user.department}</p>
+                </Grid>
+                <Grid item xs={4}>
+                  {user.isVerified ? (
+                    <p className={classes.joinMessage}>
+                      User joined on {joinDate.getDay()}{" "}
+                      {monthNames[joinDate.getMonth()]} {joinDate.getFullYear()}
+                    </p>
+                  ) : (
+                    <p className={classes.pendingMessage}>
+                      User response pending. Invited via email on{" "}
+                      {joinDate.getDay()} {monthNames[joinDate.getMonth()]}{" "}
+                      {joinDate.getFullYear()}
+                    </p>
+                  )}
+                </Grid>
+                <Grid item xs={3}>
+                  {!user.isVerified && (
+                    <Fragment>
+                      <Button
+                        className={classes.generateButton}
+                        startIcon={<EnvelopeIcon />}
+                        onClick={async () => {
+                          console.log("button");
+                        }}
+                      >
+                        Send New Invite
+                      </Button>
+                      <Button
+                        className={classes.generateButton}
+                        startIcon={<GenerateLinkIcon />}
+                        onClick={async () => {
+                          copyToClipboard(
+                            `https://juniper.unicef.io/admin/signin?verification=${user.verificationCode}`
+                          );
+                        }}
+                      >
+                        Generate Invite Link
+                      </Button>
+                    </Fragment>
+                  )}
+
+                  <Button
+                    className={classes.removeButton}
+                    startIcon={<CancelIcon style={{ fill: "#ef6161" }} />}
+                    onClick={async () => {
+                      console.log("button");
+                      props.removeUser(user.email);
+                    }}
+                  >
+                    Remove User
+                  </Button>
+                </Grid>
+              </Grid>
+            </ListItem>
+          );
+        })}
       </Fragment>
     </List>
   );

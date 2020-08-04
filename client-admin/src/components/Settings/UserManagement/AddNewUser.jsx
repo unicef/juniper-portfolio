@@ -109,18 +109,104 @@ const useStyles = makeStyles({
       marginTop: 8,
     },
   },
+  verificationCode: {
+    paddingTop: 22,
+    fontSize: 14,
+    margin: 0,
+  },
 });
 
-export default function AddNewUser() {
+export default function AddNewUser(props) {
   const classes = useStyles();
-  const [workUnit, setWorkUnit] = useState("");
-  const [accessLevel, setAccessLevel] = useState("");
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
+  const [department, setDepartment] = useState("");
+  const [isAdmin, setIsAdmin] = useState("");
+  const [email, setEmail] = useState("");
+  const [siteLink, setSiteLink] = useState(
+    "https://juniper.unicef.io/admin/signin?verificationCode="
+  );
+  const [verificationCode, setVerificationCode] = useState("");
+
+  const copyToClipboard = (str) => {
+    const el = document.createElement("textarea");
+    el.value = str;
+    document.body.appendChild(el);
+    el.select();
+    document.execCommand("copy");
+    document.body.removeChild(el);
+  };
+
+  const addNewUser = async (copyLink = false) => {
+    let res;
+    let users;
+    let notifications = false;
+    let userAdded = false;
+    let newTransaction = false;
+    let transactionTagged = false;
+
+    if (isAdmin) {
+      notifications = true;
+      userAdded = true;
+      newTransaction = true;
+      transactionTagged = true;
+    }
+
+    let user = {
+      firstName,
+      lastName,
+      department,
+      isAdmin,
+      email,
+      notifications,
+      userAdded,
+      newTransaction,
+      transactionTagged,
+    };
+
+    try {
+      res = await fetch(`/rest/admin/settings/user/invite`, {
+        credentials: "include",
+        method: "POST",
+        body: JSON.stringify({
+          user,
+        }),
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+      users = await res.json();
+    } catch (e) {
+      return console.log(e);
+    }
+
+    if (res.status === 200) {
+      user = users.filter((u) => {
+        return u.email === user.email;
+      })[0];
+      console.log(user);
+      setVerificationCode(user.verificationCode);
+      if (copyLink) {
+        copyToClipboard(`${siteLink}${user.verificationCode}`);
+      }
+      props.setUsers(users);
+
+      setFirstName("");
+      setLastName("");
+      setDepartment("");
+      setIsAdmin("");
+      setEmail("");
+      setSiteLink("");
+      setVerificationCode("");
+    }
+  };
 
   return (
     <Grid container className={classes.root}>
       <Grid item xs={6} className={classes.formItem}>
         <TextField
           label="First Name"
+          value={firstName}
           className={classes.textField}
           InputLabelProps={{
             className: classes.textLabelInput,
@@ -129,13 +215,14 @@ export default function AddNewUser() {
             className: classes.textInput,
           }}
           onChange={(e) => {
-            console.log(e.target.value);
+            setFirstName(e.target.value);
           }}
         />
       </Grid>
       <Grid item xs={6} className={classes.formItem}>
         <TextField
           label="Last Name"
+          value={lastName}
           className={classes.textField}
           InputLabelProps={{
             className: classes.textLabelInput,
@@ -144,7 +231,7 @@ export default function AddNewUser() {
             className: classes.textInput,
           }}
           onChange={(e) => {
-            console.log(e.target.value);
+            setLastName(e.target.value);
           }}
         />
       </Grid>
@@ -155,9 +242,9 @@ export default function AddNewUser() {
           <Select
             labelId="WorkUnit"
             className={classes.select}
-            value={workUnit}
+            value={department}
             onChange={(e) => {
-              setWorkUnit(e.target.value);
+              setDepartment(e.target.value);
             }}
           >
             <MenuItem className={classes.menuitem} value={"DFAM"}>
@@ -187,15 +274,19 @@ export default function AddNewUser() {
           <Select
             labelId="AccessLevel"
             className={classes.select}
-            value={accessLevel}
+            value={isAdmin}
             onChange={(e) => {
-              setAccessLevel(e.target.value);
+              if (e.target.value) {
+                setIsAdmin(true);
+              } else {
+                setIsAdmin(false);
+              }
             }}
           >
-            <MenuItem className={classes.menuitem} value={"Administrator"}>
+            <MenuItem className={classes.menuitem} value={true}>
               Administrator (editing permissions)
             </MenuItem>
-            <MenuItem className={classes.menuitem} value={"General"}>
+            <MenuItem className={classes.menuitem} value={false}>
               General (view only permission)
             </MenuItem>
           </Select>
@@ -204,6 +295,7 @@ export default function AddNewUser() {
       <Grid item xs={6} className={classes.formItem}>
         <TextField
           label="UNICEF email id"
+          value={email}
           className={classes.textField}
           InputLabelProps={{
             className: classes.textLabelInput,
@@ -212,7 +304,7 @@ export default function AddNewUser() {
             className: classes.textInput,
           }}
           onChange={(e) => {
-            console.log(e.target.value);
+            setEmail(e.target.value);
           }}
         />
       </Grid>
@@ -221,6 +313,9 @@ export default function AddNewUser() {
           className={classes.filledButton}
           variant="contained"
           color="primary"
+          onClick={() => {
+            addNewUser();
+          }}
         >
           Send Invite
         </Button>
@@ -243,7 +338,11 @@ export default function AddNewUser() {
           className={classes.generatLinkButton}
           startIcon={<GenerateLinkIcon />}
           onClick={async () => {
-            console.log("button");
+            if (verificationCode) {
+              copyToClipboard(`${siteLink}${verificationCode}`);
+            } else {
+              addNewUser(true);
+            }
           }}
         >
           Generate Invite Link

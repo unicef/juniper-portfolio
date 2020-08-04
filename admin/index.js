@@ -18,7 +18,14 @@ const {
   s3Upload,
   s3Download,
 } = require("./middleware");
-const { publicRoutes, privateRoutes, loginRoutes } = require("./routes")();
+const {
+  publicRoutes,
+  privateRoutes,
+  loginRoutes,
+  settingRoutes,
+  walletRoutes,
+  transactionRoutes,
+} = require("./routes")();
 const defaultConfig = require("./config");
 
 class JuniperAdmin {
@@ -96,6 +103,9 @@ class JuniperAdmin {
       loginRoutes
     );
     this.server.use("/rest/admin", isLoggedIn, privateRoutes);
+    this.server.use("/rest/admin/settings", isLoggedIn, settingRoutes);
+    this.server.use("/rest/admin/wallets", isLoggedIn, walletRoutes);
+    this.server.use("/rest/admin/transactions", isLoggedIn, transactionRoutes);
     this.server.use(
       "/upload/image",
       isLoggedIn,
@@ -134,7 +144,9 @@ class JuniperAdmin {
     this.logger.info(`started in ${this.environment}.`);
   }
 
-  async createUser(user) {}
+  async inviteUser(user) {
+    await this.db.createUser(user);
+  }
 
   async logActivity(activity) {
     this.db.logActivity(activity);
