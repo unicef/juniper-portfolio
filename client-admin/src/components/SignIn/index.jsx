@@ -227,7 +227,7 @@ export default function SignIn(props) {
   const login = async () => {
     let res;
     try {
-      res = await fetch(`/rest/admin/login`, {
+      res = await fetch(`/rest/admin/auth/login`, {
         credentials: "include",
         method: "POST",
         body: JSON.stringify({

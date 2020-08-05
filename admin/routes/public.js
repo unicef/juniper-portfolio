@@ -4,6 +4,12 @@ router.get("/ping", (req, res) => {
   res.send("pong");
 });
 
+router.get("/logout", async (req, res) => {
+  req.session.destroy(() => {
+    res.send();
+  });
+});
+
 router.get("/isLoggedIn", async (req, res) => {
   try {
     if (req.session.passport.user.profile) {

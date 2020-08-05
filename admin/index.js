@@ -21,7 +21,7 @@ const {
 const {
   publicRoutes,
   privateRoutes,
-  loginRoutes,
+  authRoutes,
   settingRoutes,
   walletRoutes,
   transactionRoutes,
@@ -98,9 +98,10 @@ class JuniperAdmin {
     this.server.use("/rest", publicRoutes);
 
     this.server.use(
-      "/rest/admin/login",
+      "/rest/admin/auth",
       this.passport.authenticate("local"),
-      loginRoutes
+
+      authRoutes
     );
     this.server.use("/rest/admin", isLoggedIn, privateRoutes);
     this.server.use("/rest/admin/settings", isLoggedIn, settingRoutes);

@@ -1,6 +1,6 @@
 const publicRoutes = require("./public");
 const privateRoutes = require("./private");
-const loginRoutes = require("./login");
+const authRoutes = require("./Auth");
 const settingRoutes = require("./Settings");
 const walletRoutes = require("./Wallets");
 const transactionRoutes = require("./Transactions");
@@ -9,7 +9,7 @@ module.exports = function () {
   return {
     publicRoutes,
     privateRoutes,
-    loginRoutes,
+    authRoutes,
     settingRoutes,
     walletRoutes,
     transactionRoutes,

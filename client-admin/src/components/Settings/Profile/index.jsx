@@ -19,6 +19,11 @@ const useStyles = makeStyles({
   avatar: {
     height: 47,
     width: 47,
+    fontSize: 16,
+    color: "#374ea2",
+    fontWeight: 700,
+    lineHeight: 1.75,
+    backgroundColor: "#daf5ff",
   },
   message: {
     fontFamily: '"Cabin", sans-serif',
