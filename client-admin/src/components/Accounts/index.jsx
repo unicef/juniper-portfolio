@@ -19,6 +19,9 @@ const useStyles = makeStyles((theme) => ({
   padding: {
     padding: theme.spacing(3),
   },
+  navigation: {
+    backgroundColor: "#ffffff",
+  },
   tabs: {
     backgroundColor: "#2e1534",
   },
@@ -78,7 +81,12 @@ export default function Transactions({ getExchangeRate }) {
 
   return (
     <div className={classes.root}>
-      <StyledTabs value={activeTab} onChange={changeView} centered>
+      <StyledTabs
+        value={activeTab}
+        className={classes.navigation}
+        onChange={changeView}
+        centered
+      >
         <StyledTab
           label="Startups"
           style={activeTab === 0 ? { color: "#00aeef" } : {}}

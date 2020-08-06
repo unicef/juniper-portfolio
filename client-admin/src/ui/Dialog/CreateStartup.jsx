@@ -204,7 +204,7 @@ export default function CreateStartup(props) {
     setAddingStartup(true);
 
     try {
-      await fetch(`/rest/admin/account`, {
+      await fetch(`/rest/admin/accounts`, {
         credentials: "include",
         method: "POST",
         body: JSON.stringify({

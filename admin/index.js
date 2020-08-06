@@ -22,10 +22,11 @@ const {
   publicRoutes,
   privateRoutes,
   authRoutes,
+  accountRoutes,
   settingRoutes,
   walletRoutes,
   transactionRoutes,
-} = require("./routes")();
+} = require("./routes");
 const defaultConfig = require("./config");
 
 class JuniperAdmin {
@@ -104,6 +105,7 @@ class JuniperAdmin {
       authRoutes
     );
     this.server.use("/rest/admin", isLoggedIn, privateRoutes);
+    this.server.use("/rest/admin/accounts", isLoggedIn, accountRoutes);
     this.server.use("/rest/admin/settings", isLoggedIn, settingRoutes);
     this.server.use("/rest/admin/wallets", isLoggedIn, walletRoutes);
     this.server.use("/rest/admin/transactions", isLoggedIn, transactionRoutes);

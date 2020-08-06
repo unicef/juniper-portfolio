@@ -1,17 +1,17 @@
+const accountRoutes = require("./Accounts");
+const authRoutes = require("./Auth");
 const publicRoutes = require("./public");
 const privateRoutes = require("./private");
-const authRoutes = require("./Auth");
 const settingRoutes = require("./Settings");
-const walletRoutes = require("./Wallets");
 const transactionRoutes = require("./Transactions");
+const walletRoutes = require("./Wallets");
 
-module.exports = function () {
-  return {
-    publicRoutes,
-    privateRoutes,
-    authRoutes,
-    settingRoutes,
-    walletRoutes,
-    transactionRoutes,
-  };
+module.exports = {
+  accountRoutes,
+  authRoutes,
+  publicRoutes,
+  privateRoutes,
+  settingRoutes,
+  transactionRoutes,
+  walletRoutes,
 };

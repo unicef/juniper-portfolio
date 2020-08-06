@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
-const wallet = new Schema({
+const account = new Schema({
   name: { type: String },
   type: { type: String },
   country: { type: String },
@@ -10,8 +10,8 @@ const wallet = new Schema({
   active: { type: Boolean, default: true },
 });
 
-wallet.index({ address: 1 }, { unique: true });
+account.index({ address: 1 }, { unique: true });
 
-const Wallet = mongoose.model("Wallet", wallet);
+const Account = mongoose.model("Account", account);
 
-module.exports = Wallet;
+module.exports = Account;
