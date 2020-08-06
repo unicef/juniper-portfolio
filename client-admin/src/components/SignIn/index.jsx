@@ -216,7 +216,7 @@ function Verification(props) {
     <Fragment>
       <TextField
         value={props.newPassword}
-        error={props.newPasswordError}
+        error={props.signInError}
         label="Create password"
         type="password"
         className={classes.textField}
@@ -232,13 +232,13 @@ function Verification(props) {
           }
         }}
         onChange={(e) => {
-          props.setNewPasswordError(false);
+          props.setSignInError(false);
           props.setNewPassword(e.target.value);
         }}
       />
       <TextField
         value={props.newPassword2}
-        error={props.newPasswordError}
+        error={props.signInError}
         label="Re-enter password"
         type="password"
         className={classes.textField}
@@ -254,7 +254,7 @@ function Verification(props) {
           }
         }}
         onChange={(e) => {
-          props.setNewPasswordError(false);
+          props.setSignInError(false);
           props.setNewPassword2(e.target.value);
         }}
       />
@@ -281,6 +281,7 @@ function Verification(props) {
         color="primary"
         onClick={props.login}
         style={{ marginTop: 42 }}
+        onClick={props.createAccountClick}
       >
         Create Account
       </Button>
@@ -315,7 +316,6 @@ export default function SignIn(props) {
 
   const [newPassword, setNewPassword] = useState("");
   const [newPassword2, setNewPassword2] = useState("");
-  const [newPasswordError, setNewPasswordError] = useState(false);
 
   const [subtitle, setSubtitle] = useState(
     "Welcome to Juniper! Sign in to your account."
@@ -356,6 +356,45 @@ export default function SignIn(props) {
     setResetPasswordSent(false);
     setForgotPassword(false);
     setVerification(false);
+  };
+
+  const validatePassword = () => {
+    let newPWMatch = false;
+    let hasUpper = /[A-Z]/.test(newPassword);
+    let hasLower = /[a-z]/.test(newPassword);
+    let hasNumbers = /\d/.test(newPassword);
+    let hasSpecial = /\W/.test(newPassword);
+    let hwPWLength = newPassword.length >= 8;
+
+    //hasNumbers = /\d/.test(password);
+    if (newPassword === newPassword2) {
+      newPWMatch = true;
+    } else {
+      setSignInError(true);
+      setSubtitle("Oops! the entered passwords do not match. ");
+      return false;
+    }
+
+    if (
+      newPWMatch &&
+      hasUpper &&
+      hasLower &&
+      hasNumbers &&
+      hasSpecial &&
+      hwPWLength
+    ) {
+      setSignInError(false);
+      return true;
+    }
+
+    setSubtitle("Oops! the password does not match the security requirement.");
+    setSignInError(true);
+
+    return false;
+  };
+
+  const createAccountClick = () => {
+    validatePassword();
   };
 
   const forgotPasswordClick = () => {
@@ -451,8 +490,11 @@ export default function SignIn(props) {
           <Verification
             newPassword={newPassword}
             newPassword2={newPassword2}
-            newPasswordError={newPasswordError}
-            setNewPasswordError={setNewPasswordError}
+            signInError={signInError}
+            setNewPassword={setNewPassword}
+            setNewPassword2={setNewPassword2}
+            setSignInError={setSignInError}
+            createAccountClick={createAccountClick}
           />
         )}
         <img src={logo} className={classes.logo} />
