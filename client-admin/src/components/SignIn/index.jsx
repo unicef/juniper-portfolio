@@ -393,8 +393,25 @@ export default function SignIn(props) {
     return false;
   };
 
-  const createAccountClick = () => {
-    validatePassword();
+  const createAccountClick = async () => {
+    if (validatePassword()) {
+      let res;
+      try {
+        res = await fetch(`/rest/verification`, {
+          credentials: "include",
+          method: "POST",
+          body: JSON.stringify({
+            verificationCode,
+            newPassword,
+          }),
+          headers: {
+            "Content-Type": "application/json",
+          },
+        });
+      } catch (e) {
+        console.log(e);
+      }
+    }
   };
 
   const forgotPasswordClick = () => {

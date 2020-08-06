@@ -206,6 +206,10 @@ class JuniperAdmin {
     return false;
   }
 
+  async getUserByVerificationCode(verificationCode) {
+    return await this.db.getUserByVerificationCode(verificationCode);
+  }
+
   async changePassword(email, currentPassword, password) {
     let savedUser;
 

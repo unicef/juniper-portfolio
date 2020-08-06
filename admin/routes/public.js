@@ -44,4 +44,22 @@ router.get("/verification/:verification", async (req, res) => {
   }
 });
 
+router.post("/verification", async (req, res) => {
+  const { verificationCode, newPassword } = req.body;
+  const juniperAdmin = req.app.get("juniperAdmin");
+
+  console.log(verificationCode, newPassword);
+  let user;
+  try {
+    user = await juniperAdmin.getUserByVerificationCode(verificationCode);
+    user.password = newPassword;
+    user.isVerified = true;
+    await juniperAdmin.createUser(user);
+  } catch (e) {
+    return res.status(500).send();
+  }
+
+  res.send();
+});
+
 module.exports = router;

@@ -78,6 +78,10 @@ class MongoDB {
     return this.models.User.findOne({ email });
   }
 
+  async getUserByVerificationCode(verificationCode) {
+    return this.models.User.findOne({ verificationCode });
+  }
+
   async isValidVerificationCode(verificationCode) {
     return await this.models.User.findOne({
       verificationCode,
