@@ -62,11 +62,7 @@ export default class FileUpload extends Component {
             document.getElementById(`${this.uploadId}`).click();
           }}
         >
-<<<<<<< HEAD
-          {this.state.uploading ? (
-=======
           {this.state.uploading && this.state.showStatus ? (
->>>>>>> upstream/develop
             <LinearProgress style={{ marginTop: "3em" }} />
           ) : (
             this.props.children
