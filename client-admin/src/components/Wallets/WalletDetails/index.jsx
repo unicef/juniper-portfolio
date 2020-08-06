@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import BreadCrumb from "./BreadCrumb";
-import { WalletDetailsCard } from "../../../../ui/Cards";
+import { WalletDetailsCard } from "../../../ui/Cards";
 import TransactionDetails from "./TransactionDetails";
-import { AuthorizationRecord } from "../../../../ui/Dialog";
+import { AuthorizationRecord } from "../../../ui/Dialog";
 
 const mainStyles = makeStyles((theme) => ({
   root: {
@@ -39,7 +39,7 @@ export default function ({
   const getWallet = async () => {
     let res, wallet;
     try {
-      res = await fetch(`/rest/admin/wallet/${address}`);
+      res = await fetch(`/rest/admin/wallets/${address}`);
       wallet = await res.json();
     } catch (e) {
       return console.log(e);

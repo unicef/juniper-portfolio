@@ -6,9 +6,13 @@ function logRequest(req, res, next) {
   logger.info(`${req.method} ${req.originalUrl}`);
 
   logger.debug(req.body);
+  logger.debug(req.session);
   logger.debug(req.params);
   logger.debug(req.query);
+
   return next();
 }
 
-module.exports = logRequest;
+module.exports = {
+  logRequest,
+};

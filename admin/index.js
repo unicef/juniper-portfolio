@@ -1,5 +1,9 @@
 require("dotenv").config({ path: "../.env" });
 const express = require("express");
+const session = require("express-session");
+const MongoStore = require("connect-mongo")(session);
+const passport = require("passport");
+const LocalStrategy = require("passport-local").Strategy;
 const bodyParser = require("body-parser");
 const PriceMonitor = require("./price_monitor");
 const fetch = require("node-fetch");
@@ -7,8 +11,26 @@ const { BitcoinScraper, EthereumScraper } = require("./wallet_scrapers");
 const Logger = require("./logger");
 const DB = require("./db");
 const utils = require("./utils");
+<<<<<<< HEAD
 const { logRequest, s3Upload, s3Download } = require("./middleware");
 const { publicRoutes, privateRoutes } = require("./routes")();
+=======
+const {
+  devMode,
+  logRequest,
+  isLoggedIn,
+  s3Upload,
+  s3Download,
+} = require("./middleware");
+const {
+  publicRoutes,
+  privateRoutes,
+  authRoutes,
+  settingRoutes,
+  walletRoutes,
+  transactionRoutes,
+} = require("./routes")();
+>>>>>>> upstream/develop
 const defaultConfig = require("./config");
 
 class JuniperAdmin {
@@ -35,17 +57,78 @@ class JuniperAdmin {
       this.db
     );
     this.utils = utils;
+    this.passport = passport;
+
+    this.passport.use(
+      new LocalStrategy(
+        { usernameField: "email" },
+        async (email, password, done) => {
+          let profile = await this.login({ email, password });
+          return done(null, {
+            provider: "local",
+            email,
+            password,
+            profile,
+          });
+        }
+      )
+    );
+
+    this.passport.serializeUser((user, done) => {
+      done(null, user);
+    });
+
+    this.passport.deserializeUser((user, done) => {
+      done(null, user);
+    });
 
     this.server = express();
+    this.server.use(
+      session({
+        store: new MongoStore(this.config.db),
+        secret: "secret",
+        resave: true,
+        saveUninitialized: true,
+      })
+    );
+    this.server.use(passport.initialize());
+    this.server.use(passport.session());
     this.server.set("trust_proxy", this.config.trustProxy);
     this.server.set("json spaces", this.config.jsonSpaces);
     this.server.use(bodyParser.urlencoded(this.config.urlencoded));
     this.server.use(bodyParser.json({ limit: this.config.uploadLimit }));
     this.server.use("fetch", fetch);
     this.server.set("juniperAdmin", this);
-    this.server.use("/rest", logRequest);
+    this.server.use("/rest", logRequest, devMode);
     this.server.use("/rest", publicRoutes);
-    this.server.use("/rest/admin", privateRoutes);
+
+    this.server.use(
+      "/rest/admin/auth",
+      this.passport.authenticate("local"),
+
+      authRoutes
+    );
+    this.server.use("/rest/admin", isLoggedIn, privateRoutes);
+    this.server.use("/rest/admin/settings", isLoggedIn, settingRoutes);
+    this.server.use("/rest/admin/wallets", isLoggedIn, walletRoutes);
+    this.server.use("/rest/admin/transactions", isLoggedIn, transactionRoutes);
+    this.server.use(
+      "/upload/image",
+      isLoggedIn,
+      s3Upload.single("image"),
+      (req, res) => {
+        req.file.imageUrl = `/image/${req.file.key}`;
+        req.file.downloadUrl = `/download/${req.file.key}`;
+        res.json(req.file);
+      }
+    );
+    this.server.use("/download/:key", isLoggedIn, (req, res) => {
+      res.setHeader("Content-Disposition", "download");
+      s3Download(req.params.key).pipe(res);
+    });
+    this.server.use("/image/:key", isLoggedIn, (req, res) => {
+      s3Download(req.params.key).pipe(res);
+    });
 
     this.server.use("/upload/image", s3Upload.single("image"), (req, res) => {
       req.file.imageUrl = `/image/${req.file.key}`;
@@ -80,6 +163,10 @@ class JuniperAdmin {
     this.logger.info(`started in ${this.environment}.`);
   }
 
+  async inviteUser(user) {
+    await this.db.createUser(user);
+  }
+
   async logActivity(activity) {
     this.db.logActivity(activity);
   }
@@ -87,6 +174,113 @@ class JuniperAdmin {
   async createWallet(wallet) {
     this.logger.debug(`createWallet ${wallet}`);
     this.db.createWallet(wallet);
+  }
+
+  async createUser(user) {
+    user.salt = this.utils.createSalt();
+    user.password = this.utils.hash256(user.password.concat(user.salt));
+    await this.db.createUser(user);
+  }
+
+  async updateUser(user) {
+    await this.db.updateUser(user);
+  }
+
+  validatePassword(newPassword, newPassword2) {
+    let newPWMatch = false;
+    let hasUpper = /[A-Z]/.test(newPassword);
+    let hasLower = /[a-z]/.test(newPassword);
+    let hasNumbers = /\d/.test(newPassword);
+    let hasSpecial = /\W/.test(newPassword);
+    let hwPWLength = newPassword.length >= 8;
+
+    //hasNumbers = /\d/.test(password);
+    if (newPassword === newPassword2) {
+      newPWMatch = true;
+    } else {
+      this.logger.error("Passwords do not match");
+      return false;
+    }
+
+    if (
+      newPWMatch &&
+      hasUpper &&
+      hasLower &&
+      hasNumbers &&
+      hasSpecial &&
+      hwPWLength
+    ) {
+      this.logger.error("Password did not pass validation");
+      return true;
+    }
+
+    return false;
+  }
+
+  async changePassword(email, currentPassword, password) {
+    let savedUser;
+
+    try {
+      savedUser = await this.db.getUser(email);
+      const saltedCurrentPassword = this.utils.hash256(
+        currentPassword.concat(savedUser.salt)
+      );
+
+      if (!savedUser) {
+        this.logger.error("User does not exist");
+        return false;
+      }
+
+      if (savedUser.password !== saltedCurrentPassword) {
+        this.logger.error("Saved User password does not match");
+        return false;
+      }
+
+      savedUser.password = this.utils.hash256(password.concat(savedUser.salt));
+
+      await savedUser.save();
+    } catch (e) {
+      this.logger.error(e);
+      return false;
+    }
+
+    console.log(savedUser);
+    return true;
+  }
+
+  async login(user) {
+    let savedUser;
+    try {
+      savedUser = await this.db.getUser(user.email);
+    } catch (e) {
+      this.logger.error(e);
+    }
+
+    if (!savedUser) return false;
+
+    const saltedPassword = this.utils.hash256(
+      user.password.concat(savedUser.salt)
+    );
+
+    if (saltedPassword === savedUser.password) {
+      this.logger.info(`User authenticated for ${user.email}`);
+      return {
+        firstName: savedUser.firstName,
+        lastName: savedUser.lastName,
+        email: savedUser.email,
+        picture: savedUser.picture,
+        title: savedUser.title,
+        department: savedUser.department,
+        notifications: savedUser.notifications,
+        userAdded: savedUser.userAdded,
+        newTransaction: savedUser.newTransaction,
+        transactionTagged: savedUser.transactionTagged,
+        isAdmin: savedUser.isAdmin,
+      };
+    } else {
+      this.logger.error(`User authentication failed for ${user.email}`);
+      return false;
+    }
   }
 
   async getWalletSummary() {

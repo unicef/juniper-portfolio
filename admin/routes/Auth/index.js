@@ -1,18 +1,11 @@
 const router = require("express").Router();
+const Logger = require("../../logger");
+const logger = new Logger("Auth Routes");
 
-router.get("/ping", (req, res) => {
-  res.send("pong");
-});
-
-router.get("/logout", async (req, res) => {
-  req.session.destroy(() => {
-    res.send();
-  });
-});
-
-router.get("/isLoggedIn", async (req, res) => {
+router.post("/login", async (req, res) => {
   try {
     if (req.session.passport.user.profile) {
+      logger.info(`Login ${req.session.passport.user.profile.email}`);
       return res.json(req.session.passport.user.profile);
     }
   } catch (e) {

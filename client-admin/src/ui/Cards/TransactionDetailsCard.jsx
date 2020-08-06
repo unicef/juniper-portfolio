@@ -95,7 +95,7 @@ export default function TransactionDetailsCard({
   to,
   from,
   amountUSD,
-  currentValue,
+  exchangeRate,
   sent,
   received,
   setAuthorizationRecord,
@@ -156,7 +156,7 @@ export default function TransactionDetailsCard({
         </Grid>
         <Grid item xs={2}>
           <div className={classes.walletBalance}>
-            {usdFormatter.format(currentValue)} USD
+            {usdFormatter.format(amount * exchangeRate)} USD
           </div>
           <div className={classes.walletSubtitle}>Current Value</div>
         </Grid>

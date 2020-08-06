@@ -24,6 +24,9 @@ const useStyles = makeStyles((theme) => ({
   padding: {
     padding: theme.spacing(3),
   },
+  navigation: {
+    backgroundColor: "#ffffff",
+  },
   tabs: {
     backgroundColor: "#2e1534",
   },
@@ -78,15 +81,15 @@ export default function Transactions({ getExchangeRate }) {
   const [txs, setTxs] = useState([]);
   const [unpublishedTxs, setUnpublishedTxs] = useState([]);
   const [unpublishedPage, setUnpublishedPage] = useState(0);
-  const [unpublishedLimit, setUnpublishedLimit] = useState(5);
+  const [unpublishedLimit, setUnpublishedLimit] = useState(3);
 
   const [publishedTxs, setPublishedTxs] = useState([]);
   const [publishedPage, setPublishedPage] = useState(0);
-  const [publishedLimit, setPublishedLimit] = useState(5);
+  const [publishedLimit, setPublishedLimit] = useState(3);
 
   const [archivedTxs, setArchivedTxs] = useState([]);
   const [archivedPage, setArchivedPage] = useState(0);
-  const [archivedLimit, setArchivedLimit] = useState(5);
+  const [archivedLimit, setArchivedLimit] = useState(3);
 
   const [showSnackbar, setShowSnackbar] = useState(false);
   const [snackbarDuration] = useState(3000);
@@ -189,7 +192,12 @@ export default function Transactions({ getExchangeRate }) {
         }}
         getExchangeRate={getExchangeRate}
       />
-      <StyledTabs value={activeTab} onChange={changeView} centered>
+      <StyledTabs
+        value={activeTab}
+        onChange={changeView}
+        className={classes.navigation}
+        centered
+      >
         <StyledTab
           label="Unpublished"
           style={activeTab === 0 ? { color: "#00aeef" } : {}}

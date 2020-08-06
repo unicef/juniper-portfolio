@@ -6,7 +6,8 @@ export default class FileUpload extends Component {
     super(props);
     this.state = {
       uploading: false,
-      url: props.url || "/upload",
+      url: props.url || "/upload/image",
+      showStatus: props.showStatus,
     };
 
     this.uploadId = Math.round(Math.random() * 1e9);
@@ -61,7 +62,11 @@ export default class FileUpload extends Component {
             document.getElementById(`${this.uploadId}`).click();
           }}
         >
+<<<<<<< HEAD
           {this.state.uploading ? (
+=======
+          {this.state.uploading && this.state.showStatus ? (
+>>>>>>> upstream/develop
             <LinearProgress style={{ marginTop: "3em" }} />
           ) : (
             this.props.children

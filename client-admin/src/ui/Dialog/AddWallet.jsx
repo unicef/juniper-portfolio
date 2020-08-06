@@ -218,7 +218,7 @@ export default function AddWallet(props) {
     setAddingWallet(true);
 
     try {
-      await fetch(`/rest/admin/wallet`, {
+      await fetch(`/rest/admin/wallets`, {
         credentials: "include",
         method: "POST",
         body: JSON.stringify({

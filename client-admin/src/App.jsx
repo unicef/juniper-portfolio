@@ -1,9 +1,15 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import { createMuiTheme, ThemeProvider } from "@material-ui/core/styles";
 import CssBaseline from "@material-ui/core/CssBaseline";
-import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  Redirect,
+} from "react-router-dom";
 import "./app.css";
+import SignIn from "./components/SignIn";
 import TopBar from "./components/TopBar";
 import Sidebar from "./components/Sidebar";
 import Accounts from "./components/Accounts";
@@ -13,6 +19,7 @@ import Transactions from "./components/Transactions";
 import Wallets from "./components/Wallets";
 import ApolloClient from "apollo-boost";
 import { ApolloProvider } from "react-apollo";
+import LoadingScreen from "./ui/Dialog/LoadingScreen";
 
 const drawerWidth = 240;
 
@@ -21,6 +28,7 @@ const useStyles = makeStyles((theme) => ({
     display: "flex",
     backgroundColor: "#f8f8f8",
     height: "100%",
+    width: "100%",
   },
   appBar: {
     zIndex: theme.zIndex.drawer + 1,
@@ -66,6 +74,16 @@ const theme = createMuiTheme({
 
 export default function JuniperAdmin() {
   const classes = useStyles();
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [user, setUser] = useState({});
+  const [loading, setLoading] = useState(true);
+
+  const loginUser = (user) => {
+    if (user) {
+      setIsLoggedIn(true);
+      setUser(user);
+    }
+  };
 
   const getExchangeRate = async (symbol) => {
     let res, price;
@@ -80,35 +98,94 @@ export default function JuniperAdmin() {
     return price.USD;
   };
 
+  const updateUser = async (property) => {
+    const newUser = { ...user, ...property };
+
+    let res;
+    try {
+      res = await fetch(`/rest/admin/settings/user`, {
+        credentials: "include",
+        method: "PUT",
+        body: JSON.stringify({
+          user: newUser,
+        }),
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+    } catch (e) {
+      console.log(e);
+    }
+    setUser(newUser);
+    // todo update on server
+  };
+
+  useEffect(() => {
+    // check if logged in
+    const getUserProfile = async () => {
+      let res;
+      try {
+        res = await fetch("/rest/isLoggedIn");
+      } catch (e) {
+        console.log(e);
+      }
+      if (res.status === 200) {
+        setUser(await res.json());
+        setIsLoggedIn(true);
+      }
+      setLoading(false);
+    };
+    getUserProfile();
+  }, []);
+
   return (
     <div className={classes.root}>
       <ThemeProvider theme={theme}>
         <ApolloProvider client={client}>
           <CssBaseline>
-            <TopBar />
-            <Router>
-              <Sidebar />
-              <Switch>
-                <Route path="/admin/wallets">
-                  <Wallets getExchangeRate={getExchangeRate} />
-                </Route>
-                <Route path="/admin/accounts">
-                  <Accounts />
-                </Route>
-                <Route path="/admin/tracker">
-                  <PriceTracker />
-                </Route>
-                <Route path="/admin/transactions">
-                  <Transactions getExchangeRate={getExchangeRate} />
-                </Route>
-                <Route path="/admin/settings">
-                  <Settings />
-                </Route>
-                <Route path="/admin">
-                  <Wallets getExchangeRate={getExchangeRate} />
-                </Route>
-              </Switch>
-            </Router>
+            {!isLoggedIn ? (
+              loading ? (
+                <LoadingScreen open={true} />
+              ) : (
+                <SignIn loginUser={loginUser} />
+              )
+            ) : (
+              <Router>
+                <Switch>
+                  <Route exact path="/admin">
+                    <TopBar user={user} />
+                    <Sidebar />
+                    <Wallets getExchangeRate={getExchangeRate} />
+                  </Route>
+                  <Route path="/admin/wallets">
+                    <TopBar user={user} />
+                    <Sidebar />
+                    <Wallets getExchangeRate={getExchangeRate} />
+                  </Route>
+                  <Route path="/admin/accounts">
+                    <TopBar user={user} />
+                    <Sidebar />
+                    <Accounts />
+                  </Route>
+                  <Route path="/admin/tracker">
+                    <TopBar user={user} />
+                    <Sidebar />
+                    <PriceTracker />
+                  </Route>
+                  <Route path="/admin/transactions">
+                    <TopBar user={user} />
+                    <Sidebar />
+                    <Transactions getExchangeRate={getExchangeRate} />
+                  </Route>
+                  <Route path="/admin/settings">
+                    <TopBar user={user} />
+                    <Sidebar />
+                    <Settings user={user} updateUser={updateUser} />
+                  </Route>
+                  <Redirect from="*" to="/admin/wallets" />
+                </Switch>
+              </Router>
+            )}
           </CssBaseline>
         </ApolloProvider>
       </ThemeProvider>

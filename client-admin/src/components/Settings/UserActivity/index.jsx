@@ -12,12 +12,13 @@ const useStyles = makeStyles({
     color: "#000000",
     fontWeight: 400,
     margin: 0,
+    paddingLeft: 15,
   },
 });
 
 export default function UserActivity() {
   const classes = useStyles();
-  const [activities, setActivities] = useState(mockUserActivity);
+  const [activities, setActivities] = useState([]);
 
   useEffect(() => {
     const diffMinutes = (dt2, dt1) => {
@@ -29,7 +30,7 @@ export default function UserActivity() {
     const getActivities = async () => {
       let activity = [];
       try {
-        activity = await fetch("/rest/admin/activities");
+        activity = await fetch("/rest/admin/settings/activities");
       } catch (e) {
         console.log(e);
       }
@@ -44,13 +45,17 @@ export default function UserActivity() {
 
         if (timeDiffInMinutes > 60 * 24) {
           // days
-          activity.timestamp = `${timeDiffInMinutes / (60 * 24)} days ago`;
+          activity.timestamp = `${Math.round(
+            timeDiffInMinutes / (60 * 24)
+          )} days ago`;
         } else if (timeDiffInMinutes > 60) {
           // hours
-          activity.timestamp = `${timeDiffInMinutes / 60} hours ago`;
+          activity.timestamp = `${Math.round(
+            timeDiffInMinutes / 60
+          )} hours ago`;
         } else {
           // minutes
-          activity.timestamp = `${timeDiffInMinutes} minutes ago`;
+          activity.timestamp = `${Math.round(timeDiffInMinutes)} minutes ago`;
         }
       });
       setActivities(activity);
@@ -70,26 +75,3 @@ export default function UserActivity() {
     </Grid>
   );
 }
-
-const mockUserActivity = [
-  {
-    text:
-      "<a class='link'>Christ Fabian</a> added a new wallet <a class='link'>UNICEF HQ Test</a>",
-    timestamp: "6 hours ago",
-  },
-  {
-    text:
-      "<a class='link'>Christ Fabian</a> added a new wallet <a class='link'>UNICEF HQ Test</a>",
-    timestamp: "6 hours ago",
-  },
-  {
-    text:
-      "<a class='link'>Christ Fabian</a> added a new wallet <a class='link'>UNICEF HQ Test</a>",
-    timestamp: "6 hours ago",
-  },
-  {
-    text:
-      "<a class='link'>Christ Fabian</a> added a new wallet <a class='link'>UNICEF HQ Test</a>",
-    timestamp: "6 hours ago",
-  },
-];

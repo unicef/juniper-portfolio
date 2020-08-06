@@ -17,6 +17,9 @@ const useStyles = makeStyles((theme) => ({
   padding: {
     padding: theme.spacing(3),
   },
+  navigation: {
+    backgroundColor: "#ffffff",
+  },
   tabs: {
     backgroundColor: "#2e1534",
   },
@@ -71,7 +74,12 @@ export default function Wallets({ getExchangeRate }) {
 
   return (
     <div className={classes.root}>
-      <StyledTabs value={activeTab} onChange={changeView} centered>
+      <StyledTabs
+        value={activeTab}
+        onChange={changeView}
+        className={classes.navigation}
+        centered
+      >
         <StyledTab
           label="Your Wallet"
           style={activeTab === 0 ? { color: "#00aeef" } : {}}
