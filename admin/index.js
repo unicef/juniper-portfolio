@@ -11,10 +11,6 @@ const { BitcoinScraper, EthereumScraper } = require("./wallet_scrapers");
 const Logger = require("./logger");
 const DB = require("./db");
 const utils = require("./utils");
-<<<<<<< HEAD
-const { logRequest, s3Upload, s3Download } = require("./middleware");
-const { publicRoutes, privateRoutes } = require("./routes")();
-=======
 const {
   devMode,
   logRequest,
@@ -30,7 +26,6 @@ const {
   walletRoutes,
   transactionRoutes,
 } = require("./routes")();
->>>>>>> upstream/develop
 const defaultConfig = require("./config");
 
 class JuniperAdmin {
