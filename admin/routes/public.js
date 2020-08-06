@@ -12,13 +12,36 @@ router.get("/logout", async (req, res) => {
 
 router.get("/isLoggedIn", async (req, res) => {
   try {
-    if (req.session.passport.user.profile) {
+    if (
+      req.session.passport &&
+      req.session.passport.user &&
+      req.session.passport.user.profile
+    ) {
       return res.json(req.session.passport.user.profile);
     }
   } catch (e) {
     return res.status(500).send();
   }
   return res.status(401).send();
+});
+
+router.get("/verification/:verification", async (req, res) => {
+  const { verification } = req.params;
+  const juniperAdmin = req.app.get("juniperAdmin");
+
+  let isValidVerification;
+  try {
+    isValidVerification = await juniperAdmin.isValidVerificationCode(
+      verification
+    );
+  } catch (e) {
+    return res.status(500).send();
+  }
+  if (isValidVerification) {
+    return res.send();
+  } else {
+    return res.status(401).send();
+  }
 });
 
 module.exports = router;

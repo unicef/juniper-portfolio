@@ -78,6 +78,13 @@ class MongoDB {
     return this.models.User.findOne({ email });
   }
 
+  async isValidVerificationCode(verificationCode) {
+    return await this.models.User.findOne({
+      verificationCode,
+      isVerified: false,
+    });
+  }
+
   async setUserInactive(email) {
     return this.models.User.findOneAndUpdate(
       { email },

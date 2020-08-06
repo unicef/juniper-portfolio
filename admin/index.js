@@ -9,6 +9,7 @@ const PriceMonitor = require("./price_monitor");
 const fetch = require("node-fetch");
 const { BitcoinScraper, EthereumScraper } = require("./wallet_scrapers");
 const Logger = require("./logger");
+const Email = require("./email");
 const DB = require("./db");
 const utils = require("./utils");
 const {
@@ -41,6 +42,7 @@ class JuniperAdmin {
     this.logger.debug(this.config);
     this.environment = this.config.environment;
 
+    this.email = new Email(this.config.email);
     this.db = new DB(this.config.db);
     this.priceMonitor = new PriceMonitor(this.config.priceMonitor, this.db);
     this.bitcoinWalletScraper = new BitcoinScraper(
@@ -145,8 +147,9 @@ class JuniperAdmin {
     this.logger.info(`started in ${this.environment}.`);
   }
 
-  async inviteUser(user) {
+  async inviteUser(user, host, verificationCode) {
     await this.db.createUser(user);
+    await this.email.sendInvitation(user.email, host, verificationCode);
   }
 
   async logActivity(activity) {
@@ -166,6 +169,10 @@ class JuniperAdmin {
 
   async updateUser(user) {
     await this.db.updateUser(user);
+  }
+
+  async isValidVerificationCode(verificationCode) {
+    return !!(await this.db.isValidVerificationCode(verificationCode));
   }
 
   validatePassword(newPassword, newPassword2) {
