@@ -411,6 +411,11 @@ export default function SignIn(props) {
       } catch (e) {
         console.log(e);
       }
+      setVerification("");
+      setSignIn(true);
+      setSubtitle(
+        "Welcome to Juniper! Your account has been successfully created."
+      );
     }
   };
 
