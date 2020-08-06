@@ -249,7 +249,7 @@ class JuniperAdmin {
       this.logger.error(e);
     }
 
-    if (!savedUser || !savedUser.active) return false;
+    if (!savedUser || !savedUser.active || !savedUser.isVerified) return false;
 
     const saltedPassword = this.utils.hash256(
       user.password.concat(savedUser.salt)
