@@ -152,22 +152,34 @@ class JuniperAdmin {
     await this.email.sendInvitation(user.email, host, verificationCode);
   }
 
+  exit() {
+    this.logger.info(`exiting`);
+    process.exit();
+  }
+
   async logActivity(activity) {
     this.db.logActivity(activity);
   }
 
   async createWallet(wallet) {
-    this.logger.debug(`createWallet ${wallet}`);
+    this.logger.info(`Creating wallet ${wallet.address}`);
+    this.logger.debug(JSON.stringify(wallet));
     this.db.createWallet(wallet);
   }
 
   async createUser(user) {
+    this.logger.info(`Creating user ${user.email}`);
+    this.logger.debug(JSON.stringify(user));
+
     user.salt = this.utils.createSalt();
     user.password = this.utils.hash256(user.password.concat(user.salt));
     await this.db.createUser(user);
   }
 
   async updateUser(user) {
+    this.logger.info(`Updating user ${user.email}`);
+    this.logger.debug(JSON.stringify(user));
+
     await this.db.updateUser(user);
   }
 
@@ -176,6 +188,8 @@ class JuniperAdmin {
   }
 
   validatePassword(newPassword, newPassword2) {
+    this.logger.info(`Validating password`);
+
     let newPWMatch = false;
     let hasUpper = /[A-Z]/.test(newPassword);
     let hasLower = /[a-z]/.test(newPassword);
