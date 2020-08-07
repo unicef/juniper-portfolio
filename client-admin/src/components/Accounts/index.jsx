@@ -73,50 +73,91 @@ export default function Accounts({ getExchangeRate }) {
   const classes = useStyles();
   const [activeTab, setActiveTab] = useState(0);
   const [startups, setStartups] = useState([]);
+  const [startupEth, setStartupEth] = useState(0);
+  const [startupBtc, setStartupBtc] = useState(0);
+
   const [natcoms, setNatcoms] = useState([]);
+  const [natcomEth, setNatcomEth] = useState(0);
+  const [natcomBtc, setNatcomBtc] = useState(0);
+
   const [donors, setDonors] = useState([]);
+  const [donorEth, setDonorEth] = useState(0);
+  const [donorBtc, setDonorBtc] = useState(0);
+
+  const [ethRate, setEthRate] = useState(0);
+  const [btcRate, setBtcRate] = useState(0);
 
   const changeView = (event, newTab) => {
     setActiveTab(newTab);
   };
 
-  useEffect(() => {
-    const getAccounts = async () => {
-      let res, accounts, ethRate, btcRate;
-      try {
-        res = await fetch("/rest/admin/accounts");
-        ethRate = await getExchangeRate("ETH");
-        btcRate = await getExchangeRate("BTC");
-      } catch (e) {
-        console.log(e);
-      }
+  const getAccounts = async () => {
+    let res, accounts, ethRate, btcRate;
+    try {
+      res = await fetch("/rest/admin/accounts");
+      ethRate = await getExchangeRate("ETH");
+      btcRate = await getExchangeRate("BTC");
+    } catch (e) {
+      console.log(e);
+    }
 
-      if (res.status === 200) {
-        accounts = await res.json();
+    let startupEth = 0;
+    let startupBtc = 0;
+    let donorEth = 0;
+    let donorBtc = 0;
+    let natcomEth = 0;
+    let natcomBtc = 0;
 
-        accounts.forEach((account) => {
-          let totalETHInvested = 0;
-          let totalBTCInvested = 0;
+    if (res.status === 200) {
+      accounts = await res.json();
 
-          account.addresses.forEach((address) => {
-            if (address.currency === "Ether") {
-              totalETHInvested += address.amount;
-            }
-            if (address.currency === "Bitcoin") {
-              totalBTCInvested += address.amount;
-            }
-          });
-          account.totalETHInvested = totalETHInvested;
-          account.totalETHUSD = totalETHInvested * ethRate;
-          account.totalBTCInvested = totalBTCInvested;
-          account.totalBTCUSD = totalBTCInvested * ethRate;
+      accounts.forEach((account) => {
+        let totalETHInvested = 0;
+        let totalBTCInvested = 0;
+
+        account.addresses.forEach((address) => {
+          if (address.currency === "Ether") {
+            totalETHInvested += Number(address.amount);
+          }
+          if (address.currency === "Bitcoin") {
+            totalBTCInvested += Number(address.amount);
+          }
         });
-      }
+        account.totalETHInvested = totalETHInvested;
+        account.totalETHUSD = totalETHInvested * ethRate;
+        account.totalBTCInvested = totalBTCInvested;
+        account.totalBTCUSD = totalBTCInvested * btcRate;
 
-      setStartups(accounts.filter((account) => account.type === "startup"));
-      setDonors(accounts.filter((account) => account.type === "donor"));
-      setNatcoms(accounts.filter((account) => account.type === "natcom"));
-    };
+        if (account.type === "startup") {
+          startupEth += totalETHInvested;
+          startupBtc += totalBTCInvested;
+        } else if (account.type === "donor") {
+          donorEth += totalETHInvested;
+          donorBtc += totalBTCInvested;
+        } else if (account.type === "natcom") {
+          natcomEth += totalETHInvested;
+          natcomBtc += totalBTCInvested;
+        }
+      });
+    }
+
+    setEthRate(ethRate);
+    setBtcRate(btcRate);
+
+    setStartups(accounts.filter((account) => account.type === "startup"));
+    setStartupEth(startupEth);
+    setStartupBtc(startupBtc);
+
+    setDonors(accounts.filter((account) => account.type === "donor"));
+    setDonorEth(donorEth);
+    setDonorBtc(donorBtc);
+
+    setNatcoms(accounts.filter((account) => account.type === "natcom"));
+    setNatcomEth(natcomEth);
+    setNatcomEth(natcomBtc);
+  };
+
+  useEffect(() => {
     getAccounts();
   }, []);
 
@@ -145,15 +186,18 @@ export default function Accounts({ getExchangeRate }) {
 
       <TabPanel activeTab={activeTab} index={0}>
         <AccountLayout
-          title={"3 Investments"}
+          title={`${startups.length} ${
+            startups.length === 1 ? "Investment" : "Investments"
+          }`}
           type={"Startups"}
           addButtonText={"Create Startup Account"}
           CreateModal={CreateStartup}
-          totalEther={100}
-          totalETHUSD={25000}
-          totalBitcoin={1}
-          totalBTCUSD={20000}
+          totalEther={startupEth}
+          totalETHUSD={startupEth * ethRate}
+          totalBitcoin={startupBtc}
+          totalBTCUSD={startupBtc * btcRate}
           accounts={startups}
+          onDialogClose={getAccounts}
           message={
             "The investments are made through UNICEF’s CryptoFund, in open source technology solutions that benefit children and the world."
           }
@@ -161,13 +205,15 @@ export default function Accounts({ getExchangeRate }) {
       </TabPanel>
       <TabPanel activeTab={activeTab} index={1}>
         <AccountLayout
-          title={"2 Donors"}
+          title={`${donors.length} ${
+            donors.length === 1 ? "Investment" : "Investments"
+          }`}
           type={"Donors"}
           addButtonText={"Create Donor Account"}
-          totalEther={57}
-          totalETHUSD={18000}
-          totalBitcoin={2}
-          totalBTCUSD={40000}
+          totalEther={donorEth}
+          totalETHUSD={donorEth * ethRate}
+          totalBitcoin={donorBtc}
+          totalBTCUSD={donorBtc * btcRate}
           accounts={donors}
           message={
             "In line with current UNICEF practice, each crypto transaction is initiated after UNICEF has completed due diligence on a donor, ensuring a credible source of the donation."
@@ -177,13 +223,15 @@ export default function Accounts({ getExchangeRate }) {
       </TabPanel>
       <TabPanel activeTab={activeTab} index={2}>
         <AccountLayout
-          title={"5 Natcoms"}
+          title={`${natcoms.length} ${
+            natcoms.length === 1 ? "Investment" : "Investments"
+          }`}
           type={"Natcoms"}
           addButtonText={"Create Natcom Account"}
-          totalEther={25}
-          totalETHUSD={12000}
-          totalBitcoin={2.5}
-          totalBTCUSD={50000}
+          totalEther={natcomEth}
+          totalETHUSD={natcomEth * ethRate}
+          totalBitcoin={natcomBtc}
+          totalBTCUSD={natcomBtc * btcRate}
           accounts={natcoms}
           message={
             "Cryptofund donations are received by HQ through four National Committees - Australia, France, New Zealand and the United States."

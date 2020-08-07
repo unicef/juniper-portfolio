@@ -73,6 +73,7 @@ export default function AccountLayout({
   accounts,
   addButtonText,
   CreateModal,
+  onDialogClose,
 }) {
   const classes = transactionDetailsStyles();
   console.log(type);
@@ -80,6 +81,7 @@ export default function AccountLayout({
 
   const closeCreateDialog = () => {
     setOpenCreateDialog(false);
+    onDialogClose();
   };
   return (
     <Fragment>
