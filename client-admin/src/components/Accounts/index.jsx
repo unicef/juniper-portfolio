@@ -112,6 +112,10 @@ export default function Accounts({ getExchangeRate }) {
           account.totalBTCUSD = totalBTCInvested * ethRate;
         });
       }
+
+      setStartups(accounts.filter((account) => account.type === "startup"));
+      setDonors(accounts.filter((account) => account.type === "donor"));
+      setNatcoms(accounts.filter((account) => account.type === "natcom"));
     };
     getAccounts();
   }, []);
