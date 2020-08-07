@@ -176,6 +176,17 @@ class JuniperAdmin {
     this.db.logActivity(activity);
   }
 
+  async createAccount(account) {
+    this.logger.info(`Creating account ${account.name}`);
+    this.logger.debug(JSON.stringify(account));
+
+    await this.db.createAccount(account);
+  }
+
+  async getAccounts() {
+    return await this.db.getAccounts();
+  }
+
   async createWallet(wallet) {
     this.logger.info(`Creating wallet ${wallet.address}`);
     this.logger.debug(JSON.stringify(wallet));

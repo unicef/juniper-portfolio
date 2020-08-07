@@ -69,15 +69,52 @@ const StyledTab = withStyles((theme) => ({
   },
 }))((props) => <Tab disableRipple {...props} />);
 
-export default function Transactions({ getExchangeRate }) {
+export default function Accounts({ getExchangeRate }) {
   const classes = useStyles();
   const [activeTab, setActiveTab] = useState(0);
+  const [startups, setStartups] = useState([]);
+  const [natcoms, setNatcoms] = useState([]);
+  const [donors, setDonors] = useState([]);
 
   const changeView = (event, newTab) => {
     setActiveTab(newTab);
   };
 
-  useEffect(() => {}, []);
+  useEffect(() => {
+    const getAccounts = async () => {
+      let res, accounts, ethRate, btcRate;
+      try {
+        res = await fetch("/rest/admin/accounts");
+        ethRate = await getExchangeRate("ETH");
+        btcRate = await getExchangeRate("BTC");
+      } catch (e) {
+        console.log(e);
+      }
+
+      if (res.status === 200) {
+        accounts = await res.json();
+
+        accounts.forEach((account) => {
+          let totalETHInvested = 0;
+          let totalBTCInvested = 0;
+
+          account.addresses.forEach((address) => {
+            if (address.currency === "Ether") {
+              totalETHInvested += address.amount;
+            }
+            if (address.currency === "Bitcoin") {
+              totalBTCInvested += address.amount;
+            }
+          });
+          account.totalETHInvested = totalETHInvested;
+          account.totalETHUSD = totalETHInvested * ethRate;
+          account.totalBTCInvested = totalBTCInvested;
+          account.totalBTCUSD = totalBTCInvested * ethRate;
+        });
+      }
+    };
+    getAccounts();
+  }, []);
 
   return (
     <div className={classes.root}>
@@ -112,7 +149,7 @@ export default function Transactions({ getExchangeRate }) {
           totalETHUSD={25000}
           totalBitcoin={1}
           totalBTCUSD={20000}
-          accounts={mockAccountData}
+          accounts={startups}
           message={
             "The investments are made through UNICEF’s CryptoFund, in open source technology solutions that benefit children and the world."
           }
@@ -127,7 +164,7 @@ export default function Transactions({ getExchangeRate }) {
           totalETHUSD={18000}
           totalBitcoin={2}
           totalBTCUSD={40000}
-          accounts={mockDonorData}
+          accounts={donors}
           message={
             "In line with current UNICEF practice, each crypto transaction is initiated after UNICEF has completed due diligence on a donor, ensuring a credible source of the donation."
           }
@@ -143,7 +180,7 @@ export default function Transactions({ getExchangeRate }) {
           totalETHUSD={12000}
           totalBitcoin={2.5}
           totalBTCUSD={50000}
-          accounts={mockNatcomData}
+          accounts={natcoms}
           message={
             "Cryptofund donations are received by HQ through four National Committees - Australia, France, New Zealand and the United States."
           }

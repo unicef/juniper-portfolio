@@ -48,6 +48,16 @@ class MongoDB {
     );
   }
 
+  async createAccount(account) {
+    return this.models.Account.findOneAndUpdate(
+      {
+        name: account.name,
+      },
+      account,
+      { upsert: true }
+    );
+  }
+
   async updateUser(user) {
     return this.models.User.findOneAndUpdate(
       {
@@ -68,6 +78,14 @@ class MongoDB {
         },
       }
     );
+  }
+
+  async getAccounts(active = true) {
+    return this.models.Account.find({ active });
+  }
+
+  async getUser(name) {
+    return this.models.Account.findOne({ email });
   }
 
   async getUsers(active = true) {

@@ -7,10 +7,12 @@ const account = new Schema({
   country: { type: String },
   description: { type: String },
   weblink: { type: String },
+  image: { type: String },
+  addresses: { type: Array },
   active: { type: Boolean, default: true },
 });
 
-account.index({ address: 1 }, { unique: true });
+account.index({ name: 1 }, { unique: true });
 
 const Account = mongoose.model("Account", account);
 
