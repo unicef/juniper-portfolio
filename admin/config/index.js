@@ -13,7 +13,13 @@ module.exports = {
     limit: oneMegabyte,
   },
   uploadLimit: oneMegabyte,
-
+  email: {
+    service: "gmail",
+    auth: {
+      user: process.env.EMAIL_ADDRESS,
+      pass: process.env.EMAIL_PASSWORD,
+    },
+  },
   db: {
     url: process.env.DB_URL || "mongodb://localhost",
     database: process.env.DB_NAME || "juniper",

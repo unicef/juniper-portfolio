@@ -1,10 +1,22 @@
 import React, { useState, useEffect, Fragment } from "react";
-import { makeStyles } from "@material-ui/core/styles";
+import { withStyles, makeStyles } from "@material-ui/core/styles";
 import Drawer from "@material-ui/core/Drawer";
 import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
 import Tooltip from "@material-ui/core/Tooltip";
 import logo from "./logo.png";
+import { ChevronRight } from "@material-ui/icons";
+
+const PasswordTooltip = withStyles((theme) => ({
+  tooltip: {
+    fontFamily: '"Roboto",  sans-serif',
+    fontSize: 14,
+    lineHeight: 1.64,
+    padding: 15,
+    maxWidth: 330,
+    backgroundColor: "#898989",
+  },
+}))(Tooltip);
 
 const drawerWidth = 392;
 
@@ -198,6 +210,85 @@ function ForgotPassword(props) {
   );
 }
 
+function Verification(props) {
+  const classes = useStyles();
+  return (
+    <Fragment>
+      <TextField
+        value={props.newPassword}
+        error={props.signInError}
+        label="Create password"
+        type="password"
+        className={classes.textField}
+        InputLabelProps={{
+          error: props.signInError,
+          className: classes.textLabelInput,
+        }}
+        InputProps={{
+          className: classes.textInput,
+        }}
+        onKeyPress={(e) => {
+          if (e.key === "Enter") {
+          }
+        }}
+        onChange={(e) => {
+          props.setSignInError(false);
+          props.setNewPassword(e.target.value);
+        }}
+      />
+      <TextField
+        value={props.newPassword2}
+        error={props.signInError}
+        label="Re-enter password"
+        type="password"
+        className={classes.textField}
+        InputLabelProps={{
+          error: props.signInError,
+          className: classes.textLabelInput,
+        }}
+        InputProps={{
+          className: classes.textInput,
+        }}
+        onKeyPress={(e) => {
+          if (e.key === "Enter") {
+          }
+        }}
+        onChange={(e) => {
+          props.setSignInError(false);
+          props.setNewPassword2(e.target.value);
+        }}
+      />
+      <PasswordTooltip
+        arrow
+        placement="right"
+        title="Your password has to be at least 8 characters long. Must contain at least one lower case letter, one upper case letter, one digit and one special character ~!@#$%^&*()_+"
+      >
+        <div
+          className={classes.subtext}
+          onClick={props.forgotPasswordClick}
+          style={{ position: "relative" }}
+        >
+          <span>View Password Requirements</span>
+          <ChevronRight
+            size="small"
+            style={{ position: "absolute", top: -1 }}
+          />
+        </div>
+      </PasswordTooltip>
+      <Button
+        className={classes.filledButton}
+        variant="contained"
+        color="primary"
+        onClick={props.login}
+        style={{ marginTop: 42 }}
+        onClick={props.createAccountClick}
+      >
+        Create Account
+      </Button>
+    </Fragment>
+  );
+}
+
 function ResetPasswordSent(props) {
   const classes = useStyles();
   return (
@@ -220,6 +311,12 @@ export default function SignIn(props) {
   const [password, setPassword] = useState("");
   const [forgotPassword, setForgotPassword] = useState(false);
   const [resetPasswordSent, setResetPasswordSent] = useState(false);
+  const [verification, setVerification] = useState(false);
+  const [verificationCode, setVerificationCode] = useState("");
+
+  const [newPassword, setNewPassword] = useState("");
+  const [newPassword2, setNewPassword2] = useState("");
+
   const [subtitle, setSubtitle] = useState(
     "Welcome to Juniper! Sign in to your account."
   );
@@ -258,7 +355,70 @@ export default function SignIn(props) {
     setSignIn(false);
     setResetPasswordSent(false);
     setForgotPassword(false);
+    setVerification(false);
   };
+
+  const validatePassword = () => {
+    let newPWMatch = false;
+    let hasUpper = /[A-Z]/.test(newPassword);
+    let hasLower = /[a-z]/.test(newPassword);
+    let hasNumbers = /\d/.test(newPassword);
+    let hasSpecial = /\W/.test(newPassword);
+    let hwPWLength = newPassword.length >= 8;
+
+    //hasNumbers = /\d/.test(password);
+    if (newPassword === newPassword2) {
+      newPWMatch = true;
+    } else {
+      setSignInError(true);
+      setSubtitle("Oops! the entered passwords do not match. ");
+      return false;
+    }
+
+    if (
+      newPWMatch &&
+      hasUpper &&
+      hasLower &&
+      hasNumbers &&
+      hasSpecial &&
+      hwPWLength
+    ) {
+      setSignInError(false);
+      return true;
+    }
+
+    setSubtitle("Oops! the password does not match the security requirement.");
+    setSignInError(true);
+
+    return false;
+  };
+
+  const createAccountClick = async () => {
+    if (validatePassword()) {
+      let res;
+      try {
+        res = await fetch(`/rest/verification`, {
+          credentials: "include",
+          method: "POST",
+          body: JSON.stringify({
+            verificationCode,
+            newPassword,
+          }),
+          headers: {
+            "Content-Type": "application/json",
+          },
+        });
+      } catch (e) {
+        console.log(e);
+      }
+      setVerification("");
+      setSignIn(true);
+      setSubtitle(
+        "Welcome to Juniper! Your account has been successfully created."
+      );
+    }
+  };
+
   const forgotPasswordClick = () => {
     resetState();
     setForgotPassword(true);
@@ -281,15 +441,33 @@ export default function SignIn(props) {
     setSubtitle("Welcome to Juniper! Sign in to your account.");
   };
 
+  const showVerification = () => {
+    resetState();
+    setVerification(true);
+    setSubtitle("To complete Sign up, please create an account password.");
+  };
+
   useEffect(() => {
+    const checkVerification = async (code) => {
+      let res;
+      try {
+        res = await fetch(`/rest/verification/${code}`);
+      } catch (e) {
+        console.log(e);
+      }
+      if (res.status === 200) {
+        setVerificationCode(verificationCode);
+        showVerification();
+      }
+    };
+
     const params = window.location.search;
-    let verification = false;
+    let verificationCode = false;
     if (params.indexOf("verification") >= 0) {
-      verification = params.split("verification=")[1].split("&")[0];
+      verificationCode = params.split("verification=")[1].split("&")[0];
+
+      checkVerification(verificationCode);
     }
-    console.log(params);
-    console.log(verification);
-    // Validate verification Id
   }, []);
 
   return (
@@ -328,6 +506,18 @@ export default function SignIn(props) {
 
         {resetPasswordSent && (
           <ResetPasswordSent goToSignInPageClick={goToSignInPageClick} />
+        )}
+
+        {verification && (
+          <Verification
+            newPassword={newPassword}
+            newPassword2={newPassword2}
+            signInError={signInError}
+            setNewPassword={setNewPassword}
+            setNewPassword2={setNewPassword2}
+            setSignInError={setSignInError}
+            createAccountClick={createAccountClick}
+          />
         )}
         <img src={logo} className={classes.logo} />
       </Drawer>

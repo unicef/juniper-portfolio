@@ -21,4 +21,7 @@ const user = {
   active: true,
 };
 
-juniper.createUser(user);
+(async () => {
+  await juniper.createUser(user);
+  juniper.exit();
+})();
