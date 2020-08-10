@@ -7,7 +7,7 @@ import Container from "@material-ui/core/Container";
 import Snackbar from "../../ui/Snackbar";
 import CircularProgress from "@material-ui/core/CircularProgress";
 import AccountLayout from "../../ui/AccountLayout";
-import { CreateStartup } from "../../ui/Dialog";
+import { CreateAccount } from "../../ui/Dialog";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -189,15 +189,15 @@ export default function Accounts({ getExchangeRate }) {
           title={`${startups.length} ${
             startups.length === 1 ? "Investment" : "Investments"
           }`}
-          type={"Startups"}
+          type={"startup"}
           addButtonText={"Create Startup Account"}
-          CreateModal={CreateStartup}
+          CreateModal={CreateAccount}
+          onDialogClose={getAccounts}
           totalEther={startupEth}
           totalETHUSD={startupEth * ethRate}
           totalBitcoin={startupBtc}
           totalBTCUSD={startupBtc * btcRate}
           accounts={startups}
-          onDialogClose={getAccounts}
           message={
             "The investments are made through UNICEF’s CryptoFund, in open source technology solutions that benefit children and the world."
           }
@@ -208,8 +208,10 @@ export default function Accounts({ getExchangeRate }) {
           title={`${donors.length} ${
             donors.length === 1 ? "Investment" : "Investments"
           }`}
-          type={"Donors"}
+          type={"donor"}
           addButtonText={"Create Donor Account"}
+          CreateModal={CreateAccount}
+          onDialogClose={getAccounts}
           totalEther={donorEth}
           totalETHUSD={donorEth * ethRate}
           totalBitcoin={donorBtc}
@@ -225,8 +227,10 @@ export default function Accounts({ getExchangeRate }) {
           title={`${natcoms.length} ${
             natcoms.length === 1 ? "Investment" : "Investments"
           }`}
-          type={"Natcoms"}
+          type={"natcom"}
           addButtonText={"Create Natcom Account"}
+          CreateModal={CreateAccount}
+          onDialogClose={getAccounts}
           totalEther={natcomEth}
           totalETHUSD={natcomEth * ethRate}
           totalBitcoin={natcomBtc}

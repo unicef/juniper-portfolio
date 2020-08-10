@@ -87,6 +87,7 @@ export default function AccountLayout({
     <Fragment>
       {CreateModal && (
         <CreateModal
+          type={type}
           open={openCreateDialog}
           onDialogClose={closeCreateDialog}
         />
@@ -151,6 +152,7 @@ export default function AccountLayout({
               <Grid item xs={6} key={`${index}-${account.name}`}>
                 <AccountCard
                   name={account.name}
+                  type={account.type}
                   image={account.image}
                   country={account.country}
                   totalETHInvested={account.totalETHInvested}

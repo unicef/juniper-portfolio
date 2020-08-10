@@ -1,6 +1,6 @@
 import AddWallet from "./AddWallet";
 import AuthorizationRecord from "./AuthorizationRecord";
 import TagTransaction from "./TagTransaction";
-import CreateStartup from "./CreateStartup";
+import CreateAccount from "./CreateAccount";
 
-export { AddWallet, AuthorizationRecord, TagTransaction, CreateStartup };
+export { AddWallet, AuthorizationRecord, TagTransaction, CreateAccount };

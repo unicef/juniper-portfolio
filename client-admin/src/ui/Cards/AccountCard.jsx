@@ -95,6 +95,7 @@ const useStyles = makeStyles((theme) => ({
 
 export default function AccountCard({
   name,
+  type,
   image,
   country,
   totalETHInvested,
@@ -116,7 +117,7 @@ export default function AccountCard({
   return (
     <div className={classes.wallet}>
       <Grid container>
-        {image ? (
+        {image && type === "startup" ? (
           <Fragment>
             <Grid item xs={4}>
               <img className={classes.image} src={image} />

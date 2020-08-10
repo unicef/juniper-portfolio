@@ -159,6 +159,7 @@ export default function CreateStartup(props) {
   const [addingStartup, setAddingStartup] = useState(false);
 
   const [name, setName] = useState("");
+  const [type, setType] = useState("");
   const [country, setCountry] = useState("");
   const [description, setDescription] = useState("");
   const [weblink, setWeblink] = useState("");
@@ -193,7 +194,7 @@ export default function CreateStartup(props) {
   const createStartup = async () => {
     const account = {
       name,
-      type: "startup",
+      type,
       country,
       description,
       weblink,
@@ -241,6 +242,7 @@ export default function CreateStartup(props) {
 
   useEffect(() => {
     setOpen(props.open);
+    setType(props.type);
   }, [props.open]);
 
   return (
@@ -257,7 +259,7 @@ export default function CreateStartup(props) {
           </IconButton>
         </Toolbar>
         <Container maxWidth={"sm"} className={classes.container}>
-          <h1 className={classes.title}>Create Startup Account</h1>
+          <h1 className={classes.title}>Create {type} account</h1>
           <form className={classes.form}>
             <TextField
               disabled={props.editWallet}
@@ -272,81 +274,85 @@ export default function CreateStartup(props) {
               }}
               label="Startup Name"
             />
-
-            <FormControl className={classes.formControl}>
-              <InputLabel className={classes.formControl}>Country</InputLabel>
-              <Select
-                value={country}
-                onChange={(e) => {
-                  const country = e.target.value;
-                  setCountry(country);
-                }}
-                className={classes.formControl}
-              >
-                {countries.map((country) => {
-                  return (
-                    <MenuItem key={country.code} value={country.name}>
-                      {country.name}
-                    </MenuItem>
-                  );
-                })}
-              </Select>
-            </FormControl>
-
-            <TextField
-              value={description}
-              className={classes.formControl}
-              InputLabelProps={{ className: classes.label }}
-              InputProps={{
-                className: classes.formControl,
-              }}
-              onChange={(e) => {
-                setDescription(e.target.value.substring(0, 99));
-              }}
-              label="Brief description (Up to 100 characters)"
-            />
-
-            <TextField
-              value={weblink}
-              className={classes.formControl}
-              InputLabelProps={{ className: classes.label }}
-              InputProps={{
-                className: classes.formControl,
-              }}
-              onChange={(e) => {
-                setWeblink(e.target.value);
-              }}
-              label="External Weblink"
-            />
-
-            <Grid container>
-              <Grid item xs={6}>
-                <img src={image} className={classes.image} />
-              </Grid>
-              <Grid item xs={6}>
-                <h2 className={classes.imageTitle}>Upload cover image</h2>
-                <p className={classes.imageText}>
-                  Minimum image dimensions are 1500x1024 Maximum image size
-                  should be 2MB
-                </p>
-                <FileUpload
-                  url={"/upload/image"}
-                  afterUpload={(json) => {
-                    console.log(json);
-                    setImage(json.imageUrl);
-                  }}
-                >
-                  <Button
-                    className={classes.imageButton}
-                    startIcon={<UploadIcon />}
-                    onClick={() => {}}
+            {type === "startup" && (
+              <Fragment>
+                <FormControl className={classes.formControl}>
+                  <InputLabel className={classes.formControl}>
+                    Country
+                  </InputLabel>
+                  <Select
+                    value={country}
+                    onChange={(e) => {
+                      const country = e.target.value;
+                      setCountry(country);
+                    }}
+                    className={classes.formControl}
                   >
-                    Upload Image
-                  </Button>
-                </FileUpload>
-              </Grid>
-            </Grid>
+                    {countries.map((country) => {
+                      return (
+                        <MenuItem key={country.code} value={country.name}>
+                          {country.name}
+                        </MenuItem>
+                      );
+                    })}
+                  </Select>
+                </FormControl>
 
+                <TextField
+                  value={description}
+                  className={classes.formControl}
+                  InputLabelProps={{ className: classes.label }}
+                  InputProps={{
+                    className: classes.formControl,
+                  }}
+                  onChange={(e) => {
+                    setDescription(e.target.value.substring(0, 99));
+                  }}
+                  label="Brief description (Up to 100 characters)"
+                />
+
+                <TextField
+                  value={weblink}
+                  className={classes.formControl}
+                  InputLabelProps={{ className: classes.label }}
+                  InputProps={{
+                    className: classes.formControl,
+                  }}
+                  onChange={(e) => {
+                    setWeblink(e.target.value);
+                  }}
+                  label="External Weblink"
+                />
+
+                <Grid container>
+                  <Grid item xs={6}>
+                    <img src={image} className={classes.image} />
+                  </Grid>
+                  <Grid item xs={6}>
+                    <h2 className={classes.imageTitle}>Upload cover image</h2>
+                    <p className={classes.imageText}>
+                      Minimum image dimensions are 1500x1024 Maximum image size
+                      should be 2MB
+                    </p>
+                    <FileUpload
+                      url={"/upload/image"}
+                      afterUpload={(json) => {
+                        console.log(json);
+                        setImage(json.imageUrl);
+                      }}
+                    >
+                      <Button
+                        className={classes.imageButton}
+                        startIcon={<UploadIcon />}
+                        onClick={() => {}}
+                      >
+                        Upload Image
+                      </Button>
+                    </FileUpload>
+                  </Grid>
+                </Grid>
+              </Fragment>
+            )}
             <Grid container>
               <Grid item xs={12}>
                 <div className={classes.walletDetails}>
