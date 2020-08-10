@@ -37,7 +37,7 @@ const useStyles = makeStyles((theme) => ({
     marginTop: 0,
     marginBottom: 0,
   },
-  location: {
+  country: {
     fontSize: 18,
     lineHeight: 1.33,
     fontWeight: 400,
@@ -96,7 +96,7 @@ const useStyles = makeStyles((theme) => ({
 export default function AccountCard({
   name,
   image,
-  location,
+  country,
   totalETHInvested,
   totalETHUSD,
   totalBTCInvested,
@@ -124,13 +124,13 @@ export default function AccountCard({
 
             <Grid item xs={8} className={classes.imageTitle}>
               <h2 className={classes.name}>{name}</h2>
-              <h3 className={classes.location}>{location}</h3>
+              <h3 className={classes.country}>{country}</h3>
             </Grid>
           </Fragment>
         ) : (
           <Grid item xs={12}>
             <h2 className={classes.name}>{name}</h2>
-            <h3 className={classes.location}>{location}</h3>
+            <h3 className={classes.country}>{country}</h3>
           </Grid>
         )}
       </Grid>

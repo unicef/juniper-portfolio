@@ -140,7 +140,7 @@ export default function Accounts({ getExchangeRate }) {
         }
       });
     }
-
+    console.log(accounts);
     setEthRate(ethRate);
     setBtcRate(btcRate);
 
@@ -218,7 +218,6 @@ export default function Accounts({ getExchangeRate }) {
           message={
             "In line with current UNICEF practice, each crypto transaction is initiated after UNICEF has completed due diligence on a donor, ensuring a credible source of the donation."
           }
-        />
         />
       </TabPanel>
       <TabPanel activeTab={activeTab} index={2}>

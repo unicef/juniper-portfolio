@@ -152,7 +152,7 @@ export default function AccountLayout({
                 <AccountCard
                   name={account.name}
                   image={account.image}
-                  location={account.location}
+                  country={account.country}
                   totalETHInvested={account.totalETHInvested}
                   totalETHUSD={account.totalETHUSD}
                   totalBTCInvested={account.totalBTCInvested}
