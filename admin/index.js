@@ -277,7 +277,6 @@ class JuniperAdmin {
       return false;
     }
 
-    console.log(savedUser);
     return true;
   }
 
