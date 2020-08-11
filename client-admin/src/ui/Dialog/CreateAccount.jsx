@@ -168,7 +168,7 @@ export default function CreateStartup(props) {
   );
   const [addresses, setAddresses] = useState([
     {
-      walletAddress: "",
+      address: "",
       currency: "",
       amount: "",
     },
@@ -177,7 +177,7 @@ export default function CreateStartup(props) {
   const addAddress = () => {
     const newAddresses = addresses.slice();
     newAddresses.push({
-      walletAddress: "",
+      address: "",
       currency: "",
       amount: "",
     });
@@ -426,7 +426,7 @@ function AddressDetails(props) {
             value={props.address}
             onChange={(e) => {
               const newAddresses = props.addresses.slice();
-              newAddresses[props.index].address = e.target.value;
+              newAddresses[props.index].address = e.target.value.toLowerCase();
               props.setAddresses(newAddresses);
             }}
           />

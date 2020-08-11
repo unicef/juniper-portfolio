@@ -143,6 +143,8 @@ export default function UnpublishedTransactionCard({
     }
   };
 
+  console.log(tx);
+
   return (
     <Fragment>
       <Grid container className={classes.transaction}>
@@ -161,7 +163,14 @@ export default function UnpublishedTransactionCard({
           </span>
         </Grid>
         <Grid item xs={8}>
-          <TxStepper />
+          <TxStepper
+            sent={tx.sent}
+            received={tx.received}
+            source={tx.source}
+            destination={tx.destination}
+            to={tx.to}
+            from={tx.from}
+          />
           <Button
             className={classes.unpublishedTxDetailsButton}
             endIcon={<ChevronRightIcon />}
