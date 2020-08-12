@@ -175,6 +175,9 @@ export default function TopBar(props) {
                 <Button
                   className={classes.editButton}
                   startIcon={<EditIcon fontSize="large" />}
+                  onClick={() => {
+                    props.setPageIndex(4);
+                  }}
                 >
                   Edit Profile Info
                 </Button>
