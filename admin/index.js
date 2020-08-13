@@ -9,6 +9,7 @@ const PriceMonitor = require("./price_monitor");
 const fetch = require("node-fetch");
 const { BitcoinScraper, EthereumScraper } = require("./wallet_scrapers");
 const Logger = require("./logger");
+const Email = require("./email");
 const DB = require("./db");
 const utils = require("./utils");
 const {
@@ -41,6 +42,7 @@ class JuniperAdmin {
     this.logger.debug(this.config);
     this.environment = this.config.environment;
 
+    this.email = new Email(this.config.email);
     this.db = new DB(this.config.db);
     this.priceMonitor = new PriceMonitor(this.config.priceMonitor, this.db);
     this.bitcoinWalletScraper = new BitcoinScraper(
@@ -145,8 +147,14 @@ class JuniperAdmin {
     this.logger.info(`started in ${this.environment}.`);
   }
 
-  async inviteUser(user) {
+  async inviteUser(user, host, verificationCode) {
     await this.db.createUser(user);
+    await this.email.sendInvitation(user.email, host, verificationCode);
+  }
+
+  exit() {
+    this.logger.info(`exiting`);
+    process.exit();
   }
 
   async logActivity(activity) {
@@ -154,21 +162,34 @@ class JuniperAdmin {
   }
 
   async createWallet(wallet) {
-    this.logger.debug(`createWallet ${wallet}`);
+    this.logger.info(`Creating wallet ${wallet.address}`);
+    this.logger.debug(JSON.stringify(wallet));
     this.db.createWallet(wallet);
   }
 
   async createUser(user) {
+    this.logger.info(`Creating user ${user.email}`);
+    this.logger.debug(JSON.stringify(user));
+
     user.salt = this.utils.createSalt();
     user.password = this.utils.hash256(user.password.concat(user.salt));
     await this.db.createUser(user);
   }
 
   async updateUser(user) {
+    this.logger.info(`Updating user ${user.email}`);
+    this.logger.debug(JSON.stringify(user));
+
     await this.db.updateUser(user);
   }
 
+  async isValidVerificationCode(verificationCode) {
+    return !!(await this.db.isValidVerificationCode(verificationCode));
+  }
+
   validatePassword(newPassword, newPassword2) {
+    this.logger.info(`Validating password`);
+
     let newPWMatch = false;
     let hasUpper = /[A-Z]/.test(newPassword);
     let hasLower = /[a-z]/.test(newPassword);
@@ -197,6 +218,10 @@ class JuniperAdmin {
     }
 
     return false;
+  }
+
+  async getUserByVerificationCode(verificationCode) {
+    return await this.db.getUserByVerificationCode(verificationCode);
   }
 
   async changePassword(email, currentPassword, password) {
@@ -238,7 +263,7 @@ class JuniperAdmin {
       this.logger.error(e);
     }
 
-    if (!savedUser) return false;
+    if (!savedUser || !savedUser.active || !savedUser.isVerified) return false;
 
     const saltedPassword = this.utils.hash256(
       user.password.concat(savedUser.salt)

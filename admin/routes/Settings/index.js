@@ -30,7 +30,7 @@ router.get("/users", async (req, res) => {
 router.post("/user/invite", async (req, res) => {
   const juniperAdmin = req.app.get("juniperAdmin");
   const { user } = req.body;
-
+  const host = req.get("host");
   const verificationCode = juniperAdmin.utils.createVerificationCode();
 
   user.verificationCode = verificationCode;
@@ -39,7 +39,7 @@ router.post("/user/invite", async (req, res) => {
 
   let users;
   try {
-    await juniperAdmin.inviteUser(user);
+    await juniperAdmin.inviteUser(user, host, verificationCode);
     users = await juniperAdmin.db.getUsers();
   } catch (e) {
     logger.error(e);
