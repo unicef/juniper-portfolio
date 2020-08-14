@@ -272,7 +272,7 @@ export default function CreateStartup(props) {
               onChange={(e) => {
                 setName(e.target.value);
               }}
-              label="Startup Name"
+              label={`${type.charAt(0).toUpperCase() + type.slice(1)} name`}
             />
             {type === "startup" && (
               <Fragment>
