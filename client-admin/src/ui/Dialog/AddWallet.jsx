@@ -245,7 +245,10 @@ export default function AddWallet(props) {
       },
     ]);
 
-    props.afterAddWallet();
+    if (props.afterAddWallet) {
+      props.afterAddWallet();
+    }
+
     setAddingWallet(false);
     handleClose();
   };

@@ -1,184 +1,154 @@
-import React, {useState, useEffect} from 'react'
-import { makeStyles } from '@material-ui/core/styles';
-import Card from '@material-ui/core/Card';
-import Grid from '@material-ui/core/Grid';
-import { gql } from 'apollo-boost'
-import { useQuery } from 'react-apollo'
-import MainContentContainer from '../../../ui/MainContentContainer'
-import PriceBar from '../../PriceBar'
-
+import React, { useState, useEffect } from "react";
+import { makeStyles } from "@material-ui/core/styles";
+import Card from "@material-ui/core/Card";
+import Grid from "@material-ui/core/Grid";
+import { gql } from "apollo-boost";
+import { useQuery } from "react-apollo";
+import MainContentContainer from "../../../ui/MainContentContainer";
+import PriceInfoBanner from "../../../ui/PriceInfoBanner";
 
 const useStyles = makeStyles({
-  
-  root:
-  {
-    marginTop: '20px',
-    backgroundColor: '#f8f8f8',
+  root: {
+    marginTop: "20px",
+    backgroundColor: "#f8f8f8",
   },
-  header:
-  {
+  header: {
     fontFamily: '"Roboto", sans-serif',
-    fontSize: '24px',
-    fontWeight: 'bold',
-    fontStretch: 'normal',
-    fontStyle: 'normal',
+    fontSize: "24px",
+    fontWeight: "bold",
+    fontStretch: "normal",
+    fontStyle: "normal",
     lineHeight: 1.17,
-    letterSpacing: 'normal',
-    color: '#000000',
-    padding: '40px 0px 10px 0px',
+    letterSpacing: "normal",
+    color: "#000000",
+    padding: "40px 0px 10px 0px",
   },
 
-  subheader:
-  {
+  subheader: {
     fontFamily: '"Roboto", sans-serif',
-  fontSize: '24px',
-  lineHeight: 1.17,
-  letterSpacing: 'normal',
-
-  },
-  
-  card:
-  {
-    paddingTop: '40px',
+    fontSize: "24px",
+    lineHeight: 1.17,
+    letterSpacing: "normal",
   },
 
-  cardinner:
-  {
-      padding: '40px',
+  card: {
+    paddingTop: "40px",
   },
-  
-  cardheader:
-  {
+
+  cardinner: {
+    padding: "40px",
+  },
+
+  cardheader: {
     fontFamily: '"Roboto", sans-serif',
-    fontSize: '28px',
-    lineHeight: '28px',
-    fontWeight: 'bold',
-    color: '#000000',
-    paddingBottom:'30px',
-
+    fontSize: "28px",
+    lineHeight: "28px",
+    fontWeight: "bold",
+    color: "#000000",
+    paddingBottom: "30px",
   },
 
-  cardsubheader:
-  {
+  cardsubheader: {
     fontFamily: '"Roboto", sans-serif',
-    fontSize: '28px',
-    lineHeight: '28px',
-    fontWeight: 'normal',
-    color: '#000000',
-    paddingBottom: '30px',
+    fontSize: "28px",
+    lineHeight: "28px",
+    fontWeight: "normal",
+    color: "#000000",
+    paddingBottom: "30px",
   },
 
-  smalltext:
-  {
+  smalltext: {
     fontFamily: '"Cabin", sans-serif',
-    fontSize: '10px',
-    letterSpacing: '0.83px',
-    paddingBottom: '5px',
-
+    fontSize: "10px",
+    letterSpacing: "0.83px",
+    paddingBottom: "5px",
   },
 
-  today:
-  {
+  today: {
     color: "#00aeef",
-    fontWeight: 'Bold',
-  }
-
+    fontWeight: "Bold",
+  },
 });
-
-
-
-
 
 export default function BitcoinPriceTracker() {
   const classes = useStyles();
   const today = new Date();
   const yesterday = new Date();
   const amonthago = new Date();
-  
+
   yesterday.setDate(yesterday.getDate() - 1);
   amonthago.setDate(amonthago.getDate() - 30);
 
-  console.log('yesterday', yesterday.toISOString())
-  console.log('today', today.toISOString())
+  console.log("yesterday", yesterday.toISOString());
+  console.log("today", today.toISOString());
 
-  const month = today.toLocaleString('default', { month: 'short' });
-  const datestring = today.getUTCDate() + " " + month + " " + today.getUTCFullYear();
-  
+  const month = today.toLocaleString("default", { month: "short" });
+  const datestring =
+    today.getUTCDate() + " " + month + " " + today.getUTCFullYear();
+
   const yesterdaystr = yesterday.toISOString();
   const todaystr = today.toISOString();
   const monthagostr = amonthago.toISOString();
 
-  const url = new URL(window.location.origin + '/rest/admin/avgprice');
+  const url = new URL(window.location.origin + "/rest/admin/avgprice");
   const todayparams = {
     symbol: "BTC",
     timeStart: yesterdaystr,
     timeEnd: todaystr,
-  }
-  
+  };
+
   const monthagoparams = {
     symbol: "BTC",
     timeStart: monthagostr,
     timeEnd: todaystr,
-  }
-
-
+  };
 
   const [todayprice, setTodayPrice] = useState([]);
   const [monthavgprice, setMonthAvgPrice] = useState([]);
 
-
   const getTodayPrice = async () => {
     let res, todayprice;
-    url.search = new URLSearchParams(todayparams).toString()
-    
+    url.search = new URLSearchParams(todayparams).toString();
+
     try {
       res = await fetch(url);
       todayprice = await res.json();
       setTodayPrice(todayprice[0].avgPrice);
-      console.log('Got todayprice: ', todayprice);
+      console.log("Got todayprice: ", todayprice);
     } catch (e) {
       return console.log(e);
     }
-
-  
   };
 
   const getMonthAvgPrice = async () => {
     let res, monthavgprice;
-    url.search = new URLSearchParams(monthagoparams).toString()
-    
+    url.search = new URLSearchParams(monthagoparams).toString();
+
     try {
       res = await fetch(url);
       monthavgprice = await res.json();
       setMonthAvgPrice(monthavgprice[0].avgPrice.toFixed(2));
-      console.log('Got monthly avg price: ', monthavgprice);
+      console.log("Got monthly avg price: ", monthavgprice);
     } catch (e) {
       return console.log(e);
     }
-
-  
   };
-
 
   useEffect(() => {
     getTodayPrice();
     getMonthAvgPrice();
   }, []);
-    
 
-    
-    
-  
   return (
     <MainContentContainer className={classes.root}>
-      <PriceBar />
+      <PriceInfoBanner />
       <div className={classes.header}>Bitcoin price overview</div>
       <div className={classes.subheader}>{datestring}</div>
       <div>{todayprice}</div>
-      <MainCard todayprice={todayprice} monthavgprice={monthavgprice}/>
-      <WeekCard/>
+      <MainCard todayprice={todayprice} monthavgprice={monthavgprice} />
+      <WeekCard />
     </MainContentContainer>
-        )
+  );
 }
 
 export function MainCard(params) {
@@ -194,12 +164,10 @@ export function MainCard(params) {
         <div className={classes.cardsubheader}>8798 USD</div>
       </Card>
     </div>
-  )
+  );
 }
 
-
-export function WeekCard()
-{
+export function WeekCard() {
   const classes = useStyles();
   return (
     <div className={classes.card}>
@@ -234,8 +202,7 @@ export function WeekCard()
             <div className={classes.subheader}>8798 USD</div>
           </Grid>
         </Grid>
-        
       </Card>
     </div>
-  )
+  );
 }

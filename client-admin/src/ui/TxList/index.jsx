@@ -57,7 +57,7 @@ export default function TxList({
   const totalItems = txs.length;
   const totalPages = Math.ceil(totalItems / limit);
   const currentPage = page + 1;
-
+  console.log(txs);
   return (
     <Fragment>
       <Grid container className={classes.root}>
@@ -85,9 +85,6 @@ export default function TxList({
       {txs && (
         <List>
           {txs.slice(start, end).map((tx, index) => {
-            console.log(tx);
-            console.log(exchangeRate);
-
             return (
               <ListItem key={index}>
                 <TxCard

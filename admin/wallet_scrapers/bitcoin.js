@@ -84,6 +84,8 @@ class BitcoinWalletScraper {
       }
     });
 
+    console.log(rate);
+
     amount = Math.round(amount) / 1e8;
     let amountUSD = Math.round(amount * rate.price * 100) / 100;
     let fee = tx.fee / 1e8;

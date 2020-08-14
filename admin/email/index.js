@@ -25,8 +25,6 @@ class Email {
     } catch (e) {
       this.logger.error(e);
     }
-
-    console.log(email);
   }
   sendInvitation(email, host, verification) {
     const html = this.templates.InvitationTemplate(host, verification);

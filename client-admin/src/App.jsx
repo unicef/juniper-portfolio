@@ -165,7 +165,7 @@ export default function JuniperAdmin() {
                   <Route path="/admin/accounts">
                     <TopBar user={user} />
                     <Sidebar />
-                    <Accounts />
+                    <Accounts getExchangeRate={getExchangeRate} />
                   </Route>
                   <Route path="/admin/tracker">
                     <TopBar user={user} />
