@@ -59,7 +59,6 @@ export default function TransactionDetails({
         txs={txs}
         TxCard={TransactionDetailsCard}
         page={page}
-        limit={limit}
         onPaginationClick={setPage}
         setAuthorizationRecord={setAuthorizationRecord}
         exchangeRate={exchangeRate}

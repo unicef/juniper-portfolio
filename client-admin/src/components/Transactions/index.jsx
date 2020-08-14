@@ -225,7 +225,6 @@ export default function Transactions({ getExchangeRate }) {
             txs={unpublishedTxs}
             TxCard={UnpublishedTxCard}
             page={unpublishedPage}
-            limit={unpublishedLimit}
             onPaginationClick={setUnpublishedPage}
           />
         )}
@@ -236,7 +235,6 @@ export default function Transactions({ getExchangeRate }) {
           txs={publishedTxs}
           TxCard={PublishedTransactionCard}
           page={publishedPage}
-          limit={publishedLimit}
           onPaginationClick={setPublishedPage}
         />
       </TabPanel>
@@ -246,7 +244,6 @@ export default function Transactions({ getExchangeRate }) {
           txs={archivedTxs}
           TxCard={ArchivedTransactionCard}
           page={archivedPage}
-          limit={archivedLimit}
           onPaginationClick={setArchivedPage}
         />
       </TabPanel>
