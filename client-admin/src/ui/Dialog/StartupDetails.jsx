@@ -6,6 +6,7 @@ import { usdFormatter, cryptoFormatter } from "../../util";
 import Button from "@material-ui/core/Button";
 import CopyIcon from "../Icons/CopyIcon";
 import AccountTransactionCard from "../Cards/AccountTransactionCard";
+import EditIcon from "../../ui/Icons/EditIcon";
 
 const useStyles = makeStyles((theme) => ({
   modal: {
@@ -33,8 +34,8 @@ const useStyles = makeStyles((theme) => ({
     fontWeight: 500,
     textTransform: "uppercase",
   },
-  authorization: {
-    backgroundColor: "#daf5ff",
+  account: {
+    backgroundColor: "#ffffff",
     padding: "20px 40px 40px 40px",
   },
   authorizationTitle: {
@@ -61,17 +62,37 @@ const useStyles = makeStyles((theme) => ({
   },
   walletAddress: {
     fontFamily: '"Roboto", sans-serif',
-    fontSize: 18,
+    fontSize: 14,
     lineHeight: 1.33,
     color: "#000000",
   },
-  walletName: {
+  name: {
     marginBottom: 0,
-    marginTop: "1.5em",
+    marginTop: 0,
     fontFamily: '"Roboto", sans-serif',
     fontSize: 24,
     fontWeight: 700,
     lineHeight: 1.17,
+  },
+  country: {
+    fontSize: 18,
+    lineHeight: 1.33,
+    fontFamily: '"Roboto", sans-serif',
+    margin: 0,
+  },
+  description: {
+    fontFamily: '"Roboto", sans-serif',
+    fontSize: 19,
+    lineHeight: 1.42,
+  },
+  weblink: {
+    fontFamily: '"Roboto", sans-serif',
+    fontSize: 20,
+    color: "#00aeef",
+    textDecoration: "none",
+    "&:visited": {
+      color: "#00aeef",
+    },
   },
   copyButton: {
     fontSize: 12,
@@ -82,20 +103,44 @@ const useStyles = makeStyles((theme) => ({
       backgroundColor: "#ecfaff",
     },
   },
+  image: {
+    backgroundSize: "cover",
+    backgroundPosition: "bottom",
+    height: 227,
+  },
+  editButton: {
+    float: "right",
+    fontSize: 12,
+    fontWeight: 700,
+    fontFamily: '"Cabin", sans-serif',
+    color: "#00aeef",
+    paddingTop: 0,
+    paddingBottom: 0,
+    paddingRight: 10,
+    paddingLeft: 10,
+    marginBottom: 8,
+    "& .MuiButton-startIcon": {
+      marginRight: 0,
+      paddingTop: 8,
+      "& svg": {
+        fontSize: 24,
+      },
+    },
+    "&:hover": {
+      backgroundColor: "#ecfaff",
+    },
+  },
 }));
 
-export default function AccountDetails(props) {
+export default function StartupDetails(props) {
   const classes = useStyles();
+  const [name, setName] = useState("");
+  const [country, setCountry] = useState("");
+  const [image, setImage] = useState(null);
+  const [description, setDescription] = useState("");
+  const [weblink, setWeblink] = useState("");
   const [addresses, setAddresses] = useState([]);
   const [transactions, setTransactions] = useState([]);
-
-  const [ethDonated, setEthDonated] = useState(0);
-  const [ethDonatedCurrentValue, setEthDonatedCurrentValue] = useState(0);
-  const [ethDonatedReceivedValue, setEthDonatedReceivedValue] = useState(0);
-
-  const [btcDonated, setBtcDonated] = useState(0);
-  const [btcDonatedCurrentValue, setBtcDonatedCurrentValue] = useState(0);
-  const [btcDonatedReceivedValue, setBtcDonatedReceivedValue] = useState(0);
 
   useEffect(() => {
     const getAccountDetails = async () => {
@@ -107,65 +152,26 @@ export default function AccountDetails(props) {
         console.log(e);
       }
 
+      console.log("accountData");
+      console.log(accountData);
       const { transactions, account } = accountData;
+      setName(account.name);
+      setImage(account.image);
+      setCountry(account.country);
+      setDescription(account.description);
 
-      const totalEthDonated = transactions
-        .filter((tx) => {
-          return tx.currency === "Ethereum";
-        })
-        .filter((tx) => {
-          return tx.received === true;
-        })
-        .reduce((total, tx) => {
-          return total + tx.amount;
-        }, 0);
-
-      const totalEthDonVal = transactions
-        .filter((tx) => {
-          return tx.currency === "Ethereum";
-        })
-        .filter((tx) => {
-          return tx.received === true;
-        })
-        .reduce((total, tx) => {
-          return total + tx.amountUSD;
-        }, 0);
-
-      const totalBtcSent = transactions
-        .filter((tx) => {
-          return tx.currency === "Bitcoin";
-        })
-        .filter((tx) => {
-          return tx.received === true;
-        })
-        .reduce((total, tx) => {
-          return total + tx.amount;
-        }, 0);
-
-      const totalBtcRecVal = transactions
-        .filter((tx) => {
-          return tx.currency === "Bitcoin";
-        })
-        .filter((tx) => {
-          return tx.received === true;
-        })
-        .reduce((total, tx) => {
-          return total + tx.amountUSD;
-        }, 0);
+      if (account.weblink.indexOf("http") >= 0) {
+        setWeblink(account.weblink);
+      } else {
+        setWeblink(`http://${account.weblink}`);
+      }
 
       setAddresses(account.addresses);
       setTransactions(
         transactions.filter((tx) => {
-          return tx.received === true;
+          return tx.sent === true;
         })
       );
-      setEthDonated(totalEthDonated);
-      setEthDonatedCurrentValue(totalEthDonated * props.ethRate);
-      setEthDonatedReceivedValue(totalEthDonVal);
-
-      setBtcDonated(totalBtcSent);
-      setBtcDonatedCurrentValue(totalBtcSent * props.btcRate);
-      setBtcDonatedReceivedValue(totalBtcRecVal);
     };
 
     if (props.account) {
@@ -183,60 +189,46 @@ export default function AccountDetails(props) {
         }}
         classes={{ paper: classes.modal }}
       >
-        <Grid container className={classes.authorization}>
+        <Grid container>
+          <Grid
+            item
+            xs={12}
+            className={classes.image}
+            style={{ backgroundImage: `url(${image}` }}
+          ></Grid>
+        </Grid>
+        <Grid container className={classes.account}>
+          <Grid item xs={9}>
+            <h1 className={classes.name}>{name}</h1>
+          </Grid>
+          <Grid item xs={3}>
+            <Button
+              className={classes.editButton}
+              startIcon={<EditIcon fontSize="large" />}
+            >
+              Edit Profile
+            </Button>
+          </Grid>
           <Grid item xs={12}>
-            <h1 className={classes.walletName}>Account Name</h1>
+            <p className={classes.country}>{country}</p>
           </Grid>
-
-          <Grid item xs={3}>
-            <div className={classes.walletBalance}>
-              <span className={classes.currencyBalance}>
-                {cryptoFormatter(ethDonated || 0)} {props.symbol}
-              </span>
-            </div>
-            <div className={classes.walletSubtitle}>Eth Donated</div>
+          <Grid item xs={12}>
+            <p className={classes.description}>{description}</p>
           </Grid>
-          <Grid item xs={3}>
-            <div className={classes.walletBalance}>
-              {usdFormatter.format(ethDonatedCurrentValue || 0)} USD
-            </div>
-            <div className={classes.walletSubtitle}>Current Value</div>
-          </Grid>
-          <Grid item xs={6}>
-            <div className={classes.walletBalance}>
-              {usdFormatter.format(ethDonatedReceivedValue || 0)} USD
-            </div>
-            <div className={classes.walletSubtitle}>Value at Receipt</div>
-          </Grid>
-          <Grid item xs={3}>
-            <div className={classes.walletBalance}>
-              <span className={classes.currencyBalance}>
-                {cryptoFormatter(btcDonated || 0)} {props.symbol}
-              </span>
-            </div>
-            <div className={classes.walletSubtitle}>Btc Donated</div>
-          </Grid>
-          <Grid item xs={3}>
-            <div className={classes.walletBalance}>
-              {usdFormatter.format(btcDonatedCurrentValue || 0)} USD
-            </div>
-            <div className={classes.walletSubtitle}>Current Value</div>
-          </Grid>
-          <Grid item xs={6}>
-            <div className={classes.walletBalance}>
-              {usdFormatter.format(btcDonatedReceivedValue || 0)} USD
-            </div>
-            <div className={classes.walletSubtitle}>Value at Receipt</div>
+          <Grid item xs={12}>
+            <a className={classes.weblink} href={weblink} target="_blank">
+              {weblink}
+            </a>
           </Grid>
 
           {addresses.map((address) => {
             return (
               <Grid container key={address.address}>
-                <Grid item xs={10} className={classes.address}>
+                <Grid item xs={8} className={classes.address}>
                   <div className={classes.walletAddress}>{address.address}</div>
                   <div className={classes.walletSubtitle}>Wallet Address</div>
                 </Grid>
-                <Grid item xs={2} className={classes.address}>
+                <Grid item xs={4} className={classes.address}>
                   <Button
                     className={classes.copyButton}
                     startIcon={<CopyIcon fontSize="large" />}
@@ -262,6 +254,7 @@ export default function AccountDetails(props) {
             </p>
           </Grid>
         </Grid>
+
         <Grid container>
           <Grid item xs={12}>
             {transactions.map((tx, index) => {

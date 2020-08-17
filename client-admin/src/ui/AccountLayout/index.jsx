@@ -7,6 +7,7 @@ import ChevronRightIcon from "@material-ui/icons/ChevronRight";
 import AccountBalanceCard from "../Cards/AccountBalanceCard";
 import AccountCard from "../Cards/AccountCard";
 import { AccountDetails } from "../../ui/Dialog";
+import { StartupDetails } from "../../ui/Dialog";
 
 const transactionDetailsStyles = makeStyles((theme) => ({
   root: {
@@ -81,7 +82,8 @@ export default function AccountLayout({
 }) {
   const classes = transactionDetailsStyles();
   const [openCreateDialog, setOpenCreateDialog] = useState(false);
-  const [openDetails, setOpenDetails] = useState(false);
+  const [openDetails, setOpenAccountDetails] = useState(false);
+  const [openStartupDetails, setOpenStartupDetails] = useState(false);
   const [detailsAccount, setDetailsAccount] = useState(null);
 
   const closeCreateDialog = () => {
@@ -101,12 +103,24 @@ export default function AccountLayout({
       <AccountDetails
         open={openDetails}
         type={type}
-        setOpenDetails={setOpenDetails}
+        title={"Donation Details"}
+        setOpenDetails={setOpenAccountDetails}
         account={detailsAccount}
         ethRate={ethRate}
         btcRate={btcRate}
         copyToClipboard={copyToClipboard}
       />
+      <StartupDetails
+        open={openStartupDetails}
+        type={type}
+        title={"Investment Details"}
+        setOpenDetails={setOpenStartupDetails}
+        account={detailsAccount}
+        ethRate={ethRate}
+        btcRate={btcRate}
+        copyToClipboard={copyToClipboard}
+      />
+
       <Grid container className={classes.bannerBox}>
         <Grid item xs={12}>
           <PriceInfoBanner />
@@ -174,7 +188,11 @@ export default function AccountLayout({
                   totalETHUSD={account.totalETHUSD}
                   totalBTCInvested={account.totalBTCInvested}
                   totalBTCUSD={account.totalBTCUSD}
-                  setOpenDetails={setOpenDetails}
+                  setOpenDetails={
+                    type === "startup"
+                      ? setOpenStartupDetails
+                      : setOpenAccountDetails
+                  }
                   setDetailsAccount={setDetailsAccount}
                 />
               </Grid>

@@ -34,7 +34,7 @@ const WalletDetailsCardStyles = makeStyles((theme) => ({
   authorizationSigner: {
     height: 283,
     padding: "20px 40px 40px 40px",
-    borderBottom: "solid 1px #e0e0e0",
+    borderTop: "solid 1px #e0e0e0",
   },
   subheading: {
     fontSize: 14,
@@ -70,15 +70,19 @@ const WalletDetailsCardStyles = makeStyles((theme) => ({
       backgroundColor: "#ecfaff",
     },
   },
+  address: {
+    marginTop: "1.5em",
+  },
   walletAddress: {
     fontFamily: '"Roboto", sans-serif',
-    fontSize: 18,
+    fontSize: 14,
     lineHeight: 1.33,
     color: "#000000",
   },
 }));
 
 export default function AccountTransactionCard({
+  type,
   received,
   currency,
   symbol,
@@ -88,6 +92,7 @@ export default function AccountTransactionCard({
   address,
   timestamp,
   copyToClipboard,
+  title,
 }) {
   const addressRef = useRef(null);
 
@@ -101,7 +106,7 @@ export default function AccountTransactionCard({
   return (
     <Grid container className={classes.authorizationSigner}>
       <Grid item xs={12} className={classes.authorizationInfo}>
-        <h3 className={classes.subheading}>Donation Details</h3>
+        <h3 className={classes.subheading}>{title}</h3>
       </Grid>
       <Grid item xs={12}>
         <div className={classes.signerText}>
@@ -137,13 +142,13 @@ export default function AccountTransactionCard({
       </Grid>
 
       <Grid container key={address}>
-        <Grid item xs={10} className={classes.address}>
+        <Grid item xs={8} className={classes.address}>
           <div className={classes.walletAddress} ref={addressRef}>
             {address}
           </div>
           <div className={classes.subtitle}>Wallet Address</div>
         </Grid>
-        <Grid item xs={2} className={classes.address}>
+        <Grid item xs={4} className={classes.address}>
           <Button
             className={classes.copyButton}
             startIcon={<CopyIcon fontSize="large" />}
