@@ -77,6 +77,7 @@ export default function AccountLayout({
   onDialogClose,
   ethRate,
   btcRate,
+  copyToClipboard,
 }) {
   const classes = transactionDetailsStyles();
   const [openCreateDialog, setOpenCreateDialog] = useState(false);
@@ -104,6 +105,7 @@ export default function AccountLayout({
         account={detailsAccount}
         ethRate={ethRate}
         btcRate={btcRate}
+        copyToClipboard={copyToClipboard}
       />
       <Grid container className={classes.bannerBox}>
         <Grid item xs={12}>

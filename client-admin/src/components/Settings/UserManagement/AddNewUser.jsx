@@ -187,7 +187,7 @@ export default function AddNewUser(props) {
       console.log(user);
       setVerificationCode(user.verificationCode);
       if (copyLink) {
-        copyToClipboard(`${siteLink}${user.verificationCode}`);
+        this.props.copyToClipboard(`${siteLink}${user.verificationCode}`);
       }
       props.setUsers(users);
 
@@ -339,7 +339,7 @@ export default function AddNewUser(props) {
           startIcon={<GenerateLinkIcon />}
           onClick={async () => {
             if (verificationCode) {
-              copyToClipboard(`${siteLink}${verificationCode}`);
+              this.props.copyToClipboard(`${siteLink}${verificationCode}`);
             } else {
               addNewUser(true);
             }

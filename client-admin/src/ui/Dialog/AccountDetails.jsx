@@ -5,6 +5,7 @@ import Grid from "@material-ui/core/Grid";
 import { usdFormatter, cryptoFormatter } from "../../util";
 import Button from "@material-ui/core/Button";
 import CopyIcon from "../Icons/CopyIcon";
+import AccountTransactionCard from "../Cards/AccountTransactionCard";
 
 const useStyles = makeStyles((theme) => ({
   modal: {
@@ -33,7 +34,6 @@ const useStyles = makeStyles((theme) => ({
     textTransform: "uppercase",
   },
   authorization: {
-    minHeight: 370,
     backgroundColor: "#daf5ff",
     padding: "20px 40px 40px 40px",
   },
@@ -87,22 +87,26 @@ const useStyles = makeStyles((theme) => ({
 export default function AccountDetails(props) {
   const classes = useStyles();
   const [addresses, setAddresses] = useState([]);
+  const [transactions, setTransactions] = useState([]);
+
+  const [ethDonated, setEthDonated] = useState(0);
+  const [ethDonatedCurrentValue, setEthDonatedCurrentValue] = useState(0);
+  const [ethDonatedReceivedValue, setEthDonatedReceivedValue] = useState(0);
+
+  const [btcDonated, setBtcDonated] = useState(0);
+  const [btcDonatedCurrentValue, setBtcDonatedCurrentValue] = useState(0);
+  const [btcDonatedReceivedValue, setBtcDonatedReceivedValue] = useState(0);
 
   const [ethReceived, setEthReceived] = useState(0);
-  const [ethCurrentValue, setEthCurrentValue] = useState(0);
+  const [ethReceivedCurrentValue, setEthReceivedCurrentValue] = useState(0);
   const [ethReceivedValue, setEthReceivedValue] = useState(0);
 
-  const [ethSent, setEthSent] = useState(0);
-  const [ethSentCurrentValue, setEthSentCurrentValue] = useState(0);
-  const [ethSentReceivedValue, setEthSentReceivedValue] = useState(0);
-
   const [btcReceived, setBtcReceived] = useState(0);
-  const [btcCurrentValue, setBtcCurrentValue] = useState(0);
+  const [btcReceivedCurrentValue, setBtcReceivedCurrentValue] = useState(0);
   const [btcReceivedValue, setBtcReceivedValue] = useState(0);
 
-  const [btcSent, setBtcSent] = useState(0);
-  const [btcSentCurrentValue, setBtcSentCurrentValue] = useState(0);
-  const [btcSentReceivedValue, setBtcSentReceivedValue] = useState(0);
+  console.log("props");
+  console.log(props.copyToClipboard);
 
   useEffect(() => {
     const getAccountDetails = async () => {
@@ -115,7 +119,8 @@ export default function AccountDetails(props) {
       }
 
       const { transactions, account } = accountData;
-      const totalEthSent = transactions
+
+      const totalEthDonated = transactions
         .filter((tx) => {
           return tx.currency === "Ethereum";
         })
@@ -126,7 +131,7 @@ export default function AccountDetails(props) {
           return total + tx.amount;
         }, 0);
 
-      const totalEthRecVal = transactions
+      const totalEthDonVal = transactions
         .filter((tx) => {
           return tx.currency === "Ethereum";
         })
@@ -136,10 +141,6 @@ export default function AccountDetails(props) {
         .reduce((total, tx) => {
           return total + tx.amountUSD;
         }, 0);
-
-      setEthSent(totalEthSent);
-      setEthSentCurrentValue(totalEthSent * props.ethRate);
-      setEthSentReceivedValue(totalEthRecVal);
 
       const totalBtcSent = transactions
         .filter((tx) => {
@@ -163,16 +164,19 @@ export default function AccountDetails(props) {
           return total + tx.amountUSD;
         }, 0);
 
-      setBtcSent(totalBtcSent);
-      setBtcSentCurrentValue(totalBtcSent * props.btcRate);
-      setBtcSentReceivedValue(totalBtcRecVal);
-
-      console.log("accountData");
-      console.log(accountData);
-      console.log(accountData.account);
-      console.log(accountData.account.addresses);
-      console.log(accountData.transactions);
       setAddresses(account.addresses);
+      setTransactions(
+        transactions.filter((tx) => {
+          return tx.received === true;
+        })
+      );
+      setEthDonated(totalEthDonated);
+      setEthDonatedCurrentValue(totalEthDonated * props.ethRate);
+      setEthDonatedReceivedValue(totalEthDonVal);
+
+      setBtcDonated(totalBtcSent);
+      setBtcDonatedCurrentValue(totalBtcSent * props.btcRate);
+      setBtcDonatedReceivedValue(totalBtcRecVal);
     };
 
     console.log("Account Details");
@@ -180,16 +184,6 @@ export default function AccountDetails(props) {
       getAccountDetails();
     }
   }, [props.account]);
-
-  const copyToClipboard = (text) => {
-    const el = document.createElement("textarea");
-    el.value = text;
-    document.body.appendChild(el);
-    console.log(document.body);
-    el.select();
-    document.execCommand("copy");
-    document.body.removeChild(el);
-  };
 
   return (
     <React.Fragment>
@@ -205,108 +199,61 @@ export default function AccountDetails(props) {
           <Grid item xs={12}>
             <h1 className={classes.walletName}>Account Name</h1>
           </Grid>
-          {props.type === "natcom" && (
-            <Fragment>
-              <Grid item xs={3}>
-                <div className={classes.walletBalance}>
-                  <span className={classes.currencyBalance}>
-                    {cryptoFormatter(ethReceived || 0)} {props.symbol}
-                  </span>
-                </div>
-                <div className={classes.walletSubtitle}>Eth Received</div>
-              </Grid>
-              <Grid item xs={3}>
-                <div className={classes.walletBalance}>
-                  {usdFormatter.format(ethCurrentValue || 0)} USD
-                </div>
-                <div className={classes.walletSubtitle}>Current Value</div>
-              </Grid>
-              <Grid item xs={6}>
-                <div className={classes.walletBalance}>
-                  {usdFormatter.format(ethReceivedValue || 0)} USD
-                </div>
-                <div className={classes.walletSubtitle}>Value at Receipt</div>
-              </Grid>
-              <Grid item xs={3}>
-                <div className={classes.walletBalance}>
-                  <span className={classes.currencyBalance}>
-                    {cryptoFormatter(btcReceived || 0)} {props.symbol}
-                  </span>
-                </div>
-                <div className={classes.walletSubtitle}>Btc Received</div>
-              </Grid>
-              <Grid item xs={3}>
-                <div className={classes.walletBalance}>
-                  {usdFormatter.format(btcCurrentValue || 0)} USD
-                </div>
-                <div className={classes.walletSubtitle}>Current Value</div>
-              </Grid>
-              <Grid item xs={6}>
-                <div className={classes.walletBalance}>
-                  {usdFormatter.format(btcReceivedValue || 0)} USD
-                </div>
-                <div className={classes.walletSubtitle}>Value at Receipt</div>
-              </Grid>
-            </Fragment>
-          )}
-          {props.type === "donor" && (
-            <Fragment>
-              <Grid item xs={3}>
-                <div className={classes.walletBalance}>
-                  <span className={classes.currencyBalance}>
-                    {cryptoFormatter(ethSent || 0)} {props.symbol}
-                  </span>
-                </div>
-                <div className={classes.walletSubtitle}>Eth Donated</div>
-              </Grid>
-              <Grid item xs={3}>
-                <div className={classes.walletBalance}>
-                  {usdFormatter.format(ethSentCurrentValue || 0)} USD
-                </div>
-                <div className={classes.walletSubtitle}>Current Value</div>
-              </Grid>
-              <Grid item xs={6}>
-                <div className={classes.walletBalance}>
-                  {usdFormatter.format(ethSentReceivedValue || 0)} USD
-                </div>
-                <div className={classes.walletSubtitle}>Value at Receipt</div>
-              </Grid>
-              <Grid item xs={3}>
-                <div className={classes.walletBalance}>
-                  <span className={classes.currencyBalance}>
-                    {cryptoFormatter(btcSent || 0)} {props.symbol}
-                  </span>
-                </div>
-                <div className={classes.walletSubtitle}>Btc Donated</div>
-              </Grid>
-              <Grid item xs={3}>
-                <div className={classes.walletBalance}>
-                  {usdFormatter.format(btcSentCurrentValue || 0)} USD
-                </div>
-                <div className={classes.walletSubtitle}>Current Value</div>
-              </Grid>
-              <Grid item xs={6}>
-                <div className={classes.walletBalance}>
-                  {usdFormatter.format(btcSentReceivedValue || 0)} USD
-                </div>
-                <div className={classes.walletSubtitle}>Value at Receipt</div>
-              </Grid>
-            </Fragment>
-          )}
+
+          <Grid item xs={3}>
+            <div className={classes.walletBalance}>
+              <span className={classes.currencyBalance}>
+                {cryptoFormatter(ethDonated || 0)} {props.symbol}
+              </span>
+            </div>
+            <div className={classes.walletSubtitle}>Eth Donated</div>
+          </Grid>
+          <Grid item xs={3}>
+            <div className={classes.walletBalance}>
+              {usdFormatter.format(ethDonatedCurrentValue || 0)} USD
+            </div>
+            <div className={classes.walletSubtitle}>Current Value</div>
+          </Grid>
+          <Grid item xs={6}>
+            <div className={classes.walletBalance}>
+              {usdFormatter.format(ethDonatedReceivedValue || 0)} USD
+            </div>
+            <div className={classes.walletSubtitle}>Value at Receipt</div>
+          </Grid>
+          <Grid item xs={3}>
+            <div className={classes.walletBalance}>
+              <span className={classes.currencyBalance}>
+                {cryptoFormatter(btcDonated || 0)} {props.symbol}
+              </span>
+            </div>
+            <div className={classes.walletSubtitle}>Btc Donated</div>
+          </Grid>
+          <Grid item xs={3}>
+            <div className={classes.walletBalance}>
+              {usdFormatter.format(btcDonatedCurrentValue || 0)} USD
+            </div>
+            <div className={classes.walletSubtitle}>Current Value</div>
+          </Grid>
+          <Grid item xs={6}>
+            <div className={classes.walletBalance}>
+              {usdFormatter.format(btcDonatedReceivedValue || 0)} USD
+            </div>
+            <div className={classes.walletSubtitle}>Value at Receipt</div>
+          </Grid>
+
           {addresses.map((address) => {
             return (
               <Grid container key={address.address}>
-                <Grid item xs={9} className={classes.address}>
+                <Grid item xs={10} className={classes.address}>
                   <div className={classes.walletAddress}>{address.address}</div>
                   <div className={classes.walletSubtitle}>Wallet Address</div>
                 </Grid>
-                <Grid item xs={3} className={classes.address}>
+                <Grid item xs={2} className={classes.address}>
                   <Button
                     className={classes.copyButton}
                     startIcon={<CopyIcon fontSize="large" />}
                     onClick={() => {
-                      console.log(address.address);
-                      copyToClipboard(address.address);
+                      props.copyToClipboard(address.address);
                     }}
                   >
                     Copy
@@ -327,35 +274,28 @@ export default function AccountDetails(props) {
             </p>
           </Grid>
         </Grid>
+        <Grid container>
+          <Grid item xs={12}>
+            {transactions.map((tx, index) => {
+              console.log(tx);
+              return (
+                <AccountTransactionCard
+                  key={index}
+                  received={tx.amount}
+                  currency={tx.currency}
+                  symbol={tx.symbol}
+                  ethRate={props.ethRate}
+                  btcRate={props.btcRate}
+                  amountUSD={tx.amountUSD}
+                  address={tx.address}
+                  timestamp={tx.timestamp}
+                  copyToClipboard={props.copyToClipboard}
+                />
+              );
+            })}
+          </Grid>
+        </Grid>
       </Dialog>
     </React.Fragment>
   );
 }
-
-const authorizationDetailsData = {
-  address: "0x89205A3A3b26Dty66hxIief5hjdd8e0wk0KK58fj",
-  amount: 25,
-  symbol: "ETH",
-  currency: "Ethereum",
-  valueSent: "3300.12",
-  currentValue: "8300.21",
-  signers: [
-    {
-      address: "0xxIief5hjdd8e0wk0KK58fj89205A3A3b26Dty66h",
-      owner: "Christopher Waltz",
-      timestamp: "Mar 24 2020 at 11:04",
-    },
-    {
-      address: "0x0KK58fj89205A3A3b26Dty66xIief5hjdd8e0wkh",
-      owner: "Khalija Ali",
-      timestamp: "Mar 24 2020 at 11:51",
-    },
-    /*
-    {
-      address: "0x0KK58fj89205A3A3b26Dty66xIief5hjdd8e0wkh",
-      owner: "ScrollY Check",
-      timestamp: "Mar 24 2020 at 11:51",
-    },
-    */
-  ],
-};

@@ -69,7 +69,7 @@ const StyledTab = withStyles((theme) => ({
   },
 }))((props) => <Tab disableRipple {...props} />);
 
-export default function Accounts({ getExchangeRate }) {
+export default function Accounts({ getExchangeRate, copyToClipboard }) {
   const classes = useStyles();
   const [activeTab, setActiveTab] = useState(0);
   const [startups, setStartups] = useState([]);
@@ -140,7 +140,7 @@ export default function Accounts({ getExchangeRate }) {
         }
       });
     }
-    console.log(accounts);
+
     setEthRate(ethRate);
     setBtcRate(btcRate);
 
@@ -200,6 +200,7 @@ export default function Accounts({ getExchangeRate }) {
           accounts={startups}
           ethRate={ethRate}
           btcRate={btcRate}
+          copyToClipboard={copyToClipboard}
           message={
             "The investments are made through UNICEF’s CryptoFund, in open source technology solutions that benefit children and the world."
           }
@@ -221,6 +222,7 @@ export default function Accounts({ getExchangeRate }) {
           accounts={donors}
           ethRate={ethRate}
           btcRate={btcRate}
+          copyToClipboard={copyToClipboard}
           message={
             "In line with current UNICEF practice, each crypto transaction is initiated after UNICEF has completed due diligence on a donor, ensuring a credible source of the donation."
           }
@@ -242,6 +244,7 @@ export default function Accounts({ getExchangeRate }) {
           accounts={natcoms}
           ethRate={ethRate}
           btcRate={btcRate}
+          copyToClipboard={copyToClipboard}
           message={
             "Cryptofund donations are received by HQ through four National Committees - Australia, France, New Zealand and the United States."
           }
