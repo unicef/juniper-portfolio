@@ -243,6 +243,15 @@ export default function CreateStartup(props) {
   useEffect(() => {
     setOpen(props.open);
     setType(props.type);
+
+    if (props.edit) {
+      setName(props.name);
+      setCountry(props.country);
+      setDescription(props.description);
+      setWeblink(props.weblink);
+      setImage(props.image);
+      setAddresses(props.addresses);
+    }
   }, [props.open]);
 
   return (
@@ -259,10 +268,12 @@ export default function CreateStartup(props) {
           </IconButton>
         </Toolbar>
         <Container maxWidth={"sm"} className={classes.container}>
-          <h1 className={classes.title}>Create {type} account</h1>
+          <h1 className={classes.title}>
+            {props.edit ? "Edit" : "Create"} {type} account
+          </h1>
           <form className={classes.form}>
             <TextField
-              disabled={props.editWallet}
+              disabled={props.editWallet || props.edit}
               value={name}
               className={classes.formControl}
               InputLabelProps={{ className: classes.label }}

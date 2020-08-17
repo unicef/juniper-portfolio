@@ -7,6 +7,7 @@ import Button from "@material-ui/core/Button";
 import CopyIcon from "../Icons/CopyIcon";
 import AccountTransactionCard from "../Cards/AccountTransactionCard";
 import EditIcon from "../../ui/Icons/EditIcon";
+import { CreateAccount } from ".";
 
 const useStyles = makeStyles((theme) => ({
   modal: {
@@ -142,38 +143,40 @@ export default function StartupDetails(props) {
   const [addresses, setAddresses] = useState([]);
   const [transactions, setTransactions] = useState([]);
 
+  const [openEditAccount, setOpenEditAccount] = useState(false);
+
+  const getAccountDetails = async () => {
+    let res, accountData;
+    try {
+      res = await fetch(`/rest/admin/accounts/${props.account}`);
+      accountData = await res.json();
+    } catch (e) {
+      console.log(e);
+    }
+
+    console.log("accountData");
+    console.log(accountData);
+    const { transactions, account } = accountData;
+    setName(account.name);
+    setImage(account.image);
+    setCountry(account.country);
+    setDescription(account.description);
+
+    if (account.weblink.indexOf("http") >= 0) {
+      setWeblink(account.weblink);
+    } else {
+      setWeblink(`http://${account.weblink}`);
+    }
+
+    setAddresses(account.addresses);
+    setTransactions(
+      transactions.filter((tx) => {
+        return tx.sent === true;
+      })
+    );
+  };
+
   useEffect(() => {
-    const getAccountDetails = async () => {
-      let res, accountData;
-      try {
-        res = await fetch(`/rest/admin/accounts/${props.account}`);
-        accountData = await res.json();
-      } catch (e) {
-        console.log(e);
-      }
-
-      console.log("accountData");
-      console.log(accountData);
-      const { transactions, account } = accountData;
-      setName(account.name);
-      setImage(account.image);
-      setCountry(account.country);
-      setDescription(account.description);
-
-      if (account.weblink.indexOf("http") >= 0) {
-        setWeblink(account.weblink);
-      } else {
-        setWeblink(`http://${account.weblink}`);
-      }
-
-      setAddresses(account.addresses);
-      setTransactions(
-        transactions.filter((tx) => {
-          return tx.sent === true;
-        })
-      );
-    };
-
     if (props.account) {
       getAccountDetails();
     }
@@ -181,6 +184,21 @@ export default function StartupDetails(props) {
 
   return (
     <React.Fragment>
+      <CreateAccount
+        open={openEditAccount}
+        type={"startup"}
+        edit={true}
+        name={name}
+        description={description}
+        image={image}
+        country={country}
+        weblink={weblink}
+        addresses={addresses}
+        onDialogClose={() => {
+          setOpenEditAccount(false);
+          getAccountDetails();
+        }}
+      />
       <Dialog
         fullWidth
         open={props.open}
@@ -205,6 +223,9 @@ export default function StartupDetails(props) {
             <Button
               className={classes.editButton}
               startIcon={<EditIcon fontSize="large" />}
+              onClick={() => {
+                setOpenEditAccount(true);
+              }}
             >
               Edit Profile
             </Button>
