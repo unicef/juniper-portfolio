@@ -5,6 +5,21 @@ import { usdFormatter, cryptoFormatter } from "../../util";
 import Button from "@material-ui/core/Button";
 import CopyIcon from "../Icons/CopyIcon";
 
+const monthNames = [
+  "January",
+  "February",
+  "March",
+  "April",
+  "May",
+  "June",
+  "July",
+  "August",
+  "September",
+  "October",
+  "November",
+  "December",
+];
+
 const WalletDetailsCardStyles = makeStyles((theme) => ({
   authorizationInfo: {
     marginTop: "1em",
@@ -78,13 +93,20 @@ export default function AccountTransactionCard({
 
   const classes = WalletDetailsCardStyles();
 
+  const txDate = new Date(timestamp);
+  const month = monthNames[txDate.getMonth()];
+  const day = txDate.getDay();
+  const year = txDate.getYear();
+
   return (
     <Grid container className={classes.authorizationSigner}>
       <Grid item xs={12} className={classes.authorizationInfo}>
         <h3 className={classes.subheading}>Donation Details</h3>
       </Grid>
       <Grid item xs={12}>
-        <div className={classes.signerText}>{timestamp}</div>
+        <div className={classes.signerText}>
+          {month} {day}, {year}
+        </div>
         <div className={classes.subtitle}>Time of Signing</div>
       </Grid>
 

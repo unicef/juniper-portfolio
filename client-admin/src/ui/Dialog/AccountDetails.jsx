@@ -97,17 +97,6 @@ export default function AccountDetails(props) {
   const [btcDonatedCurrentValue, setBtcDonatedCurrentValue] = useState(0);
   const [btcDonatedReceivedValue, setBtcDonatedReceivedValue] = useState(0);
 
-  const [ethReceived, setEthReceived] = useState(0);
-  const [ethReceivedCurrentValue, setEthReceivedCurrentValue] = useState(0);
-  const [ethReceivedValue, setEthReceivedValue] = useState(0);
-
-  const [btcReceived, setBtcReceived] = useState(0);
-  const [btcReceivedCurrentValue, setBtcReceivedCurrentValue] = useState(0);
-  const [btcReceivedValue, setBtcReceivedValue] = useState(0);
-
-  console.log("props");
-  console.log(props.copyToClipboard);
-
   useEffect(() => {
     const getAccountDetails = async () => {
       let res, accountData;
@@ -179,7 +168,6 @@ export default function AccountDetails(props) {
       setBtcDonatedReceivedValue(totalBtcRecVal);
     };
 
-    console.log("Account Details");
     if (props.account) {
       getAccountDetails();
     }
@@ -277,7 +265,6 @@ export default function AccountDetails(props) {
         <Grid container>
           <Grid item xs={12}>
             {transactions.map((tx, index) => {
-              console.log(tx);
               return (
                 <AccountTransactionCard
                   key={index}
