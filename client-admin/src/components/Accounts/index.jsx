@@ -198,6 +198,8 @@ export default function Accounts({ getExchangeRate }) {
           totalBitcoin={startupBtc}
           totalBTCUSD={startupBtc * btcRate}
           accounts={startups}
+          ethRate={ethRate}
+          btcRate={btcRate}
           message={
             "The investments are made through UNICEF’s CryptoFund, in open source technology solutions that benefit children and the world."
           }
@@ -217,6 +219,8 @@ export default function Accounts({ getExchangeRate }) {
           totalBitcoin={donorBtc}
           totalBTCUSD={donorBtc * btcRate}
           accounts={donors}
+          ethRate={ethRate}
+          btcRate={btcRate}
           message={
             "In line with current UNICEF practice, each crypto transaction is initiated after UNICEF has completed due diligence on a donor, ensuring a credible source of the donation."
           }
@@ -236,6 +240,8 @@ export default function Accounts({ getExchangeRate }) {
           totalBitcoin={natcomBtc}
           totalBTCUSD={natcomBtc * btcRate}
           accounts={natcoms}
+          ethRate={ethRate}
+          btcRate={btcRate}
           message={
             "Cryptofund donations are received by HQ through four National Committees - Australia, France, New Zealand and the United States."
           }

@@ -6,6 +6,7 @@ import Button from "@material-ui/core/Button";
 import ChevronRightIcon from "@material-ui/icons/ChevronRight";
 import AccountBalanceCard from "../Cards/AccountBalanceCard";
 import AccountCard from "../Cards/AccountCard";
+import { AccountDetails } from "../../ui/Dialog";
 
 const transactionDetailsStyles = makeStyles((theme) => ({
   root: {
@@ -74,13 +75,17 @@ export default function AccountLayout({
   addButtonText,
   CreateModal,
   onDialogClose,
+  ethRate,
+  btcRate,
 }) {
   const classes = transactionDetailsStyles();
-  console.log(type);
   const [openCreateDialog, setOpenCreateDialog] = useState(false);
+  const [openDetails, setOpenDetails] = useState(false);
+  const [detailsAccount, setDetailsAccount] = useState(null);
 
   const closeCreateDialog = () => {
     setOpenCreateDialog(false);
+    setDetailsAccount(null);
     onDialogClose();
   };
   return (
@@ -92,6 +97,14 @@ export default function AccountLayout({
           onDialogClose={closeCreateDialog}
         />
       )}
+      <AccountDetails
+        open={openDetails}
+        type={type}
+        setOpenDetails={setOpenDetails}
+        account={detailsAccount}
+        ethRate={ethRate}
+        btcRate={btcRate}
+      />
       <Grid container className={classes.bannerBox}>
         <Grid item xs={12}>
           <PriceInfoBanner />
@@ -159,6 +172,8 @@ export default function AccountLayout({
                   totalETHUSD={account.totalETHUSD}
                   totalBTCInvested={account.totalBTCInvested}
                   totalBTCUSD={account.totalBTCUSD}
+                  setOpenDetails={setOpenDetails}
+                  setDetailsAccount={setDetailsAccount}
                 />
               </Grid>
             );

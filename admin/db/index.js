@@ -98,6 +98,10 @@ class MongoDB {
     return this.models.Account.find({ active });
   }
 
+  async getAccount(name) {
+    return this.models.Account.findOne({ name });
+  }
+
   async getUser(name) {
     return this.models.Account.findOne({ email });
   }
@@ -296,6 +300,14 @@ class MongoDB {
   async getTransactions() {
     this.logger.debug(`getTransactions`);
     return this.models.Transaction.find();
+  }
+
+  async getTransactionsForAccount(name) {
+    this.logger.debug(`getTransactionsForAccount`);
+    return this.models.Transaction.find({
+      $or: [{ source: name }, { destination: name }],
+      amountUSD: { $gte: 0.01 },
+    });
   }
 
   async getUnpublishedTransactions(notZero) {

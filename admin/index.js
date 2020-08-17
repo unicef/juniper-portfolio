@@ -195,6 +195,15 @@ class JuniperAdmin {
     });
   }
 
+  async getAccount(name) {
+    let account, transactions;
+    account = await this.db.getAccount(name);
+
+    transactions = await this.db.getTransactionsForAccount(name);
+
+    return { account, transactions };
+  }
+
   async getAccounts() {
     return await this.db.getAccounts();
   }
