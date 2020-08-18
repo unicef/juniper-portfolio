@@ -273,7 +273,7 @@ export default function CreateStartup(props) {
           </h1>
           <form className={classes.form}>
             <TextField
-              disabled={props.editWallet || props.edit}
+              disabled={props.edit}
               value={name}
               className={classes.formControl}
               InputLabelProps={{ className: classes.label }}
@@ -400,7 +400,7 @@ export default function CreateStartup(props) {
                 className={classes.addStartupButton}
                 onClick={createStartup}
               >
-                {props.editWallet ? "Edit" : "Create"} Account
+                {props.edit ? "Edit" : "Create"} Account
               </Button>
             )}
 
