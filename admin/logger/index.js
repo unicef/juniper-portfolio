@@ -21,7 +21,7 @@ class Logger {
       streams: [
         {
           type: "file",
-          path: `${process.cwd()}/logger.log`,
+          path: `/tmp/logger.log`,
           period: "1d",
           count: 30,
         },

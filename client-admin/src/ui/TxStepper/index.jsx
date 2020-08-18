@@ -65,76 +65,121 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function ({ step1, step2, step3 }) {
+export default function ({
+  sent,
+  received,
+  source,
+  destination,
+  donor,
+  to,
+  from,
+}) {
   const classes = useStyles();
 
   // Mocked for three steps
-  return !step3 ? (
-    <Fragment>
-      <Grid container>
-        <Grid item xs={4} className={classes.title}>
-          <div className={classes.donorTitle}>Ethereum Foundation</div>
+  if (sent) {
+    return (
+      <Fragment>
+        <Grid container>
+          <Grid item xs={6}>
+            <div className={classes.recipientTitle}>UNICEF HQ</div>
+            <div className={classes.subtitle}>Source</div>
+          </Grid>
+          <Grid item xs={6}>
+            <div className={classes.donorTitle}>
+              {destination ? destination : "Unidentified"}
+            </div>
+            <div className={classes.subtitle}>Recipient</div>
+          </Grid>
         </Grid>
-        <Grid item xs={4} className={classes.title}>
-          <div className={classes.intermediaryTitle}>UNICEF Australia</div>
-        </Grid>
-        <Grid item xs={4} className={classes.title}>
-          <div className={classes.recipientTitle}>UNICEF HQ</div>
-        </Grid>
-      </Grid>
-      <Grid container>
-        <Grid item xs={4}>
-          <div className={classes.subtitle}>Donor</div>
-        </Grid>
-        <Grid item xs={4}>
-          <div className={classes.subtitle}>Intermediary</div>
-        </Grid>
-        <Grid item xs={4}>
-          <div className={classes.subtitle}>Recipient</div>
-        </Grid>
-      </Grid>
-      <Grid container>
-        <Grid item xs={4}>
-          <div className={classes.bigBlueCircle}></div>
-          <div className={classes.line}>
-            <hr className={classes.blueLine} />
-          </div>
-        </Grid>
-        <Grid item xs={4}>
-          <div className={classes.littleBlueCircle}></div>
-          <div className={classes.line}>
-            <hr className={classes.blueLine} />
-          </div>
-        </Grid>
-        <Grid item xs={4}>
-          <div className={classes.bigBlueCircle}></div>
-        </Grid>
-      </Grid>
-    </Fragment>
-  ) : (
-    <Fragment>
-      <Grid container>
-        <Grid item xs={6}>
-          <div className={classes.donorTitle}>Ethereum Foundation</div>
-          <div className={classes.subtitle}>Donor</div>
-        </Grid>
-        <Grid item xs={6}>
-          <div className={classes.recipientTitle}>UNICEF HQ</div>
-          <div className={classes.subtitle}>Recipient</div>
-        </Grid>
-      </Grid>
-      <Grid container>
-        <Grid item xs={6}>
-          <div className={classes.bigBlueCircle}></div>
-          <div className={classes.line}>
-            <hr className={classes.blueLine} />
-          </div>
-        </Grid>
+        <Grid container>
+          <Grid item xs={6}>
+            <div className={classes.bigBlueCircle}></div>
+            <div className={classes.line}>
+              <hr className={classes.blueLine} />
+            </div>
+          </Grid>
 
-        <Grid item xs={6}>
-          <div className={classes.bigBlueCircle}></div>
+          <Grid item xs={6}>
+            <div className={classes.bigBlueCircle}></div>
+          </Grid>
         </Grid>
-      </Grid>
-    </Fragment>
-  );
+      </Fragment>
+    );
+  } else {
+    if (donor) {
+      return (
+        <Fragment>
+          <Grid container>
+            <Grid item xs={4} className={classes.title}>
+              <div className={classes.donorTitle}>Ethereum Foundation</div>
+            </Grid>
+            <Grid item xs={4} className={classes.title}>
+              <div className={classes.intermediaryTitle}>UNICEF Australia</div>
+            </Grid>
+            <Grid item xs={4} className={classes.title}>
+              <div className={classes.recipientTitle}>UNICEF HQ</div>
+            </Grid>
+          </Grid>
+          <Grid container>
+            <Grid item xs={4}>
+              <div className={classes.subtitle}>Donor</div>
+            </Grid>
+            <Grid item xs={4}>
+              <div className={classes.subtitle}>Intermediary</div>
+            </Grid>
+            <Grid item xs={4}>
+              <div className={classes.subtitle}>Recipient</div>
+            </Grid>
+          </Grid>
+          <Grid container>
+            <Grid item xs={4}>
+              <div className={classes.bigBlueCircle}></div>
+              <div className={classes.line}>
+                <hr className={classes.blueLine} />
+              </div>
+            </Grid>
+            <Grid item xs={4}>
+              <div className={classes.littleBlueCircle}></div>
+              <div className={classes.line}>
+                <hr className={classes.blueLine} />
+              </div>
+            </Grid>
+            <Grid item xs={4}>
+              <div className={classes.bigBlueCircle}></div>
+            </Grid>
+          </Grid>
+        </Fragment>
+      );
+    } else {
+      return (
+        <Fragment>
+          <Grid container>
+            <Grid item xs={6}>
+              <div className={classes.donorTitle}>
+                {source ? source : "Unidentified"}
+              </div>
+              <div className={classes.subtitle}>Source</div>
+            </Grid>
+            <Grid item xs={6}>
+              <div className={classes.recipientTitle}>UNICEF HQ</div>
+              <div className={classes.subtitle}>Recipient</div>
+            </Grid>
+          </Grid>
+          <Grid container>
+            <Grid item xs={6}>
+              <div className={classes.bigBlueCircle}></div>
+              <div className={classes.line}>
+                <hr className={classes.blueLine} />
+              </div>
+            </Grid>
+
+            <Grid item xs={6}>
+              <div className={classes.bigBlueCircle}></div>
+            </Grid>
+          </Grid>
+        </Fragment>
+      );
+    }
+  }
 }

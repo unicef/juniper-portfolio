@@ -23,10 +23,11 @@ const {
   publicRoutes,
   privateRoutes,
   authRoutes,
+  accountRoutes,
   settingRoutes,
   walletRoutes,
   transactionRoutes,
-} = require("./routes")();
+} = require("./routes");
 const defaultConfig = require("./config");
 
 class JuniperAdmin {
@@ -106,6 +107,7 @@ class JuniperAdmin {
       authRoutes
     );
     this.server.use("/rest/admin", isLoggedIn, privateRoutes);
+    this.server.use("/rest/admin/accounts", isLoggedIn, accountRoutes);
     this.server.use("/rest/admin/settings", isLoggedIn, settingRoutes);
     this.server.use("/rest/admin/wallets", isLoggedIn, walletRoutes);
     this.server.use("/rest/admin/transactions", isLoggedIn, transactionRoutes);
@@ -124,6 +126,19 @@ class JuniperAdmin {
       s3Download(req.params.key).pipe(res);
     });
     this.server.use("/image/:key", isLoggedIn, (req, res) => {
+      s3Download(req.params.key).pipe(res);
+    });
+
+    this.server.use("/upload/image", s3Upload.single("image"), (req, res) => {
+      req.file.imageUrl = `/image/${req.file.key}`;
+      req.file.downloadUrl = `/download/${req.file.key}`;
+      res.json(req.file);
+    });
+    this.server.use("/download/:key", (req, res) => {
+      res.setHeader("Content-Disposition", "download");
+      s3Download(req.params.key).pipe(res);
+    });
+    this.server.use("/image/:key", (req, res) => {
       s3Download(req.params.key).pipe(res);
     });
 
@@ -159,6 +174,17 @@ class JuniperAdmin {
 
   async logActivity(activity) {
     this.db.logActivity(activity);
+  }
+
+  async createAccount(account) {
+    this.logger.info(`Creating account ${account.name}`);
+    this.logger.debug(JSON.stringify(account));
+
+    await this.db.createAccount(account);
+  }
+
+  async getAccounts() {
+    return await this.db.getAccounts();
   }
 
   async createWallet(wallet) {
@@ -251,7 +277,6 @@ class JuniperAdmin {
       return false;
     }
 
-    console.log(savedUser);
     return true;
   }
 

@@ -88,14 +88,30 @@ class EthereumWalletScraper {
     };
   }
 
+  async getAccountMap() {
+    let accounts = await this.db.getAccounts();
+    let map = {};
+
+    accounts.forEach((account) => {
+      account.addresses.forEach((address) => {
+        map[address.address] = account.name;
+      });
+    });
+
+    return map;
+  }
+
   async saveTransactionData(address, tx, isUnicef, multisigOwnerLookup = {}) {
     let sent = false;
     let received = false;
     let isMultisigOwner = false;
     let timestamp = tx.timeStamp * 1000;
     let rate = await this.db.getNearestPrice(this.symbol, new Date(timestamp));
+    let accountMap = await this.getAccountMap();
     let amount = tx.value / 1e18;
     amount = Math.round(amount * 1e5) / 1e5;
+
+    console.log(accountMap);
 
     if (tx.to.toLowerCase() === address.toLowerCase()) {
       received = true;
@@ -122,8 +138,8 @@ class EthereumWalletScraper {
       address,
       currency: "Ethereum",
       symbol: this.symbol,
-      source: "",
-      destination: "",
+      source: accountMap[tx.from],
+      destination: accountMap[tx.to],
       to: tx.to,
       from: tx.from,
       block: tx.blockNumber,

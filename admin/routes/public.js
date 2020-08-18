@@ -48,7 +48,6 @@ router.post("/verification", async (req, res) => {
   const { verificationCode, newPassword } = req.body;
   const juniperAdmin = req.app.get("juniperAdmin");
 
-  console.log(verificationCode, newPassword);
   let user;
   try {
     user = await juniperAdmin.getUserByVerificationCode(verificationCode);

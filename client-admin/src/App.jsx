@@ -189,7 +189,7 @@ export default function JuniperAdmin() {
                       pageIndex={pageIndex}
                       setPageIndex={setPageIndex}
                     />
-                    <Accounts />
+                    <Accounts getExchangeRate={getExchangeRate} />
                   </Route>
                   <Route path="/admin/tracker">
                     <TopBar user={user} setPageIndex={setPageIndex} />
