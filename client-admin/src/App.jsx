@@ -77,6 +77,7 @@ export default function JuniperAdmin() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [user, setUser] = useState({});
   const [loading, setLoading] = useState(true);
+  const [pageIndex, setPageIndex] = useState(0);
 
   const loginUser = (user) => {
     if (user) {
@@ -136,6 +137,20 @@ export default function JuniperAdmin() {
       setLoading(false);
     };
     getUserProfile();
+
+    const path = window.location.pathname;
+
+    if (path.indexOf("wallets") > -1) {
+      setPageIndex(0);
+    } else if (path.indexOf("accounts") > -1) {
+      setPageIndex(1);
+    } else if (path.indexOf("tracker") > -1) {
+      setPageIndex(2);
+    } else if (path.indexOf("transactions") > -1) {
+      setPageIndex(3);
+    } else if (path.indexOf("settings") > -1) {
+      setPageIndex(4);
+    }
   }, []);
 
   return (
@@ -153,33 +168,51 @@ export default function JuniperAdmin() {
               <Router>
                 <Switch>
                   <Route exact path="/admin">
-                    <TopBar user={user} />
-                    <Sidebar />
+                    <TopBar user={user} setPageIndex={setPageIndex} />
+                    <Sidebar
+                      pageIndex={pageIndex}
+                      setPageIndex={setPageIndex}
+                    />
                     <Wallets getExchangeRate={getExchangeRate} />
                   </Route>
                   <Route path="/admin/wallets">
-                    <TopBar user={user} />
-                    <Sidebar />
+                    <TopBar user={user} setPageIndex={setPageIndex} />
+                    <Sidebar
+                      pageIndex={pageIndex}
+                      setPageIndex={setPageIndex}
+                    />
                     <Wallets getExchangeRate={getExchangeRate} />
                   </Route>
                   <Route path="/admin/accounts">
-                    <TopBar user={user} />
-                    <Sidebar />
+                    <TopBar user={user} setPageIndex={setPageIndex} />
+                    <Sidebar
+                      pageIndex={pageIndex}
+                      setPageIndex={setPageIndex}
+                    />
                     <Accounts getExchangeRate={getExchangeRate} />
                   </Route>
                   <Route path="/admin/tracker">
-                    <TopBar user={user} />
-                    <Sidebar />
+                    <TopBar user={user} setPageIndex={setPageIndex} />
+                    <Sidebar
+                      pageIndex={pageIndex}
+                      setPageIndex={setPageIndex}
+                    />
                     <PriceTracker />
                   </Route>
                   <Route path="/admin/transactions">
-                    <TopBar user={user} />
-                    <Sidebar />
+                    <TopBar user={user} setPageIndex={setPageIndex} />
+                    <Sidebar
+                      pageIndex={pageIndex}
+                      setPageIndex={setPageIndex}
+                    />
                     <Transactions getExchangeRate={getExchangeRate} />
                   </Route>
                   <Route path="/admin/settings">
-                    <TopBar user={user} />
-                    <Sidebar />
+                    <TopBar user={user} setPageIndex={setPageIndex} />
+                    <Sidebar
+                      pageIndex={pageIndex}
+                      setPageIndex={setPageIndex}
+                    />
                     <Settings user={user} updateUser={updateUser} />
                   </Route>
                   <Redirect from="*" to="/admin/wallets" />

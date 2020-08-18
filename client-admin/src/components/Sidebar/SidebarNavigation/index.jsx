@@ -64,29 +64,12 @@ const JuniperListItem = withStyles({
   selected: {},
 })(ListItem);
 
-export default function SidebarNavigation() {
+export default function SidebarNavigation(props) {
   const classes = useStyles();
-  const [selectedIndex, setSelectedIndex] = React.useState(0);
 
   const handleListItemClick = (event, index) => {
-    setSelectedIndex(index);
+    props.setPageIndex(index);
   };
-
-  useEffect(() => {
-    const path = window.location.pathname;
-
-    if (path.indexOf("wallets") > -1) {
-      setSelectedIndex(0);
-    } else if (path.indexOf("accounts") > -1) {
-      setSelectedIndex(1);
-    } else if (path.indexOf("tracker") > -1) {
-      setSelectedIndex(2);
-    } else if (path.indexOf("transactions") > -1) {
-      setSelectedIndex(3);
-    } else if (path.indexOf("settings") > -1) {
-      setSelectedIndex(4);
-    }
-  }, []);
 
   return (
     <List
@@ -97,14 +80,16 @@ export default function SidebarNavigation() {
       <Link to={"/admin/wallets"} className={classes.link}>
         <JuniperListItem
           button
-          selected={selectedIndex === 0}
+          selected={props.pageIndex === 0}
           onClick={(event) => handleListItemClick(event, 0)}
           className={classes.navLink}
         >
           <ListItemIcon className={classes.listItem}>
             <WalletsIcon
               className={
-                selectedIndex === 0 ? classes.navIconSelected : classes.navIcon
+                props.pageIndex === 0
+                  ? classes.navIconSelected
+                  : classes.navIcon
               }
             />
           </ListItemIcon>
@@ -118,14 +103,16 @@ export default function SidebarNavigation() {
       <Link to={"/admin/accounts"} className={classes.link}>
         <JuniperListItem
           button
-          selected={selectedIndex === 1}
+          selected={props.pageIndex === 1}
           onClick={(event) => handleListItemClick(event, 1)}
           className={classes.navLink}
         >
           <ListItemIcon className={classes.listItem}>
             <AccountsIcon
               className={
-                selectedIndex === 1 ? classes.navIconSelected : classes.navIcon
+                props.pageIndex === 1
+                  ? classes.navIconSelected
+                  : classes.navIcon
               }
             />
           </ListItemIcon>
@@ -139,14 +126,16 @@ export default function SidebarNavigation() {
       <Link to={"/admin/tracker"} className={classes.link}>
         <JuniperListItem
           button
-          selected={selectedIndex === 2}
+          selected={props.pageIndex === 2}
           onClick={(event) => handleListItemClick(event, 2)}
           className={classes.navLink}
         >
           <ListItemIcon className={classes.listItem}>
             <PriceTrackerIcon
               className={
-                selectedIndex === 2 ? classes.navIconSelected : classes.navIcon
+                props.pageIndex === 2
+                  ? classes.navIconSelected
+                  : classes.navIcon
               }
             />
           </ListItemIcon>
@@ -164,14 +153,16 @@ export default function SidebarNavigation() {
       >
         <JuniperListItem
           button
-          selected={selectedIndex === 3}
+          selected={props.pageIndex === 3}
           onClick={(event) => handleListItemClick(event, 3)}
           className={classes.navLink}
         >
           <ListItemIcon className={classes.listItem}>
             <TransactionsIcon
               className={
-                selectedIndex === 3 ? classes.navIconSelected : classes.navIcon
+                props.pageIndex === 3
+                  ? classes.navIconSelected
+                  : classes.navIcon
               }
             />
           </ListItemIcon>
@@ -185,14 +176,16 @@ export default function SidebarNavigation() {
       <Link to={"/admin/settings"} className={classes.link}>
         <JuniperListItem
           button
-          selected={selectedIndex === 4}
+          selected={props.pageIndex === 4}
           onClick={(event) => handleListItemClick(event, 4)}
           className={classes.navLink}
         >
           <ListItemIcon className={classes.listItem}>
             <SettingsIcon
               className={
-                selectedIndex === 4 ? classes.navIconSelected : classes.navIcon
+                props.pageIndex === 4
+                  ? classes.navIconSelected
+                  : classes.navIcon
               }
               fontSize="large"
             />
