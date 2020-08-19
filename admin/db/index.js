@@ -58,6 +58,20 @@ class MongoDB {
     );
   }
 
+  async updateTransactionSourcesForAccount(accountName, address) {
+    return this.models.Transaction.updateMany(
+      { from: address },
+      { source: accountName }
+    );
+  }
+
+  async updateTransactionDestinationsForAccount(accountName, address) {
+    return this.models.Transaction.updateMany(
+      { to: address },
+      { destination: accountName }
+    );
+  }
+
   async updateUser(user) {
     return this.models.User.findOneAndUpdate(
       {

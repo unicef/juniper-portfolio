@@ -181,6 +181,18 @@ class JuniperAdmin {
     this.logger.debug(JSON.stringify(account));
 
     await this.db.createAccount(account);
+
+    account.addresses.forEach(async (address) => {
+      await this.db.updateTransactionSourcesForAccount(
+        account.name,
+        address.address
+      );
+
+      await this.db.updateTransactionDestinationsForAccount(
+        account.name,
+        address.address
+      );
+    });
   }
 
   async getAccounts() {

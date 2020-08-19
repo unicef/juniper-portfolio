@@ -272,7 +272,7 @@ export default function CreateStartup(props) {
               onChange={(e) => {
                 setName(e.target.value);
               }}
-              label="Startup Name"
+              label={`${type.charAt(0).toUpperCase() + type.slice(1)} name`}
             />
             {type === "startup" && (
               <Fragment>
@@ -365,6 +365,7 @@ export default function CreateStartup(props) {
                         amount={address.amount}
                         setAddresses={setAddresses}
                         index={index}
+                        address={address.address}
                       />
                     );
                   })}
@@ -427,6 +428,7 @@ function AddressDetails(props) {
             onChange={(e) => {
               const newAddresses = props.addresses.slice();
               newAddresses[props.index].address = e.target.value.toLowerCase();
+              console.log(newAddresses);
               props.setAddresses(newAddresses);
             }}
           />

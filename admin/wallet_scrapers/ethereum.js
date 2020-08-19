@@ -111,8 +111,6 @@ class EthereumWalletScraper {
     let amount = tx.value / 1e18;
     amount = Math.round(amount * 1e5) / 1e5;
 
-    console.log(accountMap);
-
     if (tx.to.toLowerCase() === address.toLowerCase()) {
       received = true;
     }
