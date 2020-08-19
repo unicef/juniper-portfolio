@@ -149,7 +149,12 @@ export default function AccountLayout({
           <Button
             className={classes.messageButton}
             endIcon={<ChevronRightIcon />}
-            onClick={() => {}}
+            onClick={() => {
+              window.open(
+                "https://www.unicef.org/innovation/applyBlockchainCrypto",
+                "_blank"
+              );
+            }}
           >
             Learn more about Cryptofund
           </Button>
