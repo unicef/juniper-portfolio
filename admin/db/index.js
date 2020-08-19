@@ -95,7 +95,11 @@ class MongoDB {
   }
 
   async getAccounts(active = true) {
-    return this.models.Account.find({ active });
+    return this.models.Account.find({ active }).sort({ _id: -1 });
+  }
+
+  async getAccount(name) {
+    return this.models.Account.findOne({ name });
   }
 
   async getUser(name) {
@@ -295,7 +299,15 @@ class MongoDB {
 
   async getTransactions() {
     this.logger.debug(`getTransactions`);
-    return this.models.Transaction.find();
+    return this.models.Transaction.find().sort({ _id: -1 });
+  }
+
+  async getTransactionsForAccount(name) {
+    this.logger.debug(`getTransactionsForAccount`);
+    return this.models.Transaction.find({
+      $or: [{ source: name }, { destination: name }],
+      amountUSD: { $gte: 0.01 },
+    }).sort({ _id: -1 });
   }
 
   async getUnpublishedTransactions(notZero) {
@@ -303,7 +315,7 @@ class MongoDB {
     return this.models.Transaction.find({
       isUnicef: true,
       amountUSD: { $gte: 0.01 },
-    });
+    }).sort({ _id: -1 });
   }
 
   async archiveTx(txid) {

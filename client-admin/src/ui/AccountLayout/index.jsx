@@ -6,6 +6,8 @@ import Button from "@material-ui/core/Button";
 import ChevronRightIcon from "@material-ui/icons/ChevronRight";
 import AccountBalanceCard from "../Cards/AccountBalanceCard";
 import AccountCard from "../Cards/AccountCard";
+import { AccountDetails } from "../../ui/Dialog";
+import { StartupDetails } from "../../ui/Dialog";
 
 const transactionDetailsStyles = makeStyles((theme) => ({
   root: {
@@ -74,13 +76,19 @@ export default function AccountLayout({
   addButtonText,
   CreateModal,
   onDialogClose,
+  ethRate,
+  btcRate,
+  copyToClipboard,
 }) {
   const classes = transactionDetailsStyles();
-  console.log(type);
   const [openCreateDialog, setOpenCreateDialog] = useState(false);
+  const [openDetails, setOpenAccountDetails] = useState(false);
+  const [openStartupDetails, setOpenStartupDetails] = useState(false);
+  const [detailsAccount, setDetailsAccount] = useState(null);
 
   const closeCreateDialog = () => {
     setOpenCreateDialog(false);
+    setDetailsAccount(null);
     onDialogClose();
   };
   return (
@@ -92,6 +100,27 @@ export default function AccountLayout({
           onDialogClose={closeCreateDialog}
         />
       )}
+      <AccountDetails
+        open={openDetails}
+        type={type}
+        title={"Donation Details"}
+        setOpenDetails={setOpenAccountDetails}
+        account={detailsAccount}
+        ethRate={ethRate}
+        btcRate={btcRate}
+        copyToClipboard={copyToClipboard}
+      />
+      <StartupDetails
+        open={openStartupDetails}
+        type={type}
+        title={"Investment Details"}
+        setOpenDetails={setOpenStartupDetails}
+        account={detailsAccount}
+        ethRate={ethRate}
+        btcRate={btcRate}
+        copyToClipboard={copyToClipboard}
+      />
+
       <Grid container className={classes.bannerBox}>
         <Grid item xs={12}>
           <PriceInfoBanner />
@@ -159,6 +188,12 @@ export default function AccountLayout({
                   totalETHUSD={account.totalETHUSD}
                   totalBTCInvested={account.totalBTCInvested}
                   totalBTCUSD={account.totalBTCUSD}
+                  setOpenDetails={
+                    type === "startup"
+                      ? setOpenStartupDetails
+                      : setOpenAccountDetails
+                  }
+                  setDetailsAccount={setDetailsAccount}
                 />
               </Grid>
             );

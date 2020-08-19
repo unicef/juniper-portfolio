@@ -196,7 +196,7 @@ export default function ActivityList(props) {
                         className={classes.generateButton}
                         startIcon={<GenerateLinkIcon />}
                         onClick={async () => {
-                          copyToClipboard(
+                          props.copyToClipboard(
                             `https://juniper.unicef.io/admin/signin?verification=${user.verificationCode}`
                           );
                         }}

@@ -121,6 +121,10 @@ export default function JuniperAdmin() {
     // todo update on server
   };
 
+  const copyToClipboard = (str) => {
+    navigator.clipboard.writeText(str);
+  };
+
   useEffect(() => {
     // check if logged in
     const getUserProfile = async () => {
@@ -184,12 +188,16 @@ export default function JuniperAdmin() {
                     <Wallets getExchangeRate={getExchangeRate} />
                   </Route>
                   <Route path="/admin/accounts">
+
                     <TopBar user={user} setPageIndex={setPageIndex} />
                     <Sidebar
                       pageIndex={pageIndex}
                       setPageIndex={setPageIndex}
                     />
-                    <Accounts getExchangeRate={getExchangeRate} />
+                    <Accounts
+                      getExchangeRate={getExchangeRate}
+                      copyToClipboard={copyToClipboard}
+                    />
                   </Route>
                   <Route path="/admin/tracker">
                     <TopBar user={user} setPageIndex={setPageIndex} />
@@ -208,12 +216,18 @@ export default function JuniperAdmin() {
                     <Transactions getExchangeRate={getExchangeRate} />
                   </Route>
                   <Route path="/admin/settings">
+
                     <TopBar user={user} setPageIndex={setPageIndex} />
                     <Sidebar
                       pageIndex={pageIndex}
                       setPageIndex={setPageIndex}
                     />
-                    <Settings user={user} updateUser={updateUser} />
+                    <Settings
+                      user={user}
+                      updateUser={updateUser}
+                      copyToClipboard={copyToClipboard}
+                    />
+
                   </Route>
                   <Redirect from="*" to="/admin/wallets" />
                 </Switch>

@@ -14,6 +14,20 @@ router.get("/", async (req, res) => {
   res.send(accounts);
 });
 
+router.get("/:name", async (req, res) => {
+  const juniperAdmin = req.app.get("juniperAdmin");
+  const { name } = req.params;
+
+  let account;
+  try {
+    account = await juniperAdmin.getAccount(name);
+  } catch (e) {
+    return res.status(500).send();
+  }
+  console.log(account);
+  res.send(account);
+});
+
 router.post("/", async (req, res) => {
   const juniperAdmin = req.app.get("juniperAdmin");
 

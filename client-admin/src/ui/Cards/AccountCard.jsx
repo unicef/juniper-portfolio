@@ -102,17 +102,10 @@ export default function AccountCard({
   totalETHUSD,
   totalBTCInvested,
   totalBTCUSD,
+  setOpenDetails,
+  setDetailsAccount,
 }) {
   const classes = useStyles();
-
-  const copyToClipboard = (text) => {
-    const el = document.createElement("textarea");
-    el.value = text;
-    document.body.appendChild(el);
-    el.select();
-    document.execCommand("copy");
-    document.body.removeChild(el);
-  };
 
   return (
     <div className={classes.wallet}>
@@ -178,7 +171,10 @@ export default function AccountCard({
       <Button
         className={classes.viewTxButton}
         endIcon={<ChevronRightIcon />}
-        onClick={() => {}}
+        onClick={() => {
+          setDetailsAccount(name);
+          setOpenDetails(true);
+        }}
       >
         View Account Details
       </Button>
