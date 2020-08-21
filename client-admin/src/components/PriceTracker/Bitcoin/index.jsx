@@ -126,9 +126,6 @@ export default function BitcoinPriceTracker() {
 
   const getWeekPrices = async () => {
     let res, dayprice, i;
-    //const currentday = new Date();
-    //const prevday = new Date();
-
     
 
     for (i = 0; i < 7; i++)
