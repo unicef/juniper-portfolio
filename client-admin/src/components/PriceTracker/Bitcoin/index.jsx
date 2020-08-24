@@ -79,9 +79,7 @@ export default function BitcoinPriceTracker() {
   yesterday.setDate(yesterday.getDate() - 1);
   amonthago.setDate(amonthago.getDate() - 30);
 
-  console.log("yesterday", yesterday.toISOString());
-  console.log("today", today.toISOString());
-
+  
   const month = today.toLocaleString("default", { month: "short" });
   const datestring =
     today.getUTCDate() + " " + month + " " + today.getUTCFullYear();
@@ -89,6 +87,10 @@ export default function BitcoinPriceTracker() {
   const yesterdaystr = yesterday.toISOString();
   const todaystr = today.toISOString();
   const monthagostr = amonthago.toISOString();
+
+  console.log("yesterday", yesterdaystr);
+  console.log("today", todaystr);
+
 
   const url = new URL(window.location.origin + "/rest/admin/avgprice");
   const todayparams = {
@@ -105,6 +107,8 @@ export default function BitcoinPriceTracker() {
 
   const [todayprice, setTodayPrice] = useState([]);
   const [monthavgprice, setMonthAvgPrice] = useState([]);
+  const [weekprices, setWeekPrices] = useState([]);
+  const [weekdates, setWeekDates] = useState([]);
 
   const getTodayPrice = async () => {
     let res, todayprice;
@@ -113,12 +117,54 @@ export default function BitcoinPriceTracker() {
     try {
       res = await fetch(url);
       todayprice = await res.json();
-      setTodayPrice(todayprice[0].avgPrice);
+      setTodayPrice(todayprice[0].avgPrice.toFixed(2));
       console.log("Got todayprice: ", todayprice);
     } catch (e) {
       return console.log(e);
     }
   };
+
+  const getWeekPrices = async () => {
+    let res, dayprice, i;
+    
+
+    for (i = 0; i < 7; i++)
+    {
+      const currentday = new Date();
+      const prevday = new Date();
+      currentday.setDate(currentday.getDate() - i);
+      prevday.setDate(prevday.getDate() - i - 1);
+      const currentdaystr = currentday.toISOString();
+      const prevdaystr = prevday.toISOString();
+      const dayparams = {
+        symbol: "BTC",
+        timeStart: prevdaystr,
+        timeEnd: currentdaystr,
+      };
+
+      //Boring date formatting. Very annoying.
+      const month = currentday.toLocaleString("default", { month: "short" });
+      const currentdatestr = currentday.getUTCDate() + " " + month + " " + currentday.getUTCFullYear();
+
+      setWeekDates(weekdates => [currentdatestr, ...weekdates])
+
+
+
+      //Now get the actual prices
+      url.search = new URLSearchParams(dayparams).toString();
+      try {
+        res = await fetch(url);
+        dayprice = await res.json();
+        setWeekPrices(weekprices => [dayprice[0].avgPrice.toFixed(2), ...weekprices]);
+        console.log("Current day price:", dayprice[0].avgPrice);
+        console.log("Current price list", weekprices);
+      } catch (e) {
+        return console.log(e);
+      }
+    }
+
+    
+  }
 
   const getMonthAvgPrice = async () => {
     let res, monthavgprice;
@@ -137,6 +183,7 @@ export default function BitcoinPriceTracker() {
   useEffect(() => {
     getTodayPrice();
     getMonthAvgPrice();
+    getWeekPrices();
   }, []);
 
   return (
@@ -146,7 +193,7 @@ export default function BitcoinPriceTracker() {
       <div className={classes.subheader}>{datestring}</div>
       <div>{todayprice}</div>
       <MainCard todayprice={todayprice} monthavgprice={monthavgprice} />
-      <WeekCard />
+      <WeekCard weekdates={weekdates} weekprices={weekprices}/>
     </MainContentContainer>
   );
 }
@@ -167,40 +214,22 @@ export function MainCard(params) {
   );
 }
 
-export function WeekCard() {
+export function WeekCard(params) {
   const classes = useStyles();
   return (
     <div className={classes.card}>
       <Card className={classes.cardinner} variant="outlined">
         <Grid container spacing={3}>
-          <Grid item>
-            <div className={classes.smalltext}>19 Dec 2020</div>
-            <div className={classes.subheader}>8798 USD</div>
-          </Grid>
-          <Grid item>
-            <div className={classes.smalltext}>19 Dec 2020</div>
-            <div className={classes.subheader}>8798 USD</div>
-          </Grid>
-          <Grid item>
-            <div className={classes.smalltext}>19 Dec 2020</div>
-            <div className={classes.subheader}>8798 USD</div>
-          </Grid>
-          <Grid item>
-            <div className={classes.smalltext}>19 Dec 2020</div>
-            <div className={classes.subheader}>8798 USD</div>
-          </Grid>
-          <Grid item>
-            <div className={classes.smalltext}>19 Dec 2020</div>
-            <div className={classes.subheader}>8798 USD</div>
-          </Grid>
-          <Grid item>
-            <div className={classes.smalltext}>19 Dec 2020</div>
-            <div className={classes.subheader}>8798 USD</div>
-          </Grid>
-          <Grid item className={classes.today}>
-            <div className={classes.smalltext}>19 Dec 2020</div>
-            <div className={classes.subheader}>8798 USD</div>
-          </Grid>
+          {params.weekdates.map((date, index) => {
+            return (
+              <Grid item className={(index==6) ? classes.today : ""}>
+                <div className={classes.smalltext}>{date}</div>
+                <div className={classes.subheader}>{params.weekprices[index]}</div>
+              </Grid>
+            )
+            
+          })}
+          
         </Grid>
       </Card>
     </div>
