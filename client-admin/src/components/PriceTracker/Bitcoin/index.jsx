@@ -6,6 +6,8 @@ import { gql } from "apollo-boost";
 import { useQuery } from "react-apollo";
 import MainContentContainer from "../../../ui/MainContentContainer";
 import PriceInfoBanner from "../../../ui/PriceInfoBanner";
+import {ArgumentAxis,ValueAxis,Chart,LineSeries,Title} from '@devexpress/dx-react-chart-material-ui';
+
 
 const useStyles = makeStyles({
   root: {
@@ -191,25 +193,43 @@ export default function BitcoinPriceTracker() {
       <PriceInfoBanner />
       <div className={classes.header}>Bitcoin price overview</div>
       <div className={classes.subheader}>{datestring}</div>
-      <div>{todayprice}</div>
-      <MainCard todayprice={todayprice} monthavgprice={monthavgprice} />
+      <MainCard todayprice={todayprice} monthavgprice={monthavgprice} 
+                weekprices={weekprices} weekdates={weekdates}/>
       <WeekCard weekdates={weekdates} weekprices={weekprices}/>
     </MainContentContainer>
   );
 }
 
-export function MainCard(params) {
+
+export function MainCard(params)
+{
   const classes = useStyles();
   return (
     <div className={classes.card}>
       <Card className={classes.cardinner} variant="outlined">
+        <Grid container spacing={3}>
+          <Grid item>
+            <PriceSummary todayprice={params.todayprice} monthavgprice={params.monthavgprice} />
+          </Grid>
+          <Grid item>
+            <PriceGraph weekprices={params.weekprices} weekdates={params.weekdates} />
+          </Grid>
+        </Grid>
+      </Card>
+    </div>
+  );
+}
+
+export function PriceSummary(params) {
+  const classes = useStyles();
+  return (
+    <div>
         <div className={classes.smalltext}>TODAY'S AVERAGE PRICE</div>
         <div className={classes.cardheader}>{params.todayprice} USD</div>
         <div className={classes.smalltext}>MONTHLY AVERAGE PRICE</div>
         <div className={classes.cardsubheader}>{params.monthavgprice} USD</div>
         <div className={classes.smalltext}>Q1 AVERAGE PRICE</div>
         <div className={classes.cardsubheader}>8798 USD</div>
-      </Card>
     </div>
   );
 }
@@ -235,3 +255,29 @@ export function WeekCard(params) {
     </div>
   );
 }
+
+
+
+
+export function PriceGraph(params) {
+  const classes = useStyles();
+
+  let data = [];
+  let i;
+
+  for (i = 0; i < params.weekdates.length; i++) {
+    data[i] = { x: params.weekdates[i], y: Number(params.weekprices[i]) }
+  }
+
+  
+  return (
+
+    <Chart data={data} width={600} height={250}>
+      <ArgumentAxis />
+      <ValueAxis/>
+      <LineSeries valueField="y" argumentField="x" />
+      <Title text={"Price Graph " + params.weekdates[6]} />
+    </Chart>
+  
+  )
+};
