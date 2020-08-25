@@ -359,7 +359,7 @@ class MongoDB {
     );
   }
   async getPrice(exchange, symbol, timestamp) {
-    this.logger.debug(`Get Price \t${exchange} \t${symbol} \t${timestamp}`);
+    this.logger.info(`Get Price \t${exchange} \t${symbol} \t${timestamp}`);
     return this.models.Price.findOne({
       exchange,
       symbol,
@@ -371,7 +371,8 @@ class MongoDB {
       .limit(1);
   }
   async getPrices(symbol, timeStart = new Date(0), timeEnd = new Date()) {
-    this.logger.debug(`Get Prices \t ${symbol} \t${timeStart} \t${timeEnd}`);
+    console.log(symbol);
+    this.logger.info(`Get Prices \t ${symbol} \t${timeStart} \t${timeEnd}`);
     return this.models.Price.find({
       symbol,
       timestamp: { $gte: timeStart, $lt: timeEnd },
