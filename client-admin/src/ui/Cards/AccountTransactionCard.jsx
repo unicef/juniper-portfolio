@@ -101,7 +101,7 @@ export default function AccountTransactionCard({
   const txDate = new Date(timestamp);
   const month = monthNames[txDate.getMonth()];
   const day = txDate.getDay();
-  const year = txDate.getYear();
+  const year = txDate.getFullYear();
 
   return (
     <Grid container className={classes.authorizationSigner}>
