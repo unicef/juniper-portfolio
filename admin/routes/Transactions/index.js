@@ -42,6 +42,24 @@ router.get("/unpublished", async (req, res) => {
   res.json(txs);
 });
 
+router.post("/publish", async (req, res) => {
+  const juniperAdmin = req.app.get("juniperAdmin");
+
+  try {
+    const profile = req.session.passport.user.profile;
+    const name = `${profile.firstName} ${profile.lastName}`;
+    //await juniperAdmin.db.archiveTx(txid);
+    await juniperAdmin.logActivity({
+      name: name,
+      text: `<a href="#" class="link">${name}</a> published a transaction.`,
+    });
+  } catch (e) {
+    logger.error(e);
+    return res.status(500).send();
+  }
+
+  res.send(true);
+});
 router.post("/archive", async (req, res) => {
   const juniperAdmin = req.app.get("juniperAdmin");
   let { txid } = req.body;

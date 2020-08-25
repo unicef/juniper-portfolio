@@ -102,6 +102,34 @@ export default function Transactions({ getExchangeRate }) {
     setActiveTab(newTab);
   };
 
+  const publishTransaction = async (tx, donor, publish) => {
+    tx.published = publish;
+
+    let res;
+    try {
+      res = await fetch(`/rest/admin/transactions/publish`, {
+        credentials: "include",
+        method: "POST",
+        body: JSON.stringify({
+          tx,
+          donor,
+        }),
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+    } catch (e) {
+      console.log(e);
+      return;
+    }
+
+    if (res.status === 200) {
+      //archiveTransactionSuccess();
+    } else {
+      //archiveTransactionFailed(txid);
+    }
+  };
+
   const archiveTransaction = (txid) => {
     const newTxs = txs.slice();
 
@@ -190,6 +218,7 @@ export default function Transactions({ getExchangeRate }) {
           setShowTagTransaction(false);
           setTransaction({});
         }}
+        publishTransaction={publishTransaction}
         getExchangeRate={getExchangeRate}
       />
       <StyledTabs

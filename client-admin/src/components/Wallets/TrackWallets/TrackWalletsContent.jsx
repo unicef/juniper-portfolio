@@ -66,8 +66,15 @@ export default function ({ getExchangeRate }) {
       return console.log(e);
     }
 
-    setTrackedWallets(walletData);
-    setOtherWallets(otherWalletsData);
+    const trackedWallets = walletData.filter((wallet) => {
+      return wallet.isTracked;
+    });
+    const trackedOtherWallets = walletData.filter((wallet) => {
+      return wallet.isTrackedOther;
+    });
+
+    setTrackedWallets(trackedWallets);
+    setOtherWallets(trackedOtherWallets);
   };
 
   useEffect(() => {
@@ -163,9 +170,16 @@ export default function ({ getExchangeRate }) {
                     currency={wallet.currency}
                     tags={wallet.tags}
                     symbol={wallet.symbol}
-                    amount={wallet.amount}
-                    amountUSD={wallet.amountUSD}
+                    balance={wallet.balance}
                     address={wallet.address}
+                    exchangeRate={
+                      wallet.symbol === "ETH"
+                        ? ethereumExchangeRate
+                        : bitcoinExchangeRate
+                    }
+                    afterUnfollowWallet={() => {
+                      getTrackedWallets();
+                    }}
                   />
                 </Grid>
               );

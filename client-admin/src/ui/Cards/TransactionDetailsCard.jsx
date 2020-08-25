@@ -1,4 +1,4 @@
-import React, { Fragment } from "react";
+import React, { useState, Fragment } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import Divider from "@material-ui/core/Divider";
 import Button from "@material-ui/core/Button";
@@ -8,6 +8,7 @@ import FormatListBulletedIcon from "@material-ui/icons/FormatListBulleted";
 import TxReceivedIcon from "../Icons/TxReceivedIcon";
 import TxSentIcon from "../Icons/TxSentIcon";
 import { usdFormatter, cryptoFormatter } from "../../util";
+import { AddWallet } from "../Dialog";
 
 const useStyles = makeStyles((theme) => ({
   walletBalance: {
@@ -102,8 +103,20 @@ export default function TransactionDetailsCard({
 }) {
   const classes = useStyles();
   const txSent = new Date(timestamp);
+  const [showAddWalletModal, setShowAddWalletModal] = useState(false);
+
   return (
     <Fragment>
+      <AddWallet
+        open={showAddWalletModal}
+        setShowAddWalletModal={setShowAddWalletModal}
+        afterAddWallet={() => {}}
+        showMultisig={false}
+        isUnicef={false}
+        isTracked={false}
+        isTrackedOther={true}
+        address={to}
+      />
       <Grid container className={classes.transaction}>
         <Grid item xs={12} className={classes.txHeader}>
           {sent ? (
@@ -134,6 +147,9 @@ export default function TransactionDetailsCard({
                 color="primary"
                 variant="contained"
                 className={classes.tagDestinationButton}
+                onClick={() => {
+                  setShowAddWalletModal(true);
+                }}
               >
                 Tag Destination Wallet
               </Button>

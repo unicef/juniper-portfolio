@@ -293,7 +293,7 @@ class MongoDB {
   async getTrackedWallets() {
     this.logger.debug(`Get Tracked Wallets`);
     return this.models.Wallet.find({
-      isTracked: true,
+      $or: [{ isTracked: true }, { isTrackedOther: true }],
     });
   }
 
@@ -406,7 +406,7 @@ class MongoDB {
     this.logger.debug(`Untrack Wallet ${address}`);
     return await this.models.Wallet.findOneAndUpdate(
       { address },
-      { isTracked: false }
+      { isTracked: false, isTrackedOther: false }
     );
   }
 }
