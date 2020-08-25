@@ -117,6 +117,8 @@ export default function PriceCheckerLayout(props) {
   const [currentMonth, setCurrentMonth] = useState(new Date().getMonth());
   const [currentYear, setCurrentYear] = useState(new Date().getFullYear());
 
+  const [currentMonthAveragePrice, setCurrentMonthAveragePrice] = useState(0);
+
   const shortDate = (date) => {
     return `${date.getDate()} ${
       monthNames[date.getMonth()]
@@ -128,10 +130,168 @@ export default function PriceCheckerLayout(props) {
     return new Date(year, month, 0).getDate();
   };
 
+  const getQuarterOfYear = (month) => {
+    return Math.floor((month + 3) / 3);
+  };
+
+  const currentQuarter = () => {
+    return getQuarterOfYear(currentMonth);
+  };
+
+  const daysInQuarter = (quarter, year) => {
+    switch (quarter) {
+      case 1:
+        return (
+          daysInMonth(0, year) + daysInMonth(1, year) + daysInMonth(2, year)
+        );
+        break;
+      case 2:
+        return (
+          daysInMonth(3, year) + daysInMonth(4, year) + daysInMonth(5, year)
+        );
+        break;
+      case 3:
+        return (
+          daysInMonth(6, year) + daysInMonth(7, year) + daysInMonth(8, year)
+        );
+        break;
+      case 4:
+        return (
+          daysInMonth(9, year) + daysInMonth(10, year) + daysInMonth(11, year)
+        );
+        break;
+      default:
+    }
+  };
+
+  const daysPastInThisQuarter = () => {
+    let month = 0;
+    let days = 0;
+    switch (currentQuarter()) {
+      case 1:
+        month = 0;
+        while (month < thisMonth) {
+          days += daysInMonth(month, thisYear);
+          month++;
+        }
+        days += new Date().getDate();
+
+        break;
+      case 2:
+        month = 3;
+        while (month < thisMonth) {
+          days += daysInMonth(month, thisYear);
+          month++;
+        }
+        days += new Date().getDate();
+
+        break;
+      case 3:
+        month = 6;
+        while (month < thisMonth) {
+          days += daysInMonth(month, thisYear);
+          month++;
+        }
+        days += new Date().getDate();
+
+        break;
+      case 4:
+        month = 9;
+        while (month < thisMonth) {
+          days += daysInMonth(month, thisYear);
+          month++;
+        }
+        days += new Date().getDate();
+
+        break;
+      default:
+    }
+
+    return days;
+  };
+
+  const getQuarterlyAverage = () => {
+    const thisQuarter = getQuarterOfYear(thisMonth, thisYear);
+    const daysInThisQuarter = daysPastInThisQuarter(); // calc
+    const quarter = currentQuarter();
+
+    let days = 0;
+
+    if (currentYear === thisYear && quarter === thisQuarter) {
+      days = daysInThisQuarter;
+    } else {
+      days = daysInQuarter(quarter, currentYear);
+    }
+
+    if (quarter === 1) {
+      return Math.round(
+        props.prices
+          .filter((price) => {
+            return (
+              price.year === currentYear &&
+              (price.month === 0 || price.month === 1 || price.month === 2)
+            );
+          })
+          .reduce((a, b) => {
+            return a + b.price;
+          }, 0) / days
+      );
+    } else if (quarter === 2) {
+      return Math.round(
+        props.prices
+          .filter((price) => {
+            return (
+              price.year === currentYear &&
+              (price.month === 3 || price.month === 4 || price.month === 5)
+            );
+          })
+          .reduce((a, b) => {
+            return a + b.price;
+          }, 0) / days
+      );
+    } else if (quarter === 3) {
+      return Math.round(
+        props.prices
+          .filter((price) => {
+            return (
+              price.year === currentYear &&
+              (price.month === 6 || price.month === 7 || price.month === 8)
+            );
+          })
+          .reduce((a, b) => {
+            return a + b.price;
+          }, 0) / days
+      );
+    } else if (quarter === 4) {
+      return Math.round(
+        props.prices
+          .filter((price) => {
+            return (
+              price.year === currentYear &&
+              (price.month === 9 || price.month === 10 || price.month === 11)
+            );
+          })
+          .reduce((a, b) => {
+            return a + b.price;
+          }, 0) / days
+      );
+    }
+  };
+
+  const updateMonthlyAverage = (month = currentMonth, year = currentYear) => {
+    setCurrentMonthAveragePrice(
+      props.prices
+        .filter((price) => {
+          return price.month === month && price.year === year;
+        })
+        .reduce((a, b) => {
+          return a + b.price;
+        }, 0) / daysInMonth(month, year)
+    );
+  };
+
   useEffect(() => {
     if (props.prices && props.prices.length > 0) {
-      console.log("prices");
-      console.log(props.prices);
       setPrices(
         props.prices.map((price) => {
           return {
@@ -143,6 +303,8 @@ export default function PriceCheckerLayout(props) {
           };
         })
       );
+
+      updateMonthlyAverage();
     }
   }, [props.prices]);
 
@@ -164,8 +326,10 @@ export default function PriceCheckerLayout(props) {
                     if (currentMonth === 0) {
                       setCurrentMonth(11);
                       setCurrentYear(currentYear - 1);
+                      updateMonthlyAverage(11, currentYear - 1);
                     } else {
                       setCurrentMonth(currentMonth - 1);
+                      updateMonthlyAverage(currentMonth - 1);
                     }
                   }}
                 >
@@ -185,8 +349,10 @@ export default function PriceCheckerLayout(props) {
                     if (currentMonth === 11) {
                       setCurrentMonth(0);
                       setCurrentYear(currentYear + 1);
+                      updateMonthlyAverage(0, currentYear + 1);
                     } else {
                       setCurrentMonth(currentMonth + 1);
+                      updateMonthlyAverage(currentMonth + 1);
                     }
                   }}
                 >
@@ -199,7 +365,7 @@ export default function PriceCheckerLayout(props) {
 
         <Grid item xs={12} className={classes.chartArea}>
           <Grid container>
-            <Grid item xs={3}>
+            <Grid item xs={4}>
               <Grid container>
                 <Grid item className={classes.chartPrices}>
                   <div className={classes.subtitle}>Today's Average Price</div>
@@ -209,27 +375,33 @@ export default function PriceCheckerLayout(props) {
                 </Grid>
                 <Grid item className={classes.chartPrices}>
                   <div className={classes.subtitle}>Monthly Average Price</div>
-                  <div className={classes.chartTitle}>$8999.12 USD</div>
+                  <div className={classes.chartTitle}>
+                    {usdFormatter.format(currentMonthAveragePrice)} USD
+                  </div>
                 </Grid>
                 <Grid item className={classes.chartPrices}>
-                  <div className={classes.subtitle}>Q Average Price</div>
-                  <div className={classes.chartTitle}>$8999.12 USD</div>
+                  <div className={classes.subtitle}>
+                    Q{currentQuarter()} Average Price
+                  </div>
+                  <div className={classes.chartTitle}>
+                    {usdFormatter.format(getQuarterlyAverage())} USD
+                  </div>
                 </Grid>
               </Grid>
             </Grid>
-            <Grid item xs={9} className={classes.chart}>
+            <Grid item xs={8} className={classes.chart}>
               <Grid container>
                 <Grid item>
                   <div
                     className={classes.subtitle}
                     style={{ marginLeft: "4em" }}
                   >
-                    Price Graph {monthNames[currentMonth]}
+                    Price Graph {monthNames[currentMonth]} {currentYear}
                   </div>
                 </Grid>
                 <Grid item>
                   <LineChart
-                    width={650}
+                    width={575}
                     height={250}
                     data={prices.filter((price) => {
                       return (

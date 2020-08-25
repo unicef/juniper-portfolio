@@ -41,7 +41,7 @@ class CryptoCompare {
           currency: currency,
           symbol: symbol,
           ticker: ticker,
-          price: (price.high + price.low) / 2,
+          price: Math.round(((price.high + price.low) / 2) * 100) / 100,
           timestamp,
           day,
           month,
