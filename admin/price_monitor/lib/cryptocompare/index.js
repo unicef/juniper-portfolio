@@ -32,13 +32,20 @@ class CryptoCompare {
 
     json.Data.Data.forEach(async (price) => {
       try {
+        const timestamp = new Date(price.time * 1000);
+        const day = timestamp.getDate();
+        const month = timestamp.getMonth();
+        const year = timestamp.getFullYear();
         await this.db.savePrice({
           exchange: "CryptoCompare",
           currency: currency,
           symbol: symbol,
           ticker: ticker,
           price: (price.high + price.low) / 2,
-          timestamp: new Date(price.time * 1000),
+          timestamp,
+          day,
+          month,
+          year,
         });
       } catch (e) {
         this.logger.warn(e);

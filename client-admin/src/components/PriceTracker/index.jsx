@@ -66,15 +66,33 @@ const StyledTab = withStyles((theme) => ({
   },
 }))((props) => <Tab disableRipple {...props} />);
 
-export default function Accounts({ getExchangeRate, copyToClipboard }) {
+export default function PriceTracker() {
   const classes = useStyles();
   const [activeTab, setActiveTab] = useState(0);
+  const [bitcoinPrices, setBitcoinPrices] = useState([]);
+  const [ethereumPrices, setEthereumPrices] = useState([]);
 
   const changeView = (event, newTab) => {
     setActiveTab(newTab);
   };
 
-  useEffect(() => {}, []);
+  const getPrices = async () => {
+    let res, prices;
+    try {
+      res = await fetch("/rest/admin/prices");
+      prices = await res.json();
+    } catch (e) {
+      console.log(e);
+    }
+    console.log(prices);
+    const { bitcoin, ethereum } = prices;
+    setBitcoinPrices(bitcoin);
+    setEthereumPrices(ethereum);
+  };
+
+  useEffect(() => {
+    getPrices();
+  }, []);
 
   return (
     <div className={classes.root}>
@@ -96,10 +114,10 @@ export default function Accounts({ getExchangeRate, copyToClipboard }) {
       <Typography className={classes.padding} />
 
       <TabPanel activeTab={activeTab} index={0}>
-        <PriceCheckerLayout currency={"Bitcoin"} />
+        <PriceCheckerLayout currency={"Bitcoin"} prices={bitcoinPrices} />
       </TabPanel>
       <TabPanel activeTab={activeTab} index={1}>
-        <PriceCheckerLayout currency={"Ethereum"} />
+        <PriceCheckerLayout currency={"Ethereum"} prices={ethereumPrices} />
       </TabPanel>
     </div>
   );

@@ -8,6 +8,9 @@ const price = new Schema({
   ticker: { type: String },
   price: { type: Number },
   timestamp: { type: Date, index: true },
+  day: { type: Number },
+  month: { type: Number },
+  year: { type: Number },
 });
 
 price.index({ exchange: 1, timestamp: 1, symbol: 1 }, { unique: true });

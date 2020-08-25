@@ -1,23 +1,19 @@
-import React, { useState, Fragment } from "react";
+import React, { useState, useEffect, Fragment } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import Grid from "@material-ui/core/Grid";
 import PriceInfoBanner from "../../ui/PriceInfoBanner";
 import ChevronRightIcon from "@material-ui/icons/ChevronRight";
 import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
 import IconButton from "@material-ui/core/IconButton";
+import { usdFormatter } from "../../util";
 
 import {
   LineChart,
   Line,
   XAxis,
   YAxis,
-  ReferenceLine,
-  ReferenceArea,
-  ReferenceDot,
   Tooltip,
   CartesianGrid,
-  Legend,
-  Brush,
   ErrorBar,
   AreaChart,
   Area,
@@ -110,6 +106,8 @@ const useStyles = makeStyles((theme) => ({
 
 export default function PriceCheckerLayout(props) {
   const classes = useStyles();
+  const [prices, setPrices] = useState([]);
+
   const thisMonth = new Date().getMonth();
   const thisYear = new Date().getFullYear();
 
@@ -129,6 +127,24 @@ export default function PriceCheckerLayout(props) {
     console.log(`daysInMonth: ${new Date(year, month, 0).getDate()}`);
     return new Date(year, month, 0).getDate();
   };
+
+  useEffect(() => {
+    if (props.prices && props.prices.length > 0) {
+      console.log("prices");
+      console.log(props.prices);
+      setPrices(
+        props.prices.map((price) => {
+          return {
+            day: price.day,
+            month: price.month,
+            year: price.year,
+            Date: `${price.day}/${price.month}/${price.year}`,
+            Price: price.price,
+          };
+        })
+      );
+    }
+  }, [props.prices]);
 
   return (
     <Fragment>
@@ -215,7 +231,12 @@ export default function PriceCheckerLayout(props) {
                   <LineChart
                     width={650}
                     height={250}
-                    data={data03}
+                    data={prices.filter((price) => {
+                      return (
+                        price.month === currentMonth &&
+                        price.year === currentYear
+                      );
+                    })}
                     margin={{ top: 40, right: 40, bottom: 20, left: 20 }}
                   >
                     <XAxis dataKey="Date" />
@@ -244,10 +265,10 @@ export default function PriceCheckerLayout(props) {
             <ul className={classes.customPagination}>
               <li>
                 <IconButton
-                  disabled={currentWeek === 0}
+                  disabled={currentWeek === 1}
                   color="inherit"
                   onClick={() => {
-                    if (currentWeek !== 0) {
+                    if (currentWeek !== 1) {
                       setCurrentWeek(currentWeek - 1);
                     }
                   }}
