@@ -13,6 +13,7 @@ const wallet = new Schema({
   isUnicef: { type: Boolean, default: false },
   isMultisig: { type: Boolean, default: false },
   isTracked: { type: Boolean, default: false },
+  isTrackedOther: { type: Boolean, default: false },
   isAccount: { type: Boolean, default: false },
   multisigOwners: { type: Array, default: [] },
   txs: { type: Number, default: 0 },

@@ -24,7 +24,7 @@ router.get("/:name", async (req, res) => {
   } catch (e) {
     return res.status(500).send();
   }
-  console.log(account);
+
   res.send(account);
 });
 

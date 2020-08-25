@@ -170,6 +170,7 @@ export default function AddWallet(props) {
   const [isMultisig, setIsMultisig] = useState(false);
   const [isUnicef, setIsUnicef] = useState(false);
   const [isTracked, setIsTracked] = useState(false);
+  const [isTrackedOther, setIsTrackedOther] = useState(false);
   const [addingWallet, setAddingWallet] = useState(false);
   const [multisigOwners, setMultisigOwners] = useState([
     {
@@ -214,6 +215,7 @@ export default function AddWallet(props) {
       multisigOwners,
       isUnicef,
       isTracked,
+      isTrackedOther,
     };
     setAddingWallet(true);
 
@@ -270,6 +272,7 @@ export default function AddWallet(props) {
     setCurrency(props.currency || "Ethereum");
     setIsUnicef(props.isUnicef || false);
     setIsTracked(props.isTracked || false);
+    setIsTrackedOther(props.isTrackedOther || false);
     setOpen(props.open);
   }, [
     props.open,
@@ -278,6 +281,7 @@ export default function AddWallet(props) {
     props.currency,
     props.isMultisig,
     props.isTracked,
+    props.isTrackedOther,
     props.multisigOwners,
     props.name,
     props.symbol,

@@ -154,10 +154,23 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
+/* 
+This form is overloaded with multiple 
+responsibilities. Add a donor to the transactions, 
+or add a donor and define a new donor
+but the new donor info is different from
+the new donor form under accounts
+
+txid goes ?somewhere?
+*/
 export default function TagTransaction(props) {
   const classes = useStyles();
   const [exchangeRate, setExchangeRate] = useState(0);
+  const [donors, setDonors] = useState([]);
   const [donor, setDonor] = useState("");
+  const [newDonorName, setNewDonorName] = useState("");
+  const [newDonorAddress, setNewDonorAddress] = useState("");
+  const [newDonorTxid, setNewDonorTxid] = useState("");
 
   const handleClose = () => {
     if (props.onClose) {
@@ -167,10 +180,30 @@ export default function TagTransaction(props) {
 
   useEffect(() => {
     const getExchangeRate = async () => {
-      const rate = await props.getExchangeRate(props.tx.symbol);
+      let rate;
+      try {
+        rate = await props.getExchangeRate(props.tx.symbol);
+      } catch (e) {
+        console.log(e);
+      }
       setExchangeRate(rate);
     };
+    const getDonors = async () => {
+      let res, accounts, donors;
+      try {
+        res = await fetch("/rest/admin/accounts");
+        accounts = await res.json();
+        donors = accounts.filter((account) => {
+          return account.type === "donor";
+        });
+      } catch (e) {
+        console.log(e);
+      }
+
+      setDonors(donors);
+    };
     getExchangeRate();
+    getDonors();
   }, [props.tx]);
 
   return (
@@ -190,14 +223,17 @@ export default function TagTransaction(props) {
           <h1 className={classes.title}>{props.title}</h1>
           <Grid container className={classes.rectangle}>
             <Grid item xs={3} className={classes.detailTitle}>
-              Donor Name
+              {donor}
             </Grid>
+
             <Grid item xs={9} className={classes.detailTitle}>
-              Intermediary Name
+              {props.tx.source}
             </Grid>
+
             <Grid item xs={3} className={classes.subtitle}>
               Donor
             </Grid>
+
             <Grid item xs={9} className={classes.subtitle}>
               Intermediary
             </Grid>
@@ -227,17 +263,20 @@ export default function TagTransaction(props) {
                   setDonor(e.target.value);
                 }}
               >
-                <MenuItem className={classes.donorName} value={10}>
-                  Donor1
-                </MenuItem>
-                <MenuItem className={classes.donorName} value={20}>
-                  Donor2
-                </MenuItem>
-                <MenuItem className={classes.donorName} value={30}>
-                  Donor3
-                </MenuItem>
+                {donors.map((donor) => {
+                  return (
+                    <MenuItem
+                      key={donor.name}
+                      className={classes.donorName}
+                      value={donor.name}
+                    >
+                      {donor.name}
+                    </MenuItem>
+                  );
+                })}
               </Select>
             </FormControl>
+
             <p className={classes.donorMessage}>
               If the donor name does not exist in the above list, please add the
               details below.
@@ -245,6 +284,10 @@ export default function TagTransaction(props) {
             <TextField
               className={classes.donorNameTextfield}
               label="Donor Name"
+              value={newDonorName}
+              onChange={(e) => {
+                setNewDonorName(e.target.value);
+              }}
               InputProps={{
                 classes: {
                   root: classes.donorName,
@@ -272,6 +315,10 @@ export default function TagTransaction(props) {
             <TextField
               className={classes.donorWalletTextfield}
               label="Donor's Wallet Address"
+              value={newDonorAddress}
+              onChange={(e) => {
+                setNewDonorAddress(e.target.value);
+              }}
               InputProps={{
                 classes: {
                   root: classes.donorName,
@@ -287,6 +334,10 @@ export default function TagTransaction(props) {
               <TextField
                 className={classes.donorTxidTextfield}
                 label="Transaction id"
+                value={newDonorTxid}
+                onChange={(e) => {
+                  setNewDonorTxid(e.target.value);
+                }}
                 InputProps={{
                   classes: {
                     root: classes.donorName,
@@ -310,7 +361,25 @@ export default function TagTransaction(props) {
                 color="primary"
                 className={classes.outlineButton}
                 onClick={() => {
-                  console.log("test");
+                  const newDonor = newDonorAddress
+                    ? {
+                        name: donor || newDonorName,
+                        addresses: [
+                          {
+                            address: newDonorAddress,
+                            currency: props.tx.currency,
+                            amount: props.tx.amount,
+                          },
+                        ],
+                      }
+                    : null;
+
+                  const { tx } = props;
+
+                  tx.donor = donor || newDonorName;
+                  tx.donorTxid = newDonorTxid;
+
+                  props.publishTransaction(tx, newDonor, false);
                 }}
               >
                 Tag and Save Transaction
@@ -324,7 +393,25 @@ export default function TagTransaction(props) {
                 color="primary"
                 className={classes.filledButton}
                 onClick={() => {
-                  console.log("test");
+                  const newDonor = newDonorAddress
+                    ? {
+                        name: donor || newDonorName,
+                        addresses: [
+                          {
+                            address: newDonorAddress,
+                            currency: props.tx.currency,
+                            amount: props.tx.amount,
+                          },
+                        ],
+                      }
+                    : null;
+
+                  const { tx } = props;
+
+                  tx.donor = donor || newDonorName;
+                  tx.donorTxid = newDonorTxid;
+
+                  props.publishTransaction(tx, newDonor, true);
                 }}
               >
                 Tag and Publish Transaction

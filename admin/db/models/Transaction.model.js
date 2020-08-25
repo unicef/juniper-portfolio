@@ -22,6 +22,8 @@ const transaction = new Schema({
   feeUSD: { type: Number },
   amount: { type: Number },
   amountUSD: { type: Number },
+  donor: { type: String },
+  donorTxid: { type: String },
   isUnicef: { type: Boolean, default: false },
   isMultisigOwner: { type: Boolean, default: false },
   published: { type: Boolean, default: false },
