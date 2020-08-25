@@ -2,8 +2,6 @@ import React, { useState, useEffect } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import Card from "@material-ui/core/Card";
 import Grid from "@material-ui/core/Grid";
-import { gql } from "apollo-boost";
-import { useQuery } from "react-apollo";
 import MainContentContainer from "../../../ui/MainContentContainer";
 import PriceInfoBanner from "../../../ui/PriceInfoBanner";
 import {ArgumentAxis,ValueAxis,Chart,LineSeries,Title} from '@devexpress/dx-react-chart-material-ui';
@@ -72,7 +70,7 @@ const useStyles = makeStyles({
   },
 });
 
-export default function BitcoinPriceTracker() {
+export default function CryptoTracker(props) {
   const classes = useStyles();
   const today = new Date();
   const yesterday = new Date();
@@ -96,13 +94,13 @@ export default function BitcoinPriceTracker() {
 
   const url = new URL(window.location.origin + "/rest/admin/avgprice");
   const todayparams = {
-    symbol: "BTC",
+    symbol: props.currency,
     timeStart: yesterdaystr,
     timeEnd: todaystr,
   };
 
   const monthagoparams = {
-    symbol: "BTC",
+    symbol: props.currency,
     timeStart: monthagostr,
     timeEnd: todaystr,
   };
@@ -139,7 +137,7 @@ export default function BitcoinPriceTracker() {
       const currentdaystr = currentday.toISOString();
       const prevdaystr = prevday.toISOString();
       const dayparams = {
-        symbol: "BTC",
+        symbol: props.currency,
         timeStart: prevdaystr,
         timeEnd: currentdaystr,
       };
@@ -191,7 +189,7 @@ export default function BitcoinPriceTracker() {
   return (
     <MainContentContainer className={classes.root}>
       <PriceInfoBanner />
-      <div className={classes.header}>Bitcoin price overview</div>
+      <div className={classes.header}>{props.currency=="BTC" ? "Bitcoin" : "Ether"} price overview</div>
       <div className={classes.subheader}>{datestring}</div>
       <MainCard todayprice={todayprice} monthavgprice={monthavgprice} 
                 weekprices={weekprices} weekdates={weekdates}/>
@@ -272,7 +270,7 @@ export function PriceGraph(params) {
   
   return (
 
-    <Chart data={data} width={600} height={250}>
+    <Chart data={data} width={650} height={250}>
       <ArgumentAxis />
       <ValueAxis/>
       <LineSeries valueField="y" argumentField="x" />

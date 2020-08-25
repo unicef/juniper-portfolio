@@ -6,7 +6,7 @@ import AppBar from '@material-ui/core/AppBar';
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
 import Box from '@material-ui/core/Box';
-import BitcoinPriceTracker from './Bitcoin';
+import CryptoTracker   from './CryptoTracker';
 
 
 
@@ -125,10 +125,10 @@ export default function Accounts() {
             </AppBar>
             <ThemeProvider theme={theme}>
             <TabPanel className={classes.tabpanel} value={value} index={0}>
-                <BitcoinPriceTracker />
+              <CryptoTracker currency="BTC"/>
             </TabPanel>
             <TabPanel className={classes.tabpanel} value={value} index={1}>
-                EtherPriceTrackerHere
+              <CryptoTracker currency="ETH" />
             </TabPanel>
             </ThemeProvider>
         </div>
