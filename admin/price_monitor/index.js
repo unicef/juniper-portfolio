@@ -26,6 +26,10 @@ class PriceMonitor {
     }, this.config.interval);
   }
 
+  async getPrice(symbol) {
+    return this.cryptoCompare.getPrice(symbol);
+  }
+
   async getPrices(limit) {
     const timestamp = new Date();
 

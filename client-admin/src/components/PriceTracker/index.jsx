@@ -69,6 +69,8 @@ const StyledTab = withStyles((theme) => ({
 export default function PriceTracker() {
   const classes = useStyles();
   const [activeTab, setActiveTab] = useState(0);
+  const [btcPrice, setBTCPrice] = useState(0);
+  const [ethPrice, setETHPrice] = useState(0);
   const [bitcoinPrices, setBitcoinPrices] = useState([]);
   const [ethereumPrices, setEthereumPrices] = useState([]);
 
@@ -85,8 +87,11 @@ export default function PriceTracker() {
       console.log(e);
     }
     console.log(prices);
-    const { bitcoin, ethereum } = prices;
+    const { btcPrice, ethPrice, bitcoin, ethereum } = prices;
+    setBTCPrice(btcPrice);
     setBitcoinPrices(bitcoin);
+
+    setETHPrice(ethPrice);
     setEthereumPrices(ethereum);
   };
 
@@ -114,10 +119,18 @@ export default function PriceTracker() {
       <Typography className={classes.padding} />
 
       <TabPanel activeTab={activeTab} index={0}>
-        <PriceCheckerLayout currency={"Bitcoin"} prices={bitcoinPrices} />
+        <PriceCheckerLayout
+          currency={"Bitcoin"}
+          prices={bitcoinPrices}
+          currentPrice={btcPrice}
+        />
       </TabPanel>
       <TabPanel activeTab={activeTab} index={1}>
-        <PriceCheckerLayout currency={"Ethereum"} prices={ethereumPrices} />
+        <PriceCheckerLayout
+          currency={"Ethereum"}
+          prices={ethereumPrices}
+          currentPrice={ethPrice}
+        />
       </TabPanel>
     </div>
   );

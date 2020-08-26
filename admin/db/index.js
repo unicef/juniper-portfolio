@@ -371,7 +371,6 @@ class MongoDB {
       .limit(1);
   }
   async getPrices(symbol, timeStart = new Date(0), timeEnd = new Date()) {
-    console.log(symbol);
     this.logger.info(`Get Prices \t ${symbol} \t${timeStart} \t${timeEnd}`);
     return this.models.Price.find({
       symbol,

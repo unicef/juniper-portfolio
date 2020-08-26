@@ -23,12 +23,27 @@ class CryptoCompare {
     this.scrape(ethEndpoint, "Ethereum", "ETH", "ETH-USD");
   }
 
+  async getPrice(symbol) {
+    this.logger.info(`Getting price for ${symbol}`);
+    let res, json;
+    const url = `https://min-api.cryptocompare.com/data/price?fsym=${symbol}&tsyms=USD`;
+    try {
+      res = await fetch(url);
+      json = await res.json();
+    } catch (e) {
+      logger.error(e);
+    }
+    return json.USD;
+  }
+
   async scrape(url, currency, symbol, ticker) {
     let data, json;
     try {
       data = await fetch(url);
       json = await data.json();
-    } catch (e) {}
+    } catch (e) {
+      logger.error(e);
+    }
 
     json.Data.Data.forEach(async (price) => {
       try {

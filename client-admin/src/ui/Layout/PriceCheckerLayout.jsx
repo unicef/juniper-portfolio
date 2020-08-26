@@ -1,6 +1,7 @@
 import React, { useState, useEffect, Fragment } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import Grid from "@material-ui/core/Grid";
+import Button from "@material-ui/core/Button";
 import PriceInfoBanner from "../../ui/PriceInfoBanner";
 import ChevronRightIcon from "@material-ui/icons/ChevronRight";
 import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
@@ -68,7 +69,7 @@ const useStyles = makeStyles((theme) => ({
   customPaginationNav: {
     marginTop: 38,
     display: "block",
-    marginBottom: 20,
+    marginBottom: 15,
   },
   customPagination: {
     color: "#00aaef",
@@ -81,7 +82,8 @@ const useStyles = makeStyles((theme) => ({
   },
   chartArea: {
     backgroundColor: "#ffffff",
-    padding: 40,
+    paddingTop: 40,
+    paddingLeft: 40,
   },
   subtitle: {
     fontFamily: '"Cabin", sans-serif',
@@ -101,6 +103,28 @@ const useStyles = makeStyles((theme) => ({
   },
   chart: {
     textAlign: "right",
+  },
+  weekdays: {
+    backgroundColor: "#ffffff",
+    paddingTop: 25,
+    paddingBottom: 25,
+    paddingLeft: 8,
+    paddingRight: 8,
+  },
+  weekTitle: {
+    fontFamily: '"Roboto", sans-serif',
+    fontSize: 24,
+  },
+  weekday: {
+    cursor: "pointer",
+    maxWidth: 125,
+    minWidth: 125,
+    display: "inline-block",
+    paddingLeft: 10,
+    paddingRight: 10,
+    "&:hover": {
+      backgroundColor: "#ecfaff",
+    },
   },
 }));
 
@@ -308,6 +332,65 @@ export default function PriceCheckerLayout(props) {
     }
   }, [props.prices]);
 
+  function Weekdays() {
+    let days = [];
+    for (let i = 6; 6 >= 0; i--) {
+      console.log(Weekday(i));
+      days.push(<Weekday offset={i} />);
+    }
+    return days;
+  }
+
+  function Weekday({ offset }) {
+    const totalDaysInMonth = daysInMonth(currentMonth, currentYear);
+
+    const day = currentWeek * 7 - offset;
+
+    if (day > totalDaysInMonth) {
+      return null;
+    }
+
+    if (
+      props.prices
+        .filter((price) => {
+          return (
+            price.day === day &&
+            price.month === currentMonth &&
+            price.year === currentYear
+          );
+        })
+        .reduce((a, b) => {
+          return a + b ? b.price : 0;
+        }, 0) === 0
+    ) {
+      return null;
+    }
+
+    return (
+      <div className={classes.weekday}>
+        <div className={classes.subtitle}>
+          {day} {monthNames[currentMonth].slice(0, 3)} {currentYear}
+        </div>
+
+        <div className={classes.weekTitle}>
+          {usdFormatter.format(
+            props.prices
+              .filter((price) => {
+                return (
+                  price.day === day &&
+                  price.month === currentMonth &&
+                  price.year === currentYear
+                );
+              })
+              .reduce((a, b) => {
+                return a + b ? b.price : 0;
+              }, 0)
+          )}
+        </div>
+      </div>
+    );
+  }
+
   return (
     <Fragment>
       <PriceInfoBanner />
@@ -368,9 +451,9 @@ export default function PriceCheckerLayout(props) {
             <Grid item xs={4}>
               <Grid container>
                 <Grid item className={classes.chartPrices}>
-                  <div className={classes.subtitle}>Today's Average Price</div>
+                  <div className={classes.subtitle}>Today's Current Price</div>
                   <div className={classes.chartTitle}>
-                    <b>$8999.12 USD</b>
+                    <b>{usdFormatter.format(props.currentPrice)}</b>
                   </div>
                 </Grid>
                 <Grid item className={classes.chartPrices}>
@@ -412,7 +495,11 @@ export default function PriceCheckerLayout(props) {
                     margin={{ top: 40, right: 40, bottom: 20, left: 20 }}
                   >
                     <XAxis dataKey="Date" />
-                    <YAxis domain={["auto", "auto"]} />
+                    <YAxis
+                      domain={["auto", "auto"]}
+                      axisLine={false}
+                      tickLine={false}
+                    />
                     <Tooltip
                       wrapperStyle={{
                         borderColor: "white",
@@ -423,7 +510,7 @@ export default function PriceCheckerLayout(props) {
                     <Line
                       dataKey="Price"
                       stroke="#00aeef"
-                      strokeWidth={4}
+                      strokeWidth={3}
                       dot={false}
                     />
                   </LineChart>
@@ -472,34 +559,16 @@ export default function PriceCheckerLayout(props) {
             </ul>
           </nav>
         </Grid>
-        <Grid item xs={12}>
-          Days
+        <Grid item xs={12} className={classes.weekdays}>
+          <Weekday offset={6} />
+          <Weekday offset={5} />
+          <Weekday offset={4} />
+          <Weekday offset={3} />
+          <Weekday offset={2} />
+          <Weekday offset={1} />
+          <Weekday offset={0} />
         </Grid>
       </Grid>
     </Fragment>
   );
 }
-
-const data03 = [
-  { Date: "Dec 01 2016", Price: 109.49 },
-  { Date: "Dec 02 2016", Price: 109.9 },
-  { Date: "Dec 05 2016", Price: 109.11 },
-  { Date: "Dec 06 2016", Price: 109.95 },
-  { Date: "Dec 07 2016", Price: 111.03 },
-  { Date: "Dec 08 2016", Price: 112.12 },
-  { Date: "Dec 09 2016", Price: 113.95 },
-  { Date: "Dec 12 2016", Price: 113.3 },
-  { Date: "Dec 13 2016", Price: 115.19 },
-  { Date: "Dec 14 2016", Price: 115.19 },
-  { Date: "Dec 15 2016", Price: 115.82 },
-  { Date: "Dec 16 2016", Price: 115.97 },
-  { Date: "Dec 19 2016", Price: 116.64 },
-  { Date: "Dec 20 2016", Price: 116.95 },
-  { Date: "Dec 21 2016", Price: 117.06 },
-  { Date: "Dec 22 2016", Price: 116.29 },
-  { Date: "Dec 23 2016", Price: 116.52 },
-  { Date: "Dec 27 2016", Price: 117.26 },
-  { Date: "Dec 28 2016", Price: 116.76 },
-  { Date: "Dec 29 2016", Price: 116.73 },
-  { Date: "Dec 30 2016", Price: 115.82 },
-];
