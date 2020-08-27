@@ -109,6 +109,7 @@ export default function UnpublishedTransactionCard({
   currentValue,
   sent,
   received,
+  donor,
   setAuthorizationRecord,
   archiveTransaction,
   archiveTransactionSuccess,
@@ -142,8 +143,6 @@ export default function UnpublishedTransactionCard({
       archiveTransactionFailed(txid);
     }
   };
-
-  console.log(tx);
 
   return (
     <Fragment>
@@ -199,17 +198,18 @@ export default function UnpublishedTransactionCard({
             {usdFormatter.format(amountUSD)}
           </div>
           <div className={classes.walletSubtitle}>Donated Amount</div>
-          <Button
-            variant="contained"
-            color="primary"
-            className={classes.tagTransactionButton}
-            onClick={() => {
-              onTagTransactionClick(tx);
-            }}
-          >
-            Tag Transaction
-          </Button>
-
+          {received && !donor && (
+            <Button
+              variant="contained"
+              color="primary"
+              className={classes.tagTransactionButton}
+              onClick={() => {
+                onTagTransactionClick(tx);
+              }}
+            >
+              Tag Transaction
+            </Button>
+          )}
           <Button
             className={classes.archiveTransactionButton}
             startIcon={<ArchiveTxIcon />}
