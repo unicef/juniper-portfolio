@@ -59,12 +59,29 @@ class BitcoinWalletScraper {
     return wallet;
   }
 
+  async getAccountMap() {
+    let accounts = await this.db.getAccounts();
+    let map = {};
+
+    accounts.forEach((account) => {
+      account.addresses.forEach((address) => {
+        map[address.address] = account.name;
+      });
+    });
+
+    return map;
+  }
+
   async saveTransactionData(address, tx, isUnicef) {
     let sent = false;
     let received = false;
     let timestamp = tx.status.block_time * 1000;
+    let accountMap = await this.getAccountMap();
     let rate = await this.db.getNearestPrice(this.symbol, new Date(timestamp));
     let amount = 0;
+    if (!rate) {
+      rate = { price: 0 };
+    }
 
     tx.vout.forEach((output) => {
       if (output.scriptpubkey_address === address) {
@@ -83,8 +100,6 @@ class BitcoinWalletScraper {
         }
       }
     });
-
-    console.log(rate);
 
     amount = Math.round(amount) / 1e8;
     let amountUSD = Math.round(amount * rate.price * 100) / 100;
