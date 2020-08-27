@@ -81,6 +81,7 @@ export default function TxList({
   onPaginationClick,
   setAuthorizationRecord,
   exchangeRate,
+  isAdmin,
 }) {
   const classes = transactionDetailsStyles();
 
@@ -91,7 +92,7 @@ export default function TxList({
   const totalItems = txs.length;
   const totalPages = Math.ceil(totalItems / limit);
   const currentPage = page + 1;
-  console.log(txs);
+
   return (
     <Fragment>
       <Grid container className={classes.root}>
@@ -174,6 +175,7 @@ export default function TxList({
                   from={tx.from || tx.address}
                   setAuthorizationRecord={setAuthorizationRecord}
                   exchangeRate={exchangeRate}
+                  isAdmin={isAdmin}
                 />
               </ListItem>
             );
