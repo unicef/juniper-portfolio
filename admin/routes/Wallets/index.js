@@ -73,7 +73,8 @@ router.post("/", async (req, res) => {
   const juniperAdmin = req.app.get("juniperAdmin");
   const { wallet } = req.body;
   const { isUnicef } = wallet;
-  const user = "Alex Sherbuck"; // Todo, get from session
+  const { firstName, lastName } = req.session.passport.user.profile;
+  const user = `${firstName} ${lastName}`;
 
   logger.info(`/wallet ${JSON.stringify(wallet)}`);
   try {
