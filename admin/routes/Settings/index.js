@@ -1,4 +1,5 @@
 const router = require("express").Router();
+const { isAdmin } = require("../../middleware");
 const Logger = require("../../logger");
 const logger = new Logger("Settings Routes");
 
@@ -27,7 +28,7 @@ router.get("/users", async (req, res) => {
   res.send(users);
 });
 
-router.post("/user/invite", async (req, res) => {
+router.post("/user/invite", isAdmin, async (req, res) => {
   const juniperAdmin = req.app.get("juniperAdmin");
   const { user } = req.body;
   const host = req.get("host");
@@ -49,7 +50,7 @@ router.post("/user/invite", async (req, res) => {
   res.send(users);
 });
 
-router.post("/user/remove", async (req, res) => {
+router.post("/user/remove", isAdmin, async (req, res) => {
   const juniperAdmin = req.app.get("juniperAdmin");
   const { email } = req.body;
   let users = [];
