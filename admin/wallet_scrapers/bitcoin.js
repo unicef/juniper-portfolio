@@ -111,8 +111,6 @@ class BitcoinWalletScraper {
       amount,
       amountUSD,
       isUnicef,
-      published: false,
-      archived: false,
     });
   }
   async updateWallet(walletData) {
