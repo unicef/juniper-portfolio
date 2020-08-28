@@ -1,9 +1,10 @@
 const Logger = require("../logger");
 const fetch = require("node-fetch");
+const defaultConfig = require("../config");
 
 class EthereumWalletScraper {
   constructor(config, db) {
-    this.config = config;
+    this.config = { ...defaultConfig.ethereumScraper, ...config };
     this.logger = new Logger("Ethereum Scraper");
     this.symbol = "ETH";
     this.db = db;
