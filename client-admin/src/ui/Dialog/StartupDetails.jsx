@@ -154,9 +154,8 @@ export default function StartupDetails(props) {
       console.log(e);
     }
 
-    console.log("accountData");
-    console.log(accountData);
     const { transactions, account } = accountData;
+
     setName(account.name);
     setImage(account.image);
     setCountry(account.country);
@@ -171,7 +170,7 @@ export default function StartupDetails(props) {
     setAddresses(account.addresses);
     setTransactions(
       transactions.filter((tx) => {
-        return tx.sent === true;
+        return tx.received === true;
       })
     );
   };

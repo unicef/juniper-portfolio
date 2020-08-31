@@ -134,7 +134,9 @@ export default function JuniperAdmin() {
       } catch (e) {
         console.log(e);
       }
-      if (res.status === 200) {
+      if (res.status === 200 || res.status === 304) {
+        console.log("fuck you");
+
         setUser(await res.json());
         setIsLoggedIn(true);
       }
@@ -177,7 +179,10 @@ export default function JuniperAdmin() {
                       pageIndex={pageIndex}
                       setPageIndex={setPageIndex}
                     />
-                    <Wallets getExchangeRate={getExchangeRate} />
+                    <Wallets
+                      getExchangeRate={getExchangeRate}
+                      isAdmin={user.isAdmin}
+                    />
                   </Route>
                   <Route path="/admin/wallets">
                     <TopBar user={user} setPageIndex={setPageIndex} />
@@ -185,10 +190,12 @@ export default function JuniperAdmin() {
                       pageIndex={pageIndex}
                       setPageIndex={setPageIndex}
                     />
-                    <Wallets getExchangeRate={getExchangeRate} />
+                    <Wallets
+                      getExchangeRate={getExchangeRate}
+                      isAdmin={user.isAdmin}
+                    />
                   </Route>
                   <Route path="/admin/accounts">
-
                     <TopBar user={user} setPageIndex={setPageIndex} />
                     <Sidebar
                       pageIndex={pageIndex}
@@ -197,6 +204,7 @@ export default function JuniperAdmin() {
                     <Accounts
                       getExchangeRate={getExchangeRate}
                       copyToClipboard={copyToClipboard}
+                      isAdmin={user.isAdmin}
                     />
                   </Route>
                   <Route path="/admin/tracker">
@@ -213,10 +221,12 @@ export default function JuniperAdmin() {
                       pageIndex={pageIndex}
                       setPageIndex={setPageIndex}
                     />
-                    <Transactions getExchangeRate={getExchangeRate} />
+                    <Transactions
+                      getExchangeRate={getExchangeRate}
+                      isAdmin={user.isAdmin}
+                    />
                   </Route>
                   <Route path="/admin/settings">
-
                     <TopBar user={user} setPageIndex={setPageIndex} />
                     <Sidebar
                       pageIndex={pageIndex}
@@ -226,8 +236,8 @@ export default function JuniperAdmin() {
                       user={user}
                       updateUser={updateUser}
                       copyToClipboard={copyToClipboard}
+                      isAdmin={user.isAdmin}
                     />
-
                   </Route>
                   <Redirect from="*" to="/admin/wallets" />
                 </Switch>

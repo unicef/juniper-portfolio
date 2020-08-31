@@ -74,7 +74,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function ({ viewWalletDetails, getExchangeRate }) {
+export default function ({ viewWalletDetails, getExchangeRate, isAdmin }) {
   const [balances, setBalances] = useState([]);
   const [fees, setFees] = useState(null);
   const [totals, setTotals] = useState(null);
@@ -267,16 +267,18 @@ export default function ({ viewWalletDetails, getExchangeRate }) {
           )}
         </Grid>
         <Grid item xs={12} style={{ marginTop: "2em" }}>
-          <Button
-            variant="contained"
-            color="primary"
-            className={classes.addWalletButton}
-            onClick={() => {
-              setShowAddWalletModal(true);
-            }}
-          >
-            Add New Wallet
-          </Button>
+          {isAdmin && (
+            <Button
+              variant="contained"
+              color="primary"
+              className={classes.addWalletButton}
+              onClick={() => {
+                setShowAddWalletModal(true);
+              }}
+            >
+              Add New Wallet
+            </Button>
+          )}
         </Grid>
 
         <Grid item xs={12} style={{ marginTop: "4em" }}>

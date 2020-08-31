@@ -96,6 +96,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function ArchivedTransactionCard({
+  tx,
   txid,
   timestamp,
   amount,
@@ -103,6 +104,7 @@ export default function ArchivedTransactionCard({
   amountUSD,
   sent,
   received,
+  isAdmin,
 }) {
   const classes = useStyles();
   const txSent = new Date(timestamp);
@@ -123,7 +125,14 @@ export default function ArchivedTransactionCard({
           </span>
         </Grid>
         <Grid item xs={8}>
-          <TxStepper />
+          <TxStepper
+            sent={tx.sent}
+            received={tx.received}
+            source={tx.source}
+            destination={tx.destination}
+            to={tx.to}
+            from={tx.from}
+          />
           <Button
             className={classes.unpublishedTxDetailsButton}
             endIcon={<ChevronRightIcon />}
@@ -152,25 +161,29 @@ export default function ArchivedTransactionCard({
             {usdFormatter.format(amountUSD)}
           </div>
           <div className={classes.walletSubtitle}>Donated Amount</div>
-          <Button
-            variant="contained"
-            color="primary"
-            className={classes.tagTransactionButton}
-            onClick={() => {
-              console.log("tag tx btn clicked");
-            }}
-          >
-            Tag Transaction
-          </Button>
-          <Button
-            className={classes.archiveTransactionButton}
-            startIcon={<EditIcon />}
-            onClick={() => {
-              console.log("archive tx clicks");
-            }}
-          >
-            Edit Transaction
-          </Button>
+          {isAdmin && (
+            <Button
+              variant="contained"
+              color="primary"
+              className={classes.tagTransactionButton}
+              onClick={() => {
+                console.log("tag tx btn clicked");
+              }}
+            >
+              Tag Transaction
+            </Button>
+          )}
+          {isAdmin && (
+            <Button
+              className={classes.archiveTransactionButton}
+              startIcon={<EditIcon />}
+              onClick={() => {
+                console.log("archive tx clicks");
+              }}
+            >
+              Edit Transaction
+            </Button>
+          )}
         </Grid>
       </Grid>
       <Divider />

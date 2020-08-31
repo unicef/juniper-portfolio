@@ -109,11 +109,13 @@ export default function UnpublishedTransactionCard({
   currentValue,
   sent,
   received,
+  donor,
   setAuthorizationRecord,
   archiveTransaction,
   archiveTransactionSuccess,
   archiveTransactionFailed,
   onTagTransactionClick,
+  isAdmin,
 }) {
   const classes = useStyles();
   const txSent = new Date(timestamp);
@@ -197,27 +199,30 @@ export default function UnpublishedTransactionCard({
             {usdFormatter.format(amountUSD)}
           </div>
           <div className={classes.walletSubtitle}>Donated Amount</div>
-          <Button
-            variant="contained"
-            color="primary"
-            className={classes.tagTransactionButton}
-            onClick={() => {
-              onTagTransactionClick(tx);
-            }}
-          >
-            Tag Transaction
-          </Button>
-
-          <Button
-            className={classes.archiveTransactionButton}
-            startIcon={<ArchiveTxIcon />}
-            onClick={async () => {
-              archiveTransaction(txid);
-              await archiveTransactionPost(txid);
-            }}
-          >
-            Archive Transaction
-          </Button>
+          {isAdmin && received && !donor && (
+            <Button
+              variant="contained"
+              color="primary"
+              className={classes.tagTransactionButton}
+              onClick={() => {
+                onTagTransactionClick(tx);
+              }}
+            >
+              Tag Transaction
+            </Button>
+          )}
+          {isAdmin && (
+            <Button
+              className={classes.archiveTransactionButton}
+              startIcon={<ArchiveTxIcon />}
+              onClick={async () => {
+                archiveTransaction(txid);
+                await archiveTransactionPost(txid);
+              }}
+            >
+              Archive Transaction
+            </Button>
+          )}
         </Grid>
       </Grid>
       <Divider />

@@ -74,7 +74,7 @@ const StyledTab = withStyles((theme) => ({
   },
 }))((props) => <Tab disableRipple {...props} />);
 
-export default function Transactions({ getExchangeRate }) {
+export default function Transactions({ getExchangeRate, isAdmin }) {
   const classes = useStyles();
   const [activeTab, setActiveTab] = useState(0);
   const [fetchingTxs, setFetchingTxs] = useState(false);
@@ -258,6 +258,7 @@ export default function Transactions({ getExchangeRate }) {
             TxCard={UnpublishedTxCard}
             page={unpublishedPage}
             onPaginationClick={setUnpublishedPage}
+            isAdmin={isAdmin}
           />
         )}
       </TabPanel>
@@ -268,6 +269,7 @@ export default function Transactions({ getExchangeRate }) {
           TxCard={PublishedTransactionCard}
           page={publishedPage}
           onPaginationClick={setPublishedPage}
+          isAdmin={isAdmin}
         />
       </TabPanel>
       <TabPanel activeTab={activeTab} index={2}>
@@ -277,6 +279,7 @@ export default function Transactions({ getExchangeRate }) {
           TxCard={ArchivedTransactionCard}
           page={archivedPage}
           onPaginationClick={setArchivedPage}
+          isAdmin={isAdmin}
         />
       </TabPanel>
       <Snackbar
