@@ -1,4 +1,5 @@
 const router = require("express").Router();
+const { isAdmin } = require("../../middleware");
 const Logger = require("../../logger");
 const logger = new Logger("Wallet Routes");
 
@@ -69,7 +70,7 @@ router.get("/untrack/:address", async (req, res) => {
   res.send();
 });
 
-router.post("/", async (req, res) => {
+router.post("/", isAdmin, async (req, res) => {
   const juniperAdmin = req.app.get("juniperAdmin");
   const { wallet } = req.body;
   const { isUnicef } = wallet;

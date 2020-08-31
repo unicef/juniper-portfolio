@@ -67,7 +67,11 @@ const StyledTab = withStyles((theme) => ({
   },
 }))((props) => <Tab disableRipple {...props} />);
 
-export default function Accounts({ getExchangeRate, copyToClipboard }) {
+export default function Accounts({
+  getExchangeRate,
+  copyToClipboard,
+  isAdmin,
+}) {
   const classes = useStyles();
   const [activeTab, setActiveTab] = useState(0);
   const [startups, setStartups] = useState([]);
@@ -202,6 +206,7 @@ export default function Accounts({ getExchangeRate, copyToClipboard }) {
           message={
             "The investments are made through UNICEF’s CryptoFund, in open source technology solutions that benefit children and the world."
           }
+          isAdmin={isAdmin}
         />
       </TabPanel>
       <TabPanel activeTab={activeTab} index={1}>
@@ -224,6 +229,7 @@ export default function Accounts({ getExchangeRate, copyToClipboard }) {
           message={
             "In line with current UNICEF practice, each crypto transaction is initiated after UNICEF has completed due diligence on a donor, ensuring a credible source of the donation."
           }
+          isAdmin={isAdmin}
         />
       </TabPanel>
       <TabPanel activeTab={activeTab} index={2}>
@@ -246,6 +252,7 @@ export default function Accounts({ getExchangeRate, copyToClipboard }) {
           message={
             "Cryptofund donations are received by HQ through four National Committees - Australia, France, New Zealand and the United States."
           }
+          isAdmin={isAdmin}
         />
       </TabPanel>
     </div>
