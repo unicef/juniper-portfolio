@@ -155,8 +155,6 @@ class EthereumWalletScraper {
       amountUSD,
       isUnicef,
       isMultisigOwner,
-      published: false,
-      archived: false,
     });
   }
   async updateWallet(walletData) {
