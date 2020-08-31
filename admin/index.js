@@ -22,6 +22,7 @@ const {
 const {
   publicRoutes,
   privateRoutes,
+  priceRoutes,
   authRoutes,
   accountRoutes,
   settingRoutes,
@@ -107,6 +108,7 @@ class JuniperAdmin {
       authRoutes
     );
     this.server.use("/rest/admin", isLoggedIn, privateRoutes);
+    this.server.use("/rest/admin/prices", isLoggedIn, priceRoutes);
     this.server.use("/rest/admin/accounts", isLoggedIn, accountRoutes);
     this.server.use("/rest/admin/settings", isLoggedIn, settingRoutes);
     this.server.use("/rest/admin/wallets", isLoggedIn, walletRoutes);

@@ -28,6 +28,7 @@ const useStyles = makeStyles((theme) => ({
     lineHeight: 1.17,
     color: "#000000",
     marginBottom: 10,
+    wordBreak: "break-word",
   },
   chip: {
     borderRadius: 5,
