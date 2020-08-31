@@ -95,8 +95,7 @@ class Settings extends React.Component {
 
       if (res.status === 200) {
         users = await res.json();
-        console.log(this);
-        console.log(this.setState);
+
         this.setState({ users });
       }
     };

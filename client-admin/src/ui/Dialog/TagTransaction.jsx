@@ -18,6 +18,7 @@ import CircleCheckedFilled from "@material-ui/icons/CheckCircle";
 import CircleUnchecked from "@material-ui/icons/RadioButtonUnchecked";
 import QuestionMarkIcon from "../Icons/QuestionMarkIcon";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
+import CreateAccount from "./CreateAccount";
 
 const useStyles = makeStyles((theme) => ({
   closeIcon: {
@@ -152,6 +153,22 @@ const useStyles = makeStyles((theme) => ({
     marginTop: 10,
     marginBottom: 10,
   },
+  form: {
+    marginBottom: 80,
+  },
+  addButton: {
+    height: 35,
+    fontFamily: '"Cabin", sans-serif',
+    fontSize: 12,
+    fontWeight: 700,
+    textAlign: "center",
+    color: "#ffffff",
+    boxShadow: "none",
+    backgroundColor: "#00aeef",
+    float: "right",
+    marginTop: 18,
+    marginButtom: 18,
+  },
 }));
 
 /* 
@@ -166,11 +183,18 @@ txid goes ?somewhere?
 export default function TagTransaction(props) {
   const classes = useStyles();
   const [exchangeRate, setExchangeRate] = useState(0);
+  const [natcoms, setNatcoms] = useState([]);
+  const [natcom, setNatcom] = useState("");
+
   const [donors, setDonors] = useState([]);
   const [donor, setDonor] = useState("");
-  const [newDonorName, setNewDonorName] = useState("");
-  const [newDonorAddress, setNewDonorAddress] = useState("");
-  const [newDonorTxid, setNewDonorTxid] = useState("");
+
+  const [openCreateAccount, setOpenCreateAccount] = useState(false);
+  const [createAccountName, setCreateAccountName] = useState("");
+  const [createAccountType, setCreateAccountType] = useState("");
+  const [addresses, setAddresses] = useState([]);
+
+  console.log(props.tx);
 
   const handleClose = () => {
     if (props.onClose) {
@@ -188,26 +212,44 @@ export default function TagTransaction(props) {
       }
       setExchangeRate(rate);
     };
-    const getDonors = async () => {
-      let res, accounts, donors;
+    const getAccounts = async () => {
+      let res, accounts, donors, natcoms;
       try {
         res = await fetch("/rest/admin/accounts");
         accounts = await res.json();
         donors = accounts.filter((account) => {
           return account.type === "donor";
         });
+        natcoms = accounts.filter((account) => {
+          return account.type === "natcom";
+        });
       } catch (e) {
         console.log(e);
       }
 
+      console.log(natcoms);
+
       setDonors(donors);
+      setNatcoms(natcoms);
     };
     getExchangeRate();
-    getDonors();
+    getAccounts();
+    setNatcom(props.tx.source || "");
+    setDonor(props.tx.donor || "");
   }, [props.tx]);
 
   return (
     <div>
+      <CreateAccount
+        open={openCreateAccount}
+        type={createAccountType}
+        edit={false}
+        name={createAccountName}
+        addresses={addresses}
+        onDialogClose={() => {
+          setOpenCreateAccount(false);
+        }}
+      />
       <Dialog fullScreen open={props.open} onClose={handleClose}>
         <Toolbar>
           <IconButton
@@ -250,7 +292,45 @@ export default function TagTransaction(props) {
               Current Value
             </Grid>
           </Grid>
-          <form>
+          <form className={classes.form}>
+            <FormControl className={classes.donorList}>
+              <InputLabel className={classes.donorListLabel}>
+                {" "}
+                Select a natcom from existing list
+              </InputLabel>
+              <Select
+                className={classes.donorListSelect}
+                value={natcom}
+                onChange={(e) => {
+                  setNatcom(e.target.value);
+                }}
+              >
+                {natcoms.map((natcom) => {
+                  return (
+                    <MenuItem
+                      key={natcom.name}
+                      className={classes.donorName}
+                      value={natcom.name}
+                    >
+                      {natcom.name}
+                    </MenuItem>
+                  );
+                })}
+              </Select>
+            </FormControl>
+            <div className={classes.relativeContainer}>
+              <Button
+                variant="contained"
+                color="primary"
+                className={classes.addButton}
+                onClick={() => {
+                  //props.publishTransaction(tx, newDonor, true);
+                  setOpenCreateAccount(true);
+                }}
+              >
+                Add Natcom Account
+              </Button>
+            </div>
             <FormControl className={classes.donorList}>
               <InputLabel className={classes.donorListLabel}>
                 {" "}
@@ -276,149 +356,47 @@ export default function TagTransaction(props) {
                 })}
               </Select>
             </FormControl>
-
-            <p className={classes.donorMessage}>
-              If the donor name does not exist in the above list, please add the
-              details below.
-            </p>
-            <TextField
-              className={classes.donorNameTextfield}
-              label="Donor Name"
-              value={newDonorName}
-              onChange={(e) => {
-                setNewDonorName(e.target.value);
-              }}
-              InputProps={{
-                classes: {
-                  root: classes.donorName,
-                },
-              }}
-              InputLabelProps={{
-                classes: {
-                  root: classes.donorName,
-                },
-              }}
-            />
-            <FormControlLabel
-              className={classes.donorCheckbox}
-              value="end"
-              control={
-                <Checkbox
-                  color="primary"
-                  icon={<CircleUnchecked />}
-                  checkedIcon={<CircleCheckedFilled />}
-                />
-              }
-              label="Donor’s identity unknown or cannot be made public"
-              labelPlacement="end"
-            />
-            <TextField
-              className={classes.donorWalletTextfield}
-              label="Donor's Wallet Address"
-              value={newDonorAddress}
-              onChange={(e) => {
-                setNewDonorAddress(e.target.value);
-              }}
-              InputProps={{
-                classes: {
-                  root: classes.donorName,
-                },
-              }}
-              InputLabelProps={{
-                classes: {
-                  root: classes.donorName,
-                },
-              }}
-            />
-            <div className={classes.relativeContainer}>
-              <TextField
-                className={classes.donorTxidTextfield}
-                label="Transaction id"
-                value={newDonorTxid}
-                onChange={(e) => {
-                  setNewDonorTxid(e.target.value);
-                }}
-                InputProps={{
-                  classes: {
-                    root: classes.donorName,
-                  },
-                }}
-                InputLabelProps={{
-                  classes: {
-                    root: classes.donorName,
-                  },
-                }}
-              />
-              <QuestionMarkIcon
-                className={classes.questionMark}
-                style={{ bottom: "50%" }}
-              />
-            </div>
-
-            <div className={classes.relativeContainer}>
-              <Button
-                variant="outlined"
-                color="primary"
-                className={classes.outlineButton}
-                onClick={() => {
-                  const newDonor = newDonorAddress
-                    ? {
-                        name: donor || newDonorName,
-                        addresses: [
-                          {
-                            address: newDonorAddress,
-                            currency: props.tx.currency,
-                            amount: props.tx.amount,
-                          },
-                        ],
-                      }
-                    : null;
-
-                  const { tx } = props;
-
-                  tx.donor = donor || newDonorName;
-                  tx.donorTxid = newDonorTxid;
-
-                  props.publishTransaction(tx, newDonor, false);
-                }}
-              >
-                Tag and Save Transaction
-              </Button>
-              <QuestionMarkIcon className={classes.questionMark} />
-            </div>
-            <p className={classes.or}>Or</p>
             <div className={classes.relativeContainer}>
               <Button
                 variant="contained"
                 color="primary"
-                className={classes.filledButton}
+                className={classes.addButton}
                 onClick={() => {
-                  const newDonor = newDonorAddress
-                    ? {
-                        name: donor || newDonorName,
-                        addresses: [
-                          {
-                            address: newDonorAddress,
-                            currency: props.tx.currency,
-                            amount: props.tx.amount,
-                          },
-                        ],
-                      }
-                    : null;
-
-                  const { tx } = props;
-
-                  tx.donor = donor || newDonorName;
-                  tx.donorTxid = newDonorTxid;
-
-                  props.publishTransaction(tx, newDonor, true);
+                  //props.publishTransaction(tx, newDonor, true);
+                  setOpenCreateAccount(true);
                 }}
               >
-                Tag and Publish Transaction
+                Add Donor Account
               </Button>
-              <QuestionMarkIcon className={classes.questionMark} />
             </div>
           </form>
+          <div className={classes.relativeContainer}>
+            <Button
+              variant="outlined"
+              color="primary"
+              className={classes.outlineButton}
+              onClick={() => {
+                //props.publishTransaction(tx, newDonor, false);
+              }}
+            >
+              Tag and Save Transaction
+            </Button>
+            <QuestionMarkIcon className={classes.questionMark} />
+          </div>
+          <p className={classes.or}>Or</p>
+          <div className={classes.relativeContainer}>
+            <Button
+              variant="contained"
+              color="primary"
+              className={classes.filledButton}
+              onClick={() => {
+                //props.publishTransaction(tx, newDonor, true);
+              }}
+            >
+              Tag and Publish Transaction
+            </Button>
+            <QuestionMarkIcon className={classes.questionMark} />
+          </div>
         </Container>
       </Dialog>
     </div>

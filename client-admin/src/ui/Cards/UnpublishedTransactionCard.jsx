@@ -143,8 +143,6 @@ export default function UnpublishedTransactionCard({
     }
   };
 
-  console.log(tx);
-
   return (
     <Fragment>
       <Grid container className={classes.transaction}>

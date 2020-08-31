@@ -163,6 +163,9 @@ export default function Transactions({ getExchangeRate }) {
   };
 
   const filterTransactions = (txs) => {
+    txs = txs.filter((tx) => {
+      return tx.amount !== 0;
+    });
     setUnpublishedTxs(
       txs.filter((tx) => tx.published === false && tx.archived === false)
     );
@@ -174,12 +177,12 @@ export default function Transactions({ getExchangeRate }) {
   };
 
   useEffect(() => {
-    const getUnpublishedTransactions = async () => {
+    const getTransactions = async () => {
       setFetchingTxs(true);
       let data;
       let txs = [];
       try {
-        data = await fetch("/rest/admin/transactions/unpublished");
+        data = await fetch("/rest/admin/transactions");
         txs = await data.json();
       } catch (e) {
         console.log(e);
@@ -190,7 +193,7 @@ export default function Transactions({ getExchangeRate }) {
       setFetchingTxs(false);
     };
 
-    getUnpublishedTransactions();
+    getTransactions();
   }, []);
 
   function UnpublishedTxCard(props) {
@@ -211,7 +214,7 @@ export default function Transactions({ getExchangeRate }) {
   return (
     <div className={classes.root}>
       <TagTransaction
-        title={"Tag Donor Details"}
+        title={"Tag Sender Details"}
         open={showTagTransaction}
         tx={transaction}
         onClose={() => {

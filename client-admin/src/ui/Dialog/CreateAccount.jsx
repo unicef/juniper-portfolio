@@ -233,7 +233,7 @@ export default function CreateStartup(props) {
     ]);
 
     if (props.onDialogClose) {
-      props.onDialogClose();
+      props.onDialogClose(account);
     }
 
     setAddingStartup(false);
