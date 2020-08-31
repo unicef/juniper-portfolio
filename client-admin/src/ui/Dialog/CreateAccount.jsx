@@ -244,14 +244,12 @@ export default function CreateStartup(props) {
     setOpen(props.open);
     setType(props.type);
 
-    if (props.edit) {
-      setName(props.name);
-      setCountry(props.country);
-      setDescription(props.description);
-      setWeblink(props.weblink);
-      setImage(props.image);
-      setAddresses(props.addresses);
-    }
+    setName(props.name || "");
+    setCountry(props.country || "");
+    setDescription(props.description || "");
+    setWeblink(props.weblink || "");
+    setImage(props.image || "");
+    setAddresses(props.addresses || []);
   }, [props.open]);
 
   return (
@@ -435,11 +433,11 @@ function AddressDetails(props) {
               className: classes.formControl,
             }}
             label={`Wallet address`}
-            value={props.address}
+            defaultValue={props.address}
             onChange={(e) => {
               const newAddresses = props.addresses.slice();
               newAddresses[props.index].address = e.target.value.toLowerCase();
-              console.log(newAddresses);
+
               props.setAddresses(newAddresses);
             }}
           />

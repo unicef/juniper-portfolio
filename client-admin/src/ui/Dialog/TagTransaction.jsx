@@ -202,6 +202,27 @@ export default function TagTransaction(props) {
     }
   };
 
+  const getAccounts = async () => {
+    let res, accounts, donors, natcoms;
+    try {
+      res = await fetch("/rest/admin/accounts");
+      accounts = await res.json();
+      donors = accounts.filter((account) => {
+        return account.type === "donor";
+      });
+      natcoms = accounts.filter((account) => {
+        return account.type === "natcom";
+      });
+    } catch (e) {
+      console.log(e);
+    }
+
+    console.log(natcoms);
+
+    setDonors(donors);
+    setNatcoms(natcoms);
+  };
+
   useEffect(() => {
     const getExchangeRate = async () => {
       let rate;
@@ -212,30 +233,19 @@ export default function TagTransaction(props) {
       }
       setExchangeRate(rate);
     };
-    const getAccounts = async () => {
-      let res, accounts, donors, natcoms;
-      try {
-        res = await fetch("/rest/admin/accounts");
-        accounts = await res.json();
-        donors = accounts.filter((account) => {
-          return account.type === "donor";
-        });
-        natcoms = accounts.filter((account) => {
-          return account.type === "natcom";
-        });
-      } catch (e) {
-        console.log(e);
-      }
 
-      console.log(natcoms);
-
-      setDonors(donors);
-      setNatcoms(natcoms);
-    };
     getExchangeRate();
     getAccounts();
     setNatcom(props.tx.source || "");
     setDonor(props.tx.donor || "");
+
+    setAddresses([
+      {
+        address: props.tx.received ? props.tx.from : props.tx.to,
+        currency: props.tx.currency === "Ethereum" ? "Ether" : "Bitcoin",
+        amount: props.tx.amount,
+      },
+    ]);
   }, [props.tx]);
 
   return (
@@ -246,8 +256,16 @@ export default function TagTransaction(props) {
         edit={false}
         name={createAccountName}
         addresses={addresses}
-        onDialogClose={() => {
+        onDialogClose={async (account) => {
           setOpenCreateAccount(false);
+          await getAccounts();
+          if (account) {
+            if (account.type === "natcom") {
+              setNatcom(account.name);
+            } else {
+              setDonor(account.name);
+            }
+          }
         }}
       />
       <Dialog fullScreen open={props.open} onClose={handleClose}>
@@ -325,6 +343,7 @@ export default function TagTransaction(props) {
                 className={classes.addButton}
                 onClick={() => {
                   //props.publishTransaction(tx, newDonor, true);
+                  setCreateAccountType("natcom");
                   setOpenCreateAccount(true);
                 }}
               >
@@ -362,7 +381,15 @@ export default function TagTransaction(props) {
                 color="primary"
                 className={classes.addButton}
                 onClick={() => {
-                  //props.publishTransaction(tx, newDonor, true);
+                  setAddresses([
+                    {
+                      address: "",
+                      currency:
+                        props.tx.currency === "Ethereum" ? "Ether" : "Bitcoin",
+                      amount: props.tx.amount,
+                    },
+                  ]);
+                  setCreateAccountType("donor");
                   setOpenCreateAccount(true);
                 }}
               >
