@@ -226,7 +226,7 @@ export default function CreateStartup(props) {
     setImage("");
     setAddresses([
       {
-        walletAddress: "",
+        address: "",
         currency: "",
         amount: "",
       },
@@ -249,7 +249,15 @@ export default function CreateStartup(props) {
     setDescription(props.description || "");
     setWeblink(props.weblink || "");
     setImage(props.image || "");
-    setAddresses(props.addresses || []);
+    setAddresses(
+      props.addresses || [
+        {
+          address: "",
+          currency: "",
+          amount: "",
+        },
+      ]
+    );
   }, [props.open]);
 
   return (

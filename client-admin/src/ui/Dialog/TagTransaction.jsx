@@ -194,8 +194,6 @@ export default function TagTransaction(props) {
   const [createAccountType, setCreateAccountType] = useState("");
   const [addresses, setAddresses] = useState([]);
 
-  console.log(props.tx);
-
   const handleClose = () => {
     if (props.onClose) {
       props.onClose();
@@ -221,6 +219,35 @@ export default function TagTransaction(props) {
 
     setDonors(donors);
     setNatcoms(natcoms);
+  };
+
+  const saveTransaction = async (publish) => {
+    // Update Natcom if address is new - HOLD
+    // Would also require searching all other natcoms to remove this address from list
+    //Update tx data
+    const { tx } = props;
+    tx.source = natcom;
+    tx.donor = donor;
+    tx.published = publish;
+
+    let res;
+    try {
+      res = await fetch(`/rest/admin/transactions/`, {
+        credentials: "include",
+        method: "POST",
+        body: JSON.stringify({
+          tx,
+        }),
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+    } catch (e) {
+      console.log(e);
+      return;
+    }
+
+    handleClose();
   };
 
   useEffect(() => {
@@ -342,7 +369,6 @@ export default function TagTransaction(props) {
                 color="primary"
                 className={classes.addButton}
                 onClick={() => {
-                  //props.publishTransaction(tx, newDonor, true);
                   setCreateAccountType("natcom");
                   setOpenCreateAccount(true);
                 }}
@@ -397,33 +423,67 @@ export default function TagTransaction(props) {
               </Button>
             </div>
           </form>
-          <div className={classes.relativeContainer}>
-            <Button
-              variant="outlined"
-              color="primary"
-              className={classes.outlineButton}
-              onClick={() => {
-                //props.publishTransaction(tx, newDonor, false);
-              }}
-            >
-              Tag and Save Transaction
-            </Button>
-            <QuestionMarkIcon className={classes.questionMark} />
-          </div>
-          <p className={classes.or}>Or</p>
-          <div className={classes.relativeContainer}>
-            <Button
-              variant="contained"
-              color="primary"
-              className={classes.filledButton}
-              onClick={() => {
-                //props.publishTransaction(tx, newDonor, true);
-              }}
-            >
-              Tag and Publish Transaction
-            </Button>
-            <QuestionMarkIcon className={classes.questionMark} />
-          </div>
+          {!props.tx.published ? (
+            <Fragment>
+              <div className={classes.relativeContainer}>
+                <Button
+                  variant="outlined"
+                  color="primary"
+                  className={classes.outlineButton}
+                  onClick={() => {
+                    saveTransaction(false);
+                  }}
+                >
+                  Tag and Save Transaction
+                </Button>
+                <QuestionMarkIcon className={classes.questionMark} />
+              </div>
+              <p className={classes.or}>Or</p>
+              <div className={classes.relativeContainer}>
+                <Button
+                  variant="contained"
+                  color="primary"
+                  className={classes.filledButton}
+                  onClick={() => {
+                    saveTransaction(true);
+                  }}
+                >
+                  Tag and Publish Transaction
+                </Button>
+                <QuestionMarkIcon className={classes.questionMark} />
+              </div>
+            </Fragment>
+          ) : (
+            <Fragment>
+              <div className={classes.relativeContainer}>
+                <Button
+                  variant="outlined"
+                  color="primary"
+                  className={classes.outlineButton}
+                  onClick={() => {
+                    saveTransaction(props.tx.published);
+                  }}
+                >
+                  Tag and Save Transaction
+                </Button>
+                <QuestionMarkIcon className={classes.questionMark} />
+              </div>
+              <p className={classes.or}>Or</p>
+              <div className={classes.relativeContainer}>
+                <Button
+                  variant="contained"
+                  color="primary"
+                  className={classes.filledButton}
+                  onClick={() => {
+                    saveTransaction(false);
+                  }}
+                >
+                  Tag and Unpublish Transaction
+                </Button>
+                <QuestionMarkIcon className={classes.questionMark} />
+              </div>
+            </Fragment>
+          )}
         </Container>
       </Dialog>
     </div>
