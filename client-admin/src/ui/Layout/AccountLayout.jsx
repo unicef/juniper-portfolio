@@ -6,8 +6,8 @@ import Button from "@material-ui/core/Button";
 import ChevronRightIcon from "@material-ui/icons/ChevronRight";
 import AccountBalanceCard from "../Cards/AccountBalanceCard";
 import AccountCard from "../Cards/AccountCard";
-import { AccountDetails } from "../../ui/Dialog";
-import { StartupDetails } from "../../ui/Dialog";
+import { AccountDetails } from "../Dialog";
+import { StartupDetails } from "../Dialog";
 
 const transactionDetailsStyles = makeStyles((theme) => ({
   root: {
@@ -121,7 +121,7 @@ export default function AccountLayout({
         copyToClipboard={copyToClipboard}
       />
 
-      <Grid container className={classes.bannerBox}>
+      <Grid container>
         <Grid item xs={12}>
           <PriceInfoBanner />
         </Grid>
