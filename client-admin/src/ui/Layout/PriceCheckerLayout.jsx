@@ -132,6 +132,7 @@ export default function PriceCheckerLayout(props) {
   const classes = useStyles();
   const [prices, setPrices] = useState([]);
 
+  const thisDay = new Date().getDate();
   const thisMonth = new Date().getMonth();
   const thisYear = new Date().getFullYear();
 
@@ -542,7 +543,8 @@ export default function PriceCheckerLayout(props) {
                 <IconButton
                   color="inherit"
                   disabled={
-                    currentWeek * 7 >= daysInMonth(currentMonth, currentYear)
+                    currentWeek * 7 >= daysInMonth(currentMonth, currentYear) ||
+                    thisDay <= currentWeek * 7
                   }
                   onClick={() => {
                     if (
