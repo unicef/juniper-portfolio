@@ -109,6 +109,7 @@ export default function UnpublishedTransactionCard({
   currentValue,
   sent,
   received,
+  donor,
   setAuthorizationRecord,
   archiveTransaction,
   archiveTransactionSuccess,
@@ -198,7 +199,8 @@ export default function UnpublishedTransactionCard({
             {usdFormatter.format(amountUSD)}
           </div>
           <div className={classes.walletSubtitle}>Donated Amount</div>
-          {isAdmin && (
+
+          {isAdmin && received && !donor && (
             <Button
               variant="contained"
               color="primary"
@@ -210,6 +212,7 @@ export default function UnpublishedTransactionCard({
               Tag Transaction
             </Button>
           )}
+
           {isAdmin && (
             <Button
               className={classes.archiveTransactionButton}
