@@ -59,6 +59,7 @@ export default function ({
       <AuthorizationRecord
         authorizationRecord={authorizationRecord}
         setAuthorizationRecord={setAuthorizationRecord}
+        exchangeRate={exchangeRate}
       />
       <BreadCrumb
         walletName={wallet.name || wallet.address}

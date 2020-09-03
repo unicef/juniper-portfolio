@@ -80,4 +80,18 @@ router.post("/archive", async (req, res) => {
   res.send(true);
 });
 
+router.get("/authrecord/:txid", async (req, res) => {
+  const juniperAdmin = req.app.get("juniperAdmin");
+  const { txid } = req.params;
+  let authRecords = [];
+
+  try {
+    authRecords = await juniperAdmin.getAuthRecords(txid);
+  } catch (e) {
+    return logger.error(e);
+  }
+
+  res.json(authRecords);
+});
+
 module.exports = router;

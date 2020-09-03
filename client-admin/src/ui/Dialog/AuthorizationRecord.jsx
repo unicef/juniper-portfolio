@@ -16,16 +16,35 @@ const useStyles = makeStyles((theme) => ({
 export default function AuthorizationRecord({
   authorizationRecord,
   setAuthorizationRecord,
+  exchangeRate,
 }) {
   const classes = useStyles();
-  const [authorizationDetails, setAuthorizationDetails] = useState(
-    authorizationDetailsData
-  );
+  const [signers, setSigners] = useState([]);
+
+  const getAuthRecords = async () => {
+    let res, signers;
+    try {
+      res = await fetch(
+        `/rest/admin/transactions/authrecord/${authorizationRecord.txid}`
+      );
+      signers = await res.json();
+    } catch (e) {
+      console.log(e);
+    }
+
+    setSigners(signers);
+  };
 
   useEffect(() => {
     //Todo hit API with authorizationRecord (Probs be txid)
-    setAuthorizationDetails(authorizationDetailsData);
-  }, []);
+
+    console.log("authorizationRecord");
+    console.log(authorizationRecord);
+
+    if (authorizationRecord) {
+      getAuthRecords();
+    }
+  }, [authorizationRecord]);
 
   return (
     <React.Fragment>
@@ -34,27 +53,42 @@ export default function AuthorizationRecord({
         open={!!authorizationRecord}
         onClose={() => {
           setAuthorizationRecord(null);
+          setSigners([]);
         }}
         classes={{ paper: classes.modal }}
       >
-        <AuthorizationCard
-          address={authorizationDetails.address}
-          amount={authorizationDetails.amount}
-          symbol={authorizationDetails.symbol}
-          currency={authorizationDetails.currency}
-          valueSent={authorizationDetails.valueSent}
-          currentValue={authorizationDetails.currentValue}
-        />
-        {authorizationDetails.signers.map((signer, index) => {
-          return (
-            <AuthorizationSignerCard key={index} {...signer} index={index} />
-          );
-        })}
+        {authorizationRecord && (
+          <AuthorizationCard
+            address={authorizationRecord.to}
+            amount={authorizationRecord.amount}
+            symbol={authorizationRecord.symbol}
+            currency={authorizationRecord.currency}
+            valueSent={authorizationRecord.amountUSD}
+            currentValue={authorizationRecord.amount * exchangeRate}
+          />
+        )}
+        {signers &&
+          signers.map((signer, index) => {
+            return (
+              <AuthorizationSignerCard
+                key={index}
+                address={signer.signerAddress}
+                owner={signer.signerName}
+                timestamp={signer.timestamp}
+                index={index}
+              />
+            );
+          })}
       </Dialog>
     </React.Fragment>
   );
 }
-
+/*
+{authorizationDetails.signers.map((signer, index) => {
+          return (
+            <AuthorizationSignerCard key={index} {...signer} index={index} />
+          );
+        })}
 const authorizationDetailsData = {
   address: "0x89205A3A3b26Dty66hxIief5hjdd8e0wk0KK58fj",
   amount: 25,
@@ -73,12 +107,13 @@ const authorizationDetailsData = {
       owner: "Khalija Ali",
       timestamp: "Mar 24 2020 at 11:51",
     },
-    /*
+  
     {
       address: "0x0KK58fj89205A3A3b26Dty66xIief5hjdd8e0wkh",
       owner: "ScrollY Check",
       timestamp: "Mar 24 2020 at 11:51",
     },
-    */
+  
   ],
 };
+*/
