@@ -86,6 +86,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function PublishedTransactionCard({
+  tx,
   txid,
   timestamp,
   address,
@@ -99,6 +100,7 @@ export default function PublishedTransactionCard({
   sent,
   received,
   setAuthorizationRecord,
+  isAdmin,
 }) {
   const classes = useStyles();
   const txSent = new Date(timestamp);
@@ -119,7 +121,14 @@ export default function PublishedTransactionCard({
           </span>
         </Grid>
         <Grid item xs={8}>
-          <TxStepper />
+          <TxStepper
+            sent={tx.sent}
+            received={tx.received}
+            source={tx.source}
+            destination={tx.destination}
+            to={tx.to}
+            from={tx.from}
+          />
           <Button
             className={classes.unpublishedTxDetailsButton}
             endIcon={<ChevronRightIcon />}
@@ -149,15 +158,17 @@ export default function PublishedTransactionCard({
           </div>
           <div className={classes.walletSubtitle}>Donated Amount</div>
 
-          <Button
-            className={classes.archiveTransactionButton}
-            startIcon={<EditIcon />}
-            onClick={() => {
-              console.log("edit tx clicks");
-            }}
-          >
-            Edit Transaction
-          </Button>
+          {isAdmin && (
+            <Button
+              className={classes.archiveTransactionButton}
+              startIcon={<EditIcon />}
+              onClick={() => {
+                console.log("edit tx clicks");
+              }}
+            >
+              Edit Transaction
+            </Button>
+          )}
         </Grid>
       </Grid>
       <Divider />

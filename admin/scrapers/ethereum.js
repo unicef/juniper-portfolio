@@ -111,6 +111,9 @@ class EthereumWalletScraper {
     let accountMap = await this.getAccountMap();
     let amount = tx.value / 1e18;
     amount = Math.round(amount * 1e5) / 1e5;
+    if (!rate) {
+      rate = { price: 0 };
+    }
 
     if (tx.to.toLowerCase() === address.toLowerCase()) {
       received = true;
@@ -153,8 +156,6 @@ class EthereumWalletScraper {
       amountUSD,
       isUnicef,
       isMultisigOwner,
-      published: false,
-      archived: false,
     });
   }
   async updateWallet(walletData) {

@@ -130,15 +130,6 @@ const useStyles = makeStyles((theme) => ({
 export default function ActivityList(props) {
   const classes = useStyles();
 
-  const copyToClipboard = (str) => {
-    const el = document.createElement("textarea");
-    el.value = str;
-    document.body.appendChild(el);
-    el.select();
-    document.execCommand("copy");
-    document.body.removeChild(el);
-  };
-
   return (
     <List component="nav" className={classes.root}>
       <Fragment>
@@ -169,13 +160,13 @@ export default function ActivityList(props) {
                 <Grid item xs={4}>
                   {user.isVerified ? (
                     <p className={classes.joinMessage}>
-                      User joined on {joinDate.getDay()}{" "}
+                      User joined on {joinDate.getDate()}{" "}
                       {monthNames[joinDate.getMonth()]} {joinDate.getFullYear()}
                     </p>
                   ) : (
                     <p className={classes.pendingMessage}>
                       User response pending. Invited via email on{" "}
-                      {joinDate.getDay()} {monthNames[joinDate.getMonth()]}{" "}
+                      {joinDate.getDate()} {monthNames[joinDate.getMonth()]}{" "}
                       {joinDate.getFullYear()}
                     </p>
                   )}

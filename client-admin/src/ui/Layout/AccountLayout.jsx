@@ -79,6 +79,7 @@ export default function AccountLayout({
   ethRate,
   btcRate,
   copyToClipboard,
+  isAdmin,
 }) {
   const classes = transactionDetailsStyles();
   const [openCreateDialog, setOpenCreateDialog] = useState(false);
@@ -160,16 +161,18 @@ export default function AccountLayout({
           </Button>
         </Grid>
         <Grid item xs={12}>
-          <Button
-            variant="contained"
-            color="primary"
-            className={classes.addButton}
-            onClick={() => {
-              setOpenCreateDialog(true);
-            }}
-          >
-            {addButtonText}
-          </Button>
+          {isAdmin && (
+            <Button
+              variant="contained"
+              color="primary"
+              className={classes.addButton}
+              onClick={() => {
+                setOpenCreateDialog(true);
+              }}
+            >
+              {addButtonText}
+            </Button>
+          )}
         </Grid>
       </Grid>
 

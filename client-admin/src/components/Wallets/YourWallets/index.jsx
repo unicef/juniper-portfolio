@@ -29,6 +29,7 @@ export default class YourWallets extends React.Component {
           <YourWalletsContent
             viewWalletDetails={this.viewWalletDetails}
             getExchangeRate={this.props.getExchangeRate}
+            isAdmin={this.props.isAdmin}
           />
         )}
       </Fragment>

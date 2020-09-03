@@ -1,4 +1,5 @@
 const router = require("express").Router();
+const { isAdmin } = require("../../middleware");
 const Logger = require("../../logger");
 const logger = new Logger("Transaction Routes");
 
@@ -42,7 +43,7 @@ router.get("/unpublished", async (req, res) => {
   res.json(txs);
 });
 
-router.post("/publish", async (req, res) => {
+router.post("/publish", isAdmin, async (req, res) => {
   const juniperAdmin = req.app.get("juniperAdmin");
 
   try {
@@ -60,7 +61,7 @@ router.post("/publish", async (req, res) => {
 
   res.send(true);
 });
-router.post("/archive", async (req, res) => {
+router.post("/archive", isAdmin, async (req, res) => {
   const juniperAdmin = req.app.get("juniperAdmin");
   let { txid } = req.body;
 

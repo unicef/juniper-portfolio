@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Fragment } from "react";
 import { withStyles } from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
 import ExpansionList from "../../ui/ExpansionPanel";
@@ -126,28 +126,32 @@ class Settings extends React.Component {
           <ExpansionList title={"User Activity"} heading={"View Activity Log"}>
             <UserActivity />
           </ExpansionList>
-          <h5 className={classes.title} style={{ marginBottom: 7 }}>
-            User Management
-          </h5>
-          <h5 className={classes.subtitle}>
-            You are an admin user of Juniper and have the permissions to add or
-            remove other users. New users that are added get invited through an
-            email link.
-          </h5>
-          <ExpansionList heading={"Add a new user"}>
-            <AddNewUser
-              setUsers={setUsers}
-              copyToClipboard={this.props.copyToClipboard}
-            />
-          </ExpansionList>
+          {this.props.isAdmin && (
+            <Fragment>
+              <h5 className={classes.title} style={{ marginBottom: 7 }}>
+                User Management
+              </h5>
+              <h5 className={classes.subtitle}>
+                You are an admin user of Juniper and have the permissions to add
+                or remove other users. New users that are added get invited
+                through an email link.
+              </h5>
+              <ExpansionList heading={"Add a new user"}>
+                <AddNewUser
+                  setUsers={setUsers}
+                  copyToClipboard={this.props.copyToClipboard}
+                />
+              </ExpansionList>
 
-          <ExpansionList heading={"View existing users"}>
-            <ExistingUsers
-              users={this.state.users}
-              removeUser={removeUser}
-              copyToClipboard={this.props.copyToClipboard}
-            />
-          </ExpansionList>
+              <ExpansionList heading={"View existing users"}>
+                <ExistingUsers
+                  users={this.state.users}
+                  removeUser={removeUser}
+                  copyToClipboard={this.props.copyToClipboard}
+                />
+              </ExpansionList>
+            </Fragment>
+          )}
         </Container>
       </div>
     );
