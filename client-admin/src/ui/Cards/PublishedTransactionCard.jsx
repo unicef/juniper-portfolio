@@ -86,6 +86,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function PublishedTransactionCard({
+  tx,
   txid,
   timestamp,
   address,
@@ -120,7 +121,14 @@ export default function PublishedTransactionCard({
           </span>
         </Grid>
         <Grid item xs={8}>
-          <TxStepper />
+          <TxStepper
+            sent={tx.sent}
+            received={tx.received}
+            source={tx.source}
+            destination={tx.destination}
+            to={tx.to}
+            from={tx.from}
+          />
           <Button
             className={classes.unpublishedTxDetailsButton}
             endIcon={<ChevronRightIcon />}
