@@ -43,17 +43,22 @@ router.get("/unpublished", async (req, res) => {
   res.json(txs);
 });
 
-router.post("/publish", isAdmin, async (req, res) => {
+router.post("/", isAdmin, async (req, res) => {
   const juniperAdmin = req.app.get("juniperAdmin");
 
+  const { tx } = req.body;
+  console.log(tx);
+  console.log(tx.published);
   try {
     const profile = req.session.passport.user.profile;
     const name = `${profile.firstName} ${profile.lastName}`;
-    //await juniperAdmin.db.archiveTx(txid);
-    await juniperAdmin.logActivity({
-      name: name,
-      text: `<a href="#" class="link">${name}</a> published a transaction.`,
-    });
+    await juniperAdmin.db.saveTransaction(tx);
+    if (tx.publish) {
+      await juniperAdmin.logActivity({
+        name: name,
+        text: `<a href="#" class="link">${name}</a> published a transaction.`,
+      });
+    }
   } catch (e) {
     logger.error(e);
     return res.status(500).send();
