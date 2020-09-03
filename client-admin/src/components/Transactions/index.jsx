@@ -173,6 +173,7 @@ export default function Transactions({ getExchangeRate, isAdmin }) {
     setArchivedTxs(txs.filter((tx) => tx.archived === true));
   };
 
+<<<<<<< Updated upstream
   useEffect(() => {
     const getUnpublishedTransactions = async () => {
       setFetchingTxs(true);
@@ -184,6 +185,18 @@ export default function Transactions({ getExchangeRate, isAdmin }) {
       } catch (e) {
         console.log(e);
       }
+=======
+  const getTransactions = async () => {
+    setFetchingTxs(true);
+    let data;
+    let txs = [];
+    try {
+      data = await fetch("/rest/admin/transactions/hq");
+      txs = await data.json();
+    } catch (e) {
+      console.log(e);
+    }
+>>>>>>> Stashed changes
 
       setTxs(txs);
       filterTransactions(txs);

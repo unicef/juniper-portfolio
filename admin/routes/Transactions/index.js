@@ -29,6 +29,20 @@ router.get("/", async (req, res) => {
 
   res.json(txs);
 });
+
+router.get("/hq", async (req, res) => {
+  const juniperAdmin = req.app.get("juniperAdmin");
+  let txs = [];
+
+  try {
+    txs = await juniperAdmin.db.getHQTransactions();
+  } catch (e) {
+    logger.error(e);
+    return res.status(500).send();
+  }
+
+  res.json(txs);
+});
 router.get("/unpublished", async (req, res) => {
   const juniperAdmin = req.app.get("juniperAdmin");
   let txs = [];
