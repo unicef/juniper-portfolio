@@ -18,21 +18,7 @@ class GnosisScraper {
 
     this.contract = new ethers.Contract(this.address, this.abi, this.provider);
   }
-  async test() {
-    console.log(process.env.INFURA_API_KEY);
-    console.log(process.env.ETHERSCAN_API_KEY);
-    // Print some contract details
-    let txCount;
-    let tx;
-    let confirmations;
-    try {
-      txCount = await this.contract.transactionCount();
-      tx = await this.contract.transactions(0);
-      confirmations = await this.contract.getConfirmations(0);
-    } catch (e) {
-      console.log(e);
-    }
-  }
+
   async scrapeAuthRecords() {
     const filter = {
       address: this.address,

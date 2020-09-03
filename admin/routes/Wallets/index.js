@@ -114,10 +114,8 @@ router.post("/", async (req, res) => {
         );
 
         if (wallet.isMultisig) {
-          console.log("is multisig");
           juniperAdmin.gnosisWalletScraper.setAddress(wallet.address);
           await juniperAdmin.gnosisWalletScraper.scrapeAuthRecords();
-          console.log();
         }
 
         break;

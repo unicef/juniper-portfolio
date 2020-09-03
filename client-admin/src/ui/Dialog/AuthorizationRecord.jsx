@@ -36,11 +36,6 @@ export default function AuthorizationRecord({
   };
 
   useEffect(() => {
-    //Todo hit API with authorizationRecord (Probs be txid)
-
-    console.log("authorizationRecord");
-    console.log(authorizationRecord);
-
     if (authorizationRecord) {
       getAuthRecords();
     }
