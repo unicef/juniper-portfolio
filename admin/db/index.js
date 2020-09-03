@@ -331,6 +331,10 @@ class MongoDB {
     this.logger.debug(`getTransactions`);
     return this.models.Transaction.find().sort({ _id: -1 });
   }
+  async getHQTransactions() {
+    this.logger.debug(`getTransactions`);
+    return this.models.Transaction.find({ isUnicef: true }).sort({ _id: -1 });
+  }
 
   async getTransactionsForAccount(name) {
     this.logger.debug(`getTransactionsForAccount`);
