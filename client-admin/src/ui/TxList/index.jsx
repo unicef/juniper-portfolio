@@ -66,6 +66,7 @@ export default function TxList({
   onPaginationClick,
   setAuthorizationRecord,
   exchangeRate,
+  isAdmin,
 }) {
   const classes = transactionDetailsStyles();
 
@@ -160,6 +161,7 @@ export default function TxList({
                   donor={tx.donor}
                   setAuthorizationRecord={setAuthorizationRecord}
                   exchangeRate={exchangeRate}
+                  isAdmin={isAdmin}
                 />
               </ListItem>
             );

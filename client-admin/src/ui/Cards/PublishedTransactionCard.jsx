@@ -99,6 +99,7 @@ export default function PublishedTransactionCard({
   sent,
   received,
   setAuthorizationRecord,
+  isAdmin,
 }) {
   const classes = useStyles();
   const txSent = new Date(timestamp);
@@ -149,15 +150,17 @@ export default function PublishedTransactionCard({
           </div>
           <div className={classes.walletSubtitle}>Donated Amount</div>
 
-          <Button
-            className={classes.archiveTransactionButton}
-            startIcon={<EditIcon />}
-            onClick={() => {
-              console.log("edit tx clicks");
-            }}
-          >
-            Edit Transaction
-          </Button>
+          {isAdmin && (
+            <Button
+              className={classes.archiveTransactionButton}
+              startIcon={<EditIcon />}
+              onClick={() => {
+                console.log("edit tx clicks");
+              }}
+            >
+              Edit Transaction
+            </Button>
+          )}
         </Grid>
       </Grid>
       <Divider />

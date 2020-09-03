@@ -1,4 +1,5 @@
 const router = require("express").Router();
+const { isAdmin } = require("../../middleware");
 const Logger = require("../../logger");
 const logger = new Logger("Account Routes");
 
@@ -28,9 +29,8 @@ router.get("/:name", async (req, res) => {
   res.send(account);
 });
 
-router.post("/", async (req, res) => {
+router.post("/", isAdmin, async (req, res) => {
   const juniperAdmin = req.app.get("juniperAdmin");
-
   const { account } = req.body;
   try {
     await juniperAdmin.createAccount(account);
