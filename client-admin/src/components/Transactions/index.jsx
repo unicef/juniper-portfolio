@@ -180,7 +180,8 @@ export default function Transactions({ getExchangeRate, isAdmin }) {
     let data;
     let txs = [];
     try {
-      data = await fetch("/rest/admin/transactions");
+      data = await fetch("/rest/admin/transactions/hq");
+
       txs = await data.json();
     } catch (e) {
       console.log(e);
