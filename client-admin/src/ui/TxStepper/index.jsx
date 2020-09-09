@@ -112,10 +112,10 @@ export default function ({
         <Fragment>
           <Grid container>
             <Grid item xs={4} className={classes.title}>
-              <div className={classes.donorTitle}>Ethereum Foundation</div>
+              <div className={classes.donorTitle}>{donor}</div>
             </Grid>
             <Grid item xs={4} className={classes.title}>
-              <div className={classes.intermediaryTitle}>UNICEF Australia</div>
+              <div className={classes.intermediaryTitle}>{source}</div>
             </Grid>
             <Grid item xs={4} className={classes.title}>
               <div className={classes.recipientTitle}>UNICEF HQ</div>

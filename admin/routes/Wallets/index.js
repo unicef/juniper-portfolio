@@ -162,6 +162,11 @@ router.post("/", isAdmin, async (req, res) => {
           wallet.multisigOwners
         );
 
+        if (wallet.isMultisig) {
+          juniperAdmin.gnosisWalletScraper.setAddress(wallet.address);
+          await juniperAdmin.gnosisWalletScraper.scrapeAuthRecords();
+        }
+
         break;
       default:
         throw new Error(

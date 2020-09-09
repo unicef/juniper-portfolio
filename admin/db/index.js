@@ -133,13 +133,43 @@ class MongoDB {
   }
 
   async getActivities() {
-    this.logger.debug(`getActivities `);
+    this.logger.info(`getActivities `);
     return this.models.Activity.find();
   }
 
   async logActivity(activity) {
-    this.logger.debug(`Logging activity ${JSON.stringify(activity)}`);
+    this.logger.info(`Logging activity ${JSON.stringify(activity)}`);
     return this.models.Activity(activity).save();
+  }
+
+  async saveAuthRecord(authRecord) {
+    this.logger.info(`Saving Auth Record ${JSON.stringify(authRecord)}`);
+    return this.models.AuthRecord.findOneAndUpdate(
+      {
+        txid: authRecord.txid,
+        contractAddress: authRecord.contractAddress,
+        signerAddress: authRecord.signerAddress,
+        txIndex: authRecord.txIndex,
+      },
+      authRecord,
+      {
+        upsert: true,
+      }
+    );
+  }
+
+  async getAuthRecord(txid) {
+    this.logger.info(`Getting Auth Record ${JSON.stringify(txid)}`);
+    return this.models.AuthRecord.findOne({ txid });
+  }
+
+  async getAuthRecords(contractAddress, txIndex) {
+    this.logger.info(
+      `Getting Auth Records ${JSON.stringify(contractAddress)} ${JSON.stringify(
+        txIndex
+      )}`
+    );
+    return this.models.AuthRecord.find({ contractAddress, txIndex });
   }
 
   async createWallet(wallet) {
@@ -300,6 +330,10 @@ class MongoDB {
   async getTransactions() {
     this.logger.debug(`getTransactions`);
     return this.models.Transaction.find().sort({ _id: -1 });
+  }
+  async getHQTransactions() {
+    this.logger.debug(`getTransactions`);
+    return this.models.Transaction.find({ isUnicef: true }).sort({ _id: -1 });
   }
 
   async getTransactionsForAccount(name) {

@@ -100,6 +100,7 @@ export default function PublishedTransactionCard({
   sent,
   received,
   setAuthorizationRecord,
+  onTagTransactionClick,
   isAdmin,
 }) {
   const classes = useStyles();
@@ -126,6 +127,7 @@ export default function PublishedTransactionCard({
             received={tx.received}
             source={tx.source}
             destination={tx.destination}
+            donor={tx.donor}
             to={tx.to}
             from={tx.from}
           />
@@ -163,7 +165,7 @@ export default function PublishedTransactionCard({
               className={classes.archiveTransactionButton}
               startIcon={<EditIcon />}
               onClick={() => {
-                console.log("edit tx clicks");
+                onTagTransactionClick(tx);
               }}
             >
               Edit Transaction

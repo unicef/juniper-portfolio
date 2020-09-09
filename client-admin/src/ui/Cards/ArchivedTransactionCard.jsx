@@ -105,6 +105,7 @@ export default function ArchivedTransactionCard({
   sent,
   received,
   isAdmin,
+  onTagTransactionClick,
 }) {
   const classes = useStyles();
   const txSent = new Date(timestamp);
@@ -130,6 +131,7 @@ export default function ArchivedTransactionCard({
             received={tx.received}
             source={tx.source}
             destination={tx.destination}
+            donor={tx.donor}
             to={tx.to}
             from={tx.from}
           />
@@ -167,7 +169,7 @@ export default function ArchivedTransactionCard({
               color="primary"
               className={classes.tagTransactionButton}
               onClick={() => {
-                console.log("tag tx btn clicked");
+                onTagTransactionClick(tx);
               }}
             >
               Tag Transaction
@@ -178,7 +180,7 @@ export default function ArchivedTransactionCard({
               className={classes.archiveTransactionButton}
               startIcon={<EditIcon />}
               onClick={() => {
-                console.log("archive tx clicks");
+                onTagTransactionClick(tx);
               }}
             >
               Edit Transaction
