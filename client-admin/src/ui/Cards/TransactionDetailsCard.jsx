@@ -87,6 +87,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function TransactionDetailsCard({
+  tx,
   txid,
   timestamp,
   address,
@@ -202,7 +203,7 @@ export default function TransactionDetailsCard({
             className={classes.txDetailsButton}
             startIcon={<FormatListBulletedIcon />}
             onClick={() => {
-              setAuthorizationRecord(txid);
+              setAuthorizationRecord(tx);
             }}
           >
             Authorization Record

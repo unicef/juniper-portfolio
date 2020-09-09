@@ -163,34 +163,37 @@ export default function Transactions({ getExchangeRate, isAdmin }) {
   };
 
   const filterTransactions = (txs) => {
+    txs = txs.filter((tx) => {
+      return tx.amount !== 0;
+    });
     setUnpublishedTxs(
       txs.filter((tx) => tx.published === false && tx.archived === false)
     );
-    // setting unpublished to false for now until modals are wired up
     setPublishedTxs(
-      txs.filter((tx) => tx.published === false && tx.archived === false)
+      txs.filter((tx) => tx.published === true && tx.archived === false)
     );
     setArchivedTxs(txs.filter((tx) => tx.archived === true));
   };
 
+  const getTransactions = async () => {
+    setFetchingTxs(true);
+    let data;
+    let txs = [];
+    try {
+      data = await fetch("/rest/admin/transactions/hq");
+
+      txs = await data.json();
+    } catch (e) {
+      console.log(e);
+    }
+
+    setTxs(txs);
+    filterTransactions(txs);
+    setFetchingTxs(false);
+  };
+
   useEffect(() => {
-    const getUnpublishedTransactions = async () => {
-      setFetchingTxs(true);
-      let data;
-      let txs = [];
-      try {
-        data = await fetch("/rest/admin/transactions/unpublished");
-        txs = await data.json();
-      } catch (e) {
-        console.log(e);
-      }
-
-      setTxs(txs);
-      filterTransactions(txs);
-      setFetchingTxs(false);
-    };
-
-    getUnpublishedTransactions();
+    getTransactions();
   }, []);
 
   function UnpublishedTxCard(props) {
@@ -207,16 +210,45 @@ export default function Transactions({ getExchangeRate, isAdmin }) {
       />
     );
   }
+  function PublishedTxCard(props) {
+    return (
+      <PublishedTransactionCard
+        {...props}
+        archiveTransaction={archiveTransaction}
+        archiveTransactionSuccess={archiveTransactionSuccess}
+        archiveTransactionFailed={archiveTransactionFailed}
+        onTagTransactionClick={(tx) => {
+          setTransaction(tx);
+          setShowTagTransaction(true);
+        }}
+      />
+    );
+  }
+  function ArchivededTxCard(props) {
+    return (
+      <ArchivedTransactionCard
+        {...props}
+        archiveTransaction={archiveTransaction}
+        archiveTransactionSuccess={archiveTransactionSuccess}
+        archiveTransactionFailed={archiveTransactionFailed}
+        onTagTransactionClick={(tx) => {
+          setTransaction(tx);
+          setShowTagTransaction(true);
+        }}
+      />
+    );
+  }
 
   return (
     <div className={classes.root}>
       <TagTransaction
-        title={"Tag Donor Details"}
+        title={"Tag Sender Details"}
         open={showTagTransaction}
         tx={transaction}
         onClose={() => {
           setShowTagTransaction(false);
           setTransaction({});
+          getTransactions();
         }}
         publishTransaction={publishTransaction}
         getExchangeRate={getExchangeRate}
@@ -263,7 +295,7 @@ export default function Transactions({ getExchangeRate, isAdmin }) {
         <TxList
           title={`${publishedTxs.length} Published Transactions`}
           txs={publishedTxs}
-          TxCard={PublishedTransactionCard}
+          TxCard={PublishedTxCard}
           page={publishedPage}
           onPaginationClick={setPublishedPage}
           isAdmin={isAdmin}
@@ -273,7 +305,7 @@ export default function Transactions({ getExchangeRate, isAdmin }) {
         <TxList
           title={`${archivedTxs.length} Archived Transactions`}
           txs={archivedTxs}
-          TxCard={ArchivedTransactionCard}
+          TxCard={ArchivededTxCard}
           page={archivedPage}
           onPaginationClick={setArchivedPage}
           isAdmin={isAdmin}

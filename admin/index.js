@@ -7,7 +7,11 @@ const LocalStrategy = require("passport-local").Strategy;
 const bodyParser = require("body-parser");
 const PriceMonitor = require("./price_monitor");
 const fetch = require("node-fetch");
-const { BitcoinScraper, EthereumScraper } = require("./wallet_scrapers");
+const {
+  BitcoinScraper,
+  EthereumScraper,
+  GnosisScraper,
+} = require("./scrapers");
 const Logger = require("./logger");
 const Email = require("./email");
 const DB = require("./db");
@@ -51,10 +55,13 @@ class JuniperAdmin {
       this.config.bitcoinScraper,
       this.db
     );
+
     this.ethereumWalletScraper = new EthereumScraper(
       this.config.ethereumScraper,
       this.db
     );
+
+    this.gnosisWalletScraper = new GnosisScraper({}, this.db);
     this.utils = utils;
     this.passport = passport;
 
@@ -336,6 +343,38 @@ class JuniperAdmin {
       this.logger.error(`User authentication failed for ${user.email}`);
       return false;
     }
+  }
+
+  async getAuthRecords(txid) {
+    let record = {};
+    let records = [];
+    let wallet;
+    try {
+      record = await this.db.getAuthRecord(txid);
+      records = await this.db.getAuthRecords(
+        record.contractAddress,
+        record.txIndex
+      );
+      wallet = await this.db.getWallet(record.contractAddress);
+      let multisigOwners = {};
+      wallet.multisigOwners.forEach((owner) => {
+        multisigOwners[owner.walletAddress] = owner.ownerName;
+      });
+
+      records = records.map((record) => {
+        return {
+          contractAddress: record.contractAddress,
+          signerAddress: record.signerAddress,
+          txIndex: record.txIndex,
+          txid: record.txid,
+          timestamp: record.timestamp,
+          signerName: multisigOwners[record.signerAddress],
+        };
+      });
+    } catch (e) {
+      this.logger.error(JSON.stringify(e));
+    }
+    return records;
   }
 
   async getWalletSummary() {

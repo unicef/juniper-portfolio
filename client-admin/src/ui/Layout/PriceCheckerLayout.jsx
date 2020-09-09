@@ -137,7 +137,7 @@ export default function PriceCheckerLayout(props) {
   const thisYear = new Date().getFullYear();
 
   const [currentWeek, setCurrentWeek] = useState(
-    Math.round(new Date().getDate() / 7)
+    Math.ceil(new Date().getDate() / 7)
   );
   const [currentMonth, setCurrentMonth] = useState(new Date().getMonth());
   const [currentYear, setCurrentYear] = useState(new Date().getFullYear());
@@ -151,7 +151,6 @@ export default function PriceCheckerLayout(props) {
   };
 
   const daysInMonth = (month, year) => {
-    console.log(`daysInMonth: ${new Date(year, month, 0).getDate()}`);
     return new Date(year, month, 0).getDate();
   };
 
@@ -336,7 +335,6 @@ export default function PriceCheckerLayout(props) {
   function Weekdays() {
     let days = [];
     for (let i = 6; 6 >= 0; i--) {
-      console.log(Weekday(i));
       days.push(<Weekday offset={i} />);
     }
     return days;
@@ -543,8 +541,7 @@ export default function PriceCheckerLayout(props) {
                 <IconButton
                   color="inherit"
                   disabled={
-                    currentWeek * 7 >= daysInMonth(currentMonth, currentYear) ||
-                    thisDay <= currentWeek * 7
+                    currentWeek * 7 >= daysInMonth(currentMonth, currentYear)
                   }
                   onClick={() => {
                     if (

@@ -135,8 +135,6 @@ export default function JuniperAdmin() {
         console.log(e);
       }
       if (res.status === 200 || res.status === 304) {
-        console.log("fuck you");
-
         setUser(await res.json());
         setIsLoggedIn(true);
       }
