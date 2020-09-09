@@ -168,6 +168,7 @@ export default function UnpublishedTransactionCard({
             received={tx.received}
             source={tx.source}
             destination={tx.destination}
+            donor={tx.donor}
             to={tx.to}
             from={tx.from}
           />
@@ -199,7 +200,8 @@ export default function UnpublishedTransactionCard({
             {usdFormatter.format(amountUSD)}
           </div>
           <div className={classes.walletSubtitle}>Donated Amount</div>
-          {isAdmin && received && !donor && (
+
+          {isAdmin && received && !tx.published && (
             <Button
               variant="contained"
               color="primary"

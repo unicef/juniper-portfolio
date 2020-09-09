@@ -36,6 +36,21 @@ const WalletDetailsCardStyles = makeStyles((theme) => ({
   },
 }));
 
+const months = [
+  "Jan",
+  "Feb",
+  "Mar",
+  "Apr",
+  "May",
+  "Jun",
+  "Jul",
+  "Aug",
+  "Sep",
+  "Oct",
+  "Nov",
+  "Dec",
+];
+
 export default function AuthorizationSignerCard({
   address,
   owner,
@@ -43,6 +58,18 @@ export default function AuthorizationSignerCard({
   index,
 }) {
   const classes = WalletDetailsCardStyles();
+  const date = new Date(timestamp);
+  const month = months[date.getMonth()];
+  const day = date.getDate();
+  const year = date.getFullYear();
+  const hours = date.getHours();
+  const minutes = (date.getMinutes() < 10 ? "0" : "") + date.getMinutes();
+  const seconds = date.getSeconds();
+
+  const offset = new Date().getTimezoneOffset();
+
+  console.log(`${month} / ${day} / ${year}`);
+  console.log(`${hours} / ${minutes} / ${seconds}`);
   return (
     <Grid container className={classes.authorizationSigner}>
       <Grid item xs={12} className={classes.authorizationInfo}>
@@ -59,7 +86,9 @@ export default function AuthorizationSignerCard({
         <div className={classes.walletSubtitle}>Wallet Owner</div>
       </Grid>
       <Grid item xs={12}>
-        <div className={classes.signerText}>{timestamp}</div>
+        <div className={classes.signerText}>
+          {month} {day} {year} at {hours}:{minutes} UTC
+        </div>
         <div className={classes.walletSubtitle}>Time of Signing</div>
       </Grid>
     </Grid>

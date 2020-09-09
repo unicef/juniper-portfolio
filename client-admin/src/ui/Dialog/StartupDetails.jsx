@@ -168,11 +168,7 @@ export default function StartupDetails(props) {
     }
 
     setAddresses(account.addresses);
-    setTransactions(
-      transactions.filter((tx) => {
-        return tx.received === true;
-      })
-    );
+    setTransactions(transactions);
   };
 
   useEffect(() => {
