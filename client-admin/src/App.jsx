@@ -20,6 +20,7 @@ import Wallets from "./components/Wallets";
 import ApolloClient from "apollo-boost";
 import { ApolloProvider } from "react-apollo";
 import LoadingScreen from "./ui/Dialog/LoadingScreen";
+import { getAccounts, getExchangeRate } from "./actions";
 
 const drawerWidth = 240;
 
@@ -78,6 +79,9 @@ export default function JuniperAdmin() {
   const [user, setUser] = useState({});
   const [loading, setLoading] = useState(true);
   const [pageIndex, setPageIndex] = useState(0);
+  const [accounts, setAccounts] = useState([]);
+  const [ethRate, setEthRate] = useState(0);
+  const [btcRate, setBtcRate] = useState(0);
 
   const loginUser = (user) => {
     if (user) {
@@ -107,6 +111,13 @@ export default function JuniperAdmin() {
   };
 
   useEffect(() => {
+    console.log("app");
+    async function init() {
+      setAccounts(await getAccounts());
+      setEthRate(await getExchangeRate("ETH"));
+      setBtcRate(await getExchangeRate("BTC"));
+    }
+    init();
     // check if logged in
     const getUserProfile = async () => {
       let res;
@@ -174,7 +185,12 @@ export default function JuniperAdmin() {
                       pageIndex={pageIndex}
                       setPageIndex={setPageIndex}
                     />
-                    <Accounts isAdmin={user.isAdmin} />
+                    <Accounts
+                      isAdmin={user.isAdmin}
+                      accounts={accounts}
+                      ethRate={ethRate}
+                      btcRate={btcRate}
+                    />
                   </Route>
                   <Route path="/admin/tracker">
                     <TopBar user={user} setPageIndex={setPageIndex} />
