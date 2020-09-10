@@ -8,6 +8,7 @@ import CopyIcon from "../Icons/CopyIcon";
 import AccountTransactionCard from "../Cards/AccountTransactionCard";
 import EditIcon from "../../ui/Icons/EditIcon";
 import { CreateAccount } from ".";
+import { copyToClipboard } from "../../actions";
 
 const useStyles = makeStyles((theme) => ({
   modal: {
@@ -249,7 +250,7 @@ export default function StartupDetails(props) {
                     className={classes.copyButton}
                     startIcon={<CopyIcon fontSize="large" />}
                     onClick={() => {
-                      props.copyToClipboard(address.address);
+                      copyToClipboard(address.address);
                     }}
                   >
                     Copy
@@ -286,7 +287,6 @@ export default function StartupDetails(props) {
                   amountUSD={tx.amountUSD}
                   address={tx.address}
                   timestamp={tx.timestamp}
-                  copyToClipboard={props.copyToClipboard}
                 />
               );
             })}

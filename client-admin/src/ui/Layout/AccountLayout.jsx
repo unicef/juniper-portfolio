@@ -78,7 +78,6 @@ export default function AccountLayout({
   onDialogClose,
   ethRate,
   btcRate,
-  copyToClipboard,
   isAdmin,
 }) {
   const classes = transactionDetailsStyles();
@@ -109,7 +108,6 @@ export default function AccountLayout({
         account={detailsAccount}
         ethRate={ethRate}
         btcRate={btcRate}
-        copyToClipboard={copyToClipboard}
       />
       <StartupDetails
         open={openStartupDetails}
@@ -119,7 +117,6 @@ export default function AccountLayout({
         account={detailsAccount}
         ethRate={ethRate}
         btcRate={btcRate}
-        copyToClipboard={copyToClipboard}
       />
 
       <Grid container>

@@ -3,8 +3,8 @@ import { makeStyles } from "@material-ui/core/styles";
 import Chip from "@material-ui/core/Chip";
 import Button from "@material-ui/core/Button";
 import CopyIcon from "../Icons/CopyIcon";
-
 import { usdFormatter, cryptoFormatter } from "../../util";
+import { copyToClipboard } from "../../actions";
 
 const walletStyles = makeStyles((theme) => ({
   wallet: {
@@ -110,15 +110,6 @@ export default function TrackWalletCard({
     } catch (e) {
       console.log(e);
     }
-  };
-
-  const copyToClipboard = (text) => {
-    const el = document.createElement("textarea");
-    el.value = text;
-    document.body.appendChild(el);
-    el.select();
-    document.execCommand("copy");
-    document.body.removeChild(el);
   };
 
   return (

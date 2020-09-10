@@ -9,6 +9,7 @@ import Button from "@material-ui/core/Button";
 import InputLabel from "@material-ui/core/InputLabel";
 import Divider from "@material-ui/core/Divider";
 import GenerateLinkIcon from "../../../ui/Icons/GenerateLinkIcon";
+import { copyToClipboard } from "../../../actions";
 
 const useStyles = makeStyles({
   root: {
@@ -128,15 +129,6 @@ export default function AddNewUser(props) {
   );
   const [verificationCode, setVerificationCode] = useState("");
 
-  const copyToClipboard = (str) => {
-    const el = document.createElement("textarea");
-    el.value = str;
-    document.body.appendChild(el);
-    el.select();
-    document.execCommand("copy");
-    document.body.removeChild(el);
-  };
-
   const addNewUser = async (copyLink = false) => {
     let res;
     let users;
@@ -187,7 +179,7 @@ export default function AddNewUser(props) {
 
       setVerificationCode(user.verificationCode);
       if (copyLink) {
-        this.props.copyToClipboard(`${siteLink}${user.verificationCode}`);
+        copyToClipboard(`${siteLink}${user.verificationCode}`);
       }
       props.setUsers(users);
 
@@ -339,7 +331,7 @@ export default function AddNewUser(props) {
           startIcon={<GenerateLinkIcon />}
           onClick={async () => {
             if (verificationCode) {
-              this.props.copyToClipboard(`${siteLink}${verificationCode}`);
+              copyToClipboard(`${siteLink}${verificationCode}`);
             } else {
               addNewUser(true);
             }

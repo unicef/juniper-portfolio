@@ -9,6 +9,7 @@ import Button from "@material-ui/core/Button";
 import GenerateLinkIcon from "../../../ui/Icons/GenerateLinkIcon";
 import EnvelopeIcon from "../../../ui/Icons/EnvelopeIcon";
 import CancelIcon from "../../../ui/Icons/CancelIcons";
+import { copyToClipboard } from "../../../actions";
 
 const monthNames = [
   "January",
@@ -187,7 +188,7 @@ export default function ActivityList(props) {
                         className={classes.generateButton}
                         startIcon={<GenerateLinkIcon />}
                         onClick={async () => {
-                          props.copyToClipboard(
+                          copyToClipboard(
                             `https://juniper.unicef.io/admin/signin?verification=${user.verificationCode}`
                           );
                         }}

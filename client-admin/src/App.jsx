@@ -107,10 +107,6 @@ export default function JuniperAdmin() {
     setUser(newUser);
   };
 
-  const copyToClipboard = (str) => {
-    navigator.clipboard.writeText(str);
-  };
-
   useEffect(() => {
     // check if logged in
     const getUserProfile = async () => {
@@ -179,10 +175,7 @@ export default function JuniperAdmin() {
                       pageIndex={pageIndex}
                       setPageIndex={setPageIndex}
                     />
-                    <Accounts
-                      copyToClipboard={copyToClipboard}
-                      isAdmin={user.isAdmin}
-                    />
+                    <Accounts isAdmin={user.isAdmin} />
                   </Route>
                   <Route path="/admin/tracker">
                     <TopBar user={user} setPageIndex={setPageIndex} />
@@ -209,7 +202,6 @@ export default function JuniperAdmin() {
                     <Settings
                       user={user}
                       updateUser={updateUser}
-                      copyToClipboard={copyToClipboard}
                       isAdmin={user.isAdmin}
                     />
                   </Route>

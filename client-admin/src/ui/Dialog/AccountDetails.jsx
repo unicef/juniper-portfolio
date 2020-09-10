@@ -6,6 +6,7 @@ import { usdFormatter, cryptoFormatter } from "../../util";
 import Button from "@material-ui/core/Button";
 import CopyIcon from "../Icons/CopyIcon";
 import AccountTransactionCard from "../Cards/AccountTransactionCard";
+import { copyToClipboard } from "../../actions";
 
 const useStyles = makeStyles((theme) => ({
   modal: {
@@ -241,7 +242,7 @@ export default function AccountDetails(props) {
                     className={classes.copyButton}
                     startIcon={<CopyIcon fontSize="large" />}
                     onClick={() => {
-                      props.copyToClipboard(address.address);
+                      copyToClipboard(address.address);
                     }}
                   >
                     Copy
@@ -277,7 +278,6 @@ export default function AccountDetails(props) {
                   amountUSD={tx.amountUSD}
                   address={tx.address}
                   timestamp={tx.timestamp}
-                  copyToClipboard={props.copyToClipboard}
                 />
               );
             })}

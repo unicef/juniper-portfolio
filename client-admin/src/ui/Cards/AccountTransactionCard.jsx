@@ -4,7 +4,7 @@ import Grid from "@material-ui/core/Grid";
 import { usdFormatter, cryptoFormatter } from "../../util";
 import Button from "@material-ui/core/Button";
 import CopyIcon from "../Icons/CopyIcon";
-
+import { copyToClipboard } from "../../actions";
 const monthNames = [
   "January",
   "February",
@@ -91,7 +91,7 @@ export default function AccountTransactionCard({
   amountUSD,
   address,
   timestamp,
-  copyToClipboard,
+
   title,
 }) {
   const addressRef = useRef(null);

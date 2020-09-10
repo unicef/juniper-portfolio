@@ -68,7 +68,7 @@ const StyledTab = withStyles((theme) => ({
   },
 }))((props) => <Tab disableRipple {...props} />);
 
-export default function Accounts({ copyToClipboard, isAdmin }) {
+export default function Accounts({ isAdmin }) {
   const classes = useStyles();
   const [activeTab, setActiveTab] = useState(0);
   const [startups, setStartups] = useState([]);
@@ -199,7 +199,6 @@ export default function Accounts({ copyToClipboard, isAdmin }) {
           accounts={startups}
           ethRate={ethRate}
           btcRate={btcRate}
-          copyToClipboard={copyToClipboard}
           message={
             "The investments are made through UNICEF’s CryptoFund, in open source technology solutions that benefit children and the world."
           }
@@ -222,7 +221,6 @@ export default function Accounts({ copyToClipboard, isAdmin }) {
           accounts={donors}
           ethRate={ethRate}
           btcRate={btcRate}
-          copyToClipboard={copyToClipboard}
           message={
             "In line with current UNICEF practice, each crypto transaction is initiated after UNICEF has completed due diligence on a donor, ensuring a credible source of the donation."
           }
@@ -245,7 +243,6 @@ export default function Accounts({ copyToClipboard, isAdmin }) {
           accounts={natcoms}
           ethRate={ethRate}
           btcRate={btcRate}
-          copyToClipboard={copyToClipboard}
           message={
             "Cryptofund donations are received by HQ through four National Committees - Australia, France, New Zealand and the United States."
           }

@@ -136,17 +136,13 @@ class Settings extends React.Component {
                 through an email link.
               </h5>
               <ExpansionList heading={"Add a new user"}>
-                <AddNewUser
-                  setUsers={setUsers}
-                  copyToClipboard={this.props.copyToClipboard}
-                />
+                <AddNewUser setUsers={setUsers} />
               </ExpansionList>
 
               <ExpansionList heading={"View existing users"}>
                 <ExistingUsers
                   users={this.state.users}
                   removeUser={removeUser}
-                  copyToClipboard={this.props.copyToClipboard}
                 />
               </ExpansionList>
             </Fragment>

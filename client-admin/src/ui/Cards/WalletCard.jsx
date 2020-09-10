@@ -5,6 +5,7 @@ import Button from "@material-ui/core/Button";
 import ChevronRightIcon from "@material-ui/icons/ChevronRight";
 import CopyIcon from "../Icons/CopyIcon";
 import { usdFormatter, cryptoFormatter } from "../../util";
+import { copyToClipboard } from "../../actions";
 
 const useStyles = makeStyles((theme) => ({
   wallet: {
@@ -100,15 +101,6 @@ export default function WalletCard({
   exchangeRate,
 }) {
   const classes = useStyles();
-
-  const copyToClipboard = (text) => {
-    const el = document.createElement("textarea");
-    el.value = text;
-    document.body.appendChild(el);
-    el.select();
-    document.execCommand("copy");
-    document.body.removeChild(el);
-  };
 
   return (
     <div className={classes.wallet}>
