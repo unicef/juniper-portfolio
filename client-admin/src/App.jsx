@@ -89,9 +89,8 @@ export default function JuniperAdmin() {
   const updateUser = async (property) => {
     const newUser = { ...user, ...property };
 
-    let res;
     try {
-      res = await fetch(`/rest/admin/settings/user`, {
+      await fetch(`/rest/admin/settings/user`, {
         credentials: "include",
         method: "PUT",
         body: JSON.stringify({

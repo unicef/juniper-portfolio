@@ -7,17 +7,12 @@ import FormControl from "@material-ui/core/FormControl";
 import MenuItem from "@material-ui/core/MenuItem";
 import InputLabel from "@material-ui/core/InputLabel";
 import Select from "@material-ui/core/Select";
-import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
 import Toolbar from "@material-ui/core/Toolbar";
 import IconButton from "@material-ui/core/IconButton";
 import CloseIcon from "@material-ui/icons/Close";
 import { usdFormatter, cryptoFormatter } from "../../util";
-import Checkbox from "@material-ui/core/Checkbox";
-import CircleCheckedFilled from "@material-ui/icons/CheckCircle";
-import CircleUnchecked from "@material-ui/icons/RadioButtonUnchecked";
 import QuestionMarkIcon from "../Icons/QuestionMarkIcon";
-import FormControlLabel from "@material-ui/core/FormControlLabel";
 import CreateAccount from "./CreateAccount";
 import { getExchangeRate } from "../../actions";
 
@@ -191,7 +186,6 @@ export default function TagTransaction(props) {
   const [donor, setDonor] = useState("");
 
   const [openCreateAccount, setOpenCreateAccount] = useState(false);
-  const [createAccountName, setCreateAccountName] = useState("");
   const [createAccountType, setCreateAccountType] = useState("");
   const [addresses, setAddresses] = useState([]);
 
@@ -216,8 +210,6 @@ export default function TagTransaction(props) {
       console.log(e);
     }
 
-    console.log(natcoms);
-
     setDonors(donors);
     setNatcoms(natcoms);
   };
@@ -231,9 +223,8 @@ export default function TagTransaction(props) {
     tx.donor = donor;
     tx.published = publish;
 
-    let res;
     try {
-      res = await fetch(`/rest/admin/transactions/`, {
+      await fetch(`/rest/admin/transactions/`, {
         credentials: "include",
         method: "POST",
         body: JSON.stringify({
@@ -282,7 +273,6 @@ export default function TagTransaction(props) {
         open={openCreateAccount}
         type={createAccountType}
         edit={false}
-        name={createAccountName}
         addresses={addresses}
         onDialogClose={async (account) => {
           setOpenCreateAccount(false);

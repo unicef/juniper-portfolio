@@ -15,12 +15,6 @@ import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
 import { AddWallet } from "../../../ui/Dialog";
 import { getExchangeRate } from "../../../actions";
 
-const usdFormatter = new Intl.NumberFormat("en-US", {
-  style: "currency",
-  currency: "USD",
-  minimumFractionDigits: 2,
-});
-
 const useStyles = makeStyles((theme) => ({
   root: {
     minHeight: "100%",

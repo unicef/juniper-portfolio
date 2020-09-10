@@ -24,7 +24,6 @@ export default class FileUpload extends Component {
         body: formData,
       });
       const json = await response.json();
-      const { url, size, mime } = json;
 
       if (this.props.afterUpload) {
         this.props.afterUpload(json);

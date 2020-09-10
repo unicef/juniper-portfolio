@@ -1,8 +1,7 @@
-import React, { useState, useEffect, Fragment } from "react";
+import React, { useState, useEffect } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import Dialog from "@material-ui/core/Dialog";
 import Grid from "@material-ui/core/Grid";
-import { usdFormatter, cryptoFormatter } from "../../util";
 import Button from "@material-ui/core/Button";
 import CopyIcon from "../Icons/CopyIcon";
 import AccountTransactionCard from "../Cards/AccountTransactionCard";
@@ -143,7 +142,6 @@ export default function StartupDetails(props) {
   const [weblink, setWeblink] = useState("");
   const [addresses, setAddresses] = useState([]);
   const [transactions, setTransactions] = useState([]);
-
   const [openEditAccount, setOpenEditAccount] = useState(false);
 
   const getAccountDetails = async () => {
@@ -233,7 +231,12 @@ export default function StartupDetails(props) {
             <p className={classes.description}>{description}</p>
           </Grid>
           <Grid item xs={12}>
-            <a className={classes.weblink} href={weblink} target="_blank">
+            <a
+              className={classes.weblink}
+              href={weblink}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
               {weblink}
             </a>
           </Grid>

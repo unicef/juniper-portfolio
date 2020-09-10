@@ -343,7 +343,7 @@ export default function CreateStartup(props) {
 
                 <Grid container>
                   <Grid item xs={6}>
-                    <img src={image} className={classes.image} />
+                    <img src={image} className={classes.image} alt="Account" />
                   </Grid>
                   <Grid item xs={6}>
                     <h2 className={classes.imageTitle}>Upload cover image</h2>
