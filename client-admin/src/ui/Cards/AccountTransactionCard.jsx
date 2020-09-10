@@ -5,20 +5,7 @@ import { usdFormatter, cryptoFormatter } from "../../util";
 import Button from "@material-ui/core/Button";
 import CopyIcon from "../Icons/CopyIcon";
 import { copyToClipboard } from "../../actions";
-const monthNames = [
-  "January",
-  "February",
-  "March",
-  "April",
-  "May",
-  "June",
-  "July",
-  "August",
-  "September",
-  "October",
-  "November",
-  "December",
-];
+import { monthNames } from "../../util";
 
 const WalletDetailsCardStyles = makeStyles((theme) => ({
   authorizationInfo: {

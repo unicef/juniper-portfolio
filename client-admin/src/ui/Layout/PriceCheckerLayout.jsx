@@ -1,29 +1,12 @@
 import React, { useState, useEffect, Fragment } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import Grid from "@material-ui/core/Grid";
-
 import PriceInfoBanner from "../../ui/PriceInfoBanner";
 import ChevronRightIcon from "@material-ui/icons/ChevronRight";
 import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
 import IconButton from "@material-ui/core/IconButton";
-import { usdFormatter } from "../../util";
-
+import { usdFormatter, monthNames } from "../../util";
 import { LineChart, Line, XAxis, YAxis, Tooltip } from "recharts";
-
-const monthNames = [
-  "January",
-  "February",
-  "March",
-  "April",
-  "May",
-  "June",
-  "July",
-  "August",
-  "September",
-  "October",
-  "November",
-  "December",
-];
 
 const useStyles = makeStyles((theme) => ({
   heading: {

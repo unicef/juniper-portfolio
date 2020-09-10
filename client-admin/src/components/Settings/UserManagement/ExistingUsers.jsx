@@ -10,21 +10,7 @@ import GenerateLinkIcon from "../../../ui/Icons/GenerateLinkIcon";
 import EnvelopeIcon from "../../../ui/Icons/EnvelopeIcon";
 import CancelIcon from "../../../ui/Icons/CancelIcons";
 import { copyToClipboard } from "../../../actions";
-
-const monthNames = [
-  "January",
-  "February",
-  "March",
-  "April",
-  "May",
-  "June",
-  "July",
-  "August",
-  "September",
-  "October",
-  "November",
-  "December",
-];
+import { monthNames } from "../../../util";
 
 const useStyles = makeStyles((theme) => ({
   root: {
