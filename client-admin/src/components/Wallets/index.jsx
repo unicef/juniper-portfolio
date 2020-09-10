@@ -107,7 +107,7 @@ export default function Wallets({
         />
       </TabPanel>
       <TabPanel activeTab={activeTab} index={1}>
-        <TrackWallets isAdmin={isAdmin} />
+        <TrackWallets isAdmin={isAdmin} btcRate={btcRate} ethRate={ethRate} />
       </TabPanel>
     </div>
   );
