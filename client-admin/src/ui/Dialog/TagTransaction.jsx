@@ -19,6 +19,7 @@ import CircleUnchecked from "@material-ui/icons/RadioButtonUnchecked";
 import QuestionMarkIcon from "../Icons/QuestionMarkIcon";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
 import CreateAccount from "./CreateAccount";
+import { getExchangeRate } from "../../actions";
 
 const useStyles = makeStyles((theme) => ({
   closeIcon: {
@@ -251,17 +252,17 @@ export default function TagTransaction(props) {
   };
 
   useEffect(() => {
-    const getExchangeRate = async () => {
+    const getExchangeRates = async () => {
       let rate;
       try {
-        rate = await props.getExchangeRate(props.tx.symbol);
+        rate = await getExchangeRate(props.tx.symbol);
       } catch (e) {
         console.log(e);
       }
       setExchangeRate(rate);
     };
 
-    getExchangeRate();
+    getExchangeRates();
     getAccounts();
     setNatcom(props.tx.source || "");
     setDonor(props.tx.donor || "");

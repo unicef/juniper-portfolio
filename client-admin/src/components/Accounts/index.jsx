@@ -6,6 +6,7 @@ import Typography from "@material-ui/core/Typography";
 import Container from "@material-ui/core/Container";
 import AccountLayout from "../../ui/Layout/AccountLayout";
 import { CreateAccount } from "../../ui/Dialog";
+import { getExchangeRate } from "../../actions";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -67,11 +68,7 @@ const StyledTab = withStyles((theme) => ({
   },
 }))((props) => <Tab disableRipple {...props} />);
 
-export default function Accounts({
-  getExchangeRate,
-  copyToClipboard,
-  isAdmin,
-}) {
+export default function Accounts({ copyToClipboard, isAdmin }) {
   const classes = useStyles();
   const [activeTab, setActiveTab] = useState(0);
   const [startups, setStartups] = useState([]);

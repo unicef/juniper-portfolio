@@ -5,6 +5,7 @@ import Grid from "@material-ui/core/Grid";
 import Button from "@material-ui/core/Button";
 import { TrackWalletCard } from "../../../ui/Cards";
 import { AddWallet } from "../../../ui/Dialog";
+import { getExchangeRate } from "../../../actions";
 
 const mainStyles = makeStyles((theme) => ({
   root: {
@@ -50,7 +51,7 @@ const mainStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function ({ getExchangeRate, isAdmin }) {
+export default function ({ isAdmin }) {
   const [trackedWallets, setTrackedWallets] = useState([]);
   const [otherWallets, setOtherWallets] = useState([]);
   const [showAddWalletModal, setShowAddWalletModal] = useState(false);

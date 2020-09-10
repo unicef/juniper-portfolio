@@ -23,12 +23,10 @@ export default class YourWallets extends React.Component {
           <WalletDetails
             viewWalletDetails={this.viewWalletDetails}
             walletDetailsAddress={this.state.walletDetailsAddress}
-            getExchangeRate={this.props.getExchangeRate}
           />
         ) : (
           <YourWalletsContent
             viewWalletDetails={this.viewWalletDetails}
-            getExchangeRate={this.props.getExchangeRate}
             isAdmin={this.props.isAdmin}
           />
         )}

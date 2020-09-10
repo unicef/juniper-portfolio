@@ -4,6 +4,7 @@ import BreadCrumb from "./BreadCrumb";
 import { WalletDetailsCard } from "../../../ui/Cards";
 import TransactionDetails from "./TransactionDetails";
 import { AuthorizationRecord } from "../../../ui/Dialog";
+import { getExchangeRate } from "../../../actions";
 
 const mainStyles = makeStyles((theme) => ({
   root: {
@@ -11,11 +12,7 @@ const mainStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function ({
-  viewWalletDetails,
-  walletDetailsAddress,
-  getExchangeRate,
-}) {
+export default function ({ viewWalletDetails, walletDetailsAddress }) {
   const classes = mainStyles();
 
   const [authorizationRecord, setAuthorizationRecord] = useState(false);

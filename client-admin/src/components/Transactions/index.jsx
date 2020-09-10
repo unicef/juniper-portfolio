@@ -13,6 +13,7 @@ import TxList from "../../ui/TxList";
 import Snackbar from "../../ui/Snackbar";
 import CircularProgress from "@material-ui/core/CircularProgress";
 import { TagTransaction } from "../../ui/Dialog";
+import { getExchangeRate } from "../../actions";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -74,7 +75,7 @@ const StyledTab = withStyles((theme) => ({
   },
 }))((props) => <Tab disableRipple {...props} />);
 
-export default function Transactions({ getExchangeRate, isAdmin }) {
+export default function Transactions({ isAdmin }) {
   const classes = useStyles();
   const [activeTab, setActiveTab] = useState(0);
   const [fetchingTxs, setFetchingTxs] = useState(false);

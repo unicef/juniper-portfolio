@@ -86,19 +86,6 @@ export default function JuniperAdmin() {
     }
   };
 
-  const getExchangeRate = async (symbol) => {
-    let res, price;
-    try {
-      res = await fetch(
-        `https://min-api.cryptocompare.com/data/price?fsym=${symbol}&tsyms=USD`
-      );
-      price = await res.json();
-    } catch (e) {
-      console.log(e);
-    }
-    return price.USD;
-  };
-
   const updateUser = async (property) => {
     const newUser = { ...user, ...property };
 
@@ -118,7 +105,6 @@ export default function JuniperAdmin() {
       console.log(e);
     }
     setUser(newUser);
-    // todo update on server
   };
 
   const copyToClipboard = (str) => {
@@ -177,10 +163,7 @@ export default function JuniperAdmin() {
                       pageIndex={pageIndex}
                       setPageIndex={setPageIndex}
                     />
-                    <Wallets
-                      getExchangeRate={getExchangeRate}
-                      isAdmin={user.isAdmin}
-                    />
+                    <Wallets isAdmin={user.isAdmin} />
                   </Route>
                   <Route path="/admin/wallets">
                     <TopBar user={user} setPageIndex={setPageIndex} />
@@ -188,10 +171,7 @@ export default function JuniperAdmin() {
                       pageIndex={pageIndex}
                       setPageIndex={setPageIndex}
                     />
-                    <Wallets
-                      getExchangeRate={getExchangeRate}
-                      isAdmin={user.isAdmin}
-                    />
+                    <Wallets isAdmin={user.isAdmin} />
                   </Route>
                   <Route path="/admin/accounts">
                     <TopBar user={user} setPageIndex={setPageIndex} />
@@ -200,7 +180,6 @@ export default function JuniperAdmin() {
                       setPageIndex={setPageIndex}
                     />
                     <Accounts
-                      getExchangeRate={getExchangeRate}
                       copyToClipboard={copyToClipboard}
                       isAdmin={user.isAdmin}
                     />
@@ -219,10 +198,7 @@ export default function JuniperAdmin() {
                       pageIndex={pageIndex}
                       setPageIndex={setPageIndex}
                     />
-                    <Transactions
-                      getExchangeRate={getExchangeRate}
-                      isAdmin={user.isAdmin}
-                    />
+                    <Transactions isAdmin={user.isAdmin} />
                   </Route>
                   <Route path="/admin/settings">
                     <TopBar user={user} setPageIndex={setPageIndex} />

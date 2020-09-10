@@ -13,6 +13,7 @@ import Fab from "@material-ui/core/Fab";
 import ChevronRightIcon from "@material-ui/icons/ChevronRight";
 import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
 import { AddWallet } from "../../../ui/Dialog";
+import { getExchangeRate } from "../../../actions";
 
 const usdFormatter = new Intl.NumberFormat("en-US", {
   style: "currency",
@@ -74,7 +75,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function ({ viewWalletDetails, getExchangeRate, isAdmin }) {
+export default function ({ viewWalletDetails, isAdmin }) {
   const [balances, setBalances] = useState([]);
   const [fees, setFees] = useState(null);
   const [totals, setTotals] = useState(null);
