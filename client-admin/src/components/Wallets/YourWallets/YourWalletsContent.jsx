@@ -70,6 +70,7 @@ const useStyles = makeStyles((theme) => ({
 
 export default function ({
   wallets,
+  summary,
   fetchWallets,
   viewWalletDetails,
   isAdmin,
@@ -125,14 +126,8 @@ export default function ({
       );
     };
 
-    const getWalletSummary = async () => {
-      let data, summary;
-      try {
-        data = await fetch("/rest/admin/wallets/summary");
-        summary = await data.json();
-      } catch (e) {
-        console.log(e);
-      }
+    async function init() {
+      filterWallets();
 
       const {
         ethBalance,
@@ -185,11 +180,8 @@ export default function ({
       setEthReceivedUSD(ethReceivedUSD);
       setBtcSentUSD(btcSentUSD);
       setBtcReceivedUSD(btcReceivedUSD);
-    };
-
-    getWalletSummary();
-
-    filterWallets();
+    }
+    init();
   }, [wallets, ethRate, btcRate]);
 
   const classes = useStyles();

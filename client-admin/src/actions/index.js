@@ -5,6 +5,7 @@ import getExchangeRate from "./getExchangeRate";
 import getTransactionsByAddress from "./getTransactionsByAddress";
 import getWalletByAddress from "./getWalletByAddress";
 import getWallets from "./getWallets";
+import getWalletsSummary from "./getWalletsSummary";
 
 export {
   calculateAccountTotal,
@@ -14,4 +15,5 @@ export {
   getTransactionsByAddress,
   getWalletByAddress,
   getWallets,
+  getWalletsSummary,
 };

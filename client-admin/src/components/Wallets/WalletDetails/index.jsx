@@ -19,7 +19,6 @@ export default function ({
   btcRate,
 }) {
   const classes = mainStyles();
-
   const [authorizationRecord, setAuthorizationRecord] = useState(false);
   const [address] = useState(walletDetailsAddress);
   const [wallet, setWallet] = useState({});
@@ -30,8 +29,7 @@ export default function ({
     async function init() {
       let wallet = await getWalletByAddress(address);
       let transactions = await getTransactionsByAddress(address);
-      console.log("wallet");
-      console.log(wallet);
+
       setExchangeRate(wallet.symbol === "ETH" ? ethRate : btcRate);
       setWallet(wallet);
       setTransactions(transactions);

@@ -20,7 +20,12 @@ import Wallets from "./components/Wallets";
 import ApolloClient from "apollo-boost";
 import { ApolloProvider } from "react-apollo";
 import LoadingScreen from "./ui/Dialog/LoadingScreen";
-import { getAccounts, getExchangeRate, getWallets } from "./actions";
+import {
+  getAccounts,
+  getExchangeRate,
+  getWallets,
+  getWalletsSummary,
+} from "./actions";
 
 const drawerWidth = 240;
 
@@ -80,6 +85,7 @@ export default function JuniperAdmin() {
   const [loading, setLoading] = useState(true);
   const [pageIndex, setPageIndex] = useState(0);
   const [wallets, setWallets] = useState([]);
+  const [summary, setSummary] = useState({});
   const [accounts, setAccounts] = useState([]);
   const [ethRate, setEthRate] = useState(0);
   const [btcRate, setBtcRate] = useState(0);
@@ -119,6 +125,7 @@ export default function JuniperAdmin() {
     console.log("app");
     async function init() {
       setWallets(await getWallets());
+      setSummary(await getWalletsSummary());
       setAccounts(await getAccounts());
       setEthRate(await getExchangeRate("ETH"));
       setBtcRate(await getExchangeRate("BTC"));
@@ -177,6 +184,7 @@ export default function JuniperAdmin() {
                     />
                     <Wallets
                       wallets={wallets}
+                      summary={summary}
                       fetchWallets={fetchWallets}
                       isAdmin={user.isAdmin}
                       ethRate={ethRate}
@@ -191,6 +199,7 @@ export default function JuniperAdmin() {
                     />
                     <Wallets
                       wallets={wallets}
+                      summary={summary}
                       fetchWallets={fetchWallets}
                       isAdmin={user.isAdmin}
                       ethRate={ethRate}

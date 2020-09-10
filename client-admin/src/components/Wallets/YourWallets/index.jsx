@@ -28,6 +28,7 @@ export default class YourWallets extends React.Component {
         ) : (
           <YourWalletsContent
             wallets={this.props.wallets}
+            summary={this.props.summary}
             fetchWallets={this.props.fetchWallets}
             viewWalletDetails={this.viewWalletDetails}
             isAdmin={this.props.isAdmin}
