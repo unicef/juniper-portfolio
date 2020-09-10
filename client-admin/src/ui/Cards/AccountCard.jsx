@@ -109,7 +109,7 @@ export default function AccountCard({
   useEffect(() => {
     setEthInvested(calculateAccountTotal(account, "Ether"));
     setBtcInvested(calculateAccountTotal(account, "Bitcoin"));
-  });
+  }, [account]);
 
   return (
     <div className={classes.wallet}>
@@ -117,7 +117,7 @@ export default function AccountCard({
         {image && type === "startup" ? (
           <Fragment>
             <Grid item xs={4}>
-              <img className={classes.image} src={image} />
+              <img className={classes.image} src={image} alt={"logo"} />
             </Grid>
 
             <Grid item xs={8} className={classes.imageTitle}>

@@ -6,7 +6,6 @@ import Typography from "@material-ui/core/Typography";
 import Container from "@material-ui/core/Container";
 import AccountLayout from "../../ui/Layout/AccountLayout";
 import { CreateAccount } from "../../ui/Dialog";
-import { getExchangeRate } from "../../actions";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -86,8 +85,10 @@ export default function Accounts({ isAdmin, accounts, ethRate, btcRate }) {
   };
 
   useEffect(() => {
-    filterAccounts();
-  }, []);
+    setStartups(accounts.filter((account) => account.type === "startup"));
+    setDonors(accounts.filter((account) => account.type === "donor"));
+    setNatcoms(accounts.filter((account) => account.type === "natcom"));
+  }, [accounts, btcRate, ethRate]);
 
   return (
     <div className={classes.root}>

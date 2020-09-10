@@ -64,14 +64,20 @@ const StyledTab = withStyles((theme) => ({
   },
 }))((props) => <Tab disableRipple {...props} />);
 
-export default function Wallets({ isAdmin }) {
+export default function Wallets({
+  wallets,
+  fetchWallets,
+  isAdmin,
+  btcRate,
+  ethRate,
+}) {
   const classes = useStyles();
   const [activeTab, setActiveTab] = useState(0);
 
   const changeView = (event, newTab) => {
     setActiveTab(newTab);
   };
-  console.log("wallets");
+
   return (
     <div className={classes.root}>
       <StyledTabs
@@ -92,7 +98,13 @@ export default function Wallets({ isAdmin }) {
       <Typography className={classes.padding} />
 
       <TabPanel activeTab={activeTab} index={0}>
-        <YourWallets isAdmin={isAdmin} />
+        <YourWallets
+          wallets={wallets}
+          fetchWallets={fetchWallets}
+          isAdmin={isAdmin}
+          btcRate={btcRate}
+          ethRate={ethRate}
+        />
       </TabPanel>
       <TabPanel activeTab={activeTab} index={1}>
         <TrackWallets isAdmin={isAdmin} />

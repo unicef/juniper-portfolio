@@ -20,7 +20,7 @@ import Wallets from "./components/Wallets";
 import ApolloClient from "apollo-boost";
 import { ApolloProvider } from "react-apollo";
 import LoadingScreen from "./ui/Dialog/LoadingScreen";
-import { getAccounts, getExchangeRate } from "./actions";
+import { getAccounts, getExchangeRate, getWallets } from "./actions";
 
 const drawerWidth = 240;
 
@@ -79,6 +79,7 @@ export default function JuniperAdmin() {
   const [user, setUser] = useState({});
   const [loading, setLoading] = useState(true);
   const [pageIndex, setPageIndex] = useState(0);
+  const [wallets, setWallets] = useState([]);
   const [accounts, setAccounts] = useState([]);
   const [ethRate, setEthRate] = useState(0);
   const [btcRate, setBtcRate] = useState(0);
@@ -110,9 +111,14 @@ export default function JuniperAdmin() {
     setUser(newUser);
   };
 
+  const fetchWallets = async () => {
+    setWallets(await getWallets());
+  };
+
   useEffect(() => {
     console.log("app");
     async function init() {
+      setWallets(await getWallets());
       setAccounts(await getAccounts());
       setEthRate(await getExchangeRate("ETH"));
       setBtcRate(await getExchangeRate("BTC"));
@@ -169,7 +175,13 @@ export default function JuniperAdmin() {
                       pageIndex={pageIndex}
                       setPageIndex={setPageIndex}
                     />
-                    <Wallets isAdmin={user.isAdmin} />
+                    <Wallets
+                      wallets={wallets}
+                      fetchWallets={fetchWallets}
+                      isAdmin={user.isAdmin}
+                      ethRate={ethRate}
+                      btcRate={btcRate}
+                    />
                   </Route>
                   <Route path="/admin/wallets">
                     <TopBar user={user} setPageIndex={setPageIndex} />
@@ -177,7 +189,13 @@ export default function JuniperAdmin() {
                       pageIndex={pageIndex}
                       setPageIndex={setPageIndex}
                     />
-                    <Wallets isAdmin={user.isAdmin} />
+                    <Wallets
+                      wallets={wallets}
+                      fetchWallets={fetchWallets}
+                      isAdmin={user.isAdmin}
+                      ethRate={ethRate}
+                      btcRate={btcRate}
+                    />
                   </Route>
                   <Route path="/admin/accounts">
                     <TopBar user={user} setPageIndex={setPageIndex} />
