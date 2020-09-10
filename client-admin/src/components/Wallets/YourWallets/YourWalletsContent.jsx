@@ -182,7 +182,7 @@ export default function ({
       setBtcReceivedUSD(btcReceivedUSD);
     }
     init();
-  }, [wallets, ethRate, btcRate]);
+  }, [wallets, summary, ethRate, btcRate]);
 
   const classes = useStyles();
   return (

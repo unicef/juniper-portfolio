@@ -23,6 +23,7 @@ import LoadingScreen from "./ui/Dialog/LoadingScreen";
 import {
   getAccounts,
   getExchangeRate,
+  getTrackedWallets,
   getWallets,
   getWalletsSummary,
 } from "./actions";
@@ -85,6 +86,7 @@ export default function JuniperAdmin() {
   const [loading, setLoading] = useState(true);
   const [pageIndex, setPageIndex] = useState(0);
   const [wallets, setWallets] = useState([]);
+  const [trackedWallets, setTrackedWallets] = useState([]);
   const [summary, setSummary] = useState({});
   const [accounts, setAccounts] = useState([]);
   const [ethRate, setEthRate] = useState(0);
@@ -121,10 +123,15 @@ export default function JuniperAdmin() {
     setWallets(await getWallets());
   };
 
+  const fetchTrackedWallets = async () => {
+    setTrackedWallets(await getTrackedWallets());
+  };
+
   useEffect(() => {
     console.log("app");
     async function init() {
       setWallets(await getWallets());
+      setTrackedWallets(await getTrackedWallets());
       setSummary(await getWalletsSummary());
       setAccounts(await getAccounts());
       setEthRate(await getExchangeRate("ETH"));
@@ -184,6 +191,7 @@ export default function JuniperAdmin() {
                     />
                     <Wallets
                       wallets={wallets}
+                      trackedWallets={trackedWallets}
                       summary={summary}
                       fetchWallets={fetchWallets}
                       isAdmin={user.isAdmin}
@@ -199,8 +207,10 @@ export default function JuniperAdmin() {
                     />
                     <Wallets
                       wallets={wallets}
+                      trackedWallets={trackedWallets}
                       summary={summary}
                       fetchWallets={fetchWallets}
+                      fetchTrackedWallets={fetchTrackedWallets}
                       isAdmin={user.isAdmin}
                       ethRate={ethRate}
                       btcRate={btcRate}

@@ -85,8 +85,8 @@ export default function TotalCard({
           <div
             className={classes.btcDot}
             style={{
-              height: Math.max(100 * btcPercentage, 20),
-              width: Math.max(100 * btcPercentage, 20),
+              height: Math.max(100 * btcPercentage || 0, 20),
+              width: Math.max(100 * btcPercentage || 0, 20),
             }}
           ></div>
         </Tooltip>
@@ -99,8 +99,8 @@ export default function TotalCard({
           <div
             className={classes.ethDot}
             style={{
-              height: Math.max(100 * ethPercentage, 20),
-              width: Math.max(100 * ethPercentage, 20),
+              height: Math.max(100 * ethPercentage || 0, 20),
+              width: Math.max(100 * ethPercentage || 0, 20),
             }}
           ></div>
         </Tooltip>

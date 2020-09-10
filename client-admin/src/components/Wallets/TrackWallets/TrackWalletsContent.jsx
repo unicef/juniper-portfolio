@@ -5,7 +5,6 @@ import Grid from "@material-ui/core/Grid";
 import Button from "@material-ui/core/Button";
 import { TrackWalletCard } from "../../../ui/Cards";
 import { AddWallet } from "../../../ui/Dialog";
-import { getExchangeRate } from "../../../actions";
 
 const mainStyles = makeStyles((theme) => ({
   root: {
@@ -51,41 +50,28 @@ const mainStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function ({ isAdmin }) {
-  const [trackedWallets, setTrackedWallets] = useState([]);
-  const [otherWallets, setOtherWallets] = useState([]);
+export default function ({
+  trackedWallets,
+  fetchTrackedWallets,
+  isAdmin,
+  ethRate,
+  btcRate,
+}) {
+  const [tracked, setTracked] = useState([]);
+  const [other, setOther] = useState([]);
   const [showAddWalletModal, setShowAddWalletModal] = useState(false);
-  const [bitcoinExchangeRate, setBitcoinExchangeRate] = useState(0);
-  const [ethereumExchangeRate, setEthereumExchangeRate] = useState(0);
 
-  const getTrackedWallets = async () => {
-    let res, walletData;
-    try {
-      res = await fetch("/rest/admin/wallets/tracked");
-      walletData = await res.json();
-    } catch (e) {
-      return console.log(e);
-    }
-
-    const trackedWallets = walletData.filter((wallet) => {
+  useEffect(() => {
+    const tracked = trackedWallets.filter((wallet) => {
       return wallet.isTracked;
     });
-    const trackedOtherWallets = walletData.filter((wallet) => {
+    const other = trackedWallets.filter((wallet) => {
       return wallet.isTrackedOther;
     });
 
-    setTrackedWallets(trackedWallets);
-    setOtherWallets(trackedOtherWallets);
-  };
-
-  useEffect(() => {
-    const getExchangeRates = async () => {
-      setBitcoinExchangeRate(await getExchangeRate("BTC"));
-      setEthereumExchangeRate(await getExchangeRate("ETH"));
-    };
-    getExchangeRates();
-    getTrackedWallets();
-  }, []);
+    setTracked(tracked);
+    setOther(other);
+  }, [trackedWallets, ethRate, btcRate]);
 
   const classes = mainStyles();
   return (
@@ -93,9 +79,7 @@ export default function ({ isAdmin }) {
       <AddWallet
         open={showAddWalletModal}
         setShowAddWalletModal={setShowAddWalletModal}
-        afterAddWallet={() => {
-          getTrackedWallets();
-        }}
+        afterAddWallet={fetchTrackedWallets}
         showMultisig={false}
         isUnicef={false}
         isTracked={true}
@@ -128,12 +112,12 @@ export default function ({ isAdmin }) {
 
         <Grid item xs={12} style={{ marginTop: "4em" }}>
           <h3 className={classes.walletSubheading}>
-            Following {trackedWallets.length} Wallets
+            Following {tracked.length} Wallets
           </h3>
         </Grid>
         <Grid container spacing={2} style={{ position: "relative" }}>
-          {trackedWallets &&
-            trackedWallets.map((wallet, index) => {
+          {tracked &&
+            tracked.map((wallet, index) => {
               return (
                 <Grid item xs={6} key={`${index}-${wallet.address}`}>
                   <TrackWalletCard
@@ -143,14 +127,8 @@ export default function ({ isAdmin }) {
                     symbol={wallet.symbol}
                     balance={wallet.balance}
                     address={wallet.address}
-                    exchangeRate={
-                      wallet.symbol === "ETH"
-                        ? ethereumExchangeRate
-                        : bitcoinExchangeRate
-                    }
-                    afterUnfollowWallet={() => {
-                      getTrackedWallets();
-                    }}
+                    exchangeRate={wallet.symbol === "ETH" ? ethRate : btcRate}
+                    afterUnfollowWallet={fetchTrackedWallets}
                   />
                 </Grid>
               );
@@ -159,13 +137,13 @@ export default function ({ isAdmin }) {
 
         <Grid item xs={12} style={{ marginTop: "4em" }}>
           <h3 className={classes.walletSubheading}>
-            {otherWallets.length} Other Wallets
+            {other.length} Other Wallets
           </h3>
         </Grid>
 
         <Grid container spacing={2} style={{ position: "relative" }}>
-          {otherWallets &&
-            otherWallets.map((wallet, index) => {
+          {other &&
+            other.map((wallet, index) => {
               return (
                 <Grid item xs={6} key={`${index}-${wallet.address}`}>
                   <TrackWalletCard
@@ -175,14 +153,8 @@ export default function ({ isAdmin }) {
                     symbol={wallet.symbol}
                     balance={wallet.balance}
                     address={wallet.address}
-                    exchangeRate={
-                      wallet.symbol === "ETH"
-                        ? ethereumExchangeRate
-                        : bitcoinExchangeRate
-                    }
-                    afterUnfollowWallet={() => {
-                      getTrackedWallets();
-                    }}
+                    exchangeRate={wallet.symbol === "ETH" ? ethRate : btcRate}
+                    afterUnfollowWallet={fetchTrackedWallets}
                   />
                 </Grid>
               );

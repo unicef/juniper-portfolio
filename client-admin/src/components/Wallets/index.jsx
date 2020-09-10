@@ -66,8 +66,10 @@ const StyledTab = withStyles((theme) => ({
 
 export default function Wallets({
   wallets,
+  trackedWallets,
   summary,
   fetchWallets,
+  fetchTrackedWallets,
   isAdmin,
   btcRate,
   ethRate,
@@ -109,7 +111,13 @@ export default function Wallets({
         />
       </TabPanel>
       <TabPanel activeTab={activeTab} index={1}>
-        <TrackWallets isAdmin={isAdmin} btcRate={btcRate} ethRate={ethRate} />
+        <TrackWallets
+          isAdmin={isAdmin}
+          trackedWallets={trackedWallets}
+          fetchTrackedWallets={fetchTrackedWallets}
+          btcRate={btcRate}
+          ethRate={ethRate}
+        />
       </TabPanel>
     </div>
   );
