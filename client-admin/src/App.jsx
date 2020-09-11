@@ -24,6 +24,7 @@ import {
   getAccounts,
   getExchangeRate,
   getPriceHistory,
+  getTransactions,
   getTrackedWallets,
   getWallets,
   getWalletsSummary,
@@ -89,6 +90,7 @@ export default function JuniperAdmin() {
   const [wallets, setWallets] = useState([]);
   const [trackedWallets, setTrackedWallets] = useState([]);
   const [prices, setPrices] = useState({});
+  const [transactions, setTransactions] = useState([]);
   const [summary, setSummary] = useState({});
   const [accounts, setAccounts] = useState([]);
   const [ethRate, setEthRate] = useState(0);
@@ -129,11 +131,16 @@ export default function JuniperAdmin() {
     setTrackedWallets(await getTrackedWallets());
   };
 
+  const fetchTransactions = async () => {
+    setTransactions(await getTransactions());
+  };
+
   useEffect(() => {
     console.log("app");
     async function init() {
       setWallets(await getWallets());
       setTrackedWallets(await getTrackedWallets());
+      setTransactions(await getTransactions());
       setSummary(await getWalletsSummary());
       setAccounts(await getAccounts());
       setEthRate(await getExchangeRate("ETH"));
@@ -246,7 +253,11 @@ export default function JuniperAdmin() {
                       pageIndex={pageIndex}
                       setPageIndex={setPageIndex}
                     />
-                    <Transactions isAdmin={user.isAdmin} />
+                    <Transactions
+                      isAdmin={user.isAdmin}
+                      transactions={transactions}
+                      fetchTransactions={fetchTransactions}
+                    />
                   </Route>
                   <Route path="/admin/settings">
                     <TopBar user={user} setPageIndex={setPageIndex} />
