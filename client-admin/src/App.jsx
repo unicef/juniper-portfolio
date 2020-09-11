@@ -23,6 +23,7 @@ import LoadingScreen from "./ui/Dialog/LoadingScreen";
 import {
   getAccounts,
   getExchangeRate,
+  getPriceHistory,
   getTrackedWallets,
   getWallets,
   getWalletsSummary,
@@ -87,6 +88,7 @@ export default function JuniperAdmin() {
   const [pageIndex, setPageIndex] = useState(0);
   const [wallets, setWallets] = useState([]);
   const [trackedWallets, setTrackedWallets] = useState([]);
+  const [prices, setPrices] = useState({});
   const [summary, setSummary] = useState({});
   const [accounts, setAccounts] = useState([]);
   const [ethRate, setEthRate] = useState(0);
@@ -136,6 +138,7 @@ export default function JuniperAdmin() {
       setAccounts(await getAccounts());
       setEthRate(await getExchangeRate("ETH"));
       setBtcRate(await getExchangeRate("BTC"));
+      setPrices(await getPriceHistory());
     }
     init();
     // check if logged in
@@ -235,7 +238,7 @@ export default function JuniperAdmin() {
                       pageIndex={pageIndex}
                       setPageIndex={setPageIndex}
                     />
-                    <PriceTracker />
+                    <PriceTracker prices={prices} />
                   </Route>
                   <Route path="/admin/transactions">
                     <TopBar user={user} setPageIndex={setPageIndex} />

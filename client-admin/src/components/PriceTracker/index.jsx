@@ -66,7 +66,7 @@ const StyledTab = withStyles((theme) => ({
   },
 }))((props) => <Tab disableRipple {...props} />);
 
-export default function PriceTracker() {
+export default function PriceTracker({ prices }) {
   const classes = useStyles();
   const [activeTab, setActiveTab] = useState(0);
   const [btcPrice, setBTCPrice] = useState(0);
@@ -78,26 +78,19 @@ export default function PriceTracker() {
     setActiveTab(newTab);
   };
 
-  const getPrices = async () => {
-    let res, prices;
-    try {
-      res = await fetch("/rest/admin/prices");
-      prices = await res.json();
-    } catch (e) {
-      console.log(e);
-    }
+  useEffect(() => {
     console.log(prices);
     const { btcPrice, ethPrice, bitcoin, ethereum } = prices;
-    setBTCPrice(btcPrice);
-    setBitcoinPrices(bitcoin);
 
-    setETHPrice(ethPrice);
-    setEthereumPrices(ethereum);
-  };
-
-  useEffect(() => {
-    getPrices();
-  }, []);
+    if (btcPrice && bitcoin) {
+      setBTCPrice(btcPrice);
+      setBitcoinPrices(bitcoin);
+    }
+    if (ethPrice && ethereum) {
+      setETHPrice(ethPrice);
+      setEthereumPrices(ethereum);
+    }
+  }, [prices]);
 
   return (
     <div className={classes.root}>
