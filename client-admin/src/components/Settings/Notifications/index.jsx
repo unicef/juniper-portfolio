@@ -125,7 +125,7 @@ const BlueCheckbox = withStyles({
   checked: {},
 })((props) => <Checkbox color="default" fontSize="large" {...props} />);
 
-export default function ActivityList(props) {
+export default function ActivityList({ user, updateUser }) {
   const classes = useStyles();
 
   return (
@@ -144,13 +144,13 @@ export default function ActivityList(props) {
                 <FormControlLabel
                   control={
                     <BlueSwitch
-                      checked={props.user.notifications}
+                      checked={user.notifications}
                       onChange={(e) => {
-                        props.updateUser({ notifications: e.target.checked });
+                        updateUser({ notifications: e.target.checked });
                       }}
                     />
                   }
-                  label={props.user.notifications ? "On" : "Off"}
+                  label={user.notifications ? "On" : "Off"}
                   labelPlacement="start"
                   className={classes.toggleLabel}
                 />
@@ -167,9 +167,9 @@ export default function ActivityList(props) {
               </Grid>
               <Grid item xs={2} className={classes.checkbox}>
                 <BlueCheckbox
-                  checked={props.user.userAdded}
+                  checked={user.userAdded}
                   onChange={(e) => {
-                    props.updateUser({ userAdded: e.target.checked });
+                    updateUser({ userAdded: e.target.checked });
                   }}
                 />
               </Grid>
@@ -184,9 +184,9 @@ export default function ActivityList(props) {
               </Grid>
               <Grid item xs={2} className={classes.checkbox}>
                 <BlueCheckbox
-                  checked={props.user.newTransaction}
+                  checked={user.newTransaction}
                   onChange={(e) => {
-                    props.updateUser({ newTransaction: e.target.checked });
+                    updateUser({ newTransaction: e.target.checked });
                   }}
                 />
               </Grid>
@@ -201,9 +201,9 @@ export default function ActivityList(props) {
               </Grid>
               <Grid item xs={2} className={classes.checkbox}>
                 <BlueCheckbox
-                  checked={props.user.transactionTagged}
+                  checked={user.transactionTagged}
                   onChange={(e) => {
-                    props.updateUser({ transactionTagged: e.target.checked });
+                    updateUser({ transactionTagged: e.target.checked });
                   }}
                 />
               </Grid>

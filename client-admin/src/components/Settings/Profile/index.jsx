@@ -43,31 +43,23 @@ const useStyles = makeStyles({
   },
 });
 
-export default function User(props) {
+export default function User({ user, updateUser }) {
   const classes = useStyles();
 
   return (
     <Grid container className={classes.root}>
       <Grid item xs={1} className={classes.avatarbox}>
-        <FileUpload afterUpload={props.updateUser} showStatus={false}>
-          <Avatar src={props.user.picture} className={classes.avatar}>
-            {props.user
-              ? props.user.firstName
-                ? props.user.firstName.charAt(0)
-                : ""
-              : ""}{" "}
-            {props.user
-              ? props.user.lastName
-                ? props.user.lastName.charAt(0)
-                : ""
-              : ""}
+        <FileUpload afterUpload={updateUser} showStatus={false}>
+          <Avatar src={user.picture} className={classes.avatar}>
+            {user ? (user.firstName ? user.firstName.charAt(0) : "") : ""}{" "}
+            {user ? (user.lastName ? user.lastName.charAt(0) : "") : ""}
           </Avatar>
         </FileUpload>
       </Grid>
       <Grid item xs={10} className={classes.message}>
         <FileUpload
           afterUpload={(json) => {
-            props.updateUser({ picture: json.imageUrl });
+            updateUser({ picture: json.imageUrl });
           }}
           showStatus={false}
         >

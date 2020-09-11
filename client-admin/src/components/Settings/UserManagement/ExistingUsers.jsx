@@ -114,14 +114,14 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function ActivityList(props) {
+export default function ActivityList({ users, removeUser, setUsers }) {
   const classes = useStyles();
 
   return (
     <List component="nav" className={classes.root}>
       <Fragment>
         <Divider />
-        {props.users.map((user, index) => {
+        {users.map((user, index) => {
           const joinDate = new Date(
             parseInt(user._id.toString().substring(0, 8), 16) * 1000
           );
@@ -188,8 +188,8 @@ export default function ActivityList(props) {
                     className={classes.removeButton}
                     startIcon={<CancelIcon style={{ fill: "#ef6161" }} />}
                     onClick={async () => {
-                      console.log("button");
-                      props.removeUser(user.email);
+                      const users = await removeUser(user.email);
+                      setUsers(users);
                     }}
                   >
                     Remove User

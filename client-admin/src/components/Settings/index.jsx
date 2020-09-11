@@ -1,5 +1,5 @@
-import React, { Fragment } from "react";
-import { withStyles } from "@material-ui/core/styles";
+import React, { useEffect, useState, Fragment } from "react";
+import { makeStyles } from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
 import ExpansionList from "../../ui/ExpansionPanel";
 import LoginSettings from "./Login";
@@ -9,8 +9,9 @@ import Profile from "./Profile";
 import WorkDetails from "./WorkDetails";
 import AddNewUser from "./UserManagement/AddNewUser";
 import ExistingUsers from "./UserManagement/ExistingUsers";
+import { getUsers, removeUser } from "../../actions";
 
-const styles = (theme) => ({
+const useStyles = makeStyles((theme) => ({
   root: {
     marginTop: "5em",
     paddingBottom: "5em",
@@ -44,113 +45,63 @@ const styles = (theme) => ({
     fontSize: theme.typography.pxToRem(15),
     fontWeight: theme.typography.fontWeightRegular,
   },
-});
+}));
 
-class Settings extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      users: [],
-    };
-  }
+export default function Settings({ isAdmin, user, updateUser }) {
+  const classes = useStyles();
+  const [users, setUsers] = useState([]);
 
-  async getUsers() {
-    let res;
-    let users = [];
-    try {
-      res = await fetch("/rest/admin/settings/users");
-      users = await res.json();
-    } catch (e) {
-      console.log(e);
+  useEffect(() => {
+    async function init() {
+      setUsers(await getUsers());
     }
-    this.setState({ users });
-  }
+    init();
+  }, [user]);
 
-  componentDidMount() {
-    this.getUsers();
-  }
+  return (
+    <div className={classes.root}>
+      <Container maxWidth="md">
+        <h5 className={classes.title}>Profile</h5>
+        <ExpansionList heading={"Work Details"}>
+          <WorkDetails user={user} updateUser={updateUser} />
+        </ExpansionList>
+        <Profile user={user} updateUser={updateUser} />
+        <h5 className={classes.title}>Login</h5>
+        <ExpansionList title={"Login"} heading={"Change Password"}>
+          <LoginSettings />
+        </ExpansionList>
+        <h5 className={classes.title}>Notifications</h5>
+        <ExpansionList title={"Notifications"} heading={"Email Notifications"}>
+          <Notifications user={user} updateUser={updateUser} />
+        </ExpansionList>
+        <h5 className={classes.title}>User Activity</h5>
+        <ExpansionList title={"User Activity"} heading={"View Activity Log"}>
+          <UserActivity />
+        </ExpansionList>
+        {isAdmin && (
+          <Fragment>
+            <h5 className={classes.title} style={{ marginBottom: 7 }}>
+              User Management
+            </h5>
+            <h5 className={classes.subtitle}>
+              You are an admin user of Juniper and have the permissions to add
+              or remove other users. New users that are added get invited
+              through an email link.
+            </h5>
+            <ExpansionList heading={"Add a new user"}>
+              <AddNewUser setUsers={setUsers} />
+            </ExpansionList>
 
-  render() {
-    const setUsers = (users) => {
-      this.setState({ users });
-    };
-
-    const removeUser = async (email) => {
-      let res;
-      let users = [];
-      try {
-        res = await fetch(`/rest/admin/settings/user/remove`, {
-          credentials: "include",
-          method: "POST",
-          body: JSON.stringify({
-            email,
-          }),
-          headers: {
-            "Content-Type": "application/json",
-          },
-        });
-      } catch (e) {
-        return console.log(e);
-      }
-
-      if (res.status === 200) {
-        users = await res.json();
-
-        this.setState({ users });
-      }
-    };
-
-    const { classes, user, updateUser } = this.props;
-
-    return (
-      <div className={classes.root}>
-        <Container maxWidth="md">
-          <h5 className={classes.title}>Profile</h5>
-          <ExpansionList heading={"Work Details"}>
-            <WorkDetails user={user} updateUser={updateUser} />
-          </ExpansionList>
-          <Profile user={user} updateUser={updateUser} />
-          <h5 className={classes.title}>Login</h5>
-          <ExpansionList title={"Login"} heading={"Change Password"}>
-            <LoginSettings />
-          </ExpansionList>
-          <h5 className={classes.title}>Notifications</h5>
-          <ExpansionList
-            title={"Notifications"}
-            heading={"Email Notifications"}
-          >
-            <Notifications user={user} updateUser={updateUser} />
-          </ExpansionList>
-          <h5 className={classes.title}>User Activity</h5>
-          <ExpansionList title={"User Activity"} heading={"View Activity Log"}>
-            <UserActivity />
-          </ExpansionList>
-          {this.props.isAdmin && (
-            <Fragment>
-              <h5 className={classes.title} style={{ marginBottom: 7 }}>
-                User Management
-              </h5>
-              <h5 className={classes.subtitle}>
-                You are an admin user of Juniper and have the permissions to add
-                or remove other users. New users that are added get invited
-                through an email link.
-              </h5>
-              <ExpansionList heading={"Add a new user"}>
-                <AddNewUser setUsers={setUsers} />
-              </ExpansionList>
-
-              <ExpansionList heading={"View existing users"}>
-                <ExistingUsers
-                  users={this.state.users}
-                  removeUser={removeUser}
-                />
-              </ExpansionList>
-            </Fragment>
-          )}
-        </Container>
-      </div>
-    );
-  }
+            <ExpansionList heading={"View existing users"}>
+              <ExistingUsers
+                users={users}
+                removeUser={removeUser}
+                setUsers={setUsers}
+              />
+            </ExpansionList>
+          </Fragment>
+        )}
+      </Container>
+    </div>
+  );
 }
-
-export default withStyles(styles)(Settings);
