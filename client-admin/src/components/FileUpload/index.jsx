@@ -5,9 +5,8 @@ export default class FileUpload extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      uploading: false,
       url: props.url || "/upload/image",
-      showStatus: props.showStatus,
+      showStatus: true, //props.showStatus,
     };
 
     this.uploadId = Math.round(Math.random() * 1e9);
@@ -30,10 +29,6 @@ export default class FileUpload extends Component {
         this.props.afterUpload(json);
       }
 
-      this.setState({
-        uploading: false,
-      });
-
       this.fileInput.current.value = "";
     }
   };
@@ -47,22 +42,26 @@ export default class FileUpload extends Component {
           multiple
           type="file"
           onChange={this.uploadFile}
+          onBlur={() => {
+            console.log("blur");
+          }}
           ref={this.fileInput}
           style={{ display: "none" }}
         />
         <div
           style={{ cursor: "pointer" }}
           onClick={(e) => {
-            if (this.state.uploading || this.props.disabled) {
+            if (!this.fileInput.current.value === "" || this.props.disabled) {
               return;
             }
-            this.setState({
-              uploading: true,
-            });
+
             document.getElementById(`${this.uploadId}`).click();
           }}
         >
-          {this.state.uploading && this.state.showStatus ? (
+          {this.fileInput &&
+          this.fileInput.current &&
+          !this.fileInput.current.value === "" &&
+          this.state.showStatus ? (
             <LinearProgress style={{ marginTop: "3em" }} />
           ) : (
             this.props.children
