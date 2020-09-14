@@ -221,9 +221,9 @@ export default function AddWallet(props) {
 
     let url;
     if (isTracked) {
-      url = `/rest/admin/wallets`;
-    } else {
       url = `/rest/admin/wallets/track`;
+    } else {
+      url = `/rest/admin/wallets`;
     }
 
     try {
