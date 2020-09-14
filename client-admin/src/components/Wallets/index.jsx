@@ -64,7 +64,16 @@ const StyledTab = withStyles((theme) => ({
   },
 }))((props) => <Tab disableRipple {...props} />);
 
-export default function Wallets({ getExchangeRate, isAdmin }) {
+export default function Wallets({
+  wallets,
+  trackedWallets,
+  summary,
+  fetchWallets,
+  fetchTrackedWallets,
+  isAdmin,
+  btcRate,
+  ethRate,
+}) {
   const classes = useStyles();
   const [activeTab, setActiveTab] = useState(0);
 
@@ -92,10 +101,23 @@ export default function Wallets({ getExchangeRate, isAdmin }) {
       <Typography className={classes.padding} />
 
       <TabPanel activeTab={activeTab} index={0}>
-        <YourWallets getExchangeRate={getExchangeRate} isAdmin={isAdmin} />
+        <YourWallets
+          wallets={wallets}
+          summary={summary}
+          fetchWallets={fetchWallets}
+          isAdmin={isAdmin}
+          btcRate={btcRate}
+          ethRate={ethRate}
+        />
       </TabPanel>
       <TabPanel activeTab={activeTab} index={1}>
-        <TrackWallets getExchangeRate={getExchangeRate} isAdmin={isAdmin} />
+        <TrackWallets
+          isAdmin={isAdmin}
+          trackedWallets={trackedWallets}
+          fetchTrackedWallets={fetchTrackedWallets}
+          btcRate={btcRate}
+          ethRate={ethRate}
+        />
       </TabPanel>
     </div>
   );

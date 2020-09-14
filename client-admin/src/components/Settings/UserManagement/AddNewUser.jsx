@@ -9,6 +9,8 @@ import Button from "@material-ui/core/Button";
 import InputLabel from "@material-ui/core/InputLabel";
 import Divider from "@material-ui/core/Divider";
 import GenerateLinkIcon from "../../../ui/Icons/GenerateLinkIcon";
+import { copyToClipboard } from "../../../actions";
+import { addUser } from "../../../actions";
 
 const useStyles = makeStyles({
   root: {
@@ -116,7 +118,7 @@ const useStyles = makeStyles({
   },
 });
 
-export default function AddNewUser(props) {
+export default function AddNewUser({ setUsers }) {
   const classes = useStyles();
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
@@ -128,77 +130,14 @@ export default function AddNewUser(props) {
   );
   const [verificationCode, setVerificationCode] = useState("");
 
-  const copyToClipboard = (str) => {
-    const el = document.createElement("textarea");
-    el.value = str;
-    document.body.appendChild(el);
-    el.select();
-    document.execCommand("copy");
-    document.body.removeChild(el);
-  };
-
-  const addNewUser = async (copyLink = false) => {
-    let res;
-    let users;
-    let notifications = false;
-    let userAdded = false;
-    let newTransaction = false;
-    let transactionTagged = false;
-
-    if (isAdmin) {
-      notifications = true;
-      userAdded = true;
-      newTransaction = true;
-      transactionTagged = true;
-    }
-
-    let user = {
-      firstName,
-      lastName,
-      department,
-      isAdmin,
-      email,
-      notifications,
-      userAdded,
-      newTransaction,
-      transactionTagged,
-    };
-
-    try {
-      res = await fetch(`/rest/admin/settings/user/invite`, {
-        credentials: "include",
-        method: "POST",
-        body: JSON.stringify({
-          user,
-        }),
-        headers: {
-          "Content-Type": "application/json",
-        },
-      });
-      users = await res.json();
-    } catch (e) {
-      return console.log(e);
-    }
-
-    if (res.status === 200) {
-      user = users.filter((u) => {
-        return u.email === user.email;
-      })[0];
-
-      setVerificationCode(user.verificationCode);
-      if (copyLink) {
-        this.props.copyToClipboard(`${siteLink}${user.verificationCode}`);
-      }
-      props.setUsers(users);
-
-      setFirstName("");
-      setLastName("");
-      setDepartment("");
-      setIsAdmin("");
-      setEmail("");
-      setSiteLink("");
-      setVerificationCode("");
-    }
+  const resetForm = () => {
+    setFirstName("");
+    setLastName("");
+    setDepartment("");
+    setIsAdmin("");
+    setEmail("");
+    setSiteLink("");
+    setVerificationCode("");
   };
 
   return (
@@ -313,8 +252,21 @@ export default function AddNewUser(props) {
           className={classes.filledButton}
           variant="contained"
           color="primary"
-          onClick={() => {
-            addNewUser();
+          onClick={async () => {
+            const users = await addUser({
+              firstName,
+              lastName,
+              department,
+              isAdmin,
+              email,
+              notifications: isAdmin,
+              userAdded: isAdmin,
+              newTransaction: isAdmin,
+              transactionTagged: isAdmin,
+            });
+
+            setUsers(users);
+            resetForm();
           }}
         >
           Send Invite
@@ -339,9 +291,27 @@ export default function AddNewUser(props) {
           startIcon={<GenerateLinkIcon />}
           onClick={async () => {
             if (verificationCode) {
-              this.props.copyToClipboard(`${siteLink}${verificationCode}`);
+              copyToClipboard(`${siteLink}${verificationCode}`);
             } else {
-              addNewUser(true);
+              const users = await addUser({
+                firstName,
+                lastName,
+                department,
+                isAdmin,
+                email,
+                notifications: isAdmin,
+                userAdded: isAdmin,
+                newTransaction: isAdmin,
+                transactionTagged: isAdmin,
+              });
+              const u = users.filter((u) => {
+                return u.email === email;
+              })[0];
+
+              setVerificationCode(u.verificationCode);
+              copyToClipboard(`${siteLink}${u.verificationCode}`);
+              setUsers(users);
+              resetForm();
             }
           }}
         >

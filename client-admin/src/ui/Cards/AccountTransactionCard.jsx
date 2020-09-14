@@ -4,21 +4,8 @@ import Grid from "@material-ui/core/Grid";
 import { usdFormatter, cryptoFormatter } from "../../util";
 import Button from "@material-ui/core/Button";
 import CopyIcon from "../Icons/CopyIcon";
-
-const monthNames = [
-  "January",
-  "February",
-  "March",
-  "April",
-  "May",
-  "June",
-  "July",
-  "August",
-  "September",
-  "October",
-  "November",
-  "December",
-];
+import { copyToClipboard } from "../../actions";
+import { monthNames } from "../../util";
 
 const WalletDetailsCardStyles = makeStyles((theme) => ({
   authorizationInfo: {
@@ -91,7 +78,7 @@ export default function AccountTransactionCard({
   amountUSD,
   address,
   timestamp,
-  copyToClipboard,
+
   title,
 }) {
   const addressRef = useRef(null);

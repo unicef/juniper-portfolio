@@ -14,12 +14,6 @@ import ChevronRightIcon from "@material-ui/icons/ChevronRight";
 import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
 import { AddWallet } from "../../../ui/Dialog";
 
-const usdFormatter = new Intl.NumberFormat("en-US", {
-  style: "currency",
-  currency: "USD",
-  minimumFractionDigits: 2,
-});
-
 const useStyles = makeStyles((theme) => ({
   root: {
     minHeight: "100%",
@@ -74,7 +68,15 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function ({ viewWalletDetails, getExchangeRate, isAdmin }) {
+export default function ({
+  wallets,
+  summary,
+  fetchWallets,
+  viewWalletDetails,
+  isAdmin,
+  btcRate,
+  ethRate,
+}) {
   const [balances, setBalances] = useState([]);
   const [fees, setFees] = useState(null);
   const [totals, setTotals] = useState(null);
@@ -85,8 +87,7 @@ export default function ({ viewWalletDetails, getExchangeRate, isAdmin }) {
   const [bitcoinWallets, setBitcoinWallets] = useState([]);
   const [bitcoinWalletIndex, setBitcoinWalletIndex] = useState(0);
   const [showAddWalletModal, setShowAddWalletModal] = useState(false);
-  const [bitcoinExchangeRate, setBitcoinExchangeRate] = useState(0);
-  const [ethereumExchangeRate, setEthereumExchangeRate] = useState(0);
+
   const [btcSentUSD, setBtcSentUSD] = useState(0);
   const [btcReceivedUSD, setBtcReceivedUSD] = useState(0);
 
@@ -112,101 +113,76 @@ export default function ({ viewWalletDetails, getExchangeRate, isAdmin }) {
     }
   };
 
-  const getWallets = async () => {
-    let res, walletData;
-    try {
-      res = await fetch("/rest/admin/wallets");
-      walletData = await res.json();
-    } catch (e) {
-      return console.log(e);
-    }
-
-    setEthereumWallets(
-      walletData.filter((wallet) => {
-        return wallet.currency === "Ethereum";
-      })
-    );
-
-    setBitcoinWallets(
-      walletData.filter((wallet) => wallet.currency === "Bitcoin")
-    );
-  };
-
-  const getWalletSummary = async () => {
-    let data, summary;
-    try {
-      data = await fetch("/rest/admin/wallets/summary");
-      summary = await data.json();
-    } catch (e) {
-      console.log(e);
-    }
-
-    const {
-      ethBalance,
-      ethReceived,
-      ethSent,
-      ethFees,
-      ethFeesUSD,
-      ethSentUSD,
-      ethReceivedUSD,
-      btcBalance,
-      btcReceived,
-      btcSent,
-      btcFees,
-      btcFeesUSD,
-      btcSentUSD,
-      btcReceivedUSD,
-    } = summary;
-
-    setBalances([
-      {
-        symbol: "ETH",
-        balance: ethBalance,
-        balanceUSD: ethBalance * ethereumExchangeRate,
-        currency: "Ether",
-        received: ethReceived,
-        invested: ethSent,
-      },
-      {
-        symbol: "BTC",
-        balance: btcBalance,
-        balanceUSD: btcBalance * bitcoinExchangeRate,
-        currency: "Bitcoin",
-        received: btcReceived,
-        invested: btcSent,
-      },
-    ]);
-
-    setFees({
-      amountUSD: ethFeesUSD + btcFeesUSD,
-      ethFees,
-      btcFees,
-    });
-
-    setTotals({
-      received: ethReceivedUSD + btcReceivedUSD,
-      invested: ethSentUSD + btcSentUSD,
-    });
-
-    setEthSentUSD(ethSentUSD);
-    setEthReceivedUSD(ethReceivedUSD);
-    setBtcSentUSD(btcSentUSD);
-    setBtcReceivedUSD(btcReceivedUSD);
-  };
-
   useEffect(() => {
-    const getExchangeRates = async () => {
-      setBitcoinExchangeRate(await getExchangeRate("BTC"));
-      setEthereumExchangeRate(await getExchangeRate("ETH"));
+    const filterWallets = async () => {
+      setEthereumWallets(
+        wallets.filter((wallet) => {
+          return wallet.currency === "Ethereum";
+        })
+      );
+
+      setBitcoinWallets(
+        wallets.filter((wallet) => wallet.currency === "Bitcoin")
+      );
     };
 
-    getExchangeRates();
+    async function init() {
+      filterWallets();
 
-    // For now, updating rates will trigger a couple times here for the rate update
-    getWalletSummary();
+      const {
+        ethBalance,
+        ethReceived,
+        ethSent,
+        ethFees,
+        ethFeesUSD,
+        ethSentUSD,
+        ethReceivedUSD,
+        btcBalance,
+        btcReceived,
+        btcSent,
+        btcFees,
+        btcFeesUSD,
+        btcSentUSD,
+        btcReceivedUSD,
+      } = summary;
 
-    getWallets();
-  }, [ethereumExchangeRate, bitcoinExchangeRate]);
+      setBalances([
+        {
+          symbol: "ETH",
+          balance: ethBalance,
+          balanceUSD: ethBalance * ethRate,
+          currency: "Ether",
+          received: ethReceived,
+          invested: ethSent,
+        },
+        {
+          symbol: "BTC",
+          balance: btcBalance,
+          balanceUSD: btcBalance * btcRate,
+          currency: "Bitcoin",
+          received: btcReceived,
+          invested: btcSent,
+        },
+      ]);
+
+      setFees({
+        amountUSD: ethFeesUSD + btcFeesUSD,
+        ethFees,
+        btcFees,
+      });
+
+      setTotals({
+        received: ethReceivedUSD + btcReceivedUSD,
+        invested: ethSentUSD + btcSentUSD,
+      });
+
+      setEthSentUSD(ethSentUSD);
+      setEthReceivedUSD(ethReceivedUSD);
+      setBtcSentUSD(btcSentUSD);
+      setBtcReceivedUSD(btcReceivedUSD);
+    }
+    init();
+  }, [wallets, summary, ethRate, btcRate]);
 
   const classes = useStyles();
   return (
@@ -215,8 +191,7 @@ export default function ({ viewWalletDetails, getExchangeRate, isAdmin }) {
         open={showAddWalletModal}
         setShowAddWalletModal={setShowAddWalletModal}
         afterAddWallet={() => {
-          getWalletSummary();
-          getWallets();
+          fetchWallets();
         }}
         showMultisig={true}
         isUnicef={true}
@@ -314,7 +289,7 @@ export default function ({ viewWalletDetails, getExchangeRate, isAdmin }) {
                       balance={wallet.balance}
                       address={wallet.address}
                       viewTransactionOnClick={viewWalletDetails}
-                      exchangeRate={ethereumExchangeRate}
+                      exchangeRate={ethRate}
                     />
                   </Grid>
                 );
@@ -355,7 +330,7 @@ export default function ({ viewWalletDetails, getExchangeRate, isAdmin }) {
                       balance={wallet.balance}
                       address={wallet.address}
                       viewTransactionOnClick={viewWalletDetails}
-                      exchangeRate={bitcoinExchangeRate}
+                      exchangeRate={btcRate}
                     />
                   </Grid>
                 );

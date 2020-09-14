@@ -2,7 +2,6 @@ import React, { Fragment } from "react";
 import YourWalletsContent from "./YourWalletsContent";
 import WalletDetails from "../WalletDetails";
 
-// TODO: Add State/API calls/routes
 export default class YourWallets extends React.Component {
   constructor(props) {
     super(props);
@@ -23,13 +22,18 @@ export default class YourWallets extends React.Component {
           <WalletDetails
             viewWalletDetails={this.viewWalletDetails}
             walletDetailsAddress={this.state.walletDetailsAddress}
-            getExchangeRate={this.props.getExchangeRate}
+            btcRate={this.props.btcRate}
+            ethRate={this.props.ethRate}
           />
         ) : (
           <YourWalletsContent
+            wallets={this.props.wallets}
+            summary={this.props.summary}
+            fetchWallets={this.props.fetchWallets}
             viewWalletDetails={this.viewWalletDetails}
-            getExchangeRate={this.props.getExchangeRate}
             isAdmin={this.props.isAdmin}
+            btcRate={this.props.btcRate}
+            ethRate={this.props.ethRate}
           />
         )}
       </Fragment>

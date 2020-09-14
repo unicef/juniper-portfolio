@@ -1,13 +1,11 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { makeStyles, withStyles } from "@material-ui/core/styles";
 import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
 import ListItemIcon from "@material-ui/core/ListItemIcon";
 import ListItemText from "@material-ui/core/ListItemText";
 import Typography from "@material-ui/core/Typography";
-
 import { Link } from "react-router-dom";
-
 import WalletsIcon from "../../../ui/Icons/WalletsIcon";
 import AccountsIcon from "../../../ui/Icons/AccountsIcon";
 import PriceTrackerIcon from "../../../ui/Icons/PriceTrackerIcon";

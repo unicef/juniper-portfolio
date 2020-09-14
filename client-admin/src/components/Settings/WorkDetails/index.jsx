@@ -41,12 +41,12 @@ const useStyles = makeStyles({
   },
 });
 
-export default function SettingsProfile(props) {
+export default function SettingsProfile({ user, updateUser }) {
   const classes = useStyles();
   const [department, setDepartment] = useState("");
 
   useEffect(() => {
-    setDepartment(props.user.department);
+    setDepartment(user.department);
   }, []);
 
   return (
@@ -82,7 +82,7 @@ export default function SettingsProfile(props) {
           variant="contained"
           color="primary"
           onClick={() => {
-            props.updateUser({ department });
+            updateUser({ department });
           }}
         >
           Save Changes

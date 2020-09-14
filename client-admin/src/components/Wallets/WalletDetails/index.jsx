@@ -4,6 +4,7 @@ import BreadCrumb from "./BreadCrumb";
 import { WalletDetailsCard } from "../../../ui/Cards";
 import TransactionDetails from "./TransactionDetails";
 import { AuthorizationRecord } from "../../../ui/Dialog";
+import { getWalletByAddress, getTransactionsByAddress } from "../../../actions";
 
 const mainStyles = makeStyles((theme) => ({
   root: {
@@ -14,45 +15,27 @@ const mainStyles = makeStyles((theme) => ({
 export default function ({
   viewWalletDetails,
   walletDetailsAddress,
-  getExchangeRate,
+  ethRate,
+  btcRate,
 }) {
   const classes = mainStyles();
-
   const [authorizationRecord, setAuthorizationRecord] = useState(false);
   const [address] = useState(walletDetailsAddress);
   const [wallet, setWallet] = useState({});
   const [transactions, setTransactions] = useState([]);
   const [exchangeRate, setExchangeRate] = useState(0);
 
-  const getTransactions = async () => {
-    let res, transactions;
-    try {
-      res = await fetch(`/rest/admin/transactions/address/${address}`);
-      transactions = await res.json();
-    } catch (e) {
-      return console.log(e);
-    }
-
-    setTransactions(transactions);
-  };
-
-  const getWallet = async () => {
-    let res, wallet;
-    try {
-      res = await fetch(`/rest/admin/wallets/${address}`);
-      wallet = await res.json();
-    } catch (e) {
-      return console.log(e);
-    }
-
-    setExchangeRate(await getExchangeRate(wallet.symbol));
-    setWallet(wallet);
-  };
-
   useEffect(() => {
-    getWallet(address);
-    getTransactions(address);
-  }, [address, getExchangeRate]);
+    async function init() {
+      let wallet = await getWalletByAddress(address);
+      let transactions = await getTransactionsByAddress(address);
+
+      setExchangeRate(wallet.symbol === "ETH" ? ethRate : btcRate);
+      setWallet(wallet);
+      setTransactions(transactions);
+    }
+    init();
+  }, [address, btcRate, ethRate]);
 
   return (
     <div className={classes.root}>
@@ -79,8 +62,8 @@ export default function ({
         isUnicef={wallet.isUnicef}
         isTracked={wallet.isTracked}
         afterEditWallet={() => {
-          getWallet(address);
-          getTransactions(address);
+          getWalletByAddress(address);
+          getTransactionsByAddress(address);
         }}
       />
       <TransactionDetails
