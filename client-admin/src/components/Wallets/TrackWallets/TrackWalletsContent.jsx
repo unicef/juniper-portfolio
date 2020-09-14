@@ -50,7 +50,7 @@ const mainStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function ({ getExchangeRate, isAdmin }) {
+export default function ({ getExchangeRate }) {
   const [trackedWallets, setTrackedWallets] = useState([]);
   const [otherWallets, setOtherWallets] = useState([]);
   const [showAddWalletModal, setShowAddWalletModal] = useState(false);
@@ -111,18 +111,17 @@ export default function ({ getExchangeRate, isAdmin }) {
             movement of cryptocurrency, using the wallet public address. This
             address is also used to transact in cryptocurrency.
           </p>
-          {isAdmin && (
-            <Button
-              color="primary"
-              variant="contained"
-              className={classes.followWalletButton}
-              onClick={() => {
-                setShowAddWalletModal(true);
-              }}
-            >
-              Follow a Blockchain Wallet
-            </Button>
-          )}
+
+          <Button
+            color="primary"
+            variant="contained"
+            className={classes.followWalletButton}
+            onClick={() => {
+              setShowAddWalletModal(true);
+            }}
+          >
+            Follow a Blockchain Wallet
+          </Button>
         </Grid>
 
         <Grid item xs={12} style={{ marginTop: "4em" }}>
