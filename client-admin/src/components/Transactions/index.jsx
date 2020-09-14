@@ -11,8 +11,8 @@ import {
 } from "../../ui/Cards";
 import TxList from "../../ui/TxList";
 import Snackbar from "../../ui/Snackbar";
-import CircularProgress from "@material-ui/core/CircularProgress";
 import { TagTransaction } from "../../ui/Dialog";
+import LoadingScreen from "../../ui/LoadingScreen";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -29,9 +29,6 @@ const useStyles = makeStyles((theme) => ({
   },
   tabs: {
     backgroundColor: "#2e1534",
-  },
-  fetchingTxs: {
-    textAlign: "center",
   },
 }));
 
@@ -276,10 +273,7 @@ export default function Transactions({ getExchangeRate, isAdmin }) {
 
       <TabPanel activeTab={activeTab} index={0}>
         {fetchingTxs ? (
-          <div className={classes.fetchingTxs}>
-            <CircularProgress />
-            <h2>Loading Transactions</h2>
-          </div>
+          <LoadingScreen loadingMessage={"Loading Transactions"} />
         ) : (
           <TxList
             title={`${unpublishedTxs.length} Unpublished Transactions`}
