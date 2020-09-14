@@ -29,6 +29,20 @@ router.get("/", async (req, res) => {
 
   res.json(txs);
 });
+
+router.get("/hq", async (req, res) => {
+  const juniperAdmin = req.app.get("juniperAdmin");
+  let txs = [];
+
+  try {
+    txs = await juniperAdmin.db.getHQTransactions();
+  } catch (e) {
+    logger.error(e);
+    return res.status(500).send();
+  }
+
+  res.json(txs);
+});
 router.get("/unpublished", async (req, res) => {
   const juniperAdmin = req.app.get("juniperAdmin");
   let txs = [];
@@ -43,17 +57,22 @@ router.get("/unpublished", async (req, res) => {
   res.json(txs);
 });
 
-router.post("/publish", isAdmin, async (req, res) => {
+router.post("/", isAdmin, async (req, res) => {
   const juniperAdmin = req.app.get("juniperAdmin");
 
+  const { tx } = req.body;
+  console.log(tx);
+  console.log(tx.published);
   try {
     const profile = req.session.passport.user.profile;
     const name = `${profile.firstName} ${profile.lastName}`;
-    //await juniperAdmin.db.archiveTx(txid);
-    await juniperAdmin.logActivity({
-      name: name,
-      text: `<a href="#" class="link">${name}</a> published a transaction.`,
-    });
+    await juniperAdmin.db.saveTransaction(tx);
+    if (tx.publish) {
+      await juniperAdmin.logActivity({
+        name: name,
+        text: `<a href="#" class="link">${name}</a> published a transaction.`,
+      });
+    }
   } catch (e) {
     logger.error(e);
     return res.status(500).send();
@@ -79,6 +98,20 @@ router.post("/archive", isAdmin, async (req, res) => {
   }
 
   res.send(true);
+});
+
+router.get("/authrecord/:txid", async (req, res) => {
+  const juniperAdmin = req.app.get("juniperAdmin");
+  const { txid } = req.params;
+  let authRecords = [];
+
+  try {
+    authRecords = await juniperAdmin.getAuthRecords(txid);
+  } catch (e) {
+    return logger.error(e);
+  }
+
+  res.json(authRecords);
 });
 
 module.exports = router;

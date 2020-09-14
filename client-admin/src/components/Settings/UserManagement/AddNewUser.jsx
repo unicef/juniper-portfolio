@@ -184,7 +184,7 @@ export default function AddNewUser(props) {
       user = users.filter((u) => {
         return u.email === user.email;
       })[0];
-      console.log(user);
+
       setVerificationCode(user.verificationCode);
       if (copyLink) {
         this.props.copyToClipboard(`${siteLink}${user.verificationCode}`);

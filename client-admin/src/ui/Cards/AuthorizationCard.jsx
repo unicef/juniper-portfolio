@@ -55,6 +55,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function AuthorizationCard({
+  txid,
   address,
   amount,
   symbol,
@@ -63,6 +64,7 @@ export default function AuthorizationCard({
   currentValue,
 }) {
   const classes = useStyles();
+
   return (
     <Grid container className={classes.authorization}>
       <Grid item xs={12}>
