@@ -62,7 +62,7 @@ const StyledTab = withStyles((theme) => ({
   },
 }))((props) => <Tab disableRipple {...props} />);
 
-export default function PageLayout({ tabs, pages }) {
+export default function PageLayout({ tabs, pages, children }) {
   const classes = useStyles();
   const [activeTab, setActiveTab] = useState(0);
 
@@ -90,11 +90,11 @@ export default function PageLayout({ tabs, pages }) {
       </StyledTabs>
       <Typography className={classes.padding} />
 
-      {pages &&
-        pages.map((page, index) => {
+      {children &&
+        children.map((child, index) => {
           return (
             <TabPanel key={index} activeTab={activeTab} index={index}>
-              {page}
+              {child}
             </TabPanel>
           );
         })}

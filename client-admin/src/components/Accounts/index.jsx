@@ -12,9 +12,11 @@ export default function Accounts({
 }) {
   const [tabs] = useState(["Startups", "Donors", "Natcoms"]);
   const [pages, setPages] = useState();
-  console.log(accounts);
-  useEffect(() => {
-    setPages([
+
+  useEffect(() => {}, [accounts, btcRate, ethRate]);
+
+  return (
+    <PageLayout tabs={tabs}>
       <AccountLayout
         title={"Investment"}
         type={"startup"}
@@ -28,7 +30,8 @@ export default function Accounts({
           "The investments are made through UNICEF’s CryptoFund, in open source technology solutions that benefit children and the world."
         }
         isAdmin={isAdmin}
-      />,
+      />
+
       <AccountLayout
         title={"Investment"}
         type={"donor"}
@@ -42,7 +45,8 @@ export default function Accounts({
           "In line with current UNICEF practice, each crypto transaction is initiated after UNICEF has completed due diligence on a donor, ensuring a credible source of the donation."
         }
         isAdmin={isAdmin}
-      />,
+      />
+
       <AccountLayout
         title={"Investment"}
         type={"natcom"}
@@ -56,9 +60,7 @@ export default function Accounts({
           "Cryptofund donations are received by HQ through four National Committees - Australia, France, New Zealand and the United States."
         }
         isAdmin={isAdmin}
-      />,
-    ]);
-  }, [accounts, btcRate, ethRate]);
-
-  return <PageLayout tabs={tabs} pages={pages}></PageLayout>;
+      />
+    </PageLayout>
+  );
 }

@@ -14,10 +14,9 @@ export default function Wallets({
   ethRate,
 }) {
   const [tabs] = useState(["Your Wallets", "Track Wallets"]);
-  const [pages, setPages] = useState();
 
-  useEffect(() => {
-    setPages([
+  return (
+    <PageLayout tabs={tabs}>
       <YourWallets
         wallets={wallets}
         summary={summary}
@@ -25,24 +24,14 @@ export default function Wallets({
         isAdmin={isAdmin}
         btcRate={btcRate}
         ethRate={ethRate}
-      />,
+      />
       <TrackWallets
         isAdmin={isAdmin}
         trackedWallets={trackedWallets}
         fetchTrackedWallets={fetchTrackedWallets}
         btcRate={btcRate}
         ethRate={ethRate}
-      />,
-    ]);
-  }, [
-    wallets,
-    trackedWallets,
-    summary,
-    fetchWallets,
-    fetchTrackedWallets,
-    isAdmin,
-    btcRate,
-    ethRate,
-  ]);
-  return <PageLayout tabs={tabs} pages={pages}></PageLayout>;
+      />
+    </PageLayout>
+  );
 }
