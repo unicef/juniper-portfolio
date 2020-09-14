@@ -118,7 +118,6 @@ export default function Transactions({
 
   useEffect(() => {
     filterTransactions();
-    fetchTransactions();
   }, [transactions]);
 
   function UnpublishedTxCard(props) {

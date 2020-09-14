@@ -16,5 +16,5 @@ module.exports = async (currentPassword, newPassword, newPassword2) => {
   } catch (e) {
     return console.log(e);
   }
-  return res.status;
+  return res;
 };

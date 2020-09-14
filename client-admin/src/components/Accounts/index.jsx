@@ -12,7 +12,7 @@ export default function Accounts({
 }) {
   const [tabs] = useState(["Startups", "Donors", "Natcoms"]);
   const [pages, setPages] = useState();
-
+  console.log(accounts);
   useEffect(() => {
     setPages([
       <AccountLayout

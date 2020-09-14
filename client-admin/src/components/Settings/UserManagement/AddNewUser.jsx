@@ -126,7 +126,7 @@ export default function AddNewUser({ setUsers }) {
   const [isAdmin, setIsAdmin] = useState("");
   const [email, setEmail] = useState("");
   const [siteLink, setSiteLink] = useState(
-    "https://juniper.unicef.io/admin/signin?verificationCode="
+    "https://juniper.unicef.io/admin/signin?verification="
   );
   const [verificationCode, setVerificationCode] = useState("");
 

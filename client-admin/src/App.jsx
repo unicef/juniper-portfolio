@@ -129,6 +129,7 @@ export default function JuniperAdmin() {
 
   const fetchWallets = async () => {
     setWallets(await getWallets());
+    setSummary(await getWalletsSummary());
   };
 
   const fetchTrackedWallets = async () => {
@@ -146,12 +147,15 @@ export default function JuniperAdmin() {
       setTrackedWallets(await getTrackedWallets());
       setTransactions(await getTransactions());
       setSummary(await getWalletsSummary());
+      console.log(await getWalletsSummary());
       setAccounts(await getAccounts());
       setEthRate(await getExchangeRate("ETH"));
       setBtcRate(await getExchangeRate("BTC"));
       setPrices(await getPriceHistory());
     }
-    init();
+    if (isLoggedIn) {
+      init();
+    }
     // check if logged in
     const getUserProfile = async () => {
       let res;
@@ -181,7 +185,7 @@ export default function JuniperAdmin() {
     } else if (path.indexOf("settings") > -1) {
       setPageIndex(4);
     }
-  }, []);
+  }, [isLoggedIn]);
 
   return (
     <div className={classes.root}>
