@@ -200,7 +200,9 @@ export default function UnpublishedTransactionCard({
             {usdFormatter.format(amountUSD)}
           </div>
           <div className={classes.walletSubtitle}>Donated Amount</div>
+
           {isAdmin && received && !tx.published && (
+
             <Button
               variant="contained"
               color="primary"
