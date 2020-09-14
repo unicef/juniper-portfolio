@@ -144,6 +144,7 @@ class Settings extends React.Component {
 
               <ExpansionList heading={"View existing users"}>
                 <ExistingUsers
+                  setUsers={setUsers}
                   users={this.state.users}
                   removeUser={removeUser}
                   copyToClipboard={this.props.copyToClipboard}
