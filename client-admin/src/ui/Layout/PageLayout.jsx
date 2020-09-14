@@ -62,7 +62,7 @@ const StyledTab = withStyles((theme) => ({
   },
 }))((props) => <Tab disableRipple {...props} />);
 
-export default function Wallets({ tabs, pages }) {
+export default function PageLayout({ tabs, pages }) {
   const classes = useStyles();
   const [activeTab, setActiveTab] = useState(0);
 
@@ -81,6 +81,7 @@ export default function Wallets({ tabs, pages }) {
         {tabs.map((tab, index) => {
           return (
             <StyledTab
+              key={index}
               label={tab}
               style={activeTab === index ? { color: "#00aeef" } : {}}
             />
@@ -92,7 +93,7 @@ export default function Wallets({ tabs, pages }) {
       {pages &&
         pages.map((page, index) => {
           return (
-            <TabPanel activeTab={activeTab} index={index}>
+            <TabPanel key={index} activeTab={activeTab} index={index}>
               {page}
             </TabPanel>
           );

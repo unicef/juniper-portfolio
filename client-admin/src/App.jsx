@@ -123,6 +123,10 @@ export default function JuniperAdmin() {
     setUser(newUser);
   };
 
+  const fetchAccounts = async () => {
+    setAccounts(await getAccounts());
+  };
+
   const fetchWallets = async () => {
     setWallets(await getWallets());
   };
@@ -234,6 +238,7 @@ export default function JuniperAdmin() {
                     />
                     <Accounts
                       isAdmin={user.isAdmin}
+                      fetchAccounts={fetchAccounts}
                       accounts={accounts}
                       ethRate={ethRate}
                       btcRate={btcRate}
