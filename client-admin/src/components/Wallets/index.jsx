@@ -1,68 +1,7 @@
-import React, { useState } from "react";
-import { makeStyles, withStyles } from "@material-ui/core/styles";
-import Tabs from "@material-ui/core/Tabs";
-import Tab from "@material-ui/core/Tab";
-import Typography from "@material-ui/core/Typography";
-import Container from "@material-ui/core/Container";
+import React, { useEffect, useState } from "react";
 import YourWallets from "./YourWallets";
 import TrackWallets from "./TrackWallets";
-
-const useStyles = makeStyles((theme) => ({
-  root: {
-    marginTop: "4em",
-    flexGrow: 1,
-    height: "100%",
-    backgroundColor: "#f8f8f8",
-  },
-  padding: {
-    padding: theme.spacing(3),
-  },
-  navigation: {
-    backgroundColor: "#ffffff",
-  },
-  tabs: {
-    backgroundColor: "#2e1534",
-  },
-}));
-
-function TabPanel(props) {
-  const { children, activeTab, index, ...other } = props;
-  return (
-    <div
-      role="tabpanel"
-      hidden={activeTab !== index}
-      id={`simple-tabpanel-${index}`}
-      aria-labelledby={`simple-tab-${index}`}
-      {...other}
-      style={{ backgroundColor: "#f8f8f8", paddingBottom: "2em" }}
-    >
-      {activeTab === index && <Container maxWidth="md">{children}</Container>}
-    </div>
-  );
-}
-
-const StyledTabs = withStyles({
-  indicator: {
-    display: "flex",
-    justifyContent: "center",
-    backgroundColor: "transparent",
-    "& > span": {
-      width: "100%",
-      backgroundColor: "#00aeef",
-    },
-  },
-})((props) => <Tabs {...props} TabIndicatorProps={{ children: <span /> }} />);
-
-const StyledTab = withStyles((theme) => ({
-  root: {
-    textTransform: "uppercase",
-    color: "#929292",
-    fontWeight: 700,
-    fontSize: 12,
-    letterSpacing: 1.2,
-    opacity: 1,
-  },
-}))((props) => <Tab disableRipple {...props} />);
+import PageLayout from "../../ui/Layout/PageLayout";
 
 export default function Wallets({
   wallets,
@@ -74,51 +13,36 @@ export default function Wallets({
   btcRate,
   ethRate,
 }) {
-  const classes = useStyles();
-  const [activeTab, setActiveTab] = useState(0);
+  const [tabs] = useState(["Your Wallets", "Track Wallets"]);
+  const [pages, setPages] = useState();
 
-  const changeView = (event, newTab) => {
-    setActiveTab(newTab);
-  };
-
-  return (
-    <div className={classes.root}>
-      <StyledTabs
-        value={activeTab}
-        onChange={changeView}
-        className={classes.navigation}
-        centered
-      >
-        <StyledTab
-          label="Your Wallet"
-          style={activeTab === 0 ? { color: "#00aeef" } : {}}
-        />
-        <StyledTab
-          label="Track Wallets"
-          style={activeTab === 1 ? { color: "#00aeef" } : {}}
-        />
-      </StyledTabs>
-      <Typography className={classes.padding} />
-
-      <TabPanel activeTab={activeTab} index={0}>
-        <YourWallets
-          wallets={wallets}
-          summary={summary}
-          fetchWallets={fetchWallets}
-          isAdmin={isAdmin}
-          btcRate={btcRate}
-          ethRate={ethRate}
-        />
-      </TabPanel>
-      <TabPanel activeTab={activeTab} index={1}>
-        <TrackWallets
-          isAdmin={isAdmin}
-          trackedWallets={trackedWallets}
-          fetchTrackedWallets={fetchTrackedWallets}
-          btcRate={btcRate}
-          ethRate={ethRate}
-        />
-      </TabPanel>
-    </div>
-  );
+  useEffect(() => {
+    setPages([
+      <YourWallets
+        wallets={wallets}
+        summary={summary}
+        fetchWallets={fetchWallets}
+        isAdmin={isAdmin}
+        btcRate={btcRate}
+        ethRate={ethRate}
+      />,
+      <TrackWallets
+        isAdmin={isAdmin}
+        trackedWallets={trackedWallets}
+        fetchTrackedWallets={fetchTrackedWallets}
+        btcRate={btcRate}
+        ethRate={ethRate}
+      />,
+    ]);
+  }, [
+    wallets,
+    trackedWallets,
+    summary,
+    fetchWallets,
+    fetchTrackedWallets,
+    isAdmin,
+    btcRate,
+    ethRate,
+  ]);
+  return <PageLayout tabs={tabs} pages={pages}></PageLayout>;
 }
