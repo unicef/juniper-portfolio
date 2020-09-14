@@ -130,6 +130,31 @@ const useStyles = makeStyles((theme) => ({
 export default function ActivityList(props) {
   const classes = useStyles();
 
+  const reinviteUser = async (user) => {
+    let res;
+    let users;
+
+    try {
+      res = await fetch(`/rest/admin/settings/user/invite`, {
+        credentials: "include",
+        method: "POST",
+        body: JSON.stringify({
+          user,
+        }),
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+      users = await res.json();
+    } catch (e) {
+      return console.log(e);
+    }
+
+    if (res.status === 200) {
+      props.setUsers(users);
+    }
+  };
+
   return (
     <List component="nav" className={classes.root}>
       <Fragment>
@@ -178,7 +203,7 @@ export default function ActivityList(props) {
                         className={classes.generateButton}
                         startIcon={<EnvelopeIcon />}
                         onClick={async () => {
-                          console.log("button");
+                          reinviteUser(user);
                         }}
                       >
                         Send New Invite
