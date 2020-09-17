@@ -11,9 +11,11 @@ const useStyles = makeStyles((theme) => ({
     flexGrow: 1,
     height: "100%",
     backgroundColor: "#f8f8f8",
+    flexFlow: "column",
+    display: "flex",
   },
   padding: {
-    padding: theme.spacing(3),
+    paddingTop: "2em",
   },
   navigation: {
     backgroundColor: "#ffffff",
@@ -32,7 +34,11 @@ function TabPanel(props) {
       id={`simple-tabpanel-${index}`}
       aria-labelledby={`simple-tab-${index}`}
       {...other}
-      style={{ backgroundColor: "#f8f8f8", paddingBottom: "2em" }}
+      style={{
+        backgroundColor: "#f8f8f8",
+        paddingBottom: "2em",
+        overflowY: "auto",
+      }}
     >
       {activeTab === index && <Container maxWidth="md">{children}</Container>}
     </div>
@@ -88,13 +94,12 @@ export default function PageLayout({ tabs, pages, children }) {
           );
         })}
       </StyledTabs>
-      <Typography className={classes.padding} />
 
       {children &&
         children.map((child, index) => {
           return (
             <TabPanel key={index} activeTab={activeTab} index={index}>
-              {child}
+              <div className={classes.padding}>{child}</div>
             </TabPanel>
           );
         })}
