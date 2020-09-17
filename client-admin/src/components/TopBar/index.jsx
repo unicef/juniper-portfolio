@@ -24,8 +24,10 @@ const useStyles = makeStyles((theme) => ({
     minHeight: 50,
   },
   logo: {
-    width: 230,
-    height: 36,
+    width: 200,
+    height: 30,
+    justifyContent: "middle",
+    verticalAlign: "middle",
   },
   menuButton: {
     marginRight: theme.spacing(2),
