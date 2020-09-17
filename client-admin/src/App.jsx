@@ -130,6 +130,7 @@ export default function JuniperAdmin() {
   const fetchWallets = async () => {
     setWallets(await getWallets());
     setSummary(await getWalletsSummary());
+    setTrackedWallets(await getTrackedWallets());
   };
 
   const fetchTrackedWallets = async () => {

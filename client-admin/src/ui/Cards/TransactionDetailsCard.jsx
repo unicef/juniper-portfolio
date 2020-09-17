@@ -101,6 +101,7 @@ export default function TransactionDetailsCard({
   sent,
   received,
   setAuthorizationRecord,
+  fetchWallets,
 }) {
   const classes = useStyles();
   const txSent = new Date(timestamp);
@@ -111,7 +112,9 @@ export default function TransactionDetailsCard({
       <AddWallet
         open={showAddWalletModal}
         setShowAddWalletModal={setShowAddWalletModal}
-        afterAddWallet={() => {}}
+        afterAddWallet={() => {
+          fetchWallets();
+        }}
         showMultisig={false}
         isUnicef={false}
         isTracked={false}
