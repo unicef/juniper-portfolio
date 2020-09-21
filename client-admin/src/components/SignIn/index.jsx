@@ -102,18 +102,7 @@ const useStyles = makeStyles((theme) => ({
     cursor: "pointer",
     marginTop: 4,
   },
-  filledButton: {
-    width: "100%",
-    height: 35,
-    fontFamily: '"Cabin", sans-serif',
-    fontSize: 12,
-    fontWeight: 700,
-    textAlign: "center",
-    color: "#ffffff",
-    boxShadow: "none",
-    marginTop: 19,
-    paddingLeft: 15,
-  },
+
   logo: {
     marginTop: "auto",
     marginBottom: 30,
