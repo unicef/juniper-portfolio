@@ -146,7 +146,10 @@ export default function TxList({
         <List>
           {txs.slice(start, end).map((tx, index) => {
             return (
-              <ListItem key={index}>
+              <ListItem
+                key={index}
+                style={{ borderBottom: "solid 1px #cecece" }}
+              >
                 <TxCard
                   tx={tx}
                   txid={tx.txid}
