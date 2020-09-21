@@ -5,6 +5,7 @@ import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
 import Snackbar from "../../../ui/Snackbar";
 import { changePassword } from "../../../actions";
+import { TextButton, ContainedButton } from "../../../ui/Buttons";
 
 const useStyles = makeStyles({
   root: {

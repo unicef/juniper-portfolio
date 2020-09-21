@@ -6,6 +6,7 @@ import Button from "@material-ui/core/Button";
 import Tooltip from "@material-ui/core/Tooltip";
 import logo from "./logo.png";
 import { ChevronRight } from "@material-ui/icons";
+import { TextButton, ContainedButton } from "../../ui/Buttons";
 
 const PasswordTooltip = withStyles((theme) => ({
   tooltip: {
@@ -166,17 +167,12 @@ function SignInForm(props) {
           props.setPassword(e.target.value);
         }}
       />
-      <p className={classes.subtext} onClick={props.forgotPasswordClick}>
-        Forgot Password?
+      <p className={classes.subtext}>
+        <TextButton onClick={props.forgotPasswordClick}>
+          Forgot Password?
+        </TextButton>
       </p>
-      <Button
-        className={classes.filledButton}
-        variant="contained"
-        color="primary"
-        onClick={props.login}
-      >
-        Sign In
-      </Button>
+      <ContainedButton onClick={props.login}>Sign In</ContainedButton>
     </Fragment>
   );
 }
@@ -198,14 +194,9 @@ function ForgotPassword(props) {
           console.log(e.target.value);
         }}
       />
-      <Button
-        className={classes.filledButton}
-        variant="contained"
-        color="primary"
-        onClick={props.resetPasswordClick}
-      >
+      <ContainedButton onClick={props.resetPasswordClick}>
         Reset Password
-      </Button>
+      </ContainedButton>
     </Fragment>
   );
 }
@@ -275,15 +266,12 @@ function Verification(props) {
           />
         </div>
       </PasswordTooltip>
-      <Button
-        className={classes.filledButton}
-        variant="contained"
-        color="primary"
+      <ContainedButton
         style={{ marginTop: 42 }}
         onClick={props.createAccountClick}
       >
         Create Account
-      </Button>
+      </ContainedButton>
     </Fragment>
   );
 }
@@ -291,14 +279,9 @@ function Verification(props) {
 function ResetPasswordSent(props) {
   const classes = useStyles();
   return (
-    <Button
-      className={classes.filledButton}
-      variant="contained"
-      color="primary"
-      onClick={props.goToSignInPageClick}
-    >
+    <ContainedButton onClick={props.goToSignInPageClick}>
       Go To Sign In Page
-    </Button>
+    </ContainedButton>
   );
 }
 
@@ -462,7 +445,6 @@ export default function SignIn(props) {
     const params = window.location.search;
     let verificationCode = false;
     if (params.indexOf("verification") >= 0) {
-      console.log(params);
       verificationCode = params.split("verification=")[1].split("&")[0];
 
       checkVerification(verificationCode);
