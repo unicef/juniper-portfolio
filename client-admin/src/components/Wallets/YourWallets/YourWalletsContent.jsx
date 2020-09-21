@@ -73,7 +73,6 @@ export default function ({
   wallets,
   summary,
   fetchWallets,
-  viewWalletDetails,
   isAdmin,
   btcRate,
   ethRate,
@@ -286,7 +285,6 @@ export default function ({
                       symbol={wallet.symbol}
                       balance={wallet.balance}
                       address={wallet.address}
-                      viewTransactionOnClick={viewWalletDetails}
                       exchangeRate={ethRate}
                     />
                   </Grid>
@@ -327,7 +325,6 @@ export default function ({
                       symbol={wallet.symbol}
                       balance={wallet.balance}
                       address={wallet.address}
-                      viewTransactionOnClick={viewWalletDetails}
                       exchangeRate={btcRate}
                     />
                   </Grid>

@@ -5,17 +5,10 @@ import { Switch, Route } from "react-router-dom";
 export default class YourWallets extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {
-      walletDetailsAddress: null,
-    };
+    this.state = {};
   }
 
-  viewWalletDetails = (walletDetailsAddress) => {
-    this.setState({ walletDetailsAddress });
-  };
-
   render() {
-    const { walletDetailsAddress } = this.state;
     return (
       <Fragment>
         <Switch>
@@ -24,15 +17,13 @@ export default class YourWallets extends React.Component {
               wallets={this.props.wallets}
               summary={this.props.summary}
               fetchWallets={this.props.fetchWallets}
-              viewWalletDetails={this.viewWalletDetails}
               isAdmin={this.props.isAdmin}
               btcRate={this.props.btcRate}
               ethRate={this.props.ethRate}
             />
           </Route>
-          <Route path="/admin/wallets/transactions">
+          <Route path="/admin/wallets/transactions/:address">
             <WalletDetails
-              viewWalletDetails={this.viewWalletDetails}
               walletDetailsAddress={this.state.walletDetailsAddress}
               btcRate={this.props.btcRate}
               ethRate={this.props.ethRate}

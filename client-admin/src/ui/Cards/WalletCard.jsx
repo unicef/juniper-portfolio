@@ -101,7 +101,6 @@ export default function WalletCard({
   symbol,
   balance,
   address,
-  viewTransactionOnClick,
   exchangeRate,
 }) {
   const classes = useStyles();
@@ -132,16 +131,8 @@ export default function WalletCard({
       <div className={classes.walletSubtitle}>Wallet Address</div>
       <div className={classes.buttons}>
         <CopyAddressButton address={address} />
-        <Link to="/admin/wallets/transactions">
-          <TextButton
-            endIcon={<ChevronRightIcon />}
-            onClick={() => {
-              if (viewTransactionOnClick) {
-                viewTransactionOnClick(address);
-              }
-            }}
-            float={"right"}
-          >
+        <Link to={`/admin/wallets/transactions/${address}`}>
+          <TextButton endIcon={<ChevronRightIcon />} float={"right"}>
             View Transactions
           </TextButton>
         </Link>

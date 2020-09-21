@@ -72,7 +72,7 @@ export default function TxList({
 }) {
   const classes = transactionDetailsStyles();
 
-  const [limit, setLimit] = useState(5);
+  const [limit, setLimit] = useState(10);
 
   const start = page * limit;
   const end = page * limit + limit;

@@ -36,7 +36,7 @@ function TabPanel(props) {
       {...other}
       style={{
         backgroundColor: "#f8f8f8",
-        paddingBottom: "2em",
+        paddingBottom: "5em",
         overflowY: "auto",
       }}
     >
