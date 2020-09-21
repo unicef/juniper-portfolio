@@ -21,6 +21,9 @@ const WalletDetailsCardStyles = makeStyles((theme) => ({
     lineHeight: 1.33,
     marginTop: ".5em",
     color: "#000000",
+    whiteSpace: "nowrap",
+    overflow: "hidden",
+    textOverflow: "ellipsis",
   },
   authorizationSigner: {
     height: 283,
