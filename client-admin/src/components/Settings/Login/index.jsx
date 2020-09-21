@@ -51,18 +51,6 @@ const useStyles = makeStyles({
     borderRadius: 5,
     padding: "11px 16px 11px 16px",
   },
-  changePasswordButton: {
-    width: "100%",
-    height: 35,
-    fontFamily: '"Cabin", sans-serif',
-    letterSpacing: 1,
-    fontSize: 12,
-    fontWeight: 700,
-    textAlign: "center",
-    color: "#ffffff",
-    boxShadow: "none",
-    marginTop: 17,
-  },
 });
 
 export default function SettingsLogin() {
@@ -182,10 +170,7 @@ export default function SettingsLogin() {
               setNewPassword2(e.target.value);
             }}
           />
-          <Button
-            variant="contained"
-            color="primary"
-            className={classes.changePasswordButton}
+          <ContainedButton
             onClick={async () => {
               setPasswordInvalid(false);
               setPasswordWrong(false);
@@ -215,9 +200,10 @@ export default function SettingsLogin() {
                 }
               }
             }}
+            style={{ width: "100%" }}
           >
             Change Password
-          </Button>
+          </ContainedButton>
         </form>
       </Grid>
       <Grid item xs={6} className={classes.messageBox}>

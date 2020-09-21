@@ -29,6 +29,7 @@ export default function ({
   const classes = useStyles();
   return (
     <Button
+      disableRipple={true}
       variant="outlined"
       className={classes.outlineButton}
       startIcon={startIcon ? startIcon : null}

@@ -26,13 +26,14 @@ export default function ({
   const classes = useStyles();
   return (
     <Button
+      disableRipple={true}
       variant="contained"
       color="primary"
       className={classes.containedButton}
       startIcon={startIcon ? startIcon : null}
       endIcon={endIcon ? endIcon : null}
       onClick={onClick}
-      style={{ float: float ? float : "left", ...style }}
+      style={{ float: float ? float : null, ...style }}
     >
       {children}
     </Button>

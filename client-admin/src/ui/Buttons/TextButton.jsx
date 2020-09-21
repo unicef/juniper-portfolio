@@ -10,7 +10,7 @@ const useStyles = makeStyles((theme) => ({
     fontFamily: '"Cabin", sans-serif',
     color: "#00aeef",
     "&:hover": {
-      backgroundColor: "#ecfaff",
+      backgroundColor: "rgba(0,0,0,0)",
     },
   },
 }));
@@ -26,6 +26,7 @@ export default function ({
   const classes = useStyles();
   return (
     <Button
+      disableRipple={true}
       className={classes.textButton}
       startIcon={startIcon ? startIcon : null}
       endIcon={endIcon ? endIcon : null}
