@@ -69,6 +69,7 @@ export default function TxList({
   setAuthorizationRecord,
   exchangeRate,
   isAdmin,
+  showPriceInfo,
 }) {
   const classes = transactionDetailsStyles();
 
@@ -134,11 +135,13 @@ export default function TxList({
         </Grid>
       </Grid>
       <Divider />
-      <Grid container className={classes.transactionDetails}>
-        <Grid item xs={12}>
-          <PriceInfoBanner />
+      {showPriceInfo && (
+        <Grid container className={classes.transactionDetails}>
+          <Grid item xs={12}>
+            <PriceInfoBanner />
+          </Grid>
         </Grid>
-      </Grid>
+      )}
       {txs && (
         <List>
           {txs.slice(start, end).map((tx, index) => {
