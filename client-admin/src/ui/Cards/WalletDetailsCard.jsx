@@ -139,7 +139,7 @@ export default function WalletDetailsCard({
       />
 
       <TextButton
-        startIcon={<EditIcon />}
+        startIcon={<EditIcon style={{ marginRight: 5 }} />}
         float={"right"}
         onClick={() => {
           setShowAddWalletModal(true);
