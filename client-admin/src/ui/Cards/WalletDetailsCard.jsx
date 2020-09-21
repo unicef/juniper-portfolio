@@ -1,14 +1,11 @@
 import React, { Fragment, useState } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import Chip from "@material-ui/core/Chip";
-import Button from "@material-ui/core/Button";
 import Grid from "@material-ui/core/Grid";
 import EditIcon from "@material-ui/icons/Edit";
-import CopyIcon from "../Icons/CopyIcon";
 import AddWallet from "../Dialog/AddWallet";
 import { usdFormatter, cryptoFormatter } from "../../util";
-import { copyToClipboard } from "../../actions";
-import { TextButton } from "../Buttons";
+import { TextButton, CopyAddressButton } from "../Buttons";
 
 const useStyles = makeStyles((theme) => ({
   wallet: {
@@ -186,15 +183,7 @@ export default function WalletDetailsCard({
         </Grid>
       </Grid>
       <div className={classes.address}>
-        {address}{" "}
-        <TextButton
-          startIcon={<CopyIcon fontSize="large" />}
-          onClick={() => {
-            copyToClipboard(address);
-          }}
-        >
-          Copy
-        </TextButton>
+        {address} <CopyAddressButton address={address}>Copy</CopyAddressButton>
       </div>
       <div className={classes.walletSubtitle}>Wallet Address</div>
       {isMultisig && (

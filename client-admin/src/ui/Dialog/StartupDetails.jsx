@@ -2,13 +2,10 @@ import React, { useState, useEffect } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import Dialog from "@material-ui/core/Dialog";
 import Grid from "@material-ui/core/Grid";
-import Button from "@material-ui/core/Button";
-import CopyIcon from "../Icons/CopyIcon";
 import AccountTransactionCard from "../Cards/AccountTransactionCard";
 import EditIcon from "../../ui/Icons/EditIcon";
 import { CreateAccount } from ".";
-import { copyToClipboard } from "../../actions";
-import { TextButton, ContainedButton } from "../Buttons";
+import { TextButton, CopyAddressButton } from "../Buttons";
 
 const useStyles = makeStyles((theme) => ({
   modal: {
@@ -244,14 +241,9 @@ export default function StartupDetails(props) {
                   <div className={classes.walletSubtitle}>Wallet Address</div>
                 </Grid>
                 <Grid item xs={4} className={classes.address}>
-                  <TextButton
-                    startIcon={<CopyIcon fontSize="large" />}
-                    onClick={() => {
-                      copyToClipboard(address.address);
-                    }}
-                  >
+                  <CopyAddressButton address={address.address}>
                     Copy
-                  </TextButton>
+                  </CopyAddressButton>
                 </Grid>
               </Grid>
             );

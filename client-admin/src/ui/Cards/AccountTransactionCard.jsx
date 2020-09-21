@@ -2,11 +2,8 @@ import React, { useRef } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import Grid from "@material-ui/core/Grid";
 import { usdFormatter, cryptoFormatter } from "../../util";
-import Button from "@material-ui/core/Button";
-import CopyIcon from "../Icons/CopyIcon";
-import { copyToClipboard } from "../../actions";
 import { monthNames } from "../../util";
-import { TextButton } from "../Buttons";
+import { CopyAddressButton } from "../Buttons";
 
 const WalletDetailsCardStyles = makeStyles((theme) => ({
   authorizationInfo: {
@@ -140,14 +137,7 @@ export default function AccountTransactionCard({
           <div className={classes.subtitle}>Wallet Address</div>
         </Grid>
         <Grid item xs={4} className={classes.address}>
-          <TextButton
-            startIcon={<CopyIcon fontSize="large" style={{ marginTop: 8 }} />}
-            onClick={() => {
-              copyToClipboard(address);
-            }}
-          >
-            Copy
-          </TextButton>
+          <CopyAddressButton address={address}>Copy</CopyAddressButton>
         </Grid>
       </Grid>
     </Grid>
