@@ -12,6 +12,17 @@ const useStyles = makeStyles((theme) => ({
     textAlign: "center",
     color: "#ffffff",
     boxShadow: "none",
+    "&:hover": {
+      backgroundColor: "#33bef2",
+      boxShadow: "none",
+    },
+    "&:active": {
+      backgroundColor: "#0094cb",
+      boxShadow: "none",
+    },
+    "&:focus": {
+      boxShadow: "none",
+    },
   },
 }));
 
