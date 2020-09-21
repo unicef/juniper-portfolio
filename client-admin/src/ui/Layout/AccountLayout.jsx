@@ -9,7 +9,7 @@ import AccountCard from "../Cards/AccountCard";
 import { AccountDetails } from "../Dialog";
 import { StartupDetails } from "../Dialog";
 import { calculateAccountTotal } from "../../actions";
-import { TextButton } from "../Buttons";
+import { TextButton, ContainedButton } from "../Buttons";
 
 const transactionDetailsStyles = makeStyles((theme) => ({
   root: {
@@ -182,16 +182,13 @@ export default function AccountLayout({
         </Grid>
         <Grid item xs={12}>
           {isAdmin && (
-            <Button
-              variant="contained"
-              color="primary"
-              className={classes.addButton}
+            <ContainedButton
               onClick={() => {
                 setOpenCreateDialog(true);
               }}
             >
               {addButtonText}
-            </Button>
+            </ContainedButton>
           )}
         </Grid>
       </Grid>
