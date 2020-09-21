@@ -9,6 +9,7 @@ import TxReceivedIcon from "../Icons/TxReceivedIcon";
 import TxSentIcon from "../Icons/TxSentIcon";
 import { usdFormatter, cryptoFormatter } from "../../util";
 import { AddWallet } from "../Dialog";
+import { ContainedButton, TextButton } from "../Buttons";
 
 const useStyles = makeStyles((theme) => ({
   walletBalance: {
@@ -61,12 +62,6 @@ const useStyles = makeStyles((theme) => ({
     maxWidth: 162,
   },
   tagDestinationButton: {
-    fontFamily: '"Cabin", sans-serif',
-    fontSize: 12,
-    fontWeight: 700,
-    textAlign: "center",
-    color: "#ffffff",
-    boxShadow: "none",
     marginTop: "2em",
   },
   txDetailsButton: {
@@ -147,16 +142,15 @@ export default function TransactionDetailsCard({
             <Fragment>
               <div className={classes.txDetailsAddress}>{to}</div>
               <div className={classes.walletSubtitle}>Destination Wallet</div>
-              <Button
-                color="primary"
-                variant="contained"
-                className={classes.tagDestinationButton}
-                onClick={() => {
-                  setShowAddWalletModal(true);
-                }}
-              >
-                Tag Destination Wallet
-              </Button>
+              <div className={classes.tagDestinationButton}>
+                <ContainedButton
+                  onClick={() => {
+                    setShowAddWalletModal(true);
+                  }}
+                >
+                  Tag Destination Wallet
+                </ContainedButton>
+              </div>
             </Fragment>
           )}
         </Grid>
@@ -181,36 +175,40 @@ export default function TransactionDetailsCard({
           <div className={classes.walletSubtitle}>Current Value</div>
         </Grid>
         <Grid item xs={3}>
-          <Button
-            className={classes.txDetailsButton}
-            endIcon={<ChevronRightIcon />}
-            onClick={() => {
-              switch (symbol) {
-                case "BTC":
-                  window.open(
-                    `https://www.blockchain.com/btc/tx/${txid}`,
-                    "_blank"
-                  );
-                  break;
-                case "ETH":
-                  window.open(`https://etherscan.io/tx/${txid}`);
-                  break;
-                default:
-                  break;
-              }
-            }}
-          >
-            Transaction Details
-          </Button>
-          <Button
-            className={classes.txDetailsButton}
-            startIcon={<FormatListBulletedIcon />}
-            onClick={() => {
-              setAuthorizationRecord(tx);
-            }}
-          >
-            Authorization Record
-          </Button>
+          <div className={classes.txDetailsButton}>
+            <TextButton
+              endIcon={<ChevronRightIcon />}
+              onClick={() => {
+                switch (symbol) {
+                  case "BTC":
+                    window.open(
+                      `https://www.blockchain.com/btc/tx/${txid}`,
+                      "_blank"
+                    );
+                    break;
+                  case "ETH":
+                    window.open(`https://etherscan.io/tx/${txid}`);
+                    break;
+                  default:
+                    break;
+                }
+              }}
+              float={"right"}
+            >
+              Transaction Details
+            </TextButton>
+          </div>
+          <div className={classes.txDetailsButton}>
+            <TextButton
+              startIcon={<FormatListBulletedIcon />}
+              onClick={() => {
+                setAuthorizationRecord(tx);
+              }}
+              float={"right"}
+            >
+              Authorization Record
+            </TextButton>
+          </div>
         </Grid>
       </Grid>
       <Divider />

@@ -9,6 +9,7 @@ import AccountCard from "../Cards/AccountCard";
 import { AccountDetails } from "../Dialog";
 import { StartupDetails } from "../Dialog";
 import { calculateAccountTotal } from "../../actions";
+import { TextButton } from "../Buttons";
 
 const transactionDetailsStyles = makeStyles((theme) => ({
   root: {
@@ -36,16 +37,7 @@ const transactionDetailsStyles = makeStyles((theme) => ({
     marginTop: 0,
     minHeight: 110,
   },
-  messageButton: {
-    fontSize: 12,
-    fontWeight: 700,
-    fontFamily: '"Cabin", sans-serif',
-    color: "#00aeef",
-    "&:hover": {
-      backgroundColor: "#ecfaff",
-    },
-    "& .MuiButton-endIcon": { marginLeft: 0 },
-  },
+
   walletSubheading: {
     fontSize: 14,
     fontWeight: 700,
@@ -176,8 +168,7 @@ export default function AccountLayout({
         </Grid>
         <Grid item xs={6} className={classes.messageBox}>
           <p className={classes.message}>{message}</p>
-          <Button
-            className={classes.messageButton}
+          <TextButton
             endIcon={<ChevronRightIcon />}
             onClick={() => {
               window.open(
@@ -187,7 +178,7 @@ export default function AccountLayout({
             }}
           >
             Learn more about Cryptofund
-          </Button>
+          </TextButton>
         </Grid>
         <Grid item xs={12}>
           {isAdmin && (
