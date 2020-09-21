@@ -10,7 +10,6 @@ import { TextButton, CopyAddressButton } from "../Buttons";
 const useStyles = makeStyles((theme) => ({
   wallet: {
     position: "relative",
-    minHeight: 341,
     backgroundColor: "#ffffff",
     fontFamily: '"Roboto", sans-serif',
     paddingTop: 10,
@@ -93,7 +92,7 @@ const useStyles = makeStyles((theme) => ({
     color: "#00aaef",
     fontSize: 18,
     lineHeight: 1.33,
-    marginTop: "2.5em",
+    marginTop: 20,
   },
 }));
 
