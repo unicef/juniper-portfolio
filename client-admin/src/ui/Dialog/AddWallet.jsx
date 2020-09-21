@@ -27,11 +27,6 @@ const useStyles = makeStyles((theme) => ({
   closeIcon: {
     position: "absolute",
     right: 5,
-    fontFamily: '"Cabin",  sans-serif',
-    fontSize: 14,
-    letterSpacing: 1.17,
-    fontWeight: 700,
-    textTransform: "uppercase",
   },
   title: {
     fontFamily: '"Roboto", sans-serif',

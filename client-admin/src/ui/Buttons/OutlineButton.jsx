@@ -18,7 +18,14 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function ({ startIcon, endIcon, onClick, float, children }) {
+export default function ({
+  startIcon,
+  endIcon,
+  onClick,
+  float,
+  children,
+  style,
+}) {
   const classes = useStyles();
   return (
     <Button
@@ -27,7 +34,7 @@ export default function ({ startIcon, endIcon, onClick, float, children }) {
       startIcon={startIcon ? startIcon : null}
       endIcon={endIcon ? endIcon : null}
       onClick={onClick}
-      style={{ float: float ? float : "left" }}
+      style={{ float: float ? float : "left", ...style }}
     >
       {children}
     </Button>
