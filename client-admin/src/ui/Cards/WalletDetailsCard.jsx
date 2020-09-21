@@ -184,7 +184,9 @@ export default function WalletDetailsCard({
       <div className={classes.address}>
         {address} <CopyAddressButton address={address}>Copy</CopyAddressButton>
       </div>
-      <div className={classes.walletSubtitle}>Wallet Address</div>
+      <div className={classes.walletSubtitle} style={{ marginTop: 0 }}>
+        Wallet Address
+      </div>
       {isMultisig && (
         <Fragment>
           <div className={classes.owners}>{multisigOwners.length} users</div>
