@@ -124,17 +124,7 @@ const useStyles = makeStyles((theme) => ({
     color: "#ffffff",
     boxShadow: "none",
   },
-  outlineButton: {
-    width: "100%",
-    height: 35,
-    fontFamily: '"Cabin", sans-serif',
-    fontSize: 12,
-    fontWeight: 700,
-    textAlign: "center",
-    color: "#00aeef",
-    borderRadius: 5,
-    boxShadow: "none",
-  },
+
   or: {
     textTransform: "uppercase",
     textAlign: "center",
@@ -438,30 +428,26 @@ export default function TagTransaction(props) {
           ) : (
             <Fragment>
               <div className={classes.relativeContainer}>
-                <Button
-                  variant="outlined"
-                  color="primary"
-                  className={classes.outlineButton}
+                <OutlineButton
                   onClick={() => {
                     saveTransaction(props.tx.published);
                   }}
+                  style={{ display: "block", width: "100%", marginTop: "1em" }}
                 >
                   Tag and Save Transaction
-                </Button>
+                </OutlineButton>
                 <QuestionMarkIcon className={classes.questionMark} />
               </div>
               <p className={classes.or}>Or</p>
               <div className={classes.relativeContainer}>
-                <Button
-                  variant="contained"
-                  color="primary"
-                  className={classes.filledButton}
+                <ContainedButton
                   onClick={() => {
                     saveTransaction(false);
                   }}
+                  style={{ display: "block", width: "100%", marginTop: "1em" }}
                 >
                   Tag and Unpublish Transaction
-                </Button>
+                </ContainedButton>
                 <QuestionMarkIcon className={classes.questionMark} />
               </div>
             </Fragment>

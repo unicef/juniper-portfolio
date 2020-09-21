@@ -12,6 +12,8 @@ import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
 import ListItemText from "@material-ui/core/ListItemText";
 
+import { TextButton } from "../Buttons";
+
 const transactionDetailsStyles = makeStyles((theme) => ({
   root: {
     marginTop: "5em",
@@ -88,12 +90,9 @@ export default function TxList({
           <MenuPopper
             buttonStyles={{ float: "right" }}
             button={
-              <Button
-                className={classes.allTransactionsButton}
-                endIcon={<KeyboardArrowDownIcon />}
-              >
+              <TextButton endIcon={<KeyboardArrowDownIcon />} float={"right"}>
                 {limit} Transactions
-              </Button>
+              </TextButton>
             }
           >
             <List
