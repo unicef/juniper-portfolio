@@ -254,14 +254,15 @@ export default function CreateStartup(props) {
     <div>
       <Dialog fullScreen open={open} onClose={handleClose}>
         <Toolbar>
-          <IconButton
-            color="primary"
-            onClick={handleClose}
-            aria-label="close"
-            className={classes.closeIcon}
-          >
-            Cancel <CloseIcon fontSize="large" />
-          </IconButton>
+          <div className={classes.closeIcon}>
+            <TextButton
+              onClick={handleClose}
+              endIcon={<CloseIcon fontSize="large" style={{ fontSize: 28 }} />}
+              style={{ fontSize: 14 }}
+            >
+              Cancel
+            </TextButton>
+          </div>
         </Toolbar>
         <Container maxWidth={"sm"} className={classes.container}>
           <h1 className={classes.title}>

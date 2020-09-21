@@ -7,6 +7,7 @@ import Button from "@material-ui/core/Button";
 import CopyIcon from "../Icons/CopyIcon";
 import AccountTransactionCard from "../Cards/AccountTransactionCard";
 import { copyToClipboard } from "../../actions";
+import { TextButton } from "../Buttons";
 
 const useStyles = makeStyles((theme) => ({
   modal: {
@@ -73,15 +74,6 @@ const useStyles = makeStyles((theme) => ({
     fontSize: 24,
     fontWeight: 700,
     lineHeight: 1.17,
-  },
-  copyButton: {
-    fontSize: 12,
-    fontWeight: 700,
-    fontFamily: '"Cabin", sans-serif',
-    color: "#00aeef",
-    "&:hover": {
-      backgroundColor: "#ecfaff",
-    },
   },
 }));
 
@@ -238,15 +230,14 @@ export default function AccountDetails(props) {
                   <div className={classes.walletSubtitle}>Wallet Address</div>
                 </Grid>
                 <Grid item xs={2} className={classes.address}>
-                  <Button
-                    className={classes.copyButton}
+                  <TextButton
                     startIcon={<CopyIcon fontSize="large" />}
                     onClick={() => {
                       copyToClipboard(address.address);
                     }}
                   >
                     Copy
-                  </Button>
+                  </TextButton>
                 </Grid>
               </Grid>
             );
