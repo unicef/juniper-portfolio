@@ -43,7 +43,7 @@ const useStyles = makeStyles((theme) => ({
   walletBalance: {
     fontFamily: '"Roboto", sans-serif',
     fontSize: 18,
-    marginTop: 18,
+    marginTop: 20,
     lineHeight: 1.33,
   },
   currencyBalance: {
