@@ -4,6 +4,7 @@ import Chip from "@material-ui/core/Chip";
 import ChevronRightIcon from "@material-ui/icons/ChevronRight";
 import { usdFormatter, cryptoFormatter } from "../../util";
 import { TextButton, CopyAddressButton } from "../Buttons";
+import { Switch, Route, Link } from "react-router-dom";
 
 const useStyles = makeStyles((theme) => ({
   wallet: {
@@ -131,17 +132,19 @@ export default function WalletCard({
       <div className={classes.walletSubtitle}>Wallet Address</div>
       <div className={classes.buttons}>
         <CopyAddressButton address={address} />
-        <TextButton
-          endIcon={<ChevronRightIcon />}
-          onClick={() => {
-            if (viewTransactionOnClick) {
-              viewTransactionOnClick(address);
-            }
-          }}
-          float={"right"}
-        >
-          View Transactions
-        </TextButton>
+        <Link to="/admin/wallets/transactions">
+          <TextButton
+            endIcon={<ChevronRightIcon />}
+            onClick={() => {
+              if (viewTransactionOnClick) {
+                viewTransactionOnClick(address);
+              }
+            }}
+            float={"right"}
+          >
+            View Transactions
+          </TextButton>
+        </Link>
       </div>
     </div>
   );
