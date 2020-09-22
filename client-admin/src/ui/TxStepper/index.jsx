@@ -50,7 +50,7 @@ const useStyles = makeStyles((theme) => ({
   recipientTitle: {
     fontFamily: '"Roboto", sans-serif',
     fontSize: 18,
-    marginTop: 18,
+    marginTop: 25,
     lineHeight: 1.17,
     fontWeight: 400,
   },
