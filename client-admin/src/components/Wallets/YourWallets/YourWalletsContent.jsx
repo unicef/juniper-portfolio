@@ -181,6 +181,7 @@ export default function ({
       setBtcSentUSD(btcSentUSD);
       setBtcReceivedUSD(btcReceivedUSD);
     }
+    if (!summary) return;
     init();
   }, [wallets, summary, ethRate, btcRate]);
 
