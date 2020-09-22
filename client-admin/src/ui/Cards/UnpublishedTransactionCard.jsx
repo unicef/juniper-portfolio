@@ -9,6 +9,7 @@ import TxSentIcon from "../Icons/TxSentIcon";
 import ArchiveTxIcon from "../Icons/ArchiveTxIcon";
 import TxStepper from "../TxStepper";
 import { usdFormatter, cryptoFormatter } from "../../util";
+import { archiveTransaction } from "../../actions";
 
 const useStyles = makeStyles((theme) => ({
   walletSubtitle: {
@@ -111,39 +112,12 @@ export default function UnpublishedTransactionCard({
   received,
   donor,
   setAuthorizationRecord,
-  archiveTransaction,
-  archiveTransactionSuccess,
-  archiveTransactionFailed,
+  fetchTransactions,
   onTagTransactionClick,
   isAdmin,
 }) {
   const classes = useStyles();
   const txSent = new Date(timestamp);
-
-  const archiveTransactionPost = async (txid) => {
-    let res;
-    try {
-      res = await fetch(`/rest/admin/transactions/archive`, {
-        credentials: "include",
-        method: "POST",
-        body: JSON.stringify({
-          txid,
-        }),
-        headers: {
-          "Content-Type": "application/json",
-        },
-      });
-    } catch (e) {
-      console.log(e);
-      return;
-    }
-
-    if (res.status === 200) {
-      archiveTransactionSuccess();
-    } else {
-      archiveTransactionFailed(txid);
-    }
-  };
 
   return (
     <Fragment>
@@ -219,8 +193,8 @@ export default function UnpublishedTransactionCard({
               className={classes.archiveTransactionButton}
               startIcon={<ArchiveTxIcon />}
               onClick={async () => {
-                archiveTransaction(txid);
-                await archiveTransactionPost(txid);
+                await archiveTransaction(txid);
+                await fetchTransactions();
               }}
             >
               Archive Transaction

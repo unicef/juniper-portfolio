@@ -279,7 +279,6 @@ function Verification(props) {
         className={classes.filledButton}
         variant="contained"
         color="primary"
-        onClick={props.login}
         style={{ marginTop: 42 }}
         onClick={props.createAccountClick}
       >
@@ -395,9 +394,8 @@ export default function SignIn(props) {
 
   const createAccountClick = async () => {
     if (validatePassword()) {
-      let res;
       try {
-        res = await fetch(`/rest/verification`, {
+        await fetch(`/rest/verification`, {
           credentials: "include",
           method: "POST",
           body: JSON.stringify({
@@ -519,7 +517,7 @@ export default function SignIn(props) {
             createAccountClick={createAccountClick}
           />
         )}
-        <img src={logo} className={classes.logo} />
+        <img src={logo} className={classes.logo} alt={"logo"} />
       </Drawer>
       <main className={classes.content}></main>
     </div>

@@ -1,41 +1,12 @@
 import React, { useState, useEffect, Fragment } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import Grid from "@material-ui/core/Grid";
-import Button from "@material-ui/core/Button";
 import PriceInfoBanner from "../../ui/PriceInfoBanner";
 import ChevronRightIcon from "@material-ui/icons/ChevronRight";
 import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
 import IconButton from "@material-ui/core/IconButton";
-import { usdFormatter } from "../../util";
-
-import {
-  LineChart,
-  Line,
-  XAxis,
-  YAxis,
-  Tooltip,
-  CartesianGrid,
-  ErrorBar,
-  AreaChart,
-  Area,
-  Label,
-  LabelList,
-} from "recharts";
-
-const monthNames = [
-  "January",
-  "February",
-  "March",
-  "April",
-  "May",
-  "June",
-  "July",
-  "August",
-  "September",
-  "October",
-  "November",
-  "December",
-];
+import { usdFormatter, monthNames } from "../../util";
+import { LineChart, Line, XAxis, YAxis, Tooltip } from "recharts";
 
 const useStyles = makeStyles((theme) => ({
   heading: {
@@ -168,22 +139,18 @@ export default function PriceCheckerLayout(props) {
         return (
           daysInMonth(0, year) + daysInMonth(1, year) + daysInMonth(2, year)
         );
-        break;
       case 2:
         return (
           daysInMonth(3, year) + daysInMonth(4, year) + daysInMonth(5, year)
         );
-        break;
       case 3:
         return (
           daysInMonth(6, year) + daysInMonth(7, year) + daysInMonth(8, year)
         );
-        break;
       case 4:
         return (
           daysInMonth(9, year) + daysInMonth(10, year) + daysInMonth(11, year)
         );
-        break;
       default:
     }
   };
@@ -331,14 +298,6 @@ export default function PriceCheckerLayout(props) {
       updateMonthlyAverage();
     }
   }, [props.prices]);
-
-  function Weekdays() {
-    let days = [];
-    for (let i = 6; 6 >= 0; i--) {
-      days.push(<Weekday offset={i} />);
-    }
-    return days;
-  }
 
   function Weekday({ offset }) {
     const totalDaysInMonth = daysInMonth(currentMonth, currentYear);

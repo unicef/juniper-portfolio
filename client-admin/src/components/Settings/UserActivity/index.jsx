@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import Grid from "@material-ui/core/Grid";
 import ActivityList from "../../../ui/ActivityList";
+import { getUserActivities } from "../../../actions";
 
 const useStyles = makeStyles({
   root: {},
@@ -27,16 +28,9 @@ export default function UserActivity() {
       return Math.abs(Math.round(diff));
     };
 
-    const getActivities = async () => {
-      let activity = [];
-      try {
-        activity = await fetch("/rest/admin/settings/activities");
-      } catch (e) {
-        console.log(e);
-      }
-      activity = await activity.json();
-      activity = activity.reverse();
-      activity.forEach((activity) => {
+    async function init() {
+      const activities = await getUserActivities();
+      activities.forEach((activity) => {
         // calc time
         const timestamp = activity._id.toString().substring(0, 8);
         const date = new Date(parseInt(timestamp, 16) * 1000);
@@ -57,11 +51,11 @@ export default function UserActivity() {
           // minutes
           activity.timestamp = `${Math.round(timeDiffInMinutes)} minutes ago`;
         }
+        setActivities(activities);
       });
-      setActivities(activity);
-    };
+    }
 
-    getActivities();
+    init();
   }, []);
 
   return (

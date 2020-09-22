@@ -67,101 +67,28 @@ const StyledTab = withStyles((theme) => ({
   },
 }))((props) => <Tab disableRipple {...props} />);
 
-export default function Accounts({
-  getExchangeRate,
-  copyToClipboard,
-  isAdmin,
-}) {
+export default function Accounts({ isAdmin, accounts, ethRate, btcRate }) {
   const classes = useStyles();
   const [activeTab, setActiveTab] = useState(0);
   const [startups, setStartups] = useState([]);
-  const [startupEth, setStartupEth] = useState(0);
-  const [startupBtc, setStartupBtc] = useState(0);
-
   const [natcoms, setNatcoms] = useState([]);
-  const [natcomEth, setNatcomEth] = useState(0);
-  const [natcomBtc, setNatcomBtc] = useState(0);
-
   const [donors, setDonors] = useState([]);
-  const [donorEth, setDonorEth] = useState(0);
-  const [donorBtc, setDonorBtc] = useState(0);
-
-  const [ethRate, setEthRate] = useState(0);
-  const [btcRate, setBtcRate] = useState(0);
 
   const changeView = (event, newTab) => {
     setActiveTab(newTab);
   };
 
-  const getAccounts = async () => {
-    let res, accounts, ethRate, btcRate;
-    try {
-      res = await fetch("/rest/admin/accounts");
-      ethRate = await getExchangeRate("ETH");
-      btcRate = await getExchangeRate("BTC");
-    } catch (e) {
-      console.log(e);
-    }
-
-    let startupEth = 0;
-    let startupBtc = 0;
-    let donorEth = 0;
-    let donorBtc = 0;
-    let natcomEth = 0;
-    let natcomBtc = 0;
-
-    if (res.status === 200) {
-      accounts = await res.json();
-
-      accounts.forEach((account) => {
-        let totalETHInvested = 0;
-        let totalBTCInvested = 0;
-
-        account.addresses.forEach((address) => {
-          if (address.currency === "Ether") {
-            totalETHInvested += Number(address.amount);
-          }
-          if (address.currency === "Bitcoin") {
-            totalBTCInvested += Number(address.amount);
-          }
-        });
-        account.totalETHInvested = totalETHInvested;
-        account.totalETHUSD = totalETHInvested * ethRate;
-        account.totalBTCInvested = totalBTCInvested;
-        account.totalBTCUSD = totalBTCInvested * btcRate;
-
-        if (account.type === "startup") {
-          startupEth += totalETHInvested;
-          startupBtc += totalBTCInvested;
-        } else if (account.type === "donor") {
-          donorEth += totalETHInvested;
-          donorBtc += totalBTCInvested;
-        } else if (account.type === "natcom") {
-          natcomEth += totalETHInvested;
-          natcomBtc += totalBTCInvested;
-        }
-      });
-    }
-
-    setEthRate(ethRate);
-    setBtcRate(btcRate);
-
+  const filterAccounts = async () => {
     setStartups(accounts.filter((account) => account.type === "startup"));
-    setStartupEth(startupEth);
-    setStartupBtc(startupBtc);
-
     setDonors(accounts.filter((account) => account.type === "donor"));
-    setDonorEth(donorEth);
-    setDonorBtc(donorBtc);
-
     setNatcoms(accounts.filter((account) => account.type === "natcom"));
-    setNatcomEth(natcomEth);
-    setNatcomEth(natcomBtc);
   };
 
   useEffect(() => {
-    getAccounts();
-  }, []);
+    setStartups(accounts.filter((account) => account.type === "startup"));
+    setDonors(accounts.filter((account) => account.type === "donor"));
+    setNatcoms(accounts.filter((account) => account.type === "natcom"));
+  }, [accounts, btcRate, ethRate]);
 
   return (
     <div className={classes.root}>
@@ -194,15 +121,10 @@ export default function Accounts({
           type={"startup"}
           addButtonText={"Create Startup Account"}
           CreateModal={CreateAccount}
-          onDialogClose={getAccounts}
-          totalEther={startupEth}
-          totalETHUSD={startupEth * ethRate}
-          totalBitcoin={startupBtc}
-          totalBTCUSD={startupBtc * btcRate}
+          onDialogClose={filterAccounts}
           accounts={startups}
           ethRate={ethRate}
           btcRate={btcRate}
-          copyToClipboard={copyToClipboard}
           message={
             "The investments are made through UNICEF’s CryptoFund, in open source technology solutions that benefit children and the world."
           }
@@ -217,15 +139,10 @@ export default function Accounts({
           type={"donor"}
           addButtonText={"Create Donor Account"}
           CreateModal={CreateAccount}
-          onDialogClose={getAccounts}
-          totalEther={donorEth}
-          totalETHUSD={donorEth * ethRate}
-          totalBitcoin={donorBtc}
-          totalBTCUSD={donorBtc * btcRate}
+          onDialogClose={filterAccounts}
           accounts={donors}
           ethRate={ethRate}
           btcRate={btcRate}
-          copyToClipboard={copyToClipboard}
           message={
             "In line with current UNICEF practice, each crypto transaction is initiated after UNICEF has completed due diligence on a donor, ensuring a credible source of the donation."
           }
@@ -240,15 +157,10 @@ export default function Accounts({
           type={"natcom"}
           addButtonText={"Create Natcom Account"}
           CreateModal={CreateAccount}
-          onDialogClose={getAccounts}
-          totalEther={natcomEth}
-          totalETHUSD={natcomEth * ethRate}
-          totalBitcoin={natcomBtc}
-          totalBTCUSD={natcomBtc * btcRate}
+          onDialogClose={filterAccounts}
           accounts={natcoms}
           ethRate={ethRate}
           btcRate={btcRate}
-          copyToClipboard={copyToClipboard}
           message={
             "Cryptofund donations are received by HQ through four National Committees - Australia, France, New Zealand and the United States."
           }

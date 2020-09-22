@@ -4,6 +4,7 @@ import Grid from "@material-ui/core/Grid";
 import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
 import Snackbar from "../../../ui/Snackbar";
+import { changePassword } from "../../../actions";
 
 const useStyles = makeStyles({
   root: {
@@ -110,44 +111,6 @@ export default function SettingsLogin() {
     return false;
   };
 
-  const changePassword = async () => {
-    let res;
-    try {
-      res = await fetch(`/rest/admin/settings/user/password`, {
-        credentials: "include",
-        method: "PUT",
-        body: JSON.stringify({
-          currentPassword,
-          newPassword,
-          newPassword2,
-        }),
-        headers: {
-          "Content-Type": "application/json",
-        },
-      });
-    } catch (e) {
-      return console.log(e);
-    }
-
-    if (res.status === 401) {
-      setPasswordWrong(true);
-      setErrorMessage(
-        "The current password does not match the saved password."
-      );
-      setShowErrorMessage(true);
-      // current password wrong
-    } else if (res.status === 400) {
-      setShowErrorMessage(true);
-      // validation failed on server
-    } else {
-      // success
-      setShowSnackbar(true);
-      setCurrentPassword("");
-      setNewPassword("");
-      setNewPassword2("");
-    }
-  };
-
   return (
     <Grid container className={classes.root}>
       <Grid item xs={6}>
@@ -222,12 +185,33 @@ export default function SettingsLogin() {
             variant="contained"
             color="primary"
             className={classes.changePasswordButton}
-            onClick={() => {
+            onClick={async () => {
               setPasswordInvalid(false);
               setPasswordWrong(false);
               setShowErrorMessage(false);
               if (validatePassword()) {
-                changePassword();
+                const res = await changePassword(
+                  currentPassword,
+                  newPassword,
+                  newPassword2
+                );
+                if (res.status === 401) {
+                  setPasswordWrong(true);
+                  setErrorMessage(
+                    "The current password does not match the saved password."
+                  );
+                  setShowErrorMessage(true);
+                  // current password wrong
+                } else if (res.status === 400 || res.status === 500) {
+                  setShowErrorMessage(true);
+                  // validation failed on server
+                } else {
+                  // success
+                  setShowSnackbar(true);
+                  setCurrentPassword("");
+                  setNewPassword("");
+                  setNewPassword2("");
+                }
               }
             }}
           >

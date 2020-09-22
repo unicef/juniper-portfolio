@@ -7,6 +7,7 @@ import EditIcon from "@material-ui/icons/Edit";
 import CopyIcon from "../Icons/CopyIcon";
 import AddWallet from "../Dialog/AddWallet";
 import { usdFormatter, cryptoFormatter } from "../../util";
+import { copyToClipboard } from "../../actions";
 
 const useStyles = makeStyles((theme) => ({
   wallet: {
@@ -115,15 +116,6 @@ export default function WalletDetailsCard({
 }) {
   const classes = useStyles();
   const [showAddWalletModal, setShowAddWalletModal] = useState(false);
-
-  const copyToClipboard = (text) => {
-    const el = document.createElement("textarea");
-    el.value = text;
-    document.body.appendChild(el);
-    el.select();
-    document.execCommand("copy");
-    document.body.removeChild(el);
-  };
 
   return (
     <div className={classes.wallet}>
