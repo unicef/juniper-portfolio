@@ -223,7 +223,7 @@ export default function CreateStartup(props) {
     setCountry("");
     setDescription("");
     setWeblink("");
-    setImage("");
+    setImage("/image/1595615783349-imageplaceholder.png");
     setAddresses([
       {
         address: "",
@@ -248,7 +248,7 @@ export default function CreateStartup(props) {
     setCountry(props.country || "");
     setDescription(props.description || "");
     setWeblink(props.weblink || "");
-    setImage(props.image || "");
+    setImage(props.image || "/image/1595615783349-imageplaceholder.png");
     setAddresses(
       props.addresses || [
         {

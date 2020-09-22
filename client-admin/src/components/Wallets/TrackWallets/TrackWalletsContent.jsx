@@ -96,18 +96,17 @@ export default function ({
             movement of cryptocurrency, using the wallet public address. This
             address is also used to transact in cryptocurrency.
           </p>
-          {isAdmin && (
-            <Button
-              color="primary"
-              variant="contained"
-              className={classes.followWalletButton}
-              onClick={() => {
-                setShowAddWalletModal(true);
-              }}
-            >
-              Follow a Blockchain Wallet
-            </Button>
-          )}
+
+          <Button
+            color="primary"
+            variant="contained"
+            className={classes.followWalletButton}
+            onClick={() => {
+              setShowAddWalletModal(true);
+            }}
+          >
+            Follow a Blockchain Wallet
+          </Button>
         </Grid>
 
         <Grid item xs={12} style={{ marginTop: "4em" }}>

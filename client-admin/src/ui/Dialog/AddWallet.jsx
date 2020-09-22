@@ -219,8 +219,15 @@ export default function AddWallet(props) {
     };
     setAddingWallet(true);
 
+    let url;
+    if (isTracked) {
+      url = `/rest/admin/wallets/track`;
+    } else {
+      url = `/rest/admin/wallets`;
+    }
+
     try {
-      await fetch(`/rest/admin/wallets`, {
+      await fetch(url, {
         credentials: "include",
         method: "POST",
         body: JSON.stringify({
