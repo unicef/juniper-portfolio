@@ -158,7 +158,7 @@ export default function UnpublishedTransactionCard({
           <span className={classes.headerText}>
             Crypto {sent ? "sent" : null} {received ? "received" : null} at{" "}
             <b>
-              {txSent.toLocaleTimeString()}, {txSent.toDateString()}
+              {txSent.getHours()}:{txSent.getMinutes()}, {txSent.toDateString()}
             </b>
           </span>
         </Grid>
