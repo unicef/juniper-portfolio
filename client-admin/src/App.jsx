@@ -100,6 +100,7 @@ export default function JuniperAdmin() {
     if (user) {
       setIsLoggedIn(true);
       setUser(user);
+      initApp();
     }
   };
 
@@ -135,13 +136,24 @@ export default function JuniperAdmin() {
     setTransactions(await getTransactions());
   };
 
+  async function initApp() {
+    setWallets(await getWallets());
+    setTrackedWallets(await getTrackedWallets());
+    setTransactions(await getTransactions());
+    setSummary(await getWalletsSummary());
+    setAccounts(await getAccounts());
+    setEthRate(await getExchangeRate("ETH"));
+    setBtcRate(await getExchangeRate("BTC"));
+    setPrices(await getPriceHistory());
+  }
+
   useEffect(() => {
     console.log("app");
     async function init() {
+      setSummary(await getWalletsSummary());
       setWallets(await getWallets());
       setTrackedWallets(await getTrackedWallets());
       setTransactions(await getTransactions());
-      setSummary(await getWalletsSummary());
       setAccounts(await getAccounts());
       setEthRate(await getExchangeRate("ETH"));
       setBtcRate(await getExchangeRate("BTC"));
