@@ -27,14 +27,14 @@ const transactionDetailsStyles = makeStyles((theme) => ({
     marginTop: 50,
   },
   messageBox: {
-    minHeight: 160,
+    minHeight: 114,
   },
   message: {
     fontFamily: '"Roboto",  sans-serif',
     fontSize: 19,
     lineHeight: 1.42,
     marginTop: 0,
-    minHeight: 110,
+    marginBottom: 9,
   },
   messageButton: {
     fontSize: 12,
@@ -173,20 +173,8 @@ export default function AccountLayout({
         </Grid>
         <Grid item xs={6} className={classes.messageBox}>
           <p className={classes.message}>{message}</p>
-          <Button
-            className={classes.messageButton}
-            endIcon={<ChevronRightIcon />}
-            onClick={() => {
-              window.open(
-                "https://www.unicef.org/innovation/applyBlockchainCrypto",
-                "_blank"
-              );
-            }}
-          >
-            Learn more about Cryptofund
-          </Button>
         </Grid>
-        <Grid item xs={12}>
+        <Grid item xs={6}>
           {isAdmin && (
             <Button
               variant="contained"
@@ -199,6 +187,20 @@ export default function AccountLayout({
               {addButtonText}
             </Button>
           )}
+        </Grid>
+        <Grid item xs={6}>
+          <Button
+            className={classes.messageButton}
+            endIcon={<ChevronRightIcon />}
+            onClick={() => {
+              window.open(
+                "https://www.unicef.org/innovation/applyBlockchainCrypto",
+                "_blank"
+              );
+            }}
+          >
+            Learn more about Cryptofund
+          </Button>
         </Grid>
       </Grid>
 
