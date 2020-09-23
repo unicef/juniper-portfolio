@@ -174,6 +174,7 @@ export default function TxList({
           })}
         </List>
       )}
+
       <Pagination
         start={start + 1}
         end={end}
