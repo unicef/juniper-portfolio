@@ -20,9 +20,11 @@ const useStyles = makeStyles((theme) => ({
     flexGrow: 1,
     height: "100%",
     backgroundColor: "#f8f8f8",
+    display: "flex",
+    flexFlow: "column",
   },
   padding: {
-    padding: theme.spacing(3),
+    paddingTop: "2em",
   },
   navigation: {
     backgroundColor: "#ffffff",
@@ -41,7 +43,12 @@ function TabPanel(props) {
       id={`simple-tabpanel-${index}`}
       aria-labelledby={`simple-tab-${index}`}
       {...other}
-      style={{ backgroundColor: "#f8f8f8", paddingBottom: "2em" }}
+      style={{
+        backgroundColor: "#f8f8f8",
+        paddingBottom: "2em",
+        overflowY: "auto",
+        flex: "1 1 auto",
+      }}
     >
       {activeTab === index && <Container maxWidth="md">{children}</Container>}
     </div>
@@ -191,9 +198,8 @@ export default function Transactions({
           style={activeTab === 2 ? { color: "#00aeef" } : {}}
         />
       </StyledTabs>
-      <Typography className={classes.padding} />
 
-      <TabPanel activeTab={activeTab} index={0}>
+      <TabPanel activeTab={activeTab} index={0} className={classes.padding}>
         <TxList
           title={`${unpublishedTxs.length} Unpublished Transactions`}
           txs={unpublishedTxs}
@@ -203,7 +209,7 @@ export default function Transactions({
           isAdmin={isAdmin}
         />
       </TabPanel>
-      <TabPanel activeTab={activeTab} index={1}>
+      <TabPanel activeTab={activeTab} index={1} className={classes.padding}>
         <TxList
           title={`${publishedTxs.length} Published Transactions`}
           txs={publishedTxs}
@@ -213,7 +219,7 @@ export default function Transactions({
           isAdmin={isAdmin}
         />
       </TabPanel>
-      <TabPanel activeTab={activeTab} index={2}>
+      <TabPanel activeTab={activeTab} index={2} className={classes.padding}>
         <TxList
           title={`${archivedTxs.length} Archived Transactions`}
           txs={archivedTxs}

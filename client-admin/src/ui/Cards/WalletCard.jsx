@@ -73,6 +73,7 @@ const useStyles = makeStyles((theme) => ({
   leftButton: {
     fontSize: 12,
     fontWeight: 700,
+    letterSpacing: 0.83,
     fontFamily: '"Cabin", sans-serif',
     color: "#00aeef",
     "&:hover": {
@@ -83,6 +84,7 @@ const useStyles = makeStyles((theme) => ({
     float: "right",
     fontSize: 12,
     fontWeight: 700,
+    letterSpacing: 0.83,
     fontFamily: '"Cabin", sans-serif',
     color: "#00aeef",
     "&:hover": {
