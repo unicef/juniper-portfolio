@@ -11,7 +11,7 @@ const useStyles = makeStyles((theme) => ({
     minHeight: 290,
     backgroundColor: "#ffffff",
     fontFamily: '"Roboto", sans-serif',
-    paddingTop: 10,
+    paddingTop: 30,
     paddingLeft: 30,
     paddingRight: 30,
     paddingBottom: 25,
