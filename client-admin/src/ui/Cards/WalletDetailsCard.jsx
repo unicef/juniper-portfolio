@@ -10,7 +10,6 @@ import { TextButton, CopyAddressButton } from "../Buttons";
 const useStyles = makeStyles((theme) => ({
   wallet: {
     position: "relative",
-    minHeight: 341,
     backgroundColor: "#ffffff",
     fontFamily: '"Roboto", sans-serif',
     paddingTop: 10,
@@ -44,7 +43,7 @@ const useStyles = makeStyles((theme) => ({
   walletBalance: {
     fontFamily: '"Roboto", sans-serif',
     fontSize: 18,
-    marginTop: 18,
+    marginTop: 20,
     lineHeight: 1.33,
   },
   currencyBalance: {
@@ -93,7 +92,7 @@ const useStyles = makeStyles((theme) => ({
     color: "#00aaef",
     fontSize: 18,
     lineHeight: 1.33,
-    marginTop: "2.5em",
+    marginTop: 20,
   },
 }));
 
@@ -139,7 +138,7 @@ export default function WalletDetailsCard({
       />
 
       <TextButton
-        startIcon={<EditIcon />}
+        startIcon={<EditIcon style={{ marginRight: 5 }} />}
         float={"right"}
         onClick={() => {
           setShowAddWalletModal(true);
@@ -185,7 +184,9 @@ export default function WalletDetailsCard({
       <div className={classes.address}>
         {address} <CopyAddressButton address={address}>Copy</CopyAddressButton>
       </div>
-      <div className={classes.walletSubtitle}>Wallet Address</div>
+      <div className={classes.walletSubtitle} style={{ marginTop: 0 }}>
+        Wallet Address
+      </div>
       {isMultisig && (
         <Fragment>
           <div className={classes.owners}>{multisigOwners.length} users</div>

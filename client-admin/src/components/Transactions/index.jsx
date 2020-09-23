@@ -207,6 +207,7 @@ export default function Transactions({
           page={unpublishedPage}
           onPaginationClick={setUnpublishedPage}
           isAdmin={isAdmin}
+          showPriceInfo={true}
         />
       </TabPanel>
       <TabPanel activeTab={activeTab} index={1} className={classes.padding}>
@@ -217,6 +218,7 @@ export default function Transactions({
           page={publishedPage}
           onPaginationClick={setPublishedPage}
           isAdmin={isAdmin}
+          showPriceInfo={true}
         />
       </TabPanel>
       <TabPanel activeTab={activeTab} index={2} className={classes.padding}>
@@ -227,6 +229,7 @@ export default function Transactions({
           page={archivedPage}
           onPaginationClick={setArchivedPage}
           isAdmin={isAdmin}
+          showPriceInfo={true}
         />
       </TabPanel>
       <Snackbar
