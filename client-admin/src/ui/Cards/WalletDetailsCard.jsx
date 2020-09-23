@@ -1,13 +1,11 @@
 import React, { Fragment, useState } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import Chip from "@material-ui/core/Chip";
-import Button from "@material-ui/core/Button";
 import Grid from "@material-ui/core/Grid";
 import EditIcon from "@material-ui/icons/Edit";
-import CopyIcon from "../Icons/CopyIcon";
 import AddWallet from "../Dialog/AddWallet";
 import { usdFormatter, cryptoFormatter } from "../../util";
-import { copyToClipboard } from "../../actions";
+import { TextButton, CopyAddressButton } from "../Buttons";
 
 const useStyles = makeStyles((theme) => ({
   wallet: {
@@ -140,15 +138,15 @@ export default function WalletDetailsCard({
         editWallet={true}
       />
 
-      <Button
-        className={classes.editWalletButton}
+      <TextButton
         startIcon={<EditIcon />}
+        float={"right"}
         onClick={() => {
           setShowAddWalletModal(true);
         }}
       >
         Edit Wallet
-      </Button>
+      </TextButton>
       <h2 className={classes.name}>{name}</h2>
       {tags &&
         tags.map((tag) => {
@@ -185,16 +183,7 @@ export default function WalletDetailsCard({
         </Grid>
       </Grid>
       <div className={classes.address}>
-        {address}{" "}
-        <Button
-          className={classes.leftButton}
-          startIcon={<CopyIcon fontSize="large" />}
-          onClick={() => {
-            copyToClipboard(address);
-          }}
-        >
-          Copy
-        </Button>
+        {address} <CopyAddressButton address={address}>Copy</CopyAddressButton>
       </div>
       <div className={classes.walletSubtitle}>Wallet Address</div>
       {isMultisig && (

@@ -11,6 +11,7 @@ const useStyles = makeStyles({
     fontSize: 19,
     "& .MuiSvgIcon-root": {
       fontSize: 35,
+      color: "#ffffff",
     },
   },
 });
@@ -21,6 +22,7 @@ function Alert(props) {
 
 export default function SnackbarAlert({
   open,
+  icon,
   severity,
   duration,
   message,
@@ -46,8 +48,8 @@ export default function SnackbarAlert({
       onClose={handleClose}
     >
       <Alert
+        icon={icon}
         onClose={handleClose}
-        action={() => {}}
         severity={severity}
         className={classes.snackbar}
       >
