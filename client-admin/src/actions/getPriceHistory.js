@@ -1,4 +1,4 @@
-module.exports = async () => {
+export default async () => {
   let res, prices;
   try {
     res = await fetch("/rest/admin/prices");

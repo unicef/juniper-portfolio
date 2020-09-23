@@ -1,4 +1,4 @@
-module.exports = async () => {
+export default async () => {
   let res, trackedWallets;
   try {
     res = await fetch("/rest/admin/wallets/tracked");

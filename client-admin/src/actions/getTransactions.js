@@ -1,4 +1,4 @@
-module.exports = async () => {
+export default async () => {
   let res;
   let txs = [];
   try {
