@@ -30,13 +30,13 @@ import {
   getWalletsSummary,
 } from "./actions";
 
-const primaryColor = "#7c00f0";
-const lightPrimaryColor = "#eedbff";
-const darkPrimaryColor = "#a3379f";
+const primaryColor = "#00aeef";
+const lightPrimaryColor = "#daf5ff";
+const darkPrimaryColor = "#374ea2";
 
-const containedButtonHover = "#9635f1";
-const containedButtonActive = "#6a00cc";
-const textButtonHover = "#f6edff";
+const containedButtonHover = "#33bef2";
+const containedButtonActive = "#0094cb";
+const textButtonHover = "#ecfaff";
 
 const drawerWidth = 240;
 
