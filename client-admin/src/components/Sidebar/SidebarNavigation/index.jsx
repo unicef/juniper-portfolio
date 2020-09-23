@@ -185,6 +185,7 @@ export default function SidebarNavigation(props) {
           />
         </JuniperListItem>
       </Link>
+
       <Link to={"/admin/settings"} className={classes.link} style={{ flex: 2 }}>
         <JuniperListItem
           button
@@ -199,14 +200,12 @@ export default function SidebarNavigation(props) {
                   ? classes.navIconSelected
                   : classes.navIcon
               }
-              fontSize="large"
             />
           </ListItemIcon>
           <ListItemText
             primary={
               <Typography className={classes.navText}>Settings</Typography>
             }
-            style={{ marginTop: "1.25em" }}
           />
         </JuniperListItem>
       </Link>
