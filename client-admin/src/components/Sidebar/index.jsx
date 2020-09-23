@@ -33,6 +33,8 @@ export default function Sidebar(props) {
       <SidebarNavigation
         pageIndex={props.pageIndex}
         setPageIndex={props.setPageIndex}
+        ethRate={props.ethRate}
+        btcRate={props.btcRate}
       />
     </Drawer>
   );
