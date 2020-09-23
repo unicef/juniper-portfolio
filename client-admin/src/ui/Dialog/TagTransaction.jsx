@@ -29,7 +29,7 @@ const useStyles = makeStyles((theme) => ({
     fontWeight: 400,
   },
   rectangle: {
-    backgroundColor: "#daf5ff",
+    backgroundColor: theme.palette.primary.light,
     padding: 25,
   },
   detailTitle: {

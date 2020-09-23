@@ -65,7 +65,7 @@ const BlueSwitch = withStyles((theme) => ({
       transform: "translateX(16px)",
       color: theme.palette.primary.main,
       "& + $track": {
-        backgroundColor: "#daf5ff",
+        backgroundColor: theme.palette.primary.light,
         opacity: 1,
         border: "none",
       },

@@ -57,7 +57,7 @@ const useStyles = makeStyles((theme) => ({
   },
   totalInvested: {
     fontSize: 18,
-    color: "#374ea2",
+    color: theme.palette.primary.dark,
     textTransform: "uppercase",
     marginBottom: 0,
   },

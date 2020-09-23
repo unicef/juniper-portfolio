@@ -20,10 +20,10 @@ const useStyles = makeStyles((theme) => ({
     height: 47,
     width: 47,
     fontSize: 16,
-    color: "#374ea2",
+    color: theme.palette.primary.dark,
     fontWeight: 700,
     lineHeight: 1.75,
-    backgroundColor: "#daf5ff",
+    backgroundColor: theme.palette.primary.light,
   },
   message: {
     fontFamily: '"Cabin", sans-serif',

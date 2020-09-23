@@ -48,10 +48,10 @@ const useStyles = makeStyles((theme) => ({
     height: 70,
     margin: "0 auto",
     fontSize: 24,
-    color: "#374ea2",
+    color: theme.palette.primary.dark,
     fontWeight: 700,
     lineHeight: 1.75,
-    backgroundColor: "#daf5ff",
+    backgroundColor: theme.palette.primary.light,
   },
   filledButton: {
     width: 176,

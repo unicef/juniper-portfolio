@@ -20,7 +20,7 @@ const useStyles = makeStyles((theme) => ({
   },
   ethDot: {
     borderRadius: "50%",
-    backgroundColor: "#374ea2",
+    backgroundColor: theme.palette.primary.dark,
     marginLeft: 15,
   },
   feeTotals: {
@@ -43,7 +43,7 @@ const useStyles = makeStyles((theme) => ({
   },
   totalInvested: {
     fontSize: 18,
-    color: "#374ea2",
+    color: theme.palette.primary.dark,
     textTransform: "uppercase",
     marginBottom: 0,
   },

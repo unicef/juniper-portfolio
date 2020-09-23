@@ -24,8 +24,8 @@ const useStyles = makeStyles((theme) => ({
     lineHeight: 1.75,
     height: 47,
     width: 47,
-    color: "#374ea2",
-    backgroundColor: "#daf5ff",
+    color: theme.palette.primary.dark,
+    backgroundColor: theme.palette.primary.light,
   },
   listItem: {
     fontFamily: '"Roboto", sans-serif',

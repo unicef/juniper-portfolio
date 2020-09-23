@@ -31,6 +31,8 @@ import {
 } from "./actions";
 
 const primaryColor = "#00aeef";
+const lightPrimaryColor = "#daf5ff";
+const darkPrimaryColor = "#374ea2";
 
 const drawerWidth = 240;
 
@@ -68,7 +70,8 @@ const theme = createMuiTheme({
   palette: {
     primary: {
       main: primaryColor,
-      light: "#daf5ff",
+      light: lightPrimaryColor,
+      dark: darkPrimaryColor,
     },
     background: {
       default: "#ffffff",

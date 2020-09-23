@@ -33,7 +33,7 @@ const useStyles = makeStyles((theme) => ({
     textTransform: "uppercase",
   },
   authorization: {
-    backgroundColor: "#daf5ff",
+    backgroundColor: theme.palette.primary.light,
     padding: "20px 40px 40px 40px",
   },
   authorizationTitle: {
