@@ -88,7 +88,7 @@ const useStyles = makeStyles((theme) => ({
     fontSize: 12,
     fontWeight: 700,
     fontFamily: '"Cabin", sans-serif',
-    color: "#00aeef",
+    color: theme.palette.primary.main,
     paddingTop: 0,
     paddingBottom: 0,
     paddingRight: 10,

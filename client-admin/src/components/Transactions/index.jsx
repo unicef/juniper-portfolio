@@ -32,6 +32,9 @@ const useStyles = makeStyles((theme) => ({
   tabs: {
     backgroundColor: "#2e1534",
   },
+  active: {
+    color: theme.palette.primary.main,
+  },
 }));
 
 function TabPanel(props) {
@@ -55,17 +58,17 @@ function TabPanel(props) {
   );
 }
 
-const StyledTabs = withStyles({
+const StyledTabs = withStyles((theme) => ({
   indicator: {
     display: "flex",
     justifyContent: "center",
     backgroundColor: "transparent",
     "& > span": {
       width: "100%",
-      backgroundColor: "#00aeef",
+      backgroundColor: theme.palette.primary.main,
     },
   },
-})((props) => <Tabs {...props} TabIndicatorProps={{ children: <span /> }} />);
+}))((props) => <Tabs {...props} TabIndicatorProps={{ children: <span /> }} />);
 
 const StyledTab = withStyles((theme) => ({
   root: {
@@ -185,17 +188,14 @@ export default function Transactions({
         className={classes.navigation}
         centered
       >
-        <StyledTab
-          label="Unpublished"
-          style={activeTab === 0 ? { color: "#00aeef" } : {}}
-        />
+        <StyledTab label="Unpublished" className={classes.active} />
         <StyledTab
           label="Published"
-          style={activeTab === 1 ? { color: "#00aeef" } : {}}
+          style={activeTab === 1 ? { color: "#000000" } : {}}
         />
         <StyledTab
           label="Archived Transactions"
-          style={activeTab === 2 ? { color: "#00aeef" } : {}}
+          style={activeTab === 2 ? { color: "#000000" } : {}}
         />
       </StyledTabs>
 

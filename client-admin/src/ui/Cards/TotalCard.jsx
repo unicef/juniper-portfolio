@@ -16,7 +16,7 @@ const useStyles = makeStyles((theme) => ({
   },
   btcDot: {
     borderRadius: "50%",
-    backgroundColor: "#00aeef",
+    backgroundColor: theme.palette.primary.main,
   },
   ethDot: {
     borderRadius: "50%",

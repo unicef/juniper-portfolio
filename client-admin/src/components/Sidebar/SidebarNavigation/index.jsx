@@ -30,7 +30,7 @@ const useStyles = makeStyles((theme) => ({
   },
   navIconSelected: {
     width: "1.5em",
-    color: "#00aeef",
+    color: theme.palette.primary.main,
   },
   navText: {
     fontSize: 12,
@@ -68,17 +68,17 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const JuniperListItem = withStyles({
+const JuniperListItem = withStyles((theme) => ({
   root: {
     "&$selected": {
-      color: "#00aeef",
+      color: theme.palette.primary.main,
       backgroundColor: "#ffffff",
       "&:hover": {},
     },
     "&:hover": {},
   },
   selected: {},
-})(ListItem);
+}))(ListItem);
 
 export default function SidebarNavigation(props) {
   const classes = useStyles();

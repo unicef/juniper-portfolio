@@ -5,7 +5,7 @@ import Avatar from "@material-ui/core/Avatar";
 import ChevronRightIcon from "@material-ui/icons/ChevronRight";
 import FileUpload from "../../FileUpload";
 
-const useStyles = makeStyles({
+const useStyles = makeStyles((theme) => ({
   root: {
     backgroundColor: "#ffffff",
     paddingTop: 19,
@@ -30,18 +30,18 @@ const useStyles = makeStyles({
     fontSize: 14,
     fontWeight: 700,
     letterSpacing: 1,
-    color: "#00aeef",
+    color: theme.palette.primary.main,
     boxShadow: "none",
     textTransform: "uppercase",
     marginTop: 12,
   },
   chevron: {
     textAlign: "right",
-    color: "#00aeef",
+    color: theme.palette.primary.main,
     marginTop: 12,
     paddingRight: 15,
   },
-});
+}));
 
 export default function User({ user, updateUser }) {
   const classes = useStyles();

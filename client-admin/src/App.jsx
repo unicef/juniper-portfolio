@@ -30,6 +30,8 @@ import {
   getWalletsSummary,
 } from "./actions";
 
+const primaryColor = "#00aeef";
+
 const drawerWidth = 240;
 
 const useStyles = makeStyles((theme) => ({
@@ -65,7 +67,8 @@ const client = new ApolloClient({
 const theme = createMuiTheme({
   palette: {
     primary: {
-      main: "#00aeef",
+      main: primaryColor,
+      light: "#daf5ff",
     },
     background: {
       default: "#ffffff",

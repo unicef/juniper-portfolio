@@ -77,7 +77,7 @@ const useStyles = makeStyles((theme) => ({
     fontWeight: 700,
     letterSpacing: 1,
     fontFamily: '"Cabin", sans-serif',
-    color: "#00aeef",
+    color: theme.palette.primary.main,
     "&:hover": {
       backgroundColor: "#ecfaff",
     },
