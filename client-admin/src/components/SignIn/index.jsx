@@ -462,6 +462,7 @@ export default function SignIn(props) {
     const params = window.location.search;
     let verificationCode = false;
     if (params.indexOf("verification") >= 0) {
+      console.log(params);
       verificationCode = params.split("verification=")[1].split("&")[0];
 
       checkVerification(verificationCode);

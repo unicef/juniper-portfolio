@@ -349,6 +349,10 @@ export default function PriceCheckerLayout(props) {
     );
   }
 
+  if (!props.prices) {
+    return null;
+  }
+
   return (
     <Fragment>
       <PriceInfoBanner />

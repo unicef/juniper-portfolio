@@ -170,7 +170,7 @@ export default function CreateStartup(props) {
     {
       address: "",
       currency: "",
-      amount: "",
+      amount: 0,
     },
   ]);
 
@@ -179,7 +179,7 @@ export default function CreateStartup(props) {
     newAddresses.push({
       address: "",
       currency: "",
-      amount: "",
+      amount: 0,
     });
     setAddresses(newAddresses);
   };
@@ -228,7 +228,7 @@ export default function CreateStartup(props) {
       {
         address: "",
         currency: "",
-        amount: "",
+        amount: 0,
       },
     ]);
 
@@ -254,7 +254,7 @@ export default function CreateStartup(props) {
         {
           address: "",
           currency: "",
-          amount: "",
+          amount: 0,
         },
       ]
     );

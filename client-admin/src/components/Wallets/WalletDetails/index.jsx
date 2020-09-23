@@ -17,6 +17,7 @@ export default function ({
   walletDetailsAddress,
   ethRate,
   btcRate,
+  fetchWallets,
 }) {
   const classes = mainStyles();
   const [authorizationRecord, setAuthorizationRecord] = useState(false);
@@ -61,9 +62,10 @@ export default function ({
         multisigOwners={wallet.multisigOwners}
         isUnicef={wallet.isUnicef}
         isTracked={wallet.isTracked}
-        afterEditWallet={() => {
-          getWalletByAddress(address);
-          getTransactionsByAddress(address);
+        afterEditWallet={async () => {
+          setWallet(await getWalletByAddress(address));
+          setTransactions(await getTransactionsByAddress(address));
+          fetchWallets();
         }}
       />
       <TransactionDetails
@@ -71,6 +73,7 @@ export default function ({
         setAuthorizationRecord={setAuthorizationRecord}
         transactionDetailsData={transactions}
         exchangeRate={exchangeRate}
+        fetchWallets={fetchWallets}
       />
     </div>
   );

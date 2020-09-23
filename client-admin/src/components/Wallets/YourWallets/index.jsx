@@ -24,6 +24,7 @@ export default class YourWallets extends React.Component {
             walletDetailsAddress={this.state.walletDetailsAddress}
             btcRate={this.props.btcRate}
             ethRate={this.props.ethRate}
+            fetchWallets={this.props.fetchWallets}
           />
         ) : (
           <YourWalletsContent

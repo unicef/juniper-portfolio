@@ -13,7 +13,6 @@ import TxList from "../../ui/TxList";
 import Snackbar from "../../ui/Snackbar";
 import { TagTransaction } from "../../ui/Dialog";
 import { getExchangeRate, publishTransaction } from "../../actions";
-import LoadingScreen from "../../ui/LoadingScreen";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -79,7 +78,6 @@ export default function Transactions({
 }) {
   const classes = useStyles();
   const [activeTab, setActiveTab] = useState(0);
-  const [fetchingTxs, setFetchingTxs] = useState(false);
 
   const [unpublishedTxs, setUnpublishedTxs] = useState([]);
   const [unpublishedPage, setUnpublishedPage] = useState(0);
@@ -196,18 +194,14 @@ export default function Transactions({
       <Typography className={classes.padding} />
 
       <TabPanel activeTab={activeTab} index={0}>
-        {fetchingTxs ? (
-          <LoadingScreen loadingMessage={"Loading Transactions"} />
-        ) : (
-          <TxList
-            title={`${unpublishedTxs.length} Unpublished Transactions`}
-            txs={unpublishedTxs}
-            TxCard={UnpublishedTxCard}
-            page={unpublishedPage}
-            onPaginationClick={setUnpublishedPage}
-            isAdmin={isAdmin}
-          />
-        )}
+        <TxList
+          title={`${unpublishedTxs.length} Unpublished Transactions`}
+          txs={unpublishedTxs}
+          TxCard={UnpublishedTxCard}
+          page={unpublishedPage}
+          onPaginationClick={setUnpublishedPage}
+          isAdmin={isAdmin}
+        />
       </TabPanel>
       <TabPanel activeTab={activeTab} index={1}>
         <TxList

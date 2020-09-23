@@ -153,7 +153,10 @@ export default function AccountLayout({
           <PriceInfoBanner />
         </Grid>
         <Grid item xs={12}>
-          <h1 className={classes.title}>{title}</h1>
+          <h1 className={classes.title}>
+            {accounts.length} {title}
+            {accounts.length === 1 ? "" : "s"}
+          </h1>
         </Grid>
         <Grid item xs={3}>
           <AccountBalanceCard

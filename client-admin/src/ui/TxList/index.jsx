@@ -62,7 +62,7 @@ export default function TxList({
   txs,
   TxCard,
   page,
-
+  fetchWallets,
   onPaginationClick,
   setAuthorizationRecord,
   exchangeRate,
@@ -162,6 +162,7 @@ export default function TxList({
                   setAuthorizationRecord={setAuthorizationRecord}
                   exchangeRate={exchangeRate}
                   isAdmin={isAdmin}
+                  fetchWallets={fetchWallets}
                 />
               </ListItem>
             );
