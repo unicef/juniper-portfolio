@@ -48,6 +48,7 @@ const useStyles = makeStyles((theme) => ({
     fontSize: 24,
     fontWeight: 400,
     margin: 0,
+    paddingTop: 12,
   },
   archiveTransactionButton: {
     marginTop: "1em",
