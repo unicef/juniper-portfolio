@@ -1,10 +1,12 @@
 import React, { Fragment, useState } from "react";
+import { useTheme } from "@material-ui/core/styles";
 import TextButton from "./TextButton";
 import CopyIcon from "../Icons/CopyIcon";
 import { copyToClipboard } from "../../actions";
 import Snackbar from "../Snackbar";
 
 export default function (props) {
+  const theme = useTheme();
   const [showSnackbar, setShowSnackbar] = useState(false);
   const [snackbarDuration] = useState(3000);
   const [snackbarMessage, setSnackbarMessage] = useState(
@@ -26,7 +28,11 @@ export default function (props) {
       <TextButton
         startIcon={
           <CopyIcon
-            style={{ fontSize: 18, stroke: "#00AEEF", fill: "rgba(0,0,0,0)" }}
+            style={{
+              fontSize: 18,
+              stroke: theme.palette.primary.main,
+              fill: "rgba(0,0,0,0)",
+            }}
           />
         }
         onClick={() => {
