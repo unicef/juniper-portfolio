@@ -1,10 +1,8 @@
 import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import Chip from "@material-ui/core/Chip";
-import Button from "@material-ui/core/Button";
-import CopyIcon from "../Icons/CopyIcon";
 import { usdFormatter, cryptoFormatter } from "../../util";
-import { copyToClipboard } from "../../actions";
+import { OutlineButton, CopyAddressButton } from "../Buttons";
 
 const walletStyles = makeStyles((theme) => ({
   wallet: {
@@ -140,27 +138,19 @@ export default function TrackWalletCard({
       <div className={classes.address}>{address}</div>
       <div className={classes.walletSubtitle}>Wallet Address</div>
       <div className={classes.buttons}>
-        <Button
-          className={classes.leftButton}
-          startIcon={<CopyIcon fontSize="large" />}
-          onClick={() => {
-            copyToClipboard(address);
-          }}
-        >
-          Copy Address
-        </Button>
-        <Button
-          className={classes.unfollowWalletButton}
-          variant="outlined"
+        <CopyAddressButton address={address} />
+
+        <OutlineButton
           onClick={() => {
             unfollowWallet(address);
             if (afterUnfollowWallet) {
               afterUnfollowWallet();
             }
           }}
+          float={"right"}
         >
           Unfollow
-        </Button>
+        </OutlineButton>
       </div>
     </div>
   );

@@ -1,11 +1,9 @@
 import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import Chip from "@material-ui/core/Chip";
-import Button from "@material-ui/core/Button";
 import ChevronRightIcon from "@material-ui/icons/ChevronRight";
-import CopyIcon from "../Icons/CopyIcon";
 import { usdFormatter, cryptoFormatter } from "../../util";
-import { copyToClipboard } from "../../actions";
+import { TextButton, CopyAddressButton } from "../Buttons";
 
 const useStyles = makeStyles((theme) => ({
   wallet: {
@@ -132,26 +130,18 @@ export default function WalletCard({
       <div className={classes.address}>{address}</div>
       <div className={classes.walletSubtitle}>Wallet Address</div>
       <div className={classes.buttons}>
-        <Button
-          className={classes.leftButton}
-          startIcon={<CopyIcon fontSize="large" />}
-          onClick={() => {
-            copyToClipboard(address);
-          }}
-        >
-          Copy Address
-        </Button>
-        <Button
-          className={classes.rightButton}
+        <CopyAddressButton address={address} />
+        <TextButton
           endIcon={<ChevronRightIcon />}
           onClick={() => {
             if (viewTransactionOnClick) {
               viewTransactionOnClick(address);
             }
           }}
+          float={"right"}
         >
           View Transactions
-        </Button>
+        </TextButton>
       </div>
     </div>
   );

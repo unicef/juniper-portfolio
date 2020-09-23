@@ -13,6 +13,7 @@ import Fab from "@material-ui/core/Fab";
 import ChevronRightIcon from "@material-ui/icons/ChevronRight";
 import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
 import { AddWallet } from "../../../ui/Dialog";
+import { ContainedButton } from "../../../ui/Buttons";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -244,16 +245,13 @@ export default function ({
         </Grid>
         <Grid item xs={12} style={{ marginTop: "2em" }}>
           {isAdmin && (
-            <Button
-              variant="contained"
-              color="primary"
-              className={classes.addWalletButton}
+            <ContainedButton
               onClick={() => {
                 setShowAddWalletModal(true);
               }}
             >
               Add New Wallet
-            </Button>
+            </ContainedButton>
           )}
         </Grid>
 
