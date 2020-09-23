@@ -34,6 +34,10 @@ const primaryColor = "#00aeef";
 const lightPrimaryColor = "#daf5ff";
 const darkPrimaryColor = "#374ea2";
 
+const containedButtonHover = "#33bef2";
+const containedButtonActive = "#0094cb";
+const textButtonHover = "#ecfaff";
+
 const drawerWidth = 240;
 
 const useStyles = makeStyles((theme) => ({
@@ -72,6 +76,9 @@ const theme = createMuiTheme({
       main: primaryColor,
       light: lightPrimaryColor,
       dark: darkPrimaryColor,
+      containedHover: containedButtonHover,
+      containedActive: containedButtonActive,
+      textHover: textButtonHover,
     },
     background: {
       default: "#ffffff",

@@ -135,6 +135,7 @@ export default function TopBar(props) {
         <MenuPopper
           button={
             <TextButton
+              type={"dark"}
               endIcon={<ExpandMoreIcon />}
               style={{ color: "#ffffff" }}
             >
