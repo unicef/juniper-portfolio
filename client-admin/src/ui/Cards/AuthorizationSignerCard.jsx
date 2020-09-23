@@ -58,12 +58,12 @@ export default function AuthorizationSignerCard({
         </h3>
       </Grid>
       <Grid item xs={12}>
-        <div className={classes.signerText}>{address}</div>
-        <div className={classes.walletSubtitle}>Wallet Address</div>
-      </Grid>
-      <Grid item xs={12}>
         <div className={classes.signerText}>{owner}</div>
         <div className={classes.walletSubtitle}>Wallet Owner</div>
+      </Grid>
+      <Grid item xs={12}>
+        <div className={classes.signerText}>{address}</div>
+        <div className={classes.walletSubtitle}>Wallet Address</div>
       </Grid>
       <Grid item xs={12}>
         <div className={classes.signerText}>
