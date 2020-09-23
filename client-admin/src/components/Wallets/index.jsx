@@ -94,7 +94,7 @@ export default function Wallets({
           style={activeTab === 0 ? { color: "#00aeef" } : {}}
         />
         <StyledTab
-          label="Track Wallets"
+          label="Follow Wallets"
           style={activeTab === 1 ? { color: "#00aeef" } : {}}
         />
       </StyledTabs>
