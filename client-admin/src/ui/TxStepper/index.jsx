@@ -7,7 +7,7 @@ const useStyles = makeStyles((theme) => ({
     width: 18,
     height: 18,
     border: "solid 2px #f8f8f8",
-    backgroundColor: "#8d00f0",
+    backgroundColor: theme.palette.primary.main,
     borderRadius: "50%",
     display: "inline-block",
   },
@@ -15,7 +15,7 @@ const useStyles = makeStyles((theme) => ({
     width: 14,
     height: 14,
     border: "solid 2px #f8f8f8",
-    backgroundColor: "#8d00f0",
+    backgroundColor: theme.palette.primary.main,
     borderRadius: "50%",
     display: "inline-block",
     marginTop: 2,
@@ -23,11 +23,11 @@ const useStyles = makeStyles((theme) => ({
     marginRight: 1,
   },
   blueLine: {
-    border: "solid 1px #8d00f0",
+    border: `solid 1px ${theme.palette.primary.main}`,
     marginBottom: 8,
   },
   line: {
-    width: "90%",
+    width: "93%",
     display: "inline-block",
   },
   title: {
