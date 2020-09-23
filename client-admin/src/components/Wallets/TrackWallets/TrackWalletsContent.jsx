@@ -91,7 +91,7 @@ export default function ({
         </Grid>
 
         <Grid item xs={12} style={{ marginTop: "2em" }}>
-          <h1 className={classes.title}>Tracking blockchain wallets</h1>
+          <h1 className={classes.title}>Follow blockchain wallets</h1>
           <p className={classes.trackWalletsText}>
             Blockchain wallets can offer visibility to the public to view the
             movement of cryptocurrency, using the wallet public address. This
