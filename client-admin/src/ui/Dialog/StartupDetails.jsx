@@ -66,6 +66,9 @@ const useStyles = makeStyles((theme) => ({
     fontSize: 14,
     lineHeight: 1.33,
     color: "#000000",
+    whiteSpace: "nowrap",
+    overflow: "hidden",
+    textOverflow: "ellipsis",
   },
   name: {
     marginBottom: 0,
