@@ -174,15 +174,16 @@ export default function TxList({
           })}
         </List>
       )}
-
-      <Pagination
-        start={start + 1}
-        end={end}
-        totalItems={totalItems}
-        totalPages={totalPages}
-        currentPage={currentPage}
-        onClick={onPaginationClick}
-      />
+      {totalItems > limit && (
+        <Pagination
+          start={start + 1}
+          end={end}
+          totalItems={totalItems}
+          totalPages={totalPages}
+          currentPage={currentPage}
+          onClick={onPaginationClick}
+        />
+      )}
     </Fragment>
   );
 }
