@@ -5,7 +5,7 @@ import { WalletDetailsCard } from "../../../ui/Cards";
 import TransactionDetails from "./TransactionDetails";
 import { AuthorizationRecord } from "../../../ui/Dialog";
 import { getWalletByAddress, getTransactionsByAddress } from "../../../actions";
-
+import { useParams } from "react-router-dom";
 const mainStyles = makeStyles((theme) => ({
   root: {
     minHeight: "100%",
@@ -21,7 +21,7 @@ export default function ({
 }) {
   const classes = mainStyles();
   const [authorizationRecord, setAuthorizationRecord] = useState(false);
-  const [address] = useState(walletDetailsAddress);
+  const { address } = useParams();
   const [wallet, setWallet] = useState({});
   const [transactions, setTransactions] = useState([]);
   const [exchangeRate, setExchangeRate] = useState(0);
