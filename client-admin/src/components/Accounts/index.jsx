@@ -133,9 +133,7 @@ export default function Accounts({ isAdmin, accounts, ethRate, btcRate }) {
       </TabPanel>
       <TabPanel activeTab={activeTab} index={1}>
         <AccountLayout
-          title={`${donors.length} ${
-            donors.length === 1 ? "Investment" : "Investments"
-          }`}
+          title={`${donors.length} ${donors.length === 1 ? "Donor" : "Donors"}`}
           type={"donor"}
           addButtonText={"Create Donor Account"}
           CreateModal={CreateAccount}

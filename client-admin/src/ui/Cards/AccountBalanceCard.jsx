@@ -35,6 +35,7 @@ export default function AccountBalanceCard({
   amountInvestedUSD,
   currency,
   symbol,
+  investedVerb,
 }) {
   const classes = useStyles();
 
@@ -47,7 +48,9 @@ export default function AccountBalanceCard({
         <h2 className={classes.amountInvestedUSD}>
           {usdFormatter.format(amountInvestedUSD)} USD
         </h2>
-        <p className={classes.currency}>Total {currency} invested</p>
+        <p className={classes.currency}>
+          Total {currency} {investedVerb || "invested"}
+        </p>
       </div>
     </div>
   );

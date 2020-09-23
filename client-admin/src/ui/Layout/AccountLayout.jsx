@@ -161,6 +161,7 @@ export default function AccountLayout({
             amountInvestedUSD={totalETHUSD}
             currency={"Ethereum"}
             symbol={"ETH"}
+            investedVerb={type === "donor" ? "received" : "invested"}
           />
         </Grid>
         <Grid item xs={3}>
@@ -169,6 +170,7 @@ export default function AccountLayout({
             amountInvestedUSD={totalBTCUSD}
             currency={"Bitcoin"}
             symbol={"BTC"}
+            investedVerb={type === "donor" ? "received" : "invested"}
           />
         </Grid>
         <Grid item xs={6} className={classes.messageBox}>
