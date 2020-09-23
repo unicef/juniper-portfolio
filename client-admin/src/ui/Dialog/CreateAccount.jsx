@@ -87,7 +87,7 @@ const useStyles = makeStyles((theme) => ({
     borderRadius: 5,
     marginRight: 10,
     textTransform: "uppercase",
-    color: "#00aaef",
+    color: theme.palette.primary.main,
   },
   addStartupButton: {
     marginTop: "3em",
@@ -125,7 +125,7 @@ const useStyles = makeStyles((theme) => ({
   },
   imageButton: {
     marginTop: "2em",
-    color: "#00aeef",
+    color: theme.palette.primary.main,
     fontWeight: 700,
     fontSize: 12,
     "& .MuiButton-startIcon": {

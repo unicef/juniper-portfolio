@@ -42,7 +42,7 @@ const useStyles = makeStyles((theme) => ({
 
   totalReceived: {
     fontSize: 18,
-    color: "#00aaef",
+    color: theme.palette.primary.main,
     textTransform: "uppercase",
     marginBottom: 0,
   },

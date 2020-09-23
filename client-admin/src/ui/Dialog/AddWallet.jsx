@@ -83,7 +83,7 @@ const useStyles = makeStyles((theme) => ({
     borderRadius: 5,
     marginRight: 10,
     textTransform: "uppercase",
-    color: "#00aaef",
+    color: theme.palette.primary.main,
   },
   addNewWalletButton: {
     marginTop: "3em",

@@ -1,5 +1,5 @@
 import React, { useState, useEffect, Fragment } from "react";
-import { makeStyles } from "@material-ui/core/styles";
+import { makeStyles, useTheme } from "@material-ui/core/styles";
 import Grid from "@material-ui/core/Grid";
 import PriceInfoBanner from "../../ui/PriceInfoBanner";
 import ChevronRightIcon from "@material-ui/icons/ChevronRight";
@@ -27,9 +27,13 @@ const useStyles = makeStyles((theme) => ({
     marginTop: 0,
     marginBottom: 0,
   },
+  chartLine: {
+    stroke: theme.palette.primary.main,
+    color: theme.palette.primary.main,
+  },
   currentMonth: {
     minWidth: 125,
-    color: "#00aaef",
+    color: theme.palette.primary.main,
     fontSize: 14,
     fontWeight: 700,
     lineHeight: 2,
@@ -43,7 +47,7 @@ const useStyles = makeStyles((theme) => ({
     marginBottom: 15,
   },
   customPagination: {
-    color: "#00aaef",
+    color: theme.palette.primary.main,
     margin: 0,
     display: "flex",
     padding: 0,
@@ -101,8 +105,8 @@ const useStyles = makeStyles((theme) => ({
 
 export default function PriceCheckerLayout(props) {
   const classes = useStyles();
+  const theme = useTheme();
   const [prices, setPrices] = useState([]);
-
   const thisDay = new Date().getDate();
   const thisMonth = new Date().getMonth();
   const thisYear = new Date().getFullYear();
@@ -471,7 +475,7 @@ export default function PriceCheckerLayout(props) {
                     />
                     <Line
                       dataKey="Price"
-                      stroke="#00aeef"
+                      stroke={theme.palette.primary.main}
                       strokeWidth={3}
                       dot={false}
                     />

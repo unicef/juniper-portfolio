@@ -63,7 +63,7 @@ const BlueSwitch = withStyles((theme) => ({
     padding: 1,
     "&$checked": {
       transform: "translateX(16px)",
-      color: "#00aaef",
+      color: theme.palette.primary.main,
       "& + $track": {
         backgroundColor: "#daf5ff",
         opacity: 1,
@@ -71,7 +71,7 @@ const BlueSwitch = withStyles((theme) => ({
       },
     },
     "&$focusVisible $thumb": {
-      color: "#00aaef",
+      color: theme.palette.primary.main,
       border: "6px solid #fff",
     },
   },

@@ -28,7 +28,7 @@ const useStyles = makeStyles((theme) => ({
     height: 15,
     fontSize: 12,
     fontWeight: 700,
-    color: "#00aeef",
+    color: theme.palette.primary.main,
     marginLeft: "1em",
   },
 }));
