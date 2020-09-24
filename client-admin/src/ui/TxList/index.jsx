@@ -146,10 +146,7 @@ export default function TxList({
         <List>
           {txs.slice(start, end).map((tx, index) => {
             return (
-              <ListItem
-                key={index}
-                style={{ borderBottom: "solid 1px #cecece" }}
-              >
+              <ListItem key={index} style={{ paddingLeft: 0, paddingRight: 0 }}>
                 <TxCard
                   tx={tx}
                   txid={tx.txid}
@@ -174,6 +171,7 @@ export default function TxList({
           })}
         </List>
       )}
+
       <Pagination
         start={start + 1}
         end={end}
