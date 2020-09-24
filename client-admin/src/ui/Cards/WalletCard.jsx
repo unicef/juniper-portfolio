@@ -1,11 +1,10 @@
 import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import Chip from "@material-ui/core/Chip";
-import Button from "@material-ui/core/Button";
 import ChevronRightIcon from "@material-ui/icons/ChevronRight";
-import CopyIcon from "../Icons/CopyIcon";
 import { usdFormatter, cryptoFormatter } from "../../util";
-import { copyToClipboard } from "../../actions";
+import { TextButton, CopyAddressButton } from "../Buttons";
+import { Switch, Route, Link } from "react-router-dom";
 
 const useStyles = makeStyles((theme) => ({
   wallet: {
@@ -65,6 +64,9 @@ const useStyles = makeStyles((theme) => ({
     fontWeight: 700,
     lineHeight: 1.57,
     color: "#000000",
+    whiteSpace: "nowrap",
+    overflow: "hidden",
+    textOverflow: "ellipsis",
   },
   buttons: {
     marginTop: 30,
@@ -73,6 +75,7 @@ const useStyles = makeStyles((theme) => ({
   leftButton: {
     fontSize: 12,
     fontWeight: 700,
+    letterSpacing: 0.83,
     fontFamily: '"Cabin", sans-serif',
     color: "#00aeef",
     "&:hover": {
@@ -83,6 +86,7 @@ const useStyles = makeStyles((theme) => ({
     float: "right",
     fontSize: 12,
     fontWeight: 700,
+    letterSpacing: 0.83,
     fontFamily: '"Cabin", sans-serif',
     color: "#00aeef",
     "&:hover": {
@@ -97,7 +101,6 @@ export default function WalletCard({
   symbol,
   balance,
   address,
-  viewTransactionOnClick,
   exchangeRate,
 }) {
   const classes = useStyles();
@@ -127,26 +130,12 @@ export default function WalletCard({
       <div className={classes.address}>{address}</div>
       <div className={classes.walletSubtitle}>Wallet Address</div>
       <div className={classes.buttons}>
-        <Button
-          className={classes.leftButton}
-          startIcon={<CopyIcon fontSize="large" />}
-          onClick={() => {
-            copyToClipboard(address);
-          }}
-        >
-          Copy Address
-        </Button>
-        <Button
-          className={classes.rightButton}
-          endIcon={<ChevronRightIcon />}
-          onClick={() => {
-            if (viewTransactionOnClick) {
-              viewTransactionOnClick(address);
-            }
-          }}
-        >
-          View Transactions
-        </Button>
+        <CopyAddressButton address={address} />
+        <Link to={`/admin/wallets/transactions/${address}`}>
+          <TextButton endIcon={<ChevronRightIcon />} float={"right"}>
+            View Transactions
+          </TextButton>
+        </Link>
       </div>
     </div>
   );

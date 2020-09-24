@@ -124,8 +124,14 @@ export default function JuniperAdmin() {
     setUser(newUser);
   };
 
+  const fetchAccounts = async () => {
+    setAccounts(await getAccounts());
+  };
+
   const fetchWallets = async () => {
     setWallets(await getWallets());
+    setSummary(await getWalletsSummary());
+    setTrackedWallets(await getTrackedWallets());
   };
 
   const fetchTrackedWallets = async () => {
@@ -159,7 +165,9 @@ export default function JuniperAdmin() {
       setBtcRate(await getExchangeRate("BTC"));
       setPrices(await getPriceHistory());
     }
-    init();
+    if (isLoggedIn) {
+      init();
+    }
     // check if logged in
     const getUserProfile = async () => {
       let res;
@@ -189,7 +197,7 @@ export default function JuniperAdmin() {
     } else if (path.indexOf("settings") > -1) {
       setPageIndex(4);
     }
-  }, []);
+  }, [isLoggedIn]);
 
   return (
     <div className={classes.root}>
@@ -210,6 +218,8 @@ export default function JuniperAdmin() {
                     <Sidebar
                       pageIndex={pageIndex}
                       setPageIndex={setPageIndex}
+                      ethRate={ethRate}
+                      btcRate={btcRate}
                     />
                     <Wallets
                       wallets={wallets}
@@ -226,6 +236,8 @@ export default function JuniperAdmin() {
                     <Sidebar
                       pageIndex={pageIndex}
                       setPageIndex={setPageIndex}
+                      ethRate={ethRate}
+                      btcRate={btcRate}
                     />
                     <Wallets
                       wallets={wallets}
@@ -243,9 +255,12 @@ export default function JuniperAdmin() {
                     <Sidebar
                       pageIndex={pageIndex}
                       setPageIndex={setPageIndex}
+                      ethRate={ethRate}
+                      btcRate={btcRate}
                     />
                     <Accounts
                       isAdmin={user.isAdmin}
+                      fetchAccounts={fetchAccounts}
                       accounts={accounts}
                       ethRate={ethRate}
                       btcRate={btcRate}
@@ -256,6 +271,8 @@ export default function JuniperAdmin() {
                     <Sidebar
                       pageIndex={pageIndex}
                       setPageIndex={setPageIndex}
+                      ethRate={ethRate}
+                      btcRate={btcRate}
                     />
                     <PriceTracker prices={prices} />
                   </Route>
@@ -264,6 +281,8 @@ export default function JuniperAdmin() {
                     <Sidebar
                       pageIndex={pageIndex}
                       setPageIndex={setPageIndex}
+                      ethRate={ethRate}
+                      btcRate={btcRate}
                     />
                     <Transactions
                       isAdmin={user.isAdmin}
@@ -276,6 +295,8 @@ export default function JuniperAdmin() {
                     <Sidebar
                       pageIndex={pageIndex}
                       setPageIndex={setPageIndex}
+                      ethRate={ethRate}
+                      btcRate={btcRate}
                     />
                     <Settings
                       user={user}

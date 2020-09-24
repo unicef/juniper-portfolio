@@ -13,7 +13,6 @@ import TxList from "../../ui/TxList";
 import Snackbar from "../../ui/Snackbar";
 import { TagTransaction } from "../../ui/Dialog";
 import { getExchangeRate, publishTransaction } from "../../actions";
-import LoadingScreen from "../../ui/LoadingScreen";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -21,9 +20,11 @@ const useStyles = makeStyles((theme) => ({
     flexGrow: 1,
     height: "100%",
     backgroundColor: "#f8f8f8",
+    display: "flex",
+    flexFlow: "column",
   },
   padding: {
-    padding: theme.spacing(3),
+    paddingTop: "2em",
   },
   navigation: {
     backgroundColor: "#ffffff",
@@ -42,7 +43,12 @@ function TabPanel(props) {
       id={`simple-tabpanel-${index}`}
       aria-labelledby={`simple-tab-${index}`}
       {...other}
-      style={{ backgroundColor: "#f8f8f8", paddingBottom: "2em" }}
+      style={{
+        backgroundColor: "#f8f8f8",
+        paddingBottom: "2em",
+        overflowY: "auto",
+        flex: "1 1 auto",
+      }}
     >
       {activeTab === index && <Container maxWidth="md">{children}</Container>}
     </div>
@@ -79,7 +85,6 @@ export default function Transactions({
 }) {
   const classes = useStyles();
   const [activeTab, setActiveTab] = useState(0);
-  const [fetchingTxs, setFetchingTxs] = useState(false);
 
   const [unpublishedTxs, setUnpublishedTxs] = useState([]);
   const [unpublishedPage, setUnpublishedPage] = useState(0);
@@ -193,23 +198,19 @@ export default function Transactions({
           style={activeTab === 2 ? { color: "#00aeef" } : {}}
         />
       </StyledTabs>
-      <Typography className={classes.padding} />
 
-      <TabPanel activeTab={activeTab} index={0}>
-        {fetchingTxs ? (
-          <LoadingScreen loadingMessage={"Loading Transactions"} />
-        ) : (
-          <TxList
-            title={`${unpublishedTxs.length} Unpublished Transactions`}
-            txs={unpublishedTxs}
-            TxCard={UnpublishedTxCard}
-            page={unpublishedPage}
-            onPaginationClick={setUnpublishedPage}
-            isAdmin={isAdmin}
-          />
-        )}
+      <TabPanel activeTab={activeTab} index={0} className={classes.padding}>
+        <TxList
+          title={`${unpublishedTxs.length} Unpublished Transactions`}
+          txs={unpublishedTxs}
+          TxCard={UnpublishedTxCard}
+          page={unpublishedPage}
+          onPaginationClick={setUnpublishedPage}
+          isAdmin={isAdmin}
+          showPriceInfo={true}
+        />
       </TabPanel>
-      <TabPanel activeTab={activeTab} index={1}>
+      <TabPanel activeTab={activeTab} index={1} className={classes.padding}>
         <TxList
           title={`${publishedTxs.length} Published Transactions`}
           txs={publishedTxs}
@@ -217,9 +218,10 @@ export default function Transactions({
           page={publishedPage}
           onPaginationClick={setPublishedPage}
           isAdmin={isAdmin}
+          showPriceInfo={true}
         />
       </TabPanel>
-      <TabPanel activeTab={activeTab} index={2}>
+      <TabPanel activeTab={activeTab} index={2} className={classes.padding}>
         <TxList
           title={`${archivedTxs.length} Archived Transactions`}
           txs={archivedTxs}
@@ -227,6 +229,7 @@ export default function Transactions({
           page={archivedPage}
           onPaginationClick={setArchivedPage}
           isAdmin={isAdmin}
+          showPriceInfo={true}
         />
       </TabPanel>
       <Snackbar

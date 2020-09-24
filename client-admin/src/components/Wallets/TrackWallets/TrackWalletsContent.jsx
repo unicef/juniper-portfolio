@@ -5,6 +5,7 @@ import Grid from "@material-ui/core/Grid";
 import Button from "@material-ui/core/Button";
 import { TrackWalletCard } from "../../../ui/Cards";
 import { AddWallet } from "../../../ui/Dialog";
+import { ContainedButton } from "../../../ui/Buttons";
 
 const mainStyles = makeStyles((theme) => ({
   root: {
@@ -97,16 +98,13 @@ export default function ({
             address is also used to transact in cryptocurrency.
           </p>
 
-          <Button
-            color="primary"
-            variant="contained"
-            className={classes.followWalletButton}
+          <ContainedButton
             onClick={() => {
               setShowAddWalletModal(true);
             }}
           >
             Follow a Blockchain Wallet
-          </Button>
+          </ContainedButton>
         </Grid>
 
         <Grid item xs={12} style={{ marginTop: "4em" }}>

@@ -1,4 +1,4 @@
-module.exports = async (currentPassword, newPassword, newPassword2) => {
+export default async (currentPassword, newPassword, newPassword2) => {
   let res;
   try {
     res = await fetch(`/rest/admin/settings/user/password`, {
@@ -16,5 +16,5 @@ module.exports = async (currentPassword, newPassword, newPassword2) => {
   } catch (e) {
     return console.log(e);
   }
-  return res.status;
+  return res;
 };

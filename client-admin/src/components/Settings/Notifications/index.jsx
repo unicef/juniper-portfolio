@@ -8,7 +8,7 @@ import FormControlLabel from "@material-ui/core/FormControlLabel";
 import Switch from "@material-ui/core/Switch";
 import Checkbox from "@material-ui/core/Checkbox";
 import Button from "@material-ui/core/Button";
-
+import { ContainedButton } from "../../../ui/Buttons";
 const useStyles = makeStyles((theme) => ({
   root: {
     width: "100%",
@@ -48,18 +48,6 @@ const useStyles = makeStyles((theme) => ({
     textAlign: "right",
   },
   toggleLabel: { fontWeight: 700 },
-  changePasswordButton: {
-    width: 208,
-    height: 35,
-    fontFamily: '"Cabin", sans-serif',
-    letterSpacing: 1,
-    fontSize: 12,
-    fontWeight: 700,
-    textAlign: "center",
-    color: "#ffffff",
-    boxShadow: "none",
-    marginLeft: 18,
-  },
 }));
 
 const BlueSwitch = withStyles((theme) => ({
@@ -211,13 +199,9 @@ export default function ActivityList({ user, updateUser }) {
           </ListItem>
         </List>
         <Grid item xs={12}>
-          <Button
-            variant="contained"
-            color="primary"
-            className={classes.changePasswordButton}
-          >
+          <ContainedButton style={{ width: 208, marginLeft: 17 }}>
             Save Changes
-          </Button>
+          </ContainedButton>
         </Grid>
       </Grid>
     </Grid>

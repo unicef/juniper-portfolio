@@ -21,6 +21,9 @@ const WalletDetailsCardStyles = makeStyles((theme) => ({
     lineHeight: 1.33,
     marginTop: ".5em",
     color: "#000000",
+    whiteSpace: "nowrap",
+    overflow: "hidden",
+    textOverflow: "ellipsis",
   },
   authorizationSigner: {
     height: 283,
@@ -58,12 +61,12 @@ export default function AuthorizationSignerCard({
         </h3>
       </Grid>
       <Grid item xs={12}>
-        <div className={classes.signerText}>{address}</div>
-        <div className={classes.walletSubtitle}>Wallet Address</div>
-      </Grid>
-      <Grid item xs={12}>
         <div className={classes.signerText}>{owner}</div>
         <div className={classes.walletSubtitle}>Wallet Owner</div>
+      </Grid>
+      <Grid item xs={12}>
+        <div className={classes.signerText}>{address}</div>
+        <div className={classes.walletSubtitle}>Wallet Address</div>
       </Grid>
       <Grid item xs={12}>
         <div className={classes.signerText}>

@@ -5,13 +5,14 @@ import Button from "@material-ui/core/Button";
 import ChevronRightIcon from "@material-ui/icons/ChevronRight";
 import { usdFormatter, cryptoFormatter } from "../../util";
 import { calculateAccountTotal } from "../../actions";
+import { TextButton } from "../Buttons";
 
 const useStyles = makeStyles((theme) => ({
   wallet: {
     minHeight: 290,
     backgroundColor: "#ffffff",
     fontFamily: '"Roboto", sans-serif',
-    paddingTop: 10,
+    paddingTop: 30,
     paddingLeft: 30,
     paddingRight: 30,
     paddingBottom: 25,
@@ -82,14 +83,7 @@ const useStyles = makeStyles((theme) => ({
     },
   },
   viewTxButton: {
-    fontSize: 12,
-    fontWeight: 700,
-    fontFamily: '"Cabin", sans-serif',
     marginTop: 25,
-    color: "#00aeef",
-    "&:hover": {
-      backgroundColor: "#ecfaff",
-    },
   },
 }));
 
@@ -164,16 +158,19 @@ export default function AccountCard({
           <div className={classes.walletSubtitle}>Current Value</div>
         </Grid>
       </Grid>
-      <Button
-        className={classes.viewTxButton}
-        endIcon={<ChevronRightIcon />}
-        onClick={() => {
-          setDetailsAccount(name);
-          setOpenDetails(true);
-        }}
-      >
-        View Account Details
-      </Button>
+      <Grid container>
+        <Grid item xs={12} className={classes.viewTxButton}>
+          <TextButton
+            endIcon={<ChevronRightIcon />}
+            onClick={() => {
+              setDetailsAccount(name);
+              setOpenDetails(true);
+            }}
+          >
+            View Account Details
+          </TextButton>
+        </Grid>
+      </Grid>
     </div>
   );
 }

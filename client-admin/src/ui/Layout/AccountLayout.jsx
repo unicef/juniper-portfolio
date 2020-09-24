@@ -9,6 +9,7 @@ import AccountCard from "../Cards/AccountCard";
 import { AccountDetails } from "../Dialog";
 import { StartupDetails } from "../Dialog";
 import { calculateAccountTotal } from "../../actions";
+import { TextButton, ContainedButton } from "../Buttons";
 
 const transactionDetailsStyles = makeStyles((theme) => ({
   root: {
@@ -36,16 +37,7 @@ const transactionDetailsStyles = makeStyles((theme) => ({
     marginTop: 0,
     marginBottom: 9,
   },
-  messageButton: {
-    fontSize: 12,
-    fontWeight: 700,
-    fontFamily: '"Cabin", sans-serif',
-    color: "#00aeef",
-    "&:hover": {
-      backgroundColor: "#ecfaff",
-    },
-    "& .MuiButton-endIcon": { marginLeft: 0 },
-  },
+
   walletSubheading: {
     fontSize: 14,
     fontWeight: 700,
@@ -153,7 +145,10 @@ export default function AccountLayout({
           <PriceInfoBanner />
         </Grid>
         <Grid item xs={12}>
-          <h1 className={classes.title}>{title}</h1>
+          <h1 className={classes.title}>
+            {accounts.length} {title}
+            {accounts.length === 1 ? "" : "s"}
+          </h1>
         </Grid>
         <Grid item xs={3}>
           <AccountBalanceCard
@@ -176,16 +171,13 @@ export default function AccountLayout({
         </Grid>
         <Grid item xs={6}>
           {isAdmin && (
-            <Button
-              variant="contained"
-              color="primary"
-              className={classes.addButton}
+            <ContainedButton
               onClick={() => {
                 setOpenCreateDialog(true);
               }}
             >
               {addButtonText}
-            </Button>
+            </ContainedButton>
           )}
         </Grid>
         <Grid item xs={6}>
