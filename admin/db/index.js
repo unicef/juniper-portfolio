@@ -1,5 +1,5 @@
 const mongoose = require("mongoose");
-const Logger = require("../logger");
+const { Logger } = require("node-code-utils");
 const models = require("./models");
 
 class MongoDB {

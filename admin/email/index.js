@@ -1,4 +1,4 @@
-const Logger = require("../logger");
+const { Logger } = require("node-code-utils");
 const Transports = require("./transports");
 const Templates = require("./templates");
 

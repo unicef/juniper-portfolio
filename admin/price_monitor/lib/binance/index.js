@@ -1,5 +1,5 @@
 const fetch = require("node-fetch");
-const Logger = require("../../../logger");
+const { Logger } = require("node-code-utils");
 
 class Binance {
   constructor(config, db) {

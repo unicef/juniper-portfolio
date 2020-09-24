@@ -2,7 +2,7 @@ const multer = require("multer");
 const multerS3 = require("multer-s3");
 const config = require("../config");
 const AWS = require("aws-sdk");
-const Logger = require("../logger");
+const { Logger } = require("node-code-utils");
 
 const { AWS_ACCESS_KEY, AWS_SECRET_KEY, AWS_BUCKET_NAME } = process.env;
 
