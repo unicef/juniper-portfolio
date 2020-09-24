@@ -1,37 +1,36 @@
 import React, { Fragment } from "react";
 import YourWalletsContent from "./YourWalletsContent";
 import WalletDetails from "../WalletDetails";
-
-// TODO: Add State/API calls/routes
+import { Switch, Route } from "react-router-dom";
 export default class YourWallets extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {
-      walletDetailsAddress: null,
-    };
+    this.state = {};
   }
 
-  viewWalletDetails = (walletDetailsAddress) => {
-    this.setState({ walletDetailsAddress });
-  };
-
   render() {
-    const { walletDetailsAddress } = this.state;
     return (
       <Fragment>
-        {walletDetailsAddress ? (
-          <WalletDetails
-            viewWalletDetails={this.viewWalletDetails}
-            walletDetailsAddress={this.state.walletDetailsAddress}
-            getExchangeRate={this.props.getExchangeRate}
-          />
-        ) : (
-          <YourWalletsContent
-            viewWalletDetails={this.viewWalletDetails}
-            getExchangeRate={this.props.getExchangeRate}
-            isAdmin={this.props.isAdmin}
-          />
-        )}
+        <Switch>
+          <Route exact path="/admin/wallets">
+            <YourWalletsContent
+              wallets={this.props.wallets}
+              summary={this.props.summary}
+              fetchWallets={this.props.fetchWallets}
+              isAdmin={this.props.isAdmin}
+              btcRate={this.props.btcRate}
+              ethRate={this.props.ethRate}
+            />
+          </Route>
+          <Route path="/admin/wallets/transactions/:address">
+            <WalletDetails
+              walletDetailsAddress={this.state.walletDetailsAddress}
+              btcRate={this.props.btcRate}
+              ethRate={this.props.ethRate}
+              fetchWallets={this.props.fetchWallets}
+            />
+          </Route>
+        </Switch>
       </Fragment>
     );
   }

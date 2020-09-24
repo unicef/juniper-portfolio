@@ -11,12 +11,15 @@ router.get("/", async (req, res) => {
   let ethPrice = 0;
 
   try {
+    let oneYearAgo = new Date();
+    oneYearAgo.setFullYear(oneYearAgo.getFullYear() - 1);
+
     logger.info("Getting BTC Prices");
-    btcPrice = await juniperAdmin.priceMonitor.getPrice("BTC");
+    btcPrice = await juniperAdmin.priceMonitor.getPrice("BTC", oneYearAgo);
     bitcoin = await juniperAdmin.db.getPrices("BTC");
 
     logger.info("Getting ETH Prices");
-    ethPrice = await juniperAdmin.priceMonitor.getPrice("ETH");
+    ethPrice = await juniperAdmin.priceMonitor.getPrice("ETH", oneYearAgo);
     ethereum = await juniperAdmin.db.getPrices("ETH");
   } catch (e) {
     logger.error(e);

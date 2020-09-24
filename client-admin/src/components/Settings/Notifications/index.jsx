@@ -1,4 +1,4 @@
-import React, { Fragment } from "react";
+import React from "react";
 import { withStyles, makeStyles } from "@material-ui/core/styles";
 import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
@@ -8,7 +8,7 @@ import FormControlLabel from "@material-ui/core/FormControlLabel";
 import Switch from "@material-ui/core/Switch";
 import Checkbox from "@material-ui/core/Checkbox";
 import Button from "@material-ui/core/Button";
-
+import { ContainedButton } from "../../../ui/Buttons";
 const useStyles = makeStyles((theme) => ({
   root: {
     width: "100%",
@@ -48,18 +48,6 @@ const useStyles = makeStyles((theme) => ({
     textAlign: "right",
   },
   toggleLabel: { fontWeight: 700 },
-  changePasswordButton: {
-    width: 208,
-    height: 35,
-    fontFamily: '"Cabin", sans-serif',
-    letterSpacing: 1,
-    fontSize: 12,
-    fontWeight: 700,
-    textAlign: "center",
-    color: "#ffffff",
-    boxShadow: "none",
-    marginLeft: 18,
-  },
 }));
 
 const BlueSwitch = withStyles((theme) => ({
@@ -125,7 +113,7 @@ const BlueCheckbox = withStyles({
   checked: {},
 })((props) => <Checkbox color="default" fontSize="large" {...props} />);
 
-export default function ActivityList(props) {
+export default function ActivityList({ user, updateUser }) {
   const classes = useStyles();
 
   return (
@@ -144,13 +132,13 @@ export default function ActivityList(props) {
                 <FormControlLabel
                   control={
                     <BlueSwitch
-                      checked={props.user.notifications}
+                      checked={user.notifications}
                       onChange={(e) => {
-                        props.updateUser({ notifications: e.target.checked });
+                        updateUser({ notifications: e.target.checked });
                       }}
                     />
                   }
-                  label={props.user.notifications ? "On" : "Off"}
+                  label={user.notifications ? "On" : "Off"}
                   labelPlacement="start"
                   className={classes.toggleLabel}
                 />
@@ -167,9 +155,9 @@ export default function ActivityList(props) {
               </Grid>
               <Grid item xs={2} className={classes.checkbox}>
                 <BlueCheckbox
-                  checked={props.user.userAdded}
+                  checked={user.userAdded}
                   onChange={(e) => {
-                    props.updateUser({ userAdded: e.target.checked });
+                    updateUser({ userAdded: e.target.checked });
                   }}
                 />
               </Grid>
@@ -184,9 +172,9 @@ export default function ActivityList(props) {
               </Grid>
               <Grid item xs={2} className={classes.checkbox}>
                 <BlueCheckbox
-                  checked={props.user.newTransaction}
+                  checked={user.newTransaction}
                   onChange={(e) => {
-                    props.updateUser({ newTransaction: e.target.checked });
+                    updateUser({ newTransaction: e.target.checked });
                   }}
                 />
               </Grid>
@@ -201,9 +189,9 @@ export default function ActivityList(props) {
               </Grid>
               <Grid item xs={2} className={classes.checkbox}>
                 <BlueCheckbox
-                  checked={props.user.transactionTagged}
+                  checked={user.transactionTagged}
                   onChange={(e) => {
-                    props.updateUser({ transactionTagged: e.target.checked });
+                    updateUser({ transactionTagged: e.target.checked });
                   }}
                 />
               </Grid>
@@ -211,13 +199,9 @@ export default function ActivityList(props) {
           </ListItem>
         </List>
         <Grid item xs={12}>
-          <Button
-            variant="contained"
-            color="primary"
-            className={classes.changePasswordButton}
-          >
+          <ContainedButton style={{ width: 208, marginLeft: 17 }}>
             Save Changes
-          </Button>
+          </ContainedButton>
         </Grid>
       </Grid>
     </Grid>

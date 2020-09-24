@@ -4,6 +4,7 @@ import Grid from "@material-ui/core/Grid";
 import Select from "@material-ui/core/Select";
 import MenuItem from "@material-ui/core/MenuItem";
 import Button from "@material-ui/core/Button";
+import { ContainedButton } from "../../../ui/Buttons";
 
 const useStyles = makeStyles({
   root: {
@@ -28,25 +29,14 @@ const useStyles = makeStyles({
       backgroundColor: "#daf5ff",
     },
   },
-  filledButton: {
-    width: 202,
-    height: 35,
-    fontFamily: '"Cabin", sans-serif',
-    fontSize: 12,
-    fontWeight: 700,
-    textAlign: "center",
-    color: "#ffffff",
-    boxShadow: "none",
-    marginTop: 35,
-  },
 });
 
-export default function SettingsProfile(props) {
+export default function SettingsProfile({ user, updateUser }) {
   const classes = useStyles();
   const [department, setDepartment] = useState("");
 
   useEffect(() => {
-    setDepartment(props.user.department);
+    setDepartment(user.department);
   }, []);
 
   return (
@@ -77,16 +67,16 @@ export default function SettingsProfile(props) {
         </Select>
       </Grid>
       <Grid item xs={12}>
-        <Button
-          className={classes.filledButton}
+        <ContainedButton
           variant="contained"
           color="primary"
           onClick={() => {
-            props.updateUser({ department });
+            updateUser({ department });
           }}
+          style={{ width: 202, marginTop: 35 }}
         >
           Save Changes
-        </Button>
+        </ContainedButton>
       </Grid>
     </Grid>
   );

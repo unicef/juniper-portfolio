@@ -4,6 +4,8 @@ import Grid from "@material-ui/core/Grid";
 import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
 import Snackbar from "../../../ui/Snackbar";
+import { changePassword } from "../../../actions";
+import { TextButton, ContainedButton } from "../../../ui/Buttons";
 
 const useStyles = makeStyles({
   root: {
@@ -48,18 +50,6 @@ const useStyles = makeStyles({
     backgroundColor: "#ff8080",
     borderRadius: 5,
     padding: "11px 16px 11px 16px",
-  },
-  changePasswordButton: {
-    width: "100%",
-    height: 35,
-    fontFamily: '"Cabin", sans-serif',
-    letterSpacing: 1,
-    fontSize: 12,
-    fontWeight: 700,
-    textAlign: "center",
-    color: "#ffffff",
-    boxShadow: "none",
-    marginTop: 17,
   },
 });
 
@@ -108,44 +98,6 @@ export default function SettingsLogin() {
     setShowErrorMessage(true);
     setPasswordInvalid(true);
     return false;
-  };
-
-  const changePassword = async () => {
-    let res;
-    try {
-      res = await fetch(`/rest/admin/settings/user/password`, {
-        credentials: "include",
-        method: "PUT",
-        body: JSON.stringify({
-          currentPassword,
-          newPassword,
-          newPassword2,
-        }),
-        headers: {
-          "Content-Type": "application/json",
-        },
-      });
-    } catch (e) {
-      return console.log(e);
-    }
-
-    if (res.status === 401) {
-      setPasswordWrong(true);
-      setErrorMessage(
-        "The current password does not match the saved password."
-      );
-      setShowErrorMessage(true);
-      // current password wrong
-    } else if (res.status === 400) {
-      setShowErrorMessage(true);
-      // validation failed on server
-    } else {
-      // success
-      setShowSnackbar(true);
-      setCurrentPassword("");
-      setNewPassword("");
-      setNewPassword2("");
-    }
   };
 
   return (
@@ -218,21 +170,40 @@ export default function SettingsLogin() {
               setNewPassword2(e.target.value);
             }}
           />
-          <Button
-            variant="contained"
-            color="primary"
-            className={classes.changePasswordButton}
-            onClick={() => {
+          <ContainedButton
+            onClick={async () => {
               setPasswordInvalid(false);
               setPasswordWrong(false);
               setShowErrorMessage(false);
               if (validatePassword()) {
-                changePassword();
+                const res = await changePassword(
+                  currentPassword,
+                  newPassword,
+                  newPassword2
+                );
+                if (res.status === 401) {
+                  setPasswordWrong(true);
+                  setErrorMessage(
+                    "The current password does not match the saved password."
+                  );
+                  setShowErrorMessage(true);
+                  // current password wrong
+                } else if (res.status === 400 || res.status === 500) {
+                  setShowErrorMessage(true);
+                  // validation failed on server
+                } else {
+                  // success
+                  setShowSnackbar(true);
+                  setCurrentPassword("");
+                  setNewPassword("");
+                  setNewPassword2("");
+                }
               }
             }}
+            style={{ width: "100%" }}
           >
             Change Password
-          </Button>
+          </ContainedButton>
         </form>
       </Grid>
       <Grid item xs={6} className={classes.messageBox}>

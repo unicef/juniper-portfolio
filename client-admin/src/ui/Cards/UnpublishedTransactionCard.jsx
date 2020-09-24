@@ -9,6 +9,8 @@ import TxSentIcon from "../Icons/TxSentIcon";
 import ArchiveTxIcon from "../Icons/ArchiveTxIcon";
 import TxStepper from "../TxStepper";
 import { usdFormatter, cryptoFormatter } from "../../util";
+import { archiveTransaction } from "../../actions";
+import { TextButton, ContainedButton } from "../Buttons";
 
 const useStyles = makeStyles((theme) => ({
   walletSubtitle: {
@@ -41,19 +43,6 @@ const useStyles = makeStyles((theme) => ({
   },
   unpublishedTxDetailsButton: {
     marginTop: "1em",
-    float: "left",
-    fontSize: 12,
-    fontWeight: 700,
-    letterSpacing: 1,
-    fontFamily: '"Cabin", sans-serif',
-    color: "#00aeef",
-    "&:hover": {
-      backgroundColor: "#ecfaff",
-    },
-    "& .MuiButton-endIcon": {
-      margin: 0,
-    },
-    paddingLeft: 0,
   },
   unpublishedTxBalance: {
     fontFamily: '"Roboto", sans-serif',
@@ -83,15 +72,7 @@ const useStyles = makeStyles((theme) => ({
       marginTop: 8,
     },
   },
-  tagTransactionButton: {
-    width: 176,
-    height: 35,
-    fontFamily: '"Cabin", sans-serif',
-    fontSize: 12,
-    fontWeight: 700,
-    textAlign: "center",
-    color: "#ffffff",
-    boxShadow: "none",
+  txDetailsButton: {
     marginTop: 13,
   },
 }));
@@ -112,39 +93,12 @@ export default function UnpublishedTransactionCard({
   received,
   donor,
   setAuthorizationRecord,
-  archiveTransaction,
-  archiveTransactionSuccess,
-  archiveTransactionFailed,
+  fetchTransactions,
   onTagTransactionClick,
   isAdmin,
 }) {
   const classes = useStyles();
   const txSent = new Date(timestamp);
-
-  const archiveTransactionPost = async (txid) => {
-    let res;
-    try {
-      res = await fetch(`/rest/admin/transactions/archive`, {
-        credentials: "include",
-        method: "POST",
-        body: JSON.stringify({
-          txid,
-        }),
-        headers: {
-          "Content-Type": "application/json",
-        },
-      });
-    } catch (e) {
-      console.log(e);
-      return;
-    }
-
-    if (res.status === 200) {
-      archiveTransactionSuccess();
-    } else {
-      archiveTransactionFailed(txid);
-    }
-  };
 
   return (
     <Fragment>
@@ -159,7 +113,7 @@ export default function UnpublishedTransactionCard({
           <span className={classes.headerText}>
             Crypto {sent ? "sent" : null} {received ? "received" : null} at{" "}
             <b>
-              {txSent.toLocaleTimeString()}, {txSent.toDateString()}
+              {txSent.getHours()}:{txSent.getMinutes()}, {txSent.toDateString()}
             </b>
           </span>
         </Grid>
@@ -173,27 +127,28 @@ export default function UnpublishedTransactionCard({
             to={tx.to}
             from={tx.from}
           />
-          <Button
-            className={classes.unpublishedTxDetailsButton}
-            endIcon={<ChevronRightIcon />}
-            onClick={() => {
-              switch (symbol) {
-                case "BTC":
-                  window.open(
-                    `https://www.blockchain.com/btc/tx/${txid}`,
-                    "_blank"
-                  );
-                  break;
-                case "ETH":
-                  window.open(`https://etherscan.io/tx/${txid}`);
-                  break;
-                default:
-                  break;
-              }
-            }}
-          >
-            Show Transaction Details
-          </Button>
+          <div className={classes.unpublishedTxDetailsButton}>
+            <TextButton
+              endIcon={<ChevronRightIcon />}
+              onClick={() => {
+                switch (symbol) {
+                  case "BTC":
+                    window.open(
+                      `https://www.blockchain.com/btc/tx/${txid}`,
+                      "_blank"
+                    );
+                    break;
+                  case "ETH":
+                    window.open(`https://etherscan.io/tx/${txid}`);
+                    break;
+                  default:
+                    break;
+                }
+              }}
+            >
+              Show Transaction Details
+            </TextButton>
+          </div>
         </Grid>
         <Grid item xs={4}>
           <div className={classes.unpublishedTxBalance}>
@@ -203,28 +158,28 @@ export default function UnpublishedTransactionCard({
           <div className={classes.walletSubtitle}>Donated Amount</div>
 
           {isAdmin && received && !tx.published && (
-            <Button
-              variant="contained"
-              color="primary"
-              className={classes.tagTransactionButton}
+            <ContainedButton
               onClick={() => {
                 onTagTransactionClick(tx);
               }}
+              style={{ width: 176, marginTop: "1em" }}
             >
               Tag Transaction
-            </Button>
+            </ContainedButton>
           )}
           {isAdmin && (
-            <Button
-              className={classes.archiveTransactionButton}
-              startIcon={<ArchiveTxIcon />}
+            <TextButton
+              startIcon={
+                <ArchiveTxIcon style={{ paddingTop: 5, fontSize: 26 }} />
+              }
               onClick={async () => {
-                archiveTransaction(txid);
-                await archiveTransactionPost(txid);
+                await archiveTransaction(txid);
+                await fetchTransactions();
               }}
+              style={{ marginTop: "1em" }}
             >
               Archive Transaction
-            </Button>
+            </TextButton>
           )}
         </Grid>
       </Grid>

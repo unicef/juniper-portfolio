@@ -9,6 +9,9 @@ import Button from "@material-ui/core/Button";
 import InputLabel from "@material-ui/core/InputLabel";
 import Divider from "@material-ui/core/Divider";
 import GenerateLinkIcon from "../../../ui/Icons/GenerateLinkIcon";
+import { copyToClipboard } from "../../../actions";
+import { addUser } from "../../../actions";
+import { TextButton, ContainedButton } from "../../../ui/Buttons";
 
 const useStyles = makeStyles({
   root: {
@@ -89,26 +92,7 @@ const useStyles = makeStyles({
     lineHeight: 1.42,
     color: "#000000",
   },
-  generatLinkButton: {
-    marginTop: "1em",
-    float: "left",
-    fontSize: 12,
-    fontWeight: 700,
-    letterSpacing: 1,
-    fontFamily: '"Cabin", sans-serif',
-    color: "#00aeef",
-    "&:hover": {
-      backgroundColor: "#ecfaff",
-    },
-    "& .MuiButton-endIcon": {
-      margin: 0,
-    },
-    paddingLeft: 0,
-    "& .MuiButton-startIcon": {
-      margin: 0,
-      marginTop: 8,
-    },
-  },
+
   verificationCode: {
     paddingTop: 22,
     fontSize: 14,
@@ -116,7 +100,7 @@ const useStyles = makeStyles({
   },
 });
 
-export default function AddNewUser(props) {
+export default function AddNewUser({ setUsers }) {
   const classes = useStyles();
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
@@ -124,81 +108,18 @@ export default function AddNewUser(props) {
   const [isAdmin, setIsAdmin] = useState("");
   const [email, setEmail] = useState("");
   const [siteLink, setSiteLink] = useState(
-    "https://juniper.unicef.io/admin/signin?verificationCode="
+    "https://juniper.unicef.io/admin/signin?verification="
   );
   const [verificationCode, setVerificationCode] = useState("");
 
-  const copyToClipboard = (str) => {
-    const el = document.createElement("textarea");
-    el.value = str;
-    document.body.appendChild(el);
-    el.select();
-    document.execCommand("copy");
-    document.body.removeChild(el);
-  };
-
-  const addNewUser = async (copyLink = false) => {
-    let res;
-    let users;
-    let notifications = false;
-    let userAdded = false;
-    let newTransaction = false;
-    let transactionTagged = false;
-
-    if (isAdmin) {
-      notifications = true;
-      userAdded = true;
-      newTransaction = true;
-      transactionTagged = true;
-    }
-
-    let user = {
-      firstName,
-      lastName,
-      department,
-      isAdmin,
-      email,
-      notifications,
-      userAdded,
-      newTransaction,
-      transactionTagged,
-    };
-
-    try {
-      res = await fetch(`/rest/admin/settings/user/invite`, {
-        credentials: "include",
-        method: "POST",
-        body: JSON.stringify({
-          user,
-        }),
-        headers: {
-          "Content-Type": "application/json",
-        },
-      });
-      users = await res.json();
-    } catch (e) {
-      return console.log(e);
-    }
-
-    if (res.status === 200) {
-      user = users.filter((u) => {
-        return u.email === user.email;
-      })[0];
-
-      setVerificationCode(user.verificationCode);
-      if (copyLink) {
-        this.props.copyToClipboard(`${siteLink}${user.verificationCode}`);
-      }
-      props.setUsers(users);
-
-      setFirstName("");
-      setLastName("");
-      setDepartment("");
-      setIsAdmin("");
-      setEmail("");
-      setSiteLink("");
-      setVerificationCode("");
-    }
+  const resetForm = () => {
+    setFirstName("");
+    setLastName("");
+    setDepartment("");
+    setIsAdmin("");
+    setEmail("");
+    setSiteLink("");
+    setVerificationCode("");
   };
 
   return (
@@ -309,16 +230,27 @@ export default function AddNewUser(props) {
         />
       </Grid>
       <Grid item xs={12} className={classes.formItem}>
-        <Button
-          className={classes.filledButton}
-          variant="contained"
-          color="primary"
-          onClick={() => {
-            addNewUser();
+        <ContainedButton
+          onClick={async () => {
+            const users = await addUser({
+              firstName,
+              lastName,
+              department,
+              isAdmin,
+              email,
+              notifications: isAdmin,
+              userAdded: isAdmin,
+              newTransaction: isAdmin,
+              transactionTagged: isAdmin,
+            });
+
+            setUsers(users);
+            resetForm();
           }}
+          style={{ width: 202, marginTop: 19, paddingLeft: 15 }}
         >
           Send Invite
-        </Button>
+        </ContainedButton>
       </Grid>
       <Grid item xs={6} className={classes.formItem}>
         <Divider className={classes.divider} />
@@ -334,19 +266,36 @@ export default function AddNewUser(props) {
         </p>
       </Grid>
       <Grid item xs={12} className={classes.formItem}>
-        <Button
-          className={classes.generatLinkButton}
-          startIcon={<GenerateLinkIcon />}
+        <TextButton
+          startIcon={<GenerateLinkIcon style={{ marginTop: 6 }} />}
           onClick={async () => {
             if (verificationCode) {
-              this.props.copyToClipboard(`${siteLink}${verificationCode}`);
+              copyToClipboard(`${siteLink}${verificationCode}`);
             } else {
-              addNewUser(true);
+              const users = await addUser({
+                firstName,
+                lastName,
+                department,
+                isAdmin,
+                email,
+                notifications: isAdmin,
+                userAdded: isAdmin,
+                newTransaction: isAdmin,
+                transactionTagged: isAdmin,
+              });
+              const u = users.filter((u) => {
+                return u.email === email;
+              })[0];
+
+              setVerificationCode(u.verificationCode);
+              copyToClipboard(`${siteLink}${u.verificationCode}`);
+              setUsers(users);
+              resetForm();
             }
           }}
         >
           Generate Invite Link
-        </Button>
+        </TextButton>
       </Grid>
     </Grid>
   );

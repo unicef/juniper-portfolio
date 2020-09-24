@@ -1,4 +1,4 @@
-import React, { Fragment, useState } from "react";
+import React, { Fragment, useEffect, useState } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import PriceInfoBanner from "../PriceInfoBanner";
 import Grid from "@material-ui/core/Grid";
@@ -8,6 +8,8 @@ import AccountBalanceCard from "../Cards/AccountBalanceCard";
 import AccountCard from "../Cards/AccountCard";
 import { AccountDetails } from "../Dialog";
 import { StartupDetails } from "../Dialog";
+import { calculateAccountTotal } from "../../actions";
+import { TextButton, ContainedButton } from "../Buttons";
 
 const transactionDetailsStyles = makeStyles((theme) => ({
   root: {
@@ -35,16 +37,7 @@ const transactionDetailsStyles = makeStyles((theme) => ({
     marginTop: 0,
     minHeight: 110,
   },
-  messageButton: {
-    fontSize: 12,
-    fontWeight: 700,
-    fontFamily: '"Cabin", sans-serif',
-    color: "#00aeef",
-    "&:hover": {
-      backgroundColor: "#ecfaff",
-    },
-    "& .MuiButton-endIcon": { marginLeft: 0 },
-  },
+
   walletSubheading: {
     fontSize: 14,
     fontWeight: 700,
@@ -68,17 +61,12 @@ export default function AccountLayout({
   title,
   type,
   message,
-  totalEther,
-  totalETHUSD,
-  totalBitcoin,
-  totalBTCUSD,
   accounts,
   addButtonText,
   CreateModal,
   onDialogClose,
   ethRate,
   btcRate,
-  copyToClipboard,
   isAdmin,
 }) {
   const classes = transactionDetailsStyles();
@@ -86,12 +74,44 @@ export default function AccountLayout({
   const [openDetails, setOpenAccountDetails] = useState(false);
   const [openStartupDetails, setOpenStartupDetails] = useState(false);
   const [detailsAccount, setDetailsAccount] = useState(null);
+  const [totalEther, setTotalEther] = useState(0);
+  const [totalETHUSD, setTotalETHUSD] = useState(0);
+  const [totalBitcoin, setTotalBitcoin] = useState(0);
+  const [totalBTCUSD, setTotalBTCUSD] = useState(0);
 
   const closeCreateDialog = () => {
     setOpenCreateDialog(false);
     setDetailsAccount(null);
     onDialogClose();
   };
+
+  function calculateOverview() {
+    setTotalEther(
+      accounts.reduce((total, account) => {
+        return total + calculateAccountTotal(account, "Ether");
+      }, 0)
+    );
+    setTotalETHUSD(
+      accounts.reduce((total, account) => {
+        return total + calculateAccountTotal(account, "Ether");
+      }, 0) * ethRate
+    );
+    setTotalBitcoin(
+      accounts.reduce((total, account) => {
+        return total + calculateAccountTotal(account, "Bitcoin");
+      }, 0)
+    );
+    setTotalBTCUSD(
+      accounts.reduce((total, account) => {
+        return total + calculateAccountTotal(account, "Bitcoin");
+      }, 0) * btcRate
+    );
+  }
+
+  useEffect(() => {
+    calculateOverview();
+  });
+
   return (
     <Fragment>
       {CreateModal && (
@@ -109,7 +129,6 @@ export default function AccountLayout({
         account={detailsAccount}
         ethRate={ethRate}
         btcRate={btcRate}
-        copyToClipboard={copyToClipboard}
       />
       <StartupDetails
         open={openStartupDetails}
@@ -119,7 +138,6 @@ export default function AccountLayout({
         account={detailsAccount}
         ethRate={ethRate}
         btcRate={btcRate}
-        copyToClipboard={copyToClipboard}
       />
 
       <Grid container>
@@ -127,7 +145,10 @@ export default function AccountLayout({
           <PriceInfoBanner />
         </Grid>
         <Grid item xs={12}>
-          <h1 className={classes.title}>{title}</h1>
+          <h1 className={classes.title}>
+            {accounts.length} {title}
+            {accounts.length === 1 ? "" : "s"}
+          </h1>
         </Grid>
         <Grid item xs={3}>
           <AccountBalanceCard
@@ -147,8 +168,7 @@ export default function AccountLayout({
         </Grid>
         <Grid item xs={6} className={classes.messageBox}>
           <p className={classes.message}>{message}</p>
-          <Button
-            className={classes.messageButton}
+          <TextButton
             endIcon={<ChevronRightIcon />}
             onClick={() => {
               window.open(
@@ -158,20 +178,17 @@ export default function AccountLayout({
             }}
           >
             Learn more about Cryptofund
-          </Button>
+          </TextButton>
         </Grid>
         <Grid item xs={12}>
           {isAdmin && (
-            <Button
-              variant="contained"
-              color="primary"
-              className={classes.addButton}
+            <ContainedButton
               onClick={() => {
                 setOpenCreateDialog(true);
               }}
             >
               {addButtonText}
-            </Button>
+            </ContainedButton>
           )}
         </Grid>
       </Grid>
@@ -188,14 +205,13 @@ export default function AccountLayout({
             return (
               <Grid item xs={6} key={`${index}-${account.name}`}>
                 <AccountCard
+                  account={account}
                   name={account.name}
                   type={account.type}
                   image={account.image}
                   country={account.country}
-                  totalETHInvested={account.totalETHInvested}
-                  totalETHUSD={account.totalETHUSD}
-                  totalBTCInvested={account.totalBTCInvested}
-                  totalBTCUSD={account.totalBTCUSD}
+                  ethRate={ethRate}
+                  btcRate={btcRate}
                   setOpenDetails={
                     type === "startup"
                       ? setOpenStartupDetails

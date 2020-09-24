@@ -1,4 +1,4 @@
-import React, { useState, useEffect, Fragment } from "react";
+import React, { Fragment } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
@@ -9,21 +9,9 @@ import Button from "@material-ui/core/Button";
 import GenerateLinkIcon from "../../../ui/Icons/GenerateLinkIcon";
 import EnvelopeIcon from "../../../ui/Icons/EnvelopeIcon";
 import CancelIcon from "../../../ui/Icons/CancelIcons";
-
-const monthNames = [
-  "January",
-  "February",
-  "March",
-  "April",
-  "May",
-  "June",
-  "July",
-  "August",
-  "September",
-  "October",
-  "November",
-  "December",
-];
+import { copyToClipboard } from "../../../actions";
+import { monthNames } from "../../../util";
+import { TextButton } from "../../../ui/Buttons";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -127,7 +115,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function ActivityList(props) {
+export default function ActivityList({ users, removeUser, setUsers }) {
   const classes = useStyles();
 
   const reinviteUser = async (user) => {
@@ -151,7 +139,7 @@ export default function ActivityList(props) {
     }
 
     if (res.status === 200) {
-      props.setUsers(users);
+      setUsers(users);
     }
   };
 
@@ -159,7 +147,7 @@ export default function ActivityList(props) {
     <List component="nav" className={classes.root}>
       <Fragment>
         <Divider />
-        {props.users.map((user, index) => {
+        {users.map((user, index) => {
           const joinDate = new Date(
             parseInt(user._id.toString().substring(0, 8), 16) * 1000
           );
@@ -199,39 +187,40 @@ export default function ActivityList(props) {
                 <Grid item xs={3}>
                   {!user.isVerified && (
                     <Fragment>
-                      <Button
-                        className={classes.generateButton}
-                        startIcon={<EnvelopeIcon />}
+                      <TextButton
+                        startIcon={<EnvelopeIcon style={{ marginTop: 8 }} />}
                         onClick={async () => {
                           reinviteUser(user);
                         }}
                       >
                         Send New Invite
-                      </Button>
-                      <Button
-                        className={classes.generateButton}
-                        startIcon={<GenerateLinkIcon />}
+                      </TextButton>
+                      <TextButton
+                        startIcon={
+                          <GenerateLinkIcon style={{ marginTop: 8 }} />
+                        }
                         onClick={async () => {
-                          props.copyToClipboard(
+                          copyToClipboard(
                             `https://juniper.unicef.io/admin/signin?verification=${user.verificationCode}`
                           );
                         }}
                       >
                         Generate Invite Link
-                      </Button>
+                      </TextButton>
                     </Fragment>
                   )}
 
-                  <Button
-                    className={classes.removeButton}
-                    startIcon={<CancelIcon style={{ fill: "#ef6161" }} />}
+                  <TextButton
+                    startIcon={
+                      <CancelIcon style={{ fill: "#ef6161", marginTop: 8 }} />
+                    }
                     onClick={async () => {
-                      console.log("button");
-                      props.removeUser(user.email);
+                      const users = await removeUser(user.email);
+                      setUsers(users);
                     }}
                   >
                     Remove User
-                  </Button>
+                  </TextButton>
                 </Grid>
               </Grid>
             </ListItem>

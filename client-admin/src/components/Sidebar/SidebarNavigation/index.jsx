@@ -1,18 +1,18 @@
-import React, { useEffect } from "react";
+import React, { Fragment } from "react";
 import { makeStyles, withStyles } from "@material-ui/core/styles";
 import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
 import ListItemIcon from "@material-ui/core/ListItemIcon";
 import ListItemText from "@material-ui/core/ListItemText";
 import Typography from "@material-ui/core/Typography";
-
 import { Link } from "react-router-dom";
-
 import WalletsIcon from "../../../ui/Icons/WalletsIcon";
 import AccountsIcon from "../../../ui/Icons/AccountsIcon";
 import PriceTrackerIcon from "../../../ui/Icons/PriceTrackerIcon";
 import TransactionsIcon from "../../../ui/Icons/TransactionsIcon";
+import USDIcon from "../../../ui/Icons/USDIcon";
 import SettingsIcon from "@material-ui/icons/Settings";
+import { usdFormatter } from "../../../util";
 
 const useStyles = makeStyles((theme) => ({
   list: {
@@ -47,8 +47,24 @@ const useStyles = makeStyles((theme) => ({
     paddingLeft: 20,
     color: "#4d4d4d",
   },
+  priceArea: {
+    color: "#929292",
+  },
   link: {
     textDecoration: "none",
+  },
+  priceHeader: {
+    fontFamily: '"Roboto", sans-serif',
+    fontSize: 15,
+    fontWeight: 700,
+    lineHeight: 1.6,
+    color: "#898989",
+  },
+  price: {
+    fontFamily: '"Roboto", sans-serif',
+    fontSize: 15,
+    lineHeight: 1.6,
+    color: "#898989",
   },
 }));
 
@@ -146,11 +162,7 @@ export default function SidebarNavigation(props) {
           />
         </JuniperListItem>
       </Link>
-      <Link
-        to={"/admin/transactions"}
-        className={classes.link}
-        style={{ flex: 2 }}
-      >
+      <Link to={"/admin/transactions"} className={classes.link}>
         <JuniperListItem
           button
           selected={props.pageIndex === 3}
@@ -173,7 +185,7 @@ export default function SidebarNavigation(props) {
           />
         </JuniperListItem>
       </Link>
-      <Link to={"/admin/settings"} className={classes.link}>
+      <Link to={"/admin/settings"} className={classes.link} style={{ flex: 2 }}>
         <JuniperListItem
           button
           selected={props.pageIndex === 4}
@@ -198,6 +210,48 @@ export default function SidebarNavigation(props) {
           />
         </JuniperListItem>
       </Link>
+
+      <JuniperListItem className={classes.priceArea}>
+        <ListItemIcon className={classes.listItem} style={{ height: 30 }}>
+          <USDIcon
+            fontSize="large"
+            viewBox="0 0 30 30"
+            style={{ color: "#adadad" }}
+          />
+        </ListItemIcon>
+        <ListItemText
+          primary={
+            <Typography className={classes.navText}>Today's Price</Typography>
+          }
+        />
+      </JuniperListItem>
+      <JuniperListItem
+        className={classes.priceArea}
+        style={{ paddingBottom: 0 }}
+      >
+        <ListItemText
+          primary={
+            <Fragment>
+              <Typography className={classes.priceHeader}>1 ETH</Typography>
+              <Typography className={classes.price}>
+                {usdFormatter.format(props.ethRate)} USD
+              </Typography>
+            </Fragment>
+          }
+        />
+      </JuniperListItem>
+      <JuniperListItem className={classes.priceArea} style={{ paddingTop: 0 }}>
+        <ListItemText
+          primary={
+            <Fragment>
+              <Typography className={classes.priceHeader}>1 BTC</Typography>
+              <Typography className={classes.price}>
+                {usdFormatter.format(props.btcRate)} USD
+              </Typography>
+            </Fragment>
+          }
+        />
+      </JuniperListItem>
     </List>
   );
 }

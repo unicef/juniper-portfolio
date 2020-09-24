@@ -12,7 +12,7 @@ import {
 import TxList from "../../ui/TxList";
 import Snackbar from "../../ui/Snackbar";
 import { TagTransaction } from "../../ui/Dialog";
-import LoadingScreen from "../../ui/LoadingScreen";
+import { getExchangeRate, publishTransaction } from "../../actions";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -20,9 +20,11 @@ const useStyles = makeStyles((theme) => ({
     flexGrow: 1,
     height: "100%",
     backgroundColor: "#f8f8f8",
+    display: "flex",
+    flexFlow: "column",
   },
   padding: {
-    padding: theme.spacing(3),
+    paddingTop: "2em",
   },
   navigation: {
     backgroundColor: "#ffffff",
@@ -41,7 +43,12 @@ function TabPanel(props) {
       id={`simple-tabpanel-${index}`}
       aria-labelledby={`simple-tab-${index}`}
       {...other}
-      style={{ backgroundColor: "#f8f8f8", paddingBottom: "2em" }}
+      style={{
+        backgroundColor: "#f8f8f8",
+        paddingBottom: "2em",
+        overflowY: "auto",
+        flex: "1 1 auto",
+      }}
     >
       {activeTab === index && <Container maxWidth="md">{children}</Container>}
     </div>
@@ -71,22 +78,22 @@ const StyledTab = withStyles((theme) => ({
   },
 }))((props) => <Tab disableRipple {...props} />);
 
-export default function Transactions({ getExchangeRate, isAdmin }) {
+export default function Transactions({
+  isAdmin,
+  transactions,
+  fetchTransactions,
+}) {
   const classes = useStyles();
   const [activeTab, setActiveTab] = useState(0);
-  const [fetchingTxs, setFetchingTxs] = useState(false);
-  const [txs, setTxs] = useState([]);
+
   const [unpublishedTxs, setUnpublishedTxs] = useState([]);
   const [unpublishedPage, setUnpublishedPage] = useState(0);
-  const [unpublishedLimit, setUnpublishedLimit] = useState(3);
 
   const [publishedTxs, setPublishedTxs] = useState([]);
   const [publishedPage, setPublishedPage] = useState(0);
-  const [publishedLimit, setPublishedLimit] = useState(3);
 
   const [archivedTxs, setArchivedTxs] = useState([]);
   const [archivedPage, setArchivedPage] = useState(0);
-  const [archivedLimit, setArchivedLimit] = useState(3);
 
   const [showSnackbar, setShowSnackbar] = useState(false);
   const [snackbarDuration] = useState(3000);
@@ -99,107 +106,32 @@ export default function Transactions({ getExchangeRate, isAdmin }) {
     setActiveTab(newTab);
   };
 
-  const publishTransaction = async (tx, donor, publish) => {
-    tx.published = publish;
-
-    let res;
-    try {
-      res = await fetch(`/rest/admin/transactions/publish`, {
-        credentials: "include",
-        method: "POST",
-        body: JSON.stringify({
-          tx,
-          donor,
-        }),
-        headers: {
-          "Content-Type": "application/json",
-        },
-      });
-    } catch (e) {
-      console.log(e);
-      return;
-    }
-
-    if (res.status === 200) {
-      //archiveTransactionSuccess();
-    } else {
-      //archiveTransactionFailed(txid);
-    }
-  };
-
-  const archiveTransaction = (txid) => {
-    const newTxs = txs.slice();
-
-    newTxs.forEach((tx) => {
-      if (tx.txid === txid) {
-        tx.archived = true;
-      }
-    });
-    setTxs(newTxs);
-    filterTransactions(newTxs);
-  };
-
-  const archiveTransactionSuccess = () => {
-    setSnackbarMessage("Tx Archived");
-    setSnackbarSeverity("success");
-    setShowSnackbar(true);
-  };
-
-  const archiveTransactionFailed = (txid) => {
-    const newTxs = txs.slice();
-    newTxs.forEach((tx) => {
-      if (tx.txid === txid) {
-        tx.archived = false;
-      }
-    });
-    setTxs(newTxs);
-    filterTransactions(newTxs);
-    setSnackbarMessage("Tx Archive Failed");
-    setSnackbarSeverity("error");
-    setShowSnackbar(true);
-  };
-
-  const filterTransactions = (txs) => {
-    txs = txs.filter((tx) => {
+  const filterTransactions = () => {
+    transactions = transactions.filter((tx) => {
       return tx.amount !== 0;
     });
     setUnpublishedTxs(
-      txs.filter((tx) => tx.published === false && tx.archived === false)
+      transactions.filter(
+        (tx) => tx.published === false && tx.archived === false
+      )
     );
     setPublishedTxs(
-      txs.filter((tx) => tx.published === true && tx.archived === false)
+      transactions.filter(
+        (tx) => tx.published === true && tx.archived === false
+      )
     );
-    setArchivedTxs(txs.filter((tx) => tx.archived === true));
-  };
-
-  const getTransactions = async () => {
-    setFetchingTxs(true);
-    let data;
-    let txs = [];
-    try {
-      data = await fetch("/rest/admin/transactions/hq");
-
-      txs = await data.json();
-    } catch (e) {
-      console.log(e);
-    }
-
-    setTxs(txs);
-    filterTransactions(txs);
-    setFetchingTxs(false);
+    setArchivedTxs(transactions.filter((tx) => tx.archived === true));
   };
 
   useEffect(() => {
-    getTransactions();
-  }, []);
+    filterTransactions();
+  }, [transactions]);
 
   function UnpublishedTxCard(props) {
     return (
       <UnpublishedTransactionCard
         {...props}
-        archiveTransaction={archiveTransaction}
-        archiveTransactionSuccess={archiveTransactionSuccess}
-        archiveTransactionFailed={archiveTransactionFailed}
+        fetchTransactions={fetchTransactions}
         onTagTransactionClick={(tx) => {
           setTransaction(tx);
           setShowTagTransaction(true);
@@ -211,9 +143,7 @@ export default function Transactions({ getExchangeRate, isAdmin }) {
     return (
       <PublishedTransactionCard
         {...props}
-        archiveTransaction={archiveTransaction}
-        archiveTransactionSuccess={archiveTransactionSuccess}
-        archiveTransactionFailed={archiveTransactionFailed}
+        fetchTransactions={fetchTransactions}
         onTagTransactionClick={(tx) => {
           setTransaction(tx);
           setShowTagTransaction(true);
@@ -225,9 +155,7 @@ export default function Transactions({ getExchangeRate, isAdmin }) {
     return (
       <ArchivedTransactionCard
         {...props}
-        archiveTransaction={archiveTransaction}
-        archiveTransactionSuccess={archiveTransactionSuccess}
-        archiveTransactionFailed={archiveTransactionFailed}
+        fetchTransactions={fetchTransactions}
         onTagTransactionClick={(tx) => {
           setTransaction(tx);
           setShowTagTransaction(true);
@@ -245,10 +173,11 @@ export default function Transactions({ getExchangeRate, isAdmin }) {
         onClose={() => {
           setShowTagTransaction(false);
           setTransaction({});
-          getTransactions();
+          fetchTransactions();
         }}
         publishTransaction={publishTransaction}
         getExchangeRate={getExchangeRate}
+        fetchTransactions={fetchTransactions}
       />
       <StyledTabs
         value={activeTab}
@@ -269,23 +198,19 @@ export default function Transactions({ getExchangeRate, isAdmin }) {
           style={activeTab === 2 ? { color: "#00aeef" } : {}}
         />
       </StyledTabs>
-      <Typography className={classes.padding} />
 
-      <TabPanel activeTab={activeTab} index={0}>
-        {fetchingTxs ? (
-          <LoadingScreen loadingMessage={"Loading Transactions"} />
-        ) : (
-          <TxList
-            title={`${unpublishedTxs.length} Unpublished Transactions`}
-            txs={unpublishedTxs}
-            TxCard={UnpublishedTxCard}
-            page={unpublishedPage}
-            onPaginationClick={setUnpublishedPage}
-            isAdmin={isAdmin}
-          />
-        )}
+      <TabPanel activeTab={activeTab} index={0} className={classes.padding}>
+        <TxList
+          title={`${unpublishedTxs.length} Unpublished Transactions`}
+          txs={unpublishedTxs}
+          TxCard={UnpublishedTxCard}
+          page={unpublishedPage}
+          onPaginationClick={setUnpublishedPage}
+          isAdmin={isAdmin}
+          showPriceInfo={true}
+        />
       </TabPanel>
-      <TabPanel activeTab={activeTab} index={1}>
+      <TabPanel activeTab={activeTab} index={1} className={classes.padding}>
         <TxList
           title={`${publishedTxs.length} Published Transactions`}
           txs={publishedTxs}
@@ -293,9 +218,10 @@ export default function Transactions({ getExchangeRate, isAdmin }) {
           page={publishedPage}
           onPaginationClick={setPublishedPage}
           isAdmin={isAdmin}
+          showPriceInfo={true}
         />
       </TabPanel>
-      <TabPanel activeTab={activeTab} index={2}>
+      <TabPanel activeTab={activeTab} index={2} className={classes.padding}>
         <TxList
           title={`${archivedTxs.length} Archived Transactions`}
           txs={archivedTxs}
@@ -303,6 +229,7 @@ export default function Transactions({ getExchangeRate, isAdmin }) {
           page={archivedPage}
           onPaginationClick={setArchivedPage}
           isAdmin={isAdmin}
+          showPriceInfo={true}
         />
       </TabPanel>
       <Snackbar

@@ -1,13 +1,16 @@
 import React, { Fragment } from "react";
 import TrackWalletsContent from "./TrackWalletsContent";
-// TODO: Add State/API calls/routes
-export default class YourWallets extends React.Component {
+
+export default class TrackWallets extends React.Component {
   render() {
     return (
       <Fragment>
         <TrackWalletsContent
-          getExchangeRate={this.props.getExchangeRate}
+          trackedWallets={this.props.trackedWallets}
+          fetchTrackedWallets={this.props.fetchTrackedWallets}
           isAdmin={this.props.isAdmin}
+          btcRate={this.props.btcRate}
+          ethRate={this.props.ethRate}
         />
       </Fragment>
     );
