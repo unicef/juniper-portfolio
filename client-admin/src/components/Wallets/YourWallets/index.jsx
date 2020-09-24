@@ -12,6 +12,16 @@ export default class YourWallets extends React.Component {
     return (
       <Fragment>
         <Switch>
+          <Route exact path="/admin/">
+            <YourWalletsContent
+              wallets={this.props.wallets}
+              summary={this.props.summary}
+              fetchWallets={this.props.fetchWallets}
+              isAdmin={this.props.isAdmin}
+              btcRate={this.props.btcRate}
+              ethRate={this.props.ethRate}
+            />
+          </Route>
           <Route exact path="/admin/wallets">
             <YourWalletsContent
               wallets={this.props.wallets}
