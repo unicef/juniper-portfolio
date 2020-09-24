@@ -1,4 +1,4 @@
-import React, { useRef } from "react";
+import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
@@ -10,6 +10,7 @@ import MenuPopper from "../../ui/MenuPopper";
 import EditIcon from "../../ui/Icons/EditIcon";
 import Avatar from "@material-ui/core/Avatar";
 import { Link } from "react-router-dom";
+import { TextButton, ContainedButton } from "../../ui/Buttons";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -24,8 +25,10 @@ const useStyles = makeStyles((theme) => ({
     minHeight: 50,
   },
   logo: {
-    width: 230,
-    height: 36,
+    width: 200,
+    height: 30,
+    justifyContent: "middle",
+    verticalAlign: "middle",
   },
   menuButton: {
     marginRight: theme.spacing(2),
@@ -34,17 +37,6 @@ const useStyles = makeStyles((theme) => ({
     flexGrow: 1,
   },
 
-  rightButton: {
-    float: "right",
-    fontFamily: '"Cabin",  sans-serif',
-    fontSize: 12,
-    fontWeight: 700,
-    color: "#ffffff",
-    textTransform: "uppercase",
-    "&:hover": {
-      backgroundColor: "rgba(0,0,0,0)",
-    },
-  },
   popper: {
     marginTop: 8,
     padding: 30,
@@ -70,9 +62,7 @@ const useStyles = makeStyles((theme) => ({
     textAlign: "center",
     color: "#ffffff",
     boxShadow: "none",
-    marginTop: 19,
-    paddingLeft: 15,
-    backgroundColor: "#f28080",
+
     "&:hover": {
       backgroundColor: "#f28080",
     },
@@ -144,13 +134,12 @@ export default function TopBar(props) {
         </Typography>
         <MenuPopper
           button={
-            <Button
-              className={classes.rightButton}
+            <TextButton
               endIcon={<ExpandMoreIcon />}
-              onClick={() => {}}
+              style={{ color: "#ffffff" }}
             >
               {props.user.firstName} {props.user.lastName}
-            </Button>
+            </TextButton>
           }
         >
           <div className={classes.popper}>
@@ -172,26 +161,32 @@ export default function TopBar(props) {
             <h4 className={classes.department}>{props.user.department}</h4>
             <div className={classes.buttonBox}>
               <Link to={"/admin/settings"} className={classes.link}>
-                <Button
-                  className={classes.editButton}
-                  startIcon={<EditIcon fontSize="large" />}
+                <TextButton
+                  startIcon={
+                    <EditIcon fontSize="large" style={{ marginTop: 8 }} />
+                  }
                   onClick={() => {
                     props.setPageIndex(4);
                   }}
                 >
                   Edit Profile Info
-                </Button>
+                </TextButton>
               </Link>
             </div>
             <div className={classes.buttonBox}>
-              <Button
+              <ContainedButton
                 className={classes.filledButton}
                 variant="contained"
                 color="inherit"
                 onClick={logout}
+                style={{
+                  marginTop: 19,
+                  paddingLeft: 15,
+                  backgroundColor: "#f28080",
+                }}
               >
                 Sign Out
-              </Button>
+              </ContainedButton>
             </div>
           </div>
         </MenuPopper>

@@ -20,6 +20,15 @@ import Wallets from "./components/Wallets";
 import ApolloClient from "apollo-boost";
 import { ApolloProvider } from "react-apollo";
 import LoadingScreen from "./ui/Dialog/LoadingScreen";
+import {
+  getAccounts,
+  getExchangeRate,
+  getPriceHistory,
+  getTransactions,
+  getTrackedWallets,
+  getWallets,
+  getWalletsSummary,
+} from "./actions";
 
 const drawerWidth = 240;
 
@@ -78,33 +87,28 @@ export default function JuniperAdmin() {
   const [user, setUser] = useState({});
   const [loading, setLoading] = useState(true);
   const [pageIndex, setPageIndex] = useState(0);
+  const [wallets, setWallets] = useState([]);
+  const [trackedWallets, setTrackedWallets] = useState([]);
+  const [prices, setPrices] = useState({});
+  const [transactions, setTransactions] = useState([]);
+  const [summary, setSummary] = useState({});
+  const [accounts, setAccounts] = useState([]);
+  const [ethRate, setEthRate] = useState(0);
+  const [btcRate, setBtcRate] = useState(0);
 
   const loginUser = (user) => {
     if (user) {
       setIsLoggedIn(true);
       setUser(user);
+      initApp();
     }
-  };
-
-  const getExchangeRate = async (symbol) => {
-    let res, price;
-    try {
-      res = await fetch(
-        `https://min-api.cryptocompare.com/data/price?fsym=${symbol}&tsyms=USD`
-      );
-      price = await res.json();
-    } catch (e) {
-      console.log(e);
-    }
-    return price.USD;
   };
 
   const updateUser = async (property) => {
     const newUser = { ...user, ...property };
 
-    let res;
     try {
-      res = await fetch(`/rest/admin/settings/user`, {
+      await fetch(`/rest/admin/settings/user`, {
         credentials: "include",
         method: "PUT",
         body: JSON.stringify({
@@ -118,14 +122,52 @@ export default function JuniperAdmin() {
       console.log(e);
     }
     setUser(newUser);
-    // todo update on server
   };
 
-  const copyToClipboard = (str) => {
-    navigator.clipboard.writeText(str);
+  const fetchAccounts = async () => {
+    setAccounts(await getAccounts());
   };
+
+  const fetchWallets = async () => {
+    setWallets(await getWallets());
+    setSummary(await getWalletsSummary());
+    setTrackedWallets(await getTrackedWallets());
+  };
+
+  const fetchTrackedWallets = async () => {
+    setTrackedWallets(await getTrackedWallets());
+  };
+
+  const fetchTransactions = async () => {
+    setTransactions(await getTransactions());
+  };
+
+  async function initApp() {
+    setWallets(await getWallets());
+    setTrackedWallets(await getTrackedWallets());
+    setTransactions(await getTransactions());
+    setSummary(await getWalletsSummary());
+    setAccounts(await getAccounts());
+    setEthRate(await getExchangeRate("ETH"));
+    setBtcRate(await getExchangeRate("BTC"));
+    setPrices(await getPriceHistory());
+  }
 
   useEffect(() => {
+    console.log("app");
+    async function init() {
+      setSummary(await getWalletsSummary());
+      setWallets(await getWallets());
+      setTrackedWallets(await getTrackedWallets());
+      setTransactions(await getTransactions());
+      setAccounts(await getAccounts());
+      setEthRate(await getExchangeRate("ETH"));
+      setBtcRate(await getExchangeRate("BTC"));
+      setPrices(await getPriceHistory());
+    }
+    if (isLoggedIn) {
+      init();
+    }
     // check if logged in
     const getUserProfile = async () => {
       let res;
@@ -155,7 +197,7 @@ export default function JuniperAdmin() {
     } else if (path.indexOf("settings") > -1) {
       setPageIndex(4);
     }
-  }, []);
+  }, [isLoggedIn]);
 
   return (
     <div className={classes.root}>
@@ -178,8 +220,13 @@ export default function JuniperAdmin() {
                       setPageIndex={setPageIndex}
                     />
                     <Wallets
-                      getExchangeRate={getExchangeRate}
+                      wallets={wallets}
+                      trackedWallets={trackedWallets}
+                      summary={summary}
+                      fetchWallets={fetchWallets}
                       isAdmin={user.isAdmin}
+                      ethRate={ethRate}
+                      btcRate={btcRate}
                     />
                   </Route>
                   <Route path="/admin/wallets">
@@ -189,8 +236,14 @@ export default function JuniperAdmin() {
                       setPageIndex={setPageIndex}
                     />
                     <Wallets
-                      getExchangeRate={getExchangeRate}
+                      wallets={wallets}
+                      trackedWallets={trackedWallets}
+                      summary={summary}
+                      fetchWallets={fetchWallets}
+                      fetchTrackedWallets={fetchTrackedWallets}
                       isAdmin={user.isAdmin}
+                      ethRate={ethRate}
+                      btcRate={btcRate}
                     />
                   </Route>
                   <Route path="/admin/accounts">
@@ -200,9 +253,11 @@ export default function JuniperAdmin() {
                       setPageIndex={setPageIndex}
                     />
                     <Accounts
-                      getExchangeRate={getExchangeRate}
-                      copyToClipboard={copyToClipboard}
                       isAdmin={user.isAdmin}
+                      fetchAccounts={fetchAccounts}
+                      accounts={accounts}
+                      ethRate={ethRate}
+                      btcRate={btcRate}
                     />
                   </Route>
                   <Route path="/admin/tracker">
@@ -211,7 +266,7 @@ export default function JuniperAdmin() {
                       pageIndex={pageIndex}
                       setPageIndex={setPageIndex}
                     />
-                    <PriceTracker />
+                    <PriceTracker prices={prices} />
                   </Route>
                   <Route path="/admin/transactions">
                     <TopBar user={user} setPageIndex={setPageIndex} />
@@ -220,8 +275,9 @@ export default function JuniperAdmin() {
                       setPageIndex={setPageIndex}
                     />
                     <Transactions
-                      getExchangeRate={getExchangeRate}
                       isAdmin={user.isAdmin}
+                      transactions={transactions}
+                      fetchTransactions={fetchTransactions}
                     />
                   </Route>
                   <Route path="/admin/settings">
@@ -233,7 +289,6 @@ export default function JuniperAdmin() {
                     <Settings
                       user={user}
                       updateUser={updateUser}
-                      copyToClipboard={copyToClipboard}
                       isAdmin={user.isAdmin}
                     />
                   </Route>

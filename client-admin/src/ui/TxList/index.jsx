@@ -12,6 +12,8 @@ import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
 import ListItemText from "@material-ui/core/ListItemText";
 
+import { TextButton } from "../Buttons";
+
 const transactionDetailsStyles = makeStyles((theme) => ({
   root: {
     marginTop: "5em",
@@ -62,15 +64,16 @@ export default function TxList({
   txs,
   TxCard,
   page,
-
+  fetchWallets,
   onPaginationClick,
   setAuthorizationRecord,
   exchangeRate,
   isAdmin,
+  showPriceInfo,
 }) {
   const classes = transactionDetailsStyles();
 
-  const [limit, setLimit] = useState(5);
+  const [limit, setLimit] = useState(10);
 
   const start = page * limit;
   const end = page * limit + limit;
@@ -88,12 +91,9 @@ export default function TxList({
           <MenuPopper
             buttonStyles={{ float: "right" }}
             button={
-              <Button
-                className={classes.allTransactionsButton}
-                endIcon={<KeyboardArrowDownIcon />}
-              >
+              <TextButton endIcon={<KeyboardArrowDownIcon />} float={"right"}>
                 {limit} Transactions
-              </Button>
+              </TextButton>
             }
           >
             <List
@@ -135,11 +135,13 @@ export default function TxList({
         </Grid>
       </Grid>
       <Divider />
-      <Grid container className={classes.transactionDetails}>
-        <Grid item xs={12}>
-          <PriceInfoBanner />
+      {showPriceInfo && (
+        <Grid container className={classes.transactionDetails}>
+          <Grid item xs={12}>
+            <PriceInfoBanner />
+          </Grid>
         </Grid>
-      </Grid>
+      )}
       {txs && (
         <List>
           {txs.slice(start, end).map((tx, index) => {
@@ -162,6 +164,7 @@ export default function TxList({
                   setAuthorizationRecord={setAuthorizationRecord}
                   exchangeRate={exchangeRate}
                   isAdmin={isAdmin}
+                  fetchWallets={fetchWallets}
                 />
               </ListItem>
             );

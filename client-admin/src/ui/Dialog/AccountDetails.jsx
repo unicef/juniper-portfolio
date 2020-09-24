@@ -1,11 +1,10 @@
-import React, { useState, useEffect, Fragment } from "react";
+import React, { useState, useEffect } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import Dialog from "@material-ui/core/Dialog";
 import Grid from "@material-ui/core/Grid";
 import { usdFormatter, cryptoFormatter } from "../../util";
-import Button from "@material-ui/core/Button";
-import CopyIcon from "../Icons/CopyIcon";
 import AccountTransactionCard from "../Cards/AccountTransactionCard";
+import { CopyAddressButton } from "../Buttons";
 
 const useStyles = makeStyles((theme) => ({
   modal: {
@@ -72,15 +71,6 @@ const useStyles = makeStyles((theme) => ({
     fontSize: 24,
     fontWeight: 700,
     lineHeight: 1.17,
-  },
-  copyButton: {
-    fontSize: 12,
-    fontWeight: 700,
-    fontFamily: '"Cabin", sans-serif',
-    color: "#00aeef",
-    "&:hover": {
-      backgroundColor: "#ecfaff",
-    },
   },
 }));
 
@@ -237,15 +227,9 @@ export default function AccountDetails(props) {
                   <div className={classes.walletSubtitle}>Wallet Address</div>
                 </Grid>
                 <Grid item xs={2} className={classes.address}>
-                  <Button
-                    className={classes.copyButton}
-                    startIcon={<CopyIcon fontSize="large" />}
-                    onClick={() => {
-                      props.copyToClipboard(address.address);
-                    }}
-                  >
+                  <CopyAddressButton address={address.address}>
                     Copy
-                  </Button>
+                  </CopyAddressButton>
                 </Grid>
               </Grid>
             );
@@ -277,7 +261,6 @@ export default function AccountDetails(props) {
                   amountUSD={tx.amountUSD}
                   address={tx.address}
                   timestamp={tx.timestamp}
-                  copyToClipboard={props.copyToClipboard}
                 />
               );
             })}

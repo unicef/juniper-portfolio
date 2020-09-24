@@ -7,28 +7,20 @@ import FormControl from "@material-ui/core/FormControl";
 import MenuItem from "@material-ui/core/MenuItem";
 import InputLabel from "@material-ui/core/InputLabel";
 import Select from "@material-ui/core/Select";
-import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
 import Toolbar from "@material-ui/core/Toolbar";
 import IconButton from "@material-ui/core/IconButton";
 import CloseIcon from "@material-ui/icons/Close";
 import { usdFormatter, cryptoFormatter } from "../../util";
-import Checkbox from "@material-ui/core/Checkbox";
-import CircleCheckedFilled from "@material-ui/icons/CheckCircle";
-import CircleUnchecked from "@material-ui/icons/RadioButtonUnchecked";
 import QuestionMarkIcon from "../Icons/QuestionMarkIcon";
-import FormControlLabel from "@material-ui/core/FormControlLabel";
 import CreateAccount from "./CreateAccount";
+import { getExchangeRate } from "../../actions";
+import { TextButton, ContainedButton, OutlineButton } from "../Buttons";
 
 const useStyles = makeStyles((theme) => ({
   closeIcon: {
     position: "absolute",
     right: 5,
-    fontFamily: '"Cabin",  sans-serif',
-    fontSize: 14,
-    letterSpacing: 1.17,
-    fontWeight: 700,
-    textTransform: "uppercase",
   },
   title: {
     fontFamily: '"Roboto", sans-serif',
@@ -132,17 +124,7 @@ const useStyles = makeStyles((theme) => ({
     color: "#ffffff",
     boxShadow: "none",
   },
-  outlineButton: {
-    width: "100%",
-    height: 35,
-    fontFamily: '"Cabin", sans-serif',
-    fontSize: 12,
-    fontWeight: 700,
-    textAlign: "center",
-    color: "#00aeef",
-    borderRadius: 5,
-    boxShadow: "none",
-  },
+
   or: {
     textTransform: "uppercase",
     textAlign: "center",
@@ -150,8 +132,8 @@ const useStyles = makeStyles((theme) => ({
     lineHeight: 1.2,
     fontSize: 12,
     color: "#929292",
-    marginTop: 10,
-    marginBottom: 10,
+    margin: 0,
+    paddingTop: "5em",
   },
   form: {
     marginBottom: 80,
@@ -190,7 +172,6 @@ export default function TagTransaction(props) {
   const [donor, setDonor] = useState("");
 
   const [openCreateAccount, setOpenCreateAccount] = useState(false);
-  const [createAccountName, setCreateAccountName] = useState("");
   const [createAccountType, setCreateAccountType] = useState("");
   const [addresses, setAddresses] = useState([]);
 
@@ -215,8 +196,6 @@ export default function TagTransaction(props) {
       console.log(e);
     }
 
-    console.log(natcoms);
-
     setDonors(donors);
     setNatcoms(natcoms);
   };
@@ -230,9 +209,8 @@ export default function TagTransaction(props) {
     tx.donor = donor;
     tx.published = publish;
 
-    let res;
     try {
-      res = await fetch(`/rest/admin/transactions/`, {
+      await fetch(`/rest/admin/transactions/`, {
         credentials: "include",
         method: "POST",
         body: JSON.stringify({
@@ -251,17 +229,17 @@ export default function TagTransaction(props) {
   };
 
   useEffect(() => {
-    const getExchangeRate = async () => {
+    const getExchangeRates = async () => {
       let rate;
       try {
-        rate = await props.getExchangeRate(props.tx.symbol);
+        rate = await getExchangeRate(props.tx.symbol);
       } catch (e) {
         console.log(e);
       }
       setExchangeRate(rate);
     };
 
-    getExchangeRate();
+    getExchangeRates();
     getAccounts();
     setNatcom(props.tx.source || "");
     setDonor(props.tx.donor || "");
@@ -281,7 +259,6 @@ export default function TagTransaction(props) {
         open={openCreateAccount}
         type={createAccountType}
         edit={false}
-        name={createAccountName}
         addresses={addresses}
         onDialogClose={async (account) => {
           setOpenCreateAccount(false);
@@ -297,14 +274,15 @@ export default function TagTransaction(props) {
       />
       <Dialog fullScreen open={props.open} onClose={handleClose}>
         <Toolbar>
-          <IconButton
-            color="primary"
-            onClick={handleClose}
-            aria-label="close"
-            className={classes.closeIcon}
-          >
-            Cancel <CloseIcon fontSize="large" />
-          </IconButton>
+          <div className={classes.closeIcon}>
+            <TextButton
+              onClick={handleClose}
+              endIcon={<CloseIcon fontSize="large" style={{ fontSize: 28 }} />}
+              style={{ fontSize: 14 }}
+            >
+              Cancel
+            </TextButton>
+          </div>
         </Toolbar>
         <Container maxWidth={"sm"}>
           <h1 className={classes.title}>{props.title}</h1>
@@ -364,17 +342,16 @@ export default function TagTransaction(props) {
               </Select>
             </FormControl>
             <div className={classes.relativeContainer}>
-              <Button
-                variant="contained"
-                color="primary"
-                className={classes.addButton}
+              <ContainedButton
                 onClick={() => {
                   setCreateAccountType("natcom");
                   setOpenCreateAccount(true);
                 }}
+                float={"right"}
+                style={{ marginTop: "1em" }}
               >
                 Add Natcom Account
-              </Button>
+              </ContainedButton>
             </div>
             <FormControl className={classes.donorList}>
               <InputLabel className={classes.donorListLabel}>
@@ -402,10 +379,7 @@ export default function TagTransaction(props) {
               </Select>
             </FormControl>
             <div className={classes.relativeContainer}>
-              <Button
-                variant="contained"
-                color="primary"
-                className={classes.addButton}
+              <ContainedButton
                 onClick={() => {
                   setAddresses([
                     {
@@ -418,68 +392,62 @@ export default function TagTransaction(props) {
                   setCreateAccountType("donor");
                   setOpenCreateAccount(true);
                 }}
+                float={"right"}
+                style={{ marginTop: "1em" }}
               >
                 Add Donor Account
-              </Button>
+              </ContainedButton>
             </div>
           </form>
           {!props.tx.published ? (
             <Fragment>
               <div className={classes.relativeContainer}>
-                <Button
-                  variant="outlined"
-                  color="primary"
-                  className={classes.outlineButton}
+                <OutlineButton
                   onClick={() => {
                     saveTransaction(false);
                   }}
+                  style={{ display: "block", width: "100%", marginTop: "1em" }}
                 >
                   Tag and Save Transaction
-                </Button>
+                </OutlineButton>
                 <QuestionMarkIcon className={classes.questionMark} />
               </div>
               <p className={classes.or}>Or</p>
               <div className={classes.relativeContainer}>
-                <Button
-                  variant="contained"
-                  color="primary"
-                  className={classes.filledButton}
+                <ContainedButton
                   onClick={() => {
                     saveTransaction(true);
                   }}
+                  style={{ display: "block", width: "100%", marginTop: "1em" }}
                 >
                   Tag and Publish Transaction
-                </Button>
+                </ContainedButton>
                 <QuestionMarkIcon className={classes.questionMark} />
               </div>
             </Fragment>
           ) : (
             <Fragment>
               <div className={classes.relativeContainer}>
-                <Button
-                  variant="outlined"
-                  color="primary"
-                  className={classes.outlineButton}
+                <OutlineButton
                   onClick={() => {
                     saveTransaction(props.tx.published);
                   }}
+                  style={{ display: "block", width: "100%", marginTop: "1em" }}
                 >
                   Tag and Save Transaction
-                </Button>
+                </OutlineButton>
                 <QuestionMarkIcon className={classes.questionMark} />
               </div>
               <p className={classes.or}>Or</p>
               <div className={classes.relativeContainer}>
-                <Button
-                  variant="contained"
-                  color="primary"
-                  className={classes.filledButton}
+                <ContainedButton
                   onClick={() => {
                     saveTransaction(false);
                   }}
+                  style={{ display: "block", width: "100%", marginTop: "1em" }}
                 >
                   Tag and Unpublish Transaction
-                </Button>
+                </ContainedButton>
                 <QuestionMarkIcon className={classes.questionMark} />
               </div>
             </Fragment>

@@ -1,10 +1,8 @@
 import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import Chip from "@material-ui/core/Chip";
-import Button from "@material-ui/core/Button";
-import CopyIcon from "../Icons/CopyIcon";
-
 import { usdFormatter, cryptoFormatter } from "../../util";
+import { OutlineButton, CopyAddressButton } from "../Buttons";
 
 const walletStyles = makeStyles((theme) => ({
   wallet: {
@@ -63,6 +61,9 @@ const walletStyles = makeStyles((theme) => ({
     fontWeight: 700,
     lineHeight: 1.57,
     color: "#000000",
+    whiteSpace: "nowrap",
+    overflow: "hidden",
+    textOverflow: "ellipsis",
   },
   buttons: {
     marginTop: 30,
@@ -112,15 +113,6 @@ export default function TrackWalletCard({
     }
   };
 
-  const copyToClipboard = (text) => {
-    const el = document.createElement("textarea");
-    el.value = text;
-    document.body.appendChild(el);
-    el.select();
-    document.execCommand("copy");
-    document.body.removeChild(el);
-  };
-
   return (
     <div className={classes.wallet}>
       <h2 className={classes.name}>{name}</h2>
@@ -146,27 +138,19 @@ export default function TrackWalletCard({
       <div className={classes.address}>{address}</div>
       <div className={classes.walletSubtitle}>Wallet Address</div>
       <div className={classes.buttons}>
-        <Button
-          className={classes.leftButton}
-          startIcon={<CopyIcon fontSize="large" />}
-          onClick={() => {
-            copyToClipboard(address);
-          }}
-        >
-          Copy Address
-        </Button>
-        <Button
-          className={classes.unfollowWalletButton}
-          variant="outlined"
+        <CopyAddressButton address={address} />
+
+        <OutlineButton
           onClick={() => {
             unfollowWallet(address);
             if (afterUnfollowWallet) {
               afterUnfollowWallet();
             }
           }}
+          float={"right"}
         >
           Unfollow
-        </Button>
+        </OutlineButton>
       </div>
     </div>
   );

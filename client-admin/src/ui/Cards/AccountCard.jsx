@@ -1,14 +1,15 @@
-import React, { Fragment } from "react";
+import React, { Fragment, useEffect, useState } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import Grid from "@material-ui/core/Grid";
 import Button from "@material-ui/core/Button";
 import ChevronRightIcon from "@material-ui/icons/ChevronRight";
-import CopyIcon from "../Icons/CopyIcon";
 import { usdFormatter, cryptoFormatter } from "../../util";
+import { calculateAccountTotal } from "../../actions";
+import { TextButton } from "../Buttons";
 
 const useStyles = makeStyles((theme) => ({
   wallet: {
-    minHeight: 254,
+    minHeight: 290,
     backgroundColor: "#ffffff",
     fontFamily: '"Roboto", sans-serif',
     paddingTop: 10,
@@ -82,30 +83,27 @@ const useStyles = makeStyles((theme) => ({
     },
   },
   viewTxButton: {
-    fontSize: 12,
-    fontWeight: 700,
-    fontFamily: '"Cabin", sans-serif',
     marginTop: 25,
-    color: "#00aeef",
-    "&:hover": {
-      backgroundColor: "#ecfaff",
-    },
   },
 }));
 
 export default function AccountCard({
-  name,
-  type,
-  image,
-  country,
-  totalETHInvested,
-  totalETHUSD,
-  totalBTCInvested,
-  totalBTCUSD,
+  account,
+  ethRate,
+  btcRate,
   setOpenDetails,
   setDetailsAccount,
 }) {
   const classes = useStyles();
+  const [totalEthInvested, setEthInvested] = useState(0);
+  const [totalBtcInvested, setBtcInvested] = useState(0);
+
+  const { name, type, image, country } = account;
+
+  useEffect(() => {
+    setEthInvested(calculateAccountTotal(account, "Ether"));
+    setBtcInvested(calculateAccountTotal(account, "Bitcoin"));
+  }, [account]);
 
   return (
     <div className={classes.wallet}>
@@ -113,7 +111,7 @@ export default function AccountCard({
         {image && type === "startup" ? (
           <Fragment>
             <Grid item xs={4}>
-              <img className={classes.image} src={image} />
+              <img className={classes.image} src={image} alt={"logo"} />
             </Grid>
 
             <Grid item xs={8} className={classes.imageTitle}>
@@ -131,53 +129,48 @@ export default function AccountCard({
 
       <Grid container>
         <Grid item xs={6}>
-          {totalETHInvested > 0 && (
-            <Fragment>
-              <div className={classes.walletBalance}>
-                <span className={classes.currencyBalance}>
-                  {cryptoFormatter(totalETHInvested)} ETH
-                </span>
-              </div>
-              <div className={classes.walletSubtitle}>Ether Balance</div>
-              <div className={classes.walletBalance}>
-                <span className={classes.currencyBalance}>
-                  {usdFormatter.format(totalETHUSD)} USD
-                </span>
-              </div>
-              <div className={classes.walletSubtitle}>Current Value</div>
-            </Fragment>
-          )}
+          <div className={classes.walletBalance}>
+            <span className={classes.currencyBalance}>
+              {cryptoFormatter(totalEthInvested)} ETH
+            </span>
+          </div>
+          <div className={classes.walletSubtitle}>Ether Balance</div>
+          <div className={classes.walletBalance}>
+            <span className={classes.currencyBalance}>
+              {usdFormatter.format(totalEthInvested * ethRate)} USD
+            </span>
+          </div>
+          <div className={classes.walletSubtitle}>Current Value</div>
         </Grid>
 
         <Grid item xs={6}>
-          {totalBTCInvested > 0 && (
-            <Fragment>
-              <div className={classes.walletBalance}>
-                <span className={classes.currencyBalance}>
-                  {cryptoFormatter(totalBTCInvested)} BTC
-                </span>
-              </div>
-              <div className={classes.walletSubtitle}>Bitcoin Balance</div>
-              <div className={classes.walletBalance}>
-                <span className={classes.currencyBalance}>
-                  {usdFormatter.format(totalBTCUSD)} USD
-                </span>
-              </div>
-              <div className={classes.walletSubtitle}>Current Value</div>
-            </Fragment>
-          )}
+          <div className={classes.walletBalance}>
+            <span className={classes.currencyBalance}>
+              {cryptoFormatter(totalBtcInvested)} BTC
+            </span>
+          </div>
+          <div className={classes.walletSubtitle}>Bitcoin Balance</div>
+          <div className={classes.walletBalance}>
+            <span className={classes.currencyBalance}>
+              {usdFormatter.format(totalBtcInvested * btcRate)} USD
+            </span>
+          </div>
+          <div className={classes.walletSubtitle}>Current Value</div>
         </Grid>
       </Grid>
-      <Button
-        className={classes.viewTxButton}
-        endIcon={<ChevronRightIcon />}
-        onClick={() => {
-          setDetailsAccount(name);
-          setOpenDetails(true);
-        }}
-      >
-        View Account Details
-      </Button>
+      <Grid container>
+        <Grid item xs={12} className={classes.viewTxButton}>
+          <TextButton
+            endIcon={<ChevronRightIcon />}
+            onClick={() => {
+              setDetailsAccount(name);
+              setOpenDetails(true);
+            }}
+          >
+            View Account Details
+          </TextButton>
+        </Grid>
+      </Grid>
     </div>
   );
 }

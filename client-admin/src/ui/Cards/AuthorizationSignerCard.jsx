@@ -1,7 +1,7 @@
 import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import Grid from "@material-ui/core/Grid";
-
+import { shortMonths } from "../../util";
 const WalletDetailsCardStyles = makeStyles((theme) => ({
   walletSubtitle: {
     fontFamily: '"Cabin", sans-serif',
@@ -21,6 +21,9 @@ const WalletDetailsCardStyles = makeStyles((theme) => ({
     lineHeight: 1.33,
     marginTop: ".5em",
     color: "#000000",
+    whiteSpace: "nowrap",
+    overflow: "hidden",
+    textOverflow: "ellipsis",
   },
   authorizationSigner: {
     height: 283,
@@ -36,21 +39,6 @@ const WalletDetailsCardStyles = makeStyles((theme) => ({
   },
 }));
 
-const months = [
-  "Jan",
-  "Feb",
-  "Mar",
-  "Apr",
-  "May",
-  "Jun",
-  "Jul",
-  "Aug",
-  "Sep",
-  "Oct",
-  "Nov",
-  "Dec",
-];
-
 export default function AuthorizationSignerCard({
   address,
   owner,
@@ -59,17 +47,12 @@ export default function AuthorizationSignerCard({
 }) {
   const classes = WalletDetailsCardStyles();
   const date = new Date(timestamp);
-  const month = months[date.getMonth()];
+  const month = shortMonths[date.getMonth()];
   const day = date.getDate();
   const year = date.getFullYear();
   const hours = date.getHours();
   const minutes = (date.getMinutes() < 10 ? "0" : "") + date.getMinutes();
-  const seconds = date.getSeconds();
 
-  const offset = new Date().getTimezoneOffset();
-
-  console.log(`${month} / ${day} / ${year}`);
-  console.log(`${hours} / ${minutes} / ${seconds}`);
   return (
     <Grid container className={classes.authorizationSigner}>
       <Grid item xs={12} className={classes.authorizationInfo}>

@@ -6,6 +6,7 @@ import Button from "@material-ui/core/Button";
 import Tooltip from "@material-ui/core/Tooltip";
 import logo from "./logo.png";
 import { ChevronRight } from "@material-ui/icons";
+import { TextButton, ContainedButton } from "../../ui/Buttons";
 
 const PasswordTooltip = withStyles((theme) => ({
   tooltip: {
@@ -101,18 +102,7 @@ const useStyles = makeStyles((theme) => ({
     cursor: "pointer",
     marginTop: 4,
   },
-  filledButton: {
-    width: "100%",
-    height: 35,
-    fontFamily: '"Cabin", sans-serif',
-    fontSize: 12,
-    fontWeight: 700,
-    textAlign: "center",
-    color: "#ffffff",
-    boxShadow: "none",
-    marginTop: 19,
-    paddingLeft: 15,
-  },
+
   logo: {
     marginTop: "auto",
     marginBottom: 30,
@@ -166,17 +156,12 @@ function SignInForm(props) {
           props.setPassword(e.target.value);
         }}
       />
-      <p className={classes.subtext} onClick={props.forgotPasswordClick}>
-        Forgot Password?
+      <p className={classes.subtext}>
+        <TextButton onClick={props.forgotPasswordClick}>
+          Forgot Password?
+        </TextButton>
       </p>
-      <Button
-        className={classes.filledButton}
-        variant="contained"
-        color="primary"
-        onClick={props.login}
-      >
-        Sign In
-      </Button>
+      <ContainedButton onClick={props.login}>Sign In</ContainedButton>
     </Fragment>
   );
 }
@@ -198,14 +183,9 @@ function ForgotPassword(props) {
           console.log(e.target.value);
         }}
       />
-      <Button
-        className={classes.filledButton}
-        variant="contained"
-        color="primary"
-        onClick={props.resetPasswordClick}
-      >
+      <ContainedButton onClick={props.resetPasswordClick}>
         Reset Password
-      </Button>
+      </ContainedButton>
     </Fragment>
   );
 }
@@ -275,16 +255,12 @@ function Verification(props) {
           />
         </div>
       </PasswordTooltip>
-      <Button
-        className={classes.filledButton}
-        variant="contained"
-        color="primary"
-        onClick={props.login}
+      <ContainedButton
         style={{ marginTop: 42 }}
         onClick={props.createAccountClick}
       >
         Create Account
-      </Button>
+      </ContainedButton>
     </Fragment>
   );
 }
@@ -292,14 +268,9 @@ function Verification(props) {
 function ResetPasswordSent(props) {
   const classes = useStyles();
   return (
-    <Button
-      className={classes.filledButton}
-      variant="contained"
-      color="primary"
-      onClick={props.goToSignInPageClick}
-    >
+    <ContainedButton onClick={props.goToSignInPageClick}>
       Go To Sign In Page
-    </Button>
+    </ContainedButton>
   );
 }
 
@@ -395,9 +366,8 @@ export default function SignIn(props) {
 
   const createAccountClick = async () => {
     if (validatePassword()) {
-      let res;
       try {
-        res = await fetch(`/rest/verification`, {
+        await fetch(`/rest/verification`, {
           credentials: "include",
           method: "POST",
           body: JSON.stringify({
@@ -519,7 +489,7 @@ export default function SignIn(props) {
             createAccountClick={createAccountClick}
           />
         )}
-        <img src={logo} className={classes.logo} />
+        <img src={logo} className={classes.logo} alt={"logo"} />
       </Drawer>
       <main className={classes.content}></main>
     </div>

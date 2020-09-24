@@ -33,9 +33,12 @@ const useStyles = makeStyles((theme) => ({
     marginBottom: 0,
   },
   received: {
+    fontFamily: '"Cabin", sans-serif',
+    color: "#000000",
+    marginTop: 6,
+    letterSpacing: 0.83,
     fontSize: 10,
     fontWeight: 500,
-    marginTop: 0,
     textTransform: "uppercase",
   },
   totalInvested: {
@@ -45,9 +48,12 @@ const useStyles = makeStyles((theme) => ({
     marginBottom: 0,
   },
   invested: {
+    fontFamily: '"Cabin", sans-serif',
+    color: "#000000",
+    marginTop: 6,
+    letterSpacing: 0.83,
     fontSize: 10,
     fontWeight: 500,
-    marginTop: 0,
     textTransform: "uppercase",
   },
 }));
@@ -85,8 +91,8 @@ export default function TotalCard({
           <div
             className={classes.btcDot}
             style={{
-              height: Math.max(100 * btcPercentage, 20),
-              width: Math.max(100 * btcPercentage, 20),
+              height: Math.max(100 * btcPercentage || 0, 20),
+              width: Math.max(100 * btcPercentage || 0, 20),
             }}
           ></div>
         </Tooltip>
@@ -99,8 +105,8 @@ export default function TotalCard({
           <div
             className={classes.ethDot}
             style={{
-              height: Math.max(100 * ethPercentage, 20),
-              width: Math.max(100 * ethPercentage, 20),
+              height: Math.max(100 * ethPercentage || 0, 20),
+              width: Math.max(100 * ethPercentage || 0, 20),
             }}
           ></div>
         </Tooltip>
