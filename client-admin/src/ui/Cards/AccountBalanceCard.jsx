@@ -23,10 +23,13 @@ const useStyles = makeStyles((theme) => ({
     margin: 0,
   },
   currency: {
+    fontFamily: '"Cabin", sans-serif',
+    color: "#000000",
+    marginTop: 6,
+    letterSpacing: 0.83,
     fontSize: 10,
     fontWeight: 500,
     textTransform: "uppercase",
-    color: "#000000",
   },
 }));
 
