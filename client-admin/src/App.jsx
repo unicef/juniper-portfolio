@@ -218,6 +218,8 @@ export default function JuniperAdmin() {
                     <Sidebar
                       pageIndex={pageIndex}
                       setPageIndex={setPageIndex}
+                      ethRate={ethRate}
+                      btcRate={btcRate}
                     />
                     <Wallets
                       wallets={wallets}
@@ -234,6 +236,8 @@ export default function JuniperAdmin() {
                     <Sidebar
                       pageIndex={pageIndex}
                       setPageIndex={setPageIndex}
+                      ethRate={ethRate}
+                      btcRate={btcRate}
                     />
                     <Wallets
                       wallets={wallets}
@@ -251,6 +255,8 @@ export default function JuniperAdmin() {
                     <Sidebar
                       pageIndex={pageIndex}
                       setPageIndex={setPageIndex}
+                      ethRate={ethRate}
+                      btcRate={btcRate}
                     />
                     <Accounts
                       isAdmin={user.isAdmin}
@@ -265,6 +271,8 @@ export default function JuniperAdmin() {
                     <Sidebar
                       pageIndex={pageIndex}
                       setPageIndex={setPageIndex}
+                      ethRate={ethRate}
+                      btcRate={btcRate}
                     />
                     <PriceTracker prices={prices} />
                   </Route>
@@ -273,6 +281,8 @@ export default function JuniperAdmin() {
                     <Sidebar
                       pageIndex={pageIndex}
                       setPageIndex={setPageIndex}
+                      ethRate={ethRate}
+                      btcRate={btcRate}
                     />
                     <Transactions
                       isAdmin={user.isAdmin}
@@ -285,6 +295,8 @@ export default function JuniperAdmin() {
                     <Sidebar
                       pageIndex={pageIndex}
                       setPageIndex={setPageIndex}
+                      ethRate={ethRate}
+                      btcRate={btcRate}
                     />
                     <Settings
                       user={user}
