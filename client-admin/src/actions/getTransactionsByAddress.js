@@ -1,4 +1,4 @@
-module.exports = async (address) => {
+export default async (address) => {
   let res, transactions;
   try {
     res = await fetch(`/rest/admin/transactions/address/${address}`);

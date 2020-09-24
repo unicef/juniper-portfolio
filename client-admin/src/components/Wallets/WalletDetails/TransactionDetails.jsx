@@ -6,6 +6,7 @@ export default function TransactionDetails({
   setAuthorizationRecord,
   transactionDetailsData,
   exchangeRate,
+  fetchWallets,
 }) {
   const [txs, setTxs] = useState([]);
   const [page, setPage] = useState(0);
@@ -24,6 +25,7 @@ export default function TransactionDetails({
         onPaginationClick={setPage}
         setAuthorizationRecord={setAuthorizationRecord}
         exchangeRate={exchangeRate}
+        fetchWallets={fetchWallets}
       />
     </Fragment>
   );

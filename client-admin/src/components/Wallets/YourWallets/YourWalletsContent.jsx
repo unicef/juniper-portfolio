@@ -13,6 +13,7 @@ import Fab from "@material-ui/core/Fab";
 import ChevronRightIcon from "@material-ui/icons/ChevronRight";
 import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
 import { AddWallet } from "../../../ui/Dialog";
+import { ContainedButton } from "../../../ui/Buttons";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -72,7 +73,6 @@ export default function ({
   wallets,
   summary,
   fetchWallets,
-  viewWalletDetails,
   isAdmin,
   btcRate,
   ethRate,
@@ -244,16 +244,13 @@ export default function ({
         </Grid>
         <Grid item xs={12} style={{ marginTop: "2em" }}>
           {isAdmin && (
-            <Button
-              variant="contained"
-              color="primary"
-              className={classes.addWalletButton}
+            <ContainedButton
               onClick={() => {
                 setShowAddWalletModal(true);
               }}
             >
               Add New Wallet
-            </Button>
+            </ContainedButton>
           )}
         </Grid>
 
@@ -289,7 +286,6 @@ export default function ({
                       symbol={wallet.symbol}
                       balance={wallet.balance}
                       address={wallet.address}
-                      viewTransactionOnClick={viewWalletDetails}
                       exchangeRate={ethRate}
                     />
                   </Grid>
@@ -330,7 +326,6 @@ export default function ({
                       symbol={wallet.symbol}
                       balance={wallet.balance}
                       address={wallet.address}
-                      viewTransactionOnClick={viewWalletDetails}
                       exchangeRate={btcRate}
                     />
                   </Grid>

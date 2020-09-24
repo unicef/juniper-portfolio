@@ -2,12 +2,10 @@ import React, { useState, useEffect } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import Dialog from "@material-ui/core/Dialog";
 import Grid from "@material-ui/core/Grid";
-import Button from "@material-ui/core/Button";
-import CopyIcon from "../Icons/CopyIcon";
 import AccountTransactionCard from "../Cards/AccountTransactionCard";
 import EditIcon from "../../ui/Icons/EditIcon";
 import { CreateAccount } from ".";
-import { copyToClipboard } from "../../actions";
+import { TextButton, CopyAddressButton } from "../Buttons";
 
 const useStyles = makeStyles((theme) => ({
   modal: {
@@ -66,6 +64,9 @@ const useStyles = makeStyles((theme) => ({
     fontSize: 14,
     lineHeight: 1.33,
     color: "#000000",
+    whiteSpace: "nowrap",
+    overflow: "hidden",
+    textOverflow: "ellipsis",
   },
   name: {
     marginBottom: 0,
@@ -95,15 +96,7 @@ const useStyles = makeStyles((theme) => ({
       color: "#00aeef",
     },
   },
-  copyButton: {
-    fontSize: 12,
-    fontWeight: 700,
-    fontFamily: '"Cabin", sans-serif',
-    color: "#00aeef",
-    "&:hover": {
-      backgroundColor: "#ecfaff",
-    },
-  },
+
   image: {
     backgroundSize: "cover",
     backgroundPosition: "bottom",
@@ -214,15 +207,14 @@ export default function StartupDetails(props) {
             <h1 className={classes.name}>{name}</h1>
           </Grid>
           <Grid item xs={3}>
-            <Button
-              className={classes.editButton}
+            <TextButton
               startIcon={<EditIcon fontSize="large" />}
               onClick={() => {
                 setOpenEditAccount(true);
               }}
             >
               Edit Profile
-            </Button>
+            </TextButton>
           </Grid>
           <Grid item xs={12}>
             <p className={classes.country}>{country}</p>
@@ -249,15 +241,9 @@ export default function StartupDetails(props) {
                   <div className={classes.walletSubtitle}>Wallet Address</div>
                 </Grid>
                 <Grid item xs={4} className={classes.address}>
-                  <Button
-                    className={classes.copyButton}
-                    startIcon={<CopyIcon fontSize="large" />}
-                    onClick={() => {
-                      copyToClipboard(address.address);
-                    }}
-                  >
+                  <CopyAddressButton address={address.address}>
                     Copy
-                  </Button>
+                  </CopyAddressButton>
                 </Grid>
               </Grid>
             );

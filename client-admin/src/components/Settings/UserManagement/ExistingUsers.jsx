@@ -11,6 +11,7 @@ import EnvelopeIcon from "../../../ui/Icons/EnvelopeIcon";
 import CancelIcon from "../../../ui/Icons/CancelIcons";
 import { copyToClipboard } from "../../../actions";
 import { monthNames } from "../../../util";
+import { TextButton } from "../../../ui/Buttons";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -186,18 +187,18 @@ export default function ActivityList({ users, removeUser, setUsers }) {
                 <Grid item xs={3}>
                   {!user.isVerified && (
                     <Fragment>
-                      <Button
-                        className={classes.generateButton}
-                        startIcon={<EnvelopeIcon />}
+                      <TextButton
+                        startIcon={<EnvelopeIcon style={{ marginTop: 8 }} />}
                         onClick={async () => {
                           reinviteUser(user);
                         }}
                       >
                         Send New Invite
-                      </Button>
-                      <Button
-                        className={classes.generateButton}
-                        startIcon={<GenerateLinkIcon />}
+                      </TextButton>
+                      <TextButton
+                        startIcon={
+                          <GenerateLinkIcon style={{ marginTop: 8 }} />
+                        }
                         onClick={async () => {
                           copyToClipboard(
                             `https://juniper.unicef.io/admin/signin?verification=${user.verificationCode}`
@@ -205,20 +206,21 @@ export default function ActivityList({ users, removeUser, setUsers }) {
                         }}
                       >
                         Generate Invite Link
-                      </Button>
+                      </TextButton>
                     </Fragment>
                   )}
 
-                  <Button
-                    className={classes.removeButton}
-                    startIcon={<CancelIcon style={{ fill: "#ef6161" }} />}
+                  <TextButton
+                    startIcon={
+                      <CancelIcon style={{ fill: "#ef6161", marginTop: 8 }} />
+                    }
                     onClick={async () => {
                       const users = await removeUser(user.email);
                       setUsers(users);
                     }}
                   >
                     Remove User
-                  </Button>
+                  </TextButton>
                 </Grid>
               </Grid>
             </ListItem>

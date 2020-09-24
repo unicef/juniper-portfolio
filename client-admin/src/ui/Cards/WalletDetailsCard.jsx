@@ -1,18 +1,15 @@
 import React, { Fragment, useState } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import Chip from "@material-ui/core/Chip";
-import Button from "@material-ui/core/Button";
 import Grid from "@material-ui/core/Grid";
 import EditIcon from "@material-ui/icons/Edit";
-import CopyIcon from "../Icons/CopyIcon";
 import AddWallet from "../Dialog/AddWallet";
 import { usdFormatter, cryptoFormatter } from "../../util";
-import { copyToClipboard } from "../../actions";
+import { TextButton, CopyAddressButton } from "../Buttons";
 
 const useStyles = makeStyles((theme) => ({
   wallet: {
     position: "relative",
-    minHeight: 341,
     backgroundColor: "#ffffff",
     fontFamily: '"Roboto", sans-serif',
     paddingTop: 10,
@@ -46,7 +43,7 @@ const useStyles = makeStyles((theme) => ({
   walletBalance: {
     fontFamily: '"Roboto", sans-serif',
     fontSize: 18,
-    marginTop: 18,
+    marginTop: 20,
     lineHeight: 1.33,
   },
   currencyBalance: {
@@ -95,7 +92,7 @@ const useStyles = makeStyles((theme) => ({
     color: "#00aaef",
     fontSize: 18,
     lineHeight: 1.33,
-    marginTop: "2.5em",
+    marginTop: 20,
   },
 }));
 
@@ -140,15 +137,15 @@ export default function WalletDetailsCard({
         editWallet={true}
       />
 
-      <Button
-        className={classes.editWalletButton}
-        startIcon={<EditIcon />}
+      <TextButton
+        startIcon={<EditIcon style={{ marginRight: 5 }} />}
+        float={"right"}
         onClick={() => {
           setShowAddWalletModal(true);
         }}
       >
         Edit Wallet
-      </Button>
+      </TextButton>
       <h2 className={classes.name}>{name}</h2>
       {tags &&
         tags.map((tag) => {
@@ -185,18 +182,11 @@ export default function WalletDetailsCard({
         </Grid>
       </Grid>
       <div className={classes.address}>
-        {address}{" "}
-        <Button
-          className={classes.leftButton}
-          startIcon={<CopyIcon fontSize="large" />}
-          onClick={() => {
-            copyToClipboard(address);
-          }}
-        >
-          Copy
-        </Button>
+        {address} <CopyAddressButton address={address}>Copy</CopyAddressButton>
       </div>
-      <div className={classes.walletSubtitle}>Wallet Address</div>
+      <div className={classes.walletSubtitle} style={{ marginTop: 0 }}>
+        Wallet Address
+      </div>
       {isMultisig && (
         <Fragment>
           <div className={classes.owners}>{multisigOwners.length} users</div>

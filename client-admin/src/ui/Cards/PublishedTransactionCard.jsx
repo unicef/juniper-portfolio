@@ -8,6 +8,7 @@ import TxReceivedIcon from "../Icons/TxReceivedIcon";
 import TxSentIcon from "../Icons/TxSentIcon";
 import EditIcon from "../Icons/EditIcon";
 import TxStepper from "../TxStepper";
+import { TextButton, ContainedButton } from "../Buttons";
 
 import { usdFormatter, cryptoFormatter } from "../../util";
 
@@ -40,21 +41,8 @@ const useStyles = makeStyles((theme) => ({
     lineHeight: 1.57,
     color: "#000000",
   },
-  unpublishedTxDetailsButton: {
+  txDetailsButton: {
     marginTop: "1em",
-    float: "left",
-    fontSize: 12,
-    fontWeight: 700,
-    letterSpacing: 1,
-    fontFamily: '"Cabin", sans-serif',
-    color: "#00aeef",
-    "&:hover": {
-      backgroundColor: "#ecfaff",
-    },
-    "& .MuiButton-endIcon": {
-      margin: 0,
-    },
-    paddingLeft: 0,
   },
   unpublishedTxBalance: {
     fontFamily: '"Roboto", sans-serif',
@@ -131,27 +119,28 @@ export default function PublishedTransactionCard({
             to={tx.to}
             from={tx.from}
           />
-          <Button
-            className={classes.unpublishedTxDetailsButton}
-            endIcon={<ChevronRightIcon />}
-            onClick={() => {
-              switch (symbol) {
-                case "BTC":
-                  window.open(
-                    `https://www.blockchain.com/btc/tx/${txid}`,
-                    "_blank"
-                  );
-                  break;
-                case "ETH":
-                  window.open(`https://etherscan.io/tx/${txid}`);
-                  break;
-                default:
-                  break;
-              }
-            }}
-          >
-            Show Transaction Details
-          </Button>
+          <div className={classes.txDetailsButton}>
+            <TextButton
+              endIcon={<ChevronRightIcon />}
+              onClick={() => {
+                switch (symbol) {
+                  case "BTC":
+                    window.open(
+                      `https://www.blockchain.com/btc/tx/${txid}`,
+                      "_blank"
+                    );
+                    break;
+                  case "ETH":
+                    window.open(`https://etherscan.io/tx/${txid}`);
+                    break;
+                  default:
+                    break;
+                }
+              }}
+            >
+              Show Transaction Details
+            </TextButton>
+          </div>
         </Grid>
         <Grid item xs={4}>
           <div className={classes.unpublishedTxBalance}>
@@ -161,15 +150,16 @@ export default function PublishedTransactionCard({
           <div className={classes.walletSubtitle}>Donated Amount</div>
 
           {isAdmin && (
-            <Button
+            <TextButton
               className={classes.archiveTransactionButton}
-              startIcon={<EditIcon />}
+              startIcon={<EditIcon style={{ paddingTop: 5, fontSize: 26 }} />}
               onClick={() => {
                 onTagTransactionClick(tx);
               }}
+              style={{ marginTop: "1em" }}
             >
               Edit Transaction
-            </Button>
+            </TextButton>
           )}
         </Grid>
       </Grid>

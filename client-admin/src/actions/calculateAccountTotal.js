@@ -1,4 +1,4 @@
-module.exports = (account, currency) => {
+export default (account, currency) => {
   return account.addresses
     .filter((address) => address.currency === currency)
     .reduce((total, address) => {

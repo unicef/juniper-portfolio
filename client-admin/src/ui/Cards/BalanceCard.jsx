@@ -23,10 +23,13 @@ const useStyles = makeStyles((theme) => ({
     margin: 0,
   },
   currency: {
+    fontFamily: '"Cabin", sans-serif',
+    color: "#000000",
+    marginTop: 6,
+    letterSpacing: 0.83,
     fontSize: 10,
     fontWeight: 500,
     textTransform: "uppercase",
-    color: "#000000",
   },
   divider: {
     color: "#000000",
@@ -44,9 +47,12 @@ const useStyles = makeStyles((theme) => ({
     marginBottom: 0,
   },
   received: {
+    fontFamily: '"Cabin", sans-serif',
+    color: "#000000",
+    marginTop: 6,
+    letterSpacing: 0.83,
     fontSize: 10,
     fontWeight: 500,
-    marginTop: 0,
     textTransform: "uppercase",
   },
   totalInvested: {
@@ -56,9 +62,12 @@ const useStyles = makeStyles((theme) => ({
     marginBottom: 0,
   },
   invested: {
+    fontFamily: '"Cabin", sans-serif',
+    color: "#000000",
+    marginTop: 6,
+    letterSpacing: 0.83,
     fontSize: 10,
     fontWeight: 500,
-    marginTop: 0,
     textTransform: "uppercase",
   },
 }));

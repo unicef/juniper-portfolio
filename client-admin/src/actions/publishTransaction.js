@@ -1,4 +1,4 @@
-module.exports = async (tx, donor, publish) => {
+export default async (tx, donor, publish) => {
   tx.published = publish;
 
   try {

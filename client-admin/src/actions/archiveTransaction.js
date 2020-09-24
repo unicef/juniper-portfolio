@@ -1,4 +1,4 @@
-module.exports = async (txid) => {
+export default async (txid) => {
   try {
     await fetch(`/rest/admin/transactions/archive`, {
       credentials: "include",
