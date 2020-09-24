@@ -1,4 +1,4 @@
-module.exports = async (email) => {
+export default async (email) => {
   let res;
   let users = [];
   try {

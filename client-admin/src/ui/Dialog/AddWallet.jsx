@@ -14,6 +14,7 @@ import CloseIcon from "@material-ui/icons/Close";
 import HelpOutlineIcon from "@material-ui/icons/HelpOutline";
 import AddIcon from "@material-ui/icons/Add";
 import CircularProgress from "@material-ui/core/CircularProgress";
+import { TextButton, ContainedButton } from "../Buttons";
 
 const web3Utils = require("web3-utils");
 
@@ -26,11 +27,6 @@ const useStyles = makeStyles((theme) => ({
   closeIcon: {
     position: "absolute",
     right: 5,
-    fontFamily: '"Cabin",  sans-serif',
-    fontSize: 14,
-    letterSpacing: 1.17,
-    fontWeight: 700,
-    textTransform: "uppercase",
   },
   title: {
     fontFamily: '"Roboto", sans-serif',
@@ -90,17 +86,7 @@ const useStyles = makeStyles((theme) => ({
     color: "#00aaef",
   },
   addNewWalletButton: {
-    height: 35,
-    display: "block",
-    fontFamily: '"Cabin",  sans-serif',
-    fontSize: 12,
-    color: "#ffffff",
-    fontWeight: 700,
-    letterSpacing: 1.2,
-    width: "100%",
     marginTop: "3em",
-    borderRadius: 5,
-    textTransform: "uppercase",
   },
   multisigOwners: {
     marginTop: "2em",
@@ -299,14 +285,15 @@ export default function AddWallet(props) {
     <div>
       <Dialog fullScreen open={open} onClose={handleClose}>
         <Toolbar>
-          <IconButton
-            color="primary"
-            onClick={handleClose}
-            aria-label="close"
-            className={classes.closeIcon}
-          >
-            Cancel <CloseIcon fontSize="large" />
-          </IconButton>
+          <div className={classes.closeIcon}>
+            <TextButton
+              onClick={handleClose}
+              endIcon={<CloseIcon fontSize="large" style={{ fontSize: 28 }} />}
+              style={{ fontSize: 14 }}
+            >
+              Cancel
+            </TextButton>
+          </div>
         </Toolbar>
         <Container maxWidth={"sm"}>
           <h1 className={classes.title}>
@@ -411,29 +398,26 @@ export default function AddWallet(props) {
                         />
                       );
                     })}
-                    <Button
-                      color="primary"
-                      className={classes.addMultisigOwnerButton}
+                    <TextButton
                       startIcon={<AddIcon />}
                       onClick={addMultisigOwner}
                     >
                       Add Another Wallet Owner
-                    </Button>
+                    </TextButton>
                   </div>
                 )}
               </Fragment>
             )}
 
             {!addingWallet && (
-              <Button
-                color="primary"
-                variant="contained"
-                disabled={false}
-                className={classes.addNewWalletButton}
-                onClick={addWallet}
-              >
-                {props.editWallet ? "Edit" : "Add new"} wallet
-              </Button>
+              <div className={classes.addNewWalletButton}>
+                <ContainedButton
+                  onClick={addWallet}
+                  style={{ display: "block", width: "100%" }}
+                >
+                  {props.editWallet ? "Edit" : "Add new"} wallet
+                </ContainedButton>
+              </div>
             )}
 
             {addingWallet && (

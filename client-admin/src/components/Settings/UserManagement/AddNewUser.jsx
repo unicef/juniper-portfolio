@@ -11,6 +11,7 @@ import Divider from "@material-ui/core/Divider";
 import GenerateLinkIcon from "../../../ui/Icons/GenerateLinkIcon";
 import { copyToClipboard } from "../../../actions";
 import { addUser } from "../../../actions";
+import { TextButton, ContainedButton } from "../../../ui/Buttons";
 
 const useStyles = makeStyles({
   root: {
@@ -91,26 +92,7 @@ const useStyles = makeStyles({
     lineHeight: 1.42,
     color: "#000000",
   },
-  generatLinkButton: {
-    marginTop: "1em",
-    float: "left",
-    fontSize: 12,
-    fontWeight: 700,
-    letterSpacing: 1,
-    fontFamily: '"Cabin", sans-serif',
-    color: "#00aeef",
-    "&:hover": {
-      backgroundColor: "#ecfaff",
-    },
-    "& .MuiButton-endIcon": {
-      margin: 0,
-    },
-    paddingLeft: 0,
-    "& .MuiButton-startIcon": {
-      margin: 0,
-      marginTop: 8,
-    },
-  },
+
   verificationCode: {
     paddingTop: 22,
     fontSize: 14,
@@ -126,7 +108,7 @@ export default function AddNewUser({ setUsers }) {
   const [isAdmin, setIsAdmin] = useState("");
   const [email, setEmail] = useState("");
   const [siteLink, setSiteLink] = useState(
-    "https://juniper.unicef.io/admin/signin?verificationCode="
+    "https://juniper.unicef.io/admin/signin?verification="
   );
   const [verificationCode, setVerificationCode] = useState("");
 
@@ -248,10 +230,7 @@ export default function AddNewUser({ setUsers }) {
         />
       </Grid>
       <Grid item xs={12} className={classes.formItem}>
-        <Button
-          className={classes.filledButton}
-          variant="contained"
-          color="primary"
+        <ContainedButton
           onClick={async () => {
             const users = await addUser({
               firstName,
@@ -268,9 +247,10 @@ export default function AddNewUser({ setUsers }) {
             setUsers(users);
             resetForm();
           }}
+          style={{ width: 202, marginTop: 19, paddingLeft: 15 }}
         >
           Send Invite
-        </Button>
+        </ContainedButton>
       </Grid>
       <Grid item xs={6} className={classes.formItem}>
         <Divider className={classes.divider} />
@@ -286,9 +266,8 @@ export default function AddNewUser({ setUsers }) {
         </p>
       </Grid>
       <Grid item xs={12} className={classes.formItem}>
-        <Button
-          className={classes.generatLinkButton}
-          startIcon={<GenerateLinkIcon />}
+        <TextButton
+          startIcon={<GenerateLinkIcon style={{ marginTop: 6 }} />}
           onClick={async () => {
             if (verificationCode) {
               copyToClipboard(`${siteLink}${verificationCode}`);
@@ -316,7 +295,7 @@ export default function AddNewUser({ setUsers }) {
           }}
         >
           Generate Invite Link
-        </Button>
+        </TextButton>
       </Grid>
     </Grid>
   );

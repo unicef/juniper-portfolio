@@ -16,7 +16,7 @@ import CircularProgress from "@material-ui/core/CircularProgress";
 import UploadIcon from "../Icons/UploadIcon";
 import AddIcon from "@material-ui/icons/Add";
 import FileUpload from "../../components/FileUpload";
-
+import { TextButton, ContainedButton } from "../Buttons";
 import countries from "./countries.jsx";
 
 const useStyles = makeStyles((theme) => ({
@@ -90,17 +90,7 @@ const useStyles = makeStyles((theme) => ({
     color: "#00aaef",
   },
   addStartupButton: {
-    height: 35,
-    display: "block",
-    fontFamily: '"Cabin",  sans-serif',
-    fontSize: 12,
-    color: "#ffffff",
-    fontWeight: 700,
-    letterSpacing: 1.2,
-    width: "100%",
     marginTop: "3em",
-    borderRadius: 5,
-    textTransform: "uppercase",
   },
   walletDetails: {
     marginTop: "2em",
@@ -170,7 +160,7 @@ export default function CreateStartup(props) {
     {
       address: "",
       currency: "",
-      amount: "",
+      amount: 0,
     },
   ]);
 
@@ -179,7 +169,7 @@ export default function CreateStartup(props) {
     newAddresses.push({
       address: "",
       currency: "",
-      amount: "",
+      amount: 0,
     });
     setAddresses(newAddresses);
   };
@@ -228,7 +218,7 @@ export default function CreateStartup(props) {
       {
         address: "",
         currency: "",
-        amount: "",
+        amount: 0,
       },
     ]);
 
@@ -254,7 +244,7 @@ export default function CreateStartup(props) {
         {
           address: "",
           currency: "",
-          amount: "",
+          amount: 0,
         },
       ]
     );
@@ -264,14 +254,15 @@ export default function CreateStartup(props) {
     <div>
       <Dialog fullScreen open={open} onClose={handleClose}>
         <Toolbar>
-          <IconButton
-            color="primary"
-            onClick={handleClose}
-            aria-label="close"
-            className={classes.closeIcon}
-          >
-            Cancel <CloseIcon fontSize="large" />
-          </IconButton>
+          <div className={classes.closeIcon}>
+            <TextButton
+              onClick={handleClose}
+              endIcon={<CloseIcon fontSize="large" style={{ fontSize: 28 }} />}
+              style={{ fontSize: 14 }}
+            >
+              Cancel
+            </TextButton>
+          </div>
         </Toolbar>
         <Container maxWidth={"sm"} className={classes.container}>
           <h1 className={classes.title}>
@@ -354,17 +345,12 @@ export default function CreateStartup(props) {
                     <FileUpload
                       url={"/upload/image"}
                       afterUpload={(json) => {
-                        console.log(json);
                         setImage(json.imageUrl);
                       }}
                     >
-                      <Button
-                        className={classes.imageButton}
-                        startIcon={<UploadIcon />}
-                        onClick={() => {}}
-                      >
+                      <TextButton startIcon={<UploadIcon />}>
                         Upload Image
-                      </Button>
+                      </TextButton>
                     </FileUpload>
                   </Grid>
                 </Grid>
@@ -386,28 +372,22 @@ export default function CreateStartup(props) {
                       />
                     );
                   })}
-                  <Button
-                    color="primary"
-                    className={classes.addMultisigOwnerButton}
-                    startIcon={<AddIcon />}
-                    onClick={addAddress}
-                  >
-                    Add Another Wallet Wallet
-                  </Button>
+                  <TextButton startIcon={<AddIcon />} onClick={addAddress}>
+                    Add Another Wallet
+                  </TextButton>
                 </div>
               </Grid>
             </Grid>
 
             {!addingStartup && (
-              <Button
-                color="primary"
-                variant="contained"
-                disabled={false}
-                className={classes.addStartupButton}
-                onClick={createStartup}
-              >
-                {props.edit ? "Edit" : "Create"} Account
-              </Button>
+              <div className={classes.addStartupButton}>
+                <ContainedButton
+                  onClick={createStartup}
+                  style={{ display: "block", width: "100%" }}
+                >
+                  {props.edit ? "Edit" : "Create"} Account
+                </ContainedButton>
+              </div>
             )}
 
             {addingStartup && (
