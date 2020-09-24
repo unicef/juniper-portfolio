@@ -1,4 +1,4 @@
-module.exports = async (symbol) => {
+export default async (symbol) => {
   let res, price;
   try {
     res = await fetch(

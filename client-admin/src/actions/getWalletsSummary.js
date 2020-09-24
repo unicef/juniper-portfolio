@@ -1,4 +1,4 @@
-module.exports = async () => {
+export default async () => {
   let data, summary;
   try {
     data = await fetch("/rest/admin/wallets/summary");

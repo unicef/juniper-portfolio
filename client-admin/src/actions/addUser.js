@@ -1,4 +1,4 @@
-module.exports = async (user) => {
+export default async (user) => {
   let res;
   let users = [];
 
