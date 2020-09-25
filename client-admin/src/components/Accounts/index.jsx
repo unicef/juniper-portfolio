@@ -33,7 +33,7 @@ export default function Accounts({
       />
 
       <AccountLayout
-        title={"Investment"}
+        title={"Donation"}
         type={"donor"}
         addButtonText={"Create Donor Account"}
         CreateModal={CreateAccount}
