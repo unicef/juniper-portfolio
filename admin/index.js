@@ -5,7 +5,7 @@ const MongoStore = require("connect-mongo")(session);
 const passport = require("passport");
 const LocalStrategy = require("passport-local").Strategy;
 const bodyParser = require("body-parser");
-const PriceMonitor = require("./price_monitor");
+
 const fetch = require("node-fetch");
 const {
   BitcoinScraper,
@@ -50,7 +50,7 @@ class JuniperAdmin {
 
     this.email = new Email(this.config.email);
     this.db = new DB(this.config.db);
-    this.priceMonitor = new PriceMonitor(this.config.priceMonitor, this.db);
+
     this.bitcoinWalletScraper = new BitcoinScraper(
       this.config.bitcoinScraper,
       this.db
@@ -157,14 +157,7 @@ class JuniperAdmin {
     this.logger.info(`Logging activity: ${activity}`);
   }
 
-  startPriceMonitor() {
-    if (this.config.startPriceMonitor) {
-      this.priceMonitor.start();
-    }
-  }
   start() {
-    this.startPriceMonitor();
-
     this.server.listen(this.config.port, () => {
       this.logger.info(`listening on http://localhost:${this.config.port}`);
     });
@@ -176,9 +169,14 @@ class JuniperAdmin {
     await this.email.sendInvitation(user.email, host, verificationCode);
   }
 
-  exit() {
+  async exit() {
     this.logger.info(`exiting`);
+    await this.db.disconnect();
     process.exit();
+  }
+
+  async savePrice(p) {
+    return await this.db.savePrice(p);
   }
 
   async logActivity(activity) {
