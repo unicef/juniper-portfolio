@@ -148,7 +148,11 @@ export default function TxList({
             return (
               <ListItem
                 key={index}
-                style={{ borderBottom: "solid 1px #cecece" }}
+                style={{
+                  borderBottom: "solid 1px #cecece",
+                  paddingLeft: 0,
+                  paddingRight: 0,
+                }}
               >
                 <TxCard
                   tx={tx}
