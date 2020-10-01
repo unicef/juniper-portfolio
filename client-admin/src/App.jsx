@@ -287,7 +287,11 @@ export default function JuniperAdmin() {
                       ethRate={ethRate}
                       btcRate={btcRate}
                     />
-                    <PriceTracker prices={prices} />
+                    <PriceTracker
+                      prices={prices}
+                      ethRate={ethRate}
+                      btcRate={btcRate}
+                    />
                   </Route>
                   <Route path="/admin/transactions">
                     <TopBar user={user} setPageIndex={setPageIndex} />

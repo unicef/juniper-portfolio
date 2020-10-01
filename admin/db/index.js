@@ -38,6 +38,10 @@ class MongoDB {
     this.logger.info("Initialized");
   }
 
+  async disconnect() {
+    await this.mongoose.connection.close();
+  }
+
   async createUser(user) {
     return this.models.User.findOneAndUpdate(
       {
@@ -381,10 +385,10 @@ class MongoDB {
   }
 
   async savePrice(price) {
-    this.logger.debug(`Saving Price ${JSON.stringify(price)}`);
+    this.logger.info(`Saving Price ${JSON.stringify(price)}`);
+
     return this.models.Price.findOneAndUpdate(
       {
-        exchange: price.exchange,
         symbol: price.symbol,
         timestamp: price.timestamp,
       },

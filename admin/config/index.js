@@ -43,7 +43,7 @@ module.exports = {
   priceMonitor: {
     interval: oneDay,
     cryptoCompare: {
-      scrape: true,
+      scrape: false,
     },
     binance: {
       scrape: false,

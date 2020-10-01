@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import PriceCheckerLayout from "../../ui/Layout/PriceCheckerLayout";
 import PageLayout from "../../ui/Layout/PageLayout";
 
-export default function PriceTracker({ prices }) {
+export default function PriceTracker({ prices, btcRate, ethRate }) {
   const [tabs] = useState(["Bitcoin", "Ethereum"]);
 
   return (
@@ -10,12 +10,12 @@ export default function PriceTracker({ prices }) {
       <PriceCheckerLayout
         currency={"Bitcoin"}
         prices={prices.bitcoin}
-        currentPrice={prices.btcPrice}
+        currentPrice={btcRate}
       />
       <PriceCheckerLayout
         currency={"Ethereum"}
         prices={prices.ethereum}
-        currentPrice={prices.ethPrice}
+        currentPrice={ethRate}
       />
     </PageLayout>
   );
