@@ -12,7 +12,8 @@ const {
   EthereumScraper,
   GnosisScraper,
 } = require("./scrapers");
-const Logger = require("./logger");
+
+const { Logger } = require("node-code-utils");
 const Email = require("./email");
 const DB = require("./db");
 const utils = require("./utils");

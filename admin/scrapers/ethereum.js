@@ -1,4 +1,4 @@
-const Logger = require("../logger");
+const { Logger } = require("node-code-utils");
 const fetch = require("node-fetch");
 const defaultConfig = require("../config");
 

@@ -1,5 +1,5 @@
 require("dotenv").config();
-const Logger = require("../logger");
+const { Logger } = require("node-code-utils");
 const Coinbase = require("./lib/coinbase");
 const Binance = require("./lib/binance");
 const Bitstamp = require("./lib/bitstamp");

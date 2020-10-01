@@ -1,6 +1,6 @@
 const router = require("express").Router();
 const { isAdmin } = require("../../middleware");
-const Logger = require("../../logger");
+const { Logger } = require("node-code-utils");
 const logger = new Logger("Settings Routes");
 
 router.get("/activities", async (req, res) => {

@@ -1,5 +1,5 @@
 const nodemailer = require("nodemailer");
-const Logger = require("../../logger");
+const { Logger } = require("node-code-utils");
 
 class Transports {
   constructor(config) {

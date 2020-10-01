@@ -1,5 +1,5 @@
 const fetch = require("node-fetch");
-const Logger = require("../../../logger");
+const { Logger } = require("node-code-utils");
 
 class CryptoCompare {
   // https://www.cryptocompare.com/media/27010937/cccagg_methodology_2018-02-26.pdf
