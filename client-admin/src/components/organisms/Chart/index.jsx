@@ -34,7 +34,7 @@ export default function ({
               <ChartSummary
                 subtitle={"Today's Current Price"}
                 title={currentPrice}
-                boldTitle={true}
+                isBold={true}
               />
             </Grid>
             <Grid item xs={12}>

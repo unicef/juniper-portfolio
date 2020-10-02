@@ -11,13 +11,13 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function ({ className, subtitle, title, boldTitle }) {
+export default function ({ className, subtitle, title, isBold }) {
   const classes = useStyles();
   return (
     <Fragment>
       <div className={`${classes.atom} ${className}`}>
         <SummarySubtitle>{subtitle}</SummarySubtitle>
-        <SummaryTitle>{boldTitle ? <b>{title}</b> : title}</SummaryTitle>
+        <SummaryTitle>{isBold ? <b>{title}</b> : title}</SummaryTitle>
       </div>
     </Fragment>
   );

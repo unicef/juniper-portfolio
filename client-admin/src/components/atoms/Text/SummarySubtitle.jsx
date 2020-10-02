@@ -2,7 +2,7 @@ import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
 
 const useStyles = makeStyles((theme) => ({
-  atom: {
+  summarySubtitle: {
     fontFamily: '"Cabin", sans-serif',
     color: "#000000",
     marginTop: 6,
@@ -16,5 +16,7 @@ const useStyles = makeStyles((theme) => ({
 
 export default function ({ children, className }) {
   const classes = useStyles();
-  return <h4 className={`${classes.atom} ${className}`}> {children} </h4>;
+  return (
+    <h4 className={`${classes.summarySubtitle} ${className}`}> {children} </h4>
+  );
 }
