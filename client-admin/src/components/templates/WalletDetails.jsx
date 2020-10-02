@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import BreadCrumb from "../molecules/Breadcrumb";
-import { WalletDetailsCard } from "../../ui/Cards";
+import WalletSummary from "../molecules/Card/WalletSummary";
 import { TransactionDetailsCard } from "../../ui/Cards";
 import TxList from "../organisms/TxList";
 
@@ -54,7 +54,7 @@ export default function ({
         viewWalletDetails={viewWalletDetails}
         link={"/admin/wallets"}
       />
-      <WalletDetailsCard
+      <WalletSummary
         name={wallet.name}
         currency={wallet.currency}
         tags={wallet.tags}
