@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from "react";
 import AccountLayout from "../../ui/Layout/AccountLayout";
 import { CreateAccount } from "../../ui/Dialog";
-import PageLayout from "../../ui/Layout/PageLayout";
+import PageLayout from "../templates/Page";
 
-export default function Accounts({
+export default function AccountPage({
   isAdmin,
   accounts,
   ethRate,
@@ -11,7 +11,6 @@ export default function Accounts({
   fetchAccounts,
 }) {
   const [tabs] = useState(["Startups", "Donors", "Natcoms"]);
-  const [pages, setPages] = useState();
 
   useEffect(() => {}, [accounts, btcRate, ethRate]);
 

@@ -12,12 +12,11 @@ import "./app.css";
 import SignIn from "./components/SignIn";
 import TopBar from "./components/TopBar";
 import Sidebar from "./components/Sidebar";
-import Accounts from "./components/Accounts";
+import AccountsPage from "./components/pages/Accounts";
 import PriceTrackerPage from "./components/pages/PriceTracker";
 import WalletsPage from "./components/pages/Wallets";
 import Settings from "./components/Settings";
 import Transactions from "./components/Transactions";
-import Wallets from "./components/Wallets";
 
 import ApolloClient from "apollo-boost";
 import { ApolloProvider } from "react-apollo";
@@ -273,7 +272,7 @@ export default function JuniperAdmin() {
                       ethRate={ethRate}
                       btcRate={btcRate}
                     />
-                    <Accounts
+                    <AccountsPage
                       isAdmin={user.isAdmin}
                       fetchAccounts={fetchAccounts}
                       accounts={accounts}
