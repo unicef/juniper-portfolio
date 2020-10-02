@@ -15,7 +15,7 @@ import CloseIcon from "@material-ui/icons/Close";
 import CircularProgress from "@material-ui/core/CircularProgress";
 import UploadIcon from "../Icons/UploadIcon";
 import AddIcon from "@material-ui/icons/Add";
-import FileUpload from "../../components/FileUpload";
+import FileUpload from "../../components/atoms/FileUpload";
 import { TextButton, ContainedButton } from "../Buttons";
 import countries from "./countries.jsx";
 
