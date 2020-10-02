@@ -1,6 +1,6 @@
 import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
-import PriceIcon from "../../../ui/Icons/PriceIcon";
+import PriceIcon from "../../atoms/Icons/PriceIcon";
 import Block from "../../atoms/Block";
 
 const useStyles = makeStyles((theme) => ({

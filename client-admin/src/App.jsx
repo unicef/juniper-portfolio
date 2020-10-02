@@ -9,14 +9,14 @@ import {
   Redirect,
 } from "react-router-dom";
 import "./app.css";
-import SignIn from "./components/SignIn";
-import TopBar from "./components/TopBar";
-import Sidebar from "./components/Sidebar";
+import SignIn from "./components/pages/SignIn";
+import TopBar from "./components/organisms/TopBar";
+import Sidebar from "./components/organisms/Sidebar";
 import AccountsPage from "./components/pages/Accounts";
 import PriceTrackerPage from "./components/pages/PriceTracker";
 import WalletsPage from "./components/pages/Wallets";
-import Settings from "./components/Settings";
-import Transactions from "./components/Transactions";
+import Settings from "./components/pages/Settings";
+import Transactions from "./components/pages/Transactions";
 
 import ApolloClient from "apollo-boost";
 import { ApolloProvider } from "react-apollo";

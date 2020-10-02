@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import AccountLayout from "../../ui/Layout/AccountLayout";
+import AccountLayout from "../templates/Account";
 import { CreateAccount } from "../../ui/Dialog";
 import PageLayout from "../templates/Page";
 

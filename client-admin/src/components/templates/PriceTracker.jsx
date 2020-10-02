@@ -8,7 +8,7 @@ import PriceInfo from "../molecules/Info/PriceInfo";
 import PageTitle from "../atoms/Text/PageTitle";
 import PageSubtitle from "../atoms/Text/PageSubtitle";
 import LeftRightButton from "../molecules/Button/LeftRight";
-import ChartArea from "../organisms/ChartArea";
+import ChartArea from "../organisms/Chart";
 
 const useStyles = makeStyles((theme) => ({
   heading: {

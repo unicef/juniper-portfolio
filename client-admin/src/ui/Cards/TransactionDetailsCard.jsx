@@ -5,11 +5,13 @@ import Button from "@material-ui/core/Button";
 import Grid from "@material-ui/core/Grid";
 import ChevronRightIcon from "@material-ui/icons/ChevronRight";
 import FormatListBulletedIcon from "@material-ui/icons/FormatListBulleted";
-import TxReceivedIcon from "../Icons/TxReceivedIcon";
-import TxSentIcon from "../Icons/TxSentIcon";
+import TxReceivedIcon from "../../components/atoms/Icons/TxReceivedIcon";
+import TxSentIcon from "../../components/atoms/Icons/TxSentIcon";
 import { usdFormatter, cryptoFormatter } from "../../util";
 import { AddWallet } from "../Dialog";
-import { ContainedButton, TextButton } from "../Buttons";
+import { TextButton } from "../Buttons";
+
+import ContainedButton from "../../components/atoms/Button/Contained";
 
 const useStyles = makeStyles((theme) => ({
   walletBalance: {

@@ -12,7 +12,7 @@ import Toolbar from "@material-ui/core/Toolbar";
 import IconButton from "@material-ui/core/IconButton";
 import CloseIcon from "@material-ui/icons/Close";
 import { usdFormatter, cryptoFormatter } from "../../util";
-import QuestionMarkIcon from "../Icons/QuestionMarkIcon";
+import QuestionMarkIcon from "../../components/atoms/Icons/QuestionMarkIcon";
 import CreateAccount from "./CreateAccount";
 import { getExchangeRate } from "../../actions";
 import { TextButton, ContainedButton, OutlineButton } from "../Buttons";

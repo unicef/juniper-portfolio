@@ -3,7 +3,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import BreadCrumb from "../molecules/Breadcrumb";
 import { WalletDetailsCard } from "../../ui/Cards";
 import { TransactionDetailsCard } from "../../ui/Cards";
-import TxList from "../../ui/TxList";
+import TxList from "../organisms/TxList";
 
 import { AuthorizationRecord } from "../../ui/Dialog";
 import { getWalletByAddress, getTransactionsByAddress } from "../../actions";

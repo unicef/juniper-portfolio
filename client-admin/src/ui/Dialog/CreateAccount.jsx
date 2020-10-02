@@ -13,7 +13,7 @@ import Toolbar from "@material-ui/core/Toolbar";
 import IconButton from "@material-ui/core/IconButton";
 import CloseIcon from "@material-ui/icons/Close";
 import CircularProgress from "@material-ui/core/CircularProgress";
-import UploadIcon from "../Icons/UploadIcon";
+import UploadIcon from "../../components/atoms/Icons/UploadIcon";
 import AddIcon from "@material-ui/icons/Add";
 import FileUpload from "../../components/atoms/FileUpload";
 import { TextButton, ContainedButton } from "../Buttons";
