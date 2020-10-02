@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import PriceInfo from "../molecules/Info/PriceInfo";
 import Grid from "@material-ui/core/Grid";
-import { TrackWalletCard } from "../../ui/Cards";
+import WalletCard from "../molecules/Card/WalletCard";
 import { AddWallet } from "../../ui/Dialog";
 import ContainedButton from "../atoms/Button/Contained";
 
@@ -116,7 +116,7 @@ export default function ({
             tracked.map((wallet, index) => {
               return (
                 <Grid item xs={6} key={`${index}-${wallet.address}`}>
-                  <TrackWalletCard
+                  <WalletCard
                     name={wallet.name}
                     currency={wallet.currency}
                     tags={wallet.tags}
@@ -124,7 +124,8 @@ export default function ({
                     balance={wallet.balance}
                     address={wallet.address}
                     exchangeRate={wallet.symbol === "ETH" ? ethRate : btcRate}
-                    afterUnfollowWallet={fetchTrackedWallets}
+                    fetchWallets={fetchTrackedWallets}
+                    isUnicef={false}
                   />
                 </Grid>
               );
@@ -142,7 +143,7 @@ export default function ({
             other.map((wallet, index) => {
               return (
                 <Grid item xs={6} key={`${index}-${wallet.address}`}>
-                  <TrackWalletCard
+                  <WalletCard
                     name={wallet.name}
                     currency={wallet.currency}
                     tags={wallet.tags}
@@ -150,7 +151,8 @@ export default function ({
                     balance={wallet.balance}
                     address={wallet.address}
                     exchangeRate={wallet.symbol === "ETH" ? ethRate : btcRate}
-                    afterUnfollowWallet={fetchTrackedWallets}
+                    fetchWallets={fetchTrackedWallets}
+                    isUnicef={false}
                   />
                 </Grid>
               );

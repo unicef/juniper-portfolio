@@ -30,6 +30,7 @@ export default function YourWalletsPage({
             isAdmin={isAdmin}
             btcRate={btcRate}
             ethRate={ethRate}
+            fetchWallets={fetchWallets}
           />
         </Route>
         <Route exact path="/admin/wallets">

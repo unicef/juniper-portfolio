@@ -283,6 +283,7 @@ export default function ({
                       balance={wallet.balance}
                       address={wallet.address}
                       exchangeRate={ethRate}
+                      isUnicef={true}
                     />
                   </Grid>
                 );
@@ -323,6 +324,7 @@ export default function ({
                       balance={wallet.balance}
                       address={wallet.address}
                       exchangeRate={btcRate}
+                      isUnicef={true}
                     />
                   </Grid>
                 );
