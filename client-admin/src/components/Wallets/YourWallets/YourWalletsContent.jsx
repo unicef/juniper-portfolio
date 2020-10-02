@@ -3,6 +3,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import Grid from "@material-ui/core/Grid";
 import Button from "@material-ui/core/Button";
 import PriceInfoBanner from "../../../ui/PriceInfoBanner";
+import PriceInfo from "../../molecules/Info/PriceInfo";
 import {
   BalanceCard,
   TxFeeCard,
@@ -200,7 +201,7 @@ export default function ({
       />
       <Grid container>
         <Grid item xs={12}>
-          <PriceInfoBanner />
+          <PriceInfo />
         </Grid>
 
         <Grid item xs={12} style={{ marginTop: "2em" }}>

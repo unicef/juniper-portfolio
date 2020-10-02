@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
 import PriceTracker from "../templates/PriceTracker";
-import PageLayout from "../../ui/Layout/PageLayout";
+import PageLayout from "../templates/Page";
 
-export default function PriceTracker({ prices, btcRate, ethRate }) {
+export default function PriceTrackerPage({ prices, ethRate, btcRate }) {
   const [tabs] = useState(["Bitcoin", "Ethereum"]);
 
   return (

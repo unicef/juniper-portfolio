@@ -13,7 +13,7 @@ import SignIn from "./components/SignIn";
 import TopBar from "./components/TopBar";
 import Sidebar from "./components/Sidebar";
 import Accounts from "./components/Accounts";
-import PriceTracker from "./components/PriceTracker";
+import PriceTracker from "./components/pages/PriceTracker";
 import Settings from "./components/Settings";
 import Transactions from "./components/Transactions";
 import Wallets from "./components/Wallets";
