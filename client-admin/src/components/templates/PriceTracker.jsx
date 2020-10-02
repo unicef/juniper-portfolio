@@ -1,11 +1,8 @@
 import React, { useState, useEffect, Fragment } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import Grid from "@material-ui/core/Grid";
-import ChevronRightIcon from "@material-ui/icons/ChevronRight";
-import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
-import IconButton from "@material-ui/core/IconButton";
+
 import { usdFormatter, monthNames } from "../../util";
-import { LineChart, Line, XAxis, YAxis, Tooltip } from "recharts";
 
 import PriceInfo from "../molecules/Info/PriceInfo";
 import PageTitle from "../atoms/Text/PageTitle";
@@ -120,6 +117,7 @@ export default function (props) {
 
   const [currentMonthAveragePrice, setCurrentMonthAveragePrice] = useState(0);
 
+  // TODO make all of these utilities/constants
   const shortDate = (date) => {
     return `${date.getDate()} ${
       monthNames[date.getMonth()]

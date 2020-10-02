@@ -13,10 +13,12 @@ import SignIn from "./components/SignIn";
 import TopBar from "./components/TopBar";
 import Sidebar from "./components/Sidebar";
 import Accounts from "./components/Accounts";
-import PriceTracker from "./components/pages/PriceTracker";
+import PriceTrackerPage from "./components/pages/PriceTracker";
+import WalletsPage from "./components/pages/Wallets";
 import Settings from "./components/Settings";
 import Transactions from "./components/Transactions";
 import Wallets from "./components/Wallets";
+
 import ApolloClient from "apollo-boost";
 import { ApolloProvider } from "react-apollo";
 import LoadingScreen from "./ui/Dialog/LoadingScreen";
@@ -234,7 +236,7 @@ export default function JuniperAdmin() {
                       ethRate={ethRate}
                       btcRate={btcRate}
                     />
-                    <Wallets
+                    <WalletsPage
                       wallets={wallets}
                       trackedWallets={trackedWallets}
                       summary={summary}
@@ -252,7 +254,7 @@ export default function JuniperAdmin() {
                       ethRate={ethRate}
                       btcRate={btcRate}
                     />
-                    <Wallets
+                    <WalletsPage
                       wallets={wallets}
                       trackedWallets={trackedWallets}
                       summary={summary}
@@ -287,7 +289,7 @@ export default function JuniperAdmin() {
                       ethRate={ethRate}
                       btcRate={btcRate}
                     />
-                    <PriceTracker
+                    <PriceTrackerPage
                       prices={prices}
                       ethRate={ethRate}
                       btcRate={btcRate}
