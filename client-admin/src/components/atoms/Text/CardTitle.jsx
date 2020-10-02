@@ -12,8 +12,8 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function ({ children }) {
+export default function ({ children, className }) {
   const classes = useStyles();
 
-  return <h2 className={classes.cardTitle}>{children}</h2>;
+  return <h2 className={`${classes.cardTitle} ${className}`}>{children}</h2>;
 }

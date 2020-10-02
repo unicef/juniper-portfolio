@@ -9,8 +9,7 @@ import TxReceivedIcon from "../../components/atoms/Icons/TxReceivedIcon";
 import TxSentIcon from "../../components/atoms/Icons/TxSentIcon";
 import { usdFormatter, cryptoFormatter } from "../../util";
 import { AddWallet } from "../Dialog";
-import { TextButton } from "../Buttons";
-
+import TextButton from "../../components/atoms/Button/TextIcon";
 import ContainedButton from "../../components/atoms/Button/Contained";
 
 const useStyles = makeStyles((theme) => ({

@@ -16,7 +16,8 @@ import CircularProgress from "@material-ui/core/CircularProgress";
 import UploadIcon from "../../components/atoms/Icons/UploadIcon";
 import AddIcon from "@material-ui/icons/Add";
 import FileUpload from "../../components/atoms/FileUpload";
-import { TextButton, ContainedButton } from "../Buttons";
+import TextButton from "../../components/atoms/Button/TextIcon";
+import ContainedButton from "../../components/atoms/Button/Contained";
 import countries from "./countries.jsx";
 
 const useStyles = makeStyles((theme) => ({

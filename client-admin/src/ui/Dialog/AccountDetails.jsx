@@ -4,7 +4,7 @@ import Dialog from "@material-ui/core/Dialog";
 import Grid from "@material-ui/core/Grid";
 import { usdFormatter, cryptoFormatter } from "../../util";
 import AccountTransactionCard from "../Cards/AccountTransactionCard";
-import { CopyAddressButton } from "../Buttons";
+import CopyAddressButton from "../../components/molecules/Button/CopyAddress";
 
 const useStyles = makeStyles((theme) => ({
   modal: {

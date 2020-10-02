@@ -5,12 +5,11 @@ import Grid from "@material-ui/core/Grid";
 import Button from "@material-ui/core/Button";
 import ChevronRightIcon from "@material-ui/icons/ChevronRight";
 import AccountBalanceCard from "../../ui/Cards/AccountBalanceCard";
-import AccountCard from "../../ui/Cards/AccountCard";
+import AccountCard from "../molecules/Card/AccountCard";
 import { AccountDetails } from "../../ui/Dialog";
 import { StartupDetails } from "../../ui/Dialog";
 import { calculateAccountTotal } from "../../actions";
 import ContainedButton from "../atoms/Button/Contained";
-import TextButton from "../atoms/Button/TextIcon";
 
 const transactionDetailsStyles = makeStyles((theme) => ({
   root: {

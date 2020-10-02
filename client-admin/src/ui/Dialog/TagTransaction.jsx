@@ -15,7 +15,9 @@ import { usdFormatter, cryptoFormatter } from "../../util";
 import QuestionMarkIcon from "../../components/atoms/Icons/QuestionMarkIcon";
 import CreateAccount from "./CreateAccount";
 import { getExchangeRate } from "../../actions";
-import { TextButton, ContainedButton, OutlineButton } from "../Buttons";
+import TextButton from "../../components/atoms/Button/TextIcon";
+import ContainedButton from "../../components/atoms/Button/Contained";
+import OutlinedButton from "../../components/atoms/Button/Outlined";
 
 const useStyles = makeStyles((theme) => ({
   closeIcon: {
@@ -402,14 +404,14 @@ export default function TagTransaction(props) {
           {!props.tx.published ? (
             <Fragment>
               <div className={classes.relativeContainer}>
-                <OutlineButton
+                <OutlinedButton
                   onClick={() => {
                     saveTransaction(false);
                   }}
                   style={{ display: "block", width: "100%", marginTop: "1em" }}
                 >
                   Tag and Save Transaction
-                </OutlineButton>
+                </OutlinedButton>
                 <QuestionMarkIcon className={classes.questionMark} />
               </div>
               <p className={classes.or}>Or</p>
@@ -428,14 +430,14 @@ export default function TagTransaction(props) {
           ) : (
             <Fragment>
               <div className={classes.relativeContainer}>
-                <OutlineButton
+                <OutlinedButton
                   onClick={() => {
                     saveTransaction(props.tx.published);
                   }}
                   style={{ display: "block", width: "100%", marginTop: "1em" }}
                 >
                   Tag and Save Transaction
-                </OutlineButton>
+                </OutlinedButton>
                 <QuestionMarkIcon className={classes.questionMark} />
               </div>
               <p className={classes.or}>Or</p>

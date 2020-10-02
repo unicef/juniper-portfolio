@@ -5,7 +5,8 @@ import Grid from "@material-ui/core/Grid";
 import AccountTransactionCard from "../Cards/AccountTransactionCard";
 import EditIcon from "../../components/atoms/Icons/EditIcon";
 import { CreateAccount } from ".";
-import { TextButton, CopyAddressButton } from "../Buttons";
+import TextButton from "../../components/atoms/Button/TextIcon";
+import CopyAddressButton from "../../components/molecules/Button/CopyAddress";
 
 const useStyles = makeStyles((theme) => ({
   modal: {

@@ -3,9 +3,11 @@ import { makeStyles } from "@material-ui/core/styles";
 import Chip from "@material-ui/core/Chip";
 import Grid from "@material-ui/core/Grid";
 import EditIcon from "@material-ui/icons/Edit";
-import AddWallet from "../Dialog/AddWallet";
-import { usdFormatter, cryptoFormatter } from "../../util";
-import { TextButton, CopyAddressButton } from "../Buttons";
+import AddWallet from "../../../ui/Dialog/AddWallet";
+import { usdFormatter, cryptoFormatter } from "../../../util";
+
+import TextButton from "../../atoms/Button/TextIcon";
+import CopyAddressButton from "../Button/CopyAddress";
 
 const useStyles = makeStyles((theme) => ({
   wallet: {

@@ -8,7 +8,8 @@ import TxReceivedIcon from "../../components/atoms/Icons/TxReceivedIcon";
 import EditIcon from "../../components/atoms/Icons/ArchiveTxIcon";
 import TxStepper from "../../components/organisms/TxStepper";
 import { usdFormatter, cryptoFormatter } from "../../util";
-import { TextButton, ContainedButton } from "../Buttons";
+import TextButton from "../../components/atoms/Button/TextIcon";
+import ContainedButton from "../../components/atoms/Button/Contained";
 
 const useStyles = makeStyles((theme) => ({
   walletSubtitle: {
