@@ -13,7 +13,7 @@ import { copyToClipboard } from "../../../actions";
 import { addUser } from "../../../actions";
 import { TextButton, ContainedButton } from "../../../ui/Buttons";
 
-const useStyles = makeStyles({
+const useStyles = makeStyles((theme) => ({
   root: {
     backgroundColor: "#ffffff",
   },
@@ -35,7 +35,7 @@ const useStyles = makeStyles({
     fontFamily: '"Roboto", sans-serif',
     fontSize: 16,
     "&:hover": {
-      backgroundColor: "#daf5ff",
+      backgroundColor: theme.palette.primary.light,
     },
   },
   filledButton: {
@@ -98,7 +98,7 @@ const useStyles = makeStyles({
     fontSize: 14,
     margin: 0,
   },
-});
+}));
 
 export default function AddNewUser({ setUsers }) {
   const classes = useStyles();

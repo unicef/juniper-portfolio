@@ -29,7 +29,7 @@ const useStyles = makeStyles((theme) => ({
     fontWeight: 400,
   },
   rectangle: {
-    backgroundColor: "#daf5ff",
+    backgroundColor: theme.palette.primary.light,
     padding: 25,
   },
   detailTitle: {
@@ -146,7 +146,7 @@ const useStyles = makeStyles((theme) => ({
     textAlign: "center",
     color: "#ffffff",
     boxShadow: "none",
-    backgroundColor: "#00aeef",
+    backgroundColor: theme.palette.primary.main,
     float: "right",
     marginTop: 18,
     marginButtom: 18,

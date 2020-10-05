@@ -42,7 +42,7 @@ const useStyles = makeStyles((theme) => ({
 
   totalReceived: {
     fontSize: 18,
-    color: "#00aaef",
+    color: theme.palette.primary.main,
     textTransform: "uppercase",
     marginBottom: 0,
   },
@@ -57,7 +57,7 @@ const useStyles = makeStyles((theme) => ({
   },
   totalInvested: {
     fontSize: 18,
-    color: "#374ea2",
+    color: theme.palette.primary.dark,
     textTransform: "uppercase",
     marginBottom: 0,
   },

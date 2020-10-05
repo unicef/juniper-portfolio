@@ -30,6 +30,14 @@ import {
   getWalletsSummary,
 } from "./actions";
 
+const primaryColor = "#00aeef";
+const lightPrimaryColor = "#daf5ff";
+const darkPrimaryColor = "#374ea2";
+
+const containedButtonHover = "#33bef2";
+const containedButtonActive = "#0094cb";
+const textButtonHover = "#ecfaff";
+
 const drawerWidth = 240;
 
 const useStyles = makeStyles((theme) => ({
@@ -65,7 +73,12 @@ const client = new ApolloClient({
 const theme = createMuiTheme({
   palette: {
     primary: {
-      main: "#00aeef",
+      main: primaryColor,
+      light: lightPrimaryColor,
+      dark: darkPrimaryColor,
+      containedHover: containedButtonHover,
+      containedActive: containedButtonActive,
+      textHover: textButtonHover,
     },
     background: {
       default: "#ffffff",

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, Fragment } from "react";
 import { makeStyles, withStyles } from "@material-ui/core/styles";
 import Tabs from "@material-ui/core/Tabs";
 import Tab from "@material-ui/core/Tab";
@@ -13,6 +13,7 @@ import TxList from "../../ui/TxList";
 import Snackbar from "../../ui/Snackbar";
 import { TagTransaction } from "../../ui/Dialog";
 import { getExchangeRate, publishTransaction } from "../../actions";
+import PageLayout from "../../ui/Layout/PageLayout";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -31,6 +32,9 @@ const useStyles = makeStyles((theme) => ({
   },
   tabs: {
     backgroundColor: "#2e1534",
+  },
+  active: {
+    color: theme.palette.primary.main,
   },
 }));
 
@@ -55,17 +59,17 @@ function TabPanel(props) {
   );
 }
 
-const StyledTabs = withStyles({
+const StyledTabs = withStyles((theme) => ({
   indicator: {
     display: "flex",
     justifyContent: "center",
     backgroundColor: "transparent",
     "& > span": {
       width: "100%",
-      backgroundColor: "#00aeef",
+      backgroundColor: theme.palette.primary.main,
     },
   },
-})((props) => <Tabs {...props} TabIndicatorProps={{ children: <span /> }} />);
+}))((props) => <Tabs {...props} TabIndicatorProps={{ children: <span /> }} />);
 
 const StyledTab = withStyles((theme) => ({
   root: {
@@ -164,8 +168,10 @@ export default function Transactions({
     );
   }
 
+  const [tabs] = useState(["Unpublished", "Published", "Archived"]);
+
   return (
-    <div className={classes.root}>
+    <Fragment>
       <TagTransaction
         title={"Tag Sender Details"}
         open={showTagTransaction}
@@ -179,59 +185,7 @@ export default function Transactions({
         getExchangeRate={getExchangeRate}
         fetchTransactions={fetchTransactions}
       />
-      <StyledTabs
-        value={activeTab}
-        onChange={changeView}
-        className={classes.navigation}
-        centered
-      >
-        <StyledTab
-          label="Unpublished"
-          style={activeTab === 0 ? { color: "#00aeef" } : {}}
-        />
-        <StyledTab
-          label="Published"
-          style={activeTab === 1 ? { color: "#00aeef" } : {}}
-        />
-        <StyledTab
-          label="Archived Transactions"
-          style={activeTab === 2 ? { color: "#00aeef" } : {}}
-        />
-      </StyledTabs>
 
-      <TabPanel activeTab={activeTab} index={0} className={classes.padding}>
-        <TxList
-          title={`${unpublishedTxs.length} Unpublished Transactions`}
-          txs={unpublishedTxs}
-          TxCard={UnpublishedTxCard}
-          page={unpublishedPage}
-          onPaginationClick={setUnpublishedPage}
-          isAdmin={isAdmin}
-          showPriceInfo={true}
-        />
-      </TabPanel>
-      <TabPanel activeTab={activeTab} index={1} className={classes.padding}>
-        <TxList
-          title={`${publishedTxs.length} Published Transactions`}
-          txs={publishedTxs}
-          TxCard={PublishedTxCard}
-          page={publishedPage}
-          onPaginationClick={setPublishedPage}
-          isAdmin={isAdmin}
-          showPriceInfo={true}
-        />
-      </TabPanel>
-      <TabPanel activeTab={activeTab} index={2} className={classes.padding}>
-        <TxList
-          title={`${archivedTxs.length} Archived Transactions`}
-          txs={archivedTxs}
-          TxCard={ArchivededTxCard}
-          page={archivedPage}
-          onPaginationClick={setArchivedPage}
-          isAdmin={isAdmin}
-          showPriceInfo={true}
-        />
-      </TabPanel>
       <Snackbar
         open={showSnackbar}
         severity={snackbarSeverity}
@@ -241,6 +195,38 @@ export default function Transactions({
           setShowSnackbar(false);
         }}
       />
-    </div>
+
+      <PageLayout tabs={tabs}>
+        <TxList
+          title={`${unpublishedTxs.length} Unpublished Transactions`}
+          txs={unpublishedTxs}
+          TxCard={UnpublishedTxCard}
+          page={unpublishedPage}
+          onPaginationClick={setUnpublishedPage}
+          isAdmin={isAdmin}
+          showPriceInfo={true}
+        />
+
+        <TxList
+          title={`${publishedTxs.length} Published Transactions`}
+          txs={publishedTxs}
+          TxCard={PublishedTxCard}
+          page={publishedPage}
+          onPaginationClick={setPublishedPage}
+          isAdmin={isAdmin}
+          showPriceInfo={true}
+        />
+
+        <TxList
+          title={`${archivedTxs.length} Archived Transactions`}
+          txs={archivedTxs}
+          TxCard={ArchivededTxCard}
+          page={archivedPage}
+          onPaginationClick={setArchivedPage}
+          isAdmin={isAdmin}
+          showPriceInfo={true}
+        />
+      </PageLayout>
+    </Fragment>
   );
 }

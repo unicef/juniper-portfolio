@@ -1,13 +1,15 @@
 import React from "react";
+import { useTheme } from "@material-ui/core/styles";
 import SvgIcon from "@material-ui/core/SvgIcon";
 
 export default function UploadIcon(props) {
+  const theme = useTheme();
   return (
     <SvgIcon {...props}>
       <g
         fill="none"
         fillRule="evenodd"
-        stroke="#00AEEF"
+        stroke={theme.palette.primary.main}
         strokeLinecap="round"
         strokeWidth="1.5"
       >

@@ -6,7 +6,7 @@ import MenuItem from "@material-ui/core/MenuItem";
 import Button from "@material-ui/core/Button";
 import { ContainedButton } from "../../../ui/Buttons";
 
-const useStyles = makeStyles({
+const useStyles = makeStyles((theme) => ({
   root: {
     backgroundColor: "#ffffff",
     paddingLeft: 15,
@@ -26,10 +26,10 @@ const useStyles = makeStyles({
     fontFamily: '"Roboto", sans-serif',
     fontSize: 16,
     "&:hover": {
-      backgroundColor: "#daf5ff",
+      backgroundColor: theme.palette.primary.light,
     },
   },
-});
+}));
 
 export default function SettingsProfile({ user, updateUser }) {
   const classes = useStyles();

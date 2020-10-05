@@ -13,7 +13,7 @@ const useStyles = makeStyles((theme) => ({
     fontStyle: "normal",
     lineHeight: "normal",
     letterSpacing: "normal",
-    color: "#00aeef",
+    color: theme.palette.primary.main,
   },
   container: {
     paddingLeft: 26,

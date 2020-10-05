@@ -32,7 +32,7 @@ const transactionDetailsStyles = makeStyles((theme) => ({
     fontWeight: 700,
     letterSpacing: 1,
     fontFamily: '"Cabin", sans-serif',
-    color: "#00aeef",
+    color: theme.palette.primary.main,
     "&:hover": {
       backgroundColor: "#ecfaff",
     },
@@ -54,7 +54,7 @@ const transactionDetailsStyles = makeStyles((theme) => ({
     fontWeight: 700,
     letterSpacing: 1,
     fontFamily: '"Cabin", sans-serif',
-    color: "#00aeef",
+    color: theme.palette.primary.main,
     textTransform: "uppercase",
   },
 }));
@@ -146,7 +146,14 @@ export default function TxList({
         <List>
           {txs.slice(start, end).map((tx, index) => {
             return (
-              <ListItem key={index} style={{ paddingLeft: 0, paddingRight: 0 }}>
+              <ListItem
+                key={index}
+                style={{
+                  borderBottom: "solid 1px #cecece",
+                  paddingLeft: 0,
+                  paddingRight: 0,
+                }}
+              >
                 <TxCard
                   tx={tx}
                   txid={tx.txid}

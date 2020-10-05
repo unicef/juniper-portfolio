@@ -24,8 +24,8 @@ const useStyles = makeStyles((theme) => ({
     lineHeight: 1.75,
     height: 47,
     width: 47,
-    color: "#374ea2",
-    backgroundColor: "#daf5ff",
+    color: theme.palette.primary.dark,
+    backgroundColor: theme.palette.primary.light,
   },
   listItem: {
     fontFamily: '"Roboto", sans-serif',
@@ -77,7 +77,7 @@ const useStyles = makeStyles((theme) => ({
     fontWeight: 700,
     letterSpacing: 1,
     fontFamily: '"Cabin", sans-serif',
-    color: "#00aeef",
+    color: theme.palette.primary.main,
     "&:hover": {
       backgroundColor: "#ecfaff",
     },

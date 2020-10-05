@@ -7,7 +7,7 @@ const useStyles = makeStyles((theme) => ({
     width: 18,
     height: 18,
     border: "solid 2px #f8f8f8",
-    backgroundColor: "#00aeef",
+    backgroundColor: theme.palette.primary.main,
     borderRadius: "50%",
     display: "inline-block",
   },
@@ -15,7 +15,7 @@ const useStyles = makeStyles((theme) => ({
     width: 14,
     height: 14,
     border: "solid 2px #f8f8f8",
-    backgroundColor: "#00aeef",
+    backgroundColor: theme.palette.primary.main,
     borderRadius: "50%",
     display: "inline-block",
     marginTop: 2,
@@ -23,7 +23,7 @@ const useStyles = makeStyles((theme) => ({
     marginRight: 1,
   },
   blueLine: {
-    border: "solid 1px #00aeef",
+    border: `solid 1px ${theme.palette.primary.main}`,
     marginBottom: 8,
   },
   line: {
@@ -50,7 +50,7 @@ const useStyles = makeStyles((theme) => ({
   recipientTitle: {
     fontFamily: '"Roboto", sans-serif',
     fontSize: 18,
-    marginTop: 25,
+    marginTop: 18,
     lineHeight: 1.17,
     fontWeight: 400,
   },

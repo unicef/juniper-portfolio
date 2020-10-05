@@ -13,6 +13,9 @@ const useStyles = makeStyles((theme) => ({
     backgroundColor: "#f8f8f8",
     flexFlow: "column",
     display: "flex",
+    "& .Mui-selected": {
+      color: theme.palette.primary.main,
+    },
   },
   padding: {
     paddingTop: "2em",
@@ -45,17 +48,17 @@ function TabPanel(props) {
   );
 }
 
-const StyledTabs = withStyles({
+const StyledTabs = withStyles((theme) => ({
   indicator: {
     display: "flex",
     justifyContent: "center",
     backgroundColor: "transparent",
     "& > span": {
       width: "100%",
-      backgroundColor: "#00aeef",
+      backgroundColor: theme.palette.primary.main,
     },
   },
-})((props) => <Tabs {...props} TabIndicatorProps={{ children: <span /> }} />);
+}))((props) => <Tabs {...props} TabIndicatorProps={{ children: <span /> }} />);
 
 const StyledTab = withStyles((theme) => ({
   root: {
@@ -85,13 +88,7 @@ export default function PageLayout({ tabs, pages, children }) {
         centered
       >
         {tabs.map((tab, index) => {
-          return (
-            <StyledTab
-              key={index}
-              label={tab}
-              style={activeTab === index ? { color: "#00aeef" } : {}}
-            />
-          );
+          return <StyledTab key={index} label={tab} />;
         })}
       </StyledTabs>
 
