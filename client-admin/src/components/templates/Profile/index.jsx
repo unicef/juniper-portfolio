@@ -49,7 +49,11 @@ export default function User({ user, updateUser }) {
   return (
     <Grid container className={classes.root}>
       <Grid item xs={1} className={classes.avatarbox}>
-        <FileUpload afterUpload={updateUser} showStatus={false}>
+        <FileUpload
+          url={"/upload/image"}
+          afterUpload={updateUser}
+          showStatus={false}
+        >
           <Avatar src={user.picture} className={classes.avatar}>
             {user ? (user.firstName ? user.firstName.charAt(0) : "") : ""}{" "}
             {user ? (user.lastName ? user.lastName.charAt(0) : "") : ""}
@@ -58,6 +62,7 @@ export default function User({ user, updateUser }) {
       </Grid>
       <Grid item xs={10} className={classes.message}>
         <FileUpload
+          url={"/upload/image"}
           afterUpload={(json) => {
             updateUser({ picture: json.imageUrl });
           }}

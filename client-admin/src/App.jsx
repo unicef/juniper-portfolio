@@ -22,6 +22,7 @@ import ApolloClient from "apollo-boost";
 import { ApolloProvider } from "react-apollo";
 import LoadingScreen from "./components/organisms/Dialog/LoadingScreen";
 import {
+  getAppSettings,
   getAccounts,
   getExchangeRate,
   getPriceHistory,
@@ -30,14 +31,6 @@ import {
   getWallets,
   getWalletsSummary,
 } from "./actions";
-
-const primaryColor = "#00aeef";
-const lightPrimaryColor = "#daf5ff";
-const darkPrimaryColor = "#374ea2";
-
-const containedButtonHover = "#33bef2";
-const containedButtonActive = "#0094cb";
-const textButtonHover = "#ecfaff";
 
 const drawerWidth = 240;
 
@@ -71,32 +64,18 @@ const client = new ApolloClient({
   uri: "/api",
 });
 
-const theme = createMuiTheme({
-  palette: {
-    primary: {
-      main: primaryColor,
-      light: lightPrimaryColor,
-      dark: darkPrimaryColor,
-      containedHover: containedButtonHover,
-      containedActive: containedButtonActive,
-      textHover: textButtonHover,
-    },
-    background: {
-      default: "#ffffff",
-    },
-  },
-  typography: {
-    fontFamily: '"Cabin",  sans-serif',
-    fontSize: 12,
-    fontWeightLight: 300,
-    fontWeightRegular: 400,
-    fontWeightMedium: 500,
-    color: "#002452",
-  },
-});
-
 export default function JuniperAdmin() {
   const classes = useStyles();
+  const [appSettings, setAppSettings] = useState({
+    logoUrl: "/image/1601918615229-UNICEF.png",
+    primaryColor: "#00aeef",
+    lightPrimaryColor: "#daf5ff",
+    darkPrimaryColor: "#374ea2",
+    containedButtonHover: "#33bef2",
+    containedButtonActive: "#0094cb",
+    textButtonHover: "#ecfaff",
+  });
+  const [hasSettings, setHasSettings] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [user, setUser] = useState({});
   const [loading, setLoading] = useState(true);
@@ -109,6 +88,30 @@ export default function JuniperAdmin() {
   const [accounts, setAccounts] = useState([]);
   const [ethRate, setEthRate] = useState(0);
   const [btcRate, setBtcRate] = useState(0);
+
+  const theme = createMuiTheme({
+    palette: {
+      primary: {
+        main: appSettings.primaryColor,
+        light: appSettings.lightPrimaryColor,
+        dark: appSettings.darkPrimaryColor,
+        containedHover: appSettings.containedButtonHover,
+        containedActive: appSettings.containedButtonActive,
+        textHover: appSettings.textButtonHover,
+      },
+      background: {
+        default: "#ffffff",
+      },
+    },
+    typography: {
+      fontFamily: '"Cabin",  sans-serif',
+      fontSize: 12,
+      fontWeightLight: 300,
+      fontWeightRegular: 400,
+      fontWeightMedium: 500,
+      color: "#002452",
+    },
+  });
 
   const loginUser = (user) => {
     if (user) {
@@ -169,6 +172,9 @@ export default function JuniperAdmin() {
 
   useEffect(() => {
     async function init() {
+      console.log("settings");
+      console.log(await getAppSettings());
+
       setSummary(await getWalletsSummary());
       setWallets(await getWallets());
       setTrackedWallets(await getTrackedWallets());
@@ -178,9 +184,14 @@ export default function JuniperAdmin() {
       setBtcRate(await getExchangeRate("BTC"));
       setPrices(await getPriceHistory());
     }
-    if (isLoggedIn) {
+    if (isLoggedIn && hasSettings) {
       init();
     }
+
+    const initAppSettings = async () => {
+      setAppSettings(await getAppSettings());
+      setHasSettings(true);
+    };
     // check if logged in
     const getUserProfile = async () => {
       let res;
@@ -195,7 +206,14 @@ export default function JuniperAdmin() {
       }
       setLoading(false);
     };
-    getUserProfile();
+
+    if (!hasSettings) {
+      initAppSettings();
+    }
+
+    if (!isLoggedIn) {
+      getUserProfile();
+    }
 
     const path = window.location.pathname;
 
@@ -210,7 +228,7 @@ export default function JuniperAdmin() {
     } else if (path.indexOf("settings") > -1) {
       setPageIndex(4);
     }
-  }, [isLoggedIn]);
+  }, [isLoggedIn, hasSettings]);
 
   return (
     <div className={classes.root}>
@@ -225,7 +243,11 @@ export default function JuniperAdmin() {
               )
             ) : (
               <Router>
-                <TopBar user={user} setPageIndex={setPageIndex} />
+                <TopBar
+                  user={user}
+                  setPageIndex={setPageIndex}
+                  logoUrl={appSettings.logoUrl}
+                />
 
                 <Sidebar
                   pageIndex={pageIndex}
@@ -285,6 +307,8 @@ export default function JuniperAdmin() {
                       user={user}
                       updateUser={updateUser}
                       isAdmin={user.isAdmin}
+                      appSettings={appSettings}
+                      setAppSettings={setAppSettings}
                     />
                   </Route>
                   <Redirect from="*" to="/admin/wallets" />

@@ -1,5 +1,5 @@
 import React from "react";
-import { makeStyles } from "@material-ui/core/styles";
+import { useTheme, makeStyles } from "@material-ui/core/styles";
 import Grid from "@material-ui/core/Grid";
 import { LineChart, Line, XAxis, YAxis, Tooltip } from "recharts";
 import Block from "../../atoms/Block";
@@ -25,6 +25,7 @@ export default function ({
   chartData,
 }) {
   const classes = useStyles();
+  const theme = useTheme();
   return (
     <Block className={`${classes.organism} ${className}`}>
       <Grid container>
@@ -80,7 +81,7 @@ export default function ({
                 />
                 <Line
                   dataKey="Price"
-                  stroke="#00aeef"
+                  stroke={theme.palette.primary.main}
                   strokeWidth={3}
                   dot={false}
                 />

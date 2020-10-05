@@ -48,7 +48,7 @@ export default class FileUpload extends Component {
           style={{ display: "none" }}
         />
         <div
-          style={{ cursor: "pointer" }}
+          style={{ cursor: "pointer", display: "inline-block" }}
           onClick={(e) => {
             if (!this.fileInput.current.value === "" || this.props.disabled) {
               return;

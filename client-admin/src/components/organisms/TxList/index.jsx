@@ -31,7 +31,7 @@ const transactionDetailsStyles = makeStyles((theme) => ({
     fontFamily: '"Cabin", sans-serif',
     color: theme.palette.primary.main,
     "&:hover": {
-      backgroundColor: "#ecfaff",
+      backgroundColor: theme.palette.primary.textButtonHover,
     },
     "& .MuiButton-endIcon": {
       margin: 0,

@@ -122,7 +122,7 @@ const useStyles = makeStyles((theme) => ({
       },
     },
     "&:hover": {
-      backgroundColor: "#ecfaff",
+      backgroundColor: theme.palette.primary.textButtonHover,
     },
   },
 }));

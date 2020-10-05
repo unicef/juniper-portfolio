@@ -4,7 +4,6 @@ import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
 import Typography from "@material-ui/core/Typography";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
-import logo from "./UNICEF.png";
 import MenuPopper from "../../molecules/MenuPopper";
 import EditIcon from "../../atoms/Icons/EditIcon";
 import Avatar from "@material-ui/core/Avatar";
@@ -102,7 +101,7 @@ const useStyles = makeStyles((theme) => ({
       },
     },
     "&:hover": {
-      backgroundColor: "#ecfaff",
+      backgroundColor: theme.palette.primary.textButtonHover,
     },
   },
   buttonBox: {
@@ -129,9 +128,9 @@ export default function TopBar(props) {
   return (
     <AppBar position="fixed" className={classes.appBar}>
       <Toolbar className={classes.toolbar}>
-        <Typography variant="h6" className={classes.title}>
-          <img className={classes.logo} src={logo} alt="UNICEF" />
-        </Typography>
+        <div className={classes.title}>
+          <img className={classes.logo} src={props.logoUrl} alt="UNICEF" />
+        </div>
         <MenuPopper
           button={
             <TextButton

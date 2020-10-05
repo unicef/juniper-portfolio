@@ -13,11 +13,11 @@ const useStyles = makeStyles((theme) => ({
     color: "#ffffff",
     boxShadow: "none",
     "&:hover": {
-      backgroundColor: "#33bef2",
+      backgroundColor: theme.palette.primary.containedHover,
       boxShadow: "none",
     },
     "&:active": {
-      backgroundColor: "#0094cb",
+      backgroundColor: theme.palette.primary.containedActive,
       boxShadow: "none",
     },
     "&:focus": {
