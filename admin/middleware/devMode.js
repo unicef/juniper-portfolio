@@ -1,4 +1,4 @@
-const Logger = require("../logger");
+const { Logger } = require("node-code-utils");
 
 function devMode(req, res, next) {
   const logger = new Logger("devMode");
