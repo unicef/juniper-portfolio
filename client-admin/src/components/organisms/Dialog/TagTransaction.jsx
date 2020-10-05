@@ -11,13 +11,13 @@ import Button from "@material-ui/core/Button";
 import Toolbar from "@material-ui/core/Toolbar";
 import IconButton from "@material-ui/core/IconButton";
 import CloseIcon from "@material-ui/icons/Close";
-import { usdFormatter, cryptoFormatter } from "../../util";
-import QuestionMarkIcon from "../../components/atoms/Icons/QuestionMarkIcon";
+import { usdFormatter, cryptoFormatter } from "../../../util";
+import QuestionMarkIcon from "../../atoms/Icons/QuestionMarkIcon";
 import CreateAccount from "./CreateAccount";
-import { getExchangeRate } from "../../actions";
-import TextButton from "../../components/atoms/Button/TextIcon";
-import ContainedButton from "../../components/atoms/Button/Contained";
-import OutlinedButton from "../../components/atoms/Button/Outlined";
+import { getExchangeRate } from "../../../actions";
+import TextButton from "../../atoms/Button/TextIcon";
+import ContainedButton from "../../atoms/Button/Contained";
+import OutlinedButton from "../../atoms/Button/Outlined";
 
 const useStyles = makeStyles((theme) => ({
   closeIcon: {

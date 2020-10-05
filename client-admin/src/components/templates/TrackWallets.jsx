@@ -3,7 +3,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import PriceInfo from "../molecules/Info/PriceInfo";
 import Grid from "@material-ui/core/Grid";
 import WalletCard from "../molecules/Card/WalletCard";
-import { AddWallet } from "../../ui/Dialog";
+import { AddWallet } from "../organisms/Dialog";
 import ContainedButton from "../atoms/Button/Contained";
 
 const mainStyles = makeStyles((theme) => ({

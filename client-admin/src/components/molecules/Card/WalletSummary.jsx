@@ -1,14 +1,11 @@
 import React, { Fragment, useState } from "react";
 import { makeStyles } from "@material-ui/core/styles";
-
 import Grid from "@material-ui/core/Grid";
 import EditIcon from "@material-ui/icons/Edit";
-import AddWallet from "../../../ui/Dialog/AddWallet";
+import AddWallet from "../../organisms/Dialog/AddWallet";
 import { usdFormatter, cryptoFormatter } from "../../../util";
-
 import TextButton from "../../atoms/Button/TextIcon";
 import CopyAddressButton from "../Button/CopyAddress";
-
 import Card from "../../atoms/Card";
 import CardTitle from "../../atoms/Text/CardTitle";
 import Chip from "../../atoms/Chip";
@@ -81,7 +78,7 @@ export default function ({
       <CardTitle>{name}</CardTitle>
       {tags &&
         tags.map((tag) => {
-          return <Chip tag={tag} />;
+          return <Chip tag={tag} key={tag} />;
         })}
       <Grid container>
         <Grid item md={2}>

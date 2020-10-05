@@ -11,7 +11,7 @@ import {
 } from "../../ui/Cards";
 import TxList from "../organisms/TxList";
 import Snackbar from "../atoms/Snackbar";
-import { TagTransaction } from "../../ui/Dialog";
+import { TagTransaction } from "../organisms/Dialog";
 import { getExchangeRate, publishTransaction } from "../../actions";
 import PageLayout from "../templates/Page";
 

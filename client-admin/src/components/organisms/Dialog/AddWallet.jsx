@@ -14,8 +14,8 @@ import CloseIcon from "@material-ui/icons/Close";
 import HelpOutlineIcon from "@material-ui/icons/HelpOutline";
 import AddIcon from "@material-ui/icons/Add";
 import CircularProgress from "@material-ui/core/CircularProgress";
-import TextButton from "../../components/atoms/Button/TextIcon";
-import ContainedButton from "../../components/atoms/Button/Contained";
+import TextButton from "../../atoms/Button/TextIcon";
+import ContainedButton from "../../atoms/Button/Contained";
 
 const web3Utils = require("web3-utils");
 

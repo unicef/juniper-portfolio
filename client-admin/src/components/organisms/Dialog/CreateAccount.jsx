@@ -13,11 +13,11 @@ import Toolbar from "@material-ui/core/Toolbar";
 import IconButton from "@material-ui/core/IconButton";
 import CloseIcon from "@material-ui/icons/Close";
 import CircularProgress from "@material-ui/core/CircularProgress";
-import UploadIcon from "../../components/atoms/Icons/UploadIcon";
+import UploadIcon from "../../atoms/Icons/UploadIcon";
 import AddIcon from "@material-ui/icons/Add";
-import FileUpload from "../../components/atoms/FileUpload";
-import TextButton from "../../components/atoms/Button/TextIcon";
-import ContainedButton from "../../components/atoms/Button/Contained";
+import FileUpload from "../../atoms/FileUpload";
+import TextButton from "../../atoms/Button/TextIcon";
+import ContainedButton from "../../atoms/Button/Contained";
 import countries from "./countries.jsx";
 
 const useStyles = makeStyles((theme) => ({

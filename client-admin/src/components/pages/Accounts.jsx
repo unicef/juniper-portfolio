@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import AccountLayout from "../templates/Account";
-import { CreateAccount } from "../../ui/Dialog";
+import { CreateAccount } from "../organisms/Dialog";
 import PageLayout from "../templates/Page";
 
 export default function AccountPage({

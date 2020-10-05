@@ -6,7 +6,7 @@ import { BalanceCard, TxFeeCard, TotalCard } from "../../ui/Cards";
 import Fab from "@material-ui/core/Fab";
 import ChevronRightIcon from "@material-ui/icons/ChevronRight";
 import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
-import { AddWallet } from "../../ui/Dialog";
+import { AddWallet } from "../organisms/Dialog";
 import ContainedButton from "../atoms/Button/Contained";
 
 import WalletCard from "../molecules/Card/WalletCard";

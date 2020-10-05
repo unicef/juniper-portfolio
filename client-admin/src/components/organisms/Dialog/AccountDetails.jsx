@@ -2,9 +2,9 @@ import React, { useState, useEffect } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import Dialog from "@material-ui/core/Dialog";
 import Grid from "@material-ui/core/Grid";
-import { usdFormatter, cryptoFormatter } from "../../util";
-import AccountTransactionCard from "../Cards/AccountTransactionCard";
-import CopyAddressButton from "../../components/molecules/Button/CopyAddress";
+import { usdFormatter, cryptoFormatter } from "../../../util";
+import AccountTransactionCard from "../../../ui/Cards/AccountTransactionCard";
+import CopyAddressButton from "../../molecules/Button/CopyAddress";
 
 const useStyles = makeStyles((theme) => ({
   modal: {

@@ -6,19 +6,12 @@ import Button from "@material-ui/core/Button";
 import ChevronRightIcon from "@material-ui/icons/ChevronRight";
 import AccountBalanceCard from "../../ui/Cards/AccountBalanceCard";
 import AccountCard from "../molecules/Card/AccountCard";
-import { AccountDetails } from "../../ui/Dialog";
-import { StartupDetails } from "../../ui/Dialog";
+import { AccountDetails } from "../organisms/Dialog";
+import { StartupDetails } from "../organisms/Dialog";
 import { calculateAccountTotal } from "../../actions";
 import ContainedButton from "../atoms/Button/Contained";
 
 const transactionDetailsStyles = makeStyles((theme) => ({
-  root: {
-    marginTop: "5em",
-  },
-  bannerBox: {
-    marginTop: "2em",
-    minHeight: 330,
-  },
   title: {
     fontFamily: '"Roboto",  sans-serif',
     fontSize: 28,
@@ -37,7 +30,6 @@ const transactionDetailsStyles = makeStyles((theme) => ({
     marginTop: 0,
     marginBottom: 9,
   },
-
   walletSubheading: {
     fontSize: 14,
     fontWeight: 700,
@@ -45,15 +37,6 @@ const transactionDetailsStyles = makeStyles((theme) => ({
     color: "#898989",
     textTransform: "uppercase",
     marginBottom: "2em",
-  },
-  addButton: {
-    height: 35,
-    fontFamily: '"Cabin", sans-serif',
-    fontSize: 12,
-    fontWeight: 700,
-    textAlign: "center",
-    color: "#ffffff",
-    boxShadow: "none",
   },
 }));
 

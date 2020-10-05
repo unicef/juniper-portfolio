@@ -2,11 +2,11 @@ import React, { useState, useEffect } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import Dialog from "@material-ui/core/Dialog";
 import Grid from "@material-ui/core/Grid";
-import AccountTransactionCard from "../Cards/AccountTransactionCard";
-import EditIcon from "../../components/atoms/Icons/EditIcon";
+import AccountTransactionCard from "../../../ui/Cards/AccountTransactionCard";
+import EditIcon from "../../atoms/Icons/EditIcon";
 import { CreateAccount } from ".";
-import TextButton from "../../components/atoms/Button/TextIcon";
-import CopyAddressButton from "../../components/molecules/Button/CopyAddress";
+import TextButton from "../../atoms/Button/TextIcon";
+import CopyAddressButton from "../../molecules/Button/CopyAddress";
 
 const useStyles = makeStyles((theme) => ({
   modal: {

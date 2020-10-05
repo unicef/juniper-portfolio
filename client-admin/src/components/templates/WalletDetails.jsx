@@ -4,8 +4,7 @@ import BreadCrumb from "../molecules/Breadcrumb";
 import WalletSummary from "../molecules/Card/WalletSummary";
 import { TransactionDetailsCard } from "../../ui/Cards";
 import TxList from "../organisms/TxList";
-
-import { AuthorizationRecord } from "../../ui/Dialog";
+import { AuthorizationRecord } from "../organisms/Dialog";
 import { getWalletByAddress, getTransactionsByAddress } from "../../actions";
 import { useParams } from "react-router-dom";
 
@@ -40,7 +39,7 @@ export default function ({
       setTransactions(transactions);
     }
     init();
-  }, [address, btcRate, ethRate, transactions]);
+  }, []);
 
   return (
     <div className={classes.root}>

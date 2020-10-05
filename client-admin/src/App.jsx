@@ -20,7 +20,7 @@ import Transactions from "./components/pages/Transactions";
 
 import ApolloClient from "apollo-boost";
 import { ApolloProvider } from "react-apollo";
-import LoadingScreen from "./ui/Dialog/LoadingScreen";
+import LoadingScreen from "./components/organisms/Dialog/LoadingScreen";
 import {
   getAccounts,
   getExchangeRate,
@@ -168,7 +168,6 @@ export default function JuniperAdmin() {
   }
 
   useEffect(() => {
-    console.log("app");
     async function init() {
       setSummary(await getWalletsSummary());
       setWallets(await getWallets());
