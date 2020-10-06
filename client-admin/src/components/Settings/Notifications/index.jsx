@@ -9,46 +9,48 @@ import Switch from "@material-ui/core/Switch";
 import Checkbox from "@material-ui/core/Checkbox";
 import Button from "@material-ui/core/Button";
 import { ContainedButton } from "../../../ui/Buttons";
-const useStyles = makeStyles((theme) => ({
-  root: {
-    width: "100%",
-  },
-  heading: {
-    fontFamily: '"Roboto", sans-serif',
-    fontSize: 19,
-    lineHeight: 1.42,
-    color: "#000000",
-    fontWeight: 400,
-    margin: 0,
-  },
-  checkbox: {
-    textAlign: "right",
-  },
-  blueHeading: {
-    fontFamily: '"Roboto", sans-serif',
-    fontSize: 19,
-    lineHeight: 1.42,
-    color: "#00aeef",
-    fontWeight: 400,
-    margin: 0,
-  },
-  listItem: {
-    fontFamily: '"Roboto", sans-serif',
-    fontSize: 16,
-    lineHeight: 1.6,
-    marginTop: 12,
-    marginBottom: 12,
-  },
-  toggle: {
-    fontFamily: '"Cabin",  sans-serif',
-    textTransform: "uppercase",
-    fontWeight: 700,
-    fontSize: 14,
-    color: "#00aaef",
-    textAlign: "right",
-  },
-  toggleLabel: { fontWeight: 700 },
-}));
+const useStyles = makeStyles((theme) => {
+  return {
+    root: {
+      width: "100%",
+    },
+    heading: {
+      fontFamily: '"Roboto", sans-serif',
+      fontSize: 19,
+      lineHeight: 1.42,
+      color: "#000000",
+      fontWeight: 400,
+      margin: 0,
+    },
+    checkbox: {
+      textAlign: "right",
+    },
+    blueHeading: {
+      fontFamily: '"Roboto", sans-serif',
+      fontSize: 19,
+      lineHeight: 1.42,
+      color: theme.palette.primary.main,
+      fontWeight: 400,
+      margin: 0,
+    },
+    listItem: {
+      fontFamily: '"Roboto", sans-serif',
+      fontSize: 16,
+      lineHeight: 1.6,
+      marginTop: 12,
+      marginBottom: 12,
+    },
+    toggle: {
+      fontFamily: '"Cabin",  sans-serif',
+      textTransform: "uppercase",
+      fontWeight: 700,
+      fontSize: 14,
+      color: theme.palette.primary.main,
+      textAlign: "right",
+    },
+    toggleLabel: { fontWeight: 700 },
+  };
+});
 
 const BlueSwitch = withStyles((theme) => ({
   root: {
@@ -61,15 +63,15 @@ const BlueSwitch = withStyles((theme) => ({
     padding: 1,
     "&$checked": {
       transform: "translateX(16px)",
-      color: "#00aaef",
+      color: theme.palette.primary.main,
       "& + $track": {
-        backgroundColor: "#daf5ff",
+        backgroundColor: theme.palette.primary.light,
         opacity: 1,
         border: "none",
       },
     },
     "&$focusVisible $thumb": {
-      color: "#00aaef",
+      color: theme.palette.primary.main,
       border: "6px solid #fff",
     },
   },
@@ -103,15 +105,15 @@ const BlueSwitch = withStyles((theme) => ({
   );
 });
 
-const BlueCheckbox = withStyles({
+const BlueCheckbox = withStyles((theme) => ({
   root: {
-    color: "#00aeef",
+    color: theme.palette.primary.main,
     "&$checked": {
-      color: "#00aeef",
+      color: theme.palette.primary.main,
     },
   },
   checked: {},
-})((props) => <Checkbox color="default" fontSize="large" {...props} />);
+}))((props) => <Checkbox color="default" fontSize="large" {...props} />);
 
 export default function ActivityList({ user, updateUser }) {
   const classes = useStyles();

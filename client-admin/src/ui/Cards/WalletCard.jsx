@@ -77,7 +77,7 @@ const useStyles = makeStyles((theme) => ({
     fontWeight: 700,
     letterSpacing: 0.83,
     fontFamily: '"Cabin", sans-serif',
-    color: "#00aeef",
+    color: theme.palette.primary.main,
     "&:hover": {
       backgroundColor: "#ecfaff",
     },
@@ -88,7 +88,7 @@ const useStyles = makeStyles((theme) => ({
     fontWeight: 700,
     letterSpacing: 0.83,
     fontFamily: '"Cabin", sans-serif',
-    color: "#00aeef",
+    color: theme.palette.primary.main,
     "&:hover": {
       backgroundColor: "#ecfaff",
     },

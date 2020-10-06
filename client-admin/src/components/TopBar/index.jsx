@@ -48,10 +48,10 @@ const useStyles = makeStyles((theme) => ({
     height: 70,
     margin: "0 auto",
     fontSize: 24,
-    color: "#374ea2",
+    color: theme.palette.primary.dark,
     fontWeight: 700,
     lineHeight: 1.75,
-    backgroundColor: "#daf5ff",
+    backgroundColor: theme.palette.primary.light,
   },
   filledButton: {
     width: 176,
@@ -88,7 +88,7 @@ const useStyles = makeStyles((theme) => ({
     fontSize: 12,
     fontWeight: 700,
     fontFamily: '"Cabin", sans-serif',
-    color: "#00aeef",
+    color: theme.palette.primary.main,
     paddingTop: 0,
     paddingBottom: 0,
     paddingRight: 10,
@@ -135,6 +135,7 @@ export default function TopBar(props) {
         <MenuPopper
           button={
             <TextButton
+              type={"dark"}
               endIcon={<ExpandMoreIcon />}
               style={{ color: "#ffffff" }}
             >

@@ -30,7 +30,7 @@ const useStyles = makeStyles((theme) => ({
   },
   navIconSelected: {
     width: "1.5em",
-    color: "#00aeef",
+    color: theme.palette.primary.main,
   },
   navText: {
     fontSize: 12,
@@ -68,17 +68,17 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const JuniperListItem = withStyles({
+const JuniperListItem = withStyles((theme) => ({
   root: {
     "&$selected": {
-      color: "#00aeef",
+      color: theme.palette.primary.main,
       backgroundColor: "#ffffff",
       "&:hover": {},
     },
     "&:hover": {},
   },
   selected: {},
-})(ListItem);
+}))(ListItem);
 
 export default function SidebarNavigation(props) {
   const classes = useStyles();
@@ -185,6 +185,7 @@ export default function SidebarNavigation(props) {
           />
         </JuniperListItem>
       </Link>
+
       <Link to={"/admin/settings"} className={classes.link} style={{ flex: 2 }}>
         <JuniperListItem
           button
@@ -199,14 +200,12 @@ export default function SidebarNavigation(props) {
                   ? classes.navIconSelected
                   : classes.navIcon
               }
-              fontSize="large"
             />
           </ListItemIcon>
           <ListItemText
             primary={
               <Typography className={classes.navText}>Settings</Typography>
             }
-            style={{ marginTop: "1.25em" }}
           />
         </JuniperListItem>
       </Link>

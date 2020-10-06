@@ -9,6 +9,12 @@ import "./styles.css";
 const useStyles = makeStyles((theme) => ({
   root: {
     width: "100%",
+    "& .link": {
+      fontFamily: '"Roboto", sans-serif',
+      fontWeight: 700,
+      color: theme.palette.primary.main,
+      cursor: "pointer",
+    },
   },
   listItem: {
     fontFamily: '"Roboto", sans-serif',

@@ -70,7 +70,7 @@ const useStyles = makeStyles((theme) => ({
     fontSize: 12,
     fontWeight: 700,
     fontFamily: '"Cabin", sans-serif',
-    color: "#00aeef",
+    color: theme.palette.primary.main,
     "&:hover": {
       backgroundColor: "#ecfaff",
     },
@@ -83,13 +83,13 @@ const useStyles = makeStyles((theme) => ({
     fontSize: 12,
     fontWeight: 700,
     fontFamily: '"Cabin", sans-serif',
-    color: "#00aeef",
+    color: theme.palette.primary.main,
     "&:hover": {
       backgroundColor: "#ecfaff",
     },
   },
   owners: {
-    color: "#00aaef",
+    color: theme.palette.primary.main,
     fontSize: 18,
     lineHeight: 1.33,
     marginTop: 20,
