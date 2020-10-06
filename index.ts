@@ -14,7 +14,6 @@ import { sendRefreshToken } from "./sendRefreshToken";
 
 const JuniperAdmin = require("./admin");
 const juniperAdmin = new JuniperAdmin();
-juniperAdmin.startPriceMonitor();
 
 const port = process.env.SERVER_PORT;
 
