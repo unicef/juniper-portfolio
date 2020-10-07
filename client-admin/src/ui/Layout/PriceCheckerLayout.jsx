@@ -228,7 +228,7 @@ export default function PriceCheckerLayout(props) {
             );
           })
           .reduce((a, b) => {
-            return a + b.price;
+            return a + b.average;
           }, 0) / days
       );
     } else if (quarter === 2) {
@@ -241,7 +241,7 @@ export default function PriceCheckerLayout(props) {
             );
           })
           .reduce((a, b) => {
-            return a + b.price;
+            return a + b.average;
           }, 0) / days
       );
     } else if (quarter === 3) {
@@ -254,7 +254,7 @@ export default function PriceCheckerLayout(props) {
             );
           })
           .reduce((a, b) => {
-            return a + b.price;
+            return a + b.average;
           }, 0) / days
       );
     } else if (quarter === 4) {
@@ -267,7 +267,7 @@ export default function PriceCheckerLayout(props) {
             );
           })
           .reduce((a, b) => {
-            return a + b.price;
+            return a + b.average;
           }, 0) / days
       );
     }
@@ -280,7 +280,7 @@ export default function PriceCheckerLayout(props) {
           return price.month === month && price.year === year;
         })
         .reduce((a, b) => {
-          return a + b.price;
+          return a + b.average;
         }, 0) / daysInMonth(month, year)
     );
   };
@@ -293,8 +293,8 @@ export default function PriceCheckerLayout(props) {
             day: price.day,
             month: price.month,
             year: price.year,
-            Date: `${price.day}/${price.month}/${price.year}`,
-            Price: price.price,
+            Date: `${price.month}/${price.day}/${price.year}`,
+            Price: Math.round(price.average * 100) / 100,
           };
         })
       );
@@ -322,7 +322,7 @@ export default function PriceCheckerLayout(props) {
           );
         })
         .reduce((a, b) => {
-          return a + b ? b.price : 0;
+          return a + b ? b.average : 0;
         }, 0) === 0
     ) {
       return null;
@@ -345,7 +345,7 @@ export default function PriceCheckerLayout(props) {
                 );
               })
               .reduce((a, b) => {
-                return a + b ? b.price : 0;
+                return a + b ? b.average : 0;
               }, 0)
           )}
         </div>
@@ -416,19 +416,19 @@ export default function PriceCheckerLayout(props) {
           <Grid container>
             <Grid item xs={4}>
               <Grid container>
-                <Grid item className={classes.chartPrices}>
+                <Grid item xs={12} className={classes.chartPrices}>
                   <div className={classes.subtitle}>Today's Current Price</div>
                   <div className={classes.chartTitle}>
                     <b>{usdFormatter.format(props.currentPrice)}</b>
                   </div>
                 </Grid>
-                <Grid item className={classes.chartPrices}>
+                <Grid item xs={12} className={classes.chartPrices}>
                   <div className={classes.subtitle}>Monthly Average Price</div>
                   <div className={classes.chartTitle}>
                     {usdFormatter.format(currentMonthAveragePrice)} USD
                   </div>
                 </Grid>
-                <Grid item className={classes.chartPrices}>
+                <Grid item xs={12} className={classes.chartPrices}>
                   <div className={classes.subtitle}>
                     Q{currentQuarter()} Average Price
                   </div>
