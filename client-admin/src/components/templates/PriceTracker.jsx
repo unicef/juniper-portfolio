@@ -227,7 +227,7 @@ export default function (props) {
             );
           })
           .reduce((a, b) => {
-            return a + b.price;
+            return a + b.average;
           }, 0) / days
       );
     } else if (quarter === 2) {
@@ -240,7 +240,7 @@ export default function (props) {
             );
           })
           .reduce((a, b) => {
-            return a + b.price;
+            return a + b.average;
           }, 0) / days
       );
     } else if (quarter === 3) {
@@ -253,7 +253,7 @@ export default function (props) {
             );
           })
           .reduce((a, b) => {
-            return a + b.price;
+            return a + b.average;
           }, 0) / days
       );
     } else if (quarter === 4) {
@@ -266,7 +266,7 @@ export default function (props) {
             );
           })
           .reduce((a, b) => {
-            return a + b.price;
+            return a + b.average;
           }, 0) / days
       );
     }
@@ -279,7 +279,7 @@ export default function (props) {
           return price.month === month && price.year === year;
         })
         .reduce((a, b) => {
-          return a + b.price;
+          return a + b.average;
         }, 0) / daysInMonth(month, year)
     );
   };
@@ -327,7 +327,7 @@ export default function (props) {
             month: price.month,
             year: price.year,
             Date: `${price.day}/${price.month}/${price.year}`,
-            Price: price.price,
+            Price: price.average,
           };
         })
       );
@@ -355,7 +355,7 @@ export default function (props) {
           );
         })
         .reduce((a, b) => {
-          return a + b ? b.price : 0;
+          return a + b ? b.average : 0;
         }, 0) === 0
     ) {
       return null;
@@ -378,7 +378,7 @@ export default function (props) {
                 );
               })
               .reduce((a, b) => {
-                return a + b ? b.price : 0;
+                return a + b ? b.average : 0;
               }, 0)
           )}
         </div>
