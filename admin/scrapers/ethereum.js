@@ -141,7 +141,7 @@ class EthereumWalletScraper {
     }
     let feeUSD = Math.round(fee * rate.average * 100) / 100;
 
-    this.db.saveTransaction({
+    const newTx = {
       txid: tx.hash,
       address,
       currency: "Ethereum",
@@ -162,7 +162,14 @@ class EthereumWalletScraper {
       amountUSD,
       isUnicef,
       isMultisigOwner,
-    });
+    };
+
+    // If the tx already exists as part of a unicef wallet ignore the unicef flag, default is false
+    if (!isUnicef) {
+      delete newTx.isUnicef;
+    }
+
+    this.db.saveTransaction(newTx);
   }
   async updateWallet(walletData) {
     const { address, balance } = walletData;
