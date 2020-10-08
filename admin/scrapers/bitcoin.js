@@ -112,18 +112,18 @@ class BitcoinWalletScraper {
     let fee = tx.fee / 1e8;
     let feeUSD = Math.round(fee * rate.average * 100) / 100;
 
-    this.db.saveTransaction({
-      txid: tx.txid,
+    const newTx = {
+      txid: tx.hash,
       address,
-      currency: "Bitcoin",
+      currency: "Ethereum",
       symbol: this.symbol,
-      source: "",
-      destination: "",
-      inputs: tx.vin,
-      outputs: tx.vout,
-      block: tx.status.block_height,
-      timestamp: tx.status.block_time * 1000,
-      index: tx.tx_index,
+      source: accountMap[tx.from],
+      destination: accountMap[tx.to],
+      to: tx.to,
+      from: tx.from,
+      block: tx.blockNumber,
+      timestamp,
+      index: tx.nonce || null,
       sent,
       received,
       rate: rate.average,
@@ -132,7 +132,15 @@ class BitcoinWalletScraper {
       amount,
       amountUSD,
       isUnicef,
-    });
+      isMultisigOwner,
+    };
+
+    // If the tx already exists as part of a unicef wallet ignore the unicef flag, default is false
+    if (!isUnicef) {
+      delete newTx.isUnicef;
+    }
+
+    this.db.saveTransaction(newTx);
   }
   async updateWallet(walletData) {
     const { address } = walletData;
