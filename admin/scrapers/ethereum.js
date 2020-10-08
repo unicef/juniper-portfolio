@@ -111,8 +111,14 @@ class EthereumWalletScraper {
     let accountMap = await this.getAccountMap();
     let amount = tx.value / 1e18;
     amount = Math.round(amount * 1e5) / 1e5;
+
+    if (rate.length > 0) {
+      rate = rate[0];
+    } else {
+      rate = { average: 0 };
+    }
     if (!rate) {
-      rate = { price: 0 };
+      rate = { average: 0 };
     }
 
     if (tx.to.toLowerCase() === address.toLowerCase()) {
@@ -127,13 +133,13 @@ class EthereumWalletScraper {
       isMultisigOwner = true;
     }
 
-    let amountUSD = Math.round(amount * rate.price * 100) / 100;
+    let amountUSD = Math.round(amount * rate.average * 100) / 100;
 
     let fee = 0;
     if (tx.gasPrice) {
       fee = (tx.gasUsed * tx.gasPrice) / 1e18;
     }
-    let feeUSD = Math.round(fee * rate.price * 100) / 100;
+    let feeUSD = Math.round(fee * rate.average * 100) / 100;
 
     this.db.saveTransaction({
       txid: tx.hash,
@@ -149,7 +155,7 @@ class EthereumWalletScraper {
       index: tx.nonce || null,
       sent,
       received,
-      rate: rate.price,
+      rate: rate.average,
       fee,
       feeUSD,
       amount,
