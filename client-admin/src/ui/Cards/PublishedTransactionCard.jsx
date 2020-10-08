@@ -1,14 +1,13 @@
 import React, { Fragment } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import Divider from "@material-ui/core/Divider";
-import Button from "@material-ui/core/Button";
 import Grid from "@material-ui/core/Grid";
 import ChevronRightIcon from "@material-ui/icons/ChevronRight";
-import TxReceivedIcon from "../Icons/TxReceivedIcon";
-import TxSentIcon from "../Icons/TxSentIcon";
-import EditIcon from "../Icons/EditIcon";
-import TxStepper from "../TxStepper";
-import { TextButton, ContainedButton } from "../Buttons";
+import TxReceivedIcon from "../../components/atoms/Icons/TxReceivedIcon";
+import TxSentIcon from "../../components/atoms/Icons/TxSentIcon";
+import EditIcon from "../../components/atoms/Icons/EditIcon";
+import TxStepper from "../../components/organisms/TxStepper";
+import TextButton from "../../components/atoms/Button/TextIcon";
 
 import { usdFormatter, cryptoFormatter } from "../../util";
 

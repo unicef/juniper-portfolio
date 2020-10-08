@@ -434,11 +434,18 @@ class MongoDB {
     ]);
   }
   async getNearestPrice(symbol, day = new Date()) {
-    this.logger.debug(`Get Nearest Price \t${symbol} \t${day}`);
-    return await this.models.Price.findOne({
-      symbol,
-      timestamp: { $gte: day },
-    });
+    this.logger.info(`Get Nearest Price \t${symbol} \t${day}`);
+    return await this.models.Price.aggregate([
+      {
+        $project: {
+          timestamp: 1,
+          average: 1,
+          difference: { $abs: { $subtract: [new Date(), "$timestamp"] } },
+        },
+      },
+      { $sort: { difference: 1 } },
+      { $limit: 1 },
+    ]);
   }
   async untrackWallet(address) {
     this.logger.debug(`Untrack Wallet ${address}`);

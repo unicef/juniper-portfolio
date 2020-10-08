@@ -3,7 +3,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import Grid from "@material-ui/core/Grid";
 import { usdFormatter, cryptoFormatter } from "../../util";
 import { monthNames } from "../../util";
-import { CopyAddressButton } from "../Buttons";
+import CopyAddressButton from "../../components/molecules/Button/CopyAddress";
 
 const WalletDetailsCardStyles = makeStyles((theme) => ({
   authorizationInfo: {

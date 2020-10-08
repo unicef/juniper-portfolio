@@ -4,13 +4,14 @@ import Divider from "@material-ui/core/Divider";
 import Button from "@material-ui/core/Button";
 import Grid from "@material-ui/core/Grid";
 import ChevronRightIcon from "@material-ui/icons/ChevronRight";
-import TxReceivedIcon from "../Icons/TxReceivedIcon";
-import TxSentIcon from "../Icons/TxSentIcon";
-import ArchiveTxIcon from "../Icons/ArchiveTxIcon";
-import TxStepper from "../TxStepper";
+import TxReceivedIcon from "../../components/atoms/Icons/TxReceivedIcon";
+import TxSentIcon from "../../components/atoms/Icons/TxSentIcon";
+import ArchiveTxIcon from "../../components/atoms/Icons/ArchiveTxIcon";
+import TxStepper from "../../components/organisms/TxStepper";
 import { usdFormatter, cryptoFormatter } from "../../util";
 import { archiveTransaction } from "../../actions";
-import { TextButton, ContainedButton } from "../Buttons";
+import TextButton from "../../components/atoms/Button/TextIcon";
+import ContainedButton from "../../components/atoms/Button/Contained";
 
 const useStyles = makeStyles((theme) => ({
   walletSubtitle: {

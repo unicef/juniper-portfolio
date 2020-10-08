@@ -9,17 +9,18 @@ import {
   Redirect,
 } from "react-router-dom";
 import "./app.css";
-import SignIn from "./components/SignIn";
-import TopBar from "./components/TopBar";
-import Sidebar from "./components/Sidebar";
-import Accounts from "./components/Accounts";
-import PriceTracker from "./components/PriceTracker";
-import Settings from "./components/Settings";
-import Transactions from "./components/Transactions";
-import Wallets from "./components/Wallets";
+import SignIn from "./components/pages/SignIn";
+import TopBar from "./components/organisms/TopBar";
+import Sidebar from "./components/organisms/Sidebar";
+import AccountsPage from "./components/pages/Accounts";
+import PriceTrackerPage from "./components/pages/PriceTracker";
+import WalletsPage from "./components/pages/Wallets";
+import Settings from "./components/pages/Settings";
+import Transactions from "./components/pages/Transactions";
+
 import ApolloClient from "apollo-boost";
 import { ApolloProvider } from "react-apollo";
-import LoadingScreen from "./ui/Dialog/LoadingScreen";
+import LoadingScreen from "./components/organisms/Dialog/LoadingScreen";
 import {
   getAccounts,
   getExchangeRate,
@@ -145,6 +146,7 @@ export default function JuniperAdmin() {
     setWallets(await getWallets());
     setSummary(await getWalletsSummary());
     setTrackedWallets(await getTrackedWallets());
+    setTransactions(await getTransactions());
   };
 
   const fetchTrackedWallets = async () => {
@@ -167,7 +169,6 @@ export default function JuniperAdmin() {
   }
 
   useEffect(() => {
-    console.log("app");
     async function init() {
       setSummary(await getWalletsSummary());
       setWallets(await getWallets());
@@ -225,16 +226,17 @@ export default function JuniperAdmin() {
               )
             ) : (
               <Router>
+                <TopBar user={user} setPageIndex={setPageIndex} />
+
+                <Sidebar
+                  pageIndex={pageIndex}
+                  setPageIndex={setPageIndex}
+                  ethRate={ethRate}
+                  btcRate={btcRate}
+                />
                 <Switch>
                   <Route exact path="/admin">
-                    <TopBar user={user} setPageIndex={setPageIndex} />
-                    <Sidebar
-                      pageIndex={pageIndex}
-                      setPageIndex={setPageIndex}
-                      ethRate={ethRate}
-                      btcRate={btcRate}
-                    />
-                    <Wallets
+                    <WalletsPage
                       wallets={wallets}
                       trackedWallets={trackedWallets}
                       summary={summary}
@@ -245,14 +247,7 @@ export default function JuniperAdmin() {
                     />
                   </Route>
                   <Route path="/admin/wallets">
-                    <TopBar user={user} setPageIndex={setPageIndex} />
-                    <Sidebar
-                      pageIndex={pageIndex}
-                      setPageIndex={setPageIndex}
-                      ethRate={ethRate}
-                      btcRate={btcRate}
-                    />
-                    <Wallets
+                    <WalletsPage
                       wallets={wallets}
                       trackedWallets={trackedWallets}
                       summary={summary}
@@ -264,14 +259,7 @@ export default function JuniperAdmin() {
                     />
                   </Route>
                   <Route path="/admin/accounts">
-                    <TopBar user={user} setPageIndex={setPageIndex} />
-                    <Sidebar
-                      pageIndex={pageIndex}
-                      setPageIndex={setPageIndex}
-                      ethRate={ethRate}
-                      btcRate={btcRate}
-                    />
-                    <Accounts
+                    <AccountsPage
                       isAdmin={user.isAdmin}
                       fetchAccounts={fetchAccounts}
                       accounts={accounts}
@@ -280,27 +268,13 @@ export default function JuniperAdmin() {
                     />
                   </Route>
                   <Route path="/admin/tracker">
-                    <TopBar user={user} setPageIndex={setPageIndex} />
-                    <Sidebar
-                      pageIndex={pageIndex}
-                      setPageIndex={setPageIndex}
-                      ethRate={ethRate}
-                      btcRate={btcRate}
-                    />
-                    <PriceTracker
+                    <PriceTrackerPage
                       prices={prices}
                       ethRate={ethRate}
                       btcRate={btcRate}
                     />
                   </Route>
                   <Route path="/admin/transactions">
-                    <TopBar user={user} setPageIndex={setPageIndex} />
-                    <Sidebar
-                      pageIndex={pageIndex}
-                      setPageIndex={setPageIndex}
-                      ethRate={ethRate}
-                      btcRate={btcRate}
-                    />
                     <Transactions
                       isAdmin={user.isAdmin}
                       transactions={transactions}
@@ -308,13 +282,6 @@ export default function JuniperAdmin() {
                     />
                   </Route>
                   <Route path="/admin/settings">
-                    <TopBar user={user} setPageIndex={setPageIndex} />
-                    <Sidebar
-                      pageIndex={pageIndex}
-                      setPageIndex={setPageIndex}
-                      ethRate={ethRate}
-                      btcRate={btcRate}
-                    />
                     <Settings
                       user={user}
                       updateUser={updateUser}
