@@ -2,7 +2,8 @@ import React, { Fragment, useState } from "react";
 import TextButton from "../../atoms/Button/TextIcon";
 import CopyIcon from "../../atoms/Icons/CopyIcon";
 import { copyToClipboard } from "../../../actions";
-import Snackbar from "../../atoms/Snackbar";
+import Snackbar from "../../organisms/Snackbar";
+import { useTheme } from "@material-ui/core/styles";
 
 export default function (props) {
   const [showSnackbar, setShowSnackbar] = useState(false);
@@ -11,6 +12,8 @@ export default function (props) {
     `Address copied to clipboard`
   );
   const [snackbarSeverity, setSnackbarSeverity] = useState("success");
+
+  const theme = useTheme();
   return (
     <Fragment>
       <Snackbar
@@ -26,7 +29,11 @@ export default function (props) {
       <TextButton
         startIcon={
           <CopyIcon
-            style={{ fontSize: 18, stroke: "#00AEEF", fill: "rgba(0,0,0,0)" }}
+            style={{
+              fontSize: 18,
+              stroke: theme.palette.primary.main,
+              fill: "rgba(0,0,0,0)",
+            }}
           />
         }
         onClick={() => {

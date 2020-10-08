@@ -4,6 +4,7 @@ import getAccounts from "./getAccounts";
 import calculateAccountTotal from "./calculateAccountTotal";
 import changePassword from "./changePassword";
 import copyToClipboard from "./copyToClipboard";
+import getAppSettings from "./getAppSettings";
 import getExchangeRate from "./getExchangeRate";
 import getPriceHistory from "./getPriceHistory";
 import getTransactions from "./getTransactions";
@@ -16,6 +17,7 @@ import getWallets from "./getWallets";
 import getWalletsSummary from "./getWalletsSummary";
 import publishTransaction from "./publishTransaction";
 import removeUser from "./removeUser";
+import saveAppSettings from "./saveAppSettings";
 
 export {
   addUser,
@@ -24,6 +26,7 @@ export {
   calculateAccountTotal,
   changePassword,
   copyToClipboard,
+  getAppSettings,
   getExchangeRate,
   getPriceHistory,
   getTransactions,
@@ -36,4 +39,5 @@ export {
   getWalletsSummary,
   publishTransaction,
   removeUser,
+  saveAppSettings,
 };

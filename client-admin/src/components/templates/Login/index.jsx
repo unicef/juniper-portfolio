@@ -2,7 +2,7 @@ import React, { useState, Fragment } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import Grid from "@material-ui/core/Grid";
 import TextField from "@material-ui/core/TextField";
-import Snackbar from "../../atoms/Snackbar";
+import Snackbar from "../../organisms/Snackbar";
 import { changePassword } from "../../../actions";
 import ContainedButton from "../../atoms/Button/Contained";
 import ExpansionList from "../../organisms/ExpansionPanel";

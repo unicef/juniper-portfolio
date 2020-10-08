@@ -11,7 +11,7 @@ const useStyles = makeStyles((theme) => ({
     marginBottom: 15,
   },
   leftRight: {
-    color: "#00aaef",
+    color: theme.palette.primary.main,
     margin: 0,
     display: "flex",
     padding: 0,
@@ -21,7 +21,7 @@ const useStyles = makeStyles((theme) => ({
   },
   text: {
     minWidth: 125,
-    color: "#00aaef",
+    color: theme.palette.primary.main,
     fontSize: 14,
     fontWeight: 700,
     lineHeight: 2,

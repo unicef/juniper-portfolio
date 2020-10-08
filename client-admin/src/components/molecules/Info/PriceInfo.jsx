@@ -9,7 +9,7 @@ const useStyles = makeStyles((theme) => ({
     minHeight: 77,
     borderRadius: 5,
     fontSize: 19,
-    backgroundColor: "#daf5ff",
+    backgroundColor: theme.palette.primary.light,
     display: "flex",
     flexDirection: "rows",
     alignItems: "center",
@@ -28,7 +28,7 @@ const useStyles = makeStyles((theme) => ({
     height: 15,
     fontSize: 12,
     fontWeight: 700,
-    color: "#00aeef",
+    color: theme.palette.primary.main,
     marginLeft: "1em",
   },
 }));

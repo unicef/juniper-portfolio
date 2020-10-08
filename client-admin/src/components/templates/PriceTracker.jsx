@@ -96,7 +96,7 @@ const useStyles = makeStyles((theme) => ({
     paddingLeft: 10,
     paddingRight: 10,
     "&:hover": {
-      backgroundColor: "#ecfaff",
+      backgroundColor: theme.palette.primary.textButtonHover,
     },
   },
 }));

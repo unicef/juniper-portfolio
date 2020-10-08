@@ -51,6 +51,7 @@ class JuniperAdmin {
 
     this.email = new Email(this.config.email);
     this.db = new DB(this.config.db);
+    this.setInitialAppSettings();
 
     this.bitcoinWalletScraper = new BitcoinScraper(
       this.config.bitcoinScraper,
@@ -154,6 +155,7 @@ class JuniperAdmin {
 
     this.logger.info(`Initialized`);
   }
+
   logUserActivity(activity) {
     this.logger.info(`Logging activity: ${activity}`);
   }
@@ -307,6 +309,42 @@ class JuniperAdmin {
     }
 
     return true;
+  }
+
+  async setInitialAppSettings() {
+    let defaultSettings = {
+      id: "settings",
+      primaryColor: "#00aeef",
+      lightPrimaryColor: "#daf5ff",
+      darkPrimaryColor: "#374ea2",
+      containedButtonHover: "#33bef2",
+      containedButtonActive: "#0094cb",
+      textButtonHover: "#ecfaff",
+    };
+    let settings = null;
+
+    try {
+      settings = await this.getAppSettings();
+      if (!settings) {
+        this.logger.info("App settings not found, setting default settings");
+        await this.updateAppSettings(defaultSettings);
+      }
+    } catch (e) {
+      this.logger.error(e);
+      return false;
+    }
+  }
+
+  async getAppSettings() {
+    return await this.db.models.Settings.findOne({ id: "settings" });
+  }
+
+  async updateAppSettings(settings) {
+    return await this.db.models.Settings.findOneAndUpdate(
+      { id: settings.id },
+      settings,
+      { upsert: true }
+    );
   }
 
   async login(user) {

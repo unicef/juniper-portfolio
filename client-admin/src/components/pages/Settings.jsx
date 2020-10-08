@@ -8,6 +8,8 @@ import Profile from "../templates/Profile";
 import WorkDetails from "../templates/WorkDetails";
 import AddNewUser from "../templates/UserManagement/AddNewUser";
 import ExistingUsers from "../templates/UserManagement/ExistingUsers";
+import AppSettings from "../templates/AppSettings";
+
 import { getUsers, removeUser } from "../../actions";
 
 const useStyles = makeStyles((theme) => ({
@@ -46,7 +48,13 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function Settings({ isAdmin, user, updateUser }) {
+export default function Settings({
+  isAdmin,
+  user,
+  updateUser,
+  appSettings,
+  setAppSettings,
+}) {
   const classes = useStyles();
   const [users, setUsers] = useState([]);
 
@@ -98,6 +106,13 @@ export default function Settings({ isAdmin, user, updateUser }) {
               removeUser={removeUser}
               setUsers={setUsers}
               heading={"View existing users"}
+            />
+
+            <AppSettings
+              title={"App Settings"}
+              heading={"Theme"}
+              appSettings={appSettings}
+              setAppSettings={setAppSettings}
             />
           </Fragment>
         )}

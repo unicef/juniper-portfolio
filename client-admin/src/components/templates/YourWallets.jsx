@@ -48,7 +48,7 @@ const useStyles = makeStyles((theme) => ({
     top: "40%",
     left: -60,
     "&:hover": {
-      backgroundColor: "#ecfaff",
+      backgroundColor: theme.palette.primary.textButtonHover,
     },
   },
   fabRight: {
@@ -60,7 +60,7 @@ const useStyles = makeStyles((theme) => ({
     top: "40%",
     right: -60,
     "&:hover": {
-      backgroundColor: "#ecfaff",
+      backgroundColor: theme.palette.primary.textButtonHover,
     },
   },
 }));

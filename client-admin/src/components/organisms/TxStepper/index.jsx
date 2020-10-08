@@ -27,7 +27,7 @@ const useStyles = makeStyles((theme) => ({
     marginBottom: 8,
   },
   line: {
-    width: "93%",
+    width: "91%",
     display: "inline-block",
   },
   title: {

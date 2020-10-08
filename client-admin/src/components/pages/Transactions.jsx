@@ -10,7 +10,7 @@ import {
   ArchivedTransactionCard,
 } from "../../ui/Cards";
 import TxList from "../organisms/TxList";
-import Snackbar from "../atoms/Snackbar";
+import Snackbar from "../organisms/Snackbar";
 import { TagTransaction } from "../organisms/Dialog";
 import { getExchangeRate, publishTransaction } from "../../actions";
 import PageLayout from "../templates/Page";

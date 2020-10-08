@@ -9,11 +9,11 @@ const useStyles = makeStyles((theme) => ({
     fontWeight: 700,
     letterSpacing: 1,
     fontFamily: '"Cabin", sans-serif',
-    color: "#00aeef",
-    borderColor: "#00aeef",
+    color: theme.palette.primary.main,
+    borderColor: theme.palette.primary.main,
     borderRadius: 5,
     "&:hover": {
-      backgroundColor: "#ecfaff",
+      backgroundColor: theme.palette.primary.textHover,
     },
   },
 }));

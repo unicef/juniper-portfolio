@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { makeStyles, withStyles } from "@material-ui/core/styles";
+import { makeStyles, withStyles, useTheme } from "@material-ui/core/styles";
 import Tabs from "@material-ui/core/Tabs";
 import Tab from "@material-ui/core/Tab";
 import Typography from "@material-ui/core/Typography";
@@ -45,17 +45,17 @@ function TabPanel(props) {
   );
 }
 
-const StyledTabs = withStyles({
+const StyledTabs = withStyles((theme) => ({
   indicator: {
     display: "flex",
     justifyContent: "center",
     backgroundColor: "transparent",
     "& > span": {
       width: "100%",
-      backgroundColor: "#00aeef",
+      backgroundColor: theme.palette.primary.main,
     },
   },
-})((props) => <Tabs {...props} TabIndicatorProps={{ children: <span /> }} />);
+}))((props) => <Tabs {...props} TabIndicatorProps={{ children: <span /> }} />);
 
 const StyledTab = withStyles((theme) => ({
   root: {
@@ -76,6 +76,8 @@ export default function PageLayout({ tabs, children }) {
     setActiveTab(newTab);
   };
 
+  const theme = useTheme();
+
   return (
     <div className={classes.root}>
       <StyledTabs
@@ -89,7 +91,9 @@ export default function PageLayout({ tabs, children }) {
             <StyledTab
               key={index}
               label={tab}
-              style={activeTab === index ? { color: "#00aeef" } : {}}
+              style={
+                activeTab === index ? { color: theme.palette.primary.main } : {}
+              }
             />
           );
         })}
