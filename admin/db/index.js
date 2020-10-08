@@ -437,6 +437,9 @@ class MongoDB {
     this.logger.info(`Get Nearest Price \t${symbol} \t${day}`);
     return await this.models.Price.aggregate([
       {
+        $match: { symbol: symbol },
+      },
+      {
         $project: {
           timestamp: 1,
           average: 1,
