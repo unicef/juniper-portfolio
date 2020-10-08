@@ -79,6 +79,12 @@ class BitcoinWalletScraper {
     let accountMap = await this.getAccountMap();
     let rate = await this.db.getNearestPrice(this.symbol, new Date(timestamp));
     let amount = 0;
+
+    if (rate.length > 0) {
+      rate = rate[0];
+    } else {
+      rate = { average: 0 };
+    }
     if (!rate) {
       rate = { price: 0 };
     }
@@ -102,9 +108,9 @@ class BitcoinWalletScraper {
     });
 
     amount = Math.round(amount) / 1e8;
-    let amountUSD = Math.round(amount * rate.price * 100) / 100;
+    let amountUSD = Math.round(amount * rate.average * 100) / 100;
     let fee = tx.fee / 1e8;
-    let feeUSD = Math.round(fee * rate.price * 100) / 100;
+    let feeUSD = Math.round(fee * rate.average * 100) / 100;
 
     this.db.saveTransaction({
       txid: tx.txid,
@@ -120,7 +126,7 @@ class BitcoinWalletScraper {
       index: tx.tx_index,
       sent,
       received,
-      rate: rate.price,
+      rate: rate.average,
       fee,
       feeUSD,
       amount,
