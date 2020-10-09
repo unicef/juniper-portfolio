@@ -45,7 +45,7 @@ class JuniperAdmin {
     this.updatingWallets = false;
     this.updateWalletQueue = [];
     this.updateWalletJob = null;
-    this.updateWalletJobInterval = oneSecond * 50;
+    this.updateWalletJobInterval = oneSecond * 5;
     this.init();
   }
   init() {

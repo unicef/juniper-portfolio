@@ -188,6 +188,7 @@ export default function JuniperAdmin() {
       setPrices(await getPriceHistory());
 
       if (await getUpdatingWallet()) {
+        setUpdatingWallets(true);
         const pollUpdatingWallet = setInterval(async () => {
           console.log("interval");
           const updatingWallets = await getUpdatingWallet();
@@ -264,6 +265,7 @@ export default function JuniperAdmin() {
                   user={user}
                   setPageIndex={setPageIndex}
                   logoUrl={appSettings.logoUrl}
+                  updatingWallets={updatingWallets}
                 />
 
                 <Sidebar

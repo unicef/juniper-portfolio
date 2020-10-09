@@ -10,6 +10,7 @@ import Avatar from "@material-ui/core/Avatar";
 import { Link } from "react-router-dom";
 import ContainedButton from "../../atoms/Button/Contained";
 import TextButton from "../../atoms/Button/TextIcon";
+import WalletProgress from "../../molecules/WalletProgress";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -131,6 +132,7 @@ export default function TopBar(props) {
         <div className={classes.title}>
           <img className={classes.logo} src={props.logoUrl} alt="UNICEF" />
         </div>
+        {props.updatingWallets && <WalletProgress />}
         <MenuPopper
           button={
             <TextButton
