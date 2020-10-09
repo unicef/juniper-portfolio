@@ -17,5 +17,9 @@ export default async () => {
     console.log(e);
     settings = defaultSettings;
   }
+
+  if (!settings) {
+    settings = defaultSettings;
+  }
   return settings;
 };
