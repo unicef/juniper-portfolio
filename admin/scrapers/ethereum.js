@@ -45,11 +45,11 @@ class EthereumWalletScraper {
 
     try {
       data = await fetch(
-        `http://api.etherscan.io/api?module=account&action=txlistinternal&address=${address}#internaltx&startblock=0&endblock=9999999999999&sort=asc#internaltx`
+        `http://api.etherscan.io/api?module=account&action=txlistinternal&address=${address}#internaltx&startblock=0&endblock=9999999999999&sort=asc#internaltx&apikey=${this.config.apiKey}`
       );
 
       txs = await data.json();
-      console.log(txs);
+
       if (txs.status === "0") {
         throw new Error(txs.result);
       }
@@ -65,7 +65,7 @@ class EthereumWalletScraper {
   async fetchTransactionData(address) {
     this.logger.info(`Fetching Transaction Data for \t${address}`);
     let data, txs;
-    console.log("WHOAAAAAAAA");
+
     try {
       data = await fetch(
         `http://api.etherscan.io/api?module=account&action=txlist&address=${address}&startblock=0&endblock=99999999&sort=asc&apikey=${this.config.apiKey}`

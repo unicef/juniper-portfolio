@@ -10,6 +10,21 @@ router.get("/logout", async (req, res) => {
   });
 });
 
+router.get("/settings/app", async (req, res) => {
+  const juniperAdmin = req.app.get("juniperAdmin");
+
+  let settings = {};
+
+  try {
+    settings = await juniperAdmin.getAppSettings();
+  } catch (e) {
+    logger.error(e);
+    return res.status(500).send();
+  }
+
+  res.json(settings);
+});
+
 router.get("/isLoggedIn", async (req, res) => {
   try {
     if (

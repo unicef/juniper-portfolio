@@ -28,6 +28,7 @@ import {
   getPriceHistory,
   getTransactions,
   getTrackedWallets,
+  getUpdatingWallet,
   getWallets,
   getWalletsSummary,
 } from "./actions";
@@ -88,6 +89,7 @@ export default function JuniperAdmin() {
   const [accounts, setAccounts] = useState([]);
   const [ethRate, setEthRate] = useState(0);
   const [btcRate, setBtcRate] = useState(0);
+  const [updatingWallets, setUpdatingWallets] = useState(false);
 
   const theme = createMuiTheme({
     palette: {
@@ -184,6 +186,20 @@ export default function JuniperAdmin() {
       setEthRate(await getExchangeRate("ETH"));
       setBtcRate(await getExchangeRate("BTC"));
       setPrices(await getPriceHistory());
+
+      if (await getUpdatingWallet()) {
+        const pollUpdatingWallet = setInterval(async () => {
+          console.log("interval");
+          const updatingWallets = await getUpdatingWallet();
+          console.log(`updating wallet: ${updatingWallets}`);
+          if (!updatingWallets) {
+            clearInterval(pollUpdatingWallet);
+            init(false);
+          }
+
+          setUpdatingWallets(updatingWallets);
+        }, 2000);
+      }
     }
     if (isLoggedIn && hasSettings) {
       init();

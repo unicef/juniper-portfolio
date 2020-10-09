@@ -104,26 +104,11 @@ router.put("/user/password", async (req, res) => {
   res.send();
 });
 
-router.get("/app", async (req, res) => {
-  const juniperAdmin = req.app.get("juniperAdmin");
-
-  let settings = {};
-
-  try {
-    settings = await juniperAdmin.getAppSettings();
-  } catch (e) {
-    logger.error(e);
-    return res.status(500).send();
-  }
-
-  res.json(settings);
-});
-
 router.put("/app", async (req, res) => {
   const juniperAdmin = req.app.get("juniperAdmin");
 
   const { settings } = req.body;
-  console.log(settings);
+
   try {
     await juniperAdmin.updateAppSettings(settings);
   } catch (e) {

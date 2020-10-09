@@ -16,6 +16,12 @@ router.get("/", async (req, res) => {
   res.json(wallets);
 });
 
+router.get("/updating", async (req, res) => {
+  const juniperAdmin = req.app.get("juniperAdmin");
+
+  res.json({ updating: juniperAdmin.updatingWallets });
+});
+
 router.get("/tracked", async (req, res) => {
   const juniperAdmin = req.app.get("juniperAdmin");
   let wallets = [];

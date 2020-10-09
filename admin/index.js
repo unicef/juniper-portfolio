@@ -5,7 +5,6 @@ const MongoStore = require("connect-mongo")(session);
 const passport = require("passport");
 const LocalStrategy = require("passport-local").Strategy;
 const bodyParser = require("body-parser");
-
 const fetch = require("node-fetch");
 const {
   BitcoinScraper,
@@ -35,6 +34,7 @@ const {
   transactionRoutes,
 } = require("./routes");
 const defaultConfig = require("./config");
+const { oneSecond } = require("./config/constants");
 
 class JuniperAdmin {
   constructor(config) {
@@ -43,6 +43,9 @@ class JuniperAdmin {
     this.logger = new Logger("Juniper App");
     this.logger.info(`Starting...`);
     this.updatingWallets = false;
+    this.updateWalletQueue = [];
+    this.updateWalletJob = null;
+    this.updateWalletJobInterval = oneSecond * 50;
     this.init();
   }
   init() {
@@ -166,8 +169,6 @@ class JuniperAdmin {
       this.logger.info(`listening on http://localhost:${this.config.port}`);
     });
     this.logger.info(`started in ${this.environment}.`);
-
-    this.updateWallets();
   }
 
   async inviteUser(user, host, verificationCode) {
@@ -394,6 +395,7 @@ class JuniperAdmin {
 
     if (saltedPassword === savedUser.password) {
       this.logger.info(`User authenticated for ${user.email}`);
+      this.startUpdateWalletJob();
       return {
         firstName: savedUser.firstName,
         lastName: savedUser.lastName,
@@ -561,16 +563,29 @@ class JuniperAdmin {
     return await this.db.models.Wallet.find();
   }
 
-  async updateWallets() {
-    this.updatingWallet = true;
+  async updateWalletInQueue() {
+    if (this.updateWalletQueue.length === 0) {
+      this.updatingWallets = false;
+      return null;
+    }
 
-    const wallets = await this.getWallets();
+    const wallet = this.updateWalletQueue.pop();
+    this.logger.info(`updating wallet: ${wallet}`);
+    await this.createWallet(wallet);
 
-    wallets.forEach(async (wallet) => {
-      await this.createWallet(wallet);
-    });
+    this.updateWalletJob = setTimeout(() => {
+      this.updateWalletInQueue();
+    }, this.updateWalletJobInterval);
+  }
 
-    this.updatingWallet = false;
+  async startUpdateWalletJob() {
+    if (this.updatingWallet) return;
+
+    this.updatingWallets = true;
+
+    this.updateWalletQueue = await this.getWallets();
+
+    this.updateWalletInQueue();
   }
 }
 
