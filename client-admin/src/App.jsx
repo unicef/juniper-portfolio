@@ -34,6 +34,15 @@ import {
 } from "./actions";
 
 const drawerWidth = 240;
+const defaultState = {
+  logoUrl: "/image/1601918615229-UNICEF.png",
+  primaryColor: "#00aeef",
+  lightPrimaryColor: "#daf5ff",
+  darkPrimaryColor: "#374ea2",
+  containedButtonHover: "#33bef2",
+  containedButtonActive: "#0094cb",
+  textButtonHover: "#ecfaff",
+};
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -67,15 +76,7 @@ const client = new ApolloClient({
 
 export default function JuniperAdmin() {
   const classes = useStyles();
-  const [appSettings, setAppSettings] = useState({
-    logoUrl: "/image/1601918615229-UNICEF.png",
-    primaryColor: "#00aeef",
-    lightPrimaryColor: "#daf5ff",
-    darkPrimaryColor: "#374ea2",
-    containedButtonHover: "#33bef2",
-    containedButtonActive: "#0094cb",
-    textButtonHover: "#ecfaff",
-  });
+  const [appSettings, setAppSettings] = useState(defaultState);
   const [hasSettings, setHasSettings] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [user, setUser] = useState({});

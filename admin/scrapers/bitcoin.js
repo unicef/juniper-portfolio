@@ -10,7 +10,12 @@ class BitcoinWalletScraper {
     this.db = db;
   }
 
-  async scrapeTransactionData(address, isUnicef, multisigOwners) {
+  async scrapeTransactionData(
+    address,
+    isUnicef,
+    multisigOwners,
+    tracked = false
+  ) {
     const walletData = await this.fetchWalletData(address);
     const txData = await this.fetchTransactionData(address);
 
@@ -20,15 +25,16 @@ class BitcoinWalletScraper {
       multisigOwnerLookup[owner.walletAddress.toLowerCase()] = true;
     });
 
-    for (const tx of txData) {
-      await this.saveTransactionData(
-        walletData.address,
-        tx,
-        isUnicef,
-        multisigOwnerLookup
-      );
+    if (!tracked) {
+      for (const tx of txData) {
+        await this.saveTransactionData(
+          walletData.address,
+          tx,
+          isUnicef,
+          multisigOwnerLookup
+        );
+      }
     }
-
     await this.updateWallet(walletData);
     return true;
   }

@@ -10,7 +10,12 @@ class EthereumWalletScraper {
     this.db = db;
   }
 
-  async scrapeTransactionData(address, isUnicef, multisigOwners) {
+  async scrapeTransactionData(
+    address,
+    isUnicef,
+    multisigOwners,
+    tracked = false
+  ) {
     const walletData = await this.fetchWalletData(address);
     const txData = await this.fetchTransactionData(address);
     const internalTxData = await this.fetchInternalTransactionData(address);
@@ -20,6 +25,8 @@ class EthereumWalletScraper {
     multisigOwners.forEach((owner) => {
       multisigOwnerLookup[owner.walletAddress.toLowerCase()] = true;
     });
+
+    console.log(tracked);
 
     for (const tx of txData) {
       await this.saveTransactionData(

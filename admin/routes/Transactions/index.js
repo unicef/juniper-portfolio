@@ -61,8 +61,7 @@ router.post("/", isAdmin, async (req, res) => {
   const juniperAdmin = req.app.get("juniperAdmin");
 
   const { tx } = req.body;
-  console.log(tx);
-  console.log(tx.published);
+
   try {
     const profile = req.session.passport.user.profile;
     const name = `${profile.firstName} ${profile.lastName}`;
@@ -84,6 +83,7 @@ router.post("/archive", isAdmin, async (req, res) => {
   const juniperAdmin = req.app.get("juniperAdmin");
   let { txid } = req.body;
 
+  logger.info(`Archiving tx: ${txid}`);
   try {
     const profile = req.session.passport.user.profile;
     const name = `${profile.firstName} ${profile.lastName}`;

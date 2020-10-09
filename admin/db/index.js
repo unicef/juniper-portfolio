@@ -358,7 +358,7 @@ class MongoDB {
 
   async archiveTx(txid) {
     this.logger.debug(`archiveTx`);
-    return this.models.Transaction.update(
+    return this.models.Transaction.updateMany(
       { txid },
       { $set: { archived: true } }
     );
