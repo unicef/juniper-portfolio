@@ -233,14 +233,16 @@ class JuniperAdmin {
         await this.bitcoinWalletScraper.scrapeTransactionData(
           wallet.address,
           wallet.isUnicef,
-          wallet.multisigOwners
+          wallet.multisigOwners,
+          wallet.isTracked || wallet.isTrackedOther
         );
         break;
       case "ETH":
         await this.ethereumWalletScraper.scrapeTransactionData(
           wallet.address,
           wallet.isUnicef,
-          wallet.multisigOwners
+          wallet.multisigOwners,
+          wallet.isTracked || wallet.isTrackedOther
         );
 
         if (wallet.isMultisig) {

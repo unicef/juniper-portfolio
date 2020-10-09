@@ -26,20 +26,20 @@ class EthereumWalletScraper {
       multisigOwnerLookup[owner.walletAddress.toLowerCase()] = true;
     });
 
-    console.log(tracked);
+    if (!tracked) {
+      for (const tx of txData) {
+        await this.saveTransactionData(
+          address,
+          tx,
+          isUnicef,
+          multisigOwnerLookup
+        );
+      }
 
-    for (const tx of txData) {
-      await this.saveTransactionData(
-        address,
-        tx,
-        isUnicef,
-        multisigOwnerLookup
-      );
-    }
-
-    if (internalTxData) {
-      for (const itx of internalTxData) {
-        await this.saveTransactionData(address, itx, isUnicef);
+      if (internalTxData) {
+        for (const itx of internalTxData) {
+          await this.saveTransactionData(address, itx, isUnicef);
+        }
       }
     }
 
