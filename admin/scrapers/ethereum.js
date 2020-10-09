@@ -29,8 +29,11 @@ class EthereumWalletScraper {
         multisigOwnerLookup
       );
     }
-    for (const itx of internalTxData) {
-      await this.saveTransactionData(address, itx, isUnicef);
+
+    if (internalTxData) {
+      for (const itx of internalTxData) {
+        await this.saveTransactionData(address, itx, isUnicef);
+      }
     }
 
     await this.updateWallet(walletData);
@@ -39,14 +42,21 @@ class EthereumWalletScraper {
   async fetchInternalTransactionData(address) {
     this.logger.info(`Fetching Internal Transactions for \t ${address}`);
     let data, txs;
+
     try {
       data = await fetch(
         `http://api.etherscan.io/api?module=account&action=txlistinternal&address=${address}#internaltx&startblock=0&endblock=9999999999999&sort=asc#internaltx`
       );
+
       txs = await data.json();
+      console.log(txs);
+      if (txs.status === "0") {
+        throw new Error(txs.result);
+      }
       txs = txs.result;
     } catch (e) {
-      console.log(e);
+      this.logger.error(e);
+      return console.log(e);
     }
 
     return txs;
@@ -55,15 +65,20 @@ class EthereumWalletScraper {
   async fetchTransactionData(address) {
     this.logger.info(`Fetching Transaction Data for \t${address}`);
     let data, txs;
+    console.log("WHOAAAAAAAA");
     try {
       data = await fetch(
         `http://api.etherscan.io/api?module=account&action=txlist&address=${address}&startblock=0&endblock=99999999&sort=asc&apikey=${this.config.apiKey}`
       );
 
       txs = await data.json();
+      if (txs.status === 0) {
+        throw new Error(txs.result);
+      }
       txs = txs.result;
     } catch (e) {
-      console.log(e);
+      this.logger.error(e);
+      return console.log(e);
     }
 
     return txs;
@@ -107,6 +122,7 @@ class EthereumWalletScraper {
     let received = false;
     let isMultisigOwner = false;
     let timestamp = tx.timeStamp * 1000;
+
     let rate = await this.db.getNearestPrice(this.symbol, new Date(timestamp));
     let accountMap = await this.getAccountMap();
     let amount = tx.value / 1e18;

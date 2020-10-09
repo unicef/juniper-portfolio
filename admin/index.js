@@ -42,6 +42,7 @@ class JuniperAdmin {
     this.config = config;
     this.logger = new Logger("Juniper App");
     this.logger.info(`Starting...`);
+    this.updatingWallets = false;
     this.init();
   }
   init() {
@@ -165,6 +166,8 @@ class JuniperAdmin {
       this.logger.info(`listening on http://localhost:${this.config.port}`);
     });
     this.logger.info(`started in ${this.environment}.`);
+
+    this.updateWallets();
   }
 
   async inviteUser(user, host, verificationCode) {
@@ -220,8 +223,36 @@ class JuniperAdmin {
 
   async createWallet(wallet) {
     this.logger.info(`Creating wallet ${wallet.address}`);
-    this.logger.debug(JSON.stringify(wallet));
-    this.db.createWallet(wallet);
+    this.logger.debug(wallet);
+
+    await this.db.createWallet(wallet);
+
+    switch (wallet.symbol) {
+      case "BTC":
+        await this.bitcoinWalletScraper.scrapeTransactionData(
+          wallet.address,
+          wallet.isUnicef,
+          wallet.multisigOwners
+        );
+        break;
+      case "ETH":
+        await this.ethereumWalletScraper.scrapeTransactionData(
+          wallet.address,
+          wallet.isUnicef,
+          wallet.multisigOwners
+        );
+
+        if (wallet.isMultisig) {
+          this.gnosisWalletScraper.setAddress(wallet.address);
+          await this.gnosisWalletScraper.scrapeAuthRecords();
+        }
+
+        break;
+      default:
+        throw new Error(
+          "Failed to create wallet. Wallet does not contain a valid symbol"
+        );
+    }
   }
 
   async createUser(user) {
@@ -524,6 +555,22 @@ class JuniperAdmin {
       btcSentUSD,
       btcReceivedUSD,
     };
+  }
+
+  async getWallets() {
+    return await this.db.models.Wallet.find();
+  }
+
+  async updateWallets() {
+    this.updatingWallet = true;
+
+    const wallets = await this.getWallets();
+
+    wallets.forEach(async (wallet) => {
+      await this.createWallet(wallet);
+    });
+
+    this.updatingWallet = false;
   }
 }
 
