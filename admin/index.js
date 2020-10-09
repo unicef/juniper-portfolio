@@ -344,15 +344,7 @@ class JuniperAdmin {
   }
 
   async setInitialAppSettings() {
-    let defaultSettings = {
-      id: "settings",
-      primaryColor: "#00aeef",
-      lightPrimaryColor: "#daf5ff",
-      darkPrimaryColor: "#374ea2",
-      containedButtonHover: "#33bef2",
-      containedButtonActive: "#0094cb",
-      textButtonHover: "#ecfaff",
-    };
+    let defaultSettings = this.config.defaultClientSettings;
     let settings = null;
 
     try {

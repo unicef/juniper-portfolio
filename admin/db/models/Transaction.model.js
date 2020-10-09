@@ -31,7 +31,6 @@ const transaction = new Schema({
 });
 
 transaction.index({ txid: 1, index: 1 }, { unique: true });
-transaction.index({ address: 1 });
 
 const Transaction = mongoose.model("Transaction", transaction);
 
