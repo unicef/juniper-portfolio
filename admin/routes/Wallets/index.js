@@ -16,6 +16,12 @@ router.get("/", async (req, res) => {
   res.json(wallets);
 });
 
+router.get("/updating", async (req, res) => {
+  const juniperAdmin = req.app.get("juniperAdmin");
+
+  res.json({ updating: juniperAdmin.updatingWallets });
+});
+
 router.get("/tracked", async (req, res) => {
   const juniperAdmin = req.app.get("juniperAdmin");
   let wallets = [];
@@ -92,28 +98,6 @@ router.post("/track", async (req, res) => {
       name: user,
       text: `<a href="#" class="link">${user}</a> tracked a wallet.`,
     });
-
-    switch (wallet.symbol) {
-      case "BTC":
-        await juniperAdmin.bitcoinWalletScraper.scrapeTransactionData(
-          wallet.address,
-          isUnicef,
-          wallet.multisigOwners
-        );
-        break;
-      case "ETH":
-        await juniperAdmin.ethereumWalletScraper.scrapeTransactionData(
-          wallet.address,
-          isUnicef,
-          wallet.multisigOwners
-        );
-
-        break;
-      default:
-        throw new Error(
-          "Failed to create wallet. Wallet does not contain a valid symbol"
-        );
-    }
   } catch (e) {
     logger.error(e);
     return res.status(404).send({
@@ -146,33 +130,6 @@ router.post("/", isAdmin, async (req, res) => {
       name: user,
       text: `<a href="#" class="link">${user}</a> added a new wallet.`,
     });
-
-    switch (wallet.symbol) {
-      case "BTC":
-        await juniperAdmin.bitcoinWalletScraper.scrapeTransactionData(
-          wallet.address,
-          isUnicef,
-          wallet.multisigOwners
-        );
-        break;
-      case "ETH":
-        await juniperAdmin.ethereumWalletScraper.scrapeTransactionData(
-          wallet.address,
-          isUnicef,
-          wallet.multisigOwners
-        );
-
-        if (wallet.isMultisig) {
-          juniperAdmin.gnosisWalletScraper.setAddress(wallet.address);
-          await juniperAdmin.gnosisWalletScraper.scrapeAuthRecords();
-        }
-
-        break;
-      default:
-        throw new Error(
-          "Failed to create wallet. Wallet does not contain a valid symbol"
-        );
-    }
   } catch (e) {
     logger.error(e);
     return res.status(404).send({

@@ -10,14 +10,31 @@ class BitcoinWalletScraper {
     this.db = db;
   }
 
-  async scrapeTransactionData(address, isUnicef, multisigOwners) {
+  async scrapeTransactionData(
+    address,
+    isUnicef,
+    multisigOwners,
+    tracked = false
+  ) {
     const walletData = await this.fetchWalletData(address);
     const txData = await this.fetchTransactionData(address);
 
-    for (const tx of txData) {
-      await this.saveTransactionData(walletData.address, tx, isUnicef);
-    }
+    const multisigOwnerLookup = {};
 
+    multisigOwners.forEach((owner) => {
+      multisigOwnerLookup[owner.walletAddress.toLowerCase()] = true;
+    });
+
+    if (!tracked) {
+      for (const tx of txData) {
+        await this.saveTransactionData(
+          walletData.address,
+          tx,
+          isUnicef,
+          multisigOwnerLookup
+        );
+      }
+    }
     await this.updateWallet(walletData);
     return true;
   }
@@ -72,9 +89,10 @@ class BitcoinWalletScraper {
     return map;
   }
 
-  async saveTransactionData(address, tx, isUnicef) {
+  async saveTransactionData(address, tx, isUnicef, multisigOwnerLookup = {}) {
     let sent = false;
     let received = false;
+    let isMultisigOwner = false;
     let timestamp = tx.status.block_time * 1000;
     let accountMap = await this.getAccountMap();
     let rate = await this.db.getNearestPrice(this.symbol, new Date(timestamp));
@@ -111,19 +129,16 @@ class BitcoinWalletScraper {
     let amountUSD = Math.round(amount * rate.average * 100) / 100;
     let fee = tx.fee / 1e8;
     let feeUSD = Math.round(fee * rate.average * 100) / 100;
-
+    console.log(tx);
     const newTx = {
-      txid: tx.hash,
+      txid: tx.txid,
       address,
-      currency: "Ethereum",
+      currency: "Bitcoin",
       symbol: this.symbol,
-      source: accountMap[tx.from],
-      destination: accountMap[tx.to],
-      to: tx.to,
-      from: tx.from,
+      to: received ? address : null,
+      from: sent ? address : null,
       block: tx.blockNumber,
       timestamp,
-      index: tx.nonce || null,
       sent,
       received,
       rate: rate.average,
@@ -132,7 +147,6 @@ class BitcoinWalletScraper {
       amount,
       amountUSD,
       isUnicef,
-      isMultisigOwner,
     };
 
     // If the tx already exists as part of a unicef wallet ignore the unicef flag, default is false

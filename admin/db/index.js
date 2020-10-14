@@ -358,14 +358,14 @@ class MongoDB {
 
   async archiveTx(txid) {
     this.logger.debug(`archiveTx`);
-    return this.models.Transaction.findOneAndUpdate(
+    return this.models.Transaction.updateMany(
       { txid },
       { $set: { archived: true } }
     );
   }
 
   async saveTransaction(tx) {
-    this.logger.debug(`Saving Transaction ${JSON.stringify(tx)}`);
+    this.logger.info(`Saving Transaction ${JSON.stringify(tx)}`);
     return this.models.Transaction.findOneAndUpdate(
       {
         txid: tx.txid,

@@ -28,11 +28,21 @@ import {
   getPriceHistory,
   getTransactions,
   getTrackedWallets,
+  getUpdatingWallet,
   getWallets,
   getWalletsSummary,
 } from "./actions";
 
 const drawerWidth = 240;
+const defaultState = {
+  logoUrl: "/image/1601918615229-UNICEF.png",
+  primaryColor: "#00aeef",
+  lightPrimaryColor: "#daf5ff",
+  darkPrimaryColor: "#374ea2",
+  containedButtonHover: "#33bef2",
+  containedButtonActive: "#0094cb",
+  textButtonHover: "#ecfaff",
+};
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -66,15 +76,7 @@ const client = new ApolloClient({
 
 export default function JuniperAdmin() {
   const classes = useStyles();
-  const [appSettings, setAppSettings] = useState({
-    logoUrl: "/image/1601918615229-UNICEF.png",
-    primaryColor: "#00aeef",
-    lightPrimaryColor: "#daf5ff",
-    darkPrimaryColor: "#374ea2",
-    containedButtonHover: "#33bef2",
-    containedButtonActive: "#0094cb",
-    textButtonHover: "#ecfaff",
-  });
+  const [appSettings, setAppSettings] = useState(defaultState);
   const [hasSettings, setHasSettings] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [user, setUser] = useState({});
@@ -88,6 +90,7 @@ export default function JuniperAdmin() {
   const [accounts, setAccounts] = useState([]);
   const [ethRate, setEthRate] = useState(0);
   const [btcRate, setBtcRate] = useState(0);
+  const [updatingWallets, setUpdatingWallets] = useState(false);
 
   const theme = createMuiTheme({
     palette: {
@@ -184,6 +187,21 @@ export default function JuniperAdmin() {
       setEthRate(await getExchangeRate("ETH"));
       setBtcRate(await getExchangeRate("BTC"));
       setPrices(await getPriceHistory());
+
+      if (await getUpdatingWallet()) {
+        setUpdatingWallets(true);
+        const pollUpdatingWallet = setInterval(async () => {
+          console.log("interval");
+          const updatingWallets = await getUpdatingWallet();
+          console.log(`updating wallet: ${updatingWallets}`);
+          if (!updatingWallets) {
+            clearInterval(pollUpdatingWallet);
+            init(false);
+          }
+
+          setUpdatingWallets(updatingWallets);
+        }, 2000);
+      }
     }
     if (isLoggedIn && hasSettings) {
       init();
@@ -248,6 +266,7 @@ export default function JuniperAdmin() {
                   user={user}
                   setPageIndex={setPageIndex}
                   logoUrl={appSettings.logoUrl}
+                  updatingWallets={updatingWallets}
                 />
 
                 <Sidebar

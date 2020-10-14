@@ -10,7 +10,12 @@ class EthereumWalletScraper {
     this.db = db;
   }
 
-  async scrapeTransactionData(address, isUnicef, multisigOwners) {
+  async scrapeTransactionData(
+    address,
+    isUnicef,
+    multisigOwners,
+    tracked = false
+  ) {
     const walletData = await this.fetchWalletData(address);
     const txData = await this.fetchTransactionData(address);
     const internalTxData = await this.fetchInternalTransactionData(address);
@@ -21,16 +26,21 @@ class EthereumWalletScraper {
       multisigOwnerLookup[owner.walletAddress.toLowerCase()] = true;
     });
 
-    for (const tx of txData) {
-      await this.saveTransactionData(
-        address,
-        tx,
-        isUnicef,
-        multisigOwnerLookup
-      );
-    }
-    for (const itx of internalTxData) {
-      await this.saveTransactionData(address, itx, isUnicef);
+    if (!tracked) {
+      for (const tx of txData) {
+        await this.saveTransactionData(
+          address,
+          tx,
+          isUnicef,
+          multisigOwnerLookup
+        );
+      }
+
+      if (internalTxData) {
+        for (const itx of internalTxData) {
+          await this.saveTransactionData(address, itx, isUnicef);
+        }
+      }
     }
 
     await this.updateWallet(walletData);
@@ -39,14 +49,21 @@ class EthereumWalletScraper {
   async fetchInternalTransactionData(address) {
     this.logger.info(`Fetching Internal Transactions for \t ${address}`);
     let data, txs;
+
     try {
       data = await fetch(
-        `http://api.etherscan.io/api?module=account&action=txlistinternal&address=${address}#internaltx&startblock=0&endblock=9999999999999&sort=asc#internaltx`
+        `http://api.etherscan.io/api?module=account&action=txlistinternal&address=${address}#internaltx&startblock=0&endblock=9999999999999&sort=asc#internaltx&apikey=${this.config.apiKey}`
       );
+
       txs = await data.json();
+
+      if (txs.status === "0") {
+        throw new Error(txs.result);
+      }
       txs = txs.result;
     } catch (e) {
-      console.log(e);
+      this.logger.error(e);
+      return console.log(e);
     }
 
     return txs;
@@ -55,15 +72,20 @@ class EthereumWalletScraper {
   async fetchTransactionData(address) {
     this.logger.info(`Fetching Transaction Data for \t${address}`);
     let data, txs;
+
     try {
       data = await fetch(
         `http://api.etherscan.io/api?module=account&action=txlist&address=${address}&startblock=0&endblock=99999999&sort=asc&apikey=${this.config.apiKey}`
       );
 
       txs = await data.json();
+      if (txs.status === 0) {
+        throw new Error(txs.result);
+      }
       txs = txs.result;
     } catch (e) {
-      console.log(e);
+      this.logger.error(e);
+      return console.log(e);
     }
 
     return txs;
@@ -107,6 +129,7 @@ class EthereumWalletScraper {
     let received = false;
     let isMultisigOwner = false;
     let timestamp = tx.timeStamp * 1000;
+
     let rate = await this.db.getNearestPrice(this.symbol, new Date(timestamp));
     let accountMap = await this.getAccountMap();
     let amount = tx.value / 1e18;

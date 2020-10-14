@@ -13,6 +13,16 @@ module.exports = {
     limit: oneMegabyte,
   },
   uploadLimit: oneMegabyte,
+  defaultClientSettings: {
+    id: "settings",
+    primaryColor: "#00aeef",
+    lightPrimaryColor: "#daf5ff",
+    darkPrimaryColor: "#374ea2",
+    containedButtonHover: "#33bef2",
+    containedButtonActive: "#0094cb",
+    textButtonHover: "#ecfaff",
+    logoUrl: "/image/1601918615229-UNICEF.png",
+  },
   email: {
     service: "gmail",
     auth: {

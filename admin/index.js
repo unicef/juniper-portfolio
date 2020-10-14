@@ -5,7 +5,6 @@ const MongoStore = require("connect-mongo")(session);
 const passport = require("passport");
 const LocalStrategy = require("passport-local").Strategy;
 const bodyParser = require("body-parser");
-
 const fetch = require("node-fetch");
 const {
   BitcoinScraper,
@@ -35,6 +34,7 @@ const {
   transactionRoutes,
 } = require("./routes");
 const defaultConfig = require("./config");
+const { oneSecond } = require("./config/constants");
 
 class JuniperAdmin {
   constructor(config) {
@@ -42,6 +42,10 @@ class JuniperAdmin {
     this.config = config;
     this.logger = new Logger("Juniper App");
     this.logger.info(`Starting...`);
+    this.updatingWallets = false;
+    this.updateWalletQueue = [];
+    this.updateWalletJob = null;
+    this.updateWalletJobInterval = oneSecond * 5;
     this.init();
   }
   init() {
@@ -220,8 +224,38 @@ class JuniperAdmin {
 
   async createWallet(wallet) {
     this.logger.info(`Creating wallet ${wallet.address}`);
-    this.logger.debug(JSON.stringify(wallet));
-    this.db.createWallet(wallet);
+    this.logger.debug(wallet);
+
+    await this.db.createWallet(wallet);
+
+    switch (wallet.symbol) {
+      case "BTC":
+        await this.bitcoinWalletScraper.scrapeTransactionData(
+          wallet.address,
+          wallet.isUnicef,
+          wallet.multisigOwners,
+          wallet.isTracked || wallet.isTrackedOther
+        );
+        break;
+      case "ETH":
+        await this.ethereumWalletScraper.scrapeTransactionData(
+          wallet.address,
+          wallet.isUnicef,
+          wallet.multisigOwners,
+          wallet.isTracked || wallet.isTrackedOther
+        );
+
+        if (wallet.isMultisig) {
+          this.gnosisWalletScraper.setAddress(wallet.address);
+          await this.gnosisWalletScraper.scrapeAuthRecords();
+        }
+
+        break;
+      default:
+        throw new Error(
+          "Failed to create wallet. Wallet does not contain a valid symbol"
+        );
+    }
   }
 
   async createUser(user) {
@@ -312,15 +346,7 @@ class JuniperAdmin {
   }
 
   async setInitialAppSettings() {
-    let defaultSettings = {
-      id: "settings",
-      primaryColor: "#00aeef",
-      lightPrimaryColor: "#daf5ff",
-      darkPrimaryColor: "#374ea2",
-      containedButtonHover: "#33bef2",
-      containedButtonActive: "#0094cb",
-      textButtonHover: "#ecfaff",
-    };
+    let defaultSettings = this.config.defaultClientSettings;
     let settings = null;
 
     try {
@@ -363,6 +389,7 @@ class JuniperAdmin {
 
     if (saltedPassword === savedUser.password) {
       this.logger.info(`User authenticated for ${user.email}`);
+      this.startUpdateWalletJob();
       return {
         firstName: savedUser.firstName,
         lastName: savedUser.lastName,
@@ -524,6 +551,35 @@ class JuniperAdmin {
       btcSentUSD,
       btcReceivedUSD,
     };
+  }
+
+  async getWallets() {
+    return await this.db.models.Wallet.find();
+  }
+
+  async updateWalletInQueue() {
+    if (this.updateWalletQueue.length === 0) {
+      this.updatingWallets = false;
+      return null;
+    }
+
+    const wallet = this.updateWalletQueue.pop();
+    this.logger.info(`updating wallet: ${wallet}`);
+    await this.createWallet(wallet);
+
+    this.updateWalletJob = setTimeout(() => {
+      this.updateWalletInQueue();
+    }, this.updateWalletJobInterval);
+  }
+
+  async startUpdateWalletJob() {
+    if (this.updatingWallet) return;
+
+    this.updatingWallets = true;
+
+    this.updateWalletQueue = await this.getWallets();
+
+    this.updateWalletInQueue();
   }
 }
 

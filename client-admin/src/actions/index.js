@@ -10,6 +10,7 @@ import getPriceHistory from "./getPriceHistory";
 import getTransactions from "./getTransactions";
 import getTransactionsByAddress from "./getTransactionsByAddress";
 import getTrackedWallets from "./getTrackedWallets";
+import getUpdatingWallet from "./getUpdatingWallet";
 import getUsers from "./getUsers";
 import getUserActivities from "./getUserActivities";
 import getWalletByAddress from "./getWalletByAddress";
@@ -32,6 +33,7 @@ export {
   getTransactions,
   getTransactionsByAddress,
   getTrackedWallets,
+  getUpdatingWallet,
   getUsers,
   getUserActivities,
   getWalletByAddress,
