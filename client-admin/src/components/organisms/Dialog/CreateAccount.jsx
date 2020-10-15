@@ -458,6 +458,7 @@ function AddressDetails(props) {
             InputLabelProps={{
               className: classes.label,
             }}
+            type="number"
             InputProps={{
               className: classes.formControl,
             }}
