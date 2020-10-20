@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import Dialog from "@material-ui/core/Dialog";
 import { AuthorizationCard, AuthorizationSignerCard } from "../../../ui/Cards";
+import CancelIcon from "../../atoms/Icons/CancelIcons";
 
 const useStyles = makeStyles((theme) => ({
   modal: {
@@ -52,6 +53,12 @@ export default function AuthorizationRecord({
         }}
         classes={{ paper: classes.modal }}
       >
+        <CancelIcon
+          style={{ position: "absolute", right: 8, top: 8, cursor: "pointer" }}
+          onClick={() => {
+            setAuthorizationRecord(null);
+          }}
+        />
         {authorizationRecord && (
           <AuthorizationCard
             address={authorizationRecord.to}
