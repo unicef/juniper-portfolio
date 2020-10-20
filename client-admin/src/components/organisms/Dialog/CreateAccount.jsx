@@ -373,7 +373,11 @@ export default function CreateStartup(props) {
                       />
                     );
                   })}
-                  <TextButton startIcon={<AddIcon />} onClick={addAddress}>
+                  <TextButton
+                    disabled={addresses[addresses.length - 1].address === ""}
+                    startIcon={<AddIcon />}
+                    onClick={addAddress}
+                  >
                     Add Another Wallet
                   </TextButton>
                 </div>

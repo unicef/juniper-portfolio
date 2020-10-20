@@ -16,6 +16,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function ({
+  disabled,
   startIcon,
   endIcon,
   onClick,
@@ -26,6 +27,7 @@ export default function ({
   const classes = useStyles();
   return (
     <Button
+      disabled={disabled}
       disableRipple={true}
       className={classes.textButton}
       startIcon={startIcon ? startIcon : null}

@@ -183,7 +183,10 @@ export default function AddWallet(props) {
   };
 
   const addMultisigOwner = () => {
+    if (multisigOwners[multisigOwners.length - 1].walletAddress === "") return;
+
     const newOwners = multisigOwners.slice();
+
     newOwners.push({
       walletAddress: "",
       ownerName: "",
@@ -400,6 +403,10 @@ export default function AddWallet(props) {
                       );
                     })}
                     <TextButton
+                      disabled={
+                        multisigOwners[multisigOwners.length - 1]
+                          .walletAddress === ""
+                      }
                       startIcon={<AddIcon />}
                       onClick={addMultisigOwner}
                     >

@@ -134,7 +134,7 @@ export default function StartupDetails(props) {
   const [image, setImage] = useState(null);
   const [description, setDescription] = useState("");
   const [weblink, setWeblink] = useState("");
-  const [addresses, setAddresses] = useState([]);
+  const [addresses, setAddresses] = useState([{ address: "" }]);
   const [transactions, setTransactions] = useState([]);
   const [openEditAccount, setOpenEditAccount] = useState(false);
 
