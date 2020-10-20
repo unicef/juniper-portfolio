@@ -125,7 +125,11 @@ export default function (props) {
   };
 
   const daysInMonth = (month, year) => {
-    return new Date(year, month, 0).getDate();
+    if (thisMonth === month) {
+      return new Date(thisYear, thisMonth, thisDay).getDate();
+    } else {
+      return new Date(year, month, 0).getDate();
+    }
   };
 
   const getQuarterOfYear = (month) => {
@@ -218,69 +222,64 @@ export default function (props) {
     }
 
     if (quarter === 1) {
+      const prices = props.prices.filter((price) => {
+        return (
+          price.year === currentYear &&
+          (price.month === 0 || price.month === 1 || price.month === 2)
+        );
+      });
       return Math.round(
-        props.prices
-          .filter((price) => {
-            return (
-              price.year === currentYear &&
-              (price.month === 0 || price.month === 1 || price.month === 2)
-            );
-          })
-          .reduce((a, b) => {
-            return a + b.average;
-          }, 0) / days
+        prices.reduce((a, b) => {
+          return a + b.average;
+        }, 0) / prices.length
       );
     } else if (quarter === 2) {
+      const prices = props.prices.filter((price) => {
+        return (
+          price.year === currentYear &&
+          (price.month === 3 || price.month === 4 || price.month === 5)
+        );
+      });
       return Math.round(
-        props.prices
-          .filter((price) => {
-            return (
-              price.year === currentYear &&
-              (price.month === 3 || price.month === 4 || price.month === 5)
-            );
-          })
-          .reduce((a, b) => {
-            return a + b.average;
-          }, 0) / days
+        prices.reduce((a, b) => {
+          return a + b.average;
+        }, 0) / prices.length
       );
     } else if (quarter === 3) {
+      const prices = props.prices.filter((price) => {
+        return (
+          price.year === currentYear &&
+          (price.month === 6 || price.month === 7 || price.month === 8)
+        );
+      });
       return Math.round(
-        props.prices
-          .filter((price) => {
-            return (
-              price.year === currentYear &&
-              (price.month === 6 || price.month === 7 || price.month === 8)
-            );
-          })
-          .reduce((a, b) => {
-            return a + b.average;
-          }, 0) / days
+        prices.reduce((a, b) => {
+          return a + b.average;
+        }, 0) / prices.length
       );
     } else if (quarter === 4) {
+      const prices = props.prices.filter((price) => {
+        return (
+          price.year === currentYear &&
+          (price.month === 9 || price.month === 10 || price.month === 11)
+        );
+      });
       return Math.round(
-        props.prices
-          .filter((price) => {
-            return (
-              price.year === currentYear &&
-              (price.month === 9 || price.month === 10 || price.month === 11)
-            );
-          })
-          .reduce((a, b) => {
-            return a + b.average;
-          }, 0) / days
+        prices.reduce((a, b) => {
+          return a + b.average;
+        }, 0) / prices.length
       );
     }
   };
 
   const updateMonthlyAverage = (month = currentMonth, year = currentYear) => {
+    const days = props.prices.filter((price) => {
+      return price.month === month && price.year === year;
+    });
     setCurrentMonthAveragePrice(
-      props.prices
-        .filter((price) => {
-          return price.month === month && price.year === year;
-        })
-        .reduce((a, b) => {
-          return a + b.average;
-        }, 0) / daysInMonth(month, year)
+      days.reduce((a, b) => {
+        return a + b.average;
+      }, 0) / days.length
     );
   };
 
