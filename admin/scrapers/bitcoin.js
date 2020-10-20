@@ -129,7 +129,7 @@ class BitcoinWalletScraper {
     let amountUSD = Math.round(amount * rate.average * 100) / 100;
     let fee = tx.fee / 1e8;
     let feeUSD = Math.round(fee * rate.average * 100) / 100;
-    console.log(tx);
+
     const newTx = {
       txid: tx.txid,
       address,
