@@ -4,7 +4,7 @@ export default async (email) => {
   try {
     res = await fetch(`/rest/admin/settings/user/remove`, {
       credentials: "include",
-      method: "POST",
+      method: "DELETE",
       body: JSON.stringify({
         email,
       }),

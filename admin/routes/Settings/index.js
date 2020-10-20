@@ -50,14 +50,21 @@ router.post("/user/invite", isAdmin, async (req, res) => {
   res.send(users);
 });
 
-router.post("/user/remove", isAdmin, async (req, res) => {
+router.delete("/user/remove", isAdmin, async (req, res) => {
   const juniperAdmin = req.app.get("juniperAdmin");
+  const currentUser = req.session.passport.user.profile;
   const { email } = req.body;
   let users = [];
 
   try {
-    await juniperAdmin.db.setUserInactive(email);
     users = await juniperAdmin.db.getUsers();
+    const admins = users.filter((user) => {
+      return user.isAdmin;
+    });
+    if (admins.length > 1 && currentUser.email !== email) {
+      await juniperAdmin.db.setUserInactive(email);
+      users = await juniperAdmin.db.getUsers();
+    }
   } catch (e) {
     logger.error(e);
     return res.status(500).send();
