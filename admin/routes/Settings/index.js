@@ -57,14 +57,8 @@ router.delete("/user/remove", isAdmin, async (req, res) => {
   let users = [];
 
   try {
+    await juniperAdmin.setUserInactive(email, currentUser);
     users = await juniperAdmin.db.getUsers();
-    const admins = users.filter((user) => {
-      return user.isAdmin;
-    });
-    if (admins.length > 1 && currentUser.email !== email) {
-      await juniperAdmin.db.setUserInactive(email);
-      users = await juniperAdmin.db.getUsers();
-    }
   } catch (e) {
     logger.error(e);
     return res.status(500).send();

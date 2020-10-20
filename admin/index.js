@@ -373,6 +373,16 @@ class JuniperAdmin {
     );
   }
 
+  async setUserInactive(email, currentUser) {
+    const users = await this.db.getUsers();
+    const admins = users.filter((user) => {
+      return user.isAdmin;
+    });
+    if (admins.length > 1 && currentUser.email !== email) {
+      await this.db.setUserInactive(email);
+    }
+  }
+
   async login(user) {
     let savedUser;
     try {
