@@ -31,6 +31,7 @@ import {
   getUpdatingWallet,
   getWallets,
   getWalletsSummary,
+  updateUser,
 } from "./actions";
 
 const drawerWidth = 240;
@@ -122,27 +123,20 @@ export default function JuniperAdmin() {
       setIsLoggedIn(true);
       setUser(user);
       initApp();
+      // Check if first login
+
+      if (!user.didFirstLogin) {
+        console.log("show help, mark didFirstLogin");
+        setShowHelp(true);
+        updateUserProfile({ ...user, didFirstLogin: true });
+      }
     }
   };
 
-  const updateUser = async (property) => {
-    const newUser = { ...user, ...property };
-
-    try {
-      await fetch(`/rest/admin/settings/user`, {
-        credentials: "include",
-        method: "PUT",
-        body: JSON.stringify({
-          user: newUser,
-        }),
-        headers: {
-          "Content-Type": "application/json",
-        },
-      });
-    } catch (e) {
-      console.log(e);
-    }
-    setUser(newUser);
+  const updateUserProfile = async (property) => {
+    const updatedUser = { ...user, ...property };
+    updateUser(updatedUser);
+    setUser(updatedUser);
   };
 
   const fetchAccounts = async () => {
@@ -331,7 +325,7 @@ export default function JuniperAdmin() {
                   <Route path="/admin/settings">
                     <Settings
                       user={user}
-                      updateUser={updateUser}
+                      updateUser={updateUserProfile}
                       isAdmin={user.isAdmin}
                       appSettings={appSettings}
                       setAppSettings={setAppSettings}

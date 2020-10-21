@@ -69,7 +69,7 @@ router.post("/user/remove", isAdmin, async (req, res) => {
 router.put("/user", async (req, res) => {
   const juniperAdmin = req.app.get("juniperAdmin");
   const { user } = req.body;
-
+  console.log(user);
   try {
     await juniperAdmin.updateUser(user);
   } catch (e) {

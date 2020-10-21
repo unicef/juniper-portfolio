@@ -93,6 +93,7 @@ class MongoDB {
           userAdded: user.userAdded,
           newTransaction: user.newTransaction,
           transactionTagged: user.transactionTagged,
+          didFirstLogin: user.didFirstLogin,
         },
       }
     );

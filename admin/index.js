@@ -401,6 +401,7 @@ class JuniperAdmin {
         userAdded: savedUser.userAdded,
         newTransaction: savedUser.newTransaction,
         transactionTagged: savedUser.transactionTagged,
+        didFirstLogin: savedUser.didFirstLogin,
         isAdmin: savedUser.isAdmin,
       };
     } else {
