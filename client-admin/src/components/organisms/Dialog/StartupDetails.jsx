@@ -185,6 +185,10 @@ export default function StartupDetails(props) {
         onDialogClose={() => {
           setOpenEditAccount(false);
           getAccountDetails();
+
+          if (props.onDialogClose) {
+            props.onDialogClose();
+          }
         }}
       />
       <Dialog
