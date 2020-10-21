@@ -17,6 +17,7 @@ const user = new Schema({
   verificationCode: { type: String },
   isVerified: { type: Boolean, default: false },
   isAdmin: { type: Boolean },
+  showHelp: { type: Boolean, default: true },
   active: { type: Boolean, default: true },
 });
 
