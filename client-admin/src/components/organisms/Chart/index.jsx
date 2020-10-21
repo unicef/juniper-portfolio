@@ -23,9 +23,14 @@ export default function ({
   currentMonth,
   currentYear,
   chartData,
+  domainMin,
+  domainMax,
 }) {
   const classes = useStyles();
   const theme = useTheme();
+
+  console.log(domainMin);
+  console.log(domainMax);
   return (
     <Block className={`${classes.organism} ${className}`}>
       <Grid container>
@@ -68,8 +73,8 @@ export default function ({
               >
                 <XAxis dataKey="Date" />
                 <YAxis
-                  domain={["auto", "auto"]}
-                  axisLine={false}
+                  domain={[domainMin, domainMax]}
+                  axisLine={true}
                   tickLine={false}
                 />
                 <Tooltip

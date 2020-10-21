@@ -416,6 +416,26 @@ export default function (props) {
             chartData={prices.filter((price) => {
               return price.month === currentMonth && price.year === currentYear;
             })}
+            domainMin={
+              Math.floor(
+                prices.reduce(
+                  (a, b) => {
+                    return a.Price < b.Price ? a : b;
+                  },
+                  { Price: 1e18 }
+                ).Price / 1000
+              ) * 1000
+            }
+            domainMax={
+              Math.ceil(
+                prices.reduce(
+                  (a, b) => {
+                    return a.Price > b.Price ? a : b;
+                  },
+                  { Price: -1e18 }
+                ).Price / 1000
+              ) * 1000
+            }
             currentMonthAveragePrice={usdFormatter.format(
               currentMonthAveragePrice || 0
             )}
