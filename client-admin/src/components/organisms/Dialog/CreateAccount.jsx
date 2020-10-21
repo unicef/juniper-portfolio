@@ -19,6 +19,8 @@ import FileUpload from "../../atoms/FileUpload";
 import TextButton from "../../atoms/Button/TextIcon";
 import ContainedButton from "../../atoms/Button/Contained";
 import countries from "./countries.jsx";
+import Autocomplete from "@material-ui/lab/Autocomplete";
+import { createFilterOptions } from "@material-ui/lab/Autocomplete";
 
 const useStyles = makeStyles((theme) => ({
   closeIcon: {
@@ -286,25 +288,32 @@ export default function CreateStartup(props) {
             {type === "startup" && (
               <Fragment>
                 <FormControl className={classes.formControl}>
-                  <InputLabel className={classes.formControl}>
-                    Country
-                  </InputLabel>
-                  <Select
-                    value={country}
-                    onChange={(e) => {
-                      const country = e.target.value;
-                      setCountry(country);
-                    }}
-                    className={classes.formControl}
-                  >
-                    {countries.map((country) => {
-                      return (
-                        <MenuItem key={country.code} value={country.name}>
-                          {country.name}
-                        </MenuItem>
-                      );
+                  <Autocomplete
+                    autoHighlight
+                    options={countries}
+                    getOptionLabel={(option) => option.name}
+                    filterOptions={createFilterOptions({
+                      matchFrom: "start",
+                      stringify: (option) => option.name,
                     })}
-                  </Select>
+                    onChange={(e, value) => {
+                      if (value) {
+                        setCountry(value.name);
+                      }
+                    }}
+                    renderInput={(params) => (
+                      <TextField
+                        {...params}
+                        label="Country"
+                        InputLabelProps={{ className: classes.label }}
+                        inputProps={{
+                          ...params.inputProps,
+                          className: classes.formControl,
+                          style: { marginBottom: 0 },
+                        }}
+                      />
+                    )}
+                  />
                 </FormControl>
 
                 <TextField
