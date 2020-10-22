@@ -255,7 +255,8 @@ export default function CreateStartup(props) {
       ]
     );
   }, [props.open]);
-
+  console.log("addresses");
+  console.log(addresses);
   return (
     <div>
       <Dialog fullScreen open={open} onClose={handleClose}>
@@ -386,7 +387,10 @@ export default function CreateStartup(props) {
                     );
                   })}
                   <TextButton
-                    disabled={addresses[addresses.length - 1].address === ""}
+                    disabled={
+                      addresses.length > 0 &&
+                      addresses[addresses.length - 1].address === ""
+                    }
                     startIcon={<AddIcon />}
                     onClick={addAddress}
                   >
