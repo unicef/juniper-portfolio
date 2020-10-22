@@ -68,7 +68,7 @@ const StyledTab = withStyles((theme) => ({
   },
 }))((props) => <Tab disableRipple {...props} />);
 
-export default function PageLayout({ tabs, children }) {
+export default function PageLayout({ tabs, children, style }) {
   const classes = useStyles();
   const [activeTab, setActiveTab] = useState(0);
 
@@ -79,7 +79,7 @@ export default function PageLayout({ tabs, children }) {
   const theme = useTheme();
 
   return (
-    <div className={classes.root}>
+    <div className={classes.root} style={{ ...style }}>
       <StyledTabs
         value={activeTab}
         onChange={changeView}

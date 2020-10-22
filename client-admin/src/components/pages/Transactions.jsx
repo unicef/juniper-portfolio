@@ -86,6 +86,7 @@ export default function Transactions({
   isAdmin,
   transactions,
   fetchTransactions,
+  setShowHelp,
 }) {
   const classes = useStyles();
   const [activeTab, setActiveTab] = useState(0);
@@ -184,6 +185,7 @@ export default function Transactions({
         publishTransaction={publishTransaction}
         getExchangeRate={getExchangeRate}
         fetchTransactions={fetchTransactions}
+        setShowHelp={setShowHelp}
       />
 
       <Snackbar

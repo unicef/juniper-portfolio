@@ -115,6 +115,7 @@ const useStyles = makeStyles((theme) => ({
     marginLeft: ".5em",
     width: 20,
     height: 20,
+    cursor: "pointer",
   },
   filledButton: {
     width: "100%",
@@ -412,7 +413,14 @@ export default function TagTransaction(props) {
                 >
                   Tag and Save Transaction
                 </OutlinedButton>
-                <QuestionMarkIcon className={classes.questionMark} />
+                <QuestionMarkIcon
+                  className={classes.questionMark}
+                  onClick={() => {
+                    console.log("wtf");
+                    console.log(props);
+                    props.setShowHelp(true);
+                  }}
+                />
               </div>
               <p className={classes.or}>Or</p>
               <div className={classes.relativeContainer}>
@@ -424,7 +432,14 @@ export default function TagTransaction(props) {
                 >
                   Tag and Publish Transaction
                 </ContainedButton>
-                <QuestionMarkIcon className={classes.questionMark} />
+                <QuestionMarkIcon
+                  className={classes.questionMark}
+                  onClick={() => {
+                    console.log("wtf");
+
+                    props.setShowHelp(true);
+                  }}
+                />
               </div>
             </Fragment>
           ) : (
@@ -438,7 +453,13 @@ export default function TagTransaction(props) {
                 >
                   Tag and Save Transaction
                 </OutlinedButton>
-                <QuestionMarkIcon className={classes.questionMark} />
+                <QuestionMarkIcon
+                  className={classes.questionMark}
+                  onClick={() => {
+                    console.log("wtf");
+                    props.setShowHelp(true);
+                  }}
+                />
               </div>
               <p className={classes.or}>Or</p>
               <div className={classes.relativeContainer}>
@@ -450,7 +471,13 @@ export default function TagTransaction(props) {
                 >
                   Tag and Unpublish Transaction
                 </ContainedButton>
-                <QuestionMarkIcon className={classes.questionMark} />
+                <QuestionMarkIcon
+                  className={classes.questionMark}
+                  onClick={() => {
+                    console.log("wtf");
+                    props.setShowHelp(true);
+                  }}
+                />
               </div>
             </Fragment>
           )}

@@ -19,6 +19,7 @@ import getWalletsSummary from "./getWalletsSummary";
 import publishTransaction from "./publishTransaction";
 import removeUser from "./removeUser";
 import saveAppSettings from "./saveAppSettings";
+import updateUser from "./updateUser";
 
 export {
   addUser,
@@ -42,4 +43,5 @@ export {
   publishTransaction,
   removeUser,
   saveAppSettings,
+  updateUser,
 };

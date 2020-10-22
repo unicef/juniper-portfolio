@@ -17,7 +17,7 @@ import PriceTrackerPage from "./components/pages/PriceTracker";
 import WalletsPage from "./components/pages/Wallets";
 import Settings from "./components/pages/Settings";
 import Transactions from "./components/pages/Transactions";
-
+import HelpDrawer from "./components/organisms/HelpDrawer";
 import ApolloClient from "apollo-boost";
 import { ApolloProvider } from "react-apollo";
 import LoadingScreen from "./components/organisms/Dialog/LoadingScreen";
@@ -31,6 +31,7 @@ import {
   getUpdatingWallet,
   getWallets,
   getWalletsSummary,
+  updateUser,
 } from "./actions";
 
 const drawerWidth = 240;
@@ -79,6 +80,7 @@ export default function JuniperAdmin() {
   const [appSettings, setAppSettings] = useState(defaultState);
   const [hasSettings, setHasSettings] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [showHelp, setShowHelp] = useState(false);
   const [user, setUser] = useState({});
   const [loading, setLoading] = useState(true);
   const [pageIndex, setPageIndex] = useState(0);
@@ -121,27 +123,20 @@ export default function JuniperAdmin() {
       setIsLoggedIn(true);
       setUser(user);
       initApp();
+      // Check if first login
+
+      if (!user.didFirstLogin) {
+        console.log("show help, mark didFirstLogin");
+        setShowHelp(true);
+        updateUserProfile({ ...user, didFirstLogin: true });
+      }
     }
   };
 
-  const updateUser = async (property) => {
-    const newUser = { ...user, ...property };
-
-    try {
-      await fetch(`/rest/admin/settings/user`, {
-        credentials: "include",
-        method: "PUT",
-        body: JSON.stringify({
-          user: newUser,
-        }),
-        headers: {
-          "Content-Type": "application/json",
-        },
-      });
-    } catch (e) {
-      console.log(e);
-    }
-    setUser(newUser);
+  const updateUserProfile = async (property) => {
+    const updatedUser = { ...user, ...property };
+    updateUser(updatedUser);
+    setUser(updatedUser);
   };
 
   const fetchAccounts = async () => {
@@ -176,9 +171,6 @@ export default function JuniperAdmin() {
 
   useEffect(() => {
     async function init() {
-      console.log("settings");
-      console.log(await getAppSettings());
-
       setSummary(await getWalletsSummary());
       setWallets(await getWallets());
       setTrackedWallets(await getTrackedWallets());
@@ -248,7 +240,7 @@ export default function JuniperAdmin() {
       setPageIndex(4);
     }
   }, [isLoggedIn, hasSettings]);
-
+  console.log(`showHelp: ${showHelp}`);
   return (
     <div className={classes.root}>
       <ThemeProvider theme={theme}>
@@ -274,6 +266,13 @@ export default function JuniperAdmin() {
                   setPageIndex={setPageIndex}
                   ethRate={ethRate}
                   btcRate={btcRate}
+                />
+
+                <HelpDrawer
+                  open={showHelp}
+                  onClose={() => {
+                    setShowHelp(false);
+                  }}
                 />
                 <Switch>
                   <Route exact path="/admin">
@@ -320,12 +319,13 @@ export default function JuniperAdmin() {
                       isAdmin={user.isAdmin}
                       transactions={transactions}
                       fetchTransactions={fetchTransactions}
+                      setShowHelp={setShowHelp}
                     />
                   </Route>
                   <Route path="/admin/settings">
                     <Settings
                       user={user}
-                      updateUser={updateUser}
+                      updateUser={updateUserProfile}
                       isAdmin={user.isAdmin}
                       appSettings={appSettings}
                       setAppSettings={setAppSettings}
