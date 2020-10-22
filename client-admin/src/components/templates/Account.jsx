@@ -63,8 +63,10 @@ export default function AccountLayout({
   const [totalBTCUSD, setTotalBTCUSD] = useState(0);
 
   const closeCreateDialog = () => {
+    console.log("here");
     setOpenCreateDialog(false);
     setDetailsAccount(null);
+
     onDialogClose();
   };
 
@@ -121,6 +123,7 @@ export default function AccountLayout({
         account={detailsAccount}
         ethRate={ethRate}
         btcRate={btcRate}
+        onDialogClose={closeCreateDialog}
       />
 
       <Grid container>
