@@ -5,6 +5,7 @@ import Grid from "@material-ui/core/Grid";
 import { usdFormatter, cryptoFormatter } from "../../../util";
 import AccountTransactionCard from "../../../ui/Cards/AccountTransactionCard";
 import CopyAddressButton from "../../molecules/Button/CopyAddress";
+import CancelIcon from "../../atoms/Icons/CancelIcons";
 
 const useStyles = makeStyles((theme) => ({
   modal: {
@@ -173,6 +174,12 @@ export default function AccountDetails(props) {
         }}
         classes={{ paper: classes.modal }}
       >
+        <CancelIcon
+          style={{ position: "absolute", right: 8, top: 8, cursor: "pointer" }}
+          onClick={() => {
+            props.setOpenDetails(false);
+          }}
+        />
         <Grid container className={classes.authorization}>
           <Grid item xs={12}>
             <h1 className={classes.walletName}>Account Name</h1>

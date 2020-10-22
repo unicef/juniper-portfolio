@@ -7,6 +7,7 @@ import EditIcon from "../../atoms/Icons/EditIcon";
 import { CreateAccount } from ".";
 import TextButton from "../../atoms/Button/TextIcon";
 import CopyAddressButton from "../../molecules/Button/CopyAddress";
+import CancelIcon from "../../atoms/Icons/CancelIcons";
 
 const useStyles = makeStyles((theme) => ({
   modal: {
@@ -195,6 +196,12 @@ export default function StartupDetails(props) {
         }}
         classes={{ paper: classes.modal }}
       >
+        <CancelIcon
+          style={{ position: "absolute", right: 8, top: 8, cursor: "pointer" }}
+          onClick={() => {
+            props.setOpenDetails(false);
+          }}
+        />
         <Grid container>
           <Grid
             item
