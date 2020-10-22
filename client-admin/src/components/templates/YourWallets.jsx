@@ -2,14 +2,15 @@ import React, { useState, useEffect } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import Grid from "@material-ui/core/Grid";
 import PriceInfo from "../molecules/Info/PriceInfo";
-import { BalanceCard, TxFeeCard, TotalCard } from "../../ui/Cards";
+import CallToAction from "../molecules/CallToAction";
 import Fab from "@material-ui/core/Fab";
 import ChevronRightIcon from "@material-ui/icons/ChevronRight";
 import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
 import { AddWallet } from "../organisms/Dialog";
 import ContainedButton from "../atoms/Button/Contained";
-
+import TextButton from "../atoms/Button/TextIcon";
 import WalletCard from "../molecules/Card/WalletCard";
+import YourWalletSummaryCard from "../molecules/Card/YourWalletSummaryCard";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -20,6 +21,16 @@ const useStyles = makeStyles((theme) => ({
     fontSize: 28,
     fontWeight: 700,
     color: "#000000",
+  },
+  titleThin: {
+    fontWeight: 400,
+  },
+  message: {
+    fontFamily: '"Roboto",  sans-serif',
+    fontSize: 19,
+    lineHeight: 1.42,
+    marginTop: 0,
+    marginBottom: 9,
   },
   addWalletButton: {
     width: 148,
@@ -72,8 +83,11 @@ export default function ({
   isAdmin,
   btcRate,
   ethRate,
+  setShowHelp,
 }) {
   const [balances, setBalances] = useState([]);
+  const [ethSummary, setEthSummary] = useState({});
+  const [btcSummary, setBtcSummary] = useState({});
   const [fees, setFees] = useState(null);
   const [totals, setTotals] = useState(null);
   const [ethereumWallets, setEthereumWallets] = useState([]);
@@ -142,6 +156,40 @@ export default function ({
         btcReceivedUSD,
       } = summary;
 
+      setEthSummary({
+        name: "Ether",
+        currency: "Ethereum",
+        count: wallets.filter((wallet) => {
+          return wallet.currency === "Ethereum";
+        }).length,
+        symbol: "ETH",
+        balance: ethBalance,
+        balanceUSD: ethBalance * ethRate,
+        received: ethReceived,
+        sent: ethSent,
+        fees: ethFees,
+        feesUSD: ethFeesUSD,
+        sentUSD: ethSentUSD,
+        receivedUSD: ethReceivedUSD,
+      });
+
+      setBtcSummary({
+        name: "Bitcoin",
+        currency: "Bitcoin",
+        count: wallets.filter((wallet) => {
+          return wallet.currency === "Bitcoin";
+        }).length,
+        symbol: "BTC",
+        balance: btcBalance,
+        balanceUSD: btcBalance * btcRate,
+        received: btcReceived,
+        sent: btcSent,
+        fees: btcFees,
+        feesUSD: btcFeesUSD,
+        sentUSD: btcSentUSD,
+        receivedUSD: btcReceivedUSD,
+      });
+
       setBalances([
         {
           symbol: "ETH",
@@ -199,45 +247,45 @@ export default function ({
           <PriceInfo />
         </Grid>
 
-        <Grid item xs={12} style={{ marginTop: "2em" }}>
-          <h1 className={classes.title}>UNICEF HQ wallet overview</h1>
+        <Grid item xs={12} style={{ marginTop: "2em", marginBottom: "2em" }}>
+          <h1 className={classes.title}>
+            Wallet dashboard
+            <span className={classes.titleThin}>
+              {" "}
+              <ChevronRightIcon size="large" /> UNICEF HQ
+            </span>
+          </h1>
+          <p className={classes.message}>
+            Below is an overview of all the wallets owned and managed by your
+            organisation. An organisation can have multiple wallets for a
+            cryptocurrency.
+          </p>
+          <TextButton
+            style={{ paddingLeft: 0 }}
+            onClick={() => {
+              setShowHelp(true);
+            }}
+          >
+            Learn About Cryptocurrency Wallets
+          </TextButton>
         </Grid>
-        {balances &&
-          balances.map((balance, index) => {
-            return (
-              <Grid item xs={12} sm={3} key={index}>
-                <BalanceCard
-                  symbol={balance.symbol}
-                  balance={balance.balance}
-                  balanceUSD={balance.balanceUSD}
-                  currency={balance.currency}
-                  received={balance.received}
-                  invested={balance.invested}
-                />
-              </Grid>
-            );
-          })}
-        <Grid item xs={12} sm={3}>
-          {fees && (
-            <TxFeeCard
-              amountUSD={fees.amountUSD}
-              amountBTC={fees.btcFees}
-              amountETH={fees.ethFees}
-            />
-          )}
+        <Grid item xs={6}>
+          <YourWalletSummaryCard
+            summary={ethSummary}
+            onHelpClick={() => {
+              setShowHelp(true);
+            }}
+          ></YourWalletSummaryCard>
         </Grid>
-        <Grid item xs={12} sm={3}>
-          {totals && (
-            <TotalCard
-              received={totals.received}
-              invested={totals.invested}
-              ethSentUSD={ethSentUSD}
-              ethReceivedUSD={ethReceivedUSD}
-              btcSentUSD={btcSentUSD}
-              btcReceivedUSD={btcReceivedUSD}
-            />
-          )}
+        <Grid item xs={6}>
+          <YourWalletSummaryCard
+            summary={btcSummary}
+            onHelpClick={() => {
+              setShowHelp(true);
+            }}
+          ></YourWalletSummaryCard>
         </Grid>
+
         <Grid item xs={12} style={{ marginTop: "2em" }}>
           {isAdmin && (
             <ContainedButton
@@ -250,6 +298,15 @@ export default function ({
           )}
         </Grid>
 
+        <Grid item xs={12} style={{ marginTop: "4em" }}>
+          <CallToAction
+            onClick={(e) => {
+              e.target.closest(".tabpanel").scrollTo(0, 2000);
+            }}
+          >
+            Individual Blockchain Wallets
+          </CallToAction>
+        </Grid>
         <Grid item xs={12} style={{ marginTop: "4em" }}>
           <h3 className={classes.walletSubheading}>
             {ethereumWallets.length} Ethereum Wallet
