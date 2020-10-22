@@ -12,16 +12,33 @@ import Chip from "../../atoms/Chip";
 import SummarySubtitle from "../../atoms/Text/SummarySubtitle";
 import CardBalance from "../../atoms/Text/CardBalance";
 import CardAddress from "../../atoms/Text/CardAddress";
+import Modal from "../../atoms/Modal";
+import WalletOwnerCard from "./WalletOwnerCard";
+import CancelIcon from "../../atoms/Icons/CancelIcons";
 
 const useStyles = makeStyles((theme) => ({
   walletBalance: {
     marginTop: 20,
+  },
+  title: {
+    fontFamily: '"Roboto", sans-serif',
+    fontSize: 18,
+    lineHeight: 1.33,
+    fontWeight: 700,
+    padding: "20px 0px 0px 40px",
   },
   owners: {
     color: theme.palette.primary.main,
     fontSize: 18,
     lineHeight: 1.33,
     marginTop: 20,
+    cursor: "pointer",
+  },
+  closeIcon: {
+    position: "absolute",
+    right: 8,
+    top: 8,
+    cursor: "pointer",
   },
 }));
 
@@ -42,9 +59,33 @@ export default function ({
 }) {
   const classes = useStyles();
   const [showAddWalletModal, setShowAddWalletModal] = useState(false);
+  const [open, setOpen] = useState(false);
 
   return (
     <Card>
+      <Modal
+        open={open}
+        onClose={() => {
+          setOpen(false);
+        }}
+      >
+        <h2 className={classes.title}>Wallet Owners</h2>
+        <CancelIcon
+          className={classes.closeIcon}
+          onClick={() => {
+            setOpen(false);
+          }}
+        />
+        {multisigOwners &&
+          multisigOwners.map((owner) => {
+            return (
+              <WalletOwnerCard
+                address={owner.walletAddress}
+                owner={owner.ownerName}
+              />
+            );
+          })}
+      </Modal>
       <AddWallet
         open={showAddWalletModal}
         setShowAddWalletModal={setShowAddWalletModal}
@@ -113,7 +154,14 @@ export default function ({
       <SummarySubtitle>Wallet Address</SummarySubtitle>
       {isMultisig && (
         <Fragment>
-          <div className={classes.owners}>{multisigOwners.length} users</div>
+          <div
+            className={classes.owners}
+            onClick={() => {
+              setOpen(true);
+            }}
+          >
+            {multisigOwners.length} users
+          </div>
           <SummarySubtitle>Wallet Owners</SummarySubtitle>
         </Fragment>
       )}
