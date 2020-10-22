@@ -255,8 +255,7 @@ export default function CreateStartup(props) {
       ]
     );
   }, [props.open]);
-  console.log("addresses");
-  console.log(addresses);
+
   return (
     <div>
       <Dialog fullScreen open={open} onClose={handleClose}>
