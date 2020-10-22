@@ -386,7 +386,10 @@ export default function CreateStartup(props) {
                     );
                   })}
                   <TextButton
-                    disabled={addresses[addresses.length - 1].address === ""}
+                    disabled={
+                      addresses.length > 0 &&
+                      addresses[addresses.length - 1].address === ""
+                    }
                     startIcon={<AddIcon />}
                     onClick={addAddress}
                   >
