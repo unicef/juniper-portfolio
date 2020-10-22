@@ -17,8 +17,16 @@ class EthereumWalletScraper {
     tracked = false
   ) {
     const walletData = await this.fetchWalletData(address);
-    const txData = await this.fetchTransactionData(address);
-    const internalTxData = await this.fetchInternalTransactionData(address);
+    let txData = await this.fetchTransactionData(address);
+    let internalTxData = await this.fetchInternalTransactionData(address);
+
+    txData = txData.filter((tx) => {
+      return tx.isError === "0";
+    });
+
+    internalTxData = internalTxData.filter((tx) => {
+      return tx.isError === "0";
+    });
 
     const multisigOwnerLookup = {};
 
