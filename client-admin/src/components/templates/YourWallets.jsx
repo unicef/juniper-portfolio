@@ -85,21 +85,13 @@ export default function ({
   ethRate,
   setShowHelp,
 }) {
-  const [balances, setBalances] = useState([]);
   const [ethSummary, setEthSummary] = useState({});
   const [btcSummary, setBtcSummary] = useState({});
-  const [fees, setFees] = useState(null);
-  const [totals, setTotals] = useState(null);
   const [ethereumWallets, setEthereumWallets] = useState([]);
   const [ethereumWalletIndex, setEthereumWalletIndex] = useState(0);
-  const [ethSentUSD, setEthSentUSD] = useState(0);
-  const [ethReceivedUSD, setEthReceivedUSD] = useState(0);
   const [bitcoinWallets, setBitcoinWallets] = useState([]);
   const [bitcoinWalletIndex, setBitcoinWalletIndex] = useState(0);
   const [showAddWalletModal, setShowAddWalletModal] = useState(false);
-
-  const [btcSentUSD, setBtcSentUSD] = useState(0);
-  const [btcReceivedUSD, setBtcReceivedUSD] = useState(0);
 
   const incrementEthWalletIndex = () => {
     if (ethereumWalletIndex + 1 <= ethereumWallets.length) {
@@ -189,41 +181,6 @@ export default function ({
         sentUSD: btcSentUSD,
         receivedUSD: btcReceivedUSD,
       });
-
-      setBalances([
-        {
-          symbol: "ETH",
-          balance: ethBalance,
-          balanceUSD: ethBalance * ethRate,
-          currency: "Ether",
-          received: ethReceived,
-          invested: ethSent,
-        },
-        {
-          symbol: "BTC",
-          balance: btcBalance,
-          balanceUSD: btcBalance * btcRate,
-          currency: "Bitcoin",
-          received: btcReceived,
-          invested: btcSent,
-        },
-      ]);
-
-      setFees({
-        amountUSD: ethFeesUSD + btcFeesUSD,
-        ethFees,
-        btcFees,
-      });
-
-      setTotals({
-        received: ethReceivedUSD + btcReceivedUSD,
-        invested: ethSentUSD + btcSentUSD,
-      });
-
-      setEthSentUSD(ethSentUSD);
-      setEthReceivedUSD(ethReceivedUSD);
-      setBtcSentUSD(btcSentUSD);
-      setBtcReceivedUSD(btcReceivedUSD);
     }
     if (!summary) return;
     init();
