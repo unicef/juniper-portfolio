@@ -14,11 +14,14 @@ const debounce = (func, wait, immediate) => {
   };
 };
 
-const usdFormatter = new Intl.NumberFormat("en-US", {
-  style: "currency",
-  currency: "USD",
-  minimumFractionDigits: 2,
-});
+const usdFormatter = (amount) => {
+  const formatter = new Intl.NumberFormat("en-US", {
+    style: "currency",
+    currency: "USD",
+    minimumFractionDigits: 2,
+  });
+  return formatter.format(amount);
+};
 
 const cryptoFormatter = (amount) => {
   const formatter = new Intl.NumberFormat("en-US", {

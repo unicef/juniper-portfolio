@@ -367,7 +367,7 @@ export default function (props) {
         </div>
 
         <div className={classes.weekTitle}>
-          {usdFormatter.format(
+          {usdFormatter(
             props.prices
               .filter((price) => {
                 return (
@@ -409,7 +409,7 @@ export default function (props) {
         </Grid>
         <Grid item xs={12}>
           <ChartArea
-            currentPrice={usdFormatter.format(props.currentPrice)}
+            currentPrice={usdFormatter(props.currentPrice)}
             currentMonth={monthNames[currentMonth]}
             currentYear={currentYear}
             chartData={prices.filter((price) => {
@@ -435,11 +435,11 @@ export default function (props) {
                 ).Price / 1000
               ) * 1000
             }
-            currentMonthAveragePrice={usdFormatter.format(
+            currentMonthAveragePrice={usdFormatter(
               currentMonthAveragePrice || 0
             )}
             currentQuarter={currentQuarter()}
-            quarterlyAverage={usdFormatter.format(quarterlyAverage() || 0)}
+            quarterlyAverage={usdFormatter(quarterlyAverage() || 0)}
           />
         </Grid>
 
