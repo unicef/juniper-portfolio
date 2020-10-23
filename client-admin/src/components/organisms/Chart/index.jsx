@@ -20,6 +20,7 @@ export default function ({
   currentMonthAveragePrice,
   currentQuarter,
   quarterlyAverage,
+  yearlyAverage,
   currentMonth,
   currentYear,
   chartData,
@@ -29,8 +30,6 @@ export default function ({
   const classes = useStyles();
   const theme = useTheme();
 
-  console.log(domainMin);
-  console.log(domainMax);
   return (
     <Block className={`${classes.organism} ${className}`}>
       <Grid container>
@@ -53,6 +52,12 @@ export default function ({
               <ChartSummary
                 subtitle={`Q${currentQuarter} Average Price`}
                 title={`${quarterlyAverage || 0} USD`}
+              />
+            </Grid>
+            <Grid item xs={12}>
+              <ChartSummary
+                subtitle={`Last 52 Week Average Price`}
+                title={`${yearlyAverage || 0} USD`}
               />
             </Grid>
           </Grid>
