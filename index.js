@@ -12,7 +12,7 @@ const {
   GnosisScraper,
 } = require("./lib/scrapers");
 
-const { Logger } = require("node-code-utils");
+const { Logger } = require("node-core-utils");
 const Email = require("./lib/email");
 const DB = require("./lib/db");
 const utils = require("./lib/utils");
