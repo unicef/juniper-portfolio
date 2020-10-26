@@ -8,11 +8,11 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function ({ children, isBold }) {
+export default function ({ children, isBold, className }) {
   const classes = useStyles();
 
   return (
-    <span className={classes.cardBalance}>
+    <span className={`${classes.cardBalance} ${className}`}>
       {isBold ? <b>{children}</b> : children}
     </span>
   );

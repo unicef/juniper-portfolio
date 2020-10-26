@@ -16,11 +16,16 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function SimpleModal({ open = false, onClose, children }) {
+export default function SimpleModal({
+  open = false,
+  onClose,
+  children,
+  className,
+}) {
   const classes = useStyles();
 
   const body = (
-    <div style={modalStyle} className={classes.paper}>
+    <div style={modalStyle} className={`${classes.paper} ${className}`}>
       {children}
       <SimpleModal />
     </div>
