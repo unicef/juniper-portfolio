@@ -1,5 +1,5 @@
 {
-  "name": "gilgamesh-tracking-server",
+  "name": "juniper-portfolio",
   "version": "0.1.0",
   "dependencies": {
     "aws-sdk": "^2.722.0",
@@ -38,11 +38,11 @@
     "nodemon": "^2.0.1"
   },
   "scripts": {
-    "start": "nodemon index.ts",
+    "start": "nodemon index.js",
     "postinstall": "npm install --prefix ./client-admin; npm run build --prefix ./client-admin"
   },
   "main": "index.js",
   "author": "",
-  "license": "ISC",
+  "license": "MIT",
   "description": ""
 }
