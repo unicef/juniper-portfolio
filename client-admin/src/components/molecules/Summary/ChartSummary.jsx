@@ -7,7 +7,7 @@ const useStyles = makeStyles((theme) => ({
   atom: {
     fontFamily: '"Roboto", sans-serif',
     fontSize: 28,
-    paddingBottom: 30,
+    paddingBottom: 10,
   },
 }));
 

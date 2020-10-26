@@ -120,7 +120,7 @@ export default function YourWalletSummaryCard({ summary, onHelpClick }) {
           {cryptoFormatter(summary.balance)} {summary.symbol}
         </h2>
         <h2 className={classes.balanceUSD}>
-          {usdFormatter.format(summary.balanceUSD)} USD
+          {usdFormatter(summary.balanceUSD)} USD
         </h2>
         <p className={classes.currency}>Current {summary.currency} balance</p>
       </Grid>
@@ -129,7 +129,7 @@ export default function YourWalletSummaryCard({ summary, onHelpClick }) {
           {cryptoFormatter(summary.fees)} {summary.symbol}
         </h2>
         <h2 className={classes.balanceUSD}>
-          {usdFormatter.format(summary.feesUSD)} USD
+          {usdFormatter(summary.feesUSD)} USD
         </h2>
         <p className={classes.currency}>
           {summary.currency} transaction fee{" "}
@@ -145,7 +145,7 @@ export default function YourWalletSummaryCard({ summary, onHelpClick }) {
           {cryptoFormatter(summary.received)} {summary.symbol}
         </h2>
         <h2 className={classes.inOut}>
-          {usdFormatter.format(summary.receivedUSD)} USD
+          {usdFormatter(summary.receivedUSD)} USD
         </h2>
         <p className={classes.currency}>Total {summary.name} received</p>
       </Grid>
@@ -153,9 +153,7 @@ export default function YourWalletSummaryCard({ summary, onHelpClick }) {
         <h2 className={classes.inOutBold}>
           {cryptoFormatter(summary.sent)} {summary.symbol}
         </h2>
-        <h2 className={classes.inOut}>
-          {usdFormatter.format(summary.sentUSD)} USD
-        </h2>
+        <h2 className={classes.inOut}>{usdFormatter(summary.sentUSD)} USD</h2>
         <p className={classes.currency}>Total {summary.name} received</p>
       </Grid>
     </Grid>
