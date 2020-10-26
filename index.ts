@@ -67,6 +67,7 @@ const mount = async (app: Application) => {
     return res.send({ ok: true, accessToken: createAccessToken(user) });
   });
   server.applyMiddleware({ app, path: "/api" });
+
   app.listen(port);
   console.log(`[server] running on port ${port}`);
 
