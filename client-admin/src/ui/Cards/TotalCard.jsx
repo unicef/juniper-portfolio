@@ -84,9 +84,9 @@ export default function TotalCard({
       <div className={classes.totalsSummary}>
         <Tooltip
           className={classes.totalTooltip}
-          title={`Bitcoin: ${usdFormatter.format(
-            btcSentUSD
-          )}: ${btcPercentage.toFixed(2)}%`}
+          title={`Bitcoin: ${usdFormatter(btcSentUSD)}: ${btcPercentage.toFixed(
+            2
+          )}%`}
         >
           <div
             className={classes.btcDot}
@@ -98,7 +98,7 @@ export default function TotalCard({
         </Tooltip>
         <Tooltip
           className={classes.totalTooltip}
-          title={`Ethereum: ${usdFormatter.format(
+          title={`Ethereum: ${usdFormatter(
             ethSentUSD
           )}: ${ethPercentage.toFixed(2)}%`}
         >
@@ -112,13 +112,9 @@ export default function TotalCard({
         </Tooltip>
       </div>
       <div className={classes.balanceTotals}>
-        <p className={classes.totalReceived}>
-          {usdFormatter.format(received)} USD
-        </p>
+        <p className={classes.totalReceived}>{usdFormatter(received)} USD</p>
         <p className={classes.received}>Total Crypto Received</p>
-        <p className={classes.totalInvested}>
-          {usdFormatter.format(invested)} USD
-        </p>
+        <p className={classes.totalInvested}>{usdFormatter(invested)} USD</p>
         <p className={classes.invested}>Total Crypto Invested</p>
       </div>
     </div>

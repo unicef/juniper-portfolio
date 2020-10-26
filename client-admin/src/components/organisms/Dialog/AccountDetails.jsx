@@ -195,13 +195,13 @@ export default function AccountDetails(props) {
           </Grid>
           <Grid item xs={3}>
             <div className={classes.walletBalance}>
-              {usdFormatter.format(ethDonatedCurrentValue || 0)} USD
+              {usdFormatter(ethDonatedCurrentValue || 0)} USD
             </div>
             <div className={classes.walletSubtitle}>Current Value</div>
           </Grid>
           <Grid item xs={6}>
             <div className={classes.walletBalance}>
-              {usdFormatter.format(ethDonatedReceivedValue || 0)} USD
+              {usdFormatter(ethDonatedReceivedValue || 0)} USD
             </div>
             <div className={classes.walletSubtitle}>Value at Receipt</div>
           </Grid>
@@ -215,13 +215,13 @@ export default function AccountDetails(props) {
           </Grid>
           <Grid item xs={3}>
             <div className={classes.walletBalance}>
-              {usdFormatter.format(btcDonatedCurrentValue || 0)} USD
+              {usdFormatter(btcDonatedCurrentValue || 0)} USD
             </div>
             <div className={classes.walletSubtitle}>Current Value</div>
           </Grid>
           <Grid item xs={6}>
             <div className={classes.walletBalance}>
-              {usdFormatter.format(btcDonatedReceivedValue || 0)} USD
+              {usdFormatter(btcDonatedReceivedValue || 0)} USD
             </div>
             <div className={classes.walletSubtitle}>Value at Receipt</div>
           </Grid>

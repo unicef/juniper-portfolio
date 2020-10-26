@@ -284,6 +284,7 @@ export default function JuniperAdmin() {
                       isAdmin={user.isAdmin}
                       ethRate={ethRate}
                       btcRate={btcRate}
+                      setShowHelp={setShowHelp}
                     />
                   </Route>
                   <Route path="/admin/wallets">
@@ -296,6 +297,7 @@ export default function JuniperAdmin() {
                       isAdmin={user.isAdmin}
                       ethRate={ethRate}
                       btcRate={btcRate}
+                      setShowHelp={setShowHelp}
                     />
                   </Route>
                   <Route path="/admin/accounts">

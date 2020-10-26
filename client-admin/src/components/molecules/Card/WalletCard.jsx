@@ -63,7 +63,7 @@ export default function WalletCard({
         </CardBalance>{" "}
         /{" "}
         <CardBalance>
-          {balance && usdFormatter.format(balance * exchangeRate)} USD
+          {balance && usdFormatter(balance * exchangeRate)} USD
         </CardBalance>
       </div>
 
