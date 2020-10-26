@@ -1,95 +1,56 @@
-# Tracking application for cryptocurrency custodianship
-This application can be used to track cryptocurrency wallets (bitcoin and ether). 
+# Juniper Portfolio Tool
 
-## Getting Started
+Want to start tracking cryptocurrencies? This application can be used to track cryptocurrency wallets (bitcoin and ether).
 
-### Prerequisites 
-The following software should be installed in your development environment before using this repository:
+## Prerequisittes
+
+Please ensure that you have the following installed on your computer:
 
 1. Node JS (^12.13.0)
 2. Node Package Manager (npm) (^6.12.0)
 3. Docker (^19.03.2)
-4. Mongo (version tbd)
+4. Mongo
 
-```
-PLEASE ADD A SECTION FOR MONGO DB AND HAVING IT UP AND RUNNING
+Please ensure that you have accounts with the following services; you will be using these accounts to create API keys for your `.env` file:
 
-```
+1. Amazon Web Services
+2. Infura
+3. Etherscan
 
-### Installing 
+## Getting Started
 
-Clone the repository with the following command: 
+There are two main folders for this application:
 
-`git clone https://github.com/unicef/gilgamesh-track`
+1. admin
+2. client-admin
 
-Once the repository is cloned, there are two folders. One is for the client app and the other is for the server app.
+There is a `.env` that will need to be configured before getting this application to work. There is a sample `.env` (called `.env.example`) file that you can use for the application. Update it with the required credentials to ensure that this application works as intended.
 
-### Mongo 
-Add some instructions to get Mongo up an drunning locally
+### Install
 
-### Client
+Run `npm install` in the root folder. The script will install all packages required and also create a production builds of the current application as well.
 
-The client application is a React JS application.
+### Running the application in development mode
 
-For local development, the following steps must take place:
+For the server:
+`cd admin`
+`node index.js`
 
-1. Change into the directory of the client app `cd client`
-2. Install the packages that are associated with the client app `npm install`
-3. Start the application `npm start`
-4. The files that are relevant to the application are stored in the `/src` folder. Update these files to update the application
-
-
-### Server
-
-The server application is a Node JS application that is written in TypeScript and GraphQL.
-
-For local development, the following steps must take place:
-
-1. Change into the directory of the server app `cd server`
-2. Install the packages that are associated with the client app `npm install`
-3. Create a .env file and update it with the following parameters:
-```
-    DB_USER=''
-    DB_USER_PASSWORD=''
-    DB_NAME='tracking-test'
-    DB_URL='mongodb://localhost:27017'
-    SERVER_PORT=9000
-    ACCESS_TOKEN_SECRET=ansjdnf0293madsss
-    REFRESH_TOKEN_SECRET=29032mlkmsadf09sd
-```
-4. Ensure that mongo is running locally (or if you have another instance running on thce cloud, update your DB_URL in the .env file accordingly)
-5. Start the application `npm start`
-6. The files that are relevant to the application are stored in the `/src` folder. Update these files to update the application
-
-
-Other notes: 
-- The application is using Apollo GraphQL
-
-## Deployment
-Each application within this folder (client, server) is containerized with Docker.
-## Built with 
-
-### Client 
-- React JS
-
-### Server
-- Node JS
-- Typescript
-- GraphQL
+For the client:
+`cd client-admin`
+`npm start`
 
 ## Contributing
-There are four major branches for this repository: 
 
-1. Master - releases are created from this
-2. Staging - UAT 
-3. Testing - Integration / feature testing
-4. Development - Latest code that is being worked on
-
-To contribute to this application, create a branch from the Development branch. The format of the branch name should be: 
-
-> 'NUMBER OF THE CARD YOU ARE WORKING ON'-'SHORT DESCRIPTION' (e.g. 12-adding-graphql)
-
-Once your update is complete, submit a pull request to the Development branch. 
+Review the `/contributing` folder in this repository.
 
 ## Authors
-Mehran Hydary (mhydary@unicef.org)
+
+Alex Sherbuck (GitHub: tenthirtyone)
+Mehran Hydary (GitHub: mehranhydary | Email: mhydary@unicef.org)
+
+## Todo:
+
+1. Add background
+2. Explain how the application runs using Docker
+3. Explain how to run mongo db

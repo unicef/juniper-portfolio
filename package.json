@@ -54,9 +54,7 @@
   },
   "scripts": {
     "start": "nodemon index.ts",
-    "build": "tsc -p ./",
-    "seed": "ts-node temp/seed.ts",
-    "postinstall": "npm install --prefix ./client; npm run build --prefix ./client; npm install --prefix ./client-visual; npm run build --prefix ./client-visual; npm install --prefix ./client-admin; npm run build --prefix ./client-admin"
+    "postinstall": "npm install --prefix ./client-admin; npm run build --prefix ./client-admin"
   },
   "main": "index.js",
   "author": "",
