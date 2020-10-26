@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import Grid from "@material-ui/core/Grid";
 import Divider from "@material-ui/core/Divider";
@@ -8,6 +8,7 @@ import CancelIcon from "../../atoms/Icons/CancelIcons";
 import PriceIcon from "../../atoms/Icons/PriceIcon";
 import CardBalance from "../../atoms/Text/CardBalance";
 import SummarySubtitle from "../../atoms/Text/SummarySubtitle";
+import PriceContext from "../../../context/PriceContext";
 
 const useStyles = makeStyles((theme) => ({
   closeIcon: {
@@ -60,6 +61,15 @@ const useStyles = makeStyles((theme) => ({
 
 export default function PriceModal({ open, setOpen, children }) {
   const classes = useStyles();
+  const { prices } = useContext(PriceContext);
+  if (!prices.bitcoin || !prices.ethereum) {
+    return null;
+  }
+
+  const { bitcoin, ethereum } = prices;
+
+  const btc = bitcoin[bitcoin.length - 1];
+  const eth = ethereum[ethereum.length - 1];
 
   return (
     <div>

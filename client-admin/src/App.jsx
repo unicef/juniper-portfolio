@@ -33,6 +33,7 @@ import {
   getWalletsSummary,
   updateUser,
 } from "./actions";
+import PriceContext from "./context/PriceContext";
 
 const drawerWidth = 240;
 const defaultState = {
@@ -124,9 +125,7 @@ export default function JuniperAdmin() {
       setUser(user);
       initApp();
       // Check if first login
-
       if (!user.didFirstLogin) {
-        console.log("show help, mark didFirstLogin");
         setShowHelp(true);
         updateUserProfile({ ...user, didFirstLogin: true });
       }
@@ -180,12 +179,12 @@ export default function JuniperAdmin() {
       setBtcRate(await getExchangeRate("BTC"));
       setPrices(await getPriceHistory());
 
+      console.log(await getPriceHistory());
+
       if (await getUpdatingWallet()) {
         setUpdatingWallets(true);
         const pollUpdatingWallet = setInterval(async () => {
-          console.log("interval");
           const updatingWallets = await getUpdatingWallet();
-          console.log(`updating wallet: ${updatingWallets}`);
           if (!updatingWallets) {
             clearInterval(pollUpdatingWallet);
             init(false);
@@ -274,65 +273,67 @@ export default function JuniperAdmin() {
                     setShowHelp(false);
                   }}
                 />
-                <Switch>
-                  <Route exact path="/admin">
-                    <WalletsPage
-                      wallets={wallets}
-                      trackedWallets={trackedWallets}
-                      summary={summary}
-                      fetchWallets={fetchWallets}
-                      isAdmin={user.isAdmin}
-                      ethRate={ethRate}
-                      btcRate={btcRate}
-                    />
-                  </Route>
-                  <Route path="/admin/wallets">
-                    <WalletsPage
-                      wallets={wallets}
-                      trackedWallets={trackedWallets}
-                      summary={summary}
-                      fetchWallets={fetchWallets}
-                      fetchTrackedWallets={fetchTrackedWallets}
-                      isAdmin={user.isAdmin}
-                      ethRate={ethRate}
-                      btcRate={btcRate}
-                    />
-                  </Route>
-                  <Route path="/admin/accounts">
-                    <AccountsPage
-                      isAdmin={user.isAdmin}
-                      fetchAccounts={fetchAccounts}
-                      accounts={accounts}
-                      ethRate={ethRate}
-                      btcRate={btcRate}
-                    />
-                  </Route>
-                  <Route path="/admin/tracker">
-                    <PriceTrackerPage
-                      prices={prices}
-                      ethRate={ethRate}
-                      btcRate={btcRate}
-                    />
-                  </Route>
-                  <Route path="/admin/transactions">
-                    <Transactions
-                      isAdmin={user.isAdmin}
-                      transactions={transactions}
-                      fetchTransactions={fetchTransactions}
-                      setShowHelp={setShowHelp}
-                    />
-                  </Route>
-                  <Route path="/admin/settings">
-                    <Settings
-                      user={user}
-                      updateUser={updateUserProfile}
-                      isAdmin={user.isAdmin}
-                      appSettings={appSettings}
-                      setAppSettings={setAppSettings}
-                    />
-                  </Route>
-                  <Redirect from="*" to="/admin/wallets" />
-                </Switch>
+                <PriceContext.Provider value={{ prices }}>
+                  <Switch>
+                    <Route exact path="/admin">
+                      <WalletsPage
+                        wallets={wallets}
+                        trackedWallets={trackedWallets}
+                        summary={summary}
+                        fetchWallets={fetchWallets}
+                        isAdmin={user.isAdmin}
+                        ethRate={ethRate}
+                        btcRate={btcRate}
+                      />
+                    </Route>
+                    <Route path="/admin/wallets">
+                      <WalletsPage
+                        wallets={wallets}
+                        trackedWallets={trackedWallets}
+                        summary={summary}
+                        fetchWallets={fetchWallets}
+                        fetchTrackedWallets={fetchTrackedWallets}
+                        isAdmin={user.isAdmin}
+                        ethRate={ethRate}
+                        btcRate={btcRate}
+                      />
+                    </Route>
+                    <Route path="/admin/accounts">
+                      <AccountsPage
+                        isAdmin={user.isAdmin}
+                        fetchAccounts={fetchAccounts}
+                        accounts={accounts}
+                        ethRate={ethRate}
+                        btcRate={btcRate}
+                      />
+                    </Route>
+                    <Route path="/admin/tracker">
+                      <PriceTrackerPage
+                        prices={prices}
+                        ethRate={ethRate}
+                        btcRate={btcRate}
+                      />
+                    </Route>
+                    <Route path="/admin/transactions">
+                      <Transactions
+                        isAdmin={user.isAdmin}
+                        transactions={transactions}
+                        fetchTransactions={fetchTransactions}
+                        setShowHelp={setShowHelp}
+                      />
+                    </Route>
+                    <Route path="/admin/settings">
+                      <Settings
+                        user={user}
+                        updateUser={updateUserProfile}
+                        isAdmin={user.isAdmin}
+                        appSettings={appSettings}
+                        setAppSettings={setAppSettings}
+                      />
+                    </Route>
+                    <Redirect from="*" to="/admin/wallets" />
+                  </Switch>
+                </PriceContext.Provider>
               </Router>
             )}
           </CssBaseline>
