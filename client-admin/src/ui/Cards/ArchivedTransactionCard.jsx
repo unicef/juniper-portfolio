@@ -99,7 +99,8 @@ export default function ArchivedTransactionCard({
           <span className={classes.headerText}>
             Crypto {sent ? "sent" : null} {received ? "received" : null} at{" "}
             <b>
-              {txSent.toLocaleTimeString()}, {txSent.toDateString()}
+              {txSent.getUTCHours()}:{txSent.getMinutes() < 10 ? "0" : ""}
+              {txSent.getMinutes()} UTC, {txSent.toDateString()}
             </b>
           </span>
         </Grid>

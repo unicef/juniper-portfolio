@@ -114,7 +114,8 @@ export default function UnpublishedTransactionCard({
           <span className={classes.headerText}>
             Crypto {sent ? "sent" : null} {received ? "received" : null} at{" "}
             <b>
-              {txSent.getHours()}:{txSent.getMinutes()}, {txSent.toDateString()}
+              {txSent.getUTCHours()}:{txSent.getMinutes() < 10 ? "0" : ""}
+              {txSent.getMinutes()} UTC, {txSent.toDateString()}
             </b>
           </span>
         </Grid>
