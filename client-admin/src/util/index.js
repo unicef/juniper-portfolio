@@ -14,14 +14,20 @@ const debounce = (func, wait, immediate) => {
   };
 };
 
-const usdFormatter = new Intl.NumberFormat("en-US", {
-  style: "currency",
-  currency: "USD",
-  minimumFractionDigits: 2,
-});
+const usdFormatter = (amount) => {
+  const formatter = new Intl.NumberFormat("en-US", {
+    style: "currency",
+    currency: "USD",
+    minimumFractionDigits: 2,
+  });
+  return formatter.format(amount);
+};
 
 const cryptoFormatter = (amount) => {
-  return Math.round(amount * 1e5) / 1e5;
+  const formatter = new Intl.NumberFormat("en-US", {
+    maximumFractionDigits: 4,
+  });
+  return formatter.format(amount);
 };
 
 const monthNames = [

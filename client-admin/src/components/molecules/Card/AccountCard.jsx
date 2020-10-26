@@ -81,7 +81,7 @@ export default function AccountCard({
           </div>
           <div className={classes.walletBalance}>
             <CardBalance isBold={true}>
-              {usdFormatter.format(totalEthInvested * ethRate)} USD
+              {usdFormatter(totalEthInvested * ethRate)} USD
             </CardBalance>
             <SummarySubtitle>Current Value</SummarySubtitle>
           </div>
@@ -96,7 +96,7 @@ export default function AccountCard({
           </div>
           <div className={classes.walletBalance}>
             <CardBalance isBold={true}>
-              {usdFormatter.format(totalBtcInvested * btcRate)} USD
+              {usdFormatter(totalBtcInvested * btcRate)} USD
             </CardBalance>
             <SummarySubtitle>Current Value</SummarySubtitle>
           </div>

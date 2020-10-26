@@ -88,9 +88,7 @@ export default function BalanceCard({
         <h2 className={classes.balance}>
           {cryptoFormatter(balance)} {symbol}
         </h2>
-        <h2 className={classes.balanceUSD}>
-          {usdFormatter.format(balanceUSD)} USD
-        </h2>
+        <h2 className={classes.balanceUSD}>{usdFormatter(balanceUSD)} USD</h2>
         <p className={classes.currency}>Current {currency} balance</p>
       </div>
       <Divider className={classes.divider} />

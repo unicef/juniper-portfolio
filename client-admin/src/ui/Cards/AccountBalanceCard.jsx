@@ -49,7 +49,7 @@ export default function AccountBalanceCard({
           {cryptoFormatter(amountInvested)} {symbol}
         </h2>
         <h2 className={classes.amountInvestedUSD}>
-          {usdFormatter.format(amountInvestedUSD)} USD
+          {usdFormatter(amountInvestedUSD)} USD
         </h2>
         <p className={classes.currency}>
           Total {currency} {investedVerb || "invested"}
