@@ -43,7 +43,7 @@ const useStyles = makeStyles((theme) => ({
     color: "#000000",
   },
   unpublishedTxDetailsButton: {
-    marginTop: "1em",
+    marginTop: "2.15em",
   },
   unpublishedTxBalance: {
     fontFamily: '"Roboto", sans-serif',
@@ -154,21 +154,35 @@ export default function UnpublishedTransactionCard({
         <Grid item xs={4}>
           <div className={classes.unpublishedTxBalance}>
             <b>{cryptoFormatter(amount)}</b> {symbol} /{" "}
-            {usdFormatter.format(amountUSD)}
+            {usdFormatter(amountUSD)}
           </div>
           <div className={classes.walletSubtitle}>Donated Amount</div>
 
           {isAdmin && received && !tx.published && (
-            <ContainedButton
-              onClick={() => {
-                onTagTransactionClick(tx);
-              }}
-              style={{ width: 176, marginTop: "1em" }}
-            >
-              Tag Transaction
-            </ContainedButton>
+            <Fragment>
+              <ContainedButton
+                onClick={() => {
+                  onTagTransactionClick(tx);
+                }}
+                style={{ width: 176, marginTop: "em" }}
+              >
+                Tag Transaction
+              </ContainedButton>
+              <TextButton
+                startIcon={
+                  <ArchiveTxIcon style={{ paddingTop: 5, fontSize: 26 }} />
+                }
+                onClick={async () => {
+                  await archiveTransaction(txid);
+                  await fetchTransactions();
+                }}
+                style={{ marginTop: "1em" }}
+              >
+                Archive Transaction
+              </TextButton>
+            </Fragment>
           )}
-          {isAdmin && (
+          {isAdmin && !received && (
             <TextButton
               startIcon={
                 <ArchiveTxIcon style={{ paddingTop: 5, fontSize: 26 }} />
@@ -177,7 +191,7 @@ export default function UnpublishedTransactionCard({
                 await archiveTransaction(txid);
                 await fetchTransactions();
               }}
-              style={{ marginTop: "1em" }}
+              style={{ marginTop: "3.75em" }}
             >
               Archive Transaction
             </TextButton>

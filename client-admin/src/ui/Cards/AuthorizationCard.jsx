@@ -85,13 +85,13 @@ export default function AuthorizationCard({
       </Grid>
       <Grid item xs={3}>
         <div className={classes.walletBalance}>
-          {usdFormatter.format(valueSent)} USD
+          {usdFormatter(valueSent)} USD
         </div>
         <div className={classes.walletSubtitle}>Value at Disbursal</div>
       </Grid>
       <Grid item xs={3}>
         <div className={classes.walletBalance}>
-          {usdFormatter.format(currentValue)} USD
+          {usdFormatter(currentValue)} USD
         </div>
         <div className={classes.walletSubtitle}>Current Value</div>
       </Grid>

@@ -133,7 +133,7 @@ export default function ({
         <Grid item md={2}>
           <div className={classes.walletBalance}>
             <CardBalance>
-              {balance && usdFormatter.format(balance * exchangeRate)} USD
+              {balance && usdFormatter(balance * exchangeRate)} USD
             </CardBalance>
           </div>
           <SummarySubtitle>Current Value</SummarySubtitle>
@@ -141,9 +141,7 @@ export default function ({
 
         <Grid item md={2}>
           <div className={classes.walletBalance}>
-            <CardBalance>
-              {feesUSD && usdFormatter.format(feesUSD)} USD
-            </CardBalance>
+            <CardBalance>{feesUSD && usdFormatter(feesUSD)} USD</CardBalance>
           </div>
           <SummarySubtitle>Transaction Fees</SummarySubtitle>
         </Grid>
