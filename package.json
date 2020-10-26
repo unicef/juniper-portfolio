@@ -30,7 +30,7 @@
     "nodemon": "^2.0.1"
   },
   "scripts": {
-    "start": "nodemon index.js",
+    "start": "node index.js",
     "postinstall": "npm install --prefix ./client-admin; npm run build --prefix ./client-admin"
   },
   "main": "index.js",
