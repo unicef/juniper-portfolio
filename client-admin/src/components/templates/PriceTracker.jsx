@@ -320,15 +320,20 @@ export default function (props) {
   useEffect(() => {
     if (props.prices && props.prices.length > 0) {
       setPrices(
-        props.prices.map((price) => {
-          return {
-            day: price.day,
-            month: price.month,
-            year: price.year,
-            Date: `${price.day}/${price.month}/${price.year}`,
-            Price: price.average,
-          };
-        })
+        props.prices
+          .sort((a, b) => {
+            return a.timestamp - b.timestamp;
+          })
+          .map((price) => {
+            console.log(price);
+            return {
+              day: price.day,
+              month: price.month,
+              year: price.year,
+              Date: `${price.month}/${price.day}/${price.year}`,
+              Price: price.average,
+            };
+          })
       );
 
       updateMonthlyAverage();
