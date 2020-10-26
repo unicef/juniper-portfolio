@@ -9,6 +9,7 @@ import PriceIcon from "../../atoms/Icons/PriceIcon";
 import CardBalance from "../../atoms/Text/CardBalance";
 import SummarySubtitle from "../../atoms/Text/SummarySubtitle";
 import PriceContext from "../../../context/PriceContext";
+import { usdFormatter, cryptoFormatter } from "../../../util";
 
 const useStyles = makeStyles((theme) => ({
   closeIcon: {
@@ -100,25 +101,29 @@ export default function PriceModal({ open, setOpen, children }) {
         <Block className={classes.box}>
           <Grid container>
             <Grid item xs={4} className={classes.card}>
-              <CardBalance className={classes.balance}>179.89 USD</CardBalance>
+              <CardBalance className={classes.balance}>
+                {usdFormatter(eth.average)} USD
+              </CardBalance>
               <SummarySubtitle>Today's Ether Price</SummarySubtitle>
               <Divider className={classes.divider} />
-              <CardBalance>179.89 USD</CardBalance>
+              <CardBalance>{usdFormatter(eth.binance)} USD</CardBalance>
               <SummarySubtitle>Binance Price</SummarySubtitle>
-              <CardBalance>179.89 USD</CardBalance>
+              <CardBalance>{usdFormatter(eth.coinbase)} USD</CardBalance>
               <SummarySubtitle>Coinbase Pro Price</SummarySubtitle>
-              <CardBalance>179.89 USD</CardBalance>
+              <CardBalance>{usdFormatter(eth.bitstamp)} USD</CardBalance>
               <SummarySubtitle>Bitstamp Pro Price</SummarySubtitle>
             </Grid>
             <Grid item xs={4} className={classes.card}>
-              <CardBalance className={classes.balance}>179.89 USD</CardBalance>
+              <CardBalance className={classes.balance}>
+                {usdFormatter(btc.average)} USD
+              </CardBalance>
               <SummarySubtitle>Today's Bitcoin Price</SummarySubtitle>
               <Divider className={classes.divider} />
-              <CardBalance>179.89 USD</CardBalance>
+              <CardBalance>{usdFormatter(btc.binance)} USD</CardBalance>
               <SummarySubtitle>Binance Price</SummarySubtitle>
-              <CardBalance>179.89 USD</CardBalance>
+              <CardBalance>{usdFormatter(btc.coinbase)} USD</CardBalance>
               <SummarySubtitle>Coinbase Pro Price</SummarySubtitle>
-              <CardBalance>179.89 USD</CardBalance>
+              <CardBalance>{usdFormatter(btc.bitstamp)} USD</CardBalance>
               <SummarySubtitle>Bitstamp Pro Price</SummarySubtitle>
             </Grid>
           </Grid>

@@ -163,9 +163,11 @@ export default function JuniperAdmin() {
     setTransactions(await getTransactions());
     setSummary(await getWalletsSummary());
     setAccounts(await getAccounts());
-    setEthRate(await getExchangeRate("ETH"));
-    setBtcRate(await getExchangeRate("BTC"));
-    setPrices(await getPriceHistory());
+    const prices = await getPriceHistory();
+    setEthRate(prices.ethereum[prices.ethereum.length - 1].average);
+    setBtcRate(prices.bitcoin[prices.bitcoin.length - 1].average);
+
+    setPrices(prices);
   }
 
   useEffect(() => {
@@ -175,11 +177,11 @@ export default function JuniperAdmin() {
       setTrackedWallets(await getTrackedWallets());
       setTransactions(await getTransactions());
       setAccounts(await getAccounts());
-      setEthRate(await getExchangeRate("ETH"));
-      setBtcRate(await getExchangeRate("BTC"));
-      setPrices(await getPriceHistory());
+      const prices = await getPriceHistory();
+      setEthRate(prices.ethereum[prices.ethereum.length - 1].average);
+      setBtcRate(prices.bitcoin[prices.bitcoin.length - 1].average);
 
-      console.log(await getPriceHistory());
+      setPrices(prices);
 
       if (await getUpdatingWallet()) {
         setUpdatingWallets(true);
@@ -273,7 +275,7 @@ export default function JuniperAdmin() {
                     setShowHelp(false);
                   }}
                 />
-                <PriceContext.Provider value={{ prices }}>
+                <PriceContext.Provider value={{ prices, btcRate, ethRate }}>
                   <Switch>
                     <Route exact path="/admin">
                       <WalletsPage
