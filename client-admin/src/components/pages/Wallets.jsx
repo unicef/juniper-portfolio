@@ -15,7 +15,7 @@ export default function YourWalletsPage({
   isAdmin,
   btcRate,
   ethRate,
-  walletDetailsAddress,
+  setShowHelp,
 }) {
   const [tabs] = useState(["Your Wallets", "Track Wallets"]);
 
@@ -31,6 +31,7 @@ export default function YourWalletsPage({
             btcRate={btcRate}
             ethRate={ethRate}
             fetchWallets={fetchWallets}
+            setShowHelp={setShowHelp}
           />
         </Route>
         <Route exact path="/admin/wallets">
@@ -41,11 +42,11 @@ export default function YourWalletsPage({
             isAdmin={isAdmin}
             btcRate={btcRate}
             ethRate={ethRate}
+            setShowHelp={setShowHelp}
           />
         </Route>
         <Route path="/admin/wallets/transactions/:address">
           <WalletDetails
-            walletDetailsAddress={walletDetailsAddress}
             btcRate={btcRate}
             ethRate={ethRate}
             fetchWallets={fetchWallets}

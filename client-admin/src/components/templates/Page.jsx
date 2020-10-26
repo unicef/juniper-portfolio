@@ -31,8 +31,7 @@ function TabPanel(props) {
     <div
       role="tabpanel"
       hidden={activeTab !== index}
-      id={`simple-tabpanel-${index}`}
-      aria-labelledby={`simple-tab-${index}`}
+      className={"tabpanel"}
       {...other}
       style={{
         backgroundColor: "#f8f8f8",
