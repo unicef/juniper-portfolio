@@ -18,8 +18,7 @@ import WalletsPage from "./components/pages/Wallets";
 import Settings from "./components/pages/Settings";
 import Transactions from "./components/pages/Transactions";
 import HelpDrawer from "./components/organisms/HelpDrawer";
-import ApolloClient from "apollo-boost";
-import { ApolloProvider } from "react-apollo";
+
 import LoadingScreen from "./components/organisms/Dialog/LoadingScreen";
 import {
   getAppSettings,
@@ -71,10 +70,6 @@ const useStyles = makeStyles((theme) => ({
     padding: theme.spacing(3),
   },
 }));
-
-const client = new ApolloClient({
-  uri: "/api",
-});
 
 export default function JuniperAdmin() {
   const classes = useStyles();
@@ -241,107 +236,105 @@ export default function JuniperAdmin() {
       setPageIndex(4);
     }
   }, [isLoggedIn, hasSettings]);
-  console.log(`showHelp: ${showHelp}`);
+
   return (
     <div className={classes.root}>
       <ThemeProvider theme={theme}>
-        <ApolloProvider client={client}>
-          <CssBaseline>
-            {!isLoggedIn ? (
-              loading ? (
-                <LoadingScreen open={true} />
-              ) : (
-                <SignIn loginUser={loginUser} />
-              )
+        <CssBaseline>
+          {!isLoggedIn ? (
+            loading ? (
+              <LoadingScreen open={true} />
             ) : (
-              <Router>
-                <TopBar
-                  user={user}
-                  setPageIndex={setPageIndex}
-                  logoUrl={appSettings.logoUrl}
-                  updatingWallets={updatingWallets}
-                />
+              <SignIn loginUser={loginUser} />
+            )
+          ) : (
+            <Router>
+              <TopBar
+                user={user}
+                setPageIndex={setPageIndex}
+                logoUrl={appSettings.logoUrl}
+                updatingWallets={updatingWallets}
+              />
 
-                <Sidebar
-                  pageIndex={pageIndex}
-                  setPageIndex={setPageIndex}
-                  ethRate={ethRate}
-                  btcRate={btcRate}
-                />
+              <Sidebar
+                pageIndex={pageIndex}
+                setPageIndex={setPageIndex}
+                ethRate={ethRate}
+                btcRate={btcRate}
+              />
 
-                <HelpDrawer
-                  open={showHelp}
-                  onClose={() => {
-                    setShowHelp(false);
-                  }}
-                />
-                <PriceContext.Provider value={{ prices, btcRate, ethRate }}>
-                  <Switch>
-                    <Route exact path="/admin">
-                      <WalletsPage
-                        wallets={wallets}
-                        trackedWallets={trackedWallets}
-                        summary={summary}
-                        fetchWallets={fetchWallets}
-                        isAdmin={user.isAdmin}
-                        ethRate={ethRate}
-                        btcRate={btcRate}
-                        setShowHelp={setShowHelp}
-                      />
-                    </Route>
-                    <Route path="/admin/wallets">
-                      <WalletsPage
-                        wallets={wallets}
-                        trackedWallets={trackedWallets}
-                        summary={summary}
-                        fetchWallets={fetchWallets}
-                        fetchTrackedWallets={fetchTrackedWallets}
-                        isAdmin={user.isAdmin}
-                        ethRate={ethRate}
-                        btcRate={btcRate}
-                        setShowHelp={setShowHelp}
-                      />
-                    </Route>
-                    <Route path="/admin/accounts">
-                      <AccountsPage
-                        isAdmin={user.isAdmin}
-                        fetchAccounts={fetchAccounts}
-                        accounts={accounts}
-                        ethRate={ethRate}
-                        btcRate={btcRate}
-                      />
-                    </Route>
-                    <Route path="/admin/tracker">
-                      <PriceTrackerPage
-                        prices={prices}
-                        ethRate={ethRate}
-                        btcRate={btcRate}
-                      />
-                    </Route>
-                    <Route path="/admin/transactions">
-                      <Transactions
-                        isAdmin={user.isAdmin}
-                        transactions={transactions}
-                        fetchTransactions={fetchTransactions}
-                        setShowHelp={setShowHelp}
-                      />
-                    </Route>
-                    <Route path="/admin/settings">
-                      <Settings
-                        user={user}
-                        updateUser={updateUserProfile}
-                        isAdmin={user.isAdmin}
-                        appSettings={appSettings}
-                        setAppSettings={setAppSettings}
-                      />
-                    </Route>
-                    <Redirect from="*" to="/admin/wallets" />
-                  </Switch>
-                </PriceContext.Provider>
-              </Router>
-            )}
-          </CssBaseline>
-        </ApolloProvider>
+              <HelpDrawer
+                open={showHelp}
+                onClose={() => {
+                  setShowHelp(false);
+                }}
+              />
+              <PriceContext.Provider value={{ prices, btcRate, ethRate }}>
+                <Switch>
+                  <Route exact path="/admin">
+                    <WalletsPage
+                      wallets={wallets}
+                      trackedWallets={trackedWallets}
+                      summary={summary}
+                      fetchWallets={fetchWallets}
+                      isAdmin={user.isAdmin}
+                      ethRate={ethRate}
+                      btcRate={btcRate}
+                      setShowHelp={setShowHelp}
+                    />
+                  </Route>
+                  <Route path="/admin/wallets">
+                    <WalletsPage
+                      wallets={wallets}
+                      trackedWallets={trackedWallets}
+                      summary={summary}
+                      fetchWallets={fetchWallets}
+                      fetchTrackedWallets={fetchTrackedWallets}
+                      isAdmin={user.isAdmin}
+                      ethRate={ethRate}
+                      btcRate={btcRate}
+                      setShowHelp={setShowHelp}
+                    />
+                  </Route>
+                  <Route path="/admin/accounts">
+                    <AccountsPage
+                      isAdmin={user.isAdmin}
+                      fetchAccounts={fetchAccounts}
+                      accounts={accounts}
+                      ethRate={ethRate}
+                      btcRate={btcRate}
+                    />
+                  </Route>
+                  <Route path="/admin/tracker">
+                    <PriceTrackerPage
+                      prices={prices}
+                      ethRate={ethRate}
+                      btcRate={btcRate}
+                    />
+                  </Route>
+                  <Route path="/admin/transactions">
+                    <Transactions
+                      isAdmin={user.isAdmin}
+                      transactions={transactions}
+                      fetchTransactions={fetchTransactions}
+                      setShowHelp={setShowHelp}
+                    />
+                  </Route>
+                  <Route path="/admin/settings">
+                    <Settings
+                      user={user}
+                      updateUser={updateUserProfile}
+                      isAdmin={user.isAdmin}
+                      appSettings={appSettings}
+                      setAppSettings={setAppSettings}
+                    />
+                  </Route>
+                  <Redirect from="*" to="/admin/wallets" />
+                </Switch>
+              </PriceContext.Provider>
+            </Router>
+          )}
+        </CssBaseline>
       </ThemeProvider>
     </div>
   );
