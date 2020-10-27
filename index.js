@@ -1,4 +1,4 @@
-require("dotenv").config({ path: "../.env" });
+require("dotenv").config({ path: "./.env" });
 const express = require("express");
 const session = require("express-session");
 const MongoStore = require("connect-mongo")(session);
@@ -10,19 +10,19 @@ const {
   BitcoinScraper,
   EthereumScraper,
   GnosisScraper,
-} = require("./scrapers");
+} = require("./lib/scrapers");
 
-const { Logger } = require("node-code-utils");
-const Email = require("./email");
-const DB = require("./db");
-const utils = require("./utils");
+const { Logger } = require("node-core-utils");
+const Email = require("./lib/email");
+const DB = require("./lib/db");
+const utils = require("./lib/utils");
 const {
   devMode,
   logRequest,
   isLoggedIn,
   s3Upload,
   s3Download,
-} = require("./middleware");
+} = require("./lib/middleware");
 const {
   publicRoutes,
   privateRoutes,
@@ -32,7 +32,7 @@ const {
   settingRoutes,
   walletRoutes,
   transactionRoutes,
-} = require("./routes");
+} = require("./lib/routes");
 const defaultConfig = require("./config");
 const { oneSecond } = require("./config/constants");
 
