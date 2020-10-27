@@ -111,6 +111,8 @@ class JuniperAdmin {
     this.server.use(bodyParser.json({ limit: this.config.uploadLimit }));
     this.server.use("fetch", fetch);
     this.server.set("juniperAdmin", this);
+    this.server.use("/admin", express.static("../client-admin/build"));
+    this.server.use("/admin/*", express.static("../client-admin/build"));
     this.server.use("/rest", logRequest, devMode);
     this.server.use("/rest", publicRoutes);
 
