@@ -2,7 +2,7 @@
   "name": "gilgamesh-tracking-server",
   "version": "0.1.0",
   "dependencies": {
-    "@types/node-fetch": "^2.5.4",
+    "node-fetch": "^2.5.4",
     "aws-sdk": "^2.722.0",
     "connect-mongo": "^3.2.0",
     "dotenv": "^8.2.0",
