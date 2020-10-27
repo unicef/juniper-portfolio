@@ -1,5 +1,5 @@
 {
-  "name": "gilgamesh-tracking-server",
+  "name": "juniper-portfolio",
   "version": "0.1.0",
   "dependencies": {
     "node-fetch": "^2.5.4",
@@ -34,6 +34,6 @@
   },
   "main": "index.js",
   "author": "",
-  "license": "ISC",
+  "license": "MIT",
   "description": ""
 }
