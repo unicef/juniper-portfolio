@@ -71,9 +71,7 @@ const useStyles = makeStyles((theme) => ({
     fontFamily: '"Roboto", sans-serif',
     fontSize: 28,
   },
-  chartPrices: {
-    paddingBottom: 30,
-  },
+
   chart: {
     textAlign: "right",
   },
@@ -208,6 +206,19 @@ export default function (props) {
     return days;
   };
 
+  const yearlyAverage = () => {
+    console.log(
+      prices.reduce((a, b) => {
+        return a + b.Price;
+      }, 0) / prices.length
+    );
+    return (
+      prices.reduce((a, b) => {
+        return a + b.Price;
+      }, 0) / prices.length
+    );
+  };
+
   const quarterlyAverage = () => {
     const thisQuarter = getQuarterOfYear(thisMonth, thisYear);
     const daysInThisQuarter = daysPastInThisQuarter(); // calc
@@ -319,16 +330,25 @@ export default function (props) {
 
   useEffect(() => {
     if (props.prices && props.prices.length > 0) {
+      const oneYearAgo = new Date();
+      oneYearAgo.setFullYear(oneYearAgo.getFullYear() - 1);
       setPrices(
-        props.prices.map((price) => {
-          return {
-            day: price.day,
-            month: price.month,
-            year: price.year,
-            Date: `${price.day}/${price.month}/${price.year}`,
-            Price: price.average,
-          };
-        })
+        props.prices
+          .filter((price) => {
+            return new Date(price.timestamp) > oneYearAgo;
+          })
+          .sort((a, b) => {
+            return a.timestamp - b.timestamp;
+          })
+          .map((price) => {
+            return {
+              day: price.day,
+              month: price.month,
+              year: price.year,
+              Date: `${price.day}/${price.month}/${price.year}`,
+              Price: price.average,
+            };
+          })
       );
 
       updateMonthlyAverage();
@@ -367,7 +387,7 @@ export default function (props) {
         </div>
 
         <div className={classes.weekTitle}>
-          {usdFormatter.format(
+          {usdFormatter(
             props.prices
               .filter((price) => {
                 return (
@@ -409,7 +429,7 @@ export default function (props) {
         </Grid>
         <Grid item xs={12}>
           <ChartArea
-            currentPrice={usdFormatter.format(props.currentPrice)}
+            currentPrice={usdFormatter(props.currentPrice)}
             currentMonth={monthNames[currentMonth]}
             currentYear={currentYear}
             chartData={prices.filter((price) => {
@@ -435,11 +455,12 @@ export default function (props) {
                 ).Price / 1000
               ) * 1000
             }
-            currentMonthAveragePrice={usdFormatter.format(
+            currentMonthAveragePrice={usdFormatter(
               currentMonthAveragePrice || 0
             )}
             currentQuarter={currentQuarter()}
-            quarterlyAverage={usdFormatter.format(quarterlyAverage() || 0)}
+            quarterlyAverage={usdFormatter(quarterlyAverage() || 0)}
+            yearlyAverage={usdFormatter(yearlyAverage() || 0)}
           />
         </Grid>
 

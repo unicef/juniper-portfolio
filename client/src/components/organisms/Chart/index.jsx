@@ -1,7 +1,14 @@
 import React from "react";
 import { useTheme, makeStyles } from "@material-ui/core/styles";
 import Grid from "@material-ui/core/Grid";
-import { LineChart, Line, XAxis, YAxis, Tooltip } from "recharts";
+import {
+  LineChart,
+  Line,
+  XAxis,
+  YAxis,
+  Tooltip,
+  CartesianGrid,
+} from "recharts";
 import Block from "../../atoms/Block";
 import ChartSummary from "../../molecules/Summary/ChartSummary";
 import SummarySubtitle from "../../atoms/Text/SummarySubtitle";
@@ -20,6 +27,7 @@ export default function ({
   currentMonthAveragePrice,
   currentQuarter,
   quarterlyAverage,
+  yearlyAverage,
   currentMonth,
   currentYear,
   chartData,
@@ -29,8 +37,6 @@ export default function ({
   const classes = useStyles();
   const theme = useTheme();
 
-  console.log(domainMin);
-  console.log(domainMax);
   return (
     <Block className={`${classes.organism} ${className}`}>
       <Grid container>
@@ -55,6 +61,12 @@ export default function ({
                 title={`${quarterlyAverage || 0} USD`}
               />
             </Grid>
+            <Grid item xs={12}>
+              <ChartSummary
+                subtitle={`Last 52 Week Average Price`}
+                title={`${yearlyAverage || 0} USD`}
+              />
+            </Grid>
           </Grid>
         </Grid>
         <Grid item xs={8} className={classes.chart}>
@@ -71,11 +83,30 @@ export default function ({
                 data={chartData}
                 margin={{ top: 40, right: 40, bottom: 20, left: 20 }}
               >
-                <XAxis dataKey="Date" />
+                <CartesianGrid vertical={false} />
+                <XAxis
+                  dataKey="Date"
+                  axisLine={true}
+                  tickLine={true}
+                  ticks={
+                    chartData.length > 0
+                      ? [
+                          chartData[0].Date,
+                          chartData[Math.floor(chartData.length / 2)].Date,
+                          chartData[chartData.length - 1].Date,
+                        ]
+                      : []
+                  }
+                />
                 <YAxis
                   domain={[domainMin, domainMax]}
+                  ticks={[
+                    domainMin,
+                    domainMin + (domainMax - domainMin) / 2,
+                    domainMax,
+                  ]}
                   axisLine={true}
-                  tickLine={false}
+                  tickLine={true}
                 />
                 <Tooltip
                   wrapperStyle={{

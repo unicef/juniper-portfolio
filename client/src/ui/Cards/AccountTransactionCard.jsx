@@ -113,7 +113,7 @@ export default function AccountTransactionCard({
       </Grid>
       <Grid item xs={3}>
         <div className={classes.balance}>
-          {usdFormatter.format(
+          {usdFormatter(
             currency === "Ethereum"
               ? received * ethRate
               : received * btcRate || 0
@@ -124,7 +124,7 @@ export default function AccountTransactionCard({
       </Grid>
       <Grid item xs={6}>
         <div className={classes.balance}>
-          {usdFormatter.format(amountUSD || 0)} USD
+          {usdFormatter(amountUSD || 0)} USD
         </div>
         <div className={classes.subtitle}>Value at Receipt</div>
       </Grid>

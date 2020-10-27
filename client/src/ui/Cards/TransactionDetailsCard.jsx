@@ -127,7 +127,8 @@ export default function TransactionDetailsCard({
           <span className={classes.headerText}>
             Crypto {sent ? "sent" : null} {received ? "received" : null} at{" "}
             <b>
-              {txSent.toLocaleTimeString()}, {txSent.toDateString()}
+              {txSent.getUTCHours()}:{txSent.getMinutes() < 10 ? "0" : ""}
+              {txSent.getMinutes()} UTC, {txSent.toDateString()}
             </b>
           </span>
         </Grid>
@@ -165,13 +166,13 @@ export default function TransactionDetailsCard({
         </Grid>
         <Grid item xs={2}>
           <div className={classes.walletBalance}>
-            {usdFormatter.format(amountUSD)} USD
+            {usdFormatter(amountUSD)} USD
           </div>
           <div className={classes.walletSubtitle}>Value at Disbursal</div>
         </Grid>
         <Grid item xs={2}>
           <div className={classes.walletBalance}>
-            {usdFormatter.format(amount * exchangeRate)} USD
+            {usdFormatter(amount * exchangeRate)} USD
           </div>
           <div className={classes.walletSubtitle}>Current Value</div>
         </Grid>

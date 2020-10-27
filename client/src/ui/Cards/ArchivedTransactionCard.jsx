@@ -99,7 +99,8 @@ export default function ArchivedTransactionCard({
           <span className={classes.headerText}>
             Crypto {sent ? "sent" : null} {received ? "received" : null} at{" "}
             <b>
-              {txSent.toLocaleTimeString()}, {txSent.toDateString()}
+              {txSent.getUTCHours()}:{txSent.getMinutes() < 10 ? "0" : ""}
+              {txSent.getMinutes()} UTC, {txSent.toDateString()}
             </b>
           </span>
         </Grid>
@@ -139,7 +140,7 @@ export default function ArchivedTransactionCard({
         <Grid item xs={4}>
           <div className={classes.unpublishedTxBalance}>
             <b>{cryptoFormatter(amount)}</b> {symbol} /{" "}
-            {usdFormatter.format(amountUSD)}
+            {usdFormatter(amountUSD)}
           </div>
           <div className={classes.walletSubtitle}>Donated Amount</div>
           {isAdmin && (

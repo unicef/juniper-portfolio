@@ -309,7 +309,7 @@ export default function TagTransaction(props) {
               {cryptoFormatter(props.tx.amount)} {props.tx.symbol}
             </Grid>
             <Grid item xs={9} className={classes.detailTitle}>
-              {usdFormatter.format(props.tx.amount * exchangeRate)} USD
+              {usdFormatter(props.tx.amount * exchangeRate)} USD
             </Grid>
             <Grid item xs={3} className={classes.subtitle}>
               {props.currency} Donated

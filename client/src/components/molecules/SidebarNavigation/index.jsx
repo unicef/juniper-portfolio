@@ -233,7 +233,7 @@ export default function SidebarNavigation(props) {
             <Fragment>
               <Typography className={classes.priceHeader}>1 ETH</Typography>
               <Typography className={classes.price}>
-                {usdFormatter.format(props.ethRate)} USD
+                {usdFormatter(props.ethRate)} USD
               </Typography>
             </Fragment>
           }
@@ -245,7 +245,7 @@ export default function SidebarNavigation(props) {
             <Fragment>
               <Typography className={classes.priceHeader}>1 BTC</Typography>
               <Typography className={classes.price}>
-                {usdFormatter.format(props.btcRate)} USD
+                {usdFormatter(props.btcRate)} USD
               </Typography>
             </Fragment>
           }

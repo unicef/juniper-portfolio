@@ -2,17 +2,11 @@ import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import Modal from "@material-ui/core/Modal";
 
-function getModalStyle() {
-  const top = 50;
-  const left = 50;
-
-  return {
-    top: `${top}%`,
-    left: `${left}%`,
-    transform: `translate(-${top}%, -${left}%)`,
-  };
-}
-
+const modalStyle = {
+  top: `50%`,
+  left: `50%`,
+  transform: `translate(-50%, -50%)`,
+};
 const useStyles = makeStyles((theme) => ({
   paper: {
     position: "absolute",
@@ -22,13 +16,16 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function SimpleModal({ open = false, onClose, children }) {
+export default function SimpleModal({
+  open = false,
+  onClose,
+  children,
+  className,
+}) {
   const classes = useStyles();
-  // getModalStyle is not a pure function, we roll the style only on the first render
-  const [modalStyle] = React.useState(getModalStyle);
 
   const body = (
-    <div style={modalStyle} className={classes.paper}>
+    <div style={modalStyle} className={`${classes.paper} ${className}`}>
       {children}
       <SimpleModal />
     </div>
