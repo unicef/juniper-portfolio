@@ -19,11 +19,12 @@ Please ensure that you have accounts with the following services; you will be us
 
 ## Getting Started
 
-There are two main folders for this application:
+There are two main parts for this application:
 
-1. admin
-2. client-admin
-   There is a `.env` that will need to be configured before getting this application to work. There is a sample `.env` (called `.env.example`) file that you can use for the application. Update it with the required credentials to ensure that this application works as intended.
+1. root folder (./)
+2. client folder (./client)
+
+There is a `.env` that will need to be configured before getting this application to work. There is a sample `.env` (called `.env.example`) file that you can use for the application. Update it with the required credentials to ensure that this application works as intended.
 
 ### Install
 
@@ -31,10 +32,9 @@ Run `npm install` in the root folder. The script will install all packages requi
 
 ### Running the application in development mode
 
-For the server:
-`cd admin`
+For the server (from the `./` folder):
 `node index.js`
-For the client:
+For the client (from the `./client` folder):
 `cd client-admin`
 `npm start`
 
