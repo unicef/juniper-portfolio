@@ -1,4 +1,4 @@
-import React, { Fragment } from "react";
+import React, { useState, Fragment } from "react";
 import { makeStyles, withStyles } from "@material-ui/core/styles";
 import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
@@ -13,6 +13,9 @@ import TransactionsIcon from "../../atoms/Icons/TransactionsIcon";
 import USDIcon from "../../atoms/Icons/USDIcon";
 import SettingsIcon from "@material-ui/icons/Settings";
 import { usdFormatter } from "../../../util";
+import TextButton from "../../atoms/Button/TextIcon";
+import ChevronRightIcon from "@material-ui/icons/ChevronRight";
+import PriceModal from "../../organisms/PriceModal";
 
 const useStyles = makeStyles((theme) => ({
   list: {
@@ -82,7 +85,7 @@ const JuniperListItem = withStyles((theme) => ({
 
 export default function SidebarNavigation(props) {
   const classes = useStyles();
-
+  const [open, setOpen] = useState(false);
   const handleListItemClick = (event, index) => {
     props.setPageIndex(index);
   };
@@ -93,6 +96,7 @@ export default function SidebarNavigation(props) {
       aria-label="Sidebar Navigation"
       className={classes.list}
     >
+      <PriceModal open={open} setOpen={setOpen}></PriceModal>
       <Link to={"/admin/wallets"} className={classes.link}>
         <JuniperListItem
           button
@@ -250,6 +254,17 @@ export default function SidebarNavigation(props) {
             </Fragment>
           }
         />
+      </JuniperListItem>
+      <JuniperListItem>
+        <TextButton
+          endIcon={<ChevronRightIcon />}
+          style={{ paddingLeft: 0 }}
+          onClick={() => {
+            setOpen(true);
+          }}
+        >
+          USD Price Calculation
+        </TextButton>
       </JuniperListItem>
     </List>
   );
