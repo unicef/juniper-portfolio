@@ -12,12 +12,23 @@ import {
 import Block from "../../atoms/Block";
 import ChartSummary from "../../molecules/Summary/ChartSummary";
 import SummarySubtitle from "../../atoms/Text/SummarySubtitle";
+import { dayNames, monthNames } from "../../../util";
 
 const useStyles = makeStyles((theme) => ({
   organism: {
     backgroundColor: "#ffffff",
     paddingTop: 40,
     paddingLeft: 40,
+  },
+  dateTitle: {
+    fontFamily: '"Cabin", sans-serif',
+    textTransform: "uppercase",
+    fontSize: 14,
+    fontWeight: 700,
+    lineHeight: 2,
+    letterSpacing: 0.78,
+    color: "#000000",
+    marginBottom: 30,
   },
 }));
 
@@ -36,15 +47,22 @@ export default function ({
 }) {
   const classes = useStyles();
   const theme = useTheme();
-
+  const shortDate = (date) => {
+    return `${dayNames[date.getDay()]}, ${date.getDate()} ${
+      monthNames[date.getMonth()]
+    } ${date.getFullYear()}`;
+  };
   return (
     <Block className={`${classes.organism} ${className}`}>
       <Grid container>
+        <Grid item xs={12}>
+          <div className={classes.dateTitle}>{shortDate(new Date())}</div>
+        </Grid>
         <Grid item xs={4}>
           <Grid container>
             <Grid item xs={12}>
               <ChartSummary
-                subtitle={"Today's Current Price"}
+                subtitle={"Today's Average Price"}
                 title={currentPrice}
                 isBold={true}
               />

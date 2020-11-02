@@ -115,13 +115,6 @@ export default function (props) {
 
   const [currentMonthAveragePrice, setCurrentMonthAveragePrice] = useState(0);
 
-  // TODO make all of these utilities/constants
-  const shortDate = (date) => {
-    return `${date.getDate()} ${
-      monthNames[date.getMonth()]
-    } ${date.getFullYear()}`;
-  };
-
   const daysInMonth = (month, year) => {
     if (thisMonth === month) {
       return new Date(thisYear, thisMonth, thisDay).getDate();
@@ -207,11 +200,6 @@ export default function (props) {
   };
 
   const yearlyAverage = () => {
-    console.log(
-      prices.reduce((a, b) => {
-        return a + b.Price;
-      }, 0) / prices.length
-    );
     return (
       prices.reduce((a, b) => {
         return a + b.Price;
@@ -415,7 +403,6 @@ export default function (props) {
       <Grid container>
         <Grid item xs={12}>
           <PageTitle>{props.currency} price overview</PageTitle>
-          <PageSubtitle>{shortDate(new Date())}</PageSubtitle>
         </Grid>
         <Grid item xs={12}>
           <LeftRightButton
