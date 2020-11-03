@@ -6,6 +6,6 @@ stages:
       buildContext: .
       tag: juniper
       pushRemote: true
-      registry: 127.0.0.1:34088
+      registry: index.docker.io
 timeout: 60
 notification: {}
