@@ -5,9 +5,7 @@ import PageLayout from "../../templates/Page";
 import HelpTemplate from "../../templates/Help";
 import CancelIcon from "../../atoms/Icons/CancelIcons";
 
-const accountHelp = require("./accountHelp");
-const walletHelp = require("./walletHelp");
-const transactionHelp = require("./transactionHelp");
+const helpData = require("./helpData");
 
 const useStyles = makeStyles({
   close: {
@@ -28,38 +26,50 @@ export default function HelpDrawer({ open, anchor, onClose, children }) {
       <CancelIcon className={classes.close} onClick={onClose} />
       <PageLayout tabs={tabs} style={{ marginTop: 0, width: 504 }}>
         <div>
-          {walletHelp.map((help) => {
-            return (
-              <HelpTemplate
-                title={help.title}
-                content={help.content}
-                image={help.image}
-              />
-            );
-          })}
+          {helpData
+            .filter((help) => {
+              return help.section === "Wallets";
+            })
+            .map((help) => {
+              return (
+                <HelpTemplate
+                  title={help.title}
+                  content={help.content}
+                  image={help.image}
+                />
+              );
+            })}
         </div>
 
         <div>
-          {accountHelp.map((help) => {
-            return (
-              <HelpTemplate
-                title={help.title}
-                content={help.content}
-                image={help.image}
-              />
-            );
-          })}
+          {helpData
+            .filter((help) => {
+              return help.section === "Accounts";
+            })
+            .map((help) => {
+              return (
+                <HelpTemplate
+                  title={help.title}
+                  content={help.content}
+                  image={help.image}
+                />
+              );
+            })}
         </div>
         <div>
-          {transactionHelp.map((help) => {
-            return (
-              <HelpTemplate
-                title={help.title}
-                content={help.content}
-                image={help.image}
-              />
-            );
-          })}
+          {helpData
+            .filter((help) => {
+              return help.section === "Transactions";
+            })
+            .map((help) => {
+              return (
+                <HelpTemplate
+                  title={help.title}
+                  content={help.content}
+                  image={help.image}
+                />
+              );
+            })}
         </div>
       </PageLayout>
     </Drawer>
