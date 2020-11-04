@@ -63,6 +63,7 @@ const useStyles = makeStyles((theme) => ({
 export default function PriceModal({ open, setOpen, children }) {
   const classes = useStyles();
   const { prices } = useContext(PriceContext);
+
   if (!prices.bitcoin || !prices.ethereum) {
     return null;
   }

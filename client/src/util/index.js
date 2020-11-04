@@ -30,6 +30,16 @@ const cryptoFormatter = (amount) => {
   return formatter.format(amount);
 };
 
+const dayNames = [
+  "Monday",
+  "Tuesday",
+  "Wednesday",
+  "Thursday",
+  "Friday",
+  "Saturday",
+  "Sunday",
+];
+
 const monthNames = [
   "January",
   "February",
@@ -64,6 +74,7 @@ module.exports = {
   debounce,
   usdFormatter,
   cryptoFormatter,
+  dayNames,
   monthNames,
   shortMonths,
 };

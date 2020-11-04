@@ -249,27 +249,28 @@ export default function JuniperAdmin() {
             )
           ) : (
             <Router>
-              <TopBar
-                user={user}
-                setPageIndex={setPageIndex}
-                logoUrl={appSettings.logoUrl}
-                updatingWallets={updatingWallets}
-              />
-
-              <Sidebar
-                pageIndex={pageIndex}
-                setPageIndex={setPageIndex}
-                ethRate={ethRate}
-                btcRate={btcRate}
-              />
-
-              <HelpDrawer
-                open={showHelp}
-                onClose={() => {
-                  setShowHelp(false);
-                }}
-              />
               <PriceContext.Provider value={{ prices, btcRate, ethRate }}>
+                <TopBar
+                  user={user}
+                  setPageIndex={setPageIndex}
+                  logoUrl={appSettings.logoUrl}
+                  updatingWallets={updatingWallets}
+                />
+
+                <Sidebar
+                  pageIndex={pageIndex}
+                  setPageIndex={setPageIndex}
+                  ethRate={ethRate}
+                  btcRate={btcRate}
+                />
+
+                <HelpDrawer
+                  open={showHelp}
+                  onClose={() => {
+                    setShowHelp(false);
+                  }}
+                />
+
                 <Switch>
                   <Route exact path="/admin">
                     <WalletsPage

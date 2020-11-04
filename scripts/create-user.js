@@ -1,3 +1,4 @@
+require("dotenv").config({ path: "../.env" });
 const Juniper = require("..");
 const config = require("../config");
 

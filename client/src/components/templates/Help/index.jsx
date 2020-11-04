@@ -18,7 +18,7 @@ const useStyles = makeStyles({
 
 export default function HelpTemplate({ title, content, image }) {
   const classes = useStyles();
-  const [tabs] = useState(["Wallets", "Accounts", "Transactions"]);
+
   return (
     <div className={classes.root}>
       <h2 className={classes.title}>{title}</h2>
