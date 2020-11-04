@@ -8,6 +8,7 @@ import logo from "./logo.png";
 import { ChevronRight } from "@material-ui/icons";
 import ContainedButton from "../atoms/Button/Contained";
 import TextButton from "../atoms/Button/TextIcon";
+import image from "./Signin.svg";
 
 const PasswordTooltip = withStyles((theme) => ({
   tooltip: {
@@ -47,6 +48,9 @@ const useStyles = makeStyles((theme) => ({
     width: "100%",
     backgroundColor: "#c2ecfb",
     padding: theme.spacing(3),
+    backgroundImage: `url("${image}")`,
+    backgroundSize: "cover",
+    backgroundRepeat: "no-repeat",
   },
   heading: {
     fontFamily: '"Cabin",  sans-serif',
