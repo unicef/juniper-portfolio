@@ -134,6 +134,7 @@ export default function TopBar(props) {
         </div>
         {props.updatingWallets && <WalletProgress />}
         <MenuPopper
+          placement={"bottom"}
           button={
             <TextButton
               type={"dark"}
