@@ -46,13 +46,18 @@ const transactionDetailsStyles = makeStyles((theme) => ({
   },
   listText: {
     "& span, & svg": {
-      fontSize: 12,
+      fontWeight: 400,
+      letterSpacing: 1,
+      fontFamily: '"Roboto", sans-serif',
+      color: "#000000",
+
+      fontSize: 16,
     },
-    fontWeight: 700,
-    letterSpacing: 1,
-    fontFamily: '"Cabin", sans-serif',
-    color: theme.palette.primary.main,
-    textTransform: "uppercase",
+  },
+  bold: {
+    "& span, & svg": {
+      fontWeight: 700,
+    },
   },
 }));
 
@@ -71,12 +76,51 @@ export default function TxList({
   const classes = transactionDetailsStyles();
 
   const [limit, setLimit] = useState(10);
+  const [sort, setSort] = useState("Date");
 
   const start = page * limit;
   const end = page * limit + limit;
   const totalItems = txs.length;
   const totalPages = Math.ceil(totalItems / limit);
   const currentPage = page + 1;
+  console.log(txs);
+  switch (sort) {
+    case "Date":
+      txs = txs.sort((a, b) => {
+        return new Date(b.timestamp) - new Date(a.timestamp);
+      });
+      break;
+    case "Amount":
+      txs = txs.sort((a, b) => {
+        return b.amount - a.amount;
+      });
+      break;
+    case "Untagged Tx":
+      txs = txs
+        .filter((tx) => {
+          return !tx.donor && !tx.source;
+        })
+        .concat(
+          txs.filter((tx) => {
+            return tx.donor || tx.source;
+          })
+        );
+
+      break;
+    case "Tagged Tx":
+      txs = txs
+        .filter((tx) => {
+          return tx.donor || tx.source;
+        })
+        .concat(
+          txs.filter((tx) => {
+            return !tx.donor && !tx.source;
+          })
+        );
+
+      break;
+    default:
+  }
 
   return (
     <Fragment>
@@ -84,12 +128,11 @@ export default function TxList({
         <Grid item xs={6}>
           <h3 className={classes.subtitle}> {title}</h3>
         </Grid>
-        <Grid item xs={6}>
+        <Grid item xs={6} style={{ textAlign: "right" }}>
           <MenuPopper
-            buttonStyles={{ float: "right" }}
             button={
               <TextButton endIcon={<KeyboardArrowDownIcon />} float={"right"}>
-                {limit} Transactions
+                Sort By: {sort}
               </TextButton>
             }
           >
@@ -100,30 +143,48 @@ export default function TxList({
             >
               <ListItem button>
                 <ListItemText
-                  className={classes.listText}
-                  primary="5 Transactions"
+                  className={`${classes.listText} ${
+                    sort === "Date" ? classes.bold : ""
+                  }`}
+                  primary="Date"
                   onClick={() => {
-                    setLimit(5);
+                    setSort("Date");
                   }}
                 />
               </ListItem>
-              <Divider />
+
               <ListItem button>
                 <ListItemText
-                  className={classes.listText}
-                  primary="10 Transactions"
+                  className={`${classes.listText} ${
+                    sort === "Amount" ? classes.bold : ""
+                  }`}
+                  primary="Amount"
                   onClick={() => {
-                    setLimit(10);
+                    setSort("Amount");
                   }}
                 />
               </ListItem>
-              <Divider />
+
               <ListItem button>
                 <ListItemText
-                  className={classes.listText}
-                  primary="25 Transactions"
+                  className={`${classes.listText} ${
+                    sort === "Untagged Tx" ? classes.bold : ""
+                  }`}
+                  primary="Untagged Tx"
                   onClick={() => {
-                    setLimit(25);
+                    setSort("Untagged Tx");
+                  }}
+                />
+              </ListItem>
+
+              <ListItem button>
+                <ListItemText
+                  className={`${classes.listText} ${
+                    sort === "Tagged Tx" ? classes.bold : ""
+                  }`}
+                  primary="Tagged Tx"
+                  onClick={() => {
+                    setSort("Tagged Tx");
                   }}
                 />
               </ListItem>
