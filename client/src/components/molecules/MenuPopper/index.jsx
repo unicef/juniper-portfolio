@@ -7,9 +7,6 @@ import Popper from "@material-ui/core/Popper";
 import { makeStyles } from "@material-ui/core/styles";
 
 const useStyles = makeStyles((theme) => ({
-  root: {
-    display: "flex",
-  },
   button: {
     display: "inline-block",
   },
@@ -20,6 +17,7 @@ export default function MenuPopper(props) {
   const classes = useStyles();
   const [open, setOpen] = useState(false);
   const anchorRef = useRef(props.anchorRef);
+  const arrowRef = useRef();
   const handleToggle = () => {
     setOpen((prevOpen) => !prevOpen);
   };
@@ -41,46 +39,46 @@ export default function MenuPopper(props) {
 
     prevOpen.current = open;
   }, [open]);
-
+  console.log("arrow", arrowRef);
   return (
     <Fragment>
       <div
         ref={anchorRef}
-        style={props.buttonStyles}
+        style={{ display: "inline-block" }}
         aria-haspopup="true"
         onClick={handleToggle}
       >
         {props.button}
       </div>
-      <div className={classes.root}>
-        <Popper
-          open={open}
-          anchorEl={anchorRef.current}
-          role={undefined}
-          transition
-          disablePortal
-        >
-          {({ TransitionProps, placement }) => (
-            <Grow
-              {...TransitionProps}
-              style={{
-                transformOrigin:
-                  placement === "bottom" ? "center top" : "center bottom",
-              }}
+
+      <Popper
+        placement={props.placement}
+        open={open}
+        anchorEl={anchorRef.current}
+        role={undefined}
+        transition
+        disablePortal
+      >
+        {({ TransitionProps }) => (
+          <Grow
+            {...TransitionProps}
+            style={{
+              transformOrigin:
+                props.placement === "bottom" ? "center top" : "center bottom",
+            }}
+          >
+            <Paper
+              elevation={1}
+              className={classes.paper}
+              onClick={handleClose}
             >
-              <Paper
-                elevation={1}
-                className={classes.paper}
-                onClick={handleClose}
-              >
-                <ClickAwayListener onClickAway={handleClose}>
-                  {props.children}
-                </ClickAwayListener>
-              </Paper>
-            </Grow>
-          )}
-        </Popper>
-      </div>
+              <ClickAwayListener onClickAway={handleClose}>
+                {props.children}
+              </ClickAwayListener>
+            </Paper>
+          </Grow>
+        )}
+      </Popper>
     </Fragment>
   );
 }
