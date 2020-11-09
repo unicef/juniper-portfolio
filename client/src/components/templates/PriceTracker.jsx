@@ -1,9 +1,8 @@
 import React, { useState, useEffect, Fragment } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import Grid from "@material-ui/core/Grid";
-
+import MenuPopper from "../molecules/MenuPopper";
 import { usdFormatter, monthNames } from "../../util";
-
 import PriceInfo from "../molecules/Info/PriceInfo";
 import PageTitle from "../atoms/Text/PageTitle";
 import PageSubtitle from "../atoms/Text/PageSubtitle";
@@ -94,8 +93,25 @@ const useStyles = makeStyles((theme) => ({
     paddingLeft: 10,
     paddingRight: 10,
     "&:hover": {
-      backgroundColor: theme.palette.primary.textButtonHover,
+      backgroundColor: "#ecfaff",
     },
+  },
+  exchangeTitle: {
+    fontFamily: '"Roboto", sans-serif',
+    fontSize: 14,
+    fontWeight: 700,
+    lineHeight: 1.57,
+  },
+  exchangePrice: {
+    fontFamily: '"Roboto", sans-serif',
+    fontSize: 14,
+    fontWeight: 400,
+    lineHeight: 1.57,
+  },
+  popup: {
+    width: 263,
+    borderRadius: 2,
+    boxShadow: "0 2px 4px 0 rgba(0,0,0,0.22)",
   },
 }));
 
@@ -352,44 +368,46 @@ export default function (props) {
       return null;
     }
 
-    if (
-      props.prices
-        .filter((price) => {
-          return (
-            price.day === day &&
-            price.month === currentMonth &&
-            price.year === currentYear
-          );
-        })
-        .reduce((a, b) => {
-          return a + b ? b.average : 0;
-        }, 0) === 0
-    ) {
-      return null;
-    }
+    const prices = props.prices.filter((price) => {
+      return (
+        price.day === day &&
+        price.month === currentMonth &&
+        price.year === currentYear
+      );
+    });
+
+    if (prices.length === 0) return null;
 
     return (
-      <div className={classes.weekday}>
-        <div className={classes.subtitle}>
-          {day} {monthNames[currentMonth].slice(0, 3)} {currentYear}
-        </div>
+      <MenuPopper
+        placement={"top"}
+        button={
+          <div className={classes.weekday}>
+            <div className={classes.subtitle}>
+              {day} {monthNames[currentMonth].slice(0, 3)} {currentYear}
+            </div>
 
-        <div className={classes.weekTitle}>
-          {usdFormatter(
-            props.prices
-              .filter((price) => {
-                return (
-                  price.day === day &&
-                  price.month === currentMonth &&
-                  price.year === currentYear
-                );
-              })
-              .reduce((a, b) => {
-                return a + b ? b.average : 0;
-              }, 0)
-          )}
-        </div>
-      </div>
+            <div className={classes.weekTitle}>
+              {Math.round(prices[0].average)}
+            </div>
+          </div>
+        }
+      >
+        <Grid container className={classes.popup}>
+          <Grid item style={{ padding: 10 }}>
+            <div className={classes.exchangeTitle}>Binance</div>
+            <div className={classes.exchangePrice}>{prices[0].binance}</div>
+          </Grid>
+          <Grid item style={{ padding: 10 }}>
+            <div className={classes.exchangeTitle}>Coinbase Pro</div>
+            <div className={classes.exchangePrice}>{prices[0].coinbase}</div>
+          </Grid>
+          <Grid item style={{ padding: 10 }}>
+            <div className={classes.exchangeTitle}>Bitstamp</div>
+            <div className={classes.exchangePrice}>{prices[0].bitstamp}</div>
+          </Grid>
+        </Grid>
+      </MenuPopper>
     );
   }
 
