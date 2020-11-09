@@ -179,7 +179,9 @@ export default function ActivityList({
                     <p className={classes.username}>
                       {user.firstName} {user.lastName}
                     </p>
-                    <p className={classes.position}>{user.department}</p>
+                    <p className={classes.position}>
+                      {user.isAdmin ? "Admin" : "User"}, {user.department}
+                    </p>
                   </Grid>
                   <Grid item xs={4}>
                     {user.isVerified ? (
