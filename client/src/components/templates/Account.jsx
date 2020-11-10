@@ -63,7 +63,6 @@ export default function AccountLayout({
   const [totalBTCUSD, setTotalBTCUSD] = useState(0);
 
   const closeCreateDialog = () => {
-    console.log("here");
     setOpenCreateDialog(false);
     setDetailsAccount(null);
 

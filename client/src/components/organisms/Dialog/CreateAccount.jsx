@@ -227,8 +227,6 @@ export default function CreateStartup(props) {
     ]);
 
     if (props.onDialogClose) {
-      console.log("wtfshit");
-      console.log(props.onDialogClose);
       props.onDialogClose(account);
     }
 
