@@ -196,7 +196,6 @@ export default function CreateStartup(props) {
       active: true,
     };
     setAddingStartup(true);
-    console.log("props");
 
     try {
       await fetch(`/rest/admin/accounts`, {
@@ -227,6 +226,8 @@ export default function CreateStartup(props) {
     ]);
 
     if (props.onDialogClose) {
+      console.log("wtf");
+      console.log(props.onDialogClose);
       props.onDialogClose(account);
     }
 

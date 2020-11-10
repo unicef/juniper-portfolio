@@ -8,7 +8,6 @@ import AccountBalanceCard from "../../ui/Cards/AccountBalanceCard";
 import AccountCard from "../molecules/Card/AccountCard";
 import { AccountDetails } from "../organisms/Dialog";
 import { StartupDetails } from "../organisms/Dialog";
-import { calculateAccountTotal } from "../../actions";
 import ContainedButton from "../atoms/Button/Contained";
 
 const transactionDetailsStyles = makeStyles((theme) => ({
@@ -72,29 +71,31 @@ export default function AccountLayout({
   function calculateOverview() {
     setTotalEther(
       accounts.reduce((total, account) => {
-        return total + calculateAccountTotal(account, "Ether");
+        return total + account.etherBalance;
       }, 0)
     );
     setTotalETHUSD(
       accounts.reduce((total, account) => {
-        return total + calculateAccountTotal(account, "Ether");
+        return total + account.etherBalance;
       }, 0) * ethRate
     );
     setTotalBitcoin(
       accounts.reduce((total, account) => {
-        return total + calculateAccountTotal(account, "Bitcoin");
+        return total + account.bitcoinBalance;
       }, 0)
     );
     setTotalBTCUSD(
       accounts.reduce((total, account) => {
-        return total + calculateAccountTotal(account, "Bitcoin");
+        return total + account.bitcoinBalance;
       }, 0) * btcRate
     );
   }
 
   useEffect(() => {
     calculateOverview();
-  });
+    console.log("fucking christ");
+    console.log(accounts);
+  }, [accounts]);
 
   return (
     <Fragment>
