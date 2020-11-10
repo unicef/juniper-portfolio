@@ -470,26 +470,6 @@ function AddressDetails(props) {
             </Select>
           </FormControl>
         </Grid>
-        <Grid item xs={6}>
-          <TextField
-            className={classes.formControl}
-            InputLabelProps={{
-              className: classes.label,
-            }}
-            type="number"
-            InputProps={{
-              className: classes.formControl,
-            }}
-            label={`Amount Invested`}
-            style={{ marginBottom: 0 }}
-            value={props.amount}
-            onChange={(e) => {
-              const newAddresses = props.addresses.slice();
-              newAddresses[props.index].amount = e.target.value;
-              props.setAddresses(newAddresses);
-            }}
-          />
-        </Grid>
       </Grid>
     </Fragment>
   );
