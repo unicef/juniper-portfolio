@@ -443,7 +443,7 @@ function AddressDetails(props) {
             defaultValue={props.address}
             onChange={(e) => {
               const newAddresses = props.addresses.slice();
-              newAddresses[props.index].address = e.target.value.toLowerCase();
+              newAddresses[props.index].address = e.target.value;
 
               props.setAddresses(newAddresses);
             }}

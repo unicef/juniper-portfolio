@@ -224,7 +224,13 @@ class JuniperAdmin {
         let wallet = await this.bitcoinWalletScraper.fetchWalletData(
           address.address
         );
-        bitcoinBalance += wallet.balance;
+
+        const btcBalance =
+          (wallet.chain_stats.funded_txo_sum -
+            wallet.chain_stats.spent_txo_sum) /
+          1e8;
+        console.log(btcBalance);
+        bitcoinBalance += btcBalance;
       }
 
       // Fix this later
