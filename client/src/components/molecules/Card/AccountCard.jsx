@@ -45,8 +45,8 @@ export default function AccountCard({
   const { name, type, image, country } = account;
 
   useEffect(() => {
-    setEthInvested(calculateAccountTotal(account, "Ether"));
-    setBtcInvested(calculateAccountTotal(account, "Bitcoin"));
+    setEthInvested(account.etherBalance);
+    setBtcInvested(account.bitcoinBalance);
   }, [account]);
 
   return (

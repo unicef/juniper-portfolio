@@ -196,7 +196,6 @@ export default function CreateStartup(props) {
       active: true,
     };
     setAddingStartup(true);
-    console.log("props");
 
     try {
       await fetch(`/rest/admin/accounts`, {
@@ -227,7 +226,7 @@ export default function CreateStartup(props) {
     ]);
 
     if (props.onDialogClose) {
-      console.log("wtfshit");
+      console.log("wtf");
       console.log(props.onDialogClose);
       props.onDialogClose(account);
     }
@@ -444,7 +443,7 @@ function AddressDetails(props) {
             defaultValue={props.address}
             onChange={(e) => {
               const newAddresses = props.addresses.slice();
-              newAddresses[props.index].address = e.target.value.toLowerCase();
+              newAddresses[props.index].address = e.target.value;
 
               props.setAddresses(newAddresses);
             }}
@@ -470,26 +469,6 @@ function AddressDetails(props) {
               </MenuItem>
             </Select>
           </FormControl>
-        </Grid>
-        <Grid item xs={6}>
-          <TextField
-            className={classes.formControl}
-            InputLabelProps={{
-              className: classes.label,
-            }}
-            type="number"
-            InputProps={{
-              className: classes.formControl,
-            }}
-            label={`Amount Invested`}
-            style={{ marginBottom: 0 }}
-            value={props.amount}
-            onChange={(e) => {
-              const newAddresses = props.addresses.slice();
-              newAddresses[props.index].amount = e.target.value;
-              props.setAddresses(newAddresses);
-            }}
-          />
         </Grid>
       </Grid>
     </Fragment>

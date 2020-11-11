@@ -197,9 +197,12 @@ class JuniperAdmin {
     this.logger.info(`Creating account ${account.name}`);
     this.logger.debug(JSON.stringify(account));
 
-    await this.db.createAccount(account);
+    let etherBalance = 0;
+    let bitcoinBalance = 0;
 
-    account.addresses.forEach(async (address) => {
+    for (let i = 0; i < account.addresses.length; i++) {
+      const address = account.addresses[i];
+
       await this.db.updateTransactionSourcesForAccount(
         account.name,
         address.address
@@ -209,7 +212,33 @@ class JuniperAdmin {
         account.name,
         address.address
       );
-    });
+
+      // get balances
+      if (address.currency === "Ether") {
+        let wallet = await this.ethereumWalletScraper.fetchWalletData(
+          address.address
+        );
+
+        etherBalance += wallet.balance;
+      } else if (address.currency === "Bitcoin") {
+        let wallet = await this.bitcoinWalletScraper.fetchWalletData(
+          address.address
+        );
+
+        const btcBalance =
+          (wallet.chain_stats.funded_txo_sum -
+            wallet.chain_stats.spent_txo_sum) /
+          1e8;
+        console.log(btcBalance);
+        bitcoinBalance += btcBalance;
+      }
+
+      // Fix this later
+      account.etherBalance = etherBalance;
+      account.bitcoinBalance = bitcoinBalance;
+    }
+
+    await this.db.createAccount(account);
   }
 
   async getAccount(name) {
