@@ -144,7 +144,9 @@ const users = [
 ];
 
 (async () => {
-  users.forEach(async (user) => {
-    await juniper.createUser(user);
-  });
+  for (let i = 0; i < users.length; i++) {
+    await juniper.createUser(users[i]);
+  }
+
+  juniper.exit();
 })();
