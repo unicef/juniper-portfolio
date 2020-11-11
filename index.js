@@ -175,6 +175,7 @@ class JuniperAdmin {
   }
 
   async inviteUser(user, host, verificationCode) {
+    this.logger.info(`Creating User: ${user.firstName} ${user.lastName}`);
     await this.db.createUser(user);
     await this.email.sendInvitation(user.email, host, verificationCode);
   }

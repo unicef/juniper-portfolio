@@ -1,0 +1,17 @@
+const wallet = {
+  address: "",
+  name: "name",
+  tags: [],
+  currency: "Ethereum",
+  symbol: "ETH",
+  balance: 0,
+  fees: 0,
+  feesUSD: 0,
+  isUnicef: true,
+  isMultisig: false,
+  isTracked: false,
+  isTrackedOther: false,
+  isAccount: false,
+  multisigOwners: [],
+  active: true,
+};
