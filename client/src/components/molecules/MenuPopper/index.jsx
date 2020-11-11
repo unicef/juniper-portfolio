@@ -58,6 +58,7 @@ export default function MenuPopper(props) {
         role={undefined}
         transition
         disablePortal
+        style={{ zIndex: 999 }}
       >
         {({ TransitionProps }) => (
           <Grow
