@@ -234,5 +234,14 @@ async function makeAccount() {
 }
 
 (async () => {
+  for (let i = 0; i < accounts.length; i++) {
+    for (let j = 0; j < accounts[i].addresses.length; j++) {
+      if (accounts[i].addresses[j].currency === "Ether") {
+        accounts[i].addresses[j].address = accounts[i].addresses[
+          j
+        ].address.toLowerCase();
+      }
+    }
+  }
   makeAccount();
 })();
