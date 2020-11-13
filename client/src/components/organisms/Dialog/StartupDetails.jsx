@@ -155,7 +155,7 @@ export default function StartupDetails(props) {
     setCountry(account.country);
     setDescription(account.description);
 
-    if (account.weblink.indexOf("http") >= 0) {
+    if (account.weblink && account.weblink.indexOf("http") >= 0) {
       setWeblink(account.weblink);
     } else {
       setWeblink(`http://${account.weblink}`);
