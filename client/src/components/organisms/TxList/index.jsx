@@ -83,7 +83,7 @@ export default function TxList({
   const totalItems = txs.length;
   const totalPages = Math.ceil(totalItems / limit);
   const currentPage = page + 1;
-  console.log(txs);
+
   switch (sort) {
     case "Date":
       txs = txs.sort((a, b) => {

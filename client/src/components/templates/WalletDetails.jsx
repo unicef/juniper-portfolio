@@ -40,7 +40,7 @@ export default function ({
       console.log(wallet);
     }
     init();
-  }, []);
+  }, [ethRate, btcRate]);
 
   return (
     <div className={classes.root}>
