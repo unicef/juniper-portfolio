@@ -5,9 +5,10 @@ const config = require("../config");
 (async () => {
   const juniper = new Juniper(config);
   const history = require("./pricehistory.json");
-
+  let count = 0;
   async function savePrices() {
     history.forEach(async (price) => {
+      count++;
       const timestamp = new Date(price.date);
       const day = timestamp.getDate();
       const month = timestamp.getMonth();
@@ -37,5 +38,6 @@ const config = require("../config");
   await savePrices();
   setTimeout(() => {
     juniper.exit();
-  }, 1000); //hack!
+    console.log(`Added ${count} prices`);
+  }, 5000); //hack!
 })();
