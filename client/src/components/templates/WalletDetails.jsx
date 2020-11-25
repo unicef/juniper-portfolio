@@ -75,7 +75,9 @@ export default function ({
       />
       <TxList
         title={`Wallet Transactions`}
-        txs={transactions}
+        txs={transactions.filter((tx) => {
+          return tx.amount !== 0;
+        })}
         TxCard={TransactionDetailsCard}
         page={page}
         onPaginationClick={setPage}
