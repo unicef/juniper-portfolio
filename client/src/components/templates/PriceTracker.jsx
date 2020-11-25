@@ -396,15 +396,21 @@ export default function (props) {
         <Grid container className={classes.popup}>
           <Grid item style={{ padding: 10 }}>
             <div className={classes.exchangeTitle}>Binance</div>
-            <div className={classes.exchangePrice}>{prices[0].binance}</div>
+            <div className={classes.exchangePrice}>
+              {usdFormatter(prices[0].binance)}
+            </div>
           </Grid>
           <Grid item style={{ padding: 10 }}>
             <div className={classes.exchangeTitle}>Coinbase Pro</div>
-            <div className={classes.exchangePrice}>{prices[0].coinbase}</div>
+            <div className={classes.exchangePrice}>
+              {usdFormatter(prices[0].coinbase)}
+            </div>
           </Grid>
           <Grid item style={{ padding: 10 }}>
             <div className={classes.exchangeTitle}>Bitstamp</div>
-            <div className={classes.exchangePrice}>{prices[0].bitstamp}</div>
+            <div className={classes.exchangePrice}>
+              {usdFormatter(prices[0].bitstamp)}
+            </div>
           </Grid>
         </Grid>
       </MenuPopper>
