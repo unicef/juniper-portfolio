@@ -1,0 +1,1 @@
+{"options":{},"indexes":[{"v":2,"key":{"_id":1},"name":"_id_","ns":"juniper.authrecords"},{"v":2,"unique":true,"key":{"txid":1,"txIndex":1,"signerAddress":1,"contractAddress":1},"name":"txid_1_txIndex_1_signerAddress_1_contractAddress_1","ns":"juniper.authrecords","background":true}],"uuid":"2c8f2e86ba4d435e88d0284060b2b0b4"}
