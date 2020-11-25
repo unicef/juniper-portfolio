@@ -443,9 +443,15 @@ export default function (props) {
             currentPrice={usdFormatter(props.currentPrice)}
             currentMonth={monthNames[currentMonth]}
             currentYear={currentYear}
-            chartData={prices.filter((price) => {
-              return price.month === currentMonth && price.year === currentYear;
-            })}
+            chartData={prices
+              .filter((price) => {
+                return (
+                  price.month === currentMonth && price.year === currentYear
+                );
+              })
+              .sort((a, b) => {
+                return a.day > b.day ? 1 : -1;
+              })}
             domainMin={
               Math.floor(
                 prices.reduce(
