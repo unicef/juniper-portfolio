@@ -226,7 +226,6 @@ export default function CreateStartup(props) {
     ]);
 
     if (props.onDialogClose) {
-      console.log("wtf");
       console.log(props.onDialogClose);
       props.onDialogClose(account);
     }
@@ -341,7 +340,7 @@ export default function CreateStartup(props) {
                   onChange={(e) => {
                     setWeblink(e.target.value);
                   }}
-                  label="External Weblink"
+                  label="Public website"
                 />
 
                 <Grid container>

@@ -93,7 +93,6 @@ export default function AccountLayout({
 
   useEffect(() => {
     calculateOverview();
-    console.log("fucking christ");
     console.log(accounts);
   }, [accounts]);
 
@@ -140,7 +139,7 @@ export default function AccountLayout({
           <AccountBalanceCard
             amountInvested={totalEther}
             amountInvestedUSD={totalETHUSD}
-            currency={"Ethereum"}
+            currency={"Ether"}
             symbol={"ETH"}
             investedVerb={type === "donor" ? "received" : "invested"}
           />

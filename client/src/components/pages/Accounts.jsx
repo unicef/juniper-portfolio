@@ -44,7 +44,7 @@ export default function AccountPage({
         ethRate={ethRate}
         btcRate={btcRate}
         message={
-          "In line with current UNICEF practice, each crypto transaction is initiated after UNICEF has completed due diligence on a donor, ensuring a credible source of the donation."
+          "In line with UNICEF practices, donors must be vetted by established processes before donating to the Cryptofund."
         }
         isAdmin={isAdmin}
       />
@@ -59,7 +59,7 @@ export default function AccountPage({
         ethRate={ethRate}
         btcRate={btcRate}
         message={
-          "Cryptofund donations are received by HQ through four National Committees - Australia, France, New Zealand and the United States."
+          "CryptoFund donations are received through National Committees and transferred to HQ."
         }
         isAdmin={isAdmin}
       />

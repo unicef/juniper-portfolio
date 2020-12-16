@@ -46,6 +46,7 @@ const useStyles = makeStyles((theme) => ({
   },
   walletInfo: {
     marginTop: "2em",
+    padding: "20px 40px 40px 40px",
   },
   subText: {
     marginTop: 0,
@@ -242,16 +243,7 @@ export default function AccountDetails(props) {
             );
           })}
 
-          <Grid item xs={12} className={classes.walletInfo}>
-            <p className={classes.subText}>
-              <b>Current value</b> = USD average across three cryotoexchanges,
-              calculated at 12:01 pm (EST)
-            </p>
-            <p className={classes.subText}>
-              <b>Value at receipt</b> = USD average across three cryotexchanges,
-              calculated at 12:01 pm (EST) on the day of the disbursal
-            </p>
-          </Grid>
+
         </Grid>
         <Grid container>
           <Grid item xs={12}>
@@ -271,6 +263,16 @@ export default function AccountDetails(props) {
                 />
               );
             })}
+          </Grid>
+          <Grid item xs={12} className={classes.walletInfo}>
+            <p className={classes.subText}>
+              <b>Current value</b> = USD average across three cryotoexchanges,
+              calculated at 12:01 pm (EST)
+            </p>
+            <p className={classes.subText}>
+              <b>Value at receipt</b> = USD average across three cryotexchanges,
+              calculated at 12:01 pm (EST) on the day of the disbursal
+            </p>
           </Grid>
         </Grid>
       </Dialog>
