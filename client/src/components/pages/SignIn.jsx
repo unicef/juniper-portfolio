@@ -340,7 +340,7 @@ export default function SignIn(props) {
     if (res.status === 400 || res.status === 401) {
       // set login error
       setSignInError(true);
-      setSubtitle("Oops! the provided password or email is incorrect.");
+      setSubtitle("Oops! The password or the email is incorrect.");
     } else if (res.status === 200) {
       // success
       const user = await res.json();
@@ -368,7 +368,7 @@ export default function SignIn(props) {
       newPWMatch = true;
     } else {
       setSignInError(true);
-      setSubtitle("Oops! the entered passwords do not match. ");
+      setSubtitle("Oops! The passwords entered do not match. ");
       return false;
     }
 
@@ -384,7 +384,7 @@ export default function SignIn(props) {
       return true;
     }
 
-    setSubtitle("Oops! the password does not match the security requirement.");
+    setSubtitle("Oops! The password does not meet the security requirement.");
     setSignInError(true);
 
     return false;
