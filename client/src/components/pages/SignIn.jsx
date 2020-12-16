@@ -107,13 +107,31 @@ const useStyles = makeStyles((theme) => ({
     cursor: "pointer",
     marginTop: 4,
   },
-
   logo: {
     marginTop: "auto",
     marginBottom: 30,
     height: 45,
     width: 220,
   },
+  subtext2: {
+    fontFamily: '"Cabin",  sans-serif',
+    fontSize: 12,
+    fontWeight: 700,
+    color: theme.palette.primary.main,
+    letterSpacing: 1,
+    textTransform: "uppercase",
+    marginTop: 8,
+  },
+  subtext2Email: {
+    fontFamily: '"Cabin",  sans-serif',
+    fontSize: 12,
+    fontWeight: 700,
+    color: theme.palette.primary.light,
+    letterSpacing: 1,
+    textTransform: "uppercase",
+    cursor: "pointer",
+    textDecoration: false
+  }
 }));
 
 function SignInForm(props) {
@@ -123,7 +141,7 @@ function SignInForm(props) {
       <TextField
         value={props.email}
         error={props.signInError}
-        label="Registered email id"
+        label="Email"
         className={classes.textField}
         InputLabelProps={{
           error: props.signInError,
@@ -167,6 +185,9 @@ function SignInForm(props) {
         </TextButton>
       </p>
       <ContainedButton onClick={props.login}>Sign In</ContainedButton>
+      <p className={classes.subtext2}>
+          Need access? Please contact <a className={classes.subtext2Email} href='mailto:blockchain@unicef.org'>blockchain@unicef.org</a>
+      </p>
     </Fragment>
   );
 }
@@ -176,7 +197,7 @@ function ForgotPassword(props) {
   return (
     <Fragment>
       <TextField
-        label="Registered email id"
+        label="Email"
         className={classes.textField}
         InputLabelProps={{
           className: classes.textLabelInput,
