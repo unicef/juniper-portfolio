@@ -117,7 +117,7 @@ export default function AccountLayout({
       <PayeeDetails
         open={openPayeeDetails}
         type={type}
-        title={"Investment Details"}
+        title={"Payee Details"}
         setOpenDetails={setOpenPayeeDetails}
         account={detailsAccount}
         ethRate={ethRate}

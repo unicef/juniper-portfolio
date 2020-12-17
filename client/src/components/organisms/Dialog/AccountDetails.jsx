@@ -7,6 +7,8 @@ import AccountTransactionCard from "../../../ui/Cards/AccountTransactionCard";
 import CopyAddressButton from "../../molecules/Button/CopyAddress";
 import CancelIcon from "../../atoms/Icons/CancelIcons";
 
+import web3 from 'web3';
+
 const useStyles = makeStyles((theme) => ({
   modal: {
     height: "100vh",
@@ -234,7 +236,12 @@ export default function AccountDetails(props) {
               <Grid container key={address.address}>
                 <Grid item xs={10} className={classes.address}>
                   <div className={classes.walletAddress}>{address.address}</div>
-                  <div className={classes.walletSubtitle}>Wallet Address</div>
+                  {
+                    web3.utils.isAddress(address.address) ? 
+                      <div className={classes.walletSubtitle}>Ethereum Wallet Address</div>
+                      : 
+                      <div className={classes.walletSubtitle}>Bitcoin Wallet Address</div>
+                  }
                 </Grid>
                 <Grid item xs={2} className={classes.address}>
                   <CopyAddressButton address={address.address}>
