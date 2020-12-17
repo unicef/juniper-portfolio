@@ -71,7 +71,7 @@ const accounts = [
     active: true,
   },
   {
-    name: "UTO Pixar",
+    name: "Utopixar",
     addresses: [
       {
         address: "0x2292270fd4bdd414f0aef6d7529774baa1feee98",

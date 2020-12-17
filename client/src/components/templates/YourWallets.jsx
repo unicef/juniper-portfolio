@@ -150,7 +150,7 @@ export default function ({
 
       setEthSummary({
         name: "Ether",
-        currency: "Ethereum",
+        currency: "Ether",
         count: wallets.filter((wallet) => {
           return wallet.currency === "Ethereum";
         }).length,
