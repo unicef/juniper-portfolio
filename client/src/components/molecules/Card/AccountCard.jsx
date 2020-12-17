@@ -52,7 +52,7 @@ export default function AccountCard({
   return (
     <Card>
       <Grid container>
-        {image && type === "startup" ? (
+        {image && type === "payee" ? (
           <Fragment>
             <Grid item xs={4}>
               <CardImage src={image} />

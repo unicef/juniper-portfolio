@@ -7,7 +7,7 @@ import ChevronRightIcon from "@material-ui/icons/ChevronRight";
 import AccountBalanceCard from "../../ui/Cards/AccountBalanceCard";
 import AccountCard from "../molecules/Card/AccountCard";
 import { AccountDetails } from "../organisms/Dialog";
-import { StartupDetails } from "../organisms/Dialog";
+import { PayeeDetails } from "../organisms/Dialog";
 import ContainedButton from "../atoms/Button/Contained";
 
 const transactionDetailsStyles = makeStyles((theme) => ({
@@ -54,7 +54,7 @@ export default function AccountLayout({
   const classes = transactionDetailsStyles();
   const [openCreateDialog, setOpenCreateDialog] = useState(false);
   const [openDetails, setOpenAccountDetails] = useState(false);
-  const [openStartupDetails, setOpenStartupDetails] = useState(false);
+  const [openPayeeDetails, setOpenPayeeDetails] = useState(false);
   const [detailsAccount, setDetailsAccount] = useState(null);
   const [totalEther, setTotalEther] = useState(0);
   const [totalETHUSD, setTotalETHUSD] = useState(0);
@@ -114,11 +114,11 @@ export default function AccountLayout({
         ethRate={ethRate}
         btcRate={btcRate}
       />
-      <StartupDetails
-        open={openStartupDetails}
+      <PayeeDetails
+        open={openPayeeDetails}
         type={type}
         title={"Investment Details"}
-        setOpenDetails={setOpenStartupDetails}
+        setOpenDetails={setOpenPayeeDetails}
         account={detailsAccount}
         ethRate={ethRate}
         btcRate={btcRate}
@@ -203,8 +203,8 @@ export default function AccountLayout({
                   ethRate={ethRate}
                   btcRate={btcRate}
                   setOpenDetails={
-                    type === "startup"
-                      ? setOpenStartupDetails
+                    type === "payee"
+                      ? setOpenPayeeDetails
                       : setOpenAccountDetails
                   }
                   setDetailsAccount={setDetailsAccount}

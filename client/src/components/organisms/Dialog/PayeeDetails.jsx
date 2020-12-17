@@ -128,7 +128,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function StartupDetails(props) {
+export default function PayeeDetails(props) {
   const classes = useStyles();
   const [name, setName] = useState("");
   const [country, setCountry] = useState("");
@@ -175,7 +175,7 @@ export default function StartupDetails(props) {
     <React.Fragment>
       <CreateAccount
         open={openEditAccount}
-        type={"startup"}
+        type={"payee"}
         edit={true}
         name={name}
         description={description}
