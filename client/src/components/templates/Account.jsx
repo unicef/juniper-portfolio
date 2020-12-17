@@ -131,8 +131,13 @@ export default function AccountLayout({
         </Grid>
         <Grid item xs={12}>
           <h1 className={classes.title}>
-            {accounts.length} {title}
-            {accounts.length === 1 ? "" : "s"}
+            {
+            type === 'natcom' ?
+            "Total donations from National Committees" 
+            : (
+              `${accounts.length} ${title}${accounts.length === 1 ? "" : "s"}`
+            )
+          }
           </h1>
         </Grid>
         <Grid item xs={3}>
