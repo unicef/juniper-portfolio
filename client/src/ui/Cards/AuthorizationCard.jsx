@@ -98,11 +98,11 @@ export default function AuthorizationCard({
       <Grid item xs={12} className={classes.authorizationInfo}>
         <p className={classes.subText}>
           <b>Current value</b> = USD average across three cryotoexchanges,
-          calculated at 12:01 pm (EST)
+          calculated at 12:01 pm (UTC)
         </p>
         <p className={classes.subText}>
           <b>Value at disbursal</b> = USD average across three cryotexchanges,
-          calculated at 12:01 pm (EST) on the day of the disbursal
+          calculated at 12:01 pm (UTC) on the day of the disbursal
         </p>
       </Grid>
     </Grid>
