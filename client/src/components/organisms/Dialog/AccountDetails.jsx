@@ -88,6 +88,7 @@ export default function AccountDetails(props) {
   const [btcDonated, setBtcDonated] = useState(0);
   const [btcDonatedCurrentValue, setBtcDonatedCurrentValue] = useState(0);
   const [btcDonatedReceivedValue, setBtcDonatedReceivedValue] = useState(0);
+  const [accountName, setAccountName] = useState('');
 
   useEffect(() => {
     const getAccountDetails = async () => {
@@ -146,6 +147,7 @@ export default function AccountDetails(props) {
         }, 0);
 
       setAddresses(account.addresses);
+      setAccountName(account.name)
       setTransactions(
         transactions.filter((tx) => {
           return tx.received === true;
@@ -183,7 +185,7 @@ export default function AccountDetails(props) {
         />
         <Grid container className={classes.authorization}>
           <Grid item xs={12}>
-            <h1 className={classes.walletName}>Account Name</h1>
+            <h1 className={classes.walletName}>{accountName}</h1>
           </Grid>
 
           <Grid item xs={3}>
@@ -266,12 +268,13 @@ export default function AccountDetails(props) {
           </Grid>
           <Grid item xs={12} className={classes.walletInfo}>
             <p className={classes.subText}>
-              <b>Current value</b> = USD average across three cryotoexchanges,
-              calculated at 12:01 pm (UTC)
+              <b>Current value</b> = The average price of crypto in USD. Price is calculated 12:01 pm (UTC),
+              prices are read from three diffferent cryptoexchanges.
             </p>
             <p className={classes.subText}>
-              <b>Value at receipt</b> = USD average across three cryotexchanges,
-              calculated at 12:01 pm (UTC) on the day of the disbursal
+              <b>Value at receipt</b> = The average price of crypto in USD on the day of disbursal. Price
+              is calculated at 12:01 pm (UTC) on the day of disbursal and prices are read from three 
+              different cryptoexchanges.
             </p>
           </Grid>
         </Grid>

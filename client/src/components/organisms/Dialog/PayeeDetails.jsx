@@ -263,12 +263,13 @@ export default function PayeeDetails(props) {
 
           <Grid item xs={12} className={classes.walletInfo}>
             <p className={classes.subText}>
-              <b>Current value</b> = USD average across three cryotoexchanges,
-              calculated at 12:01 pm (UTC)
+              <b>Current value</b> = The average price of crypto in USD. Price is calculated 12:01 pm (UTC),
+              prices are read from three diffferent cryptoexchanges.
             </p>
             <p className={classes.subText}>
-              <b>Value at receipt</b> = USD average across three cryotexchanges,
-              calculated at 12:01 pm (UTC) on the day of the disbursal
+              <b>Value at receipt</b> = The average price of crypto in USD on the day of disbursal. Price
+              is calculated at 12:01 pm (UTC) on the day of disbursal and prices are read from three 
+              different cryptoexchanges.
             </p>
           </Grid>
         </Grid>
