@@ -43,7 +43,7 @@ export default function () {
     <Block className={classes.priceInfo}>
       <PriceIcon className={classes.priceIcon} />
       <b className={classes.priceTitle}>USD Price</b> = Average across three
-      cryptocurrency exchanges, calculated at 12:01 pm (EST)
+      cryptocurrency exchanges, calculated at 12:01 pm (UTC)
       <PriceModal open={open} setOpen={setOpen}>
         <span
           className={classes.moreInfo}
