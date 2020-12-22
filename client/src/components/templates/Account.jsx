@@ -178,7 +178,7 @@ export default function AccountLayout({
             endIcon={<ChevronRightIcon />}
             onClick={() => {
               window.open(
-                "https://www.unicef.org/innovation/applyBlockchainCrypto",
+                "https://cryptofund.unicef.io/about",
                 "_blank"
               );
             }}
