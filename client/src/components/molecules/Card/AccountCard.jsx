@@ -77,7 +77,7 @@ export default function AccountCard({
             <CardBalance isBold={true}>
               {cryptoFormatter(totalEthInvested)} ETH
             </CardBalance>
-            <SummarySubtitle>Ether {type==='payee' ? 'Received' : 'Balance' }</SummarySubtitle>
+            <SummarySubtitle>Ether {type==='payee' ? 'Received' : 'Sent' }</SummarySubtitle>
           </div>
           <div className={classes.walletBalance}>
             <CardBalance isBold={true}>
@@ -92,7 +92,7 @@ export default function AccountCard({
             <CardBalance isBold={true}>
               {cryptoFormatter(totalBtcInvested)} BTC
             </CardBalance>
-            <SummarySubtitle>Bitcoin {type==='payee' ? 'Received' : 'Balance' }</SummarySubtitle>
+            <SummarySubtitle>Bitcoin {type==='payee' ? 'Received' : 'Sent' }</SummarySubtitle>
           </div>
           <div className={classes.walletBalance}>
             <CardBalance isBold={true}>
