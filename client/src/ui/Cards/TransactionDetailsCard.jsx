@@ -135,14 +135,25 @@ export default function TransactionDetailsCard({
         <Grid item xs={3}>
           {received && (
             <Fragment>
-              <div className={classes.txDetailsAddress}>{from}</div>
+              {/* <div className={classes.txDetailsAddress}>{from}</div> */}
+              {
+              tx.source ? 
+                <div className={classes.txDetailsAddress}>{tx.source}</div>
+              :
+                <div className={classes.txDetailsAddress}>{from}</div>
+              }
               <div className={classes.walletSubtitle}>Source Wallet</div>
             </Fragment>
           )}
 
           {sent && (
             <Fragment>
-              <div className={classes.txDetailsAddress}>{to}</div>
+              {
+              tx.destination ? 
+                <div className={classes.txDetailsAddress}>{tx.destination}</div>
+              :
+                <div className={classes.txDetailsAddress}>{to}</div>
+              }
               <div className={classes.walletSubtitle}>Destination Wallet</div>
               {/* <div className={classes.tagDestinationButton}>
                 <ContainedButton
