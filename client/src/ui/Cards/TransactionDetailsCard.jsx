@@ -144,7 +144,7 @@ export default function TransactionDetailsCard({
             <Fragment>
               <div className={classes.txDetailsAddress}>{to}</div>
               <div className={classes.walletSubtitle}>Destination Wallet</div>
-              <div className={classes.tagDestinationButton}>
+              {/* <div className={classes.tagDestinationButton}>
                 <ContainedButton
                   onClick={() => {
                     setShowAddWalletModal(true);
@@ -152,7 +152,7 @@ export default function TransactionDetailsCard({
                 >
                   Tag Destination Wallet
                 </ContainedButton>
-              </div>
+              </div> */}
             </Fragment>
           )}
         </Grid>
