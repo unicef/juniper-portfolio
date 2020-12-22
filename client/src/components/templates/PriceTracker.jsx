@@ -388,7 +388,7 @@ export default function (props) {
             </div>
 
             <div className={classes.weekTitle}>
-              {Math.round(prices[0].average)}
+              {prices[0].average.toFixed(2)}
             </div>
           </div>
         }
