@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import AccountLayout from "../templates/Account";
 import { CreateAccount } from "../organisms/Dialog";
 import PageLayout from "../templates/Page";
