@@ -72,7 +72,7 @@ export default function AuthorizationSignerCard({
         <div className={classes.signerText}>
           {month} {day} {year} at {hours}:{minutes} UTC
         </div>
-        <div className={classes.walletSubtitle}>Time of Signing</div>
+        <div className={classes.walletSubtitle}>Date and Time</div>
       </Grid>
     </Grid>
   );

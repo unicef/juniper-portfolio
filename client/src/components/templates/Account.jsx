@@ -7,7 +7,7 @@ import ChevronRightIcon from "@material-ui/icons/ChevronRight";
 import AccountBalanceCard from "../../ui/Cards/AccountBalanceCard";
 import AccountCard from "../molecules/Card/AccountCard";
 import { AccountDetails } from "../organisms/Dialog";
-import { StartupDetails } from "../organisms/Dialog";
+import { PayeeDetails } from "../organisms/Dialog";
 import ContainedButton from "../atoms/Button/Contained";
 
 const transactionDetailsStyles = makeStyles((theme) => ({
@@ -54,7 +54,7 @@ export default function AccountLayout({
   const classes = transactionDetailsStyles();
   const [openCreateDialog, setOpenCreateDialog] = useState(false);
   const [openDetails, setOpenAccountDetails] = useState(false);
-  const [openStartupDetails, setOpenStartupDetails] = useState(false);
+  const [openPayeeDetails, setOpenPayeeDetails] = useState(false);
   const [detailsAccount, setDetailsAccount] = useState(null);
   const [totalEther, setTotalEther] = useState(0);
   const [totalETHUSD, setTotalETHUSD] = useState(0);
@@ -93,7 +93,6 @@ export default function AccountLayout({
 
   useEffect(() => {
     calculateOverview();
-    console.log("fucking christ");
     console.log(accounts);
   }, [accounts]);
 
@@ -115,11 +114,11 @@ export default function AccountLayout({
         ethRate={ethRate}
         btcRate={btcRate}
       />
-      <StartupDetails
-        open={openStartupDetails}
+      <PayeeDetails
+        open={openPayeeDetails}
         type={type}
-        title={"Investment Details"}
-        setOpenDetails={setOpenStartupDetails}
+        title={"Payee Details"}
+        setOpenDetails={setOpenPayeeDetails}
         account={detailsAccount}
         ethRate={ethRate}
         btcRate={btcRate}
@@ -132,15 +131,20 @@ export default function AccountLayout({
         </Grid>
         <Grid item xs={12}>
           <h1 className={classes.title}>
-            {accounts.length} {title}
-            {accounts.length === 1 ? "" : "s"}
+            {
+            type === 'natcom' ?
+            "Total donations from National Committees" 
+            : (
+              `${accounts.length} ${title}${accounts.length === 1 ? "" : "s"}`
+            )
+          }
           </h1>
         </Grid>
         <Grid item xs={3}>
           <AccountBalanceCard
             amountInvested={totalEther}
             amountInvestedUSD={totalETHUSD}
-            currency={"Ethereum"}
+            currency={"Ether"}
             symbol={"ETH"}
             investedVerb={type === "donor" ? "received" : "invested"}
           />
@@ -174,7 +178,7 @@ export default function AccountLayout({
             endIcon={<ChevronRightIcon />}
             onClick={() => {
               window.open(
-                "https://www.unicef.org/innovation/applyBlockchainCrypto",
+                "https://cryptofund.unicef.io/about",
                 "_blank"
               );
             }}
@@ -204,8 +208,8 @@ export default function AccountLayout({
                   ethRate={ethRate}
                   btcRate={btcRate}
                   setOpenDetails={
-                    type === "startup"
-                      ? setOpenStartupDetails
+                    type === "payee"
+                      ? setOpenPayeeDetails
                       : setOpenAccountDetails
                   }
                   setDetailsAccount={setDetailsAccount}

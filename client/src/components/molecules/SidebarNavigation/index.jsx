@@ -120,29 +120,6 @@ export default function SidebarNavigation(props) {
           />
         </JuniperListItem>
       </Link>
-      <Link to={"/admin/accounts"} className={classes.link}>
-        <JuniperListItem
-          button
-          selected={props.pageIndex === 1}
-          onClick={(event) => handleListItemClick(event, 1)}
-          className={classes.navLink}
-        >
-          <ListItemIcon className={classes.listItem}>
-            <AccountsIcon
-              className={
-                props.pageIndex === 1
-                  ? classes.navIconSelected
-                  : classes.navIcon
-              }
-            />
-          </ListItemIcon>
-          <ListItemText
-            primary={
-              <Typography className={classes.navText}>Accounts</Typography>
-            }
-          />
-        </JuniperListItem>
-      </Link>
       <Link to={"/admin/tracker"} className={classes.link}>
         <JuniperListItem
           button
@@ -189,6 +166,31 @@ export default function SidebarNavigation(props) {
           />
         </JuniperListItem>
       </Link>
+      <Link to={"/admin/accounts"} className={classes.link}>
+        <JuniperListItem
+          button
+          selected={props.pageIndex === 1}
+          onClick={(event) => handleListItemClick(event, 1)}
+          className={classes.navLink}
+        >
+          <ListItemIcon className={classes.listItem}>
+            <AccountsIcon
+              className={
+                props.pageIndex === 1
+                  ? classes.navIconSelected
+                  : classes.navIcon
+              }
+            />
+          </ListItemIcon>
+          <ListItemText
+            primary={
+              <Typography className={classes.navText}>Accounts</Typography>
+            }
+          />
+        </JuniperListItem>
+      </Link>
+      
+      
 
       <Link to={"/admin/settings"} className={classes.link} style={{ flex: 2 }}>
         <JuniperListItem
