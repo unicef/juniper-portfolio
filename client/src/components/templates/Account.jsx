@@ -50,6 +50,7 @@ export default function AccountLayout({
   ethRate,
   btcRate,
   isAdmin,
+  transactions
 }) {
   const classes = transactionDetailsStyles();
   const [openCreateDialog, setOpenCreateDialog] = useState(false);
@@ -69,16 +70,20 @@ export default function AccountLayout({
   };
 
   function calculateOverview() {
-    setTotalEther(
-      accounts.reduce((total, account) => {
-        return total + account.etherBalance;
-      }, 0)
-    );
-    setTotalETHUSD(
-      accounts.reduce((total, account) => {
-        return total + account.etherBalance;
-      }, 0) * ethRate
-    );
+    let etherValues = [];
+    let bitcoinValues = [];
+    transactions.map(transaction => {
+      accounts.map(account => {
+        for(var i = 0; i < account.addresses.length; i++){
+          if(account.addresses[i].address === transaction.from) {
+            if(transaction.currency === 'Ethereum') etherValues.push(transaction.amount)
+            if(transaction.currency === 'Bitcoin') bitcoinValues.push(transaction.amount)
+            setTotalEther(etherValues.reduce((total, amount) => total + amount ))
+            setTotalETHUSD(etherValues.reduce((total, amount) => total + amount ) * ethRate)
+          }
+        }
+      })
+    })
     setTotalBitcoin(
       accounts.reduce((total, account) => {
         return total + account.bitcoinBalance;

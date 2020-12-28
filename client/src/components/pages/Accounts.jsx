@@ -9,6 +9,7 @@ export default function AccountPage({
   ethRate,
   btcRate,
   fetchAccounts,
+  transactions
 }) {
   const [tabs] = useState(["Payees", "Donors", "Natcoms"]);
 
@@ -27,6 +28,7 @@ export default function AccountPage({
           "The investments are made through UNICEF’s CryptoFund, in open source technology solutions that benefit children and the world."
         }
         isAdmin={isAdmin}
+        transactions={transactions}
       />
 
       <AccountLayout
@@ -42,6 +44,7 @@ export default function AccountPage({
           "In line with UNICEF practices, donors must be vetted by established processes before donating to the Cryptofund."
         }
         isAdmin={isAdmin}
+        transactions={transactions}
       />
 
       <AccountLayout
@@ -57,6 +60,7 @@ export default function AccountPage({
           "CryptoFund donations are received through National Committees and transferred to HQ."
         }
         isAdmin={isAdmin}
+        transactions={transactions}
       />
     </PageLayout>
   );
