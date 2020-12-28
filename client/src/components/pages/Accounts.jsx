@@ -12,11 +12,6 @@ export default function AccountPage({
 }) {
   const [tabs] = useState(["Startups", "Donors", "Natcoms"]);
 
-  useEffect(() => {
-    console.log("why in the flying fuck has this not updated");
-    console.log(accounts);
-  }, [accounts, btcRate, ethRate]);
-
   return (
     <PageLayout tabs={tabs}>
       <AccountLayout
