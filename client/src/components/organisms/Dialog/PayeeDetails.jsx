@@ -251,6 +251,7 @@ export default function PayeeDetails(props) {
                 <Grid item xs={8} className={classes.address}>
                   <div className={classes.walletAddress}>{address.address}</div>
                   <div className={classes.walletSubtitle}>Wallet Address</div>
+
                 </Grid>
                 <Grid item xs={4} className={classes.address}>
                   <CopyAddressButton address={address.address}>

@@ -96,7 +96,7 @@ export default function PriceModal({ open, setOpen, children }) {
           <p className={classes.info}>
             Average USD price being dislayed on Juniper is a simple average of
             Bitcoin and Ether prices across three cryotoexchanges. The price is
-            calculated each day at 12:01 pm (EST)
+            calculated each day at 12:01 pm (UTC)
           </p>
         </Block>
         <Block className={classes.box}>

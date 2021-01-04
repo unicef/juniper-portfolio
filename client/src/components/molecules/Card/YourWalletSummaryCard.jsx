@@ -154,7 +154,7 @@ export default function YourWalletSummaryCard({ summary, onHelpClick }) {
           {cryptoFormatter(summary.sent)} {summary.symbol}
         </h2>
         <h2 className={classes.inOut}>{usdFormatter(summary.sentUSD)} USD</h2>
-        <p className={classes.currency}>Total {summary.name} received</p>
+        <p className={classes.currency}>Total {summary.name} sent</p>
       </Grid>
     </Grid>
   );

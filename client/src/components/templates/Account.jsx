@@ -116,7 +116,7 @@ export default function AccountLayout({
       <PayeeDetails
         open={openPayeeDetails}
         type={type}
-        title={"Investment Details"}
+        title={"Payee Details"}
         setOpenDetails={setOpenPayeeDetails}
         account={detailsAccount}
         ethRate={ethRate}
@@ -130,15 +130,20 @@ export default function AccountLayout({
         </Grid>
         <Grid item xs={12}>
           <h1 className={classes.title}>
-            {accounts.length} {title}
-            {accounts.length === 1 ? "" : "s"}
+            {
+            type === 'natcom' ?
+            "Total donations from National Committees" 
+            : (
+              `${accounts.length} ${title}${accounts.length === 1 ? "" : "s"}`
+            )
+          }
           </h1>
         </Grid>
         <Grid item xs={3}>
           <AccountBalanceCard
             amountInvested={totalEther}
             amountInvestedUSD={totalETHUSD}
-            currency={"Ethereum"}
+            currency={"Ether"}
             symbol={"ETH"}
             investedVerb={type === "donor" ? "received" : "invested"}
           />
@@ -172,7 +177,7 @@ export default function AccountLayout({
             endIcon={<ChevronRightIcon />}
             onClick={() => {
               window.open(
-                "https://www.unicef.org/innovation/applyBlockchainCrypto",
+                "https://cryptofund.unicef.io/about",
                 "_blank"
               );
             }}

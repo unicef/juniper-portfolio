@@ -9,6 +9,7 @@ import Select from "@material-ui/core/Select";
 import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
 import Toolbar from "@material-ui/core/Toolbar";
+import Tooltip from "@material-ui/core/Tooltip";
 import IconButton from "@material-ui/core/IconButton";
 import CloseIcon from "@material-ui/icons/Close";
 import HelpOutlineIcon from "@material-ui/icons/HelpOutline";
@@ -354,10 +355,12 @@ export default function AddWallet(props) {
               <Fragment>
                 <h2 className={classes.subtitle}>
                   Is this a multisig wallet?{" "}
+                  <Tooltip placement="right-start" title="Multisignature wallets (or multisig, for short), are cryptocurrency wallets that require two or more wallets to sign and send a transaction.">
                   <HelpOutlineIcon
                     color="primary"
                     className={classes.subtitleIcon}
                   />
+                  </Tooltip>
                 </h2>
                 <Button
                   color={isMultisig ? "primary" : "default"}

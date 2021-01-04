@@ -7,7 +7,7 @@ const juniper = new Juniper(config);
 const wallets = [
   {
     address: "bc1qunraq0dp8yreu990phqma9rq5m8s57nt3sszeeukcqkm3xx57q6slgkgef",
-    name: "Tranche 1 Multi-Sig Bitcoin",
+    name: "Tranche 1 Multisig Bitcoin",
     tags: [],
     currency: "Bitcoin",
     symbol: "BTC",
@@ -29,7 +29,7 @@ const wallets = [
   },
   {
     address: "0x7B8203687b7f9e51207270d7d3f3B2a72323Ad4c",
-    name: "Tranche 1 Multi-Sig Ethereum",
+    name: "Tranche 1 Multisig Ethereum",
     tags: ["multisig"],
     currency: "Ethereum",
     symbol: "ETH",
@@ -59,7 +59,7 @@ const wallets = [
   },
   {
     address: "0x61acE53098d226e77cd26AE26E2C377FB9cB7657",
-    name: "Tranche 2 Multi-Sig Ethereum",
+    name: "Tranche 2 Multisig Ethereum",
     tags: ["multisig"],
     currency: "Ethereum",
     symbol: "ETH",
