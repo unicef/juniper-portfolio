@@ -10,22 +10,19 @@ export default function AccountPage({
   btcRate,
   fetchAccounts,
 }) {
-  const [tabs] = useState(["Startups", "Donors", "Natcoms"]);
+  const [tabs] = useState(["Payees", "Donors", "Natcoms"]);
 
-  useEffect(() => {
-    console.log("why in the flying fuck has this not updated");
-    console.log(accounts);
-  }, [accounts, btcRate, ethRate]);
+  useEffect(() => {}, [accounts, btcRate, ethRate]);
 
   return (
     <PageLayout tabs={tabs}>
       <AccountLayout
         title={"Investment"}
-        type={"startup"}
-        addButtonText={"Create Startup Account"}
+        type={"payee"}
+        addButtonText={"Create Payee Account"}
         CreateModal={CreateAccount}
         onDialogClose={fetchAccounts}
-        accounts={accounts.filter((account) => account.type === "startup")}
+        accounts={accounts.filter((account) => account.type === "payee")}
         ethRate={ethRate}
         btcRate={btcRate}
         message={

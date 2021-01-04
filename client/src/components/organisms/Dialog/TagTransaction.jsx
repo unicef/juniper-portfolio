@@ -416,8 +416,6 @@ export default function TagTransaction(props) {
                 <QuestionMarkIcon
                   className={classes.questionMark}
                   onClick={() => {
-                    console.log("wtf");
-                    console.log(props);
                     props.setShowHelp(true);
                   }}
                 />
@@ -435,8 +433,6 @@ export default function TagTransaction(props) {
                 <QuestionMarkIcon
                   className={classes.questionMark}
                   onClick={() => {
-                    console.log("wtf");
-
                     props.setShowHelp(true);
                   }}
                 />
@@ -456,7 +452,6 @@ export default function TagTransaction(props) {
                 <QuestionMarkIcon
                   className={classes.questionMark}
                   onClick={() => {
-                    console.log("wtf");
                     props.setShowHelp(true);
                   }}
                 />
@@ -474,7 +469,6 @@ export default function TagTransaction(props) {
                 <QuestionMarkIcon
                   className={classes.questionMark}
                   onClick={() => {
-                    console.log("wtf");
                     props.setShowHelp(true);
                   }}
                 />

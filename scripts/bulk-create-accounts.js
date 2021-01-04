@@ -67,7 +67,7 @@ const accounts = [
     country: "",
     description: "",
     image: "",
-    type: "startup",
+    type: "payee",
     active: true,
   },
   {
@@ -82,7 +82,7 @@ const accounts = [
     country: "",
     description: "",
     image: "",
-    type: "startup",
+    type: "payee",
     active: true,
   },
   {
@@ -97,7 +97,7 @@ const accounts = [
     country: "",
     description: "",
     image: "",
-    type: "startup",
+    type: "payee",
     active: true,
   },
   {
@@ -112,7 +112,7 @@ const accounts = [
     country: "",
     description: "",
     image: "",
-    type: "startup",
+    type: "payee",
     active: true,
   },
   {
@@ -127,7 +127,7 @@ const accounts = [
     country: "",
     description: "",
     image: "",
-    type: "startup",
+    type: "payee",
     active: true,
   },
   {
@@ -142,7 +142,7 @@ const accounts = [
     country: "",
     description: "",
     image: "",
-    type: "startup",
+    type: "payee",
     active: true,
   },
   {
@@ -157,7 +157,7 @@ const accounts = [
     country: "",
     description: "",
     image: "",
-    type: "startup",
+    type: "payee",
     active: true,
   },
   {
@@ -172,7 +172,7 @@ const accounts = [
     country: "",
     description: "",
     image: "",
-    type: "startup",
+    type: "payee",
     active: true,
   },
   {
@@ -187,7 +187,7 @@ const accounts = [
     country: "",
     description: "",
     image: "",
-    type: "startup",
+    type: "payee",
     active: true,
   },
   {
@@ -202,7 +202,7 @@ const accounts = [
     country: "",
     description: "",
     image: "",
-    type: "startup",
+    type: "payee",
     active: true,
   },
   {
@@ -217,7 +217,7 @@ const accounts = [
     country: "",
     description: "",
     image: "",
-    type: "startup",
+    type: "payee",
     active: true,
   },
 ];

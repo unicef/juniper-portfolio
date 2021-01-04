@@ -39,7 +39,7 @@ export default function MenuPopper(props) {
 
     prevOpen.current = open;
   }, [open]);
-  console.log("arrow", arrowRef);
+
   return (
     <Fragment>
       <div

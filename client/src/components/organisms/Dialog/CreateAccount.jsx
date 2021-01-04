@@ -92,7 +92,7 @@ const useStyles = makeStyles((theme) => ({
     textTransform: "uppercase",
     color: theme.palette.primary.main,
   },
-  addStartupButton: {
+  addPayeeButton: {
     marginTop: "3em",
   },
   walletDetails: {
@@ -105,7 +105,7 @@ const useStyles = makeStyles((theme) => ({
     fontSize: 12,
     fontWeight: 700,
   },
-  addingStartup: {
+  addingPayee: {
     marginTop: "1em",
     textAlign: "center",
   },
@@ -146,10 +146,10 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function CreateStartup(props) {
+export default function CreatePayee(props) {
   const classes = useStyles();
   const [open, setOpen] = useState(false);
-  const [addingStartup, setAddingStartup] = useState(false);
+  const [addingPayee, setAddingPayee] = useState(false);
 
   const [name, setName] = useState("");
   const [type, setType] = useState("");
@@ -184,7 +184,7 @@ export default function CreateStartup(props) {
     setOpen(false);
   };
 
-  const createStartup = async () => {
+  const createPayee = async () => {
     const account = {
       name,
       type,
@@ -195,7 +195,7 @@ export default function CreateStartup(props) {
       addresses,
       active: true,
     };
-    setAddingStartup(true);
+    setAddingPayee(true);
 
     try {
       await fetch(`/rest/admin/accounts`, {
@@ -226,12 +226,10 @@ export default function CreateStartup(props) {
     ]);
 
     if (props.onDialogClose) {
-      console.log("wtf");
-      console.log(props.onDialogClose);
       props.onDialogClose(account);
     }
 
-    setAddingStartup(false);
+    setAddingPayee(false);
     handleClose();
   };
 
@@ -287,7 +285,7 @@ export default function CreateStartup(props) {
               }}
               label={`${type.charAt(0).toUpperCase() + type.slice(1)} name`}
             />
-            {type === "startup" && (
+            {type === "payee" && (
               <Fragment>
                 <FormControl className={classes.formControl}>
                   <Autocomplete
@@ -398,10 +396,10 @@ export default function CreateStartup(props) {
               </Grid>
             </Grid>
 
-            {!addingStartup && (
-              <div className={classes.addStartupButton}>
+            {!addingPayee && (
+              <div className={classes.addPayeeButton}>
                 <ContainedButton
-                  onClick={createStartup}
+                  onClick={createPayee}
                   style={{ display: "block", width: "100%" }}
                 >
                   {props.edit ? "Edit" : "Create"} Account
@@ -409,8 +407,8 @@ export default function CreateStartup(props) {
               </div>
             )}
 
-            {addingStartup && (
-              <div className={classes.addingStartup}>
+            {addingPayee && (
+              <div className={classes.addingPayee}>
                 <CircularProgress />
               </div>
             )}

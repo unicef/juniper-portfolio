@@ -299,6 +299,8 @@ export default function (props) {
   };
 
   const decrementMonth = () => {
+    console.log(currentMonth);
+    console.log(currentYear);
     if (currentMonth === 0) {
       setCurrentMonth(11);
       setCurrentYear(currentYear - 1);
@@ -310,6 +312,8 @@ export default function (props) {
   };
 
   const incrementMonth = () => {
+    console.log(currentMonth);
+    console.log(currentYear);
     if (currentMonth === 11) {
       setCurrentMonth(0);
       setCurrentYear(currentYear + 1);
