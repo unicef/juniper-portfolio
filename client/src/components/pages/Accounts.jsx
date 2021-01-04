@@ -12,10 +12,7 @@ export default function AccountPage({
 }) {
   const [tabs] = useState(["Payees", "Donors", "Natcoms"]);
 
-  useEffect(() => {
-    console.log("why in the flying fuck has this not updated");
-    console.log(accounts);
-  }, [accounts, btcRate, ethRate]);
+  useEffect(() => {}, [accounts, btcRate, ethRate]);
 
   return (
     <PageLayout tabs={tabs}>

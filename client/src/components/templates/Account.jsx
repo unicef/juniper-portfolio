@@ -93,7 +93,6 @@ export default function AccountLayout({
 
   useEffect(() => {
     calculateOverview();
-    console.log(accounts);
   }, [accounts]);
 
   return (

@@ -9,9 +9,6 @@ import TextButton from "../../atoms/Button/TextIcon";
 import CopyAddressButton from "../../molecules/Button/CopyAddress";
 import CancelIcon from "../../atoms/Icons/CancelIcons";
 
-import web3 from 'web3';
-
-
 const useStyles = makeStyles((theme) => ({
   modal: {
     height: "100vh",
@@ -141,7 +138,7 @@ export default function PayeeDetails(props) {
   const [addresses, setAddresses] = useState([{ address: "" }]);
   const [transactions, setTransactions] = useState([]);
   const [openEditAccount, setOpenEditAccount] = useState(false);
-  
+
   const getAccountDetails = async () => {
     let res, accountData;
     try {
@@ -253,12 +250,8 @@ export default function PayeeDetails(props) {
               <Grid container key={address.address}>
                 <Grid item xs={8} className={classes.address}>
                   <div className={classes.walletAddress}>{address.address}</div>
-                  {
-                    web3.utils.isAddress(address.address) ? 
-                      <div className={classes.walletSubtitle}>Ethereum Wallet Address</div>
-                      : 
-                      <div className={classes.walletSubtitle}>Bitcoin Wallet Address</div>
-                  }
+                  <div className={classes.walletSubtitle}>Wallet Address</div>
+
                 </Grid>
                 <Grid item xs={4} className={classes.address}>
                   <CopyAddressButton address={address.address}>
@@ -271,13 +264,12 @@ export default function PayeeDetails(props) {
 
           <Grid item xs={12} className={classes.walletInfo}>
             <p className={classes.subText}>
-              <b>Current value</b> = The average price of crypto in USD. Price is calculated 12:01 pm (UTC),
-              prices are read from three diffferent cryptoexchanges.
+              <b>Current value</b> = USD average across three cryotoexchanges,
+              calculated at 12:01 pm (EST)
             </p>
             <p className={classes.subText}>
-              <b>Value at receipt</b> = The average price of crypto in USD on the day of disbursal. Price
-              is calculated at 12:01 pm (UTC) on the day of disbursal and prices are read from three 
-              different cryptoexchanges.
+              <b>Value at receipt</b> = USD average across three cryotexchanges,
+              calculated at 12:01 pm (EST) on the day of the disbursal
             </p>
           </Grid>
         </Grid>

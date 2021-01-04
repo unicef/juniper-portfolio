@@ -230,7 +230,7 @@ class JuniperAdmin {
           (wallet.chain_stats.funded_txo_sum -
             wallet.chain_stats.spent_txo_sum) /
           1e8;
-        console.log(btcBalance);
+
         bitcoinBalance += btcBalance;
       }
 
