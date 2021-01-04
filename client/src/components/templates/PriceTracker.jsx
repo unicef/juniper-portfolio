@@ -338,13 +338,8 @@ export default function (props) {
 
   useEffect(() => {
     if (props.prices && props.prices.length > 0) {
-      const oneYearAgo = new Date();
-      oneYearAgo.setFullYear(oneYearAgo.getFullYear() - 1);
       setPrices(
         props.prices
-          .filter((price) => {
-            return new Date(price.timestamp) > oneYearAgo;
-          })
           .sort((a, b) => {
             return a.timestamp - b.timestamp;
           })
