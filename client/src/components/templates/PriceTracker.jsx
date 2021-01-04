@@ -2,7 +2,7 @@ import React, { useState, useEffect, Fragment } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import Grid from "@material-ui/core/Grid";
 import MenuPopper from "../molecules/MenuPopper";
-import { usdFormatter, monthNames } from "../../util";
+import { usdFormatter, cryptoFormatter, monthNames } from "../../util";
 import PriceInfo from "../molecules/Info/PriceInfo";
 import PageTitle from "../atoms/Text/PageTitle";
 import PageSubtitle from "../atoms/Text/PageSubtitle";
@@ -299,8 +299,6 @@ export default function (props) {
   };
 
   const decrementMonth = () => {
-    console.log(currentMonth);
-    console.log(currentYear);
     if (currentMonth === 0) {
       setCurrentMonth(11);
       setCurrentYear(currentYear - 1);
@@ -312,8 +310,6 @@ export default function (props) {
   };
 
   const incrementMonth = () => {
-    console.log(currentMonth);
-    console.log(currentYear);
     if (currentMonth === 11) {
       setCurrentMonth(0);
       setCurrentYear(currentYear + 1);
@@ -348,8 +344,8 @@ export default function (props) {
               day: price.day,
               month: price.month,
               year: price.year,
-              Date: `${price.day}/${price.month}/${price.year}`,
-              Price: price.average,
+              Date: `${price.day}/${price.month + 1}/${price.year}`,
+              Price: Math.round(price.average * 100) / 100,
             };
           })
       );
