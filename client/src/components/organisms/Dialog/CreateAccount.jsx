@@ -226,7 +226,6 @@ export default function CreatePayee(props) {
     ]);
 
     if (props.onDialogClose) {
-      console.log(props.onDialogClose);
       props.onDialogClose(account);
     }
 
@@ -424,6 +423,7 @@ function AddressDetails(props) {
   const classes = useStyles();
 
   return (
+    
     <Fragment>
       <Grid container>
         <Grid item xs={12}>

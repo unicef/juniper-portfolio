@@ -1,0 +1,11 @@
+stages:
+- name: Build
+  steps:
+  - publishImageConfig:
+      dockerfilePath: ./Dockerfile
+      buildContext: .
+      tag: juniper
+      pushRemote: true
+      registry: index.docker.io
+timeout: 60
+notification: {}

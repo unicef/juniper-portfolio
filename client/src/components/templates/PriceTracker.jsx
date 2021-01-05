@@ -2,7 +2,7 @@ import React, { useState, useEffect, Fragment } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import Grid from "@material-ui/core/Grid";
 import MenuPopper from "../molecules/MenuPopper";
-import { usdFormatter, monthNames } from "../../util";
+import { usdFormatter, cryptoFormatter, monthNames } from "../../util";
 import PriceInfo from "../molecules/Info/PriceInfo";
 import PageTitle from "../atoms/Text/PageTitle";
 import PageSubtitle from "../atoms/Text/PageSubtitle";
@@ -342,13 +342,8 @@ export default function (props) {
 
   useEffect(() => {
     if (props.prices && props.prices.length > 0) {
-      const oneYearAgo = new Date();
-      oneYearAgo.setFullYear(oneYearAgo.getFullYear() - 1);
       setPrices(
         props.prices
-          .filter((price) => {
-            return new Date(price.timestamp) > oneYearAgo;
-          })
           .sort((a, b) => {
             return a.timestamp - b.timestamp;
           })
@@ -357,8 +352,8 @@ export default function (props) {
               day: price.day,
               month: price.month,
               year: price.year,
-              Date: `${price.day}/${price.month}/${price.year}`,
-              Price: price.average,
+              Date: `${price.day}/${price.month + 1}/${price.year}`,
+              Price: Math.round(price.average * 100) / 100,
             };
           })
       );
