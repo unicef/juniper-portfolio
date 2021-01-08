@@ -18,15 +18,19 @@ const usdFormatter = (amount) => {
   const formatter = new Intl.NumberFormat("en-US", {
     style: "currency",
     currency: "USD",
+    maximumFractionDigits: 2,
     minimumFractionDigits: 2,
   });
+
   return formatter.format(amount);
 };
 
 const cryptoFormatter = (amount) => {
   const formatter = new Intl.NumberFormat("en-US", {
     maximumFractionDigits: 4,
+    minimumFractionDigits: 4,
   });
+
   return formatter.format(amount);
 };
 
