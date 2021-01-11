@@ -147,7 +147,6 @@ export default function PayeeDetails(props) {
     txs,
   } = props.account;
 
-  console.log(props);
   return (
     <React.Fragment>
       <CreateAccount
