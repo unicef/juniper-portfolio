@@ -80,8 +80,6 @@ const useStyles = makeStyles((theme) => ({
 
 export default function AccountDetails(props) {
   const classes = useStyles();
-  const [addresses, setAddresses] = useState([]);
-  const [transactions, setTransactions] = useState([]);
 
   const [ethDonated, setEthDonated] = useState(0);
   const [ethDonatedCurrentValue, setEthDonatedCurrentValue] = useState(0);
@@ -90,10 +88,24 @@ export default function AccountDetails(props) {
   const [btcDonated, setBtcDonated] = useState(0);
   const [btcDonatedCurrentValue, setBtcDonatedCurrentValue] = useState(0);
   const [btcDonatedReceivedValue, setBtcDonatedReceivedValue] = useState(0);
-  const [accountName, setAccountName] = useState("");
-  console.log(props);
 
-  return null;
+  if (!props.account) {
+    return null;
+  }
+
+  const {
+    name,
+    country,
+    image,
+    description,
+    weblink,
+    addresses,
+    txs,
+    totalEth,
+    ethUSD,
+    totalBtc,
+    btcUSD,
+  } = props.account;
   return (
     <React.Fragment>
       <Dialog
@@ -112,46 +124,46 @@ export default function AccountDetails(props) {
         />
         <Grid container className={classes.authorization}>
           <Grid item xs={12}>
-            <h1 className={classes.walletName}>{accountName}</h1>
+            <h1 className={classes.walletName}>{name}</h1>
           </Grid>
 
           <Grid item xs={3}>
             <div className={classes.walletBalance}>
               <span className={classes.currencyBalance}>
-                {cryptoFormatter(ethDonated || 0)} {props.symbol}
+                {cryptoFormatter(totalEth || 0)} {props.symbol}
               </span>
             </div>
             <div className={classes.walletSubtitle}>Eth Donated</div>
           </Grid>
           <Grid item xs={3}>
             <div className={classes.walletBalance}>
-              {usdFormatter(ethDonatedCurrentValue || 0)} USD
+              {usdFormatter(totalEth * props.ethRate || 0)} USD
             </div>
             <div className={classes.walletSubtitle}>Current Value</div>
           </Grid>
           <Grid item xs={6}>
             <div className={classes.walletBalance}>
-              {usdFormatter(ethDonatedReceivedValue || 0)} USD
+              {usdFormatter(ethUSD || 0)} USD
             </div>
             <div className={classes.walletSubtitle}>Value at Receipt</div>
           </Grid>
           <Grid item xs={3}>
             <div className={classes.walletBalance}>
               <span className={classes.currencyBalance}>
-                {cryptoFormatter(btcDonated || 0)} {props.symbol}
+                {cryptoFormatter(totalBtc || 0)} {props.symbol}
               </span>
             </div>
             <div className={classes.walletSubtitle}>Btc Donated</div>
           </Grid>
           <Grid item xs={3}>
             <div className={classes.walletBalance}>
-              {usdFormatter(btcDonatedCurrentValue || 0)} USD
+              {usdFormatter(btcUSD || 0)} USD
             </div>
             <div className={classes.walletSubtitle}>Current Value</div>
           </Grid>
           <Grid item xs={6}>
             <div className={classes.walletBalance}>
-              {usdFormatter(btcDonatedReceivedValue || 0)} USD
+              {usdFormatter(totalBtc * props.btcRate || 0)} USD
             </div>
             <div className={classes.walletSubtitle}>Value at Receipt</div>
           </Grid>
@@ -182,7 +194,7 @@ export default function AccountDetails(props) {
         </Grid>
         <Grid container>
           <Grid item xs={12}>
-            {transactions.map((tx, index) => {
+            {txs.map((tx, index) => {
               return (
                 <AccountTransactionCard
                   key={index}
