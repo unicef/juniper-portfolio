@@ -166,7 +166,14 @@ export default function AccountCard({
           <TextButton
             endIcon={<ChevronRightIcon />}
             onClick={() => {
-              setDetailsAccount(name);
+              setDetailsAccount({
+                ...account,
+                totalEth,
+                ethUSD,
+                totalBtc,
+                btcUSD,
+                txs,
+              });
               setOpenDetails(true);
             }}
           >

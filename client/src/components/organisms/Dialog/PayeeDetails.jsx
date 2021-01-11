@@ -130,47 +130,24 @@ const useStyles = makeStyles((theme) => ({
 
 export default function PayeeDetails(props) {
   const classes = useStyles();
-  const [name, setName] = useState("");
-  const [country, setCountry] = useState("");
-  const [image, setImage] = useState(null);
-  const [description, setDescription] = useState("");
-  const [weblink, setWeblink] = useState("");
-  const [addresses, setAddresses] = useState([{ address: "" }]);
-  const [transactions, setTransactions] = useState([]);
+
   const [openEditAccount, setOpenEditAccount] = useState(false);
 
-  const getAccountDetails = async () => {
-    let res, accountData;
-    try {
-      res = await fetch(`/rest/admin/accounts/${props.account}`);
-      accountData = await res.json();
-    } catch (e) {
-      console.log(e);
-    }
+  if (!props.account) {
+    return null;
+  }
 
-    const { transactions, account } = accountData;
+  const {
+    name,
+    country,
+    image,
+    description,
+    weblink,
+    addresses,
+    txs,
+  } = props.account;
 
-    setName(account.name);
-    setImage(account.image);
-    setCountry(account.country);
-    setDescription(account.description);
-
-    if (account.weblink && account.weblink.indexOf("http") >= 0) {
-      setWeblink(account.weblink);
-    } else {
-      setWeblink(`http://${account.weblink}`);
-    }
-
-    setAddresses(account.addresses);
-    setTransactions(transactions);
-  };
-
-  useEffect(() => {
-    if (props.account) {
-      getAccountDetails();
-    }
-  }, [props.account]);
-
+  console.log(props);
   return (
     <React.Fragment>
       <CreateAccount
@@ -185,7 +162,7 @@ export default function PayeeDetails(props) {
         addresses={addresses}
         onDialogClose={() => {
           setOpenEditAccount(false);
-          getAccountDetails();
+          //getAccountDetails();
 
           if (props.onDialogClose) {
             props.onDialogClose();
@@ -251,7 +228,6 @@ export default function PayeeDetails(props) {
                 <Grid item xs={8} className={classes.address}>
                   <div className={classes.walletAddress}>{address.address}</div>
                   <div className={classes.walletSubtitle}>Wallet Address</div>
-
                 </Grid>
                 <Grid item xs={4} className={classes.address}>
                   <CopyAddressButton address={address.address}>
@@ -276,7 +252,7 @@ export default function PayeeDetails(props) {
 
         <Grid container>
           <Grid item xs={12}>
-            {transactions.map((tx, index) => {
+            {txs.map((tx, index) => {
               return (
                 <AccountTransactionCard
                   key={index}
