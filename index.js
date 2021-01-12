@@ -606,13 +606,17 @@ class JuniperAdmin {
       return null;
     }
 
-    const wallet = this.updateWalletQueue.pop();
-    this.logger.info(`updating wallet: ${wallet}`);
-    await this.createWallet(wallet);
+    try {
+      const wallet = this.updateWalletQueue.pop();
+      this.logger.info(`updating wallet: ${wallet}`);
+      await this.createWallet(wallet);
 
-    this.updateWalletJob = setTimeout(() => {
-      this.updateWalletInQueue();
-    }, this.updateWalletJobInterval);
+      this.updateWalletJob = setTimeout(() => {
+        this.updateWalletInQueue();
+      }, this.updateWalletJobInterval);
+    } catch (e) {
+      this.logger.error(e);
+    }
   }
 
   async startUpdateWalletJob() {
