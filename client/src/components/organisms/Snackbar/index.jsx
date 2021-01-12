@@ -5,7 +5,6 @@ import MuiAlert from "@material-ui/lab/Alert";
 
 const useStyles = makeStyles({
   snackbar: {
-    backgroundColor: "#2ad05f",
     paddingTop: 12,
     fontFamily: '"Roboto", sans-serif',
     fontSize: 19,

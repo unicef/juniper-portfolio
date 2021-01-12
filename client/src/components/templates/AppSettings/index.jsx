@@ -102,8 +102,10 @@ export default function AppSettings({
               changeAppSettings({ logoUrl: json.imageUrl });
             }}
           >
-            <img className={classes.logo} src={appSettings.logoUrl} /><br/>
-            Please ensure that image is appoximately 200 × 30 pixels for best results
+            <img className={classes.logo} src={appSettings.logoUrl} />
+            <br />
+            Please ensure that image is appoximately 200 × 30 pixels and less
+            than 50MB for best results.
           </FileUpload>
         </Grid>
         <Grid item xs={12}>
