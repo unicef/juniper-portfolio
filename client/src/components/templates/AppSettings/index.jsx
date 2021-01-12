@@ -10,9 +10,14 @@ import FileUpload from "../../atoms/FileUpload";
 
 import { saveAppSettings } from "../../../actions";
 
-const useStyles = makeStyles({
+const useStyles = makeStyles((theme) => ({
   root: {
     paddingLeft: 15,
+  },
+  logoBg: {
+    width: 200,
+    height: 30,
+    backgroundColor: theme.palette.primary.main,
   },
   logo: {
     width: 200,
@@ -23,7 +28,7 @@ const useStyles = makeStyles({
     marginBottom: "2em",
     backgroundColor: "rgba(0,0,0,0.12)",
   },
-});
+}));
 
 export default function AppSettings({
   heading,
@@ -102,8 +107,12 @@ export default function AppSettings({
               changeAppSettings({ logoUrl: json.imageUrl });
             }}
           >
-            <img className={classes.logo} src={appSettings.logoUrl} /><br/>
-            Please ensure that image is appoximately 200 × 30 pixels for best results
+            <div className={classes.logoBg}>
+              <img className={classes.logo} src={appSettings.logoUrl} />
+            </div>
+            <br />
+            Please ensure that image is appoximately 200 × 30 pixels for best
+            results
           </FileUpload>
         </Grid>
         <Grid item xs={12}>
