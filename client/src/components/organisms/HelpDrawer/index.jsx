@@ -30,9 +30,10 @@ export default function HelpDrawer({ open, anchor, onClose, children }) {
             .filter((help) => {
               return help.section === "Wallets";
             })
-            .map((help) => {
+            .map((help, index) => {
               return (
                 <HelpTemplate
+                  key={help.title}
                   title={help.title}
                   content={help.content}
                   image={help.image}
@@ -49,6 +50,7 @@ export default function HelpDrawer({ open, anchor, onClose, children }) {
             .map((help) => {
               return (
                 <HelpTemplate
+                  key={help.title}
                   title={help.title}
                   content={help.content}
                   image={help.image}
@@ -64,6 +66,7 @@ export default function HelpDrawer({ open, anchor, onClose, children }) {
             .map((help) => {
               return (
                 <HelpTemplate
+                  key={help.title}
                   title={help.title}
                   content={help.content}
                   image={help.image}

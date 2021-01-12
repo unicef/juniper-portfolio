@@ -7,7 +7,7 @@ import AccountTransactionCard from "../../../ui/Cards/AccountTransactionCard";
 import CopyAddressButton from "../../molecules/Button/CopyAddress";
 import CancelIcon from "../../atoms/Icons/CancelIcons";
 
-import web3 from 'web3';
+import web3 from "web3";
 
 const useStyles = makeStyles((theme) => ({
   modal: {
@@ -80,8 +80,6 @@ const useStyles = makeStyles((theme) => ({
 
 export default function AccountDetails(props) {
   const classes = useStyles();
-  const [addresses, setAddresses] = useState([]);
-  const [transactions, setTransactions] = useState([]);
 
   const [ethDonated, setEthDonated] = useState(0);
   const [ethDonatedCurrentValue, setEthDonatedCurrentValue] = useState(0);
@@ -90,85 +88,24 @@ export default function AccountDetails(props) {
   const [btcDonated, setBtcDonated] = useState(0);
   const [btcDonatedCurrentValue, setBtcDonatedCurrentValue] = useState(0);
   const [btcDonatedReceivedValue, setBtcDonatedReceivedValue] = useState(0);
-  const [accountName, setAccountName] = useState('');
 
-  useEffect(() => {
-    const getAccountDetails = async () => {
-      let res, accountData;
-      try {
-        res = await fetch(`/rest/admin/accounts/${props.account}`);
-        accountData = await res.json();
-      } catch (e) {
-        console.log(e);
-      }
+  if (!props.account) {
+    return null;
+  }
 
-      const { transactions, account } = accountData;
-
-      const totalEthDonated = transactions
-        .filter((tx) => {
-          return tx.currency === "Ethereum";
-        })
-        .filter((tx) => {
-          return tx.received === true;
-        })
-        .reduce((total, tx) => {
-          return total + tx.amount;
-        }, 0);
-
-      const totalEthDonVal = transactions
-        .filter((tx) => {
-          return tx.currency === "Ethereum";
-        })
-        .filter((tx) => {
-          return tx.received === true;
-        })
-        .reduce((total, tx) => {
-          return total + tx.amountUSD;
-        }, 0);
-
-      const totalBtcSent = transactions
-        .filter((tx) => {
-          return tx.currency === "Bitcoin";
-        })
-        .filter((tx) => {
-          return tx.received === true;
-        })
-        .reduce((total, tx) => {
-          return total + tx.amount;
-        }, 0);
-
-      const totalBtcRecVal = transactions
-        .filter((tx) => {
-          return tx.currency === "Bitcoin";
-        })
-        .filter((tx) => {
-          return tx.received === true;
-        })
-        .reduce((total, tx) => {
-          return total + tx.amountUSD;
-        }, 0);
-
-      setAddresses(account.addresses);
-      setAccountName(account.name)
-      setTransactions(
-        transactions.filter((tx) => {
-          return tx.received === true;
-        })
-      );
-      setEthDonated(totalEthDonated);
-      setEthDonatedCurrentValue(totalEthDonated * props.ethRate);
-      setEthDonatedReceivedValue(totalEthDonVal);
-
-      setBtcDonated(totalBtcSent);
-      setBtcDonatedCurrentValue(totalBtcSent * props.btcRate);
-      setBtcDonatedReceivedValue(totalBtcRecVal);
-    };
-
-    if (props.account) {
-      getAccountDetails();
-    }
-  }, [props.account]);
-
+  const {
+    name,
+    country,
+    image,
+    description,
+    weblink,
+    addresses,
+    txs,
+    totalEth,
+    ethUSD,
+    totalBtc,
+    btcUSD,
+  } = props.account;
   return (
     <React.Fragment>
       <Dialog
@@ -187,46 +124,46 @@ export default function AccountDetails(props) {
         />
         <Grid container className={classes.authorization}>
           <Grid item xs={12}>
-            <h1 className={classes.walletName}>{accountName}</h1>
+            <h1 className={classes.walletName}>{name}</h1>
           </Grid>
 
           <Grid item xs={3}>
             <div className={classes.walletBalance}>
               <span className={classes.currencyBalance}>
-                {cryptoFormatter(ethDonated || 0)} {props.symbol}
+                {cryptoFormatter(totalEth || 0)} {props.symbol}
               </span>
             </div>
             <div className={classes.walletSubtitle}>Eth Donated</div>
           </Grid>
           <Grid item xs={3}>
             <div className={classes.walletBalance}>
-              {usdFormatter(ethDonatedCurrentValue || 0)} USD
+              {usdFormatter(totalEth * props.ethRate || 0)} USD
             </div>
             <div className={classes.walletSubtitle}>Current Value</div>
           </Grid>
           <Grid item xs={6}>
             <div className={classes.walletBalance}>
-              {usdFormatter(ethDonatedReceivedValue || 0)} USD
+              {usdFormatter(ethUSD || 0)} USD
             </div>
             <div className={classes.walletSubtitle}>Value at Receipt</div>
           </Grid>
           <Grid item xs={3}>
             <div className={classes.walletBalance}>
               <span className={classes.currencyBalance}>
-                {cryptoFormatter(btcDonated || 0)} {props.symbol}
+                {cryptoFormatter(totalBtc || 0)} {props.symbol}
               </span>
             </div>
             <div className={classes.walletSubtitle}>Btc Donated</div>
           </Grid>
           <Grid item xs={3}>
             <div className={classes.walletBalance}>
-              {usdFormatter(btcDonatedCurrentValue || 0)} USD
+              {usdFormatter(btcUSD || 0)} USD
             </div>
             <div className={classes.walletSubtitle}>Current Value</div>
           </Grid>
           <Grid item xs={6}>
             <div className={classes.walletBalance}>
-              {usdFormatter(btcDonatedReceivedValue || 0)} USD
+              {usdFormatter(totalBtc * props.btcRate || 0)} USD
             </div>
             <div className={classes.walletSubtitle}>Value at Receipt</div>
           </Grid>
@@ -236,12 +173,15 @@ export default function AccountDetails(props) {
               <Grid container key={address.address}>
                 <Grid item xs={10} className={classes.address}>
                   <div className={classes.walletAddress}>{address.address}</div>
-                  {
-                    web3.utils.isAddress(address.address) ? 
-                      <div className={classes.walletSubtitle}>Ethereum Wallet Address</div>
-                      : 
-                      <div className={classes.walletSubtitle}>Bitcoin Wallet Address</div>
-                  }
+                  {web3.utils.isAddress(address.address) ? (
+                    <div className={classes.walletSubtitle}>
+                      Ethereum Wallet Address
+                    </div>
+                  ) : (
+                    <div className={classes.walletSubtitle}>
+                      Bitcoin Wallet Address
+                    </div>
+                  )}
                 </Grid>
                 <Grid item xs={2} className={classes.address}>
                   <CopyAddressButton address={address.address}>
@@ -251,12 +191,10 @@ export default function AccountDetails(props) {
               </Grid>
             );
           })}
-
-
         </Grid>
         <Grid container>
           <Grid item xs={12}>
-            {transactions.map((tx, index) => {
+            {txs.map((tx, index) => {
               return (
                 <AccountTransactionCard
                   key={index}
@@ -275,13 +213,15 @@ export default function AccountDetails(props) {
           </Grid>
           <Grid item xs={12} className={classes.walletInfo}>
             <p className={classes.subText}>
-              <b>Current value</b> = The average price of crypto in USD. Price is calculated 12:01 pm (UTC),
-              prices are read from three diffferent cryptoexchanges.
+              <b>Current value</b> = The average price of crypto in USD. Price
+              is calculated 12:01 pm (UTC), prices are read from three
+              diffferent cryptoexchanges.
             </p>
             <p className={classes.subText}>
-              <b>Value at receipt</b> = The average price of crypto in USD on the day of disbursal. Price
-              is calculated at 12:01 pm (UTC) on the day of disbursal and prices are read from three 
-              different cryptoexchanges.
+              <b>Value at receipt</b> = The average price of crypto in USD on
+              the day of disbursal. Price is calculated at 12:01 pm (UTC) on the
+              day of disbursal and prices are read from three different
+              cryptoexchanges.
             </p>
           </Grid>
         </Grid>
