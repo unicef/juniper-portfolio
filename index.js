@@ -596,7 +596,6 @@ class JuniperAdmin {
       btcReceivedUSD,
     };
   }
-
   async getWallets() {
     return await this.db.models.Wallet.find();
   }

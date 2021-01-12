@@ -84,6 +84,7 @@ export default function ({
         isUnicef={false}
         isTracked={true}
       />
+
       <Grid container>
         <Grid item xs={12}>
           <PriceInfo />
@@ -96,14 +97,15 @@ export default function ({
             movement of cryptocurrency, using the wallet public address. This
             address is also used to transact in cryptocurrency.
           </p>
-
-          <ContainedButton
-            onClick={() => {
-              setShowAddWalletModal(true);
-            }}
-          >
-            Follow a Blockchain Wallet
-          </ContainedButton>
+          {isAdmin && (
+            <ContainedButton
+              onClick={() => {
+                setShowAddWalletModal(true);
+              }}
+            >
+              Follow a Blockchain Wallet
+            </ContainedButton>
+          )}
         </Grid>
 
         <Grid item xs={12} style={{ marginTop: "4em" }}>
@@ -114,33 +116,6 @@ export default function ({
         <Grid container spacing={2} style={{ position: "relative" }}>
           {tracked &&
             tracked.map((wallet, index) => {
-              return (
-                <Grid item xs={6} key={`${index}-${wallet.address}`}>
-                  <WalletCard
-                    name={wallet.name}
-                    currency={wallet.currency}
-                    tags={wallet.tags}
-                    symbol={wallet.symbol}
-                    balance={wallet.balance}
-                    address={wallet.address}
-                    exchangeRate={wallet.symbol === "ETH" ? ethRate : btcRate}
-                    fetchWallets={fetchTrackedWallets}
-                    isUnicef={false}
-                  />
-                </Grid>
-              );
-            })}
-        </Grid>
-
-        <Grid item xs={12} style={{ marginTop: "4em" }}>
-          <h3 className={classes.walletSubheading}>
-            {other.length} Other Wallets
-          </h3>
-        </Grid>
-
-        <Grid container spacing={2} style={{ position: "relative" }}>
-          {other &&
-            other.map((wallet, index) => {
               return (
                 <Grid item xs={6} key={`${index}-${wallet.address}`}>
                   <WalletCard
