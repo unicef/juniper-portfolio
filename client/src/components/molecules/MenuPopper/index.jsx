@@ -39,7 +39,7 @@ export default function MenuPopper(props) {
 
     prevOpen.current = open;
   }, [open]);
-  console.log("arrow", arrowRef);
+
   return (
     <Fragment>
       <div
@@ -58,6 +58,7 @@ export default function MenuPopper(props) {
         role={undefined}
         transition
         disablePortal
+        style={{ zIndex: 999 }}
       >
         {({ TransitionProps }) => (
           <Grow

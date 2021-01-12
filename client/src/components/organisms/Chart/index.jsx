@@ -62,8 +62,8 @@ export default function ({
           <Grid container>
             <Grid item xs={12}>
               <ChartSummary
-                subtitle={"Today's Average Price"}
-                title={currentPrice}
+                subtitle={"Today's Average Price"} 
+                title={currentPrice + ' USD'}
                 isBold={true}
               />
             </Grid>

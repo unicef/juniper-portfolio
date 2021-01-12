@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import AccountLayout from "../templates/Account";
 import { CreateAccount } from "../organisms/Dialog";
 import PageLayout from "../templates/Page";
@@ -9,26 +9,26 @@ export default function AccountPage({
   ethRate,
   btcRate,
   fetchAccounts,
+  transactions
 }) {
-  const [tabs] = useState(["Startups", "Donors", "Natcoms"]);
-
-  useEffect(() => {}, [accounts, btcRate, ethRate]);
+  const [tabs] = useState(["Payees", "Donors", "Natcoms"]);
 
   return (
     <PageLayout tabs={tabs}>
       <AccountLayout
         title={"Investment"}
-        type={"startup"}
-        addButtonText={"Create Startup Account"}
+        type={"payee"}
+        addButtonText={"Create Payee Account"}
         CreateModal={CreateAccount}
         onDialogClose={fetchAccounts}
-        accounts={accounts.filter((account) => account.type === "startup")}
+        accounts={accounts.filter((account) => account.type === "payee")}
         ethRate={ethRate}
         btcRate={btcRate}
         message={
           "The investments are made through UNICEF’s CryptoFund, in open source technology solutions that benefit children and the world."
         }
         isAdmin={isAdmin}
+        transactions={transactions}
       />
 
       <AccountLayout
@@ -41,9 +41,10 @@ export default function AccountPage({
         ethRate={ethRate}
         btcRate={btcRate}
         message={
-          "In line with current UNICEF practice, each crypto transaction is initiated after UNICEF has completed due diligence on a donor, ensuring a credible source of the donation."
+          "In line with UNICEF practices, donors must be vetted by established processes before donating to the Cryptofund."
         }
         isAdmin={isAdmin}
+        transactions={transactions}
       />
 
       <AccountLayout
@@ -56,9 +57,10 @@ export default function AccountPage({
         ethRate={ethRate}
         btcRate={btcRate}
         message={
-          "Cryptofund donations are received by HQ through four National Committees - Australia, France, New Zealand and the United States."
+          "CryptoFund donations are received through National Committees and transferred to HQ."
         }
         isAdmin={isAdmin}
+        transactions={transactions}
       />
     </PageLayout>
   );

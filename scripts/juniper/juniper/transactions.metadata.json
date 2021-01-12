@@ -1,0 +1,1 @@
+{"options":{},"indexes":[{"v":2,"key":{"_id":1},"name":"_id_","ns":"juniper.transactions"},{"v":2,"unique":true,"key":{"txid":1,"index":1},"name":"txid_1_index_1","ns":"juniper.transactions","background":true}],"uuid":"dd7a862e8fb9420a80229d0cd2dcd327"}

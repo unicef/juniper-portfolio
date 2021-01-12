@@ -128,7 +128,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function StartupDetails(props) {
+export default function PayeeDetails(props) {
   const classes = useStyles();
   const [name, setName] = useState("");
   const [country, setCountry] = useState("");
@@ -155,7 +155,7 @@ export default function StartupDetails(props) {
     setCountry(account.country);
     setDescription(account.description);
 
-    if (account.weblink.indexOf("http") >= 0) {
+    if (account.weblink && account.weblink.indexOf("http") >= 0) {
       setWeblink(account.weblink);
     } else {
       setWeblink(`http://${account.weblink}`);
@@ -175,7 +175,7 @@ export default function StartupDetails(props) {
     <React.Fragment>
       <CreateAccount
         open={openEditAccount}
-        type={"startup"}
+        type={"payee"}
         edit={true}
         name={name}
         description={description}
@@ -251,6 +251,7 @@ export default function StartupDetails(props) {
                 <Grid item xs={8} className={classes.address}>
                   <div className={classes.walletAddress}>{address.address}</div>
                   <div className={classes.walletSubtitle}>Wallet Address</div>
+
                 </Grid>
                 <Grid item xs={4} className={classes.address}>
                   <CopyAddressButton address={address.address}>

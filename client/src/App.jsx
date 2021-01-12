@@ -304,6 +304,7 @@ export default function JuniperAdmin() {
                       accounts={accounts}
                       ethRate={ethRate}
                       btcRate={btcRate}
+                      transactions={transactions}
                     />
                   </Route>
                   <Route path="/admin/tracker">

@@ -31,7 +31,7 @@ module.exports = [
     title: "Introduction",
     section: "Accounts",
     content:
-      "The Accounts section has information about the donors and National Committes as well the investments made in startups. This section enables a user to get an in-depth view into the donations received and the investments made by UNICEF’s Cryptofund.",
+      "The Accounts section has information about the donors and National Committes as well the investments made in payees. This section enables a user to get an in-depth view into the donations received and the investments made by UNICEF’s Cryptofund.",
     image: "/admin/Accounts1.svg",
   },
   {

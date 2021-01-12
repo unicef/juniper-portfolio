@@ -2,7 +2,7 @@ import React, { useState, useEffect, Fragment } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import Grid from "@material-ui/core/Grid";
 import MenuPopper from "../molecules/MenuPopper";
-import { usdFormatter, monthNames } from "../../util";
+import { usdFormatter, cryptoFormatter, monthNames } from "../../util";
 import PriceInfo from "../molecules/Info/PriceInfo";
 import PageTitle from "../atoms/Text/PageTitle";
 import PageSubtitle from "../atoms/Text/PageSubtitle";
@@ -331,16 +331,19 @@ export default function (props) {
       setCurrentWeek(currentWeek + 1);
     }
   };
+  const formatter = new Intl.NumberFormat('en-US', {
+    style: 'currency',
+    currency: 'USD',
+  
+    // These options are needed to round to whole numbers if that's what you want.
+    //minimumFractionDigits: 0, // (this suffices for whole numbers, but will print 2500.10 as $2,500.1)
+    //maximumFractionDigits: 0, // (causes 2500.99 to be printed as $2,501)
+  });
 
   useEffect(() => {
     if (props.prices && props.prices.length > 0) {
-      const oneYearAgo = new Date();
-      oneYearAgo.setFullYear(oneYearAgo.getFullYear() - 1);
       setPrices(
         props.prices
-          .filter((price) => {
-            return new Date(price.timestamp) > oneYearAgo;
-          })
           .sort((a, b) => {
             return a.timestamp - b.timestamp;
           })
@@ -349,8 +352,8 @@ export default function (props) {
               day: price.day,
               month: price.month,
               year: price.year,
-              Date: `${price.day}/${price.month}/${price.year}`,
-              Price: price.average,
+              Date: `${price.day}/${price.month + 1}/${price.year}`,
+              Price: Math.round(price.average * 100) / 100,
             };
           })
       );
@@ -388,7 +391,7 @@ export default function (props) {
             </div>
 
             <div className={classes.weekTitle}>
-              {Math.round(prices[0].average)}
+              {formatter.format(prices[0].average)}
             </div>
           </div>
         }
@@ -396,15 +399,21 @@ export default function (props) {
         <Grid container className={classes.popup}>
           <Grid item style={{ padding: 10 }}>
             <div className={classes.exchangeTitle}>Binance</div>
-            <div className={classes.exchangePrice}>{prices[0].binance}</div>
+            <div className={classes.exchangePrice}>
+              {usdFormatter(prices[0].binance)}
+            </div>
           </Grid>
           <Grid item style={{ padding: 10 }}>
             <div className={classes.exchangeTitle}>Coinbase Pro</div>
-            <div className={classes.exchangePrice}>{prices[0].coinbase}</div>
+            <div className={classes.exchangePrice}>
+              {usdFormatter(prices[0].coinbase)}
+            </div>
           </Grid>
           <Grid item style={{ padding: 10 }}>
             <div className={classes.exchangeTitle}>Bitstamp</div>
-            <div className={classes.exchangePrice}>{prices[0].bitstamp}</div>
+            <div className={classes.exchangePrice}>
+              {usdFormatter(prices[0].bitstamp)}
+            </div>
           </Grid>
         </Grid>
       </MenuPopper>
@@ -437,9 +446,15 @@ export default function (props) {
             currentPrice={usdFormatter(props.currentPrice)}
             currentMonth={monthNames[currentMonth]}
             currentYear={currentYear}
-            chartData={prices.filter((price) => {
-              return price.month === currentMonth && price.year === currentYear;
-            })}
+            chartData={prices
+              .filter((price) => {
+                return (
+                  price.month === currentMonth && price.year === currentYear
+                );
+              })
+              .sort((a, b) => {
+                return a.day > b.day ? 1 : -1;
+              })}
             domainMin={
               Math.floor(
                 prices.reduce(

@@ -45,14 +45,14 @@ export default function AccountCard({
   const { name, type, image, country } = account;
 
   useEffect(() => {
-    setEthInvested(calculateAccountTotal(account, "Ether"));
-    setBtcInvested(calculateAccountTotal(account, "Bitcoin"));
+    setEthInvested(account.etherBalance);
+    setBtcInvested(account.bitcoinBalance);
   }, [account]);
 
   return (
     <Card>
       <Grid container>
-        {image && type === "startup" ? (
+        {image && type === "payee" ? (
           <Fragment>
             <Grid item xs={4}>
               <CardImage src={image} />
@@ -77,7 +77,7 @@ export default function AccountCard({
             <CardBalance isBold={true}>
               {cryptoFormatter(totalEthInvested)} ETH
             </CardBalance>
-            <SummarySubtitle>Ether Balance</SummarySubtitle>
+            <SummarySubtitle>Ether {type==='payee' ? 'Received' : 'Sent' }</SummarySubtitle>
           </div>
           <div className={classes.walletBalance}>
             <CardBalance isBold={true}>
@@ -92,7 +92,7 @@ export default function AccountCard({
             <CardBalance isBold={true}>
               {cryptoFormatter(totalBtcInvested)} BTC
             </CardBalance>
-            <SummarySubtitle>Bitcoin Balance</SummarySubtitle>
+            <SummarySubtitle>Bitcoin {type==='payee' ? 'Received' : 'Sent' }</SummarySubtitle>
           </div>
           <div className={classes.walletBalance}>
             <CardBalance isBold={true}>

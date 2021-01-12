@@ -90,6 +90,8 @@ export default function AccountTransactionCard({
   const month = monthNames[txDate.getMonth()];
   const day = txDate.getDay();
   const year = txDate.getFullYear();
+  const hours = txDate.getHours();
+  const minutes = (txDate.getMinutes() < 10 ? "0" : "") + txDate.getMinutes();
 
   return (
     <Grid container className={classes.authorizationSigner}>
@@ -98,9 +100,9 @@ export default function AccountTransactionCard({
       </Grid>
       <Grid item xs={12}>
         <div className={classes.signerText}>
-          {month} {day}, {year}
+          {month} {day}, {year} at {hours}:{minutes} UTC
         </div>
-        <div className={classes.subtitle}>Time of Signing</div>
+        <div className={classes.subtitle}>Date and Time</div>
       </Grid>
 
       <Grid item xs={3}>
