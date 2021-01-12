@@ -37,17 +37,76 @@ export default function AccountCard({
   btcRate,
   setOpenDetails,
   setDetailsAccount,
+  accountTransactions,
 }) {
   const classes = useStyles();
-  const [totalEthInvested, setEthInvested] = useState(0);
-  const [totalBtcInvested, setBtcInvested] = useState(0);
 
   const { name, type, image, country } = account;
 
-  useEffect(() => {
-    setEthInvested(account.etherBalance);
-    setBtcInvested(account.bitcoinBalance);
-  }, [account]);
+  const addresses = account.addresses
+    .map((addr) => {
+      return addr.address;
+    })
+    .reduce((start = [], addrArray) => {
+      return start.concat(addrArray);
+    }, []);
+
+  let txs = [];
+
+  switch (type) {
+    case "payee":
+      txs = accountTransactions.filter((tx) => {
+        return addresses.indexOf(tx.to) >= 0;
+      });
+      break;
+    case "donor":
+      txs = accountTransactions.filter((tx) => {
+        return tx.donor === name;
+      });
+      break;
+    case "natcom":
+      txs = accountTransactions.filter((tx) => {
+        return addresses.indexOf(tx.from) >= 0;
+      });
+      break;
+    default:
+      break;
+  }
+
+  let totalEth = 0;
+  let ethUSD = 0;
+  let totalBtc = 0;
+  let btcUSD = 0;
+
+  totalEth = txs
+    .filter((tx) => {
+      return tx.currency === "Ethereum";
+    })
+    .reduce((total = 0, tx) => {
+      return +total + +tx.amount;
+    }, []);
+  ethUSD = txs
+    .filter((tx) => {
+      return tx.currency === "Ethereum";
+    })
+    .reduce((total = 0, tx) => {
+      return +total + +tx.amountUSD;
+    }, []);
+
+  totalBtc = txs
+    .filter((tx) => {
+      return tx.currency === "Bitcoin";
+    })
+    .reduce((total = 0, tx) => {
+      return +total + +tx.amount;
+    }, []);
+  btcUSD = txs
+    .filter((tx) => {
+      return tx.currency === "Bitcoin";
+    })
+    .reduce((total = 0, tx) => {
+      return +total + +tx.amountUSD;
+    }, []);
 
   return (
     <Card>
@@ -75,14 +134,14 @@ export default function AccountCard({
         <Grid item xs={6}>
           <div className={classes.walletBalance}>
             <CardBalance isBold={true}>
-              {cryptoFormatter(totalEthInvested)} ETH
+              {cryptoFormatter(totalEth)} ETH
             </CardBalance>
-            <SummarySubtitle>Ether {type==='payee' ? 'Received' : 'Sent' }</SummarySubtitle>
+            <SummarySubtitle>
+              Ether {type === "payee" ? "Received" : "Sent"}
+            </SummarySubtitle>
           </div>
           <div className={classes.walletBalance}>
-            <CardBalance isBold={true}>
-              {usdFormatter(totalEthInvested * ethRate)} USD
-            </CardBalance>
+            <CardBalance isBold={true}>{usdFormatter(ethUSD)} USD</CardBalance>
             <SummarySubtitle>Current Value</SummarySubtitle>
           </div>
         </Grid>
@@ -90,14 +149,14 @@ export default function AccountCard({
         <Grid item xs={6}>
           <div className={classes.walletBalance}>
             <CardBalance isBold={true}>
-              {cryptoFormatter(totalBtcInvested)} BTC
+              {cryptoFormatter(totalBtc)} BTC
             </CardBalance>
-            <SummarySubtitle>Bitcoin {type==='payee' ? 'Received' : 'Sent' }</SummarySubtitle>
+            <SummarySubtitle>
+              Bitcoin {type === "payee" ? "Received" : "Sent"}
+            </SummarySubtitle>
           </div>
           <div className={classes.walletBalance}>
-            <CardBalance isBold={true}>
-              {usdFormatter(totalBtcInvested * btcRate)} USD
-            </CardBalance>
+            <CardBalance isBold={true}>{usdFormatter(btcUSD)} USD</CardBalance>
             <SummarySubtitle>Current Value</SummarySubtitle>
           </div>
         </Grid>
@@ -107,7 +166,14 @@ export default function AccountCard({
           <TextButton
             endIcon={<ChevronRightIcon />}
             onClick={() => {
-              setDetailsAccount(name);
+              setDetailsAccount({
+                ...account,
+                totalEth,
+                ethUSD,
+                totalBtc,
+                btcUSD,
+                txs,
+              });
               setOpenDetails(true);
             }}
           >

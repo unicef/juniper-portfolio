@@ -50,23 +50,21 @@ export default function AccountLayout({
   ethRate,
   btcRate,
   isAdmin,
-  transactions
+  transactions,
 }) {
   const classes = transactionDetailsStyles();
   const [openCreateDialog, setOpenCreateDialog] = useState(false);
   const [openDetails, setOpenAccountDetails] = useState(false);
   const [openPayeeDetails, setOpenPayeeDetails] = useState(false);
   const [detailsAccount, setDetailsAccount] = useState(null);
-  const [totalEtherSent, setTotalEtherSent] = useState(0);
-  const [totalEtherReceive, setTotalEtherReceive] = useState(0);
-  const [totalETHUSDSent, setTotalETHUSDSent] = useState(0);
-  const [totalETHUSDReceive, setTotalETHUSDReceive] = useState(0);
 
-  const [totalBitcoinSent, setTotalBitcoinSent] = useState(0);
-  const [totalBitcoinReceive, setTotalBitcoinReceive] = useState(0);
-  const [totalBTCUSDSent, setTotalBTCUSDSent] = useState(0);
-  const [totalBTCUSDReceive, setTotalBTCUSDReceive] = useState(0);
-  
+  const [accountTransactions, setAccountTransactions] = useState([]);
+  const [totalEther, setTotalEther] = useState(0);
+  const [totalETHUSD, setTotalETHUSD] = useState(0);
+
+  const [totalBitcoin, setTotalBitcoin] = useState(0);
+  const [totalBTCUSD, setTotalBTCUSD] = useState(0);
+
   const closeCreateDialog = () => {
     setOpenCreateDialog(false);
     setDetailsAccount(null);
@@ -75,64 +73,103 @@ export default function AccountLayout({
   };
 
   function calculateOverview() {
-    let etherSentValues = [];
-    let etherSentTxArray = [];
-    let etherReceiveValues = []; // for natcom
-    let etherReceiveTxArray = []; // for natcom
+    // Get the account addresses
+    const accountAddresses = accounts
+      .map((account) => {
+        return account.addresses.map((addr) => {
+          return addr.address;
+        });
+      })
+      .reduce((start = [], addrArray) => {
+        return start.concat(addrArray);
+      }, []);
 
-    let bitcoinSentValues = [];
-    let bitcoinSentTxArray = [];
-    let bitcoinReceiveValues = []; // for natcom
-    let bitcoinReceiveTxArray = []; // for natcom
+    const accountNames = accounts.map((account) => {
+      return account.name;
+    });
 
-    transactions.map(transaction => {
-      accounts.map(account => {
-        for(var i = 0; i < account.addresses.length; i++){
-          if(transaction.currency === 'Ethereum') {
-            if(transaction.donor !== undefined && !etherReceiveTxArray.includes(transaction)) {
-              etherReceiveTxArray.push(transaction) 
-              etherReceiveValues.push(transaction.amount)
-            }
+    let accountTxs = [];
+    let ethSummary = 0;
+    let ethUSD = 0;
+    let btcSummary = 0;
+    let btcUSD = 0;
+    // Tx Origin is from an hq wallet
+    const sentTransactions = transactions.filter((tx) => {
+      return tx.sent;
+    });
+    // Tx destination is to an hq wallet
+    const receivedTransactions = transactions.filter((tx) => {
+      return tx.received;
+    });
 
-            if(!etherSentTxArray.includes(transaction)) {
-              if(transaction.sent) {
-                etherSentTxArray.push(transaction) 
-                etherSentValues.push(transaction.amount)
-              }
-            } 
-            
-          } else if(transaction.currency === 'Bitcoin') {
-            if(transaction.donor !== undefined && !bitcoinReceiveTxArray.includes(transaction)) {
-              bitcoinReceiveTxArray.push(transaction) 
-              bitcoinReceiveValues.push(transaction.amount)
-            }
+    switch (type) {
+      case "payee":
+        accountTxs = sentTransactions.filter((tx) => {
+          return accountAddresses.indexOf(tx.to) >= 0;
+        });
+        break;
+      case "donor":
+        accountTxs = receivedTransactions.filter((tx) => {
+          return accountNames.indexOf(tx.donor) >= 0;
+        });
+        break;
+      case "natcom":
+        accountTxs = receivedTransactions.filter((tx) => {
+          return accountAddresses.indexOf(tx.from) >= 0;
+        });
+        break;
+      default:
+        break;
+    }
 
-            if(!bitcoinSentTxArray.includes(transaction)) {
-              if(transaction.sent) {
-                bitcoinSentTxArray.push(transaction) 
-                bitcoinSentValues.push(transaction.amount)
-              }
-            } 
-          }
-          if(etherSentValues.length > 0) {
-            setTotalEtherSent(etherSentValues.reduce((total = 0, value) =>  total + value ))
-            setTotalETHUSDSent(etherSentValues.reduce((total, amount) => total + amount ) * ethRate)
-          }
-          if(etherReceiveValues.length > 0) {
+    ethSummary = accountTxs
+      .filter((tx) => {
+        return tx.currency === "Ethereum";
+      })
+      .reduce((total = 0, tx) => {
+        return +total + +tx.amount;
+      }, []);
+    ethUSD = accountTxs
+      .filter((tx) => {
+        return tx.currency === "Ethereum";
+      })
+      .reduce((total = 0, tx) => {
+        return +total + +tx.amountUSD;
+      }, []);
+
+    btcSummary = accountTxs
+      .filter((tx) => {
+        return tx.currency === "Bitcoin";
+      })
+      .reduce((total = 0, tx) => {
+        return +total + +tx.amount;
+      }, []);
+    btcUSD = accountTxs
+      .filter((tx) => {
+        return tx.currency === "Bitcoin";
+      })
+      .reduce((total = 0, tx) => {
+        return +total + +tx.amountUSD;
+      }, []);
+
+    setAccountTransactions(accountTxs);
+    setTotalEther(ethSummary);
+    setTotalETHUSD(ethUSD);
+    setTotalBitcoin(btcSummary);
+    setTotalBTCUSD(btcUSD);
+
+    //console.log(accountTxs);
+
+    /*
+    setTotalEtherSent(etherSentValues.reduce((total = 0, value) =>  total + value ))
+setTotalETHUSDSent(etherSentValues.reduce((total, amount) => total + amount ) * ethRate)
             setTotalEtherReceive(etherReceiveValues.reduce((total = 0, value) =>  total + value ))
             setTotalETHUSDReceive(etherReceiveValues.reduce((total, amount) => total + amount ) * ethRate)
-          }
-          if(bitcoinSentValues.length > 0) {
             setTotalBitcoinSent(bitcoinSentValues.reduce((total = 0, value) =>  total + value ))
-            setTotalBTCUSDSent(bitcoinSentValues.reduce((total, amount) => total + amount ) * btcRate)
-          }
-          if(bitcoinReceiveValues.length > 0) {
-            setTotalBitcoinReceive(bitcoinReceiveValues.reduce((total = 0, value) =>  total + value ))
-            setTotalBTCUSDReceive(bitcoinReceiveValues.reduce((total, amount) => total + amount ) * btcRate)
-          }
-        }
-      })
-    })
+setTotalBTCUSDSent(bitcoinSentValues.reduce((total, amount) => total + amount ) * btcRate)
+setTotalBitcoinReceive(bitcoinReceiveValues.reduce((total = 0, value) =>  total + value ))
+setTotalBTCUSDReceive(bitcoinReceiveValues.reduce((total, amount) => total + amount ) * btcRate)
+*/
   }
 
   useEffect(() => {
@@ -174,19 +211,17 @@ export default function AccountLayout({
         </Grid>
         <Grid item xs={12}>
           <h1 className={classes.title}>
-            {
-            type === 'natcom' ?
-            "Total donations from National Committees" 
-            : (
-              `${accounts.length} ${title}${accounts.length === 1 ? "" : "s"}`
-            )
-          }
+            {type === "natcom"
+              ? "Total donations from National Committees"
+              : `${accounts.length} ${title}${
+                  accounts.length === 1 ? "" : "s"
+                }`}
           </h1>
         </Grid>
         <Grid item xs={3}>
           <AccountBalanceCard
-            amountInvested={type === "payee" ? totalEtherSent : totalEtherReceive}
-            amountInvestedUSD={type === "payee" ? totalETHUSDSent : totalETHUSDReceive}
+            amountInvested={totalEther}
+            amountInvestedUSD={totalETHUSD}
             currency={"Ether"}
             symbol={"ETH"}
             investedVerb={type === "donor" ? "received" : "invested"}
@@ -194,8 +229,8 @@ export default function AccountLayout({
         </Grid>
         <Grid item xs={3}>
           <AccountBalanceCard
-            amountInvested={type === "payee" ? totalBitcoinSent : totalBitcoinReceive}
-            amountInvestedUSD={type === "payee" ? totalBTCUSDSent : totalBTCUSDReceive}
+            amountInvested={totalBitcoin}
+            amountInvestedUSD={totalBTCUSD}
             currency={"Bitcoin"}
             symbol={"BTC"}
             investedVerb={type === "donor" ? "received" : "invested"}
@@ -220,10 +255,7 @@ export default function AccountLayout({
             className={classes.messageButton}
             endIcon={<ChevronRightIcon />}
             onClick={() => {
-              window.open(
-                "https://cryptofund.unicef.io/about",
-                "_blank"
-              );
+              window.open("https://cryptofund.unicef.io/about", "_blank");
             }}
           >
             Learn more about Cryptofund
@@ -256,6 +288,7 @@ export default function AccountLayout({
                       : setOpenAccountDetails
                   }
                   setDetailsAccount={setDetailsAccount}
+                  accountTransactions={accountTransactions}
                 />
               </Grid>
             );
