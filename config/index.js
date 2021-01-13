@@ -24,11 +24,9 @@ module.exports = {
     logoUrl: "/image/1601918615229-UNICEF.png",
   },
   email: {
-    service: "gmail",
-    auth: {
-      user: process.env.EMAIL_ADDRESS,
-      pass: process.env.EMAIL_PASSWORD,
-    },
+    key: process.env.AWS_SES_ACCESS_KEY,
+    secret: process.env.AWS_SES_SECRET_KEY,
+    user: process.env.EMAIL_ADDRESS,
   },
   db: {
     url: process.env.DB_URL || "mongodb://localhost",
