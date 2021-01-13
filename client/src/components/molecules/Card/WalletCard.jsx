@@ -34,6 +34,7 @@ export default function WalletCard({
   exchangeRate,
   fetchWallets,
   isUnicef,
+  isAdmin,
 }) {
   const classes = useStyles();
 
@@ -80,9 +81,11 @@ export default function WalletCard({
             </TextButton>
           </Link>
         ) : (
-          <OutlinedButton onClick={handleUnfollow} float={"right"}>
-            Unfollow
-          </OutlinedButton>
+          isAdmin && (
+            <OutlinedButton onClick={handleUnfollow} float={"right"}>
+              Unfollow
+            </OutlinedButton>
+          )
         )}
       </div>
     </Card>
