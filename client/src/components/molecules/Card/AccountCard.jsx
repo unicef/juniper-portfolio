@@ -142,7 +142,7 @@ export default function AccountCard({
           </div>
           <div className={classes.walletBalance}>
             <CardBalance isBold={true}>{usdFormatter(ethUSD)} USD</CardBalance>
-            <SummarySubtitle>Current Value</SummarySubtitle>
+            <SummarySubtitle>Value at Receipt</SummarySubtitle>
           </div>
         </Grid>
 
@@ -157,7 +157,7 @@ export default function AccountCard({
           </div>
           <div className={classes.walletBalance}>
             <CardBalance isBold={true}>{usdFormatter(btcUSD)} USD</CardBalance>
-            <SummarySubtitle>Current Value</SummarySubtitle>
+            <SummarySubtitle>Value at Receipt</SummarySubtitle>
           </div>
         </Grid>
       </Grid>
