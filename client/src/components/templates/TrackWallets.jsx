@@ -128,6 +128,7 @@ export default function ({
                     exchangeRate={wallet.symbol === "ETH" ? ethRate : btcRate}
                     fetchWallets={fetchTrackedWallets}
                     isUnicef={false}
+                    isAdmin={isAdmin}
                   />
                 </Grid>
               );
