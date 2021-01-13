@@ -73,6 +73,7 @@ export default function AccountLayout({
   };
 
   function calculateOverview() {
+    console.log(transactions);
     // Get the account addresses
     const accountAddresses = accounts
       .map((account) => {
@@ -101,6 +102,12 @@ export default function AccountLayout({
     const receivedTransactions = transactions.filter((tx) => {
       return tx.received;
     });
+
+    console.log(
+      transactions.filter((tx) => {
+        return tx.currency === "Bitcoin";
+      })
+    );
 
     switch (type) {
       case "payee":
@@ -136,6 +143,11 @@ export default function AccountLayout({
       .reduce((total = 0, tx) => {
         return +total + +tx.amountUSD;
       }, []);
+    console.log(
+      accountTxs.filter((tx) => {
+        return tx.currency === "Bitcoin";
+      })
+    );
 
     btcSummary = accountTxs
       .filter((tx) => {
