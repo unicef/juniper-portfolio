@@ -11,7 +11,6 @@ const {
   EthereumScraper,
   GnosisScraper,
 } = require("./lib/scrapers");
-
 const { Logger } = require("node-core-utils");
 const Email = require("./lib/email");
 const DB = require("./lib/db");
@@ -35,6 +34,7 @@ const {
 } = require("./lib/routes");
 const defaultConfig = require("./config");
 const { oneSecond } = require("./config/constants");
+const lru = require("lru-cache");
 
 class JuniperAdmin {
   constructor(config) {
@@ -46,6 +46,7 @@ class JuniperAdmin {
     this.updateWalletQueue = [];
     this.updateWalletJob = null;
     this.updateWalletJobInterval = oneSecond * 5;
+    this.resetPasswordCache = new lru(this.config.resetPasswordCache);
     this.init();
   }
   init() {
@@ -120,7 +121,6 @@ class JuniperAdmin {
     this.server.use(
       "/rest/admin/auth",
       this.passport.authenticate("local"),
-
       authRoutes
     );
     this.server.use("/rest/admin", isLoggedIn, privateRoutes);
@@ -240,6 +240,12 @@ class JuniperAdmin {
     }
 
     await this.db.createAccount(account);
+  }
+
+  async sendResetPassword(email, host) {
+    const token = this.utils.createSalt();
+    this.resetPasswordCache.set(token, email);
+    await this.email.sendResetEmail(email, host, token);
   }
 
   async getAccount(name) {

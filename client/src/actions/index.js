@@ -20,6 +20,7 @@ import publishTransaction from "./publishTransaction";
 import removeUser from "./removeUser";
 import saveAppSettings from "./saveAppSettings";
 import updateUser from "./updateUser";
+import resetPassword from "./resetPassword";
 
 export {
   addUser,
@@ -44,4 +45,5 @@ export {
   removeUser,
   saveAppSettings,
   updateUser,
+  resetPassword,
 };

@@ -9,6 +9,7 @@ import { ChevronRight } from "@material-ui/icons";
 import ContainedButton from "../atoms/Button/Contained";
 import TextButton from "../atoms/Button/TextIcon";
 import image from "./Signin.svg";
+import { resetPassword } from "../../actions";
 
 const PasswordTooltip = withStyles((theme) => ({
   tooltip: {
@@ -130,8 +131,8 @@ const useStyles = makeStyles((theme) => ({
     letterSpacing: 1,
     textTransform: "uppercase",
     cursor: "pointer",
-    textDecoration: false
-  }
+    textDecoration: false,
+  },
 }));
 
 function SignInForm(props) {
@@ -186,7 +187,13 @@ function SignInForm(props) {
       </p>
       <ContainedButton onClick={props.login}>Sign In</ContainedButton>
       <p className={classes.subtext2}>
-          Need access? Please contact <a className={classes.subtext2Email} href='mailto:blockchain@unicef.org'>blockchain@unicef.org</a>
+        Need access? Please contact{" "}
+        <a
+          className={classes.subtext2Email}
+          href="mailto:blockchain@unicef.org"
+        >
+          blockchain@unicef.org
+        </a>
       </p>
     </Fragment>
   );
@@ -194,10 +201,12 @@ function SignInForm(props) {
 
 function ForgotPassword(props) {
   const classes = useStyles();
+  const [email, setEmail] = useState("");
   return (
     <Fragment>
       <TextField
         label="Email"
+        value={email}
         className={classes.textField}
         InputLabelProps={{
           className: classes.textLabelInput,
@@ -206,10 +215,14 @@ function ForgotPassword(props) {
           className: classes.textInput,
         }}
         onChange={(e) => {
-          console.log(e.target.value);
+          setEmail(e.target.value);
         }}
       />
-      <ContainedButton onClick={props.resetPasswordClick}>
+      <ContainedButton
+        onClick={() => {
+          props.resetPasswordClick(email);
+        }}
+      >
         Reset Password
       </ContainedButton>
     </Fragment>
@@ -423,7 +436,8 @@ export default function SignIn(props) {
     );
   };
 
-  const resetPasswordClick = () => {
+  const resetPasswordClick = (email) => {
+    resetPassword(email);
     resetState();
     setResetPasswordSent(true);
     setSubtitle(

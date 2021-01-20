@@ -1,6 +1,6 @@
 const CONSTANTS = require("./constants");
 
-const { oneMegabyte, oneDay } = CONSTANTS;
+const { oneMegabyte, oneDay, oneMinute } = CONSTANTS;
 
 module.exports = {
   startPriceMonitor: process.env.MONITOR_PRICE || true,
@@ -13,6 +13,16 @@ module.exports = {
     limit: oneMegabyte,
   },
   uploadLimit: oneMegabyte,
+  resetPasswordCache: {
+    max: 10000,
+    length: function (n, key) {
+      return n * 2 + key.length;
+    },
+    dispose: function (key, n) {
+      n = "";
+    },
+    maxAge: 15 * oneMinute * 1000,
+  },
   defaultClientSettings: {
     id: "settings",
     primaryColor: "#00aeef",
