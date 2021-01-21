@@ -17,6 +17,7 @@ import AddIcon from "@material-ui/icons/Add";
 import CircularProgress from "@material-ui/core/CircularProgress";
 import TextButton from "../../atoms/Button/TextIcon";
 import ContainedButton from "../../atoms/Button/Contained";
+import validate from "bitcoin-address-validation";
 
 const web3Utils = require("web3-utils");
 
@@ -206,6 +207,7 @@ export default function AddWallet(props) {
         if (isMultisig) {
           for (const index in multisigOwners) {
             const owner = multisigOwners[index];
+
             if (!web3Utils.isAddress(owner.walletAddress)) {
               return true;
             }
@@ -214,6 +216,18 @@ export default function AddWallet(props) {
         break;
       case "Bitcoin":
         // Validate wallet address
+        if (!validate(address)) {
+          return true;
+        }
+        if (isMultisig) {
+          for (const index in multisigOwners) {
+            const owner = multisigOwners[index];
+
+            if (!validate(owner.walletAddress)) {
+              return true;
+            }
+          }
+        }
         break;
       default:
     }
@@ -336,7 +350,11 @@ export default function AddWallet(props) {
             <TextField
               disabled={props.editWallet}
               value={address}
-              error={!web3Utils.isAddress(address) && address.length > 0}
+              error={
+                (currency === "Ethereum"
+                  ? !web3Utils.isAddress(address)
+                  : !validate(address)) && address.length > 0
+              }
               required
               className={classes.formControl}
               InputLabelProps={{ className: classes.label }}
