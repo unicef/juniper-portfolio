@@ -354,6 +354,27 @@ class JuniperAdmin {
     return await this.db.getUserByVerificationCode(verificationCode);
   }
 
+  async resetPasswordWithToken(passwordResetToken, newPassword) {
+    const email = this.resetPasswordCache.get(passwordResetToken);
+
+    if (!email || email === "undefined") {
+      return false;
+    }
+
+    let user;
+    try {
+      user = await this.db.getUser(email);
+      user.password = this.utils.hash256(newPassword.concat(user.salt));
+
+      await user.save();
+    } catch (e) {
+      this.logger.error(e);
+      return false;
+    }
+
+    return true;
+  }
+
   async changePassword(email, currentPassword, password) {
     let savedUser;
 

@@ -1,6 +1,6 @@
 export default async (email) => {
   try {
-    await fetch(`/rest/password/reset`, {
+    await fetch(`/rest/password/reset/request`, {
       credentials: "include",
       method: "POST",
       body: JSON.stringify({

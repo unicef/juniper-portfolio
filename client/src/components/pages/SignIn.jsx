@@ -135,6 +135,85 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
+function PasswordResetForm(props) {
+  const classes = useStyles();
+  return (
+    <Fragment>
+      <TextField
+        value={props.newPassword}
+        error={props.signInError}
+        label="New Password"
+        type="password"
+        className={classes.textField}
+        InputLabelProps={{
+          error: props.signInError,
+          className: classes.textLabelInput,
+        }}
+        InputProps={{
+          className: classes.textInput,
+        }}
+        onKeyPress={(e) => {
+          if (e.key === "Enter") {
+          }
+        }}
+        onChange={(e) => {
+          props.setSignInError(false);
+          props.setNewPassword(e.target.value);
+        }}
+      />
+      <TextField
+        value={props.newPassword2}
+        error={props.signInError}
+        label="Confirm new password"
+        type="password"
+        className={classes.textField}
+        InputLabelProps={{
+          error: props.signInError,
+          className: classes.textLabelInput,
+        }}
+        InputProps={{
+          className: classes.textInput,
+        }}
+        onKeyPress={(e) => {
+          if (e.key === "Enter") {
+          }
+        }}
+        onChange={(e) => {
+          props.setSignInError(false);
+          props.setNewPassword2(e.target.value);
+        }}
+      />
+      <PasswordTooltip
+        arrow
+        placement="right"
+        title="Your password has to be at least 8 characters long. Must contain at least one lower case letter, one upper case letter, one digit and one special character ~!@#$%^&*()_+"
+      >
+        <div
+          className={classes.subtext}
+          onClick={props.forgotPasswordClick}
+          style={{ position: "relative" }}
+        >
+          <span>View Password Requirements</span>
+          <ChevronRight
+            size="small"
+            style={{ position: "absolute", top: -1 }}
+          />
+        </div>
+      </PasswordTooltip>
+      <ContainedButton
+        style={{ marginTop: 42 }}
+        onClick={() => {
+          if (props.validatePassword()) {
+            props.changePasswordClick();
+          }
+        }}
+      >
+        Change Password
+      </ContainedButton>
+    </Fragment>
+  );
+}
+
 function SignInForm(props) {
   const classes = useStyles();
   return (
@@ -323,6 +402,8 @@ export default function SignIn(props) {
   const [resetPasswordSent, setResetPasswordSent] = useState(false);
   const [verification, setVerification] = useState(false);
   const [verificationCode, setVerificationCode] = useState("");
+  const [passwordResetToken, setPasswordResetToken] = useState("");
+  const [passwordReset, setPasswordReset] = useState(false);
 
   const [newPassword, setNewPassword] = useState("");
   const [newPassword2, setNewPassword2] = useState("");
@@ -366,6 +447,7 @@ export default function SignIn(props) {
     setResetPasswordSent(false);
     setForgotPassword(false);
     setVerification(false);
+    setPasswordReset(false);
   };
 
   const validatePassword = () => {
@@ -445,6 +527,40 @@ export default function SignIn(props) {
     );
   };
 
+  const changePasswordClick = async () => {
+    let res;
+    try {
+      res = await fetch(`/rest/password/reset`, {
+        credentials: "include",
+        method: "POST",
+        body: JSON.stringify({
+          passwordResetToken,
+          newPassword,
+        }),
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+    } catch (e) {
+      console.log(e);
+    }
+
+    if (res.status !== 200) {
+      resetState();
+      setSignIn(true);
+      setSignInError(true);
+      console.log("fail");
+      setSubtitle(
+        "Reset Password failed. Contact: Blockchain@unicef.org for support."
+      );
+    } else {
+      resetState();
+      setSignIn(true);
+      setSignInError(false);
+      setSubtitle("Welcome to Juniper! Sign in to your account.");
+    }
+  };
+
   const goToSignInPageClick = () => {
     resetState();
     setSignIn(true);
@@ -455,6 +571,12 @@ export default function SignIn(props) {
     resetState();
     setVerification(true);
     setSubtitle("To complete Sign up, please create an account password.");
+  };
+
+  const showPasswordReset = () => {
+    resetState();
+    setPasswordReset(true);
+    setSubtitle("Please enter your new password below.");
   };
 
   useEffect(() => {
@@ -477,6 +599,13 @@ export default function SignIn(props) {
       verificationCode = params.split("verification=")[1].split("&")[0];
 
       checkVerification(verificationCode);
+    }
+    let passwordResetToken = false;
+    if (params.indexOf("resetPassword") >= 0) {
+      passwordResetToken = params.split("resetPassword=")[1].split("&")[0];
+
+      setPasswordResetToken(passwordResetToken);
+      showPasswordReset(true);
     }
   }, []);
 
@@ -516,6 +645,16 @@ export default function SignIn(props) {
 
         {resetPasswordSent && (
           <ResetPasswordSent goToSignInPageClick={goToSignInPageClick} />
+        )}
+
+        {passwordReset && (
+          <PasswordResetForm
+            changePasswordClick={changePasswordClick}
+            setSignInError={setSignInError}
+            setNewPassword={setNewPassword}
+            setNewPassword2={setNewPassword2}
+            validatePassword={validatePassword}
+          />
         )}
 
         {verification && (
