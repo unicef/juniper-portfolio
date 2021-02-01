@@ -239,7 +239,7 @@ export default function PayeeDetails(props) {
 
           <Grid item xs={12} className={classes.walletInfo}>
             <p className={classes.subText}>
-              <b>Current value</b> = USD average across three cryotoexchanges,
+              <b>Current value</b> = USD average across three cryptoexchanges,
               calculated at 12:01 pm (EST)
             </p>
             <p className={classes.subText}>
