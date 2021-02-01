@@ -33,11 +33,13 @@ export default function ({
   float,
   children,
   style,
+  disabled,
 }) {
   const classes = useStyles();
   return (
     <Button
       disableRipple={true}
+      disabled={disabled}
       variant="contained"
       color="primary"
       className={classes.containedButton}

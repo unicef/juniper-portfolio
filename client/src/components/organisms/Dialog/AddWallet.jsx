@@ -17,6 +17,7 @@ import AddIcon from "@material-ui/icons/Add";
 import CircularProgress from "@material-ui/core/CircularProgress";
 import TextButton from "../../atoms/Button/TextIcon";
 import ContainedButton from "../../atoms/Button/Contained";
+import validate from "bitcoin-address-validation";
 
 const web3Utils = require("web3-utils");
 
@@ -150,9 +151,10 @@ function MultisigOwner(props) {
 export default function AddWallet(props) {
   const classes = useStyles();
   const [open, setOpen] = useState(false);
+  const [formErrors, setFormErrors] = useState({});
   const [address, setAddress] = useState("");
   const [tags, setTags] = useState([]);
-  const [name, setName] = useState("");
+  const [name, setName] = useState(null);
   const [currency, setCurrency] = useState("Ethereum");
   const [symbol, setSymbol] = useState("ETH");
   const [isMultisig, setIsMultisig] = useState(false);
@@ -195,6 +197,46 @@ export default function AddWallet(props) {
     setMultisigOwners(newOwners);
   };
 
+  const disableSubmit = () => {
+    switch (currency) {
+      case "Ethereum":
+        // Validate wallet address
+        if (!web3Utils.isAddress(address)) {
+          return true;
+        }
+        if (isMultisig) {
+          for (const index in multisigOwners) {
+            const owner = multisigOwners[index];
+
+            if (!web3Utils.isAddress(owner.walletAddress)) {
+              return true;
+            }
+          }
+        }
+        break;
+      case "Bitcoin":
+        // Validate wallet address
+        if (!validate(address)) {
+          return true;
+        }
+        if (isMultisig) {
+          for (const index in multisigOwners) {
+            const owner = multisigOwners[index];
+
+            if (!validate(owner.walletAddress)) {
+              return true;
+            }
+          }
+        }
+        break;
+      default:
+    }
+    if (name === null || name.length === 0) {
+      return true;
+    }
+    return false;
+  };
+
   const addWallet = async () => {
     const wallet = {
       address,
@@ -234,7 +276,7 @@ export default function AddWallet(props) {
 
     setAddress("");
     setTags([]);
-    setName("");
+    setName(null);
     setCurrency("Ether");
     setSymbol("ETH");
     setIsMultisig(false);
@@ -254,7 +296,7 @@ export default function AddWallet(props) {
   };
 
   useEffect(() => {
-    setName(props.name || "");
+    setName(props.name || null);
     setTags(props.tags || []);
     setAddress(props.address || "");
     setSymbol(props.symbol || "ETH");
@@ -308,6 +350,11 @@ export default function AddWallet(props) {
             <TextField
               disabled={props.editWallet}
               value={address}
+              error={
+                (currency === "Ethereum"
+                  ? !web3Utils.isAddress(address)
+                  : !validate(address)) && address.length > 0
+              }
               required
               className={classes.formControl}
               InputLabelProps={{ className: classes.label }}
@@ -323,13 +370,14 @@ export default function AddWallet(props) {
             <TextField
               required
               value={name}
+              error={name !== null && name.length === 0}
               className={classes.formControl}
               InputLabelProps={{ className: classes.label }}
               InputProps={{
                 className: classes.formControl,
               }}
               onChange={(e) => {
-                setName(e.target.value);
+                setName(e.target.value.slice(0, 34));
               }}
               label="Wallet name"
             />
@@ -355,11 +403,14 @@ export default function AddWallet(props) {
               <Fragment>
                 <h2 className={classes.subtitle}>
                   Is this a multisig wallet?{" "}
-                  <Tooltip placement="right-start" title="Multisignature wallets (or multisig, for short), are cryptocurrency wallets that require two or more wallets to sign and send a transaction.">
-                  <HelpOutlineIcon
-                    color="primary"
-                    className={classes.subtitleIcon}
-                  />
+                  <Tooltip
+                    placement="right-start"
+                    title="Multisignature wallets (or multisig, for short), are cryptocurrency wallets that require two or more wallets to sign and send a transaction."
+                  >
+                    <HelpOutlineIcon
+                      color="primary"
+                      className={classes.subtitleIcon}
+                    />
                   </Tooltip>
                 </h2>
                 <Button
@@ -423,6 +474,7 @@ export default function AddWallet(props) {
             {!addingWallet && (
               <div className={classes.addNewWalletButton}>
                 <ContainedButton
+                  disabled={disableSubmit()}
                   onClick={addWallet}
                   style={{ display: "block", width: "100%" }}
                 >
