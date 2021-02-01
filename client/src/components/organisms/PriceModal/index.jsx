@@ -26,7 +26,7 @@ const useStyles = makeStyles((theme) => ({
     padding: "30px 44px 40px 44px",
   },
   box: {
-    padding: "30px 44px 40px 44px",
+    padding: "10px 44px 40px 44px",
   },
   title: {
     margin: 0,
@@ -73,6 +73,7 @@ export default function PriceModal({ open, setOpen, children }) {
   const btc = bitcoin[bitcoin.length - 1];
   const eth = ethereum[ethereum.length - 1];
 
+  const theDate = new Date().toLocaleDateString("en-US");
   return (
     <div>
       {children}
@@ -95,12 +96,15 @@ export default function PriceModal({ open, setOpen, children }) {
           </h3>
           <p className={classes.info}>
             Average USD price being dislayed on Juniper is a simple average of
-            Bitcoin and Ether prices across three cryotoexchanges. The price is
+            Bitcoin and Ether prices across three crypotoexchanges. The price is
             calculated each day at 12:01 pm (UTC)
           </p>
         </Block>
         <Block className={classes.box}>
           <Grid container>
+            <Grid item xs={12} className={classes.cardBalance}>
+              <CardBalance className={classes.balance}>{theDate}</CardBalance>
+            </Grid>
             <Grid item xs={4} className={classes.card}>
               <CardBalance className={classes.balance}>
                 {usdFormatter(eth.average)} USD
