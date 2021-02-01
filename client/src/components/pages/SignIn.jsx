@@ -549,7 +549,6 @@ export default function SignIn(props) {
       resetState();
       setSignIn(true);
       setSignInError(true);
-      console.log("fail");
       setSubtitle(
         "Reset Password failed. Contact: Blockchain@unicef.org for support."
       );

@@ -21,7 +21,6 @@ export default function ({ onChange, className, color, label }) {
   const id = Math.random();
 
   const handleChange = debounce((newColor) => {
-    console.log(newColor);
     onChange(newColor);
   }, 100);
 

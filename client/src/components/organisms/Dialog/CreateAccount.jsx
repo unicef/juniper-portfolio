@@ -21,6 +21,9 @@ import ContainedButton from "../../atoms/Button/Contained";
 import countries from "./countries.jsx";
 import Autocomplete from "@material-ui/lab/Autocomplete";
 import { createFilterOptions } from "@material-ui/lab/Autocomplete";
+import validate from "bitcoin-address-validation";
+
+const web3Utils = require("web3-utils");
 
 const useStyles = makeStyles((theme) => ({
   closeIcon: {
@@ -177,6 +180,44 @@ export default function CreatePayee(props) {
     setAddresses(newAddresses);
   };
 
+  const disableSubmit = () => {
+    if (
+      name === null ||
+      name.length === 0 ||
+      country === "" ||
+      description === "" ||
+      weblink === ""
+    ) {
+      return true;
+    }
+
+    for (let i = 0; i < addresses.length; i++) {
+      const address = addresses[i];
+
+      switch (address.currency) {
+        case "Ether":
+          // Validate wallet address
+          if (!web3Utils.isAddress(address.address)) {
+            return true;
+          }
+          break;
+        case "Bitcoin":
+          // Validate wallet address
+
+          if (!validate(address.address)) {
+            return true;
+          }
+
+          break;
+        default:
+          return true;
+          break;
+      }
+    }
+
+    return false;
+  };
+
   const handleClose = () => {
     if (props.onDialogClose) {
       props.onDialogClose();
@@ -274,6 +315,7 @@ export default function CreatePayee(props) {
           <form className={classes.form}>
             <TextField
               disabled={props.edit}
+              required
               value={name}
               className={classes.formControl}
               InputLabelProps={{ className: classes.label }}
@@ -299,10 +341,13 @@ export default function CreatePayee(props) {
                     onChange={(e, value) => {
                       if (value) {
                         setCountry(value.name);
+                      } else {
+                        setCountry("");
                       }
                     }}
                     renderInput={(params) => (
                       <TextField
+                        required
                         {...params}
                         label="Country"
                         InputLabelProps={{ className: classes.label }}
@@ -317,6 +362,7 @@ export default function CreatePayee(props) {
                 </FormControl>
 
                 <TextField
+                  required
                   value={description}
                   className={classes.formControl}
                   InputLabelProps={{ className: classes.label }}
@@ -330,6 +376,7 @@ export default function CreatePayee(props) {
                 />
 
                 <TextField
+                  required
                   value={weblink}
                   className={classes.formControl}
                   InputLabelProps={{ className: classes.label }}
@@ -399,6 +446,7 @@ export default function CreatePayee(props) {
             {!addingPayee && (
               <div className={classes.addPayeeButton}>
                 <ContainedButton
+                  disabled={disableSubmit()}
                   onClick={createPayee}
                   style={{ display: "block", width: "100%" }}
                 >
@@ -423,7 +471,6 @@ function AddressDetails(props) {
   const classes = useStyles();
 
   return (
-    
     <Fragment>
       <Grid container>
         <Grid item xs={12}>
@@ -433,6 +480,7 @@ function AddressDetails(props) {
         </Grid>
         <Grid item xs={12}>
           <TextField
+            required
             className={classes.formControl}
             InputLabelProps={{ className: classes.label }}
             InputProps={{
@@ -452,6 +500,7 @@ function AddressDetails(props) {
           <FormControl className={classes.formControl} style={{ width: 230 }}>
             <InputLabel className={classes.formControl}>Currency</InputLabel>
             <Select
+              required
               value={props.currency}
               onChange={(e) => {
                 const newAddresses = props.addresses.slice();
