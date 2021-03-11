@@ -181,14 +181,20 @@ export default function CreatePayee(props) {
   };
 
   const disableSubmit = () => {
-    if (
-      name === null ||
-      name.length === 0 ||
-      country === "" ||
-      description === "" ||
-      weblink === ""
-    ) {
-      return true;
+    if (type === "payee") {
+      if (
+        name === null ||
+        name.length === 0 ||
+        country === "" ||
+        description === "" ||
+        weblink === ""
+      ) {
+        return true;
+      }
+    } else {
+      if (name === null || name.length === 0) {
+        return true;
+      }
     }
 
     for (let i = 0; i < addresses.length; i++) {
