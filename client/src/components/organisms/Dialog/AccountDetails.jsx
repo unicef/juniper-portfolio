@@ -157,13 +157,13 @@ export default function AccountDetails(props) {
           </Grid>
           <Grid item xs={3}>
             <div className={classes.walletBalance}>
-              {usdFormatter(btcUSD || 0)} USD
+              {usdFormatter(totalBtc * props.btcRate || 0)} USD
             </div>
             <div className={classes.walletSubtitle}>Current Value</div>
           </Grid>
           <Grid item xs={6}>
             <div className={classes.walletBalance}>
-              {usdFormatter(totalBtc * props.btcRate || 0)} USD
+              {usdFormatter(btcUSD || 0)} USD
             </div>
             <div className={classes.walletSubtitle}>Value at Receipt</div>
           </Grid>
