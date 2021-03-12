@@ -534,19 +534,19 @@ class JuniperAdmin {
     );
 
     if (ethBalance.length > 0 && ethBalance[0].balance) {
-      ethBalance = ethBalance[0].balance;
+      ethBalance = utils.roundToFourDecimals(ethBalance[0].balance);
     } else {
       ethBalance = 0;
     }
 
     if (ethSent.length > 0 && ethSent[0].totalSent) {
-      ethSent = ethSent[0].totalSent;
+      ethSent = utils.roundToFourDecimals(ethSent[0].totalSent);
     } else {
       ethSent = 0;
     }
 
     if (ethReceived.length > 0 && ethReceived[0].totalReceived) {
-      ethReceived = ethReceived[0].totalReceived;
+      ethReceived = utils.roundToFourDecimals(ethReceived[0].totalReceived);
     } else {
       ethReceived = 0;
     }
@@ -571,18 +571,18 @@ class JuniperAdmin {
     }
 
     if (btcBalance.length > 0 && btcBalance[0].balance) {
-      btcBalance = btcBalance[0].balance;
+      btcBalance = utils.roundToFourDecimals(btcBalance[0].balance);
     } else {
       btcBalance = 0;
     }
 
     if (btcSent.length > 0 && btcSent[0].totalSent) {
-      btcSent = btcSent[0].totalSent;
+      btcSent = utils.roundToFourDecimals(btcSent[0].totalSent);
     } else {
       btcSent = 0;
     }
     if (btcReceived.length > 0 && btcReceived[0].totalReceived) {
-      btcReceived = btcReceived[0].totalReceived;
+      btcReceived = utils.roundToFourDecimals(btcReceived[0].totalReceived);
     } else {
       btcReceived = 0;
     }
@@ -623,6 +623,36 @@ class JuniperAdmin {
       btcReceivedUSD,
     };
   }
+
+  async getPrices() {
+    let bitcoin = [];
+    let ethereum = [];
+
+    try {
+      this.logger.info("Getting BTC Prices");
+      bitcoin = await this.db.getPrices("BTC");
+
+      bitcoin.forEach((price) => {
+        return this.utils.roundToTwoDecimals(price.average);
+      });
+
+      this.logger.info("Getting ETH Prices");
+      ethereum = await this.db.getPrices("ETH");
+
+      ethereum.forEach((price) => {
+        return this.utils.roundToTwoDecimals(price.average);
+      });
+    } catch (e) {
+      this.logger.error(e);
+      return res.status(500).send();
+    }
+
+    return {
+      bitcoin,
+      ethereum,
+    };
+  }
+
   async getWallets() {
     return await this.db.models.Wallet.find();
   }
