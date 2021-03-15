@@ -1,10 +1,18 @@
 stages:
+<<<<<<< HEAD
 - name: Build
+=======
+- name: compile
+>>>>>>> origin/develop
   steps:
   - publishImageConfig:
       dockerfilePath: ./Dockerfile
       buildContext: .
+<<<<<<< HEAD
       tag: juniper
+=======
+      tag: asherbuck/juniper
+>>>>>>> origin/develop
       pushRemote: true
       registry: index.docker.io
 timeout: 60
