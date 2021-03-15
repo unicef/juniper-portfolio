@@ -101,6 +101,14 @@ export default function UnpublishedTransactionCard({
   const classes = useStyles();
   const txSent = new Date(timestamp);
 
+  const utcOptions = {
+    weekday: "short",
+    year: "numeric",
+    month: "short",
+    day: "numeric",
+    timeZone: "UTC",
+  };
+
   return (
     <Fragment>
       <Grid container className={classes.transaction}>
@@ -115,7 +123,8 @@ export default function UnpublishedTransactionCard({
             Crypto {sent ? "sent" : null} {received ? "received" : null} at{" "}
             <b>
               {txSent.getUTCHours()}:{txSent.getMinutes() < 10 ? "0" : ""}
-              {txSent.getMinutes()} UTC, {txSent.toDateString()}
+              {txSent.getMinutes()} UTC,{" "}
+              {txSent.toLocaleDateString("en-US", utcOptions)}
             </b>
           </span>
         </Grid>
