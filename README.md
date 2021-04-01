@@ -16,6 +16,7 @@ Please ensure that you have accounts with the following services; you will be us
 5. Amazon Web Services
 6. Infura
 7. Etherscan
+8. Alchemy
 
 ## Getting Started
 
