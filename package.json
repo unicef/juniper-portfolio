@@ -32,7 +32,7 @@
   },
   "scripts": {
     "start": "node index.js",
-    "postinstall": "npm install --prefix ./client; npm run build --prefix ./client"
+    "postinstall": "npm install --prefix ./client; npm run build --prefix ./client; npm install --prefix ./juniper-visual-2; npm run build --prefix ./juniper-visual-2;"
   },
   "main": "index.js",
   "author": "",

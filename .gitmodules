@@ -1,0 +1,3 @@
+[submodule "juniper-visual-2"]
+	path = juniper-visual-2
+	url = git@github.com:unicef/juniper-visual-2.git
