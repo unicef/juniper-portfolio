@@ -117,14 +117,13 @@ class JuniperAdmin {
     this.server.use("/admin/*", express.static("./client/build"));
     this.server.use("/rest", logRequest, devMode);
     this.server.use("/rest", publicRoutes);
-
+    this.server.use("/rest/prices", priceRoutes);
     this.server.use(
       "/rest/admin/auth",
       this.passport.authenticate("local"),
       authRoutes
     );
     this.server.use("/rest/admin", isLoggedIn, privateRoutes);
-    this.server.use("/rest/admin/prices", isLoggedIn, priceRoutes);
     this.server.use("/rest/admin/accounts", isLoggedIn, accountRoutes);
     this.server.use("/rest/admin/settings", isLoggedIn, settingRoutes);
     this.server.use("/rest/admin/wallets", isLoggedIn, walletRoutes);
