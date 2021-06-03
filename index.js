@@ -112,8 +112,15 @@ class JuniperAdmin {
     this.server.use(bodyParser.json({ limit: this.config.uploadLimit }));
     this.server.use("fetch", fetch);
     this.server.set("juniperAdmin", this);
-    this.server.use("/", express.static("./client/build"));
+    this.server.use("/", express.static("./juniper-visual-2/build"));
+    this.server.use("/home", express.static("./juniper-visual-2/build"));
+    this.server.use("/about", express.static("./juniper-visual-2/build"));
+    this.server.use("/funding", express.static("./juniper-visual-2/build"));
+    this.server.use("/projects", express.static("./juniper-visual-2/build"));
+    this.server.use("/track", express.static("./juniper-visual-2/build"));
+    this.server.use("/media", express.static("./juniper-visual-2/build"));
     this.server.use("/admin", express.static("./client/build"));
+
     this.server.use("/admin/*", express.static("./client/build"));
     this.server.use("/rest", logRequest, devMode);
     this.server.use("/rest", publicRoutes);
