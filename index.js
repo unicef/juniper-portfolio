@@ -113,6 +113,7 @@ class JuniperAdmin {
     this.server.use("fetch", fetch);
     this.server.set("juniperAdmin", this);
     this.server.use("/", express.static("./juniper-visual-2/build"));
+
     this.server.use("/home", express.static("./juniper-visual-2/build"));
     this.server.use("/about", express.static("./juniper-visual-2/build"));
     this.server.use("/funding", express.static("./juniper-visual-2/build"));
@@ -125,6 +126,7 @@ class JuniperAdmin {
     this.server.use("/rest", logRequest, devMode);
     this.server.use("/rest", publicRoutes);
     this.server.use("/rest/prices", priceRoutes);
+
     this.server.use(
       "/rest/admin/auth",
       this.passport.authenticate("local"),
@@ -690,6 +692,57 @@ class JuniperAdmin {
     this.updateWalletQueue = await this.getWallets();
 
     this.updateWalletInQueue();
+  }
+
+  async getVisualData() {
+    let accounts,
+      transactions,
+      donorData,
+      investorData,
+      prices,
+      btcRate,
+      ethRate;
+
+    try {
+      transactions = await this.db.getTransactions();
+
+      accounts = await this.getAccounts();
+
+      prices = await this.getPrices();
+
+      btcRate = Math.round(prices.bitcoin[0].average * 100) / 100;
+      ethRate = Math.round(prices.ethereum[0].average * 100) / 100;
+
+      donorData = {
+        total: accounts.filter((acct) => {
+          return acct.type === "donor";
+        }).length,
+        labels: "donors",
+        btc: 0,
+        eth: 0,
+      };
+
+      investorData = {
+        total: accounts.filter((acct) => {
+          return acct.type === "payee";
+        }).length,
+        labels: "investors",
+        btc: 0,
+        eth: 0,
+      };
+    } catch (e) {
+      // Return a sensible default of stale/approved data from the business unit
+      return {};
+    }
+
+    return {
+      donorData,
+      investorData,
+      accounts,
+      transactions,
+      btcRate,
+      ethRate,
+    };
   }
 }
 
