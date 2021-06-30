@@ -695,49 +695,26 @@ class JuniperAdmin {
   }
 
   async getVisualData() {
-    let accounts,
-      transactions,
-      donorData,
-      investorData,
-      prices,
-      btcRate,
-      ethRate;
+    let accounts, transactions, prices, btcRate, ethRate;
 
     try {
       transactions = await this.db.getTransactions();
-
       accounts = await this.getAccounts();
-
       prices = await this.getPrices();
 
       btcRate = Math.round(prices.bitcoin[0].average * 100) / 100;
       ethRate = Math.round(prices.ethereum[0].average * 100) / 100;
-
-      donorData = {
-        total: accounts.filter((acct) => {
-          return acct.type === "donor";
-        }).length,
-        labels: "donors",
-        btc: 0,
-        eth: 0,
-      };
-
-      investorData = {
-        total: accounts.filter((acct) => {
-          return acct.type === "payee";
-        }).length,
-        labels: "investors",
-        btc: 0,
-        eth: 0,
-      };
     } catch (e) {
       // Return a sensible default of stale/approved data from the business unit
-      return {};
+      return {
+        accounts: [],
+        transactions: [],
+        btcRate: 0,
+        ethRate: 0,
+      };
     }
 
     return {
-      donorData,
-      investorData,
       accounts,
       transactions,
       btcRate,
