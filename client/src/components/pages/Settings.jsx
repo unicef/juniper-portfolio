@@ -99,7 +99,11 @@ export default function Settings({
               through an email link.
             </h5>
 
-            <AddNewUser heading={"Add a new user"} setUsers={setUsers} />
+            <AddNewUser
+              heading={"Add a new user"}
+              setUsers={setUsers}
+              appSettings={appSettings}
+            />
 
             <ExistingUsers
               users={users}
