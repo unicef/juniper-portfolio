@@ -1,5 +1,5 @@
 export default async (settings) => {
-  let res;
+  let res, data;
   try {
     res = await fetch(`/rest/admin/settings/app`, {
       credentials: "include",

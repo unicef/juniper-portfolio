@@ -102,7 +102,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function AddNewUser({ setUsers, title, heading }) {
+export default function AddNewUser({ setUsers, title, heading, appSettings }) {
   const classes = useStyles();
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
@@ -123,7 +123,7 @@ export default function AddNewUser({ setUsers, title, heading }) {
     setSiteLink("");
     setVerificationCode("");
   };
-
+  console.log(appSettings);
   return (
     <ExpansionList title={title} heading={heading}>
       <Grid container className={classes.root}>
@@ -171,24 +171,13 @@ export default function AddNewUser({ setUsers, title, heading }) {
                 setDepartment(e.target.value);
               }}
             >
-              <MenuItem className={classes.menuitem} value={"DFAM"}>
-                DFAM
-              </MenuItem>
-              <MenuItem
-                className={classes.menuitem}
-                value={"Office of Innovation"}
-              >
-                Office of Innovation
-              </MenuItem>
-              <MenuItem className={classes.menuitem} value={"ICTD"}>
-                ICTD
-              </MenuItem>
-              <MenuItem className={classes.menuitem} value={"Operations (OOI)"}>
-                Operations (OOI)
-              </MenuItem>
-              <MenuItem className={classes.menuitem} value={"WASH"}>
-                WASH
-              </MenuItem>
+              {appSettings.departments.map((dept) => {
+                return (
+                  <MenuItem className={classes.menuitem} value={dept}>
+                    {dept}
+                  </MenuItem>
+                );
+              })}
             </Select>
           </FormControl>
         </Grid>
