@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import Grid from "@material-ui/core/Grid";
 import FormControl from "@material-ui/core/FormControl";
@@ -124,6 +124,11 @@ export default function AddNewUser({ setUsers, title, heading, appSettings }) {
     setVerificationCode("");
   };
   console.log(appSettings);
+
+  useEffect(() => {
+    console.log("app settings changed");
+  }, [appSettings]);
+
   return (
     <ExpansionList title={title} heading={heading}>
       <Grid container className={classes.root}>

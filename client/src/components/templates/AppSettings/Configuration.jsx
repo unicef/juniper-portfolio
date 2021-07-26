@@ -136,19 +136,17 @@ export default function ActivityList({
 
     appSettings.departments = departments.slice();
     setDepartments(departments.slice());
-    await saveAppSettings(appSettings);
-    setAppSettings(appSettings);
+    await saveAppSettings(appSettings, setAppSettings);
   }
 
   async function removeDepartment(index) {
-    departments.splice(index, index + 1);
+    departments.splice(index, 1);
 
     appSettings.departments = departments.slice();
     setDepartments(departments.slice());
-    await saveAppSettings(appSettings);
-    setAppSettings(appSettings);
+    await saveAppSettings(appSettings, setAppSettings);
   }
-  console.log(appSettings);
+
   return (
     <ExpansionList title={title} heading={heading}>
       <List component="nav" className={classes.root}>
