@@ -137,6 +137,7 @@ export default function ActivityList({
     appSettings.departments = departments.slice();
     setDepartments(departments.slice());
     await saveAppSettings(appSettings, setAppSettings);
+    setNewDept("");
   }
 
   async function removeDepartment(index) {
