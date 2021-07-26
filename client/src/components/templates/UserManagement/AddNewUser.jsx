@@ -123,11 +123,8 @@ export default function AddNewUser({ setUsers, title, heading, appSettings }) {
     setSiteLink("");
     setVerificationCode("");
   };
-  console.log(appSettings);
 
-  useEffect(() => {
-    console.log("app settings changed");
-  }, [appSettings]);
+  useEffect(() => {}, [appSettings]);
 
   return (
     <ExpansionList title={title} heading={heading}>
@@ -176,9 +173,13 @@ export default function AddNewUser({ setUsers, title, heading, appSettings }) {
                 setDepartment(e.target.value);
               }}
             >
-              {appSettings.departments.map((dept) => {
+              {appSettings.departments.map((dept, index) => {
                 return (
-                  <MenuItem className={classes.menuitem} value={dept}>
+                  <MenuItem
+                    key={index}
+                    className={classes.menuitem}
+                    value={dept}
+                  >
                     {dept}
                   </MenuItem>
                 );

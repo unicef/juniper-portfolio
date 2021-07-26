@@ -74,9 +74,7 @@ export default class FileUpload extends Component {
           multiple
           type="file"
           onChange={this.uploadFile}
-          onBlur={() => {
-            console.log("blur");
-          }}
+          onBlur={() => {}}
           ref={this.fileInput}
           style={{ display: "none" }}
         />
