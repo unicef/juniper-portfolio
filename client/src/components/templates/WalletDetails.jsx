@@ -37,7 +37,7 @@ export default function ({
       setExchangeRate(wallet.symbol === "ETH" ? ethRate : btcRate);
       setWallet(wallet);
       setTransactions(transactions);
-      console.log(wallet);
+      //console.log(wallet);
     }
     init();
   }, [ethRate, btcRate]);

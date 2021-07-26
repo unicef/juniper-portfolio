@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import Grid from "@material-ui/core/Grid";
 import FormControl from "@material-ui/core/FormControl";
@@ -123,7 +123,9 @@ export default function AddNewUser({ setUsers, title, heading, appSettings }) {
     setSiteLink("");
     setVerificationCode("");
   };
-  console.log(appSettings);
+
+  useEffect(() => {}, [appSettings]);
+
   return (
     <ExpansionList title={title} heading={heading}>
       <Grid container className={classes.root}>
@@ -171,9 +173,13 @@ export default function AddNewUser({ setUsers, title, heading, appSettings }) {
                 setDepartment(e.target.value);
               }}
             >
-              {appSettings.departments.map((dept) => {
+              {appSettings.departments.map((dept, index) => {
                 return (
-                  <MenuItem className={classes.menuitem} value={dept}>
+                  <MenuItem
+                    key={index}
+                    className={classes.menuitem}
+                    value={dept}
+                  >
                     {dept}
                   </MenuItem>
                 );

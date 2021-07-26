@@ -1,4 +1,4 @@
-export default async (settings) => {
+export default async (settings, setAppSettings) => {
   let res, data;
   try {
     res = await fetch(`/rest/admin/settings/app`, {
@@ -11,8 +11,9 @@ export default async (settings) => {
         "Content-Type": "application/json",
       },
     });
+    data = await res.json();
   } catch (e) {
     console.log(e);
   }
-  console.log(res);
+  setAppSettings(data);
 };

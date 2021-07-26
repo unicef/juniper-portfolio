@@ -136,19 +136,18 @@ export default function ActivityList({
 
     appSettings.departments = departments.slice();
     setDepartments(departments.slice());
-    await saveAppSettings(appSettings);
-    setAppSettings(appSettings);
+    await saveAppSettings(appSettings, setAppSettings);
+    setNewDept("");
   }
 
   async function removeDepartment(index) {
-    departments.splice(index, index + 1);
+    departments.splice(index, 1);
 
     appSettings.departments = departments.slice();
     setDepartments(departments.slice());
-    await saveAppSettings(appSettings);
-    setAppSettings(appSettings);
+    await saveAppSettings(appSettings, setAppSettings);
   }
-  console.log(appSettings);
+
   return (
     <ExpansionList title={title} heading={heading}>
       <List component="nav" className={classes.root}>
@@ -171,26 +170,28 @@ export default function ActivityList({
                 >
                   Add Department
                 </ContainedButton>
-                {departments.map((dept, index) => {
-                  return (
-                    <ListItem className={classes.listItem}>
-                      <Grid container>
-                        <Grid item xs={10}>
-                          {dept}
+                <List>
+                  {departments.map((dept, index) => {
+                    return (
+                      <ListItem key={index} className={classes.listItem}>
+                        <Grid container>
+                          <Grid item xs={10}>
+                            {dept}
+                          </Grid>
+                          <Grid item xs={2}>
+                            <ContainedButton
+                              onClick={() => {
+                                removeDepartment(index);
+                              }}
+                            >
+                              Delete
+                            </ContainedButton>
+                          </Grid>
                         </Grid>
-                        <Grid item xs={2}>
-                          <ContainedButton
-                            onClick={() => {
-                              removeDepartment(index);
-                            }}
-                          >
-                            Delete
-                          </ContainedButton>
-                        </Grid>
-                      </Grid>
-                    </ListItem>
-                  );
-                })}
+                      </ListItem>
+                    );
+                  })}
+                </List>
               </Grid>
             </Grid>
           </ListItem>

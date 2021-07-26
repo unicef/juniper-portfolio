@@ -86,8 +86,6 @@ export default function AccountTransactionCard({
 
   const classes = WalletDetailsCardStyles();
 
-  console.log(timestamp);
-
   const txDate = new Date(timestamp);
   const month = monthNames[txDate.getMonth()];
   const day = txDate.getDate();
