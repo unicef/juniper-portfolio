@@ -171,7 +171,7 @@ export default function AddNewUser({ setUsers, title, heading, appSettings }) {
                 setDepartment(e.target.value);
               }}
             >
-              {appSettings.departments.map((dept) => {
+              {appSettings.departments?.map((dept) => {
                 return (
                   <MenuItem className={classes.menuitem} value={dept}>
                     {dept}

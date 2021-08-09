@@ -172,11 +172,11 @@ export default function JuniperAdmin() {
       setTrackedWallets(await getTrackedWallets());
       setTransactions(await getTransactions());
       setAccounts(await getAccounts());
-      const prices = await getPriceHistory();
-      setEthRate(prices.ethereum[prices.ethereum.length - 1].average);
-      setBtcRate(prices.bitcoin[prices.bitcoin.length - 1].average);
-
-      setPrices(prices);
+      // const prices = await getPriceHistory();
+      // setEthRate(prices.ethereum[prices.ethereum.length - 1].average);
+      // setBtcRate(prices.bitcoin[prices.bitcoin.length - 1].average);
+      //
+      // setPrices(prices);
 
       if (await getUpdatingWallet()) {
         setUpdatingWallets(true);
