@@ -33,8 +33,7 @@ const {
   transactionRoutes,
 } = require("./lib/routes");
 const {
-  priceCmsRoutes,
-  accountCmsRoutes,
+  projectCmsRoutes,
   walletCmsRoutes,
   transactionCmsRoutes,
 } = require("./lib/routes/contentful");
@@ -143,7 +142,7 @@ class JuniperAdmin {
     this.server.use("/rest/admin/settings", isLoggedIn, settingRoutes);
     this.server.use("/rest/admin/wallets", isLoggedIn, walletRoutes);
     this.server.use("/rest/admin/transactions", isLoggedIn, transactionRoutes);
-    this.server.use("/rest/admin/cms/accounts", isLoggedIn, accountCmsRoutes);
+    this.server.use("/rest/admin/cms/projects", isLoggedIn, projectCmsRoutes);
     this.server.use("/rest/admin/cms/wallets", isLoggedIn, walletCmsRoutes);
     this.server.use("/rest/admin/cms/transactions", isLoggedIn, transactionCmsRoutes);
     this.server.use(
