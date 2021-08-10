@@ -32,6 +32,12 @@ const {
   walletRoutes,
   transactionRoutes,
 } = require("./lib/routes");
+const {
+  priceCmsRoutes,
+  accountCmsRoutes,
+  walletCmsRoutes,
+  transactionCmsRoutes,
+} = require("./lib/routes/contentful");
 const defaultConfig = require("./config");
 const { oneSecond } = require("./config/constants");
 const lru = require("lru-cache");
@@ -137,6 +143,9 @@ class JuniperAdmin {
     this.server.use("/rest/admin/settings", isLoggedIn, settingRoutes);
     this.server.use("/rest/admin/wallets", isLoggedIn, walletRoutes);
     this.server.use("/rest/admin/transactions", isLoggedIn, transactionRoutes);
+    this.server.use("/rest/admin/cms/accounts", isLoggedIn, accountCmsRoutes);
+    this.server.use("/rest/admin/cms/wallets", isLoggedIn, walletCmsRoutes);
+    this.server.use("/rest/admin/cms/transactions", isLoggedIn, transactionCmsRoutes);
     this.server.use(
       "/upload/image",
       isLoggedIn,
@@ -702,8 +711,8 @@ class JuniperAdmin {
       accounts = await this.getAccounts();
       prices = await this.getPrices();
 
-      btcRate = Math.round(prices.bitcoin[0].average * 100) / 100;
-      ethRate = Math.round(prices.ethereum[0].average * 100) / 100;
+      // btcRate = Math.round(prices.bitcoin[0].average * 100) / 100;
+      // ethRate = Math.round(prices.ethereum[0].average * 100) / 100;
     } catch (e) {
       // Return a sensible default of stale/approved data from the business unit
       return {

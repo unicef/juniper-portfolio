@@ -4,6 +4,8 @@
   "dependencies": {
     "aws-sdk": "^2.722.0",
     "connect-mongo": "^3.2.0",
+    "contentful": "^8.4.2",
+    "contentful-management": "^7.31.0",
     "dotenv": "^8.2.0",
     "ethers": "^5.0.9",
     "express": "^4.17.1",
